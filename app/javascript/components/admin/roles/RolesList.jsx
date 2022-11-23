@@ -21,6 +21,7 @@ export default function RolesList({ roles, isLoading }) {
           (isLoading && (
             <tr>
               <td>
+                {/* TODO ADD PLACEHOLDER HERE */}
                 <Spinner />
               </td>
             </tr>

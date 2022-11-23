@@ -3,19 +3,26 @@ import {
 } from '@heroicons/react/24/outline';
 import React from 'react';
 import { Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function AdminNavSideBar() {
   const { t } = useTranslation();
   const currentUser = useAuth();
+  const location = useLocation();
 
   return (
     <Nav variant="pills" className="flex-column">
       {(currentUser.permissions.ManageUsers === 'true') && (
       <Nav.Item>
-        <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/users" eventKey="users">
+        <Nav.Link
+          // Return active if the URL has /users/edit/ to accommodate the EditUser component
+          className={`cursor-pointer text-muted ${location?.pathname.includes('/users/edit/') && 'active'}`}
+          as={Link}
+          to="/admin/users"
+          eventKey="users"
+        >
           <UsersIcon className="hi-s me-3" />
           { t('admin.manage_users.manage_users') }
         </Nav.Link>

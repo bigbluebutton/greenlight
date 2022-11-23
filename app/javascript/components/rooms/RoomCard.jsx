@@ -54,12 +54,12 @@ export default function RoomCard({ room }) {
           <DocumentDuplicateIcon className="hi-m mt-1 text-muted" />
         </Button>
         <Button variant="brand-outline" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
+          {startMeeting.isLoading && <Spinner className="me-2" />}
           { room.online ? (
             t('join')
           ) : (
             t('start')
           )}
-          {startMeeting.isLoading && <Spinner />}
         </Button>
       </Card.Footer>
     </Card>

@@ -1,0 +1,375 @@
+{
+  "start": "Start",
+  "search": "Hledat",
+  "previous": "Předchozí",
+  "back": "Zpět",
+  "next": "Následující",
+  "view": "Nahlédnout do místnosti",
+  "join": "Připojit se",
+  "edit": "Upravit",
+  "save": "Uložit",
+  "save_changes": "Uložit změny",
+  "update": "Aktualizovat",
+  "report": "Nahlásit",
+  "share": "Sdílet",
+  "cancel": "Zrušit",
+  "close": "Zavřít",
+  "delete": "Smazat",
+  "copy": "Kopírovat",
+  "or": "Nebo",
+  "online": "Online",
+  "need_help": "Potřebujete pomoci?",
+  "are_you_sure": "Jste si jist/á?",
+  "return_home": "Návrat domů",
+  "created_at": "Vytvořeno v",
+  "homepage": {
+    "welcome_bbb": "Vítejte v BigBlueButtonu.",
+    "greenlight_description": "Greenlight je jednoduché webové rozhraní k BigBlueButtonu web videokonferenčnímu řešení. Můžete si vytvářet vlastní místnosti nebo se připojit k existujícím pomocí krátkého odkazu."
+  },
+  "authentication": {
+    "sign_in": "Přihlásit",
+    "sign_up": "Registrace",
+    "sign_out": "Odhlásit",
+    "email": "Email",
+    "password": "Heslo",
+    "confirm_password": "Potvrdit heslo",
+    "enter_email": "Vložte Váš email",
+    "enter_name": "Vložte Vaše jméno",
+    "remember_me": "Zapamatovat si mě",
+    "forgot_password": "Zapomenuté heslo?",
+    "dont_have_account": "Nemáte účet?",
+    "create_account": "Vytvořit účet",
+    "create_an_account": "Vytvořit účet",
+    "already_have_account": "Máte už účet?"
+  },
+  "user": {
+    "user": "Uživatel",
+    "users": "Uživatelé",
+    "name": "Jméno",
+    "email_address": "Emailová adresa",
+    "authenticator": "Ověřen přes",
+    "full_name": "Celé jméno",
+    "no_user_found": "Uživatel nenalezen",
+    "type_three_characters": "Prosím napište alespoň (3) znaků.",
+    "profile": {
+      "profile": "Profile",
+      "language": "Jazyk",
+      "role": "Role",
+      "administrator": "Administrátor",
+      "guest": "Host"
+    },
+    "account": {
+      "account_info": "Informace o účtu",
+      "delete_account": "Smazat účet",
+      "change_password": "Změnit heslo",
+      "reset_password": "Reset hesla",
+      "update_account_info": "Aktualizovat informace o účtu",
+      "current_password": "Stávající heslo",
+      "new_password": "Nové heslo",
+      "confirm_password": "Potvrdit heslo",
+      "permanently_delete_account": "Permanentně smazat Váš účet",
+      "delete_account_description": "Pokud zvolíte smazat Váš účet. Je to nevratný proces.\nVšechny informace vztahující se k Vašemu účtu budou smazány, včetně nastavení, místností a nahrávek.",
+      "delete_account_confirmation": "Ano, rád bych smazal svůj účet",
+      "are_you_sure_delete_account": "Opravdu chcete smazat Váš účet?"
+    },
+    "avatar": {
+      "upload_avatar": "Nahrát ikonku (avatar)",
+      "delete_avatar": "Smazat ikonku (avatar)",
+      "crop_avatar": "Oříznout ikonku (avatar)"
+    }
+  },
+  "room": {
+    "room": "Místnost",
+    "rooms": "Místnosti",
+    "room_name": "Název místnosti",
+    "add_new_room": "+ Nová místnost",
+    "create_room": "Vytvořit místnost",
+    "delete_room": "Smazat místnost",
+    "create_new_room": "Vytvořit novou místnost",
+    "enter_room_name": "Vložte jméno místnosti",
+    "shared_by": "sdíleno s",
+    "last_session": "Poslední setkání: {{ room.last_session }}",
+    "no_last_session": "Žádné",
+    "no_rooms_found": "Žádná místnost nenalezena",
+    "meeting": {
+      "start_meeting": "Začátek setkání",
+      "join_meeting": "Připojit k setkání",
+      "meeting_invitation": "Byl jste pozván připojit se",
+      "meeting_not_started": "Setkání zatím nezačalo",
+      "join_meeting_automatically": "Budete automaticky připojen, jakmile setkání začne",
+      "recording_consent": "Souhlasím, že setkání může být nahráváno včetně hlasu a videa."
+    },
+    "presentation": {
+      "presentation": "Prezentace",
+      "click_to_upload": "Nahrát",
+      "drag_and_drop": "nebo soubor přetáhněte sem",
+      "upload_description": "Nahrajte office nebo PDF dokument. Záleží na velikosti dokumentu, zpracování může chvíli trvat než bude dostupný.",
+      "are_you_sure_delete_presentation": "Opravdu chcete smazat tuto prezentaci?"
+    },
+    "shared_access": {
+      "access": "Přístup",
+      "add_share_access": "+ Přidat přístup",
+      "share_room_access": "Sdílet přístup do místnosti",
+      "add_some_users": "Čas přidat nějaké uživatele!",
+      "add_some_users_description": "Pro přidání nových uživatelů, klikněte níže, hledejte a vyberte uživatele se kterými chcete sdílet místnost."
+    },
+    "settings": {
+      "settings": "Nastavení",
+      "room_name": "Název místnosti",
+      "user_settings": "Nastavení uživatel",
+      "allow_room_to_be_recorded": "Povolit záznam místnosti",
+      "require_signed_in": "Vyžadovat přihlášení než se uživatelé mohou připojit.",
+      "require_signed_in_message": "Pro připojení do této místnosti musíte být přihlášen",
+      "require_mod_approval": "Připojení vyžaduje schválení moderátorem",
+      "allow_any_user_to_start": "Povolit komukoliv zahájit setkání",
+      "all_users_join_as_mods": "Všichni uživatelé budou mít roli moderátor",
+      "mute_users_on_join": "Ztlumit uživatele po připojení",
+      "generate": "Generovat",
+      "access_code": "Přístupový kód",
+      "mod_access_code": "Přístupový kód moderátora",
+      "mod_access_code_optional": "Přístupový kód moderátora (volitelný)",
+      "access_code_required": "Prosím vložte přístupový kód",
+      "wrong_access_code": "Neplatný přístupový kód",
+      "generate_viewers_access_code": "Generovat přístupový kód pro účastníky",
+      "generate_mods_access_code": "Generovat přístupový kód pro moderátory"
+    }
+  },
+  "recording": {
+    "recording": "Nahrává se",
+    "recordings": "Nahrávky",
+    "name": "Název",
+    "length": "Délka",
+    "users": "Uživatelé",
+    "visibility": "Viditelnost",
+    "formats": "Formáty",
+    "published": "Zveřejněno",
+    "unpublished": "Nezveřejněno",
+    "protected": "Chráněno",
+    "length_in_minutes": "{{recording.length}} min.",
+    "processing_recording": "Zpracovávání záznamu...",
+    "copy_recording_urls": "Zkopírovat odkaz záznamu",
+    "no_recording_found": "Záznam nenalezen",
+    "are_you_sure_delete_recording": "Opravdu chcete smazat záznam?"
+  },
+  "admin": {
+    "admin_panel": "Panel administrátora",
+    "manage_users": {
+      "manage_users": "Spravovat uživatele",
+      "active": "Aktivní",
+      "approve": "Schválit",
+      "decline": "Zamítnout",
+      "pending": "Čekající",
+      "banned": "Zakázaný",
+      "ban": "Zakázat",
+      "unban": "Povolit",
+      "deleted": "Smazaní",
+      "invited_tab": "Pozvaní",
+      "invite_user": "Pozvat uživatele",
+      "send_invitation": "Poslat pozvánku",
+      "new_user": "Nový uživatel",
+      "add_new_user": "Nový uživatel",
+      "create_new_user": "Vytvořit uživatele",
+      "edit_user": "Upravit uživatele",
+      "delete_user": "Odstranit uživatele",
+      "users_edit_path": "Uživatelé/Úprava",
+      "create_account": "Vytvořit účet",
+      "create_room": "Vytvořit místnost",
+      "create_new_room": "Vytvořit novou místnost",
+      "user_created_at": "Vytvořeno: {{user.created_at}}",
+      "enter_user_email": "Vložte email",
+      "enter_user_name": "Vložte jméno",
+      "are_you_sure_delete_account": "Opravdu chcete smazat účet {{user.name}}?",
+      "delete_account_warning": "Pokud účet smažete, nelze účet obnovit.",
+      "invited": {
+        "time_sent": "Čas odeslání",
+        "valid": "Platný"
+      }
+    },
+    "server_rooms": {
+      "server_rooms": "Místnosti",
+      "name": "Název",
+      "owner": "Vlastník",
+      "room_id": "ID místnosti",
+      "participants": "Účastníci",
+      "status": "Stav",
+      "running": "Aktivní",
+      "not_running": "Neaktivní",
+      "active": "Aktivní",
+      "current_session": "Aktuální setkání: {{lastSession}}",
+      "last_session": "Poslední setkání: {{lastSession}}",
+      "no_meeting_yet": "Zatím setkání neprobíhá.",
+      "delete_server_rooms": "Smazat místnost",
+      "resync_recordings": "Sesynchronizovat nahrávky"
+    },
+    "server_recordings": {
+      "server_recordings": "Nahrávky",
+      "latest_recordings": "Poslední nahrávky",
+      "no_recordings_found": "Žádné nahrávky"
+    },
+    "site_settings": {
+      "site_settings": "Nastavení serveru",
+      "customize_greenlight": "Přizpůsobit Greenlight",
+      "appearance": {
+        "appearance": "Vzhled",
+        "brand_color": "Firemní barva",
+        "regular": "Regular",
+        "lighten": "Světlý",
+        "brand_image": "Firemní obrázek",
+        "click_to_upload": "Nahrát",
+        "drag_and_drop": "nebo přetáhnout soubor sem",
+        "upload_brand_image_description": "Nahrát obrázek (PNG, JPG, SVG). Nahrání obrázku může chvíli trvat než bude k dispozici"
+      },
+      "administration": {
+        "administration": "Administrace",
+        "terms": "Podmínky užití",
+        "privacy": "Soukromý",
+        "privacy_policy": "Zásady soukromý",
+        "change_term_links": "Nastavit odkaz na podmínky užití (v patičce stránky)",
+        "change_privacy_link": "Nastavte odkaz na zásady soukromý (v patičce stránky)",
+        "change_url": "Nastavit URL",
+        "enter_link": "Vložte odkaz zde"
+      },
+      "settings": {
+        "allow_users_to_share_rooms": "Povolit uživatelům sdílet místnosti",
+        "allow_users_to_share_rooms_description": "Nastavení na vypnuto zabrání uživatelům vybrat možnost sdílet místnost.",
+        "allow_users_to_preupload_presentation": "Umožnit uživatelům nahrát prezentace dopředu",
+        "allow_users_to_preupload_presentation_description": "Uživatelé mohou nahrát prezentaci jako výchozí pro konkrétní místnost"
+      },
+      "registration": {
+        "registration": "Registrace",
+        "role_mapping_by_email": "Mapování rolí podle emailu",
+        "role_mapping_by_email_description": "Mapovat uživatele na role podle emailu. Dle formátu: role1=email1, role2=email2",
+        "enter_role_mapping_rule": "Vložit pravidlo mapování rolí",
+        "resync_on_login": "Synchronizovat uživatelská data po každém přihlášení",
+        "resync_on_login_description": "Synchronizovaní údajů o uživateli při každém přihlášení, převzetí údajů z externího poskytovatele identit do Greenlight",
+        "default_role": "Výchozí role",
+        "default_role_description": "Výchozí role je přidělena nově vytvořeným uživatelům",
+        "registration_method": "Metoda registrace",
+        "registration_method_description": "Nastavit způsob registrace uživatelů",
+        "registration_methods" : {
+          "open": "Otevřená registrace",
+          "invite": "Registrace na pozvánku",
+          "approval": "Schvalování registrace"
+        }
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "Nastavení místnosti",
+      "optional": "Volitelný",
+      "enabled": "Zapnuto",
+      "disabled": "Vypnuto",
+      "configurations": {
+        "allow_room_to_be_recorded": "Povolit záznam místnosti",
+        "allow_room_to_be_recorded_description": "Umožnit vlastníku místnosti povolit záznam. Záznam spouští moderátor pří setkání.",
+        "require_user_signed_in": "Připojení vyžaduje přihlášení uživatelů",
+        "require_user_signed_in_description": "Pouze přihlášení uživatelé se mohou připojit. Ostatní budou přesměrováni na přihlašovací stránku.",
+        "require_mod_approval": "Připojení vyžaduje schválení moderátorem",
+        "require_mod_approval_description": "Moderátor byl vyzván, aby schválil vpuštění uživatelů do místnosti.",
+        "allow_any_user_to_start_meeting": "Umožnit komukoliv zahájit setkání",
+        "allow_any_user_to_start_meeting_description": "Umožnit komukoliv a kdykoliv zahájit setkání. Ve výchozím stavu muže zahájit setkání pouze vlastník místnosti.",
+        "allow_users_to_join_as_mods": "Umožnit uživatelům se připojit jako moderátoři",
+        "allow_users_to_join_as_mods_description": "Přidat všem uživatelům práva moderátora ihned po připojení do místnosti.",
+        "mute_users_on_join": "Ztlumit uživatele po připojení",
+        "mute_users_on_join_description": "Automatické ztlumení mikrofonu uživatelům ihned po připojení do místnosti",
+        "viewer_access_code": "Přístupový kód účastníka",
+        "viewer_access_code_description": "Umožnit vlastníkům mít náhodný přístupový kód, který vlastník sdílí s účastníky. Účastník bez kódu se nepřipojí do místnosti.",
+        "mod_access_code": "Přístupový kód moderátora",
+        "mod_access_code_description": "Umožnit vlastníkům mít náhodný přístupový kód sdílený s účastníky. Uživatel s tímto kódem se stává moderátorem."
+      }
+    },
+    "roles": {
+      "role": "Role",
+      "roles": "Role",
+      "administrator": "Administrátor",
+      "guest": "Host",
+      "manage_roles": "Správa rolí",
+      "delete_role": "Smazat roli",
+      "are_you_sure_delete_role": "Opravdu chcete smazat tuto roli?",
+      "enter_role_name": "Vložte název role",
+      "add_role": "+ Vytvořit roli",
+      "create_role": "Vytvořit roli",
+      "create_new_role": "Vytvořit novou roli",
+      "no_role_found": "Role nenalezena."
+    }
+  },
+  "toast": {
+    "success": {
+      "user": {
+        "user_updated": "Úspěšně aktualizováno",
+        "user_deleted": "Uživatel odstraněn",
+        "avatar_updated": "Ikonka (avatar) aktualizována.",
+        "password_updated": "Heslo aktualizováno.",
+        "account_activated": "Účet aktivován",
+        "activation_email_sent": "Aktivační email odeslán"
+      },
+      "session": {
+        "signed_out": "Úspěšně odhlášen."
+      },
+      "room": {
+        "room_created": "Místnost vytvořena",
+        "room_updated": "Nastavení místnosti aktualizováno.",
+        "room_deleted": "Místnost smazána.",
+        "room_shared": "Místnost sdílena",
+        "room_unshared": "Místnost odsdílena",
+        "recordings_synced": "Nahrávky u místnosti jsou synchronizované",
+        "server_room_deleted": "Místnost odstraněna",
+        "room_configuration_updated": "Aktualizováno nastavení místnosti.",
+        "room_setting_updated": "Aktualizováno nastavení místnosti.",
+        "presentation_updated": "Prezentace aktualizována.",
+        "presentation_deleted": "Prezentace odstraněna.",
+        "joining_meeting": "Připojování...",
+        "meeting_started": "Setkání započalo.",
+        "access_code_copied": "Přístupový kód zkopírován.",
+        "access_code_generated": "Přístupový kód vygenerován.",
+        "access_code_removed": "Přístupový kód odstraněn."
+      },
+      "site_settings": {
+        "site_setting_updated": "Nastavení server aktualizováno."
+      },
+      "recording": {
+        "recording_visibility_updated": "Nastavení viditelnosti nahrávky aktualizováno.",
+        "recording_name_updated": "Název nahrávky aktualizován.",
+        "recording_deleted": "Nahrávka odstraněna"
+      },
+      "role": {
+        "role_created": "Role vytvořena.",
+        "role_updated": "Role aktualizována.",
+        "role_deleted": "Role odstraněna.",
+        "role_permission_updated": "Oprávnění role aktualizováno."
+      },
+      "invitations": {
+        "invitation_sent": "Pozvánka odeslána"
+      }
+    },
+    "error": {
+      "problem_completing_action": "Akce se nepodařila dokončit\nProsím zkuste ještě jednou.",
+      "file_type_not_supported": "Nepodporovaný typ souboru.",
+      "file_size_too_large": "Překročena velikost souboru.",
+      "signin_required": "Musíte být přihlášen pro přístup k této stránce",
+      "roles": {
+        "role_assigned": "Roli nelze odstranit, jelikož je přidělena alespoň jednomu uživateli."
+      },
+      "users": {
+        "invalid_invite": "Token z pozvánky je neplatný. Prosím kontaktujte administrátora."
+      },
+      "rooms": {
+        "room_limit": "Nová místnost nebude vytvořena, jelikož byl dosažen limit povolených místností."
+      }
+    }
+  },
+  "global_error_page": {
+    "title": "Chyba",
+    "message": "Něco se pokazilo. Pokud se bude chyba opakovat, tak prosím kontaktujte administrátora."
+  },
+  "not_found_error_page": {
+    "title": "Nenalezeno",
+    "message": "Stránka nenalezena."
+  },
+  "account_activation_page": {
+    "title": "Aktivace účtu",
+    "account_unverified": "Účet zatím nebyl ověřen.",
+    "message": "Prosím dodržte postup ověření účtu, který Vám byl poslán v aktivačním emailu.",
+    "resend_activation_link": "V případě, že Vám aktivační email nedorazil, klikněte prosím na tlačítko \"Přeposlat ověření\" .",
+    "resend_btn_lbl": "Přeposlat ověření"
+  }
+}

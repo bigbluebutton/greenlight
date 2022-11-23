@@ -14,7 +14,7 @@ export default function useUpdateUser(userId) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('useSessions');
-        toast.success(t('toast.success.user_deleted'));
+        toast.success(t('toast.success.user.user_deleted'));
         navigate('/');
       },
       onError: () => {

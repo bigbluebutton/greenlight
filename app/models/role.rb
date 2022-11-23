@@ -8,7 +8,7 @@ class Role < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :provider }
   validates :provider, presence: true
 
-  before_validation :set_random_color, on: :create
+  before_validation :set_role_color, on: :create
 
   after_create :create_role_permissions
 
@@ -40,7 +40,16 @@ class Role < ApplicationRecord
 
   private
 
-  def set_random_color
-    self.color = "##{SecureRandom.hex(3)}"
+  def set_role_color
+    self.color = case name
+                 when 'Administrator'
+                   '#228B22'
+                 when 'User'
+                   '#4169E1'
+                 when 'Guest'
+                   '#FFA500'
+                 else
+                   "##{SecureRandom.hex(3)}"
+                 end
   end
 end

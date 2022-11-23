@@ -23,8 +23,8 @@ export default function ResetPwdForm({ token }) {
 
       <Stack className="mt-1" gap={1}>
         <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={resetPwd.isLoading}>
+          {resetPwd.isLoading && <Spinner className="me-2" />}
           { t('user.account.change_password') }
-          {resetPwd.isLoading && <Spinner />}
         </Button>
       </Stack>
     </Form>

@@ -10,7 +10,7 @@ export default function useChangePwd() {
     (user) => axios.post('/users/change_password.json', { user }),
     {
       onSuccess: () => {
-        toast.success(t('toast.success.password_updated'));
+        toast.success(t('toast.success.user.password_updated'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

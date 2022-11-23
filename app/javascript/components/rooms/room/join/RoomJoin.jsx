@@ -33,7 +33,7 @@ export default function RoomJoin() {
   const publicRoom = usePublicRoom(friendlyId);
   const roomStatusAPI = useRoomStatus(friendlyId);
 
-  const { isLoading, data: env } = useEnv();
+  const { data: env } = useEnv();
 
   const methods = useForm(joinFormConfig);
 
@@ -109,7 +109,7 @@ export default function RoomJoin() {
     }
   }, [roomStatusAPI.isError]);
 
-  if (publicRoom.isLoading) return <Spinner />;
+  if (publicRoom.isLoading) return null;
 
   if (!currentUser.signed_in && publicRoom.data.require_authentication === 'true') {
     return <RequireAuthentication path={path} />;
@@ -139,8 +139,6 @@ export default function RoomJoin() {
     </Stack>
   );
 
-  if (isLoading) return <Spinner />;
-
   return (
     <div className="vertical-buffer">
       <div className="text-center pb-4">
@@ -152,8 +150,7 @@ export default function RoomJoin() {
             <Col className="col-xxl-8">
               <span className="text-muted">{t('room.meeting.meeting_invitation')}</span>
               <h1 className="mt-2">
-                {publicRoom.data.name}
-                {publicRoom.isFetching && <Spinner />}
+                {publicRoom?.data.name}
               </h1>
             </Col>
             <Col>
@@ -186,19 +183,19 @@ export default function RoomJoin() {
                 type="submit"
                 disabled={publicRoom.isFetching || roomStatusAPI.isLoading}
               >
+                {roomStatusAPI.isLoading && <Spinner className="me-2" />}
                 {t('room.meeting.join_meeting')}
-                {roomStatusAPI.isLoading && <Spinner />}
               </Button>
             </Form>
           )}
         </Card.Footer>
       </Card>
       {!currentUser?.signed_in && (
-        env.OPENID_CONNECT ? (
+        env?.OPENID_CONNECT ? (
           <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> {t('authentication.already_have_account')}
             <RegularForm action="/auth/openid_connect" method="POST" data-turbo="false">
               <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
-              <Button variant="link" className="cursor-pointer ms-2 ps-0" type="submit">{t('authentication.sign_in')}</Button>
+              <Button variant="link" className="btn-sm fs-6 cursor-pointer ms-2 ps-0" type="submit">{t('authentication.sign_in')}</Button>
             </RegularForm>
           </Stack>
         ) : (

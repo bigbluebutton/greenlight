@@ -25,8 +25,8 @@ export default function CreateRoleForm({ handleClose }) {
           {t('close')}
         </Button>
         <Button variant="brand" type="submit" disabled={createRole.isLoading}>
+          {createRole.isLoading && <Spinner className="me-2" />}
           {t('admin.roles.create_role')}
-          {createRole.isLoading && <Spinner />}
         </Button>
       </Stack>
     </Form>

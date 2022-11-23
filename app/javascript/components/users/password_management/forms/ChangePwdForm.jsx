@@ -29,13 +29,14 @@ export default function ChangePwdForm() {
           onClick={() => methods.reset({
             old_password: '',
             new_password: '',
+            password_confirmation: '',
           })}
         >
           { t('cancel') }
         </Button>
         <Button variant="brand" type="submit" disabled={changePwd.isLoading}>
+          {changePwd.isLoading && <Spinner className="me-2" />}
           { t('user.account.change_password') }
-          {changePwd.isLoading && <Spinner />}
         </Button>
       </Stack>
     </Form>

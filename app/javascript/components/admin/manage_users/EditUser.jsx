@@ -9,21 +9,18 @@ import { useTranslation } from 'react-i18next';
 import AdminNavSideBar from '../AdminNavSideBar';
 import AccountInfo from '../../users/user/AccountInfo';
 import useUser from '../../../hooks/queries/users/useUser';
-import Spinner from '../../shared_components/utilities/Spinner';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function EditUser() {
   const { t } = useTranslation();
   const { userId } = useParams();
-  const { isLoading, data: user } = useUser(userId);
+  const { data: user } = useUser(userId);
   const navigate = useNavigate();
   const currentUser = useAuth();
 
   if (currentUser.permissions?.ManageUsers !== 'true') {
     return <Navigate to="/404" />;
   }
-
-  if (isLoading) return <Spinner />;
 
   return (
     <div id="admin-panel" className="pb-3">
@@ -32,25 +29,31 @@ export default function EditUser() {
         <Tab.Container activekey="users">
           <Container className="admin-table">
             <Row>
-              <Col sm={3}>
+              <Col className="px-0" sm={3}>
                 <div id="admin-sidebar">
                   <AdminNavSideBar />
                 </div>
               </Col>
-              <Col sm={9}>
-                <Row className="mb-4">
-                  <Stack direction="horizontal" className="w-100 mt-4">
-                    <h3 className="mb-0">{ t('admin.manage_users.edit_user')}</h3>
-                    <div className="ms-auto cursor-pointer" aria-hidden="true" onClick={() => navigate('/admin/users')}>
-                      <ArrowLeftCircleIcon className="hi-s" /> { t('back') }
+              <Col className="px-0" sm={9}>
+                <Tab.Content className="ps-0">
+                  <Container className="admin-table p-0">
+                    <div className="p-4 border-bottom">
+                      <div className="d-inline-block">
+                        <h3>{ t('admin.manage_users.edit_user')}</h3>
+                      </div>
+                      <Stack
+                        className="d-inline-block float-end cursor-pointer pe-2 pt-2 text-muted"
+                        aria-hidden="true"
+                        onClick={() => navigate('/admin/users')}
+                      >
+                        <ArrowLeftCircleIcon className="hi-s" /> { t('back') }
+                      </Stack>
                     </div>
-                  </Stack>
-                  <span className="text-muted mb-4">{ t('admin.manage_users.users_edit_path') }</span>
-                  <hr className="solid" />
-                </Row>
-                <Row className="mb-4">
-                  <AccountInfo user={user} />
-                </Row>
+                    <div className="p-4">
+                      <AccountInfo user={user} />
+                    </div>
+                  </Container>
+                </Tab.Content>
               </Col>
             </Row>
           </Container>

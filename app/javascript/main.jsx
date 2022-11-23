@@ -39,7 +39,7 @@ import AuthenticatedOnly from './routes/AuthenticatedOnly';
 const queryClient = new QueryClient();
 
 const root = (
-  <React.Suspense fallback="Loading...">
+  <React.Suspense fallback={DefaultErrorPage}>
     <ErrorBoundary fallback={DefaultErrorPage}>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
@@ -61,7 +61,7 @@ const root = (
 
                   <Route path="/admin" element={<AdminPanel />} />
                   <Route path="/admin/users" element={<ManageUsers />} />
-                  <Route path="/admin/edit_user/:userId" element={<EditUser />} />
+                  <Route path="/admin/users/edit/:userId" element={<EditUser />} />
                   <Route path="/admin/server_recordings" element={<ServerRecordings />} />
                   <Route path="/admin/server_rooms" element={<ServerRooms />} />
                   <Route path="/admin/room_configuration" element={<RoomConfig />} />

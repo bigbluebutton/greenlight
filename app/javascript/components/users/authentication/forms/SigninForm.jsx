@@ -24,10 +24,8 @@ export default function SigninForm() {
   const createSession = useCreateSession(token);
   const { isSubmitting } = methods.formState;
   const fields = signinFormFields;
-  const { isLoading, data: env } = useEnv();
+  const { data: env } = useEnv();
   const captchaRef = useRef(null);
-
-  if (isLoading) return <Spinner />;
 
   const onError = () => {
     toast.error(t('toast.error.problem_completing_action'));
@@ -61,11 +59,11 @@ export default function SigninForm() {
           <Link to="/forget_password" className="text-link float-end small"> { t('authentication.forgot_password') } </Link>
         </Col>
       </Row>
-      { env.HCAPTCHA_KEY
+      { env?.HCAPTCHA_KEY
         && (
         <Container className="d-flex justify-content-center mt-3">
           <HCaptcha
-            sitekey={env.HCAPTCHA_KEY}
+            sitekey={env?.HCAPTCHA_KEY}
             size="invisible"
             onVerify={(response) => setToken(response)}
             onError={onError}
@@ -76,8 +74,8 @@ export default function SigninForm() {
         )}
       <Stack className="mt-1" gap={1}>
         <Button variant="brand" className="w-100 my-3 py-2" type="submit" disabled={isSubmitting}>
+          { isSubmitting && <Spinner className="me-2" /> }
           { t('authentication.sign_in') }
-          { isSubmitting && <Spinner /> }
         </Button>
       </Stack>
     </Form>

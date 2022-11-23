@@ -22,6 +22,7 @@ export default function UpdateUserForm({ user }) {
     fa_IR: 'فارسی',
     fr: 'Français',
     hu_HU: 'magyar',
+    ru: 'русский',
     tr: 'Türkçe',
   };
 
@@ -41,9 +42,7 @@ export default function UpdateUserForm({ user }) {
   const currentUser = useAuth();
 
   const isAdmin = currentUser.permissions.ManageUsers === 'true';
-  const { data: roles, isLoading } = useRoles('', isAdmin);
-
-  if (isLoading) return <Spinner />;
+  const { data: roles } = useRoles('', isAdmin);
 
   return (
     <Form methods={methods} onSubmit={updateUser.mutate}>
@@ -57,7 +56,7 @@ export default function UpdateUserForm({ user }) {
       {isAdmin && (
         <FormControl field={fields.role_id} control={BootStrapForm.Select}>
           {
-            roles.map((role) => <option key={role.id} value={role.id}>{role.name}</option>)
+            roles?.map((role) => <option key={role.id} value={role.id}>{role.name}</option>)
           }
         </FormControl>
       )}
@@ -73,10 +72,8 @@ export default function UpdateUserForm({ user }) {
           Cancel
         </Button>
         <Button variant="brand" type="submit" disabled={isSubmitting}>
+          {isSubmitting && <Spinner className="me-2" />}
           { t('update') }
-          {
-            isSubmitting && <Spinner />
-          }
         </Button>
       </Stack>
     </Form>

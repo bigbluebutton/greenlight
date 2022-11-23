@@ -20,6 +20,10 @@
     }
   }
 
+  .dropdown {
+    position: static;
+  }
+
   .dropdown-item {
     color: $muted;
     &:hover {

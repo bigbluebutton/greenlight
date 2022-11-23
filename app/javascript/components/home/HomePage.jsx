@@ -4,15 +4,13 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import ButtonLink from '../shared_components/utilities/ButtonLink';
-import Spinner from '../shared_components/utilities/Spinner';
 import useEnv from '../../hooks/queries/env/useEnv';
 import Logo from '../shared_components/Logo';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 
 export default function HomePage() {
-  const { isLoading, data: env } = useEnv();
+  const { data: env } = useEnv();
   const { t } = useTranslation();
-
   const { search } = useLocation();
   const [searchParams] = useSearchParams();
   const inviteToken = searchParams.get('inviteToken');
@@ -21,8 +19,6 @@ export default function HomePage() {
   useEffect(() => {
     document.cookie = `token=${inviteToken};path=/;`;
   }, [inviteToken]);
-
-  if (isLoading) return <Spinner />;
 
   function showSignUp() {
     return registrationMethod !== 'invite' || !!inviteToken;
@@ -41,7 +37,7 @@ export default function HomePage() {
         </span>
         <div className="mx-auto mb-2">
           {
-            env.OPENID_CONNECT ? (
+            env?.OPENID_CONNECT ? (
               <Form action="/auth/openid_connect" method="POST" data-turbo="false">
                 <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
                 <Button variant="brand-outline-color" className="btn btn-xlg m-2" type="submit">{t('authentication.sign_up')}</Button>
@@ -51,9 +47,9 @@ export default function HomePage() {
               <>
                 { showSignUp()
                   && (
-                  <ButtonLink to={`/signup${search}`} variant="brand-outline-color" className="btn btn-xlg m-2">
-                    {t('authentication.sign_up')}
-                  </ButtonLink>
+                    <ButtonLink to={`/signup${search}`} variant="brand-outline-color" className="btn btn-xlg m-2">
+                      {t('authentication.sign_up')}
+                    </ButtonLink>
                   ) }
                 <ButtonLink to="/signin" variant="brand" className="btn btn-xlg m-2">{t('authentication.sign_in')}</ButtonLink>
               </>

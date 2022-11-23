@@ -53,11 +53,6 @@ class ApplicationController < ActionController::Base
 
   # Parses the url for the user domain
   def parse_user_domain(hostname)
-    return hostname.split('.').first if Rails.configuration.url_host.empty?
-
-    Rails.configuration.url_host.split(',').each do |url_host|
-      return hostname.chomp(url_host).chomp('.') if hostname.include?(url_host)
-    end
-    ''
+    hostname&.split('.')&.first
   end
 end

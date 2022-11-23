@@ -22,8 +22,8 @@ export default function DeleteRoomForm({ mutation: useDeleteRoomAPI, handleClose
             { t('close') }
           </Button>
           <Button variant="danger" type="submit" disabled={deleteRoomAPI.isLoading}>
+            { deleteRoomAPI.isLoading && <Spinner className="me-2" /> }
             { t('delete') }
-            { deleteRoomAPI.isLoading && <Spinner /> }
           </Button>
         </Stack>
       </Form>

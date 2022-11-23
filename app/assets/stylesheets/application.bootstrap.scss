@@ -19,9 +19,29 @@ body {
   background: whitesmoke;
 }
 
-.header {
+#navbar {
   height: $header-height;
   background: white;
+
+  .navbar-toggler {
+    &:active {
+      outline: none !important;
+      box-shadow: none;
+    }
+    &:focus {
+      outline: none !important;
+      box-shadow: none;
+    }
+  }
+}
+
+#navbar-menu {
+  z-index: 10;
+  top: 100%;
+
+  a {
+    color: $black !important;
+  }
 }
 
 .background-sm-buffer {
@@ -38,6 +58,10 @@ body {
 .btn {
   min-width: $button-min-width;
   white-space: nowrap;
+}
+
+.btn-sm {
+  min-width: 0 !important;
 }
 
 .btn-xlg {
@@ -173,15 +197,39 @@ input.search-bar {
 }
 
 #nav-user-dropdown {
-  padding-right: 0;
-  color: $black !important;
   &:hover {
     color: $black !important;
   }
   &:active {
-    color: $black !important;
+    background-color: transparent !important;
   }
   &:focus {
+    background-color: transparent !important;
+  }
+}
+
+.dropdown {
+  a {
+    color: $black !important;
+    &:hover {
+      color: var(--brand-color) !important;
+    }
+    &:active {
+      background-color: whitesmoke !important;
+    }
+    &:focus {
+      background-color: whitesmoke !important;
+    }
+  }
+}
+
+// Custom Select component.
+.select{
+  .dropdown-item.active, .dropdown-item:active  {
+    background-color: var(--brand-color) !important;
+  }
+
+  .dropdown-item.active:hover {
     color: $black !important;
   }
 }
@@ -348,6 +396,10 @@ input[type='checkbox'] {
 
 .form-control:focus {
   box-shadow: none;
+}
+
+.form-control:focus, .form-control:hover {
+  border-color: var(--brand-color) !important;
 }
 
 

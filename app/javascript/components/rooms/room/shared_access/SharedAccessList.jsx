@@ -10,16 +10,13 @@ import Modal from '../../../shared_components/modals/Modal';
 import SharedAccessForm from './forms/SharedAccessForm';
 import Avatar from '../../../users/user/Avatar';
 import useDeleteSharedAccess from '../../../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
-import Spinner from '../../../shared_components/utilities/Spinner';
 import SearchBar from '../../../shared_components/search/SearchBar';
 
-export default function SharedAccessList({ users, isLoading }) {
+export default function SharedAccessList({ users }) {
   const { t } = useTranslation();
   const [searchInput, setSearchInput] = useState('');
   const { friendlyId } = useParams();
   const { handleDeleteSharedAccess } = useDeleteSharedAccess(friendlyId);
-
-  if (isLoading) return <Spinner />;
 
   return (
     <div id="shared-access-list">
@@ -89,5 +86,4 @@ SharedAccessList.propTypes = {
     avatar: PropTypes.string.isRequired,
     filter: PropTypes.func,
   })).isRequired,
-  isLoading: PropTypes.bool.isRequired,
 };

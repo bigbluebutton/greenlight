@@ -41,8 +41,8 @@ export default function ManageUserRow({ user }) {
       <td className="border-start-0">
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
-          <Dropdown.Menu className="admin-table-dropdown">
-            <Dropdown.Item as={Link} to={`/admin/edit_user/${user.id}`}>
+          <Dropdown.Menu>
+            <Dropdown.Item as={Link} to={`/admin/users/edit/${user.id}`}>
               <PencilSquareIcon className="hi-s me-2" />
               {t('view')}
             </Dropdown.Item>
