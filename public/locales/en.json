@@ -16,7 +16,7 @@
   "cancel": "Cancel",
   "close": "Close",
   "delete": "Delete",
-  "copy": "Copy",
+  "copy": "Copy Join Link",
   "or": "Or",
   "online": "Online",
   "help_center": "Help Center",
@@ -296,6 +296,7 @@
   "toast": {
     "success": {
       "user": {
+        "user_created": "User created.",
         "user_updated": "User updated.",
         "user_deleted": "User deleted.",
         "avatar_updated": "Avatar updated.",
