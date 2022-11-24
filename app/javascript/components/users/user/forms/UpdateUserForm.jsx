@@ -17,6 +17,8 @@ export default function UpdateUserForm({ user }) {
 
   // TODO: Make LOCALES a context that provides the available languages and their native names in the client app.
   const LOCALES = {
+    cs: 'Čeština',
+    de: 'Deutsch',
     el_GR: 'ελληνικά',
     en: 'English',
     fa_IR: 'فارسی',

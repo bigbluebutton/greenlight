@@ -23,7 +23,7 @@ export default function Avatar({ avatar, radius, className }) {
       />
       {!isLoading && (
       <Placeholder animation="glow" className="mb-3">
-        <Placeholder style={{ height: radius, width: radius, 'border-radius': '50%' }} />
+        <Placeholder style={{ height: radius, width: radius, borderRadius: '50%' }} />
       </Placeholder>
       )}
     </>

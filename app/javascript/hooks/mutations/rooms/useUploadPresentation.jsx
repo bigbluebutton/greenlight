@@ -16,7 +16,7 @@ export default function useUploadPresentation(friendlyId) {
   const mutation = useMutation(uploadPresentation, {
     onSuccess: () => {
       queryClient.invalidateQueries(['getRoom', { friendlyId }]);
-      toast.success(t('toast.success.presentation_updated'));
+      toast.success(t('toast.success.room.presentation_updated'));
     },
     onError: () => {
       toast.error(t('toast.error.problem_completing_action'));

@@ -2,7 +2,9 @@ import React from 'react';
 import {
   Stack, Button, Col, Row,
 } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import {
+  Link, Navigate, useLocation, useParams,
+} from 'react-router-dom';
 import { HomeIcon, Square2StackIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -21,8 +23,14 @@ function copyInvite() {
 export default function Room() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
-  const { data: room } = useRoom(friendlyId);
+  const { isError, data: room, error } = useRoom(friendlyId);
   const startMeeting = useStartMeeting(friendlyId);
+  const location = useLocation();
+
+  // Custom logic to redirect from Rooms page to join page if this isnt the users room and they're not allowed to view it
+  if (isError && error.response.status === 403) {
+    return <Navigate to={`${location.pathname}/join`} />;
+  }
 
   return (
     <div className="wide-background-room">
