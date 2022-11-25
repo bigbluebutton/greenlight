@@ -16,7 +16,7 @@
   "cancel": "Abbrechen",
   "close": "Schließen",
   "delete": "Löschen",
-  "copy": "Kopieren",
+  "copy": "Einladungslink kopieren",
   "or": "oder",
   "online": "Online",
   "help_center": "Hilfezentrum",
@@ -33,7 +33,7 @@
     "sign_out": "Abmelden",
     "email": "E-Mail",
     "password": "Passwort",
-    "confirm_password": "Bestätige das Passwort",
+    "confirm_password": "Passwort bestätigen",
     "enter_email": "Mail eingeben",
     "enter_name": "Namen eingeben",
     "remember_me": "Eingeloggt bleiben",
@@ -296,6 +296,7 @@
   "toast": {
     "success": {
       "user": {
+        "user_created": "Nutzer:in erstellt.",
         "user_updated": "Nutzer:in aktualisiert.",
         "user_deleted": "Nutzer:in gelöscht.",
         "avatar_updated": "Avatar aktualisiert.",
