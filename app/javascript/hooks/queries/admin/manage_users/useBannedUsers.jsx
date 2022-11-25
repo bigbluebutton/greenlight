@@ -9,7 +9,7 @@ export default function useBannedUsers(input, page) {
 
   return useQuery(
     ['getBannedUsers', { ...params }],
-    () => axios.get('/admin/users/banned_users.json', { params }).then((resp) => resp.data),
+    () => axios.get('/admin/users/banned.json', { params }).then((resp) => resp.data),
     {
       keepPreviousData: true,
     },

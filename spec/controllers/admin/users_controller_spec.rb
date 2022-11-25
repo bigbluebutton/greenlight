@@ -18,7 +18,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
       # TODO: Change this test to return active users and not just any users
       users = User.all
 
-      get :verified_users
+      get :verified
       expect(response).to have_http_status(:ok)
       response_user_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
       expect(response_user_ids).to match_array(users.pluck(:id))
@@ -30,7 +30,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
       role_with_provider_test = create(:role, provider: 'test')
       create(:user, provider: 'test', role: role_with_provider_test)
 
-      get :verified_users
+      get :verified
 
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(greenlight_users.pluck(:id))
     end
@@ -61,7 +61,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
     it 'returns a list of pending users' do
       users = create_list(:user, 3, status: 'banned')
 
-      get :banned_users
+      get :banned
 
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(users.pluck(:id))
     end
@@ -72,7 +72,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
       end
 
       it 'returns :forbidden for user without ManageUsers permission' do
-        get :banned_users
+        get :banned
         expect(response).to have_http_status(:forbidden)
       end
     end

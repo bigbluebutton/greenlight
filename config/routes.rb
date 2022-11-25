@@ -66,9 +66,9 @@ Rails.application.routes.draw do
       namespace :admin do
         resources :users, only: %i[update] do
           collection do
-            get '/verified_users', to: 'users#verified_users'
+            get '/verified', to: 'users#verified'
             get '/pending', to: 'users#pending'
-            get '/banned_users', to: 'users#banned_users'
+            get '/banned', to: 'users#banned'
             post '/:user_id/create_server_room', to: 'users#create_server_room'
           end
         end

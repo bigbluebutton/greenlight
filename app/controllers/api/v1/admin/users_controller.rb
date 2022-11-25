@@ -29,7 +29,7 @@ module Api
           render_data data: pending_users, meta: pagy_metadata(pagy), serializer: UserSerializer, status: :ok
         end
 
-        def verified_users
+        def verified
           sort_config = config_sorting(allowed_columns: %w[name roles.name])
 
           # TODO: Change to get verified users only
@@ -44,7 +44,7 @@ module Api
           render_data data: users, meta: pagy_metadata(pagy), serializer: UserSerializer, status: :ok
         end
 
-        def banned_users
+        def banned
           # getting all the users who have a banned status
           users = User.includes(:role)
                       .with_provider(current_provider)
