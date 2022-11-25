@@ -57,6 +57,8 @@ class User < ApplicationRecord
 
   before_validation :set_session_token, on: :create
 
+  after_create :default_room
+
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
 
   def self.search(input)
@@ -94,6 +96,10 @@ class User < ApplicationRecord
   # Checkes the expiration of a token.
   def self.reset_token_expired?(sent_at)
     Time.current > (sent_at.in(RESET_TOKEN_VALIDITY_PERIOD))
+  end
+
+  def default_room
+    Room.create(name: 'Home Room', user_id: id)
   end
 
   # Gives the session token and expiry a default value before saving
