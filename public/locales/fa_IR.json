@@ -16,7 +16,7 @@
   "cancel": "انصراف",
   "close": "بستن",
   "delete": "حذف",
-  "copy": "کپی",
+  "copy": "کپی پیوند عضویت",
   "or": "یا",
   "online": "آنلاین",
   "help_center": "مرکز راهنمایی",
@@ -296,6 +296,7 @@
   "toast": {
     "success": {
       "user": {
+        "user_created": "کاربر ایجاد شد.",
         "user_updated": "کاربر به‌روز شد.",
         "user_deleted": "کاربر حذف شد.",
         "avatar_updated": "آواتار به‌روز شد.",
