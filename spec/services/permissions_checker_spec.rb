@@ -66,6 +66,18 @@ describe PermissionsChecker, type: :service do
           record_id: ''
         ).call).to be(true)
       end
+
+      it 'checks the users role and returns true since user has SuperAdmin role' do
+        super_admin_role = create(:role, name: 'SuperAdmin', provider: 'bn')
+        super_admin_user = create(:user, provider: 'bn', role: super_admin_role)
+        expect(described_class.new(
+          current_user: super_admin_user,
+          permission_names: [],
+          user_id: super_admin_user.id,
+          friendly_id: '',
+          record_id: ''
+        ).call).to be(true)
+      end
     end
   end
 end

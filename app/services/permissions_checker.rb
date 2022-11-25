@@ -10,6 +10,8 @@ class PermissionsChecker
   end
 
   def call
+    return true if @current_user.role == Role.find_by(name: 'SuperAdmin', provider: 'bn')
+
     return true if RolePermission.joins(:permission).exists?(
       role_id: @current_user.role_id,
       permission: { name: @permission_names },
