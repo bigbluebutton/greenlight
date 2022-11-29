@@ -351,7 +351,8 @@
         "role_assigned": "This role can't be deleted as it is assigned to at least one user."
       },
       "users": {
-        "invalid_invite": "Your invitation token is either invalid or incorrect. Please contact your administrator to receive a new one"
+        "invalid_invite": "Your invitation token is either invalid or incorrect. Please contact your administrator to receive a new one",
+        "email_exists": "An account under this email already exists. Please try again with another email"
       },
       "rooms": {
         "room_limit": "Room can not be created due to room limit being reached"
