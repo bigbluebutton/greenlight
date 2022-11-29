@@ -38,10 +38,10 @@ import NotFoundPage from './components/errors/NotFoundPage';
 const queryClientConfig = {
   defaultOptions: {
     queries: {
-      useErrorBoundary: true
+      useErrorBoundary: true,
     },
   },
-}
+};
 
 const queryClient = new QueryClient(queryClientConfig);
 
