@@ -35,7 +35,15 @@ import AuthenticatedOnly from './routes/AuthenticatedOnly';
 import DefaultErrorPage from './components/errors/DefaultErrorPage';
 import NotFoundPage from './components/errors/NotFoundPage';
 
-const queryClient = new QueryClient();
+const queryClientConfig = {
+  defaultOptions: {
+    queries: {
+      useErrorBoundary: true
+    },
+  },
+}
+
+const queryClient = new QueryClient(queryClientConfig);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
