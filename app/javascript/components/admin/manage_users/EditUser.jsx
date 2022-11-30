@@ -14,7 +14,7 @@ import { useAuth } from '../../../contexts/auth/AuthProvider';
 export default function EditUser() {
   const { t } = useTranslation();
   const { userId } = useParams();
-  const { data: user } = useUser(userId);
+  const { isLoading, data: user } = useUser(userId);
   const navigate = useNavigate();
   const currentUser = useAuth();
 
@@ -49,9 +49,11 @@ export default function EditUser() {
                         <ArrowLeftCircleIcon className="hi-s" /> { t('back') }
                       </Stack>
                     </div>
-                    <div className="p-4">
-                      <AccountInfo user={user} />
-                    </div>
+                    {!isLoading && (
+                      <div className="p-4">
+                        <AccountInfo user={user} />
+                      </div>
+                    )}
                   </Container>
                 </Tab.Content>
               </Col>
