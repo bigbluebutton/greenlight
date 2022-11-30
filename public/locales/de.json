@@ -16,7 +16,7 @@
   "cancel": "Abbrechen",
   "close": "Schließen",
   "delete": "Löschen",
-  "copy": "Kopieren",
+  "copy": "Einladungslink kopieren",
   "or": "oder",
   "online": "Online",
   "help_center": "Hilfezentrum",
@@ -33,7 +33,7 @@
     "sign_out": "Abmelden",
     "email": "E-Mail",
     "password": "Passwort",
-    "confirm_password": "Bestätige das Passwort",
+    "confirm_password": "Passwort bestätigen",
     "enter_email": "Mail eingeben",
     "enter_name": "Namen eingeben",
     "remember_me": "Eingeloggt bleiben",
@@ -51,7 +51,7 @@
     "authenticator": "Authentifizierungsanbieter",
     "full_name": "Vollständiger Name",
     "no_user_found": "Keine Nutzer:innen gefunden",
-    "type_three_characters": "Bitte gib mindestens drei (3) Zeichen ein, um andere User anzuzeigen.",
+    "type_three_characters": "Bitte gib mindestens drei (3) Zeichen ein, um andere Nutzer:innen anzuzeigen.",
     "profile": {
       "profile": "Profil",
       "language": "Sprache",
@@ -103,15 +103,15 @@
     "presentation": {
       "presentation": "Präsentation",
       "click_to_upload": "Klicken zum Hochladen",
-      "drag_and_drop": "oder Datei per Drag&Drop hier ablegen",
-      "upload_description": "Ein Office-Dokument oder eine PDF-Datei hochladen. Abhängig von der Größe könnte das eine gewisse Zeit dauern",
+      "drag_and_drop": " oder Datei per Drag & Drop hier ablegen",
+      "upload_description": "Ein Office-Dokument oder eine PDF-Datei hochladen. Abhängig von der Größe könnte das eine gewisse Zeit dauern.",
       "are_you_sure_delete_presentation": "Diese Präsentation wirklich löschen?"
     },
     "shared_access": {
       "access": "Zugriff",
       "add_share_access": "+ Zugriff teilen",
       "share_room_access": "Teile Raumzugriff",
-      "add_some_users": "Füge jetzt ein paar User hinzu!",
+      "add_some_users": "Füge jetzt ein paar Nutzer:innen hinzu!",
       "add_some_users_description": "Um jemanden hinzuzufügen, klicke den Knopf unten und suche bzw. wähle aus mit wem Du den Raum teilen möchtest."
     },
     "settings": {
@@ -132,7 +132,7 @@
       "access_code_required": "Bitte den Zugangscode eingeben",
       "wrong_access_code": "Falscher Zugangscode",
       "generate_viewers_access_code": "Generiere Zugangscode für Zuhörer:innen",
-      "generate_mods_access_code": "Generiere Zugangscode für Moderation"
+      "generate_mods_access_code": "Generiere Zugangscode für die Moderation"
     }
   },
   "recording": {
@@ -153,15 +153,15 @@
     "are_you_sure_delete_recording": "Diese Aufzeichnung wirklich löschen?"
   },
   "admin": {
-    "admin_panel": "Admin-Panel",
+    "admin_panel": "Administration",
     "manage_users": {
-      "manage_users": "User verwalten",
+      "manage_users": "Nutzer:in verwalten",
       "active": "Aktiv",
       "approve": "Zulassen",
       "decline": "Ablehnen",
       "pending": "Wartend",
       "banned": "Gesperrt",
-      "ban": "Sperre",
+      "ban": "Sperren",
       "unban": "Entsperren",
       "deleted": "Gelöscht",
       "invited_tab": "Eingeladen",
@@ -172,7 +172,7 @@
       "create_new_user": "Neue Nutzer:in erstellen",
       "edit_user": "Nutzer:in ändern",
       "delete_user": "Nutzer:in löschen",
-      "users_edit_path": "User/Bearbeiten",
+      "users_edit_path": "Nutzer:innen/Bearbeiten",
       "create_account": "Konto erstellen",
       "create_room": "Raum erstellen",
       "create_new_room": "Neuen Raum erstellen",
@@ -217,7 +217,7 @@
         "lighten": "Heller",
         "brand_image": "Logo",
         "click_to_upload": "Klicken zum Hochladen",
-        "drag_and_drop": "oder per Drag&Drop",
+        "drag_and_drop": " oder per Drag & Drop",
         "upload_brand_image_description": "Eine PNG, JPG oder SVG-Datei hochladen. Abhängig von der Größe könnte das eine gewisse Zeit dauern."
       },
       "administration": {
@@ -234,7 +234,7 @@
         "allow_users_to_share_rooms": "Räume können geteilt werden",
         "allow_users_to_share_rooms_description": "Wenn dies deaktiviert ist, dann wird der Knopf zum Teilen eines Raums von den Raumeinstellungen entfernt.",
         "allow_users_to_preupload_presentation": "Präsentationen können hochgeladen werden",
-        "allow_users_to_preupload_presentation_description": "Nutzer:innen können eine Präsentation im Voraus hochladen, die dann als Standard für diesen Raum genutzt wird"
+        "allow_users_to_preupload_presentation_description": "Nutzer:innen können eine Präsentation im Voraus hochladen, die dann als Standard für diesen Raum genutzt wird."
       },
       "registration": {
         "registration": "Registrierung",
@@ -244,7 +244,7 @@
         "resync_on_login": "Daten bei jedem Login aktualisieren",
         "resync_on_login_description": "Daten bei jedem Login aktualisieren, so dass Greenlight immer dieselben Informationen hat, wie der externe Authentifizierungsanbieter",
         "default_role": "Standard-Rolle",
-        "default_role_description": "Standard-Rolle, die neuen Usern zugeteilt wird",
+        "default_role_description": "Standard-Rolle, die neuen Nutzer:innen zugeteilt wird",
         "registration_method": "Registrierungs-Methode",
         "registration_method_description": "Registrierungs-Methoden ändern",
         "registration_methods" : {
@@ -261,7 +261,7 @@
       "disabled": "Deaktiviert",
       "configurations": {
         "allow_room_to_be_recorded": "Raum kann aufgezeichnet werden",
-        "allow_room_to_be_recorded_description": "Ermögliche, Raumaufzeichnungen in einem Raum zu aktivieren. Wenn aktiviert, muss immer noch ein Moderator den \"Aufnahme\" Knopf drücken, nachdem die Konferenz begonnen hat.",
+        "allow_room_to_be_recorded_description": "Raumaufzeichnungen erlauben. Wenn aktiviert, muss die Moderation immer noch den \"Aufnahme\"-Knopf drücken, nachdem die Konferenz begonnen hat.",
         "require_user_signed_in": "Nutzer:innen müssen eingeloggt sein, um teilzunehmen",
         "require_user_signed_in_description": "Teilnahme an der Konferenz ist nur mit einem Konto in Greenlight möglich. Wer nicht eingeloggt ist, wird auf die Login-Seite weitergeleitet.",
         "require_mod_approval": "Moderation muss der Teilnahme zustimmen",
@@ -269,7 +269,7 @@
         "allow_any_user_to_start_meeting": "Jede:r kann die Konferenz starten",
         "allow_any_user_to_start_meeting_description": "Erlaubt Nutzer:innen die Konferenz jederzeit zu starten. Standardmäßig kann nur die Besitzer:in die Konferenz starten.",
         "allow_users_to_join_as_mods": "Jede:r ist Moderation",
-        "allow_users_to_join_as_mods_description": "Gibt allen Moderationsrechte, wenn sie der Konferenz beitreten",
+        "allow_users_to_join_as_mods_description": "Gibt allen Moderationsrechte, wenn sie der Konferenz beitreten.",
         "mute_users_on_join": "Nutzer:innen anfangs stummschalten",
         "mute_users_on_join_description": "Automatisch stummenschalten, wenn man die Konferenz betritt",
         "viewer_access_code": "Zugriffscode für Zuhörer:innen",
@@ -296,6 +296,7 @@
   "toast": {
     "success": {
       "user": {
+        "user_created": "Nutzer:in erstellt.",
         "user_updated": "Nutzer:in aktualisiert.",
         "user_deleted": "Nutzer:in gelöscht.",
         "avatar_updated": "Avatar aktualisiert.",
