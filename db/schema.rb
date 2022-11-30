@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_25_184305) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_30_103241) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -53,6 +53,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_184305) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recording_id"], name: "index_formats_on_recording_id"
+  end
+
+  create_table "instant_rooms", force: :cascade do |t|
+    t.string "name"
+    t.string "username"
+    t.string "friendly_id", null: false
+    t.string "meeting_id", null: false
+    t.datetime "last_session"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["friendly_id"], name: "index_instant_rooms_on_friendly_id", unique: true
+    t.index ["meeting_id"], name: "index_instant_rooms_on_meeting_id", unique: true
   end
 
   create_table "invitations", force: :cascade do |t|

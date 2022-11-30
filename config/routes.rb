@@ -31,6 +31,9 @@ Rails.application.routes.draw do
           delete :purge_presentation
         end
       end
+
+      resources :instant_rooms, only: %i[create destroy], param: :friendly_id
+
       resources :meetings, only: %i[], param: :friendly_id do
         member do
           post '/start', to: 'meetings#start'
