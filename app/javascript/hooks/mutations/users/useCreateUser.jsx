@@ -3,14 +3,11 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
+import getLanguage from '../../../helpers/Language';
 
 export default function useCreateUser() {
   const { t } = useTranslation();
   const createUser = (data) => axios.post('/users.json', data);
-  const inferUserLang = () => {
-    const language = window.navigator.userLanguage || window.navigator.language;
-    return language.match(/^[a-z]{2,}/)?.at(0);
-  };
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
@@ -41,7 +38,7 @@ export default function useCreateUser() {
     },
   );
   const onSubmit = (user, token) => {
-    const userData = { ...user, language: inferUserLang(), invite_token: inviteToken };
+    const userData = { ...user, language: getLanguage(), invite_token: inviteToken };
     return mutation.mutateAsync({ user: userData, token }).catch(/* Prevents the promise exception from bubbling */() => { });
   };
   return { onSubmit, ...mutation };
