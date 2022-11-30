@@ -59,6 +59,8 @@ class User < ApplicationRecord
 
   after_create :default_room
 
+  before_update :default_room, if: :role_changed?
+
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
 
   def self.search(input)
@@ -99,7 +101,9 @@ class User < ApplicationRecord
   end
 
   def default_room
-    Room.create(name: 'Home Room', user_id: id)
+    return unless PermissionsChecker.new(permission_names: 'CreateRoom', user_id: id, current_user: self, friendly_id: nil, record_id: nil).call
+
+    Room.create(name: "#{name}'s Room", user_id: id) if rooms.count <= 0
   end
 
   # Gives the session token and expiry a default value before saving
