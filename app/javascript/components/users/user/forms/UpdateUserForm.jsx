@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Form as BootStrapForm, Stack } from 'react-bootstrap';
+import { Button, Stack } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +11,8 @@ import useUpdateUser from '../../../../hooks/mutations/users/useUpdateUser';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
+import FormSelect from '../../../shared_components/forms/controls/FormSelect';
+import Option from '../../../shared_components/utilities/Option';
 
 export default function UpdateUserForm({ user }) {
   const { t } = useTranslation();
@@ -50,17 +52,17 @@ export default function UpdateUserForm({ user }) {
     <Form methods={methods} onSubmit={updateUser.mutate}>
       <FormControl field={fields.name} type="text" />
       <FormControl field={fields.email} type="email" />
-      <FormControl field={fields.language} control={BootStrapForm.Select}>
+      <FormSelect field={fields.language}>
         {
-          Object.keys(LOCALES).map((code) => <option key={code} value={code}>{LOCALES[code]}</option>)
+          Object.keys(LOCALES).map((code) => <Option key={code} value={code}>{LOCALES[code]}</Option>)
         }
-      </FormControl>
-      {isAdmin && (
-        <FormControl field={fields.role_id} control={BootStrapForm.Select}>
+      </FormSelect>
+      {(isAdmin && roles) && (
+        <FormSelect field={fields.role_id}>
           {
-            roles?.map((role) => <option key={role.id} value={role.id}>{role.name}</option>)
+            roles.map((role) => <Option key={role.id} value={role.id}>{role.name}</Option>)
           }
-        </FormControl>
+        </FormSelect>
       )}
 
       <Stack direction="horizontal" gap={2} className="float-end">
@@ -69,13 +71,15 @@ export default function UpdateUserForm({ user }) {
           onClick={() => methods.reset({
             name: user.name,
             email: user.email,
+            language: user.language,
+            role_id: user.role.id,
           })}
         >
           Cancel
         </Button>
         <Button variant="brand" type="submit" disabled={isSubmitting}>
-          {isSubmitting && <Spinner className="me-2" />}
           { t('update') }
+          {updateUser.isLoading && <Spinner className="me-2" />}
         </Button>
       </Stack>
     </Form>
