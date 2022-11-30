@@ -6,7 +6,6 @@ i18next
   .use(initReactI18next)
   .use(HttpApi)
   .init({
-    debug: true,
     fallbackLng: 'en',
     backend: {
       loadPath: '/locales/{{lng}}.json',
