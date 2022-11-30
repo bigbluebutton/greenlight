@@ -12,7 +12,7 @@ export default function useDeleteServerRoom({ friendlyId, onSettled }) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getServerRooms');
-        toast.success(t('toast.success.server_room_deleted'));
+        toast.success(t('toast.success.room.server_room_deleted'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));
