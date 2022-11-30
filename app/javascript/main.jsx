@@ -35,6 +35,7 @@ import VerifyAccount from './components/users/account_activation/VerifyAccount';
 import AdminPanel from './components/admin/AdminPanel';
 import UnauthenticatedOnly from './routes/UnauthenticatedOnly';
 import AuthenticatedOnly from './routes/AuthenticatedOnly';
+import InstantRoomJoin from './components/meetings/InstantRoomJoin';
 
 const queryClient = new QueryClient();
 
@@ -75,6 +76,7 @@ const root = (
                 <Route path="/verify_account" element={<VerifyAccount />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
+                <Route path="/instant_rooms/:friendlyId/join" element={<InstantRoomJoin />} />
                 <Route path="/404" element={<NotFoundPage />} />
                 <Route path="*" element={<Navigate to="404" />} />
               </Route>

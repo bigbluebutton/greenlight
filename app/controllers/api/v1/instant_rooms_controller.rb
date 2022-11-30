@@ -3,6 +3,7 @@
 module Api
   module V1
     class InstantRoomsController < ApiController
+      before_action :find_instant_room, only: %i[show join]
       skip_before_action :ensure_authenticated
 
       # POST /api/v1/meetings/:friendly_id/start.json
@@ -10,7 +11,7 @@ module Api
       # Does: Starts the Room meeting and joins in the meeting starter.
       def create
         username = instant_room_params[:username]
-        room = InstantRoom.new(username: username)
+        room = InstantRoom.new(username:)
 
         if room.save
           logger.info "instant_room(friendly_id):#{room.friendly_id} created"
@@ -32,9 +33,24 @@ module Api
         end
       end
 
+      def show
+        render_data data: @room, status: :ok
+      end
 
+      def join
+        join_url = BigBlueButtonApi.new.join_meeting(
+          room: @room,
+          name: params[:name],
+          role: 'Moderator'
+        )
+        render_data data: join_url, status: :created
+      end
 
       private
+
+      def find_instant_room
+        @room = InstantRoom.find_by!(friendly_id: params[:friendly_id])
+      end
 
       def instant_room_params
         params.require(:instant_room).permit(:username)

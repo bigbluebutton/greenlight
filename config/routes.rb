@@ -32,7 +32,13 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :instant_rooms, only: %i[create destroy], param: :friendly_id
+      resources :instant_rooms, only: %i[create destroy], param: :friendly_id do
+        member do
+          get '/show', to: 'instant_rooms#show'
+          # could also create a instant_meetings_controller for consistensy
+          post '/join', to: 'instant_rooms#join'
+        end
+      end
 
       resources :meetings, only: %i[], param: :friendly_id do
         member do
