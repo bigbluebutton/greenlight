@@ -16,7 +16,7 @@
   "cancel": "Abbrechen",
   "close": "Schließen",
   "delete": "Löschen",
-  "copy": "Kopieren",
+  "copy": "Einladungslink kopieren",
   "or": "oder",
   "online": "Online",
   "help_center": "Hilfezentrum",
@@ -33,7 +33,7 @@
     "sign_out": "Abmelden",
     "email": "E-Mail",
     "password": "Passwort",
-    "confirm_password": "Bestätige das Passwort",
+    "confirm_password": "Passwort bestätigen",
     "enter_email": "Mail eingeben",
     "enter_name": "Namen eingeben",
     "remember_me": "Eingeloggt bleiben",
@@ -103,7 +103,7 @@
     "presentation": {
       "presentation": "Präsentation",
       "click_to_upload": "Klicken zum Hochladen",
-      "drag_and_drop": "oder Datei per Drag&Drop hier ablegen",
+      "drag_and_drop": " oder Datei per Drag & Drop hier ablegen",
       "upload_description": "Ein Office-Dokument oder eine PDF-Datei hochladen. Abhängig von der Größe könnte das eine gewisse Zeit dauern",
       "are_you_sure_delete_presentation": "Diese Präsentation wirklich löschen?"
     },
@@ -217,7 +217,7 @@
         "lighten": "Heller",
         "brand_image": "Logo",
         "click_to_upload": "Klicken zum Hochladen",
-        "drag_and_drop": "oder per Drag&Drop",
+        "drag_and_drop": "oder per Drag & Drop",
         "upload_brand_image_description": "Eine PNG, JPG oder SVG-Datei hochladen. Abhängig von der Größe könnte das eine gewisse Zeit dauern."
       },
       "administration": {
@@ -296,6 +296,7 @@
   "toast": {
     "success": {
       "user": {
+        "user_created": "Nutzer:in erstellt.",
         "user_updated": "Nutzer:in aktualisiert.",
         "user_deleted": "Nutzer:in gelöscht.",
         "avatar_updated": "Avatar aktualisiert.",
