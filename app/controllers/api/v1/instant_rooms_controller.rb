@@ -33,10 +33,19 @@ module Api
         end
       end
 
+      def destroy
+        if @room.destroy
+          render_data status: :ok
+        else
+          render_error errors: @room.errors.to_a, status: :bad_request
+        end
+      end
+
       def show
         render_data data: @room, status: :ok
       end
 
+      # only this method should be added to instant_meetings_controller?
       def join
         join_url = BigBlueButtonApi.new.join_meeting(
           room: @room,

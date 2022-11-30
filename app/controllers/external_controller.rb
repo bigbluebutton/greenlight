@@ -65,6 +65,12 @@ class ExternalController < ApplicationController
     render json: {}, status: :ok
   end
 
+  def instant_meeting_ended
+    InstantRoom.find_by(meeting_id: extract_meeting_id).destroy!
+
+    render json: {}, status: :ok
+  end
+
   private
 
   def extract_language_code(locale)

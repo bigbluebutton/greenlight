@@ -6,6 +6,7 @@ export default function usePublicRoom(friendlyId) {
     'getRoom',
     () => axios.get(`/instant_rooms/${friendlyId}/show.json`).then((resp) => resp.data.data),
     {
+      retry: 1,
       cacheTime: 0, // No caching.
     },
   );

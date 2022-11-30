@@ -31,8 +31,7 @@ class InstantMeetingStarter
       # TODO: - ahmad: Find a way to localize
       moderatorOnlyMessage: "To invite someone to the meeting, send them this link: #{room_url}",
       logoutURL: room_url,
-      meta_endCallbackUrl: meeting_ended_url(host: @base_url),
-      'meta_bbb-recording-ready-url': recording_ready_url(host: @base_url),
+      meta_endCallbackUrl: instant_meeting_ended_url(host: @base_url),
       'meta_bbb-origin-version': 3,
       'meta_bbb-origin': 'greenlight'
     }

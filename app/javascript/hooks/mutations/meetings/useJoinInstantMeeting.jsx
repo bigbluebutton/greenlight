@@ -5,7 +5,6 @@ import axios from '../../../helpers/Axios';
 
 export default function useJoinInstantMeeting(friendlyId) {
   const { t } = useTranslation();
-  console.log("im in usejoininstantmeeting ", friendlyId)
 
   return useMutation(
     (data) => axios.post(`/instant_rooms/${friendlyId}/join.json`, data).then((resp) => resp.data.data),
