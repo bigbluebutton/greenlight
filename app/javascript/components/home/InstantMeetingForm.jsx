@@ -18,7 +18,7 @@ export default function InstantMeetingForm() {
         variant="brand"
         className="mt-3 d-block float-end"
         type="submit"
-      > Start
+      > Start Meeting
       </Button>
     </Form>
   );

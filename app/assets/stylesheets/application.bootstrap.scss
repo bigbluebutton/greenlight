@@ -594,9 +594,30 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 //Homepage
-
 #instant-meeting {
+  // maybe make a helper class for this
+  // this overwrites the container width
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
   img {
-    width: 100%;
+    object-fit: cover;
+    object-position: 40% 50%;
   }
+
+  input {
+    max-width: $input-max-width;
+  }
+
+  // hack until we allow our form template to have inline input and button
+  button {
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+  }
+
 }
