@@ -50,7 +50,7 @@ export default function App() {
       <Toaster
         position="bottom-right"
       />
-      <Footer />
+      {(location.pathname !== '/') && <Footer />}
     </>
   );
 }

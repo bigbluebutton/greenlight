@@ -16,7 +16,7 @@ export default function HomePage() {
   const [searchParams] = useSearchParams();
   const inviteToken = searchParams.get('inviteToken');
   const { data: registrationMethod } = useSiteSetting('RegistrationMethod');
-  const { data: instantMeeting } = useSiteSetting('InstantMeeting');
+  const { data: instantMeeting, isLoading } = useSiteSetting('InstantMeeting');
 
   useEffect(() => {
     document.cookie = `token=${inviteToken};path=/;`;
@@ -24,6 +24,10 @@ export default function HomePage() {
 
   function showSignUp() {
     return registrationMethod !== 'invite' || !!inviteToken;
+  }
+
+  if (isLoading) {
+    return null;
   }
 
   if (instantMeeting) {
