@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Card from 'react-bootstrap/Card';
 import {
-  Button, Spinner,
+  Button, Spinner, Stack,
 } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +13,7 @@ import useInstantRoom from '../../hooks/queries/meetings/useInstantRoom';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import useJoinInstantMeeting from '../../hooks/mutations/meetings/useJoinInstantMeeting';
 import { joinInstantMeetingFormConfig, joinInstantMeetingFormFields as fields } from '../../helpers/forms/JoinInstantMeetingFormHelpers';
-import GGSpinner from '../shared_components/utilities/GGSpinner';
+import GGSpinner from "../shared_components/utilities/GGSpinner";
 
 export default function InstantRoomJoin() {
   const { t } = useTranslation();
@@ -26,26 +26,6 @@ export default function InstantRoomJoin() {
   const handleJoin = (data) => {
     document.cookie = 'location=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT'; // delete redirect location
     joinInstantMeeting?.mutate(data);
-  };
-
-  const cardBody = () => {
-    if (roomError || joinInstantMeeting.isError) {
-      return (
-        <>
-          <h1> This meeting does not exist. </h1>
-          <p> You can create a new meeting at https://bigbluebutton.com</p>
-        </>
-      );
-    }
-
-    return (
-      <>
-        <span className="text-muted">{t('room.meeting.meeting_invitation')}</span>
-        <h1 className="mt-2">
-          {instantRoom?.name}
-        </h1>
-      </>
-    );
   };
 
   if (roomLoading) return null;
@@ -66,12 +46,21 @@ export default function InstantRoomJoin() {
                 </>
               )
               : (
-                <>
-                  <span className="text-muted">{t('room.meeting.meeting_invitation')}</span>
-                  <h1 className="mt-2">
-                    {instantRoom?.name}
-                  </h1>
-                </>
+                <Stack direction="horizontal" className="w-100">
+                  <div>
+                    <span className="text-muted">{t('room.meeting.meeting_invitation')}</span>
+                    <h1 className="mt-2">
+                      {instantRoom?.name}
+                    </h1>
+                  </div>
+                  {
+                      (joinInstantMeeting?.isLoading) && (
+                        <div className="ms-auto">
+                          <GGSpinner />
+                        </div>
+                      )
+                  }
+                </Stack>
               )
           }
         </Card.Body>
@@ -84,7 +73,8 @@ export default function InstantRoomJoin() {
               className="btn mt-3 d-block float-end"
               type="submit"
               disabled={roomLoading || joinInstantMeeting?.isLoading}
-            >{t('room.meeting.join_meeting')}
+            >{joinInstantMeeting?.isLoading && <Spinner className="me-2" />}
+              {t('room.meeting.join_meeting')}
             </Button>
           </Form>
         </Card.Footer>
