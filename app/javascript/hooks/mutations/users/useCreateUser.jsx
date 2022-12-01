@@ -34,7 +34,7 @@ export default function useCreateUser() {
       onError: (err) => {
         if (err.response.data.errors === 'InviteInvalid') {
           toast.error(t('toast.error.users.invalid_invite'));
-        } else if (err.response.data.errors === 'UserAlreadyExists') {
+        } else if (err.response.data.errors === 'EmailAlreadyExists') {
           toast.error(t('toast.error.users.email_exists'));
         } else {
           toast.error(t('toast.error.problem_completing_action'));
