@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 const validationSchema = yup.object({
   // TODO: amir - Revisit validations.
-  name: yup.string().required('Please enter the room name.'),
+  name: yup.string().required('Please enter the room name.').min(2, 'Name must be at least 2 characters long'),
 });
 
 export const createRoomFormConfig = {
