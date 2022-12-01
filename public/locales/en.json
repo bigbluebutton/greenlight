@@ -231,6 +231,8 @@
         "enter_link": "Enter link here"
       },
       "settings": {
+        "allow_guests_to_instant_meeting": "Allow Guests to create an Instant Meeting",
+        "allow_guests_to_instant_meeting_description": "Enable this setting to display the instant meeting feature on the homepage for unsigned guests",
         "allow_users_to_share_rooms": "Allow Users to Share Rooms",
         "allow_users_to_share_rooms_description": "Setting to disabled will remove the button from the room options dropdown, preventing users from sharing rooms",
         "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",

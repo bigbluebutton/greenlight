@@ -5,12 +5,22 @@ import SettingsRow from '../SettingsRow';
 
 export default function Settings() {
   const { t } = useTranslation();
-  const { data: siteSettings, isLoading } = useSiteSettings(['ShareRooms', 'PreuploadPresentation']);
+  const { data: siteSettings, isLoading } = useSiteSettings(['InstantMeeting', 'ShareRooms', 'PreuploadPresentation']);
 
   if (isLoading) return null;
 
   return (
     <>
+      <SettingsRow
+        name="InstantMeeting"
+        title={t('admin.site_settings.settings.allow_guests_to_instant_meeting')}
+        description={(
+          <p className="text-muted">
+            {t('admin.site_settings.settings.allow_guests_to_instant_meeting_description')}
+          </p>
+            )}
+        value={siteSettings?.InstantMeeting}
+      />
       <SettingsRow
         name="ShareRooms"
         title={t('admin.site_settings.settings.allow_users_to_share_rooms')}

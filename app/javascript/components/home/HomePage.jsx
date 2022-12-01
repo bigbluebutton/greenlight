@@ -16,6 +16,7 @@ export default function HomePage() {
   const [searchParams] = useSearchParams();
   const inviteToken = searchParams.get('inviteToken');
   const { data: registrationMethod } = useSiteSetting('RegistrationMethod');
+  const { data: instantMeeting } = useSiteSetting('InstantMeeting');
 
   useEffect(() => {
     document.cookie = `token=${inviteToken};path=/;`;
@@ -25,42 +26,45 @@ export default function HomePage() {
     return registrationMethod !== 'invite' || !!inviteToken;
   }
 
+  if (instantMeeting) {
+    return (
+      <InstantMeeting />
+    );
+  }
+
   // TODO - samuel: OPENID signup and signin are both pointing at the same endpoint
   return (
-    <>
-      <InstantMeeting />
-      {/*<div className="vertical-buffer pb-5">*/}
-      {/*  <div className="text-center mb-4">*/}
-      {/*    <Logo size="large" />*/}
-      {/*  </div>*/}
-      {/*  <Card className="col-md-8 mx-auto p-5 border-0 shadow-sm text-center">*/}
-      {/*    <h1 className="mt-4"> {t('homepage.welcome_bbb')} </h1>*/}
-      {/*    <span className="text-muted mt-4 mb-5 px-xxl-5">*/}
-      {/*      {t('homepage.greenlight_description')}*/}
-      {/*    </span>*/}
-      {/*    <div className="mx-auto mb-2">*/}
-      {/*      {*/}
-      {/*          env?.OPENID_CONNECT ? (*/}
-      {/*            <Form action="/auth/openid_connect" method="POST" data-turbo="false">*/}
-      {/*              <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />*/}
-      {/*              <Button variant="brand-outline-color" className="btn btn-xlg m-2" type="submit">{t('authentication.sign_up')}</Button>*/}
-      {/*              <Button variant="brand" className="btn btn-xlg m-2" type="submit">{t('authentication.sign_in')}</Button>*/}
-      {/*            </Form>*/}
-      {/*          ) : (*/}
-      {/*            <>*/}
-      {/*              { showSignUp()*/}
-      {/*                && (*/}
-      {/*                  <ButtonLink to={`/signup${search}`} variant="brand-outline-color" className="btn btn-xlg m-2">*/}
-      {/*                    {t('authentication.sign_up')}*/}
-      {/*                  </ButtonLink>*/}
-      {/*                ) }*/}
-      {/*              <ButtonLink to="/signin" variant="brand" className="btn btn-xlg m-2">{t('authentication.sign_in')}</ButtonLink>*/}
-      {/*            </>*/}
-      {/*          )*/}
-      {/*        }*/}
-      {/*    </div>*/}
-      {/*  </Card>*/}
-      {/*</div>*/}
-    </>
+    <div className="vertical-buffer pb-5">
+      <div className="text-center mb-4">
+        <Logo size="large" />
+      </div>
+      <Card className="col-md-8 mx-auto p-5 border-0 shadow-sm text-center">
+        <h1 className="mt-4"> {t('homepage.welcome_bbb')} </h1>
+        <span className="text-muted mt-4 mb-5 px-xxl-5">
+          {t('homepage.greenlight_description')}
+        </span>
+        <div className="mx-auto mb-2">
+          {
+              env?.OPENID_CONNECT ? (
+                <Form action="/auth/openid_connect" method="POST" data-turbo="false">
+                  <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
+                  <Button variant="brand-outline-color" className="btn btn-xlg m-2" type="submit">{t('authentication.sign_up')}</Button>
+                  <Button variant="brand" className="btn btn-xlg m-2" type="submit">{t('authentication.sign_in')}</Button>
+                </Form>
+              ) : (
+                <>
+                  { showSignUp()
+                    && (
+                      <ButtonLink to={`/signup${search}`} variant="brand-outline-color" className="btn btn-xlg m-2">
+                        {t('authentication.sign_up')}
+                      </ButtonLink>
+                    ) }
+                  <ButtonLink to="/signin" variant="brand" className="btn btn-xlg m-2">{t('authentication.sign_in')}</ButtonLink>
+                </>
+              )
+            }
+        </div>
+      </Card>
+    </div>
   );
 }
