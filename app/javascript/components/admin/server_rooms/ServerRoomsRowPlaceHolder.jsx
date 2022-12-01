@@ -1,37 +1,26 @@
 import React from 'react';
-import { Placeholder } from 'react-bootstrap';
+import Placeholder from '../../shared_components/utilities/Placeholder';
 
 export default function ServerRoomsRowPlaceHolder() {
   return (
     <tr>
-      <td>
-        <Placeholder className="ps-0" animation="glow">
-          <Placeholder xs={8} size="md" className="me-2" bg="secondary" />
-        </Placeholder>
-        <Placeholder className="ps-0" animation="glow">
-          <Placeholder xs={10} size="md" className="me-2" bg="secondary" />
-        </Placeholder>
+      <td className="border-0">
+        <Placeholder width={8} size="md" className="me-2" />
+        <Placeholder width={10} size="md" className="me-2" />
       </td>
-      <td>
-        <Placeholder className="ps-0" animation="glow">
-          <Placeholder xs={6} size="md" className="me-2" bg="secondary" />
-        </Placeholder>
+      <td className="border-0">
+        <Placeholder width={6} size="md" className="me-2" />
       </td>
-      <td>
-        <Placeholder className="ps-0" animation="glow">
-          <Placeholder xs={6} size="md" className="me-2" bg="secondary" />
-        </Placeholder>
+      <td className="border-0">
+        <Placeholder width={6} size="md" className="me-2" />
       </td>
-      <td>
-        <Placeholder className="ps-0" animation="glow">
-          <Placeholder xs={6} size="md" className="me-2" bg="secondary" />
-        </Placeholder>
+      <td className="border-0">
+        <Placeholder width={6} size="md" className="me-2" />
       </td>
-      <td>
-        <Placeholder className="ps-0" animation="glow">
-          <Placeholder xs={6} size="md" className="me-2" bg="secondary" />
-        </Placeholder>
+      <td className="border-0">
+        <Placeholder width={6} size="md" className="me-2" />
       </td>
+      <td className="border-0" />
     </tr>
   );
 }
