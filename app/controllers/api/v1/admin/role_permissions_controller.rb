@@ -7,6 +7,7 @@ module Api
         before_action do
           ensure_authorized('ManageRoles')
         end
+        before_action :default_room, only: %i[update]
 
         def index
           roles_permissions = RolePermission.joins(:permission)
@@ -30,6 +31,19 @@ module Api
 
         def role_params
           params.require(:role).permit(:role_id, :name, :value)
+        end
+
+        def default_room
+          return unless role_params[:name] == 'CreateRoom' && role_params[:value] == true
+
+          # find users with role id and create a room for them if their room count is <= 0
+          User.where(role_id: role_params[:role_id]).find_in_batches do |group|
+            group.each do |user|
+              next if user.rooms.count.positive?
+
+              Room.create(name: "#{user.name}'s Room", user_id: user.id)
+            end
+          end
         end
       end
     end

@@ -101,9 +101,10 @@ class User < ApplicationRecord
   end
 
   def default_room
+    return unless rooms.count <= 0
     return unless PermissionsChecker.new(permission_names: 'CreateRoom', user_id: id, current_user: self, friendly_id: nil, record_id: nil).call
 
-    Room.create(name: "#{name}'s Room", user_id: id) if rooms.count <= 0
+    Room.create(name: "#{name}'s Room", user_id: id)
   end
 
   # Gives the session token and expiry a default value before saving
