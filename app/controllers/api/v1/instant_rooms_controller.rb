@@ -45,12 +45,12 @@ module Api
         render_data data: @room, status: :ok
       end
 
-      # only this method should be added to instant_meetings_controller?
+      # feel like only this method would justify creating a instant_meetings_controller?
       def join
         join_url = BigBlueButtonApi.new.join_meeting(
           room: @room,
           name: params[:name],
-          role: 'Moderator'
+          role: 'Viewer'
         )
         render_data data: join_url, status: :created
       end

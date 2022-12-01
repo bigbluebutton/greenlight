@@ -29,12 +29,6 @@ export default function InstantRoomJoin() {
   };
 
   const cardBody = () => {
-    if (roomLoading) {
-      return (
-        <GGSpinner />
-      );
-    }
-
     if (roomError || joinInstantMeeting.isError) {
       return (
         <>
@@ -63,19 +57,34 @@ export default function InstantRoomJoin() {
       </div>
       <Card className="col-md-6 mx-auto p-0 border-0 shadow-sm">
         <Card.Body className="pt-4 px-5">
-          { cardBody() }
+          {
+            (roomError || joinInstantMeeting.isError)
+              ? (
+                <>
+                  <h1> This meeting does not exist. </h1>
+                  <p> You can create a new meeting at https://bigbluebutton.com</p>
+                </>
+              )
+              : (
+                <>
+                  <span className="text-muted">{t('room.meeting.meeting_invitation')}</span>
+                  <h1 className="mt-2">
+                    {instantRoom?.name}
+                  </h1>
+                </>
+              )
+          }
         </Card.Body>
         <Card.Footer className="px-5 pb-3 bg-white border-2">
           <Form methods={methods} onSubmit={handleJoin}>
             <FormControl field={fields.name} type="text" disabled={currentUser?.signed_in} autoFocus={!currentUser?.signed_in} />
+            {/* TODO smooth out the isLoading spinner/UI.. why its not working on join meeting button? */}
             <Button
               variant="brand"
-              className="mt-3 d-block float-end"
+              className="btn mt-3 d-block float-end"
               type="submit"
               disabled={roomLoading || joinInstantMeeting?.isLoading}
-            >
-              {joinInstantMeeting?.isLoading && <Spinner className="me-2" />}
-              {t('room.meeting.join_meeting')}
+            >{t('room.meeting.join_meeting')}
             </Button>
           </Form>
         </Card.Footer>

@@ -24,9 +24,9 @@ export default function InstantMeeting() {
               </div>
             </Stack>
 
-            <div id="instant-meeting-banner" className="position-absolute bottom-0 mb-5">
+            <div id="instant-meeting-banner" className="position-absolute bottom-0">
               <h3 className="mb-3"> BLINDSIDE NETWORKS </h3>
-              <span className="header-title fw-bold my-3"> Start & join <br /> meetings now!</span>
+              <span className="header-title fw-bold my-3"> Start & join meetings now!</span>
               <p className="mt-3"> No account necessary </p>
               <InstantMeetingForm />
             </div>

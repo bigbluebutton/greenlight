@@ -595,8 +595,7 @@ input[type="range"]:focus::-moz-range-thumb {
 
 //Homepage
 #instant-meeting {
-  // maybe make a helper class for this
-  // this overwrites the container width
+  // hack until we find better solution to overwrites the container width to fullwidth for homepage
   width: 100vw;
   position: relative;
   left: 50%;
@@ -616,8 +615,12 @@ input[type="range"]:focus::-moz-range-thumb {
   // hack until we allow our form template to have inline input and button
   button {
     position: absolute;
-    right: 0;
+    left: 310px;
     bottom: 8px;
+  }
+
+  #instant-meeting-banner {
+    margin-bottom: 100px;
   }
 
 }

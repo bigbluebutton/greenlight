@@ -5,6 +5,7 @@ import Form from '../shared_components/forms/Form';
 import FormControl from '../shared_components/forms/FormControl';
 import { instantMeetingFormConfig, instantMeetingFormFields as fields } from '../../helpers/forms/InstantMeetingFormHelpers';
 import useInstantMeeting from '../../hooks/mutations/meetings/useInstantMeeting';
+import Spinner from '../shared_components/utilities/Spinner';
 
 export default function InstantMeetingForm() {
   const methods = useForm(instantMeetingFormConfig);
@@ -16,9 +17,12 @@ export default function InstantMeetingForm() {
 
       <Button
         variant="brand"
-        className="mt-3 d-block float-end"
+        className="btn mt-3 d-block float-end"
         type="submit"
-      > Start Meeting
+      >
+        {instantMeeting?.isLoading
+          ? <Spinner className="me-2" />
+          : 'Start Meeting'}
       </Button>
     </Form>
   );
