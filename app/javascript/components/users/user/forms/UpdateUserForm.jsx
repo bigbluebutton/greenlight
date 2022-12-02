@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Stack } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -15,17 +15,17 @@ import FormSelect from '../../../shared_components/forms/controls/FormSelect';
 import Option from '../../../shared_components/utilities/Option';
 
 export default function UpdateUserForm({ user }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // TODO: Make LOCALES a context that provides the available languages and their native names in the client app.
   const LOCALES = {
     cs: 'Čeština',
     de: 'Deutsch',
-    el_GR: 'ελληνικά',
+    'el-GR': 'ελληνικά',
     en: 'English',
-    fa_IR: 'فارسی',
+    'fa-IR': 'فارسی',
     fr: 'Français',
-    hu_HU: 'magyar',
+    'hu-HU': 'magyar',
     ru: 'русский',
     tr: 'Türkçe',
   };
@@ -34,11 +34,15 @@ export default function UpdateUserForm({ user }) {
     defaultValues: {
       name: user?.name,
       email: user?.email,
-      language: user?.language,
+      language: i18n.resolvedLanguage, // Whatever language is currently rendering (needed to handle unsupported languages)
       role_id: user?.role?.id,
     },
     resolver: yupResolver(validationSchema),
   });
+
+  useEffect(() => {
+    methods.setValue('language', i18n.resolvedLanguage);
+  }, [i18n.resolvedLanguage]);
 
   const { formState: { isSubmitting } } = methods;
   const updateUser = useUpdateUser(user?.id);
