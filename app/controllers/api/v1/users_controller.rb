@@ -53,8 +53,9 @@ module Api
                           activation_url: activate_account_url(token)).activate_account_email.deliver_later
 
           render_data data: current_user, serializer: CurrentUserSerializer, status: :created
+        elsif user.errors.to_a == ['Email has already been taken']
+          render_error errors: 'EmailAlreadyExists', status: :bad_request
         else
-          # TODO: amir - Improve logging.
           render_error errors: user.errors.to_a, status: :bad_request
         end
       end
