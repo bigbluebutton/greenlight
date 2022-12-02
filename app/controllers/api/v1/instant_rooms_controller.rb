@@ -22,6 +22,9 @@ module Api
             return render_error status: :bad_request unless e.key == 'idNotUnique'
           end
 
+          # In case endMeeting callback fails, a job is run 1 hour after the instant room creation to delete the room
+          InstantRoomsCleanupJob.set(wait: 1.hour).perform_later(room)
+
           render_data data: BigBlueButtonApi.new.join_meeting(
             room:,
             name: username,
@@ -31,6 +34,8 @@ module Api
         else
           render_error errors: room.errors.to_a, status: :bad_request
         end
+
+
       end
 
       def destroy
