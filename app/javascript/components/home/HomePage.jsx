@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -8,10 +8,12 @@ import useEnv from '../../hooks/queries/env/useEnv';
 import Logo from '../shared_components/Logo';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 import InstantMeeting from './InstantMeeting';
+import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function HomePage() {
   const { data: env } = useEnv();
   const { t } = useTranslation();
+  const currentUser = useAuth();
   const { search } = useLocation();
   const [searchParams] = useSearchParams();
   const inviteToken = searchParams.get('inviteToken');
@@ -30,7 +32,7 @@ export default function HomePage() {
     return null;
   }
 
-  if (instantMeeting) {
+  if (instantMeeting && !currentUser?.signed_in) {
     return (
       <InstantMeeting />
     );

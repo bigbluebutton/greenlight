@@ -18,13 +18,15 @@ export default function useCreateSession(token) {
         await queryClient.refetchQueries('useSessions');
         // if the current user does NOT have the CreateRoom permission, then do not re-direct to rooms page
 
-        if (redirect) {
-          navigate(redirect);
-        } else if (response.data.data.permissions.CreateRoom === 'false') {
-          navigate('/home');
-        } else {
-          navigate('/rooms');
-        }
+        // if (redirect) {
+        //   navigate(redirect);
+        // } else if (response.data.data.permissions.CreateRoom === 'false') {
+        //   navigate('/home');
+        // } else {
+        //   navigate('/rooms');
+        // }
+
+        navigate('/rooms');
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));
