@@ -7,8 +7,6 @@ module Api
         before_action do
           ensure_authorized('ManageRoles')
         end
-        before_action :default_room, only: %i[update]
-
         def index
           roles_permissions = RolePermission.joins(:permission)
                                             .where(role_id: params[:role_id])
@@ -24,6 +22,7 @@ module Api
           return render_error status: :not_found unless role_permission
           return render_error status: :bad_request unless role_permission.update(value: role_params[:value].to_s)
 
+          create_default_room
           render_data status: :ok
         end
 
@@ -33,14 +32,11 @@ module Api
           params.require(:role).permit(:role_id, :name, :value)
         end
 
-        def default_room
+        def create_default_room
           return unless role_params[:name] == 'CreateRoom' && role_params[:value] == true
 
-          # find users with role id and create a room for them if their room count is <= 0
-          User.where(role_id: role_params[:role_id]).find_in_batches do |group|
+          User.includes(:rooms).where(role_id: role_params[:role_id]).where(rooms: { id: nil }).find_in_batches do |group|
             group.each do |user|
-              next if user.rooms.count.positive?
-
               Room.create(name: "#{user.name}'s Room", user_id: user.id)
             end
           end
