@@ -361,7 +361,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
     let(:user) { create(:user) }
     let(:valid_room_params) do
       {
-        name: 'My Awesome Room',
+        name: "#{user.name}'s Room",
         friendly_id: 'us2-xy5-lf5-zl2',
         meeting_id: 'kzukaw3xk7ql5kefbfpsruud61pztf00jzltgafs',
         last_session: Time.zone.now.to_datetime,
@@ -376,8 +376,8 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
       describe 'when decrypted params encapsulation is conform and data is valid' do
         it 'creates a new room' do
           encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
-          expect { post :create_room, params: { v2: { encrypted_params: } } }.to change(Room, :count).from(0).to(1)
-          room = Room.take
+          expect { post :create_room, params: { v2: { encrypted_params: } } }.to change(Room, :count).from(1).to(2)
+          room = Room.second
           expect(room.name).to eq(valid_room_params[:name])
           expect(room.friendly_id).to eq(valid_room_params[:friendly_id])
           expect(room.meeting_id).to eq(valid_room_params[:meeting_id])

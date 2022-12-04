@@ -16,7 +16,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     it 'ids of rooms in response are matching room ids that belong to current_user' do
       shared_rooms = create_list(:room, 2)
       user.shared_rooms << shared_rooms
-      rooms = create_list(:room, 3, user:) + shared_rooms
+      rooms = create_list(:room, 3, user:) + shared_rooms + [user.rooms.first]
       get :index
       expect(response).to have_http_status(:ok)
       response_room_ids = JSON.parse(response.body)['data'].map { |room| room['id'] }
@@ -24,17 +24,19 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     end
 
     it 'no rooms for current_user should return empty list' do
+      default_room_id = user.rooms.first.id
       get :index
       expect(response).to have_http_status(:ok)
       response_room_ids = JSON.parse(response.body)['data'].map { |room| room['id'] }
-      expect(response_room_ids).to be_empty
+      expect(response_room_ids).to match_array(default_room_id)
     end
 
     context 'search' do
       it 'filters the list of rooms based on the query' do
+        default_room = user.rooms.first
         shared_room = create(:room, name: 'ROOM 1')
         user.shared_rooms << shared_room
-        searched_rooms = [create(:room, user:, name: 'Room 1'), create(:room, user:, name: 'ROoM 2'), shared_room]
+        searched_rooms = [create(:room, user:, name: 'Room 1'), create(:room, user:, name: 'ROoM 2'), shared_room, default_room]
         create_list(:room, 2, user:)
 
         get :index, params: { search: 'room' }
@@ -151,7 +153,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       it 'deletes the room of another user' do
         new_user = create(:user)
         room = create(:room, user: new_user)
-        expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Room, :count).from(1).to(0)
+        expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Room, :count).from(4).to(3)
         expect(response).to have_http_status(:ok)
       end
 
@@ -176,7 +178,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     let(:new_user) { create(:user) }
 
     it 'creates a room for a user' do
-      expect { post :create, params: room_params }.to change { user.rooms.count }.from(0).to(1)
+      expect { post :create, params: room_params }.to change { user.rooms.count }.from(1).to(2)
       expect(response).to have_http_status(:created)
     end
 
