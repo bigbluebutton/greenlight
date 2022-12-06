@@ -23,7 +23,7 @@ module Api
           end
 
           # In case endMeeting callback fails, a job is run 1 hour after the instant room creation to delete the room
-          InstantRoomsCleanupJob.set(wait: 1.hour).perform_later(room)
+          InstantRoomsCleanupJob.set(wait: 24.hours).perform_later(room)
 
           render_data data: BigBlueButtonApi.new.join_meeting(
             room:,
