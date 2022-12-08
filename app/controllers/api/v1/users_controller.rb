@@ -52,6 +52,8 @@ module Api
           UserMailer.with(user:, expires_in: User::ACTIVATION_TOKEN_VALIDITY_PERIOD.from_now,
                           activation_url: activate_account_url(token)).activate_account_email.deliver_later
 
+          create_default_room(user)
+
           render_data data: current_user, serializer: CurrentUserSerializer, status: :created
         else
           # TODO: amir - Improve logging.
@@ -64,6 +66,7 @@ module Api
         user = User.find(params[:id])
 
         if user.update(user_params)
+          create_default_room(user)
           render_data  status: :ok
         else
           render_error errors: user.errors.to_a
@@ -111,6 +114,14 @@ module Api
 
       def user_params
         params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id, :invite_token)
+      end
+
+      def create_default_room(user)
+        return unless user.rooms.count <= 0
+        return unless PermissionsChecker.new(permission_names: 'CreateRoom', user_id: user.id, current_user: user, friendly_id: nil,
+                                             record_id: nil).call
+
+        Room.create(name: "#{user.name}'s Room", user_id: user.id)
       end
 
       def change_password_params

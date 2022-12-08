@@ -40,7 +40,7 @@ RSpec.describe Room, type: :model do
         create_list(:room, 5, user: user2)
 
         rooms = described_class.includes(:user).with_provider('greenlight')
-        expect(rooms.count).to eq(6)
+        expect(rooms.count).to eq(5)
         expect(rooms.pluck(:provider).uniq).to eq(['greenlight'])
       end
     end
@@ -80,7 +80,7 @@ RSpec.describe Room, type: :model do
       end
 
       it 'creates a RoomMeetingOption for each MeetingOption' do
-        expect { create(:room) }.to change(RoomMeetingOption, :count).from(0).to(10)
+        expect { create(:room) }.to change(RoomMeetingOption, :count).from(0).to(5)
       end
 
       it 'does not generate an access code if the room config is not enabled' do

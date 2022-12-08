@@ -376,8 +376,8 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
       describe 'when decrypted params encapsulation is conform and data is valid' do
         it 'creates a new room' do
           encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
-          expect { post :create_room, params: { v2: { encrypted_params: } } }.to change(Room, :count).from(1).to(2)
-          room = Room.second
+          expect { post :create_room, params: { v2: { encrypted_params: } } }.to change(Room, :count).from(0).to(1)
+          room = Room.first
           expect(room.name).to eq(valid_room_params[:name])
           expect(room.friendly_id).to eq(valid_room_params[:friendly_id])
           expect(room.meeting_id).to eq(valid_room_params[:meeting_id])

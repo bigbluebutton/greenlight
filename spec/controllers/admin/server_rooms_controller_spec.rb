@@ -32,7 +32,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return(bbb_meetings)
       get :index
-      expect(JSON.parse(response.body)['data'][2]['online']).to be(true)
+      expect(JSON.parse(response.body)['data'][0]['online']).to be(true)
     end
 
     it 'returns the number of participants in an online server room' do
@@ -41,7 +41,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return(bbb_meetings)
       get :index
-      expect(JSON.parse(response.body)['data'][2]['participants']).to be(1)
+      expect(JSON.parse(response.body)['data'][0]['participants']).to be(1)
     end
 
     it 'returns the server status as not running if BBB server does not return any online meetings' do
@@ -49,15 +49,14 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
       get :index
-      expect(JSON.parse(response.body)['data'][2]['online']).to be(false)
+      expect(JSON.parse(response.body)['data'][0]['online']).to be(false)
     end
 
     it 'excludes rooms whose owners have a different provider' do
       user1 = create(:user, provider: 'greenlight')
       role_with_provider_test = create(:role, provider: 'test')
       user2 = create(:user, provider: 'test', role: role_with_provider_test)
-      # rooms + the default rooms created for each user
-      rooms = create_list(:room, 2, user: user1) + [user.rooms.first, user1.rooms.first, user_with_manage_rooms_permission.rooms.first]
+      rooms = create_list(:room, 2, user: user1)
       create_list(:room, 2, user: user2)
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
