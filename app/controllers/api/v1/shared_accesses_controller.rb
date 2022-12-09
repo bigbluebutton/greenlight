@@ -44,8 +44,6 @@ module Api
                               .where.not(id: [@room.shared_users.pluck(:id) << @room.user_id])
                               .where(role_id: [role_ids])
                               .search(params[:search])
-        #TODO: create a serializer for this and pass it in 
-
         render_data data: shareable_users, status: :ok, serializer: SharedAccessSerializer
       end
 
