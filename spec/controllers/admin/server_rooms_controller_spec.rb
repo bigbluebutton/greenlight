@@ -56,14 +56,12 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
       user1 = create(:user, provider: 'greenlight')
       role_with_provider_test = create(:role, provider: 'test')
       user2 = create(:user, provider: 'test', role: role_with_provider_test)
-
       rooms = create_list(:room, 2, user: user1)
       create_list(:room, 2, user: user2)
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
 
       get :index
-
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(rooms.pluck(:id))
     end
 
