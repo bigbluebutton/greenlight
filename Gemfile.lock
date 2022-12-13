@@ -124,6 +124,8 @@ GEM
       activesupport
     childprocess (4.1.0)
     concurrent-ruby (1.1.10)
+    crack (0.4.5)
+      rexml
     crass (1.0.6)
     cssbundling-rails (1.1.0)
       railties (>= 6.0.0)
@@ -150,6 +152,7 @@ GEM
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    hashdiff (1.0.1)
     hashie (5.0.0)
     hcaptcha (7.1.0)
       json
@@ -202,7 +205,7 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.6-x86_64-linux)
+    nokogiri (1.13.10-x86_64-linux)
       racc (~> 1.4)
     omniauth (2.1.0)
       hashie (>= 3.4.6)
@@ -234,7 +237,7 @@ GEM
     public_suffix (4.0.7)
     puma (5.6.4)
       nio4r (~> 2.0)
-    racc (1.6.0)
+    racc (1.6.1)
     rack (2.2.3.1)
     rack-oauth2 (1.19.0)
       activesupport
@@ -366,6 +369,10 @@ GEM
     webfinger (1.2.0)
       activesupport
       httpclient (>= 2.4)
+    webmock (3.14.0)
+      addressable (>= 2.8.0)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     websocket (1.2.9)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
@@ -419,3 +426,4 @@ DEPENDENCIES
   tzinfo-data
   web-console
   webdrivers
+  webmock

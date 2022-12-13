@@ -52,7 +52,11 @@ class ApplicationController < ActionController::Base
   end
 
   # Parses the url for the user domain
-  def parse_user_domain(hostname)
-    hostname&.split('.')&.first
+  def parse_user_domain(_hostname)
+    provider = hostname&.split('.')&.first
+
+    raise 'Invalid domain' unless ProviderValidator.new(provider:).call
+
+    provider
   end
 end
