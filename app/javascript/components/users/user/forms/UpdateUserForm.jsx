@@ -21,11 +21,11 @@ export default function UpdateUserForm({ user }) {
   const LOCALES = {
     cs: 'Čeština',
     de: 'Deutsch',
-    'el-GR': 'ελληνικά',
+    el_GR: 'ελληνικά',
     en: 'English',
-    'fa-IR': 'فارسی',
+    fa_IR: 'فارسی',
     fr: 'Français',
-    'hu-HU': 'magyar',
+    hu_HU: 'magyar',
     ru: 'русский',
     tr: 'Türkçe',
   };
