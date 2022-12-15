@@ -4,18 +4,18 @@
 
       <h1 style="margin-bottom:30px"> Welcome <%= @user.name %>! </h1>
 
-      <p style="margin-bottom:20px;"> There's only one step left to start using and leverage what Greenlight and BigBlueButton has to offer! </p>
+      <p style="margin-bottom:20px;"> <%= t('email.activation.line1') %> </p>
 
-      <p style="margin-bottom:20px;"> You are invited to verifiy your identity by following the link below to activate your account. </p>
+      <p style="margin-bottom:20px;"> <%= t('email.activation.line2') %> </p>
 
-      <p style="margin-bottom:20px;"> Activating your account will enable you to leverage all of Greenlight and BigBlueButton features! </p>
+      <p style="margin-bottom:20px;"> <%= t('email.activation.line3') %>  </p>
 
-      <p style="margin-bottom:20px;"> You can create rooms, host sessions, share recordings and collaborate with others! </p>
+      <p style="margin-bottom:20px;"> <%= t('email.activation.line4') %> </p>
 
-      <a href="<%= @activation_url %>" target="_blank"> Activate My Account </a>
+      <a href="<%= @activation_url %>" target="_blank">  <%= t('email.activation.line5') %> </a>
 
-      <p> This link will expire in <%= time_ago_in_words(@expires_in) %>. </p>
+      <p> <%= t('email.activation.line6', time: time_ago_in_words(@expires_in)) %> </p>
 
-      <p> You can still login to your account to get a new activation link if this email expires. </p>
+      <p> <%= t('email.activation.line7') %> </p>
     </div>
   </div>
