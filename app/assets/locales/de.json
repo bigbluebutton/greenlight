@@ -352,7 +352,8 @@
         "role_assigned": "Diese Rolle kann nicht gelöscht werden, da sie mindestens einer Person zugeordnet ist."
       },
       "users": {
-        "invalid_invite": "Das Einladungs-Token ist ungültig. Bitte die Administration kontaktieren um einen neuen zu erhalten."
+        "invalid_invite": "Das Einladungs-Token ist ungültig. Bitte die Administration kontaktieren um einen neuen zu erhalten.",
+        "email_exists": "An account under this email already exists. Please try again with another email"
       },
       "rooms": {
         "room_limit": "Raum kann nicht erstellt werden, da das Raumlimit erreicht ist."
