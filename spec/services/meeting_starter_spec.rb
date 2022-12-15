@@ -30,6 +30,14 @@ describe MeetingStarter, type: :service do
     }
   end
 
+  before do
+    # stub the sleep method to stop the test from actually sleeping for 14 seconds
+
+    allow_any_instance_of(described_class)
+      .to receive(:sleep)
+      .and_return(nil)
+  end
+
   describe '#call' do
     let(:room_setting_getter_service) { instance_double(RoomSettingsGetter) }
 
@@ -81,8 +89,10 @@ describe MeetingStarter, type: :service do
       expect(ActionCable.server)
         .to receive(:broadcast)
         .with("#{room.friendly_id}_rooms_channel", 'started')
+        .twice
 
-      service.call
+      thread = service.call
+      thread.join
     end
 
     it 'passes the presentation url to BigBlueButton' do

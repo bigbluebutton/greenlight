@@ -21,7 +21,13 @@ class MeetingStarter
 
       @room.update!(online: true, last_session: DateTime.strptime(meeting[:createTime].to_s, '%Q'))
 
-      ActionCable.server.broadcast "#{@room.friendly_id}_rooms_channel", 'started'
+      # new thread to avoid blocking the other code from running
+      Thread.new do
+        sleep 7 # Sleep 7 seconds to allow enough time for room to start
+        ActionCable.server.broadcast "#{@room.friendly_id}_rooms_channel", 'started'
+        sleep 7 # Sleep and rebroadcast again incase anyone missed the first broadcast
+        ActionCable.server.broadcast "#{@room.friendly_id}_rooms_channel", 'started'
+      end
     rescue BigBlueButton::BigBlueButtonException => e
       retries += 1
       retry if retries < 3 && e.key != 'idNotUnique'
