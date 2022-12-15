@@ -275,7 +275,7 @@
         "viewer_access_code": "Viewer Access Code",
         "viewer_access_code_description": "Allows room owners to have a random alphanumeric code that can be shared with users. The code, if generated, will be required for users to join the room meetings.",
         "mod_access_code": "Moderator Access Code",
-        "mod_access_code_description": "Allows room owners to have a random alphanumeric code that can be shared with users. The code, if generated, will not be required and when used on any room meeting will join the user as a moderator."
+        "mod_access_code_description": "Allows room owners to have a random alphanumeric code that can be shared with users. The code, if generated, will not be required for users to join but when used on any room meeting will join the user as a moderator."
       }
     },
     "roles": {
