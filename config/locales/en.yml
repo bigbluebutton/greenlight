@@ -30,4 +30,12 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  email:
+    activation:
+      line1: There's only one step left to start using and leverage what Greenlight and BigBlueButton has to offer!
+      line2: You are invited to verifiy your identity by following the link below to activate your account.
+      line3: Activating your account will enable you to leverage all of Greenlight and BigBlueButton features!
+      line4: You can create rooms, host sessions, share recordings and collaborate with others!
+      line5: Activate My Account
+      line6: This link will expire in %{time}
+      line7: You can still login to your account to get a new activation link if this email expires.
