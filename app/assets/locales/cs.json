@@ -1,6 +1,7 @@
 {
   "start": "Start",
   "search": "Hledat",
+  "home": "Home",
   "previous": "Předchozí",
   "back": "Zpět",
   "next": "Následující",
@@ -18,7 +19,7 @@
   "copy": "Kopírovat",
   "or": "Nebo",
   "online": "Online",
-  "need_help": "Potřebujete pomoci?",
+  "help_center": "Help Center",
   "are_you_sure": "Jste si jist/á?",
   "return_home": "Návrat domů",
   "created_at": "Vytvořeno v",
@@ -295,6 +296,7 @@
   "toast": {
     "success": {
       "user": {
+        "user_created": "User created.",
         "user_updated": "Úspěšně aktualizováno",
         "user_deleted": "Uživatel odstraněn",
         "avatar_updated": "Ikonka (avatar) aktualizována.",
@@ -350,7 +352,8 @@
         "role_assigned": "Roli nelze odstranit, jelikož je přidělena alespoň jednomu uživateli."
       },
       "users": {
-        "invalid_invite": "Token z pozvánky je neplatný. Prosím kontaktujte administrátora."
+        "invalid_invite": "Token z pozvánky je neplatný. Prosím kontaktujte administrátora.",
+        "email_exists": "An account under this email already exists. Please try again with another email"
       },
       "rooms": {
         "room_limit": "Nová místnost nebude vytvořena, jelikož byl dosažen limit povolených místností."
