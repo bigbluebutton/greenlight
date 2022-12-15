@@ -296,6 +296,7 @@
   "toast": {
     "success": {
       "user": {
+        "user_created": "User created.",
         "user_updated": "کاربر به‌روز شد.",
         "user_deleted": "کاربر حذف شد.",
         "avatar_updated": "آواتار به‌روز شد.",
@@ -351,7 +352,8 @@
         "role_assigned": "این نقش را نمی‌توانید حذف کنید، زیرا به حداقل یک کاربر اختصاص داده شده است."
       },
       "users": {
-        "invalid_invite": "توکن دعوتنامه شما یا نامعتبر است یا نادرست است. لطفا با مدیریت تماس بگیرید تا یک توکن جدید دریافت کنید"
+        "invalid_invite": "توکن دعوتنامه شما یا نامعتبر است یا نادرست است. لطفا با مدیریت تماس بگیرید تا یک توکن جدید دریافت کنید",
+        "email_exists": "An account under this email already exists. Please try again with another email"
       },
       "rooms": {
         "room_limit": "به دلیل رسیدن به محدودیت ایجاد اتاق نمی‌توانید اتاق ایجاد کنید"
