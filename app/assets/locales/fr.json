@@ -296,6 +296,7 @@
   "toast": {
     "success": {
       "user": {
+        "user_created": "User created.",
         "user_updated": "L'utilisateur·rice a été mis à jour.",
         "user_deleted": "L'utilisateur·rice a été supprimé.",
         "avatar_updated": "L'avatar a été mis à jour.",
@@ -351,7 +352,8 @@
         "role_assigned": "Ce rôle ne peut être supprimé car il est assigné à au moins un.e utilisateur.trice."
       },
       "users": {
-        "invalid_invite": "Votre jeton d'invitation est soit non valide soit erroné. Veuillez contacter votre administrateur·rice pour en recevoir un nouveau"
+        "invalid_invite": "Votre jeton d'invitation est soit non valide soit erroné. Veuillez contacter votre administrateur·rice pour en recevoir un nouveau",
+        "email_exists": "An account under this email already exists. Please try again with another email"
       },
       "rooms": {
         "room_limit": "La salle ne peut être créée car la limite du nombre de salles a été atteint."
