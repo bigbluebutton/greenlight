@@ -1,6 +1,7 @@
 {
   "start": "Başlat",
   "search": "Arama",
+  "home": "Giriş",
   "previous": "Önceki",
   "back": "Geri",
   "next": "Sonraki",
@@ -18,7 +19,7 @@
   "copy": "Kopyala",
   "or": "Veya",
   "online": "Çevrimiçi",
-  "need_help": "Yardım mı gerekiyor?",
+  "help_center": "Yardım merkezi",
   "are_you_sure": "Emin misiniz?",
   "return_home": "Girişe dön",
   "created_at": "Oluşturulma",
@@ -286,6 +287,7 @@
       "delete_role": "Rolü sil",
       "are_you_sure_delete_role": "Bu rolü silmek istediğinize emin misiniz?",
       "enter_role_name": "Bir rol adı yazın",
+      "add_role": "+ Rol ekle",
       "create_role": "+ Rol ekle",
       "create_new_role": "Yeni rol ekle",
       "no_role_found": "Herhangi bir rol bulunamadı"
@@ -294,6 +296,7 @@
   "toast": {
     "success": {
       "user": {
+        "user_created": "Kullanıcı eklendi.",
         "user_updated": "Kullanıcı güncellendi.",
         "user_deleted": "Kullanıcı silindi.",
         "avatar_updated": "Avatar güncellendi.",
@@ -344,11 +347,13 @@
       "problem_completing_action": "Bu işlem yapılırken bir sorun çıktı.\nLütfen yeniden deneyin.",
       "file_type_not_supported": "Dosya türü desteklenmiyor.",
       "file_size_too_large": "Dosya boyutu çok büyük.",
+      "signin_required": "Bu sayfaya erişebilmek için oturum açmalısınız",
       "roles": {
         "role_assigned": "Bu rol, en az bir kullanıcıya atanmış olduğundan silinemez."
       },
       "users": {
-        "invalid_invite": "Çağrı kodunuz geçersiz ya da yanlış. Yeni bir tane almak için yöneticinizle görüşün"
+        "invalid_invite": "Çağrı kodunuz geçersiz ya da yanlış. Yeni bir tane almak için yöneticinizle görüşün",
+        "email_exists": "Bu e-posta adresi ile açılmış bir hesap zaten vafr. Lütfen başka bir e-posta adresi ile yeniden deneyin"
       },
       "rooms": {
         "room_limit": "Oda sayısı sınırına ulaşıldığından oda eklenemedi"
@@ -365,7 +370,9 @@
   },
   "account_activation_page": {
     "title": "Hesap etkinleştirme",
+    "account_unverified": "Hesabınız henüz doğrulanmamış.",
     "message": "Hesabınız henüz doğrulanmadı.\nTüm Greenlight özelliklerini kullanmak için hesabınızı doğrulamanız gerekiyor.\nEtkinleştirme bağlantısını almadıysanız ya da kullanırken sorun yaşıyorsanız,\nYeni bir bağlantı almak için lütfen aşağıdaki yeniden gönder düğmesine tıklayın.",
+    "resend_activation_link": "Etkinleştirme e-postasını almadıysanız ya da gelen e-posta ile sorun yaşıyorsanız aşağıdaki Yeniden gönder düğmesine tıklayarak yeni bir etkinleştirme e-postası alabilirsiniz.",
     "resend_btn_lbl": "Doğrulamayı yeniden gönder"
   }
 }
