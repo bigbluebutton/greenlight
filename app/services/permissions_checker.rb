@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
 class PermissionsChecker
-  def initialize(current_user:, permission_names:, user_id:, friendly_id:, record_id:)
+  def initialize(current_user:, permission_names:, user_id:, friendly_id:, record_id:, current_provider:)
     @current_user = current_user
     @permission_names = permission_names
     @user_id = user_id
     @friendly_id = friendly_id
     @record_id = record_id
+    @current_provider = current_provider
   end
 
   def call
+    # check to see if current user is trying to access own provider info
+    return false if @current_user.provider != @current_provider
+
     return true if @current_user.role == Role.find_by(name: 'SuperAdmin', provider: 'bn')
 
     return true if RolePermission.joins(:permission).exists?(

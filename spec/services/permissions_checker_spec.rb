@@ -15,7 +15,8 @@ describe PermissionsChecker, type: :service do
         permission_names: permission.name,
         user_id: '',
         friendly_id: '',
-        record_id: ''
+        record_id: '',
+        current_provider: user.provider
       ).call).to be(true)
     end
 
@@ -26,7 +27,8 @@ describe PermissionsChecker, type: :service do
         permission_names: permission.name,
         user_id: '',
         friendly_id: '',
-        record_id: ''
+        record_id: '',
+        current_provider: user.provider
       ).call).to be(false)
     end
 
@@ -37,7 +39,8 @@ describe PermissionsChecker, type: :service do
         permission_names: 'ManageUsers',
         user_id: user.id,
         friendly_id: '',
-        record_id: ''
+        record_id: '',
+        current_provider: user.provider
       ).call).to be(true)
     end
 
@@ -53,7 +56,8 @@ describe PermissionsChecker, type: :service do
           permission_names: [permission.name, permission2.name],
           user_id: user.id,
           friendly_id: '',
-          record_id: ''
+          record_id: '',
+          current_provider: user.provider
         ).call).to be(true)
       end
 
@@ -63,7 +67,8 @@ describe PermissionsChecker, type: :service do
           permission_names: %w[ManageRoles ManageRooms ManageUsers],
           user_id: user.id,
           friendly_id: '',
-          record_id: ''
+          record_id: '',
+          current_provider: user.provider
         ).call).to be(true)
       end
 
@@ -75,7 +80,8 @@ describe PermissionsChecker, type: :service do
           permission_names: [],
           user_id: super_admin_user.id,
           friendly_id: '',
-          record_id: ''
+          record_id: '',
+          current_provider: super_admin_user.provider
         ).call).to be(true)
       end
     end
