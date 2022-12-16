@@ -4,11 +4,14 @@ import React from 'react';
 import { Form as BootStrapForm } from 'react-bootstrap';
 import { useFormContext } from 'react-hook-form';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import FormControlGeneric from './FormControlGeneric';
 
 export default function FormControl({
   field, control, children, noLabel, ...props
 }) {
+  const { t } = useTranslation();
+
   const { formState: { errors } } = useFormContext();
   const error = errors[field.hookForm.id];
 
@@ -31,11 +34,11 @@ export default function FormControl({
           (error.types
             && Object.keys(error.types).map(
               (key) => (
-                error.types[key] && <BootStrapForm.Control.Feedback key={key} type="invalid">{error.types[key]}</BootStrapForm.Control.Feedback>
+                error.types[key] && <BootStrapForm.Control.Feedback key={key} type="invalid">{t(error.types[key])}</BootStrapForm.Control.Feedback>
               ),
             )
           )
-          || (error.message && <BootStrapForm.Control.Feedback type="invalid">{error.message}</BootStrapForm.Control.Feedback>)
+          || (error.message && <BootStrapForm.Control.Feedback type="invalid">{t(error.message)}</BootStrapForm.Control.Feedback>)
         )
 
       }
