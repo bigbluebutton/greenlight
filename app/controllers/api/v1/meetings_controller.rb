@@ -81,25 +81,32 @@ module Api
         @room = Room.find_by!(friendly_id: params[:friendly_id])
       end
 
-      def authorized_as_viewer?(access_code:)
-        return true if access_code.blank?
+      def authorized_as_viewer?(viewer_code:)
+        return true if viewer_code.blank? && params[:access_code].blank?
 
-        access_code == params[:access_code]
+        viewer_code == params[:access_code]
       end
 
-      def authorized_as_moderator?(access_code:)
-        (params[:access_code].present? && access_code == params[:access_code]) ||
-          @room.anyone_joins_as_moderator? ||
+      # Five scenarios where a user is authorized to join a BBB meeting as a moderator
+      # The user joins
+      # 1. its own room
+      # 2. a shared room
+      # 3. a room that requires a moderator access code and the access code input is correct
+      # 4. a room that has the AnyoneJoinAsModerator setting toggled on and does not require an access code
+      # 5. a room that has the AnyoneJoinAsModerator setting toggled on and requires a moderator or a viewer access code
+      #    and the access code input correspond to either the moderator or the viewer access code
+      def authorized_as_moderator?(mod_code:, viewer_code:)
+        @room.user_id == current_user&.id ||
           current_user&.shared_rooms&.include?(@room) ||
-          @room.user_id == current_user&.id
+          (params[:access_code].present? && mod_code == params[:access_code]) ||
+          (@room.anyone_joins_as_moderator? && mod_code.blank? && viewer_code.blank?) ||
+          (@room.anyone_joins_as_moderator? && (mod_code == params[:access_code] || viewer_code == params[:access_code]))
       end
 
       def infer_bbb_role(mod_code:, viewer_code:)
-        # TODO: Handle access code circumventing when 'anyone_joins_as_moderator?' is true.
-
-        if authorized_as_moderator?(access_code: mod_code)
+        if authorized_as_moderator?(mod_code:, viewer_code:)
           'Moderator'
-        elsif authorized_as_viewer?(access_code: viewer_code)
+        elsif authorized_as_viewer?(viewer_code:)
           'Viewer'
         end
       end
