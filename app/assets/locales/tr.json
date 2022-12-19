@@ -111,7 +111,7 @@
       "access": "Erişim",
       "add_share_access": "+ Erişimi paylaş",
       "share_room_access": "Oda erişimini paylaş",
-      "add_some_users": "Bazı kullanıcılar ekleme zamanı!",
+      "add_some_users": "Şimdi bazı kullanıcılar ekleyin!",
       "add_some_users_description": "Yeni kullanıcılar eklemek için aşağıdaki düğmeye tıklayın ve bu odayı paylaşmak istediğiniz kullanıcıları arayın ya da seçin."
     },
     "settings": {
@@ -371,7 +371,7 @@
   "account_activation_page": {
     "title": "Hesap etkinleştirme",
     "account_unverified": "Hesabınız henüz doğrulanmamış.",
-    "message": "Hesabınız henüz doğrulanmadı.\nTüm Greenlight özelliklerini kullanmak için hesabınızı doğrulamanız gerekiyor.\nEtkinleştirme bağlantısını almadıysanız ya da kullanırken sorun yaşıyorsanız,\nYeni bir bağlantı almak için lütfen aşağıdaki yeniden gönder düğmesine tıklayın.",
+    "message": "Greenlight kullanmak için lütfen size gönderilen etkinleştirme e-postasındaki yönergeleri izleyerek hesabınızı doğrulayın.",
     "resend_activation_link": "Etkinleştirme e-postasını almadıysanız ya da gelen e-posta ile sorun yaşıyorsanız aşağıdaki Yeniden gönder düğmesine tıklayarak yeni bir etkinleştirme e-postası alabilirsiniz.",
     "resend_btn_lbl": "Doğrulamayı yeniden gönder"
   }
