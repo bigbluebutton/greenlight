@@ -5,7 +5,9 @@ import SettingsRow from '../SettingsRow';
 
 export default function Settings() {
   const { t } = useTranslation();
-  const { data: siteSettings } = useSiteSettings(['ShareRooms', 'PreuploadPresentation']);
+  const { data: siteSettings, isLoading } = useSiteSettings(['ShareRooms', 'PreuploadPresentation']);
+
+  if (isLoading) return null;
 
   return (
     <>
