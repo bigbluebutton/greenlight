@@ -1,0 +1,378 @@
+{
+  "start": "Start",
+  "search": "Search",
+  "home": "Home",
+  "previous": "Previous",
+  "back": "Back",
+  "next": "Next",
+  "view": "View",
+  "join": "Join",
+  "edit": "Edit",
+  "save": "Save",
+  "save_changes": "Save Changes",
+  "update": "Update",
+  "report": "Report",
+  "share": "Share",
+  "cancel": "Cancel",
+  "close": "Close",
+  "delete": "Delete",
+  "copy": "Copy Join Link",
+  "or": "Or",
+  "online": "Online",
+  "help_center": "Help Center",
+  "are_you_sure": "Are you sure?",
+  "return_home": "Return Home",
+  "created_at": "Created at",
+  "homepage": {
+    "welcome_bbb": "Welcome to BigBlueButton.",
+    "greenlight_description": "Greenlight is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link."
+  },
+  "authentication": {
+    "sign_in": "Sign In",
+    "sign_up": "Sign Up",
+    "sign_out": "Sign Out",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "enter_email": "Enter your email",
+    "enter_name": "Enter your name",
+    "remember_me": "Remember Me",
+    "forgot_password": "Forgot password?",
+    "dont_have_account": "Don't have an account?",
+    "create_account": "Create Account",
+    "create_an_account": "Create an Account",
+    "already_have_account": "Already have an account?"
+  },
+  "user": {
+    "user": "User",
+    "users": "Users",
+    "name": "Name",
+    "email_address": "Email Address",
+    "authenticator": "Authenticator",
+    "full_name": "Full Name",
+    "no_user_found": "No user found",
+    "type_three_characters": "Please type three (3) characters or more to show the other users.",
+    "profile": {
+      "profile": "Profile",
+      "language": "Language",
+      "role": "Role",
+      "administrator": "Administrator",
+      "guest": "Guest"
+    },
+    "account": {
+      "account_info": "Account Info",
+      "delete_account": "Delete Account",
+      "change_password": "Change Password",
+      "reset_password": "Reset Password",
+      "update_account_info": "Update Account Info",
+      "current_password": "Current Password",
+      "new_password": "New Password",
+      "confirm_password": "Confirm Password",
+      "permanently_delete_account": "Permanently Delete Your Account",
+      "delete_account_description": "If you choose to delete your account, it will NOT be recoverable. \n All information regarding your account, including settings, rooms, and recordings will be removed.",
+      "delete_account_confirmation": "Yes, I would like to delete my account",
+      "are_you_sure_delete_account": "Are you sure you want to delete your account?"
+    },
+    "avatar": {
+      "upload_avatar": "Upload Avatar",
+      "delete_avatar": "Delete Avatar",
+      "crop_avatar": "Crop Your Avatar"
+    }
+  },
+  "room": {
+    "room": "Room",
+    "rooms": "Rooms",
+    "room_name": "Room Name",
+    "add_new_room": "+ New Room",
+    "create_room": "Create Room",
+    "delete_room": "Delete Room",
+    "create_new_room": "Create New Room",
+    "enter_room_name": "Enter the room name",
+    "shared_by": "shared by ",
+    "last_session": "Last Session: {{ room.last_session }}",
+    "no_last_session": "No previous session created",
+    "no_rooms_found": "No rooms found",
+    "meeting": {
+      "start_meeting": "Start Meeting",
+      "join_meeting": "Join Meeting",
+      "meeting_invitation": "You have been invited to join",
+      "meeting_not_started": "The meeting has not started yet",
+      "join_meeting_automatically": "You will automatically join when the meeting starts",
+      "recording_consent": "I acknowledge that this session may be recorded. This may include my voice and video if enabled."
+    },
+    "presentation": {
+      "presentation": "Presentation",
+      "click_to_upload": "Click to Upload",
+      "drag_and_drop": " or drag and drop",
+      "upload_description": "Upload any office document or PDF file. Depending on the size of the file, it may require additional time to upload before it can be used",
+      "are_you_sure_delete_presentation": "Are you sure you want to delete this presentation?"
+    },
+    "shared_access": {
+      "access": "Access",
+      "add_share_access": "+ Share Access",
+      "share_room_access": "Share Room Access",
+      "add_some_users": "Time to add some users!",
+      "add_some_users_description": "To add new users, click the button below and search or select the users you want to share this room with."
+    },
+    "settings": {
+      "settings": "Settings",
+      "room_name": "Room Name",
+      "user_settings": "User Settings",
+      "allow_room_to_be_recorded": "Allow room to be recorded",
+      "require_signed_in": "Require users to be signed in before joining",
+      "require_signed_in_message": "You must be signed in to join this room.",
+      "require_mod_approval": "Require moderator approval before joining",
+      "allow_any_user_to_start": "Allow any user to start this meeting",
+      "all_users_join_as_mods": "All users join as moderators",
+      "mute_users_on_join": "Mute users when they join",
+      "generate": "Generate",
+      "access_code": "Access Code",
+      "mod_access_code": "Moderator Access Code",
+      "mod_access_code_optional": "Moderator Access Code (optional)",
+      "access_code_required": "Please enter the access code",
+      "wrong_access_code": "Wrong Access Code",
+      "generate_viewers_access_code": "Generate access code for viewers",
+      "generate_mods_access_code": "Generate access code for moderators"
+    }
+  },
+  "recording": {
+    "recording": "Recording",
+    "recordings": "Recordings",
+    "name": "Name",
+    "length": "Length",
+    "users": "Users",
+    "visibility": "Visibility",
+    "formats": "Formats",
+    "published": "Published",
+    "unpublished": "Unpublished",
+    "protected": "Protected",
+    "length_in_minutes": "{{recording.length}} min.",
+    "processing_recording": "Processing recording...",
+    "copy_recording_urls": "Copy Recording Url(s)",
+    "no_recording_found": "No recording found",
+    "are_you_sure_delete_recording": "Are you sure you want to delete this recording?"
+  },
+  "admin": {
+    "admin_panel": "Administrator Panel",
+    "manage_users": {
+      "manage_users": "Manage Users",
+      "active": "Active",
+      "approve": "Approve",
+      "decline": "Decline",
+      "pending": "Pending",
+      "banned": "Banned",
+      "ban": "Ban",
+      "unban": "Unban",
+      "deleted": "Deleted",
+      "invited_tab": "Invited",
+      "invite_user": "Invite User",
+      "send_invitation": "Send Invitation",
+      "new_user": "New User",
+      "add_new_user": "New User",
+      "create_new_user": "Create New User",
+      "edit_user": "Edit User",
+      "delete_user": "Delete User",
+      "users_edit_path": "Users/Edit",
+      "create_account": "Create Account",
+      "create_room": "Create Room",
+      "create_new_room": "Create New Room",
+      "user_created_at": "Created: {{user.created_at}}",
+      "enter_user_email": "Enter an email",
+      "enter_user_name": "Enter a name",
+      "are_you_sure_delete_account": "Are you sure you want to delete {{user.name}}'s account?",
+      "delete_account_warning": "If you choose to delete this account, it will NOT be recoverable.",
+      "invited": {
+        "time_sent": "Time Sent",
+        "valid": "Valid"
+      }
+    },
+    "server_rooms": {
+      "server_rooms": "Server Rooms",
+      "name": "Name",
+      "owner": "Owner",
+      "room_id": "Room ID",
+      "participants": "Participants",
+      "status": "Status",
+      "running": "Running",
+      "not_running": "Not Running",
+      "active": "Active",
+      "current_session": "Current Session: {{lastSession}}",
+      "last_session": "Last Session: {{lastSession}}",
+      "no_meeting_yet": "No meeting yet.",
+      "delete_server_rooms": "Delete Server Room",
+      "resync_recordings": "Re-Sync Recordings"
+    },
+    "server_recordings": {
+      "server_recordings": "Server Recordings",
+      "latest_recordings": "Latest Recordings",
+      "no_recordings_found": "No recordings found."
+    },
+    "site_settings": {
+      "site_settings": "Site Settings",
+      "customize_greenlight": "Customize Greenlight",
+      "appearance": {
+        "appearance": "Appearance",
+        "brand_color": "Brand Color",
+        "regular": "Regular",
+        "lighten": "Lighten",
+        "brand_image": "Brand Image",
+        "click_to_upload": "Click to Upload",
+        "drag_and_drop": " or drag and drop",
+        "upload_brand_image_description": "Upload any PNG, JPG, or SVG file. Depending on the size of the presentation, it may require additional time to upload before it can be used"
+      },
+      "administration": {
+        "administration": "Administration",
+        "terms": "Terms",
+        "privacy": "Privacy",
+        "privacy_policy": "Privacy Policy",
+        "change_term_links": "Change the terms links that appears at the bottom of the page",
+        "change_privacy_link": "Change the privacy link that appears at the bottom of the page",
+        "change_url": "Change URL",
+        "enter_link": "Enter link here"
+      },
+      "settings": {
+        "allow_users_to_share_rooms": "Allow Users to Share Rooms",
+        "allow_users_to_share_rooms_description": "Setting to disabled will remove the button from the room options dropdown, preventing users from sharing rooms",
+        "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",
+        "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room"
+      },
+      "registration": {
+        "registration": "Registration",
+        "role_mapping_by_email": "Role Mapping By Email",
+        "role_mapping_by_email_description": "Map the user to a role using their email. Must be in the format: role1=email1, role2=email2",
+        "enter_role_mapping_rule": "Enter a role mapping rule",
+        "resync_on_login": "Resync User Data On Every Sign In",
+        "resync_on_login_description": "Resync a user's information every time they sign in, making the external authentication provider always match the information in Greenlight",
+        "default_role": "Default Role",
+        "default_role_description": "The default role to be assigned to newly created users",
+        "registration_method": "Registration Method",
+        "registration_method_description": "Change the way that users register to the website",
+        "registration_methods" : {
+          "open": "Open Registration",
+          "invite": "Join by Invitation",
+          "approval": "Approve/Decline"
+        }
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "Room Configuration",
+      "optional": "Optional",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "configurations": {
+        "allow_room_to_be_recorded": "Allow Room to be recorded",
+        "allow_room_to_be_recorded_description": "Allows room owners to specify whether they want the option to record a room or not. If enabled, the moderator must still click the 'Record' button once the meeting has started.",
+        "require_user_signed_in": "Require users to be signed in before joining",
+        "require_user_signed_in_description": "Only allows users with a Greenlight account to join the meeting. If they are not signed in, they will be redirected to the login page when attempting to join a room.",
+        "require_mod_approval": "Require moderator approval before joining",
+        "require_mod_approval_description": "Prompts the moderator of the BigBlueButton meeting when a user tries to join. If the user is approved, they will be able to join the meeting.",
+        "allow_any_user_to_start_meeting": "Allow any user to start a meeting",
+        "allow_any_user_to_start_meeting_description": "Allow any user to start the meeting at any time. By default, only the room owner can start the meeting.",
+        "allow_users_to_join_as_mods": "Allow users to join as moderators",
+        "allow_users_to_join_as_mods_description": "Gives all users the moderator privileges in BigBlueButton when they join the meeting",
+        "mute_users_on_join": "Mute users when they join",
+        "mute_users_on_join_description": "Automatically mutes the user when they join the BigBlueButton meeting",
+        "viewer_access_code": "Viewer Access Code",
+        "viewer_access_code_description": "Allows room owners to have a random alphanumeric code that can be shared with users. The code, if generated, will be required for users to join the room meetings.",
+        "mod_access_code": "Moderator Access Code",
+        "mod_access_code_description": "Allows room owners to have a random alphanumeric code that can be shared with users. The code, if generated, will not be required and when used on any room meeting will join the user as a moderator."
+      }
+    },
+    "roles": {
+      "role": "Role",
+      "roles": "Roles",
+      "administrator": "Administrator",
+      "guest": "Guest",
+      "manage_roles": "Manage Roles",
+      "delete_role": "Delete Role",
+      "are_you_sure_delete_role": "Are you sure you want to delete this role?",
+      "enter_role_name": "Enter a role name",
+      "add_role": "+ Create Role",
+      "create_role": "Create Role",
+      "create_new_role": "Create a new role",
+      "no_role_found": "No role found."
+    }
+  },
+  "toast": {
+    "success": {
+      "user": {
+        "user_created": "User created.",
+        "user_updated": "User updated.",
+        "user_deleted": "User deleted.",
+        "avatar_updated": "Avatar updated.",
+        "password_updated": "Password updated.",
+        "account_activated": "Account activated.",
+        "activation_email_sent": "Activation email has been sent"
+      },
+      "session": {
+        "signed_out": "You have successfully signed out."
+      },
+      "room": {
+        "room_created": "Room created.",
+        "room_updated": "Room updated.",
+        "room_deleted": "Room deleted.",
+        "room_shared": "Room shared",
+        "room_unshared": "Room unshared",
+        "recordings_synced": "Room recordings are now synchronized",
+        "server_room_deleted": "Server room deleted.",
+        "room_configuration_updated": "Room configuration updated.",
+        "room_setting_updated": "Room setting updated.",
+        "presentation_updated": "Presentation updated.",
+        "presentation_deleted": "Presentation deleted.",
+        "joining_meeting": "Joining the meeting...",
+        "meeting_started": "Meeting started.",
+        "access_code_copied": "Access code copied.",
+        "access_code_generated": "Access code generated.",
+        "access_code_removed": "Access code removed."
+      },
+      "site_settings": {
+        "site_setting_updated": "Site setting updated."
+      },
+      "recording": {
+        "recording_visibility_updated": "Recording visibility updated.",
+        "recording_name_updated": "Recording name updated.",
+        "recording_deleted": "Recording deleted."
+      },
+      "role": {
+        "role_created": "Role created.",
+        "role_updated": "Role updated.",
+        "role_deleted": "Role deleted.",
+        "role_permission_updated": "Role permission updated."
+      },
+      "invitations": {
+        "invitation_sent": "Invitation sent"
+      }
+    },
+    "error": {
+      "problem_completing_action": "There was a problem completing that action. \n Please try again.",
+      "file_type_not_supported": "File type is not supported.",
+      "file_size_too_large": "File size is too large.",
+      "signin_required": "You must be signed in to access this page",
+      "roles": {
+        "role_assigned": "This role can't be deleted as it is assigned to at least one user."
+      },
+      "users": {
+        "invalid_invite": "Your invitation token is either invalid or incorrect. Please contact your administrator to receive a new one",
+        "email_exists": "An account under this email already exists. Please try again with another email"
+      },
+      "rooms": {
+        "room_limit": "Room can not be created due to room limit being reached"
+      }
+    }
+  },
+  "global_error_page": {
+    "title": "Error",
+    "message": "Oops! Something went wrong. If the incident occurs again, please contact the administrator."
+  },
+  "not_found_error_page": {
+    "title": "404",
+    "message": "Oops! The page you are trying to access can't be found."
+  },
+  "account_activation_page": {
+    "title": "Account Activation",
+    "account_unverified": "Your account has not been verified yet.",
+    "message": "In order to use Greenlight, please verify your account by following the instructions in the activation email that was sent to you.",
+    "resend_activation_link": "If you haven't received an activation email or if you are having a problem using it, click the resend button below to request a new activation email.",
+    "resend_btn_lbl": "Resend Verification"
+  }
+}
