@@ -13,12 +13,14 @@ import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function RoomConfig() {
   const { t } = useTranslation();
-  const { data: roomConfigs } = useRoomConfigs();
+  const { data: roomConfigs, isLoading } = useRoomConfigs();
   const currentUser = useAuth();
 
   if (currentUser.permissions?.ManageSiteSettings !== 'true') {
     return <Navigate to="/404" />;
   }
+
+  if (isLoading) return null;
 
   return (
     <div id="admin-panel" className="pb-3">
