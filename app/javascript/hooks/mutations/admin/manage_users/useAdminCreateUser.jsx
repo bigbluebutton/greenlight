@@ -7,18 +7,9 @@ export default function useAdminCreateUser({ onSettled }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const addInferredLanguage = (data) => {
-    const options = data;
-    const language = window.navigator.userLanguage || window.navigator.language;
-    options.language = language.match(/^[a-z]{2,}/)?.at(0);
-
-    return options;
-  };
-
   return useMutation(
     (user) => axios.post('/users.json', { user }),
     {
-      onMutate: addInferredLanguage,
       onSuccess: () => {
         queryClient.invalidateQueries('getAdminUsers');
         toast.success(t('toast.success.user.user_created'));
