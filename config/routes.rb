@@ -4,8 +4,6 @@ Rails.application.routes.draw do
   root 'components#index', via: :all
   mount ActionCable.server => '/cable'
 
-  resources :locales, only: :show, param: :name
-
   # External requests
   get '/auth/:provider/callback', to: 'external#create_user'
   get '/meeting_ended', to: 'external#meeting_ended'
@@ -64,6 +62,7 @@ Rails.application.routes.draw do
       end
       resources :site_settings, only: :show, param: :name
       resources :rooms_configurations, only: :index
+      resources :locales, only: %i[index show], param: :name
 
       namespace :admin do
         resources :users, only: %i[update] do

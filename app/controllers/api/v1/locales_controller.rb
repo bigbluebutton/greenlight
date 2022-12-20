@@ -1,0 +1,37 @@
+# frozen_string_literal: true
+
+module Api
+  module V1
+    class LocalesController < ApiController
+      skip_before_action :ensure_authenticated, only: :show
+
+      # GET /api/v1/locales
+      def index
+        language_with_name = Rails.cache.fetch('locales/list', expires_in: 24.hours) do
+          language_hash = {}
+
+          languages = Dir.entries(Rails.root.join('app/assets/locales')).excluding(%w[. ..])
+          languages.map! { |lang| lang.split('.').first }
+
+          language_list = I18n::Language::Mapping.language_mapping_list
+          languages.each do |lang|
+            language_hash[lang] = language_list[lang.tr('_', '-')]['nativeName']
+          end
+
+          language_hash
+        end
+
+        render_data data: language_with_name, status: :ok
+      end
+
+      # GET /api/v1/locales/:name
+      def show
+        language = params[:name].tr('-', '_')
+
+        render file: Rails.root.join('app', 'assets', 'locales', "#{language}.json")
+      rescue StandardError
+        head :not_acceptable
+      end
+    end
+  end
+end
