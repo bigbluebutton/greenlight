@@ -177,8 +177,6 @@
       "create_room": "Create Room",
       "create_new_room": "Create New Room",
       "user_created_at": "Created: {{user.created_at}}",
-      "enter_user_email": "Enter an email",
-      "enter_user_name": "Enter a name",
       "are_you_sure_delete_account": "Are you sure you want to delete {{user.name}}'s account?",
       "delete_account_warning": "If you choose to delete this account, it will NOT be recoverable.",
       "invited": {
@@ -377,6 +375,32 @@
     "resend_btn_lbl": "Resend Verification"
   },
   "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Please enter a full name",
+        "min": "Name must be at least 2 characters long",
+        "max": "Name must be at most 255 characters long"
+      },
+      "email": {
+        "required": "Please enter an email",
+        "email": "Entered value does not match email format",
+        "min": "Email must be at least 6 characters long",
+        "max": "Email must be at most 255 characters long"
+      },
+      "password": {
+        "match": "Password must have at least:",
+        "min": "- Eight characters",
+        "lower": "- One lowercase letter",
+        "upper": "- One uppercase letter",
+        "digit": "- One digit",
+        "symbol": "- One symbol",
+        "max": "Password must be at most 255 characters long"
+      },
+      "password_confirmation": {
+        "required": "Please enter a password confirmation",
+        "match": "The passwords do not match"
+      }
+    },
     "user": {
       "signup": {
         "fields": {
@@ -396,31 +420,27 @@
             "label": "Confirm Password",
             "placeholder": "Confirm password"
           }
-        },
-        "validations": {
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
           "full_name": {
-            "required": "Please enter a full name",
-            "min": "Name must be at least 2 characters long",
-            "max": "Name must be at most 255 characters long"
+            "label": "Full Name",
+            "placeholder": "Enter the user full name"
           },
           "email": {
-            "required": "Please enter an email",
-            "email": "Entered value does not match email format",
-            "min": "Email must be at least 6 characters long",
-            "max": "Email must be at most 255 characters long"
+            "label": "Email",
+            "placeholder": "Enter the user email"
           },
           "password": {
-            "match": "Password must have at least:",
-            "min": "- Eight characters",
-            "lower": "- One lowercase letter",
-            "upper": "- One uppercase letter",
-            "digit": "- One digit",
-            "symbol": "- One symbol",
-            "max": "Password must be at most 255 characters long"
+            "label": "Password",
+            "placeholder": "Enter the user password"
           },
           "password_confirmation": {
-            "required": "Please enter a password confirmation",
-            "match": "The passwords do not match"
+            "label": "Confirm Password",
+            "placeholder": "Confirm the password"
           }
         }
       }
