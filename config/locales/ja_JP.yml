@@ -1,0 +1,41 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   "true": "foo"
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+ja_JP:
+  email:
+    activation:
+      line1: あと少しでGreenlightとBigBlueButtonの機能の使用を開始し、活用できるようになります！
+      line2: 身元の確認をお願いします。以下のリンクをたどり、アカウントを有効化してください。
+      line3: アカウントを有効にすることで、GreenlightとBigBlueButtonのすべての機能を活用できるようになります！
+      line4: 会議室の作成、セッションの司会、録画のシェアなどを通じて、みんなとコラボできます！
+      line5: アカウント有効化
+      line6: "このリンクは%{time}で期限切れとなります"
+      line7: このメールが期限切れとなっても、アカウントにログインすれば新しいアクチベーションリンクを取得できます。
