@@ -40,8 +40,6 @@ export default function RoomJoin() {
   const location = useLocation();
   const path = encodeURIComponent(location.pathname);
 
-  console.log(publicRoom?.data);
-
   useEffect(() => { // set cookie to return to if needed
     document.cookie = `location=${path};path=/;`;
 
