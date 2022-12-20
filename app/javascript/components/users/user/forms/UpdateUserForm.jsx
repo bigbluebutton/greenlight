@@ -13,7 +13,7 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
 import FormSelect from '../../../shared_components/forms/controls/FormSelect';
 import Option from '../../../shared_components/utilities/Option';
-import useLocales from "../../../../hooks/queries/locales/useLocales";
+import useLocales from '../../../../hooks/queries/locales/useLocales';
 
 export default function UpdateUserForm({ user }) {
   const { t, i18n } = useTranslation();
