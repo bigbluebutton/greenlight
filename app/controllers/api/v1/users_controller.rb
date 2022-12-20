@@ -33,7 +33,7 @@ module Api
         user = UserCreator.new(user_params: user_params.except(:invite_token), provider: current_provider, role: default_role).call
 
         # TODO: Add proper error logging for non-verified token hcaptcha
-        return render_error errors: user.errors.to_a if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+        return render_error errors: 'HCaptchaInvalid' if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         # Set to pending if registration method is approval
         user.pending! if !current_user && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]

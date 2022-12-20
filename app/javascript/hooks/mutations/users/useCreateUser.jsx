@@ -7,22 +7,22 @@ import getLanguage from '../../../helpers/Language';
 
 export default function useCreateUser() {
   const { t } = useTranslation();
-  const createUser = (data) => axios.post('/users.json', data);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const redirect = searchParams.get('location');
-  const inviteToken = searchParams.get('inviteToken');
+  const inviteToken = searchParams.get('inviteToken') || '';
 
-  const mutation = useMutation(
-    createUser,
-    { // Mutation config.
+  return useMutation(
+    ({ user, token }) => axios.post('/users.json', { user: { language: getLanguage(), invite_token: inviteToken, ...user }, token })
+      .then((resp) => resp.data.data),
+    {
       onSuccess: (response) => {
         queryClient.invalidateQueries('useSessions');
         // if the current user does NOT have the CreateRoom permission, then do not re-direct to rooms page
         if (redirect) {
           navigate(redirect);
-        } else if (response.data.data.permissions.CreateRoom === 'false') {
+        } else if (response.permissions.CreateRoom === 'false') {
           navigate('/home');
         } else {
           navigate('/rooms');
@@ -39,9 +39,4 @@ export default function useCreateUser() {
       },
     },
   );
-  const onSubmit = (user, token) => {
-    const userData = { ...user, language: getLanguage(), invite_token: inviteToken };
-    return mutation.mutateAsync({ user: userData, token }).catch(/* Prevents the promise exception from bubbling */() => { });
-  };
-  return { onSubmit, ...mutation };
 }
