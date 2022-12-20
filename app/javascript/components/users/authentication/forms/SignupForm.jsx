@@ -1,23 +1,21 @@
 import React, { useState, useRef } from 'react';
 import { Button, Container, Stack } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import FormControl from '../../../shared_components/forms/FormControl';
 import Form from '../../../shared_components/forms/Form';
-import { signupFormConfig, signupFormFields } from '../../../../helpers/forms/SignupFormHelpers';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import useCreateUser from '../../../../hooks/mutations/users/useCreateUser';
 import useEnv from '../../../../hooks/queries/env/useEnv';
+import useSignUpForm from '../../../../hooks/forms/authentication/useSignUpForm';
 
 export default function SignupForm() {
   const { t } = useTranslation();
-  const methods = useForm(signupFormConfig);
+  const { fields, methods } = useSignUpForm();
   const [token, setToken] = useState('');
   const { onSubmit: createUser } = useCreateUser(token);
   const { isSubmitting } = methods.formState;
-  const fields = signupFormFields;
   const { data: env } = useEnv();
   const captchaRef = useRef(null);
 
@@ -37,7 +35,7 @@ export default function SignupForm() {
         await createUser(data, response);
       }}
     >
-      <FormControl field={fields.name} type="text" />
+      <FormControl field={fields.name} type="text" autoFocus />
       <FormControl field={fields.email} type="email" />
       <FormControl field={fields.password} type="password" />
       <FormControl field={fields.password_confirmation} type="password" />
