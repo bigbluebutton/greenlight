@@ -34,12 +34,14 @@ module Api
           provider: current_provider,
           current_user:,
           show_codes: true,
-          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart]
+          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart glAnyoneJoinAsModerator]
         ).call
 
         return render_error status: :unauthorized if !current_user && settings['glRequireAuthentication'] == 'true'
 
-        bbb_role = infer_bbb_role(mod_code: settings['glModeratorAccessCode'], viewer_code: settings['glViewerAccessCode'])
+        bbb_role = infer_bbb_role(mod_code: settings['glModeratorAccessCode'],
+                                  viewer_code: settings['glViewerAccessCode'],
+                                  anyone_join_as_mod: settings['glAnyoneJoinAsModerator'])
 
         return render_error status: :forbidden if bbb_role.nil?
 
@@ -95,16 +97,16 @@ module Api
       # 4. a room that has the AnyoneJoinAsModerator setting toggled on and does not require an access code
       # 5. a room that has the AnyoneJoinAsModerator setting toggled on and requires a moderator or a viewer access code
       #    and the access code input correspond to either the moderator or the viewer access code
-      def authorized_as_moderator?(mod_code:, viewer_code:)
+      def authorized_as_moderator?(mod_code:, viewer_code:, anyone_join_as_mod:)
         @room.user_id == current_user&.id ||
           current_user&.shared_rooms&.include?(@room) ||
           (params[:access_code].present? && mod_code == params[:access_code]) ||
-          (@room.anyone_joins_as_moderator? && mod_code.blank? && viewer_code.blank?) ||
-          (@room.anyone_joins_as_moderator? && (mod_code == params[:access_code] || viewer_code == params[:access_code]))
+          (anyone_join_as_mod && mod_code.blank? && viewer_code.blank?) ||
+          (anyone_join_as_mod && (mod_code == params[:access_code] || viewer_code == params[:access_code]))
       end
 
-      def infer_bbb_role(mod_code:, viewer_code:)
-        if authorized_as_moderator?(mod_code:, viewer_code:)
+      def infer_bbb_role(mod_code:, viewer_code:, anyone_join_as_mod:)
+        if authorized_as_moderator?(mod_code:, viewer_code:, anyone_join_as_mod:)
           'Moderator'
         elsif authorized_as_viewer?(viewer_code:)
           'Viewer'
