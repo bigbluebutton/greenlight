@@ -14,10 +14,10 @@ class PermissionsChecker
     # check to see if current_user has SuperAdmin role
     return true if @current_user.role == Role.find_by(name: 'SuperAdmin', provider: 'bn')
 
-    # check to see if current user is trying to access own provider info or
+    # check to see if current user is trying to access own provider info
     return false if @current_user.provider != @current_provider
 
-    # check to see if user from other provider is trying to be accessed from non SuperAdmin
+    # check to see if current_user is trying to access a user from another provider
     return false if @user_id.present? && (@current_user.provider != User.find(@user_id.to_s).provider)
 
     return true if RolePermission.joins(:permission).exists?(
