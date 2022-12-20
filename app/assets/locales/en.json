@@ -302,7 +302,8 @@
         "avatar_updated": "Avatar updated.",
         "password_updated": "Password updated.",
         "account_activated": "Account activated.",
-        "activation_email_sent": "Activation email has been sent"
+        "activation_email_sent": "Activation email has been sent",
+        "challenge_passed": "Challenge Passed"
       },
       "session": {
         "signed_out": "You have successfully signed out."

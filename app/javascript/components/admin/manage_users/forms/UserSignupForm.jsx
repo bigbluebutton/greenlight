@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Stack } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import FormControl from '../../../shared_components/forms/FormControl';
