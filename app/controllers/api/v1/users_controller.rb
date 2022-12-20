@@ -24,7 +24,7 @@ module Api
 
       def create
         # TODO: amir - ensure accessibility for unauthenticated requests only.
-        params[:user][:language] = I18n.default_locale if params[:user][:language].blank?
+        params[:user][:language] = current_user&.language || I18n.default_locale if user_params[:language].blank?
 
         registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
 
@@ -33,7 +33,7 @@ module Api
         user = UserCreator.new(user_params: user_params.except(:invite_token), provider: current_provider, role: default_role).call
 
         # TODO: Add proper error logging for non-verified token hcaptcha
-        return render_error errors: 'HCaptchaInvalid' if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+        return render_error errors: 'HCaptchaInvalid' if !current_user && hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         # Set to pending if registration method is approval
         user.pending! if !current_user && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
