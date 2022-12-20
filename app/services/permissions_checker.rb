@@ -18,7 +18,7 @@ class PermissionsChecker
     return false if @current_user.provider != @current_provider
 
     # check to see if user from other provider is trying to be accessed from non SuperAdmin
-    return false if @user_id && (@current_user.provider != @current_provider)
+    return false if @user_id.present? && (@current_user.provider != User.find(@user_id.to_s).provider)
 
     return true if RolePermission.joins(:permission).exists?(
       role_id: @current_user.role_id,
