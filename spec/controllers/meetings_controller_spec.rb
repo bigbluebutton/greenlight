@@ -314,7 +314,6 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       end
     end
 
-
     context 'glAnyoneCanStart' do
       let(:fake_room_settings_getter) { instance_double(RoomSettingsGetter) }
 

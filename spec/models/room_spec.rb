@@ -120,31 +120,6 @@ RSpec.describe Room, type: :model do
   end
 
   context 'instance methods' do
-    describe '#anyone_joins_as_moderator?' do
-      let!(:room) { create(:room) }
-
-      it 'calls MeetingOption::get_setting_value and returns true if "glAnyoneJoinAsModerator" is set to "true"' do
-        allow(MeetingOption).to receive(:get_setting_value).and_return(instance_double(RoomMeetingOption, value: 'true'))
-        expect(MeetingOption).to receive(:get_setting_value).with(name: 'glAnyoneJoinAsModerator', room_id: room.id)
-
-        expect(room).to be_anyone_joins_as_moderator
-      end
-
-      it 'calls MeetingOption::get_setting_value and returns false if "glAnyoneJoinAsModerator" is NOT set to "true"' do
-        allow(MeetingOption).to receive(:get_setting_value).and_return(instance_double(RoomMeetingOption, value: 'false'))
-        expect(MeetingOption).to receive(:get_setting_value).with(name: 'glAnyoneJoinAsModerator', room_id: room.id)
-
-        expect(room).not_to be_anyone_joins_as_moderator
-      end
-
-      it 'calls MeetingOption::get_setting_value and returns false if "glAnyoneJoinAsModerator" is NOT set' do
-        allow(MeetingOption).to receive(:get_setting_value).and_return(nil)
-        expect(MeetingOption).to receive(:get_setting_value).with(name: 'glAnyoneJoinAsModerator', room_id: room.id)
-
-        expect(room).not_to be_anyone_joins_as_moderator
-      end
-    end
-
     describe '#get_setting' do
       it 'fetches a room setting by :name' do
         room = create(:room)
