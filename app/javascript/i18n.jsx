@@ -8,7 +8,7 @@ i18next
   .init({
     fallbackLng: 'en',
     backend: {
-      loadPath: '/locales/{{lng}}.json',
+      loadPath: '/api/v1/locales/{{lng}}.json',
       requestOptions: {
         cache: 'no-store', // TODO - samuel: i18n will sometime use the cache translation
       },

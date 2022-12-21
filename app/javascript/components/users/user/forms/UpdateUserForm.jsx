@@ -13,22 +13,11 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
 import FormSelect from '../../../shared_components/forms/controls/FormSelect';
 import Option from '../../../shared_components/utilities/Option';
+import useLocales from '../../../../hooks/queries/locales/useLocales';
 
 export default function UpdateUserForm({ user }) {
   const { t, i18n } = useTranslation();
-
-  // TODO: Make LOCALES a context that provides the available languages and their native names in the client app.
-  const LOCALES = {
-    cs: 'Čeština',
-    de: 'Deutsch',
-    el_GR: 'ελληνικά',
-    en: 'English',
-    fa_IR: 'فارسی',
-    fr: 'Français',
-    hu_HU: 'magyar',
-    ru: 'русский',
-    tr: 'Türkçe',
-  };
+  const { data: locales } = useLocales();
 
   const methods = useForm({
     defaultValues: {
@@ -58,7 +47,7 @@ export default function UpdateUserForm({ user }) {
       <FormControl field={fields.email} type="email" />
       <FormSelect field={fields.language}>
         {
-          Object.keys(LOCALES).map((code) => <Option key={code} value={code}>{LOCALES[code]}</Option>)
+          Object.keys(locales || {}).map((code) => <Option key={code} value={code}>{locales[code]}</Option>)
         }
       </FormSelect>
       {(isAdmin && roles) && (
