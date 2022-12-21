@@ -101,7 +101,7 @@ module Api
         @room.user_id == current_user&.id ||
           current_user&.shared_rooms&.include?(@room) ||
           access_code_validator(access_code: mod_code) ||
-          (anyone_join_as_mod && mod_code.blank? && viewer_code.blank?) ||
+          (anyone_join_as_mod && viewer_code.blank? && mod_code.blank?) ||
           (anyone_join_as_mod && (access_code_validator(access_code: mod_code) || access_code_validator(access_code: viewer_code)))
       end
 
@@ -112,7 +112,7 @@ module Api
       def infer_bbb_role(mod_code:, viewer_code:, anyone_join_as_mod:)
         if authorized_as_moderator?(mod_code:, viewer_code:, anyone_join_as_mod:)
           'Moderator'
-        elsif authorized_as_viewer?(viewer_code:)
+        elsif authorized_as_viewer?(viewer_code:) && !anyone_join_as_mod
           'Viewer'
         end
       end
