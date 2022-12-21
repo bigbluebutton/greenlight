@@ -238,7 +238,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         name: 'New Name',
         email: 'newemail@gmail.com',
         language: 'gl',
-        role_id: create(:role, name: 'New Role').id
       }
       patch :update, params: { id: user.id, user: updated_params }
       expect(response).to have_http_status(:ok)
@@ -248,7 +247,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(user.name).to eq(updated_params[:name])
       expect(user.email).to eq(updated_params[:email])
       expect(user.language).to eq(updated_params[:language])
-      expect(user.role_id).to eq(updated_params[:role_id])
     end
 
     it 'returns an error if the user update fails' do
@@ -267,6 +265,41 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(user.reload.avatar).to be_attached
       delete :purge_avatar, params: { id: user.id }
       expect(user.reload.avatar).not_to be_attached
+    end
+
+    it 'doesnt allow a user to change their own role' do
+      updated_params = {
+        role_id: create(:role, name: 'New Role').id
+      }
+      patch :update, params: { id: user.id, user: updated_params }
+
+      user.reload
+
+      expect(user.role_id).not_to eq(updated_params[:role_id])
+    end
+
+    it 'allows an admin to edit themself' do
+      sign_in_user(user_with_manage_users_permission)
+      updated_params = {
+        role_id: create(:role, name: 'New Role').id
+      }
+      patch :update, params: { id: user_with_manage_users_permission.id, user: updated_params }
+
+      user_with_manage_users_permission.reload
+      expect(user_with_manage_users_permission.role_id).to eq(updated_params[:role_id])
+    end
+
+    it 'allows an admin to edit someone else' do
+      sign_in_user(user_with_manage_users_permission)
+
+      updated_params = {
+        role_id: create(:role, name: 'New Role').id
+      }
+      patch :update, params: { id: user.id, user: updated_params }
+
+      user.reload
+
+      expect(user.role_id).to eq(updated_params[:role_id])
     end
   end
 

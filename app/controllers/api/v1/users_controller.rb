@@ -70,6 +70,12 @@ module Api
 
       def update
         user = User.find(params[:id])
+        # user is updating themselves
+
+        if current_user.id == params[:id] && !PermissionsChecker.new(permission_names: 'ManageUsers', current_user:, user_id: nil, record_id: nil,
+                                                                     friendly_id: nil).call
+          params[:user].delete(:role_id)
+        end
 
         if user.update(user_params)
           create_default_room(user)
