@@ -237,7 +237,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       updated_params = {
         name: 'New Name',
         email: 'newemail@gmail.com',
-        language: 'gl',
+        language: 'gl'
       }
       patch :update, params: { id: user.id, user: updated_params }
       expect(response).to have_http_status(:ok)
