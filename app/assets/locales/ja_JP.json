@@ -121,18 +121,18 @@
       "allow_room_to_be_recorded": "会議室の録画を許可",
       "require_signed_in": "参加前にユーザーのサインインを求める",
       "require_signed_in_message": "この会議への入室にはサインインが必要です。",
-      "require_mod_approval": "参加にモデレーターの許可を必須とする",
+      "require_mod_approval": "参加に司会者の許可を必須とする",
       "allow_any_user_to_start": "誰でもこの会議を開始可能とする",
-      "all_users_join_as_mods": "すべてのユーザーがモデレーターとして参加する",
+      "all_users_join_as_mods": "すべてのユーザーが司会者として参加する",
       "mute_users_on_join": "参加時にユーザーをミュートする",
       "generate": "作成",
       "access_code": "接続コード",
-      "mod_access_code": "モデレーター接続コード",
-      "mod_access_code_optional": "モデレーター用接続コード（オプション）",
+      "mod_access_code": "司会者接続コード",
+      "mod_access_code_optional": "司会者用接続コード（オプション）",
       "access_code_required": "接続コードを入力してください",
       "wrong_access_code": "誤った接続コード",
-      "generate_viewers_access_code": "ビューアー用接続コードを作成する",
-      "generate_mods_access_code": "モデレーター用接続コードを作成する"
+      "generate_viewers_access_code": "視聴者用接続コードを作成する",
+      "generate_mods_access_code": "司会者用接続コードを作成する"
     }
   },
   "recording": {
@@ -264,17 +264,17 @@
         "allow_room_to_be_recorded_description": "会議室のオーナーが、会議の録画機能が必要かどうか決められるようになります。これをオンにしたとしても、録画を開始するためには、司会者は\"録画\"ボタンを押す必要があります。",
         "require_user_signed_in": "参加前にユーザーのサインインを求める",
         "require_user_signed_in_description": "Greenlightのアカウントを持つユーザーにのみ会議への参加を許可する。もしサインインなしで会議室に入ろうとした場合、ログインページに差し戻されます。",
-        "require_mod_approval": "参加にモデレーターの許可を必須とする",
-        "require_mod_approval_description": "会議への参加希望に対し、許可するかどうかいちいちモデレーターに問い合わせます。許可されればユーザーは参加できます。",
+        "require_mod_approval": "参加に司会者の許可を必須とする",
+        "require_mod_approval_description": "会議への参加希望に対し、許可するかどうかいちいち司会者に問い合わせます。許可されればユーザーは参加できます。",
         "allow_any_user_to_start_meeting": "誰でもこの会議を開始可能とする",
         "allow_any_user_to_start_meeting_description": "全てのユーザーがいつでも会議を開始することを許可します。通常は、会議室のオーナーだけが会議を開始できます。",
-        "allow_users_to_join_as_mods": "ユーザーがモデレーターとして参加することを許可",
+        "allow_users_to_join_as_mods": "ユーザーが司会者として参加することを許可",
         "allow_users_to_join_as_mods_description": "すべてのユーザーに、会議に参加した時点で司会者の権限をあたえます",
         "mute_users_on_join": "参加時にユーザーをミュートする",
         "mute_users_on_join_description": "ユーザーが会議に参加した時、自動的にミュートします。",
-        "viewer_access_code": "ビューアー用接続コード",
+        "viewer_access_code": "視聴者用接続コード",
         "viewer_access_code_description": "会議室のオーナーに、ユーザーと共有可能な、ランダムな英数字コードの発行を許可します。このコードが発行されると、ユーザーが会議に参加するにはこの入力が必須となります。",
-        "mod_access_code": "モデレーター用接続コード",
+        "mod_access_code": "司会者用接続コード",
         "mod_access_code_description": "会議室のオーナーに、ユーザーと共有可能な、ランダムな英数字コードの発行を許可します。このコードは、ユーザーが会議に参加する際には必要ありませんが、使用するとユーザーが司会者として会議に参加できるようになります。"
       }
     },
@@ -302,7 +302,8 @@
         "avatar_updated": "アバターが更新されました。",
         "password_updated": "パスワードが更新されました。",
         "account_activated": "アカウントが有効になりました。",
-        "activation_email_sent": "アクチベーションメールが送信されました"
+        "activation_email_sent": "アクチベーションメールが送信されました",
+        "challenge_passed": "要求が認められました"
       },
       "session": {
         "signed_out": "無事サインアウトできました。"
@@ -378,29 +379,49 @@
   "forms": {
     "user": {
       "signup": {
-        "full_name": {
-          "required": "フルネームを入力してください",
-          "min": "名前は少なくとも2文字必要です",
-          "max": "名前の長さは最大255文字です"
+        "fields": {
+          "full_name": {
+            "label": "名前",
+            "placeholder": "フルネームを入力"
+          },
+          "email": {
+            "label": "メールアドレス",
+            "placeholder": "メールアドレス入力"
+          },
+          "password": {
+            "label": "パスワード",
+            "placeholder": "パスワード作成"
+          },
+          "password_confirmation": {
+            "label": "パスワード確認",
+            "placeholder": "パスワード確認"
+          }
         },
-        "email": {
-          "required": "メールアドレスを入力してください",
-          "email": "入力された文字列がメールアドレスの形式と一致しません",
-          "min": "メールアドレスは少なくとも6文字必要です",
-          "max": "メールアドレスは255文字以下であることが必要です"
-        },
-        "password": {
-          "match": "パスワード文字列の条件：",
-          "min": "- 全長8文字以上",
-          "lower": "- １個以上の英小文字",
-          "upper": "- １個以上の英大文字",
-          "digit": "- １個以上の数字",
-          "symbol": "- １個以上の記号",
-          "max": "パスワードは255文字以下であることが必要です"
-        },
-        "password_confirmation": {
-          "required": "確認のためもう一度パスワードを入力してください",
-          "match": "２つのパスワードが一致しません"
+        "validations": {
+          "full_name": {
+            "required": "フルネームを入力してください",
+            "min": "名前は2文字以上必要です",
+            "max": "名前は最大255文字です"
+          },
+          "email": {
+            "required": "メールアドレスを入力してください",
+            "email": "入力された文字列がメールアドレスの形式に一致しません",
+            "min": "メールアドレスは6文字以上必要です",
+            "max": "メールアドレスは最大で255文字です"
+          },
+          "password": {
+            "match": "パスワードの条件：",
+            "min": "- 全長8文字以上",
+            "lower": "- 1文字以上の英小文字",
+            "upper": "- 1文字以上の英大文字",
+            "digit": "- 1文字以上の数字",
+            "symbol": "- 1文字以上の記号",
+            "max": "パスワードは最大で255文字です"
+          },
+          "password_confirmation": {
+            "required": "確認のためもう一度パスワードを入力してください",
+            "match": "2つのパスワードが一致しません"
+          }
         }
       }
     }
