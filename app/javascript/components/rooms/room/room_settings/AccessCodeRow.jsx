@@ -25,7 +25,7 @@ export default function AccessCodeRow({
 
   const deleteButton = config === 'optional' ? (
     <Button
-      variant="font-awesome"
+      variant="icon"
       onClick={handleDeleteCode}
     >
       <TrashIcon className="hi-s text-muted" />
@@ -42,14 +42,16 @@ export default function AccessCodeRow({
               <div className="access-code-input w-100">
                 <input type="text" className="form-control" value={code} readOnly />
                 <Button
-                  variant="font-awesome"
+                  variant="icon"
+                  className="mt-1"
                   onClick={() => copyAccessCode(code)}
                 >
                   <Square2StackIcon className="hi-s text-muted" />
                 </Button>
               </div>
               <Button
-                variant="font-awesome"
+                variant="icon"
+                className="mx-3"
                 onClick={handleGenerateCode}
               >
                 <ArrowPathIcon className="hi-s text-muted" />
