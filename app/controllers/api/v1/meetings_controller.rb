@@ -41,7 +41,7 @@ module Api
 
         bbb_role = infer_bbb_role(mod_code: settings['glModeratorAccessCode'],
                                   viewer_code: settings['glViewerAccessCode'],
-                                  anyone_join_as_moderator_setting: settings['glAnyoneJoinAsModerator'] == 'true')
+                                  anyone_join_as_mod: settings['glAnyoneJoinAsModerator'] == 'true')
 
         return render_error status: :forbidden if bbb_role.nil?
 
@@ -86,7 +86,7 @@ module Api
       def authorized_as_viewer?(viewer_code:)
         return true if viewer_code.blank? && params[:access_code].blank?
 
-        viewer_code == params[:access_code]
+        access_code_validator(access_code: viewer_code)
       end
 
       # Five scenarios where a user is authorized to join a BBB meeting as a moderator:
@@ -97,20 +97,20 @@ module Api
       # 4. a room that has the AnyoneJoinAsModerator setting enabled and does not require an access code
       # 5. a room that has the AnyoneJoinAsModerator setting enabled and requires a moderator or a viewer access code
       #    and the access code input correspond to either
-      def authorized_as_moderator?(mod_code:, viewer_code:, anyone_join_as_mod_setting:)
+      def authorized_as_moderator?(mod_code:, viewer_code:, anyone_join_as_mod:)
         @room.user_id == current_user&.id ||
           current_user&.shared_rooms&.include?(@room) ||
-          (params[:access_code].present? && mod_code.present? && mod_code == params[:access_code]) ||
-          anyone_join_as_mod_setting && anyone_join_as_mod_validator(mod_code:, viewer_code:)
+          access_code_validator(access_code: mod_code) ||
+          (anyone_join_as_mod && mod_code.blank? && viewer_code.blank?) ||
+          (anyone_join_as_mod && (access_code_validator(access_code: mod_code) || access_code_validator(access_code: viewer_code)))
       end
 
-      def anyone_join_as_mod_validator(mod_code:, viewer_code:)
-        mod_code.blank? && viewer_code.blank? ||
-          ((mod_code.present? && mod_code == params[:access_code]) || (viewer_code.present? && viewer_code == params[:access_code]))
+      def access_code_validator(access_code:)
+        access_code.present? && params[:access_code].present? && access_code == params[:access_code]
       end
 
-      def infer_bbb_role(mod_code:, viewer_code:, anyone_join_as_mod_setting:)
-        if authorized_as_moderator?(mod_code:, viewer_code:, anyone_join_as_mod_setting:)
+      def infer_bbb_role(mod_code:, viewer_code:, anyone_join_as_mod:)
+        if authorized_as_moderator?(mod_code:, viewer_code:, anyone_join_as_mod:)
           'Moderator'
         elsif authorized_as_viewer?(viewer_code:)
           'Viewer'
