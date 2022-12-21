@@ -84,6 +84,7 @@ describe PermissionsChecker, type: :service do
           current_provider: super_admin_user.provider
         ).call).to be(true)
       end
+
       context 'Current Provider Checks' do
         it 'checks the current user provider and returns false if not equal to current provider' do
           role = create(:role, provider: 'bn')
