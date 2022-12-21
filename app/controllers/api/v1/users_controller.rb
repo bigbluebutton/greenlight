@@ -7,7 +7,7 @@ module Api
 
       skip_before_action :ensure_authenticated, only: %i[create]
 
-      before_action only: %i[show update destroy purge_avatar] do
+      before_action except: %i[create change_password] do
         ensure_authorized('ManageUsers', user_id: params[:id])
       end
 
@@ -17,23 +17,28 @@ module Api
         render_data data: user, status: :ok
       end
 
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       # POST /api/v1/users.json
       # Expects: { user: { :name, :email, :password} }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
       # Does: Creates and saves a new user record in the database with the provided parameters.
 
       def create
-        # TODO: amir - ensure accessibility for unauthenticated requests only.
-        params[:user][:language] = I18n.default_locale if params[:user][:language].blank?
+        # Users created by a user will have the creator language by default with a fallback to the server configured default_locale.
+        user_params[:language] = current_user&.language || I18n.default_locale if user_params[:language].blank?
 
         registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
 
-        return render_error errors: 'InviteInvalid' if registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token
+        if registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token
+          return render_error errors: Rails.configuration.custom_error_msgs[:invite_token_invalid]
+        end
 
         user = UserCreator.new(user_params: user_params.except(:invite_token), provider: current_provider, role: default_role).call
 
         # TODO: Add proper error logging for non-verified token hcaptcha
-        return render_error errors: 'HCaptchaInvalid' if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+        if !current_user && hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+          return render_error errors: Rails.configuration.custom_error_msgs[:hcaptcha_invalid]
+        end
 
         # Set to pending if registration method is approval
         user.pending! if !current_user && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
@@ -55,14 +60,14 @@ module Api
           create_default_room(user)
 
           render_data data: current_user, serializer: CurrentUserSerializer, status: :created
-        elsif user.errors.to_a == ['Email has already been taken']
-          render_error errors: 'EmailAlreadyExists', status: :bad_request
+        elsif user.errors.size == 1 && user.errors.of_kind?(:email, :taken)
+          render_error errors: Rails.configuration.custom_error_msgs[:email_exists], status: :bad_request
         else
-          render_error errors: user.errors.to_a, status: :bad_request
+          render_error errors: Rails.configuration.custom_error_msgs[:record_invalid], status: :bad_request
         end
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-      # TODO: Add a before_action callback to update,destory and purge_avatar calling a find_user.
       def update
         user = User.find(params[:id])
 
@@ -70,7 +75,7 @@ module Api
           create_default_room(user)
           render_data  status: :ok
         else
-          render_error errors: user.errors.to_a
+          render_error errors: Rails.configuration.custom_error_msgs[:record_invalid]
         end
       end
 
@@ -79,7 +84,7 @@ module Api
         if user.destroy
           render_data  status: :ok
         else
-          render_error errors: user.errors.to_a
+          render_error errors: Rails.configuration.custom_error_msgs[:record_invalid]
         end
       end
 
@@ -96,8 +101,6 @@ module Api
       # Does: Validates and change the user password.
 
       def change_password
-        return render_error status: :unauthorized unless current_user # TODO: generalise this.
-
         return render_error status: :forbidden if current_user.external_id?
 
         old_password = change_password_params[:old_password]
@@ -114,7 +117,7 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id, :invite_token)
+        @user_params ||= params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id, :invite_token)
       end
 
       def create_default_room(user)

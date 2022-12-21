@@ -32,7 +32,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       reg_method = instance_double(SettingGetter) # TODO: - ahmad: Completely refactor how setting getter can be mocked
       allow(SettingGetter).to receive(:new).with(setting_name: 'RegistrationMethod', provider: 'greenlight').and_return(reg_method)
-      allow(reg_method).to receive(:call).and_return('open')
+      allow(reg_method).to receive(:call).and_return(SiteSetting::REGISTRATION_METHODS[:open])
     end
 
     context 'valid user params' do
@@ -85,14 +85,24 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       context 'Admin creation' do
-        it 'sends activation email to but does NOT signin the created user' do
-          sign_in_user(user)
+        before { sign_in_user(user) }
 
+        it 'sends activation email to but does NOT signin the created user' do
           expect { post :create, params: user_params }.to change(User, :count).by(1)
           expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
                                                                                                        'deliver_now', Hash)
           expect(response).to have_http_status(:created)
           expect(session[:session_token]).to eql(user.session_token)
+        end
+
+        context 'User language' do
+          it 'defaults user language to admin language if the language isn\'t specified' do
+            user.update! language: 'language'
+
+            user_params[:user][:language] = nil
+            post :create, params: user_params
+            expect(User.find_by(email: user_params[:user][:email]).language).to eq('language')
+          end
         end
       end
     end
@@ -106,7 +116,22 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
         expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
         expect(response).to have_http_status(:bad_request)
-        expect(JSON.parse(response.body)['errors']).to be_present
+        expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:record_invalid])
+      end
+
+      context 'Duplicated email' do
+        it 'returns :bad_request with "EmailAlreadyExists" error' do
+          existent_user = create(:user)
+
+          invalid_user_params = user_params
+          invalid_user_params[:user][:email] = existent_user.email
+
+          expect { post :create, params: invalid_user_params }.not_to change(User, :count)
+
+          expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+          expect(response).to have_http_status(:bad_request)
+          expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:email_exists])
+        end
       end
     end
 
@@ -163,7 +188,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect { post :create, params: user_params }.not_to change(User, :count)
 
           expect(response).to have_http_status(:bad_request)
-          expect(JSON.parse(response.body)['errors']).to eq('InviteInvalid')
+          expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
         end
 
         it 'returns an InviteInvalid error if the token is wrong' do
@@ -171,7 +196,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect { post :create, params: user_params }.not_to change(User, :count)
 
           expect(response).to have_http_status(:bad_request)
-          expect(JSON.parse(response.body)['errors']).to eq('InviteInvalid')
+          expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
         end
       end
 
@@ -179,13 +204,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         before do
           reg_method = instance_double(SettingGetter)
           allow(SettingGetter).to receive(:new).with(setting_name: 'RegistrationMethod', provider: 'greenlight').and_return(reg_method)
-          allow(reg_method).to receive(:call).and_return('approval')
+          allow(reg_method).to receive(:call).and_return(SiteSetting::REGISTRATION_METHODS[:approval])
         end
 
         it 'sets a user to pending when registering' do
           expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
 
-          expect(User.find_by(email: user_params[:user][:email]).status).to eq('pending')
+          expect(User.find_by(email: user_params[:user][:email])).to be_pending
         end
       end
     end
