@@ -15,9 +15,9 @@ module Api
 
           languages.each do |lang|
             language = lang.split('.').first
-            nativeName = language_list.dig(language.tr('_', '-'), 'nativeName')
+            native_name = language_list.dig(language.tr('_', '-'), 'nativeName')
 
-            language_hash[language] = nativeName if nativeName.present?
+            language_hash[language] = native_name if native_name.present?
           end
 
           language_hash
