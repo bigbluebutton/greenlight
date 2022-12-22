@@ -6,11 +6,11 @@ import FormControl from '../../../shared_components/forms/FormControl';
 import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import useAdminCreateUser from '../../../../hooks/mutations/admin/manage_users/useAdminCreateUser';
-import useCreateUserForm from '../../../../hooks/forms/admin/create_user/useCreateUserForm';
+import useUserSignupForm from '../../../../hooks/forms/admin/manage_users/useUserSignupForm';
 
 export default function UserSignupForm({ handleClose }) {
   const { t } = useTranslation();
-  const { fields, methods } = useCreateUserForm();
+  const { fields, methods } = useUserSignupForm();
   const createUserAPI = useAdminCreateUser({ onSettled: handleClose });
 
   return (
