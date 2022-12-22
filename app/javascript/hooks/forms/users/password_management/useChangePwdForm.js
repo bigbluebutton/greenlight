@@ -2,11 +2,10 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 export function useChangePwdFormValidation() {
   return useMemo(() => (yup.object({
-    // TODO: amir - Revisit validations.
     old_password: yup.string().required('forms.user.change_password.validations.old_password.required'),
     new_password: yup.string().max(255, 'forms.validations.password.max')
       .matches(
@@ -23,7 +22,7 @@ export function useChangePwdFormValidation() {
   })), []);
 }
 
-export default function useChangePwdForm(_config = {}) {
+export default function useChangePwdForm({ defaultValues: _defaultValues, ..._config } = {}) {
   const { t, i18n } = useTranslation();
 
   const fields = useMemo(() => ({
@@ -62,15 +61,25 @@ export default function useChangePwdForm(_config = {}) {
   const validationSchema = useChangePwdFormValidation();
 
   const config = useMemo(() => ({
-    mode: 'onChange',
-    criteriaMode: 'all',
-    defaultValues: {
-      old_password: '',
-      new_password: '',
-      password_confirmation: '',
+    ...{
+      mode: 'onChange',
+      criteriaMode: 'all',
+      defaultValues: {
+        ...{
+          old_password: '',
+          new_password: '',
+          password_confirmation: '',
+        },
+        ..._defaultValues,
+      },
+      resolver: yupResolver(validationSchema),
     },
-    resolver: yupResolver(validationSchema),
-  }), [validationSchema]);
+    ..._config,
+  }), [validationSchema, _defaultValues]);
 
-  return { methods: useForm({ ...config, ..._config }), fields };
+  const methods = useForm(config);
+
+  const reset = useCallback(() => methods.reset(config.defaultValues), [methods.reset, config.defaultValues]);
+
+  return { methods, fields, reset };
 }

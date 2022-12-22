@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { useSignUpFormValidation } from '../../users/authentication/useSignUpForm';
 
-export default function useUserSignupForm(_config = {}) {
+export default function useUserSignupForm({ defaultValues: _defaultValues, ..._config } = {}) {
   const { t, i18n } = useTranslation();
 
   const fields = useMemo(() => ({
@@ -51,16 +51,22 @@ export default function useUserSignupForm(_config = {}) {
   const validationSchema = useSignUpFormValidation();
 
   const config = useMemo(() => ({
-    mode: 'onChange',
-    criteriaMode: 'all',
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
+    ...{
+      mode: 'onChange',
+      criteriaMode: 'all',
+      defaultValues: {
+        ...{
+          name: '',
+          email: '',
+          password: '',
+          password_confirmation: '',
+        },
+        ..._defaultValues,
+      },
+      resolver: yupResolver(validationSchema),
     },
-    resolver: yupResolver(validationSchema),
-  }), [validationSchema]);
+    ..._config,
+  }), [validationSchema, _defaultValues]);
 
   return { methods: useForm({ ...config, ..._config }), fields };
 }

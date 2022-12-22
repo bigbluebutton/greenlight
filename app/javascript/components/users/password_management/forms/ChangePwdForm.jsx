@@ -9,25 +9,16 @@ import useChangePwdForm from '../../../../hooks/forms/users/password_management/
 
 export default function ChangePwdForm() {
   const { t } = useTranslation();
-  const { methods, fields } = useChangePwdForm();
+  const { methods, fields, reset } = useChangePwdForm();
   const changePwdAPI = useChangePwd();
 
   return (
     <Form methods={methods} onSubmit={changePwdAPI.mutate}>
-      <FormControl field={fields.old_password} type="password" />
+      <FormControl field={fields.old_password} type="password" autoFocus />
       <FormControl field={fields.new_password} type="password" />
       <FormControl field={fields.password_confirmation} type="password" />
       <Stack direction="horizontal" gap={2} className="float-end">
-        <Button
-          variant="neutral"
-          onClick={() => methods.reset({
-            old_password: '',
-            new_password: '',
-            password_confirmation: '',
-          })}
-        >
-          { t('cancel') }
-        </Button>
+        <Button variant="neutral" onClick={reset}> { t('cancel') } </Button>
         <Button variant="brand" type="submit" disabled={changePwdAPI.isLoading}>
           {changePwdAPI.isLoading && <Spinner className="me-2" />}
           { t('user.account.change_password') }
