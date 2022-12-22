@@ -2,17 +2,17 @@
 
 import React, { useRef, useCallback } from 'react';
 import {
-  Button, Col, Row, Stack, Form as BootstrapForm,
+  Button, Col, Row, Stack,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import FormControl from '../../../shared_components/forms/FormControl';
-import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
 import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import useCreateSession from '../../../../hooks/mutations/sessions/useCreateSession';
 import useSignInForm from '../../../../hooks/forms/authentication/useSignInForm';
 import HCaptcha from '../../../shared_components/utilities/HCaptcha';
+import FormCheckBox from '../../../shared_components/forms/controls/FormCheckBox';
 
 export default function SigninForm() {
   const { t } = useTranslation();
@@ -33,12 +33,7 @@ export default function SigninForm() {
       <FormControl field={fields.password} type="password" />
       <Row>
         <Col>
-          <FormControlGeneric
-            control={BootstrapForm.Check}
-            field={fields.extend_session}
-            label={fields.extend_session.label}
-            type="checkbox"
-          />
+          <FormCheckBox field={fields.extend_session} />
         </Col>
         <Col>
           <Link to="/forget_password" className="text-link float-end small"> {t('authentication.forgot_password')} </Link>
