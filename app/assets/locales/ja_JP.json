@@ -177,8 +177,6 @@
       "create_room": "会議室作成",
       "create_new_room": "新しい会議室を作成",
       "user_created_at": "作成日時: {{user.created_at}}",
-      "enter_user_email": "メールアドレスを入力",
-      "enter_user_name": "名前を入力",
       "are_you_sure_delete_account": "本当に{{user.name}}のアカウントを削除しますか？",
       "delete_account_warning": "このアカウントを削除すると、二度と元にもどすことはできません。",
       "invited": {
@@ -377,6 +375,32 @@
     "resend_btn_lbl": "認証メールの再送"
   },
   "forms": {
+    "validations": {
+      "full_name": {
+        "required": "名前を入力してください",
+        "min": "名前は少なくとも2文字必要です",
+        "max": "名前は最大255文字です"
+      },
+      "email": {
+        "required": "メールアドレスを入力してください",
+        "email": "入力された文字列はメールアドレスの形式と一致しません",
+        "min": "メールアドレスは少なくとも6文字必要です",
+        "max": "メールアドレスは最大で255文字です"
+      },
+      "password": {
+        "match": "パスワードの条件は：",
+        "min": "- 全長8文字以上",
+        "lower": "- 1文字以上の英小文字",
+        "upper": "- 1文字以上の英大文字",
+        "digit": "- 1文字以上の数字",
+        "symbol": "- 1文字以上の記号",
+        "max": "パスワードは最大255文字です"
+      },
+      "password_confirmation": {
+        "required": "確認のためもう一度パスワードを入力してください",
+        "match": "2つのパスワードが一致しません"
+      }
+    },
     "user": {
       "signup": {
         "fields": {
@@ -396,31 +420,27 @@
             "label": "パスワード確認",
             "placeholder": "パスワード確認"
           }
-        },
-        "validations": {
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
           "full_name": {
-            "required": "フルネームを入力してください",
-            "min": "名前は2文字以上必要です",
-            "max": "名前は最大255文字です"
+            "label": "名前",
+            "placeholder": "フルネームを入力"
           },
           "email": {
-            "required": "メールアドレスを入力してください",
-            "email": "入力された文字列がメールアドレスの形式に一致しません",
-            "min": "メールアドレスは6文字以上必要です",
-            "max": "メールアドレスは最大で255文字です"
+            "label": "メールアドレス",
+            "placeholder": "メールアドレスを入力"
           },
           "password": {
-            "match": "パスワードの条件：",
-            "min": "- 全長8文字以上",
-            "lower": "- 1文字以上の英小文字",
-            "upper": "- 1文字以上の英大文字",
-            "digit": "- 1文字以上の数字",
-            "symbol": "- 1文字以上の記号",
-            "max": "パスワードは最大で255文字です"
+            "label": "パスワード",
+            "placeholder": "パスワードを入力"
           },
           "password_confirmation": {
-            "required": "確認のためもう一度パスワードを入力してください",
-            "match": "2つのパスワードが一致しません"
+            "label": "パスワード確認",
+            "placeholder": "入力したパスワードをもう一度確認"
           }
         }
       }
