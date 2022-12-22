@@ -452,6 +452,27 @@
             "label": "Remember me"
           }
         }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Current Password",
+            "placeholder": "Enter your password"
+          },
+          "new_password": {
+            "label": "New Password",
+            "placeholder": "Enter your new password"
+          },
+          "password_confirmation": {
+            "label": "Confirm password",
+            "placeholder": "Confirm your new password"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Please enter your current password"
+          }
+        }
       }
     },
     "admin": {
