@@ -473,6 +473,19 @@
             "required": "Please enter your current password"
           }
         }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Enter the account email"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Please enter the account email"
+          }
+        }
       }
     },
     "admin": {
