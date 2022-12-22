@@ -486,6 +486,18 @@
             "required": "Please enter the account email"
           }
         }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "New Password",
+            "placeholder": "Enter your new password"
+          },
+          "password_confirmation": {
+            "label": "Confirm password",
+            "placeholder": "Confirm your new password"
+          }
+        }
       }
     },
     "admin": {
