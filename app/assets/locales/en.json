@@ -388,6 +388,7 @@
         "max": "Email must be at most 255 characters long"
       },
       "password": {
+        "required": "Please enter a password",
         "match": "Password must have at least:",
         "min": "- Eight characters",
         "lower": "- One lowercase letter",
@@ -419,6 +420,21 @@
           "password_confirmation": {
             "label": "Confirm Password",
             "placeholder": "Confirm password"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Email"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "Password"
+          },
+          "remember_me": {
+            "label": "Remember me"
           }
         }
       }

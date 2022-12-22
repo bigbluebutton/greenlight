@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
 
-export default function useCreateSession(token) {
+export default function useCreateSession() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export default function useCreateSession(token) {
   const redirect = searchParams.get('location');
 
   return useMutation(
-    (session) => axios.post('/sessions.json', { session, token }),
+    ({ session, token }) => axios.post('/sessions.json', { session, token }).then((resp) => resp.data.data),
     {
       onSuccess: async (response) => {
         await queryClient.refetchQueries('useSessions');
@@ -20,7 +20,7 @@ export default function useCreateSession(token) {
 
         if (redirect) {
           navigate(redirect);
-        } else if (response.data.data.permissions.CreateRoom === 'false') {
+        } else if (response.permissions.CreateRoom === 'false') {
           navigate('/home');
         } else {
           navigate('/rooms');
