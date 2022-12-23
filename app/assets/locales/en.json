@@ -539,6 +539,13 @@
             "placeholder": "Confirm the password"
           }
         }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "Emails"
+          }
+        }
       }
     }
   }
