@@ -498,6 +498,22 @@
             "placeholder": "Confirm your new password"
           }
         }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Full Name"
+          },
+          "email": {
+            "label": "Email"
+          },
+          "language": {
+            "label": "Language"
+          },
+          "role": {
+            "label": "Role"
+          }
+        }
       }
     },
     "admin": {
