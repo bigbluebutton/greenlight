@@ -6,7 +6,13 @@ import { useCallback, useMemo } from 'react';
 
 export function useInviteUserFormValidation() {
   return useMemo(() => (yup.object({
-    emails: yup.string(),
+    emails: yup.string()
+      .required('forms.validations.emails.required')
+      .test(
+        'emails',
+        'forms.validations.emails.list',
+        (emails) => emails.split(',').every((email) => yup.string().required().email().isValidSync(email)),
+      ),
   })), []);
 }
 
