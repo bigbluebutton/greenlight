@@ -12,10 +12,7 @@ import FormSelect from '../../../shared_components/forms/controls/FormSelect';
 import Option from '../../../shared_components/utilities/Option';
 import useLocales from '../../../../hooks/queries/locales/useLocales';
 import useUpdateUserForm from '../../../../hooks/forms/users/user/useUpdateUserForm';
-
-function isUsersManager(user) {
-  return user?.permissions?.ManageUsers === 'true';
-}
+import PermissionChecker from '../../../../helpers/PermissionChecker';
 
 export default function UpdateUserForm({ user }) {
   const currentUser = useAuth();
@@ -36,8 +33,8 @@ export default function UpdateUserForm({ user }) {
     methods.setValue('language', i18n.resolvedLanguage);
   }, [i18n.resolvedLanguage]);
 
-  const isAdmin = isUsersManager(currentUser);
-  const rolesAPI = useRoles('', isAdmin);
+  const canUpdateRole = PermissionChecker.hasManageUsers(currentUser);
+  const rolesAPI = useRoles({ enabled: canUpdateRole });
 
   return (
     <Form methods={methods} onSubmit={updateUserAPI.mutate}>
@@ -48,7 +45,7 @@ export default function UpdateUserForm({ user }) {
           Object.keys(localesAPI.data || {}).map((code) => <Option key={code} value={code}>{localesAPI.data[code]}</Option>)
         }
       </FormSelect>
-      {(isAdmin && rolesAPI.data) && (
+      {(canUpdateRole && rolesAPI.data) && (
         <FormSelect field={fields.role_id}>
           {
             rolesAPI.data.map((role) => <Option key={role.id} value={role.id}>{role.name}</Option>)

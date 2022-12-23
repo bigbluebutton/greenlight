@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
 import axios from '../../../../helpers/Axios';
 
-export default function useRoles(search, enabled = true) {
+export default function useRoles({ search = '', enabled = true } = {}) {
   const [searchParams] = useSearchParams();
 
   const params = {
