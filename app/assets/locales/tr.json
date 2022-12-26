@@ -177,8 +177,6 @@
       "create_room": "Oda ekle",
       "create_new_room": "Yeni oda ekle",
       "user_created_at": "Oluşturulma: {{user.created_at}}",
-      "enter_user_email": "Bir e-posta adresi yazın",
-      "enter_user_name": "Bir ad yazın",
       "are_you_sure_delete_account": "{{user.name}} kullanıcısının hesabını silmek istediğinize emin misiniz?",
       "delete_account_warning": "Bu hesabı silmeyi seçerseniz, bu işlem geri alınamaz.",
       "invited": {
@@ -302,7 +300,8 @@
         "avatar_updated": "Avatar güncellendi.",
         "password_updated": "Parola güncellendi.",
         "account_activated": "Hesap etkinleştirildi.",
-        "activation_email_sent": "Etkinleştirme e-postası gönderildi."
+        "activation_email_sent": "Etkinleştirme e-postası gönderildi.",
+        "challenge_passed": "Güvenlik doğrulamasından geçtiniz"
       },
       "session": {
         "signed_out": "Oturumunuz kapatıldı."
@@ -374,5 +373,77 @@
     "message": "Greenlight kullanmak için lütfen size gönderilen etkinleştirme e-postasındaki yönergeleri izleyerek hesabınızı doğrulayın.",
     "resend_activation_link": "Etkinleştirme e-postasını almadıysanız ya da gelen e-posta ile sorun yaşıyorsanız aşağıdaki Yeniden gönder düğmesine tıklayarak yeni bir etkinleştirme e-postası alabilirsiniz.",
     "resend_btn_lbl": "Doğrulamayı yeniden gönder"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Lütfen bir ad yazın",
+        "min": "Ad en az 2 karakter uzunluğunda olabilir",
+        "max": "Ad en fazla 255 karakter uzunluğunda olabilir"
+      },
+      "email": {
+        "required": "Lütfen bir e-posta adresi yazın",
+        "email": "Yazılan e-posta adresi biçimi geçersiz",
+        "min": "E-posta adresi en az 6 karakter uzunluğunda olabilir",
+        "max": "E-posta adresi en fazla 255 karakter uzunluğunda olabilir"
+      },
+      "password": {
+        "match": "Parolanın en az özellikleri şunlar olmalıdır:",
+        "min": "- Sekiz karakter",
+        "lower": "- Bir küçük harf",
+        "upper": "- Bir büyük harf",
+        "digit": "- Bir rakam",
+        "symbol": "- Bir simge",
+        "max": "Parola en fazla 255 karakter uzunluğunda olabilir"
+      },
+      "password_confirmation": {
+        "required": "Lütfen parolayı onaylamak için yeniden yazın",
+        "match": "Parola ile onayı aynı değil"
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Tam ad",
+            "placeholder": "Tam adınızı yazın"
+          },
+          "email": {
+            "label": "E-posta adresi",
+            "placeholder": "E-posta adresinizi yazın"
+          },
+          "password": {
+            "label": "Parola",
+            "placeholder": "Bir parola yazın"
+          },
+          "password_confirmation": {
+            "label": "Parola onayı",
+            "placeholder": "Parolayı yeniden yazın"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Tam ad",
+            "placeholder": "Kullanıcının tam adını yazın"
+          },
+          "email": {
+            "label": "E-posta adresi",
+            "placeholder": "Kullanıcının e-posta adresini yazın"
+          },
+          "password": {
+            "label": "Parola",
+            "placeholder": "Kullanıcının parolasını yazın"
+          },
+          "password_confirmation": {
+            "label": "Parola onayı",
+            "placeholder": "Kullanıcının parolasını yeniden yazın"
+          }
+        }
+      }
+    }
   }
 }
