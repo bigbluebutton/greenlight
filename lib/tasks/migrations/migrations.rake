@@ -86,7 +86,7 @@ namespace :migrations do
                              .pluck(:id)
 
     Room.unscoped
-        .select(:id, :uid, :name, :bbb_id, :last_session, :user_id)
+        .select(:id, :uid, :name, :bbb_id, :last_session, :user_id, :room_settings)
         .includes(:owner)
         .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
@@ -94,7 +94,9 @@ namespace :migrations do
                              name: r.name,
                              meeting_id: r.bbb_id,
                              last_session: r.last_session&.to_datetime,
-                             owner_email: r.owner.email } }
+                             owner_email: r.owner.email,
+                             # muteOnStart, requireModeratorApproval, anyoneCanStart, joinModerator, recording
+                             room_settings: JSON.parse(r.room_settings) } }
           response = Net::HTTP.post(uri('rooms'), payload(params), COMMON[:headers])
 
           case response
@@ -116,6 +118,34 @@ namespace :migrations do
     unless has_encountred_issue.zero?
       puts yellow "In case of an error please retry the process to resolve."
       puts yellow "If you have not migrated your users, kindly run 'rake migrations:users' first and then retry."
+    end
+
+    exit has_encountred_issue
+  end
+
+  task :site_settings => :environment do |_task|
+    has_encountred_issue = 0
+
+    params = { site_settings: { PrimaryColor: Rails.configuration.primary_color_default,
+                                PrimaryColorLight: Rails.configuration.primary_color_lighten_default,
+                                PrimaryColorDark: Rails.configuration.primary_color_darken_default,
+                                # Terms: ,
+                                # BrandingImage: ,
+                                # PrivacyPolicy: ,
+                                RegistrationMethod: Rails.configuration.registration_method_default,
+                                ShareRooms: Rails.configuration.shared_access_default,
+                                PreuploadPresentation: Rails.configuration.preupload_presentation_default
+      }
+    }
+
+    response = Net::HTTP.post(uri('site_settings'), payload(params), COMMON[:headers])
+
+    case response
+    when Net::HTTPCreated
+      puts green "Successfully migrated Site Settings"
+    else
+      puts red "Unable to migrate Site Settings"
+      has_encountred_issue = 1 # At least one of the migrations failed.
     end
 
     exit has_encountred_issue
