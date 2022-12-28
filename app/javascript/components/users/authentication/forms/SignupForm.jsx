@@ -19,7 +19,9 @@ export default function SignupForm() {
 
   const handleSubmit = useCallback(async (user) => {
     const results = await captchaRef.current?.execute({ async: true });
-    return createUserAPI.mutate({ user, token: results.response });
+    const token = results?.response || '';
+
+    return createUserAPI.mutate({ user, token });
   }, [captchaRef.current, createUserAPI.mutate]);
 
   const HCaptchaHandlers = useMemo(() => ({

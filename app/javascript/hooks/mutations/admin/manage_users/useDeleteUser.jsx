@@ -8,7 +8,7 @@ export default function useDeleteUser(userId) {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (data) => axios.delete(`/admin/users/${userId}.json`, data),
+    (data) => axios.delete(`/users/${userId}.json`, data),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getAdminUsers');
