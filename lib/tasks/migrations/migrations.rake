@@ -94,9 +94,7 @@ namespace :migrations do
                              name: r.name,
                              meeting_id: r.bbb_id,
                              last_session: r.last_session&.to_datetime,
-                             owner_email: r.owner.email,
-                             # muteOnStart, requireModeratorApproval, anyoneCanStart, joinModerator, recording
-                             room_settings: JSON.parse(r.room_settings) } }
+                             owner_email: r.owner.email } }
           response = Net::HTTP.post(uri('rooms'), payload(params), COMMON[:headers])
 
           case response
@@ -141,6 +139,7 @@ namespace :migrations do
         moderator_access_code: r.moderator_access_code
       }
       params = { room_settings: { friendly_id: r.uid,
+                                  # muteOnStart, requireModeratorApproval, anyoneCanStart, joinModerator, recording
                                   settings: r.room_settings.merge(access_codes) } }
 
       response = Net::HTTP.post(uri('room_meeting_option'), payload(params), COMMON[:headers])
