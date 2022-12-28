@@ -177,9 +177,7 @@ namespace :migrations do
                                 # PrivacyPolicy: ,
                                 RegistrationMethod: Rails.configuration.registration_method_default,
                                 ShareRooms: Rails.configuration.shared_access_default,
-                                PreuploadPresentation: Rails.configuration.preupload_presentation_default
-      }
-    }
+                                PreuploadPresentation: Rails.configuration.preupload_presentation_default } }
 
     response = Net::HTTP.post(uri('site_settings'), payload(params), COMMON[:headers])
 
