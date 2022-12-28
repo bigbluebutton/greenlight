@@ -86,7 +86,7 @@ namespace :migrations do
                              .pluck(:id)
 
     Room.unscoped
-        .select(:id, :uid, :name, :bbb_id, :last_session, :user_id, :room_settings)
+        .select(:id, :uid, :name, :bbb_id, :last_session, :user_id)
         .includes(:owner)
         .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
@@ -123,7 +123,51 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task :site_settings => :environment do |_task|
+  task :room_settings, [:start, :stop] => :environment do |_task|
+    start, stop = range(args)
+    has_encountred_issue = 0
+
+    filtered_roles_ids = Role.unscoped
+                             .select(:id, :name)
+                             .where(name: COMMON[:filtered_user_roles])
+                             .pluck(:id)
+
+    Room.unscoped
+        .select(:uid, :room_settings)
+        .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
+        .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
+      access_codes = {
+        access_code: r.access_code,
+        moderator_access_code: r.moderator_access_code
+      }
+      params = { room_settings: { friendly_id: r.uid,
+                                  settings: r.room_settings.merge(access_codes) } }
+
+      response = Net::HTTP.post(uri('room_meeting_option'), payload(params), COMMON[:headers])
+
+      case response
+      when Net::HTTPCreated
+        puts green "Succesfully migrated Room settings for:"
+        puts cyan "  UID: #{r.uid}"
+      else
+        puts red "Unable to migrate Room settings for:"
+        puts yellow "  UID: #{r.uid}"
+        has_encountred_issue = 1 # At least one of the migrations failed.
+      end
+    end
+
+    puts
+    puts green "Room Settings migration completed."
+
+    unless has_encountred_issue.zero?
+      puts yellow "In case of an error please retry the process to resolve."
+      puts yellow "If you have not migrated your users, kindly run 'rake migrations:room_settings' first and then retry."
+    end
+
+    exit has_encountred_issue
+  end
+
+  task site_settings: :environment do |_task|
     has_encountred_issue = 0
 
     params = { site_settings: { PrimaryColor: Rails.configuration.primary_color_default,
