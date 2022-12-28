@@ -123,7 +123,7 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task :room_settings, [:start, :stop] => :environment do |_task|
+  task :room_settings, [:start, :stop] => :environment do |_task, args|
     start, stop = range(args)
     has_encountred_issue = 0
 
@@ -147,10 +147,10 @@ namespace :migrations do
 
       case response
       when Net::HTTPCreated
-        puts green "Succesfully migrated Room settings for:"
+        puts green "Succesfully migrated Room Settings for:"
         puts cyan "  UID: #{r.uid}"
       else
-        puts red "Unable to migrate Room settings for:"
+        puts red "Unable to migrate Room Settings for:"
         puts yellow "  UID: #{r.uid}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
@@ -190,6 +190,14 @@ namespace :migrations do
     else
       puts red "Unable to migrate Site Settings"
       has_encountred_issue = 1 # At least one of the migrations failed.
+    end
+
+    puts
+    puts green "Site Settings migration completed."
+
+    unless has_encountred_issue.zero?
+      puts yellow "In case of an error please retry the process to resolve."
+      puts yellow "If you have not migrated your users, kindly run 'rake migrations:site_settings' first and then retry."
     end
 
     exit has_encountred_issue
