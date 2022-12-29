@@ -97,7 +97,6 @@ module Api
           room_meeting_option_hash = room_meeting_option_params.to_h
 
           room = Room.find_by(friendly_id: room_meeting_option_hash[:friendly_id])
-
           return render_error status: :bad_request unless room
 
           # Returns all RoomMeetingOptions for a room
@@ -111,6 +110,7 @@ module Api
             return render_error status: :bad_request unless room_meeting_option
 
             room_meeting_option.update!(value:) if room_meeting_option.value != value
+            return render_error status: :bad_request unless room_meeting_option.save
           end
 
           render_data status: :created
@@ -121,10 +121,10 @@ module Api
 
           settings.each do |name, value|
             site_setting = SiteSetting.find_by(name:, provider: 'greenlight')
-
             return render_error status: :bad_request unless site_setting
 
             site_setting.update!(value:)
+            return render_error status: :bad_request unless site_setting.save
           end
 
           render_data status: :created
