@@ -136,17 +136,17 @@ namespace :migrations do
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
 
       parsed_room_settings = JSON.parse(r.room_settings)
+
+      # Returns nil if the Room Setting value is the same as the corresponding default value in V3
       room_settings = {
-        record: parsed_room_settings["recording"],
-        muteOnStart: parsed_room_settings["muteOnStart"],
-        guestPolicy: parsed_room_settings["requireModeratorApproval"],
-        glAnyoneCanStart: parsed_room_settings["anyoneCanStart"],
-        glAnyoneJoinAsModerator: parsed_room_settings["joinModerator"],
-        glViewerAccessCode: r.access_code,
-        glModeratorAccessCode: r.moderator_access_code
+        record: parsed_room_settings["recording"] == false ? nil : "true",
+        muteOnStart: parsed_room_settings["muteOnStart"] == false ? nil : "true",
+        glAnyoneCanStart: parsed_room_settings["anyoneCanStart"] == false ? nil : "true",
+        glAnyoneJoinAsModerator: parsed_room_settings["joinModerator"] == false ? nil : "true",
+        guestPolicy: parsed_room_settings["requireModeratorApproval"] == false ? nil : "ASK_MODERATOR",
       }
 
-      params = { room: { friendly_id: r.uid, room_settings: room_settings } }
+      params = { room: { friendly_id: r.uid, room_settings: room_settings.compact } }
 
       response = Net::HTTP.post(uri('room_meeting_option'), payload(params), COMMON[:headers])
 
