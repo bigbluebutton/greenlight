@@ -98,7 +98,7 @@
       "meeting_invitation": "会議に招待されました",
       "meeting_not_started": "会議はまだ始まっていません",
       "join_meeting_automatically": "会議が始まれば自動的に参加します",
-      "recording_consent": "この会議が録画されうることを認めます。自分の音声とビデオも同様です。"
+      "recording_consent": "この会議が、自分の音声と画像も含め録画される可能性があることを理解しました。"
     },
     "presentation": {
       "presentation": "プレゼンファイル",
@@ -145,7 +145,7 @@
     "formats": "フォーマット",
     "published": "公開",
     "unpublished": "非公開",
-    "protected": "プロテクト",
+    "protected": "秘匿",
     "length_in_minutes": "{{recording.length}}分",
     "processing_recording": "録画処理中...",
     "copy_recording_urls": "録画へのリンクをコピー",
@@ -192,7 +192,7 @@
       "participants": "参加者",
       "status": "状況",
       "running": "会議中",
-      "not_running": "会議は行われていません",
+      "not_running": "閉室",
       "active": "アクティブ",
       "current_session": "現在のセッション: {{lastSession}}",
       "last_session": "最後のセッション: {{ room.last_session }}",
@@ -201,7 +201,7 @@
       "resync_recordings": "録画の再同期"
     },
     "server_recordings": {
-      "server_recordings": "サーバーの録画",
+      "server_recordings": "すべての録画",
       "latest_recordings": "最近の録画",
       "no_recordings_found": "会議室はありません"
     },
