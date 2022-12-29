@@ -94,36 +94,37 @@ module Api
         end
 
         def create_room_meeting_option
-          room_meeting_option = room_meeting_option_params.to_h
+          room_meeting_option_hash = room_meeting_option_params.to_h
 
-          room = Room.find_by(friendly_id: room_meeting_option[:friendly_id])
+          room = Room.find_by(friendly_id: room_meeting_option_hash[:friendly_id])
 
           return render_error status: :bad_request unless room
 
-          meeting_options = room_meeting_option[:room_settings]
+          # Returns all RoomMeetingOptions for a room
+          room_meeting_options = RoomMeetingOption.where(room:)
 
-          meeting_options.each do |name, value|
+          room_meeting_option_hash.each do |name, value|
             meeting_option = MeetingOption.find_by(name:)
             return render_error status: :bad_request unless meeting_option
 
-            room_meeting_option = RoomMeetingOption.find_by(room:, meeting_option:)
+            room_meeting_option = room_meeting_options.find_by(room:, meeting_option:)
             return render_error status: :bad_request unless room_meeting_option
 
-            room_meeting_option.update(value:)
+            room_meeting_option.update!(value:) if room_meeting_option.value != value
           end
 
           render_data status: :created
         end
 
-        def create_settings
-          settings = settings_params.to_h
+        def create_site_settings
+          settings = site_settings_params.to_h
 
           settings.each do |name, value|
             site_setting = SiteSetting.find_by(name:, provider: 'greenlight')
 
             return render_error status: :bad_request unless site_setting
 
-            site_setting.update(value:)
+            site_setting.update!(value:)
           end
 
           render_data status: :created
@@ -147,7 +148,7 @@ module Api
           decrypted_params.require(:room).permit(:friendly_id, :room_settings)
         end
 
-        def settings_params
+        def site_settings_params
           decrypted_params.require(:settings).permit(:PrimaryColor, :PrimaryColorLight, :PrimaryColorDark, :RegistrationMethod, :ShareRooms, :PreuploadPresentation)
         end
 
