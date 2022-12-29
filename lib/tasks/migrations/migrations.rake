@@ -134,11 +134,19 @@ namespace :migrations do
         .select(:uid, :room_settings)
         .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
-      params = { room_settings: { friendly_id: r.uid,
-                                  access_code: r.access_code,
-                                  moderator_access_code: r.moderator_access_code,
-                                  # muteOnStart, requireModeratorApproval, anyoneCanStart, joinModerator, recording
-                                  settings: JSON.parse(r.room_settings) } }
+
+      parsed_room_settings = JSON.parse(r.room_settings)
+      room_settings = {
+        record: parsed_room_settings["recording"],
+        muteOnStart: parsed_room_settings["muteOnStart"],
+        guestPolicy: parsed_room_settings["requireModeratorApproval"],
+        glAnyoneCanStart: parsed_room_settings["anyoneCanStart"],
+        glAnyoneJoinAsModerator: parsed_room_settings["joinModerator"],
+        glViewerAccessCode: r.access_code,
+        glModeratorAccessCode: r.moderator_access_code
+      }
+
+      params = { room: { friendly_id: r.uid, room_settings: room_settings } }
 
       response = Net::HTTP.post(uri('room_meeting_option'), payload(params), COMMON[:headers])
 
@@ -167,7 +175,7 @@ namespace :migrations do
   task site_settings: :environment do |_task|
     has_encountred_issue = 0
 
-    params = { site_settings: { PrimaryColor: Rails.configuration.primary_color_default,
+    params = { settings: { PrimaryColor: Rails.configuration.primary_color_default,
                                 PrimaryColorLight: Rails.configuration.primary_color_lighten_default,
                                 PrimaryColorDark: Rails.configuration.primary_color_darken_default,
                                 # Terms: ,
@@ -177,7 +185,7 @@ namespace :migrations do
                                 ShareRooms: Rails.configuration.shared_access_default,
                                 PreuploadPresentation: Rails.configuration.preupload_presentation_default } }
 
-    response = Net::HTTP.post(uri('site_settings'), payload(params), COMMON[:headers])
+    response = Net::HTTP.post(uri('create_site_settings'), payload(params), COMMON[:headers])
 
     case response
     when Net::HTTPCreated
