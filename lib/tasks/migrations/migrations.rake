@@ -134,13 +134,11 @@ namespace :migrations do
         .select(:uid, :room_settings)
         .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
-      access_codes = {
-        access_code: r.access_code,
-        moderator_access_code: r.moderator_access_code
-      }
       params = { room_settings: { friendly_id: r.uid,
+                                  access_code: r.access_code,
+                                  moderator_access_code: r.moderator_access_code,
                                   # muteOnStart, requireModeratorApproval, anyoneCanStart, joinModerator, recording
-                                  settings: r.room_settings.merge(access_codes) } }
+                                  settings: JSON.parse(r.room_settings) } }
 
       response = Net::HTTP.post(uri('room_meeting_option'), payload(params), COMMON[:headers])
 
