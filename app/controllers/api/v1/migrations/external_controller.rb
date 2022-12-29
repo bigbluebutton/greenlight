@@ -93,6 +93,42 @@ module Api
           render_data status: :created
         end
 
+        def create_room_meeting_option
+          room_meeting_option = room_meeting_option_params.to_h
+
+          room = Room.find_by(friendly_id: room_meeting_option[:friendly_id])
+
+          return render_error status: :bad_request unless room
+
+          meeting_options = room_meeting_option[:room_settings]
+
+          meeting_options.each do |name, value|
+            meeting_option = MeetingOption.find_by(name:)
+            return render_error status: :bad_request unless meeting_option
+
+            room_meeting_option = RoomMeetingOption.find_by(room:, meeting_option:)
+            return render_error status: :bad_request unless room_meeting_option
+
+            room_meeting_option.update(value:)
+          end
+
+          render_data status: :created
+        end
+
+        def create_settings
+          settings = settings_params.to_h
+
+          settings.each do |name, value|
+            site_setting = SiteSetting.find_by(name:, provider: 'greenlight')
+
+            return render_error status: :bad_request unless site_setting
+
+            site_setting.update(value:)
+          end
+
+          render_data status: :created
+        end
+
         private
 
         def role_params
@@ -105,6 +141,14 @@ module Api
 
         def room_params
           decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email)
+        end
+
+        def room_meeting_option_params
+          decrypted_params.require(:room).permit(:friendly_id, :room_settings)
+        end
+
+        def settings_params
+          decrypted_params.require(:settings).permit(:PrimaryColor, :PrimaryColorLight, :PrimaryColorDark, :RegistrationMethod, :ShareRooms, :PreuploadPresentation)
         end
 
         def decrypted_params
