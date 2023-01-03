@@ -15,7 +15,8 @@ describe PermissionsChecker, type: :service do
         permission_names: permission.name,
         user_id: '',
         friendly_id: '',
-        record_id: ''
+        record_id: '',
+        current_provider: user.provider
       ).call).to be(true)
     end
 
@@ -26,7 +27,8 @@ describe PermissionsChecker, type: :service do
         permission_names: permission.name,
         user_id: '',
         friendly_id: '',
-        record_id: ''
+        record_id: '',
+        current_provider: user.provider
       ).call).to be(false)
     end
 
@@ -37,7 +39,8 @@ describe PermissionsChecker, type: :service do
         permission_names: 'ManageUsers',
         user_id: user.id,
         friendly_id: '',
-        record_id: ''
+        record_id: '',
+        current_provider: user.provider
       ).call).to be(true)
     end
 
@@ -53,7 +56,8 @@ describe PermissionsChecker, type: :service do
           permission_names: [permission.name, permission2.name],
           user_id: user.id,
           friendly_id: '',
-          record_id: ''
+          record_id: '',
+          current_provider: user.provider
         ).call).to be(true)
       end
 
@@ -63,7 +67,8 @@ describe PermissionsChecker, type: :service do
           permission_names: %w[ManageRoles ManageRooms ManageUsers],
           user_id: user.id,
           friendly_id: '',
-          record_id: ''
+          record_id: '',
+          current_provider: user.provider
         ).call).to be(true)
       end
 
@@ -75,8 +80,66 @@ describe PermissionsChecker, type: :service do
           permission_names: [],
           user_id: super_admin_user.id,
           friendly_id: '',
-          record_id: ''
+          record_id: '',
+          current_provider: super_admin_user.provider
         ).call).to be(true)
+      end
+
+      context 'Current Provider Checks' do
+        it 'checks the current user provider and returns false if not equal to current provider' do
+          role = create(:role, provider: 'bn')
+          user_bn_provider = create(:user, provider: 'bn', role:)
+          expect(described_class.new(
+            current_user: user_bn_provider,
+            permission_names: [],
+            user_id: '',
+            friendly_id: '',
+            record_id: '',
+            current_provider: user.provider
+          ).call).to be(false)
+        end
+
+        it 'checks the current user provider and returns false if the provider is not equal to user\'s provider' do
+          role = create(:role, provider: 'bn')
+          user_bn_provider = create(:user, provider: 'bn', role:)
+          expect(described_class.new(
+            current_user: user_bn_provider,
+            permission_names: [],
+            user_id: user.id,
+            friendly_id: '',
+            record_id: '',
+            current_provider: user_bn_provider.provider
+          ).call).to be(false)
+        end
+
+        it 'checks the current user provider and returns false if the provider is not equal to rooms\'s user provider' do
+          role = create(:role, provider: 'bn')
+          user_bn_provider = create(:user, provider: 'bn', role:)
+          room = create(:room, user:)
+          expect(described_class.new(
+            current_user: user_bn_provider,
+            permission_names: [],
+            user_id: '',
+            friendly_id: room.friendly_id,
+            record_id: '',
+            current_provider: user_bn_provider.provider
+          ).call).to be(false)
+        end
+
+        it 'checks the current user provider and returns false if the provider is not equal to the recording\'s user provider' do
+          role = create(:role, provider: 'bn')
+          user_bn_provider = create(:user, provider: 'bn', role:)
+          room = create(:room, user:)
+          recording = create(:recording, room:)
+          expect(described_class.new(
+            current_user: user_bn_provider,
+            permission_names: [],
+            user_id: '',
+            friendly_id: '',
+            record_id: recording.record_id,
+            current_provider: user_bn_provider.provider
+          ).call).to be(false)
+        end
       end
     end
   end
