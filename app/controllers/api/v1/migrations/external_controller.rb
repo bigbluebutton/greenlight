@@ -40,7 +40,6 @@ module Api
         # Expects: { user: { :name, :email, :external_id, :language, :role } }
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Creates a user.
-
         def create_user
           user_hash = user_params.to_h
 
@@ -80,7 +79,7 @@ module Api
 
           return render_error status: :bad_request unless user
 
-          room = Room.new(room_hash.except(:owner_email, :owner_provider).merge({ user: }))
+          room = Room.new(room_hash.except(:owner_email, :owner_provider, :room_settings).merge({ user: }))
 
           # Redefines the validations method to do nothing
           # rubocop:disable Lint/EmptyBlock
@@ -90,32 +89,16 @@ module Api
 
           return render_error status: :bad_request unless room.save
 
-          render_data status: :created
-        end
-
-        def create_room_meeting_option
-          room_meeting_option_hash = room_meeting_option_params.to_h
-
-          room = Room.find_by(friendly_id: room_meeting_option_hash[:friendly_id])
-          return render_error status: :bad_request unless room
-
-          # Returns all RoomMeetingOptions for a room
-          room_meeting_options = RoomMeetingOption.where(room:)
-
-          room_meeting_option_hash.each do |name, value|
-            meeting_option = MeetingOption.find_by(name:)
-            return render_error status: :bad_request unless meeting_option
-
-            room_meeting_option = room_meeting_options.find_by(room:, meeting_option:)
-            return render_error status: :bad_request unless room_meeting_option
-
-            room_meeting_option.update!(value:) if room_meeting_option.value != value
-            return render_error status: :bad_request unless room_meeting_option.save
-          end
+          # RoomMeetingOption
+          update_room_meeting_options(room_settings: room_hash[:room_settings], room_meeting_options: room.room_meeting_options)
 
           render_data status: :created
         end
 
+        # POST /api/v1/migrations/site_settings.json
+        # Expects: { settings: { :PrimaryColor, :PrimaryColorLight, :PrimaryColorDark, :RegistrationMethod, :ShareRooms, :PreuploadPresentation } }
+        # Returns: { data: Array[serializable objects] , errors: Array[String] }
+        # Does: Creates a SiteSettings.
         def create_site_settings
           settings = site_settings_params.to_h
 
@@ -130,6 +113,21 @@ module Api
           render_data status: :created
         end
 
+        # As per the task file in V2, V3 should receive and update ONLY the RoomMeetingOptions that differs from V3 default values
+        # In V3, RoomMeetingOptions default values are set to either "false" or "ALWAYS_ACCEPT" for guestPolicy
+        # Hence, the following is an example of an expected room_settings hash from V2: { "record": "true", glAnyoneCanStart": "true" }
+        def update_room_meeting_options(room_settings, room_meeting_options)
+          room_settings.each do |name, value|
+            # Finds the RoomMeetingOption (V3) corresponding to the given RoomSetting (V2)
+            room_meeting_option = room_meeting_options.includes(:meeting_option).find_by(meeting_option: { name: })
+            return render_error status: :bad_request unless room_meeting_option
+
+            # Updates the RoomMeetingOption value
+            room_meeting_option.update!(value:) if room_meeting_option.value != value
+            return render_error status: :bad_request unless room_meeting_option.save
+          end
+        end
+
         private
 
         def role_params
@@ -141,11 +139,7 @@ module Api
         end
 
         def room_params
-          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email)
-        end
-
-        def room_meeting_option_params
-          decrypted_params.require(:room).permit(:friendly_id, :room_settings)
+          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, :room_settings)
         end
 
         def site_settings_params
