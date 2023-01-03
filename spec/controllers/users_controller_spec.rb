@@ -289,7 +289,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(user_with_manage_users_permission.role_id).to eq(updated_params[:role_id])
     end
 
-    it 'allows a user with ManageUser permissions to edit their own role' do
+    it 'allows a user with ManageUser permissions to edit another users role' do
       sign_in_user(user_with_manage_users_permission)
 
       updated_params = {
