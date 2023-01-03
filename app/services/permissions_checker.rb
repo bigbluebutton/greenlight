@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PermissionsChecker
-  def initialize(current_user:, permission_names:, user_id:, friendly_id:, record_id:, current_provider:)
+  def initialize(current_user:, permission_names:, current_provider:, user_id: nil, friendly_id: nil, record_id: nil)
     @current_user = current_user
     @permission_names = permission_names
     @user_id = user_id

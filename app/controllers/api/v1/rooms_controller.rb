@@ -64,7 +64,7 @@ module Api
       def create
         return render_error status: :bad_request, errors: 'RoomLimitError' unless PermissionsChecker.new(
           permission_names: 'RoomLimit',
-          user_id: room_params[:user_id], current_user:, friendly_id: nil, record_id: nil, current_provider:
+          user_id: room_params[:user_id], current_user:, current_provider:
         ).call
 
         # TODO: amir - ensure accessibility for authenticated requests only.
