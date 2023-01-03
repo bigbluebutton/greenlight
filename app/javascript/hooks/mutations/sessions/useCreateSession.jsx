@@ -27,7 +27,7 @@ export default function useCreateSession() {
         }
       },
       onError: () => {
-        toast.error(t('toast.error.problem_completing_action'));
+        toast.error(t('toast.error.session.invalid_credentials'));
       },
     },
   );
