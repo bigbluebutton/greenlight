@@ -32,6 +32,7 @@
 en:
   email:
     activation:
+      line0: Welcome %{name}!
       line1: There's only one step left to start using and leverage what Greenlight and BigBlueButton has to offer!
       line2: You are invited to verifiy your identity by following the link below to activate your account.
       line3: Activating your account will enable you to leverage all of Greenlight and BigBlueButton features!
@@ -39,3 +40,16 @@ en:
       line5: Activate My Account
       line6: This link will expire in %{time}
       line7: You can still login to your account to get a new activation link if this email expires.
+    invitation:
+      line0: Invitation to join BigBlueButton
+      line1: You have been invited to your own personal space by %{name}.
+      line2: To signup using your email, click the button below and follow the steps.
+      line3: The invite is only valid for 48 hours.
+      line4: Sign Up
+    reset:
+      line0: Password Reset
+      line1: A password reset has been requested for the email %{email}
+      line2: If you requested this reset, then please click the link below to reset your password:"
+      line3: Reset Password
+      line4: You can safely ignore this email if you did not make this request.
+      line5: This link will expire in %{time}.

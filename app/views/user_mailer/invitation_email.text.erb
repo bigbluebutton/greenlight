@@ -1,10 +1,9 @@
 ---
-Invitation to join BigBlueButton
+<%= t('email.invitation.line0') %>
 
-You have been invited to your own personal space by <%= @name %>
-To signup using your email, click the link below and follow the steps.
+<%= t('email.invitation.line1', name: @name) %>
+<%= t('email.invitation.line2') %>
 
-Link: <%= @signup_url %>
-The invite is valid for 48 hours.
+<%= t('email.invitation.line3') %>
+<%= t('email.invitation.line4') %> <%= @signup_url %>
 ---
-
