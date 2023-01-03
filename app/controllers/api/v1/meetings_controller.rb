@@ -34,12 +34,14 @@ module Api
           provider: current_provider,
           current_user:,
           show_codes: true,
-          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart]
+          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart glAnyoneJoinAsModerator]
         ).call
 
         return render_error status: :unauthorized if !current_user && settings['glRequireAuthentication'] == 'true'
 
-        bbb_role = infer_bbb_role(mod_code: settings['glModeratorAccessCode'], viewer_code: settings['glViewerAccessCode'])
+        bbb_role = infer_bbb_role(mod_code: settings['glModeratorAccessCode'],
+                                  viewer_code: settings['glViewerAccessCode'],
+                                  anyone_join_as_mod: settings['glAnyoneJoinAsModerator'] == 'true')
 
         return render_error status: :forbidden if bbb_role.nil?
 
@@ -81,25 +83,36 @@ module Api
         @room = Room.find_by!(friendly_id: params[:friendly_id])
       end
 
-      def authorized_as_viewer?(access_code:)
-        return true if access_code.blank?
+      def authorized_as_viewer?(viewer_code:)
+        return true if viewer_code.blank? && params[:access_code].blank?
 
-        access_code == params[:access_code]
+        access_code_validator(access_code: viewer_code)
       end
 
-      def authorized_as_moderator?(access_code:)
-        (params[:access_code].present? && access_code == params[:access_code]) ||
-          @room.anyone_joins_as_moderator? ||
+      # Five scenarios where a user is authorized to join a BBB meeting as a moderator:
+      # The user joins
+      # 1. its own room
+      # 2. a shared room
+      # 3. a room that requires a moderator access code and the access code input is correct
+      # 4. a room that has the AnyoneJoinAsModerator setting enabled and does not require an access code
+      # 5. a room that has the AnyoneJoinAsModerator setting enabled and requires a moderator or a viewer access code
+      #    and the access code input correspond to either
+      def authorized_as_moderator?(mod_code:, viewer_code:, anyone_join_as_mod:)
+        @room.user_id == current_user&.id ||
           current_user&.shared_rooms&.include?(@room) ||
-          @room.user_id == current_user&.id
+          access_code_validator(access_code: mod_code) ||
+          (anyone_join_as_mod && viewer_code.blank? && mod_code.blank?) ||
+          (anyone_join_as_mod && (access_code_validator(access_code: mod_code) || access_code_validator(access_code: viewer_code)))
       end
 
-      def infer_bbb_role(mod_code:, viewer_code:)
-        # TODO: Handle access code circumventing when 'anyone_joins_as_moderator?' is true.
+      def access_code_validator(access_code:)
+        access_code.present? && params[:access_code].present? && access_code == params[:access_code]
+      end
 
-        if authorized_as_moderator?(access_code: mod_code)
+      def infer_bbb_role(mod_code:, viewer_code:, anyone_join_as_mod:)
+        if authorized_as_moderator?(mod_code:, viewer_code:, anyone_join_as_mod:)
           'Moderator'
-        elsif authorized_as_viewer?(access_code: viewer_code)
+        elsif authorized_as_viewer?(viewer_code:) && !anyone_join_as_mod
           'Viewer'
         end
       end

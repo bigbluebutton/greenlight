@@ -40,10 +40,6 @@ class Room < ApplicationRecord
     all
   end
 
-  def anyone_joins_as_moderator?
-    MeetingOption.get_setting_value(name: 'glAnyoneJoinAsModerator', room_id: id)&.value == 'true'
-  end
-
   def get_setting(name:)
     room_meeting_options.joins(:meeting_option)
                         .find_by(meeting_option: { name: })
