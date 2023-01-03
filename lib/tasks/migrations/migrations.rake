@@ -86,15 +86,29 @@ namespace :migrations do
                              .pluck(:id)
 
     Room.unscoped
-        .select(:id, :uid, :name, :bbb_id, :last_session, :user_id)
+        .select(:id, :uid, :name, :bbb_id, :last_session, :user_id, :room_settings)
         .includes(:owner)
         .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
+
+          # Room Settings migration
+          parsed_room_settings = JSON.parse(r.room_settings)
+          # Returns nil if the Room Setting value is the same as the corresponding default value in V3
+          room_settings = {
+            record: parsed_room_settings["recording"] == false ? nil : "true",
+            muteOnStart: parsed_room_settings["muteOnStart"] == false ? nil : "true",
+            glAnyoneCanStart: parsed_room_settings["anyoneCanStart"] == false ? nil : "true",
+            glAnyoneJoinAsModerator: parsed_room_settings["joinModerator"] == false ? nil : "true",
+            guestPolicy: parsed_room_settings["requireModeratorApproval"] == false ? nil : "ASK_MODERATOR",
+          }
+
           params = { room: { friendly_id: r.uid,
                              name: r.name,
                              meeting_id: r.bbb_id,
                              last_session: r.last_session&.to_datetime,
-                             owner_email: r.owner.email } }
+                             owner_email: r.owner.email ,
+                             room_settings: room_settings.compact } }
+
           response = Net::HTTP.post(uri('rooms'), payload(params), COMMON[:headers])
 
           case response
@@ -116,57 +130,6 @@ namespace :migrations do
     unless has_encountred_issue.zero?
       puts yellow "In case of an error please retry the process to resolve."
       puts yellow "If you have not migrated your users, kindly run 'rake migrations:users' first and then retry."
-    end
-
-    exit has_encountred_issue
-  end
-
-  task :room_settings, [:start, :stop] => :environment do |_task, args|
-    start, stop = range(args)
-    has_encountred_issue = 0
-
-    filtered_roles_ids = Role.unscoped
-                             .select(:id, :name)
-                             .where(name: COMMON[:filtered_user_roles])
-                             .pluck(:id)
-
-    Room.unscoped
-        .select(:uid, :room_settings)
-        .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
-        .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
-
-      parsed_room_settings = JSON.parse(r.room_settings)
-
-      # Returns nil if the Room Setting value is the same as the corresponding default value in V3
-      room_settings = {
-        record: parsed_room_settings["recording"] == false ? nil : "true",
-        muteOnStart: parsed_room_settings["muteOnStart"] == false ? nil : "true",
-        glAnyoneCanStart: parsed_room_settings["anyoneCanStart"] == false ? nil : "true",
-        glAnyoneJoinAsModerator: parsed_room_settings["joinModerator"] == false ? nil : "true",
-        guestPolicy: parsed_room_settings["requireModeratorApproval"] == false ? nil : "ASK_MODERATOR",
-      }
-
-      params = { room: { friendly_id: r.uid, room_settings: room_settings.compact } }
-
-      response = Net::HTTP.post(uri('room_meeting_option'), payload(params), COMMON[:headers])
-
-      case response
-      when Net::HTTPCreated
-        puts green "Succesfully migrated Room Settings for:"
-        puts cyan "  UID: #{r.uid}"
-      else
-        puts red "Unable to migrate Room Settings for:"
-        puts yellow "  UID: #{r.uid}"
-        has_encountred_issue = 1 # At least one of the migrations failed.
-      end
-    end
-
-    puts
-    puts green "Room Settings migration completed."
-
-    unless has_encountred_issue.zero?
-      puts yellow "In case of an error please retry the process to resolve."
-      puts yellow "If you have not migrated your users, kindly run 'rake migrations:room_settings' first and then retry."
     end
 
     exit has_encountred_issue
