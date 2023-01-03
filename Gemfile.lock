@@ -156,6 +156,7 @@ GEM
     hashie (5.0.0)
     hcaptcha (7.1.0)
       json
+    hiredis (0.6.3)
     httpclient (2.8.3)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
@@ -402,6 +403,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   hcaptcha
+  hiredis (~> 0.6.0)
   i18n-language-mapping
   image_processing (~> 1.2)
   jbuilder
