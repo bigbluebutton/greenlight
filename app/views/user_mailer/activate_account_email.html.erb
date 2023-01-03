@@ -2,7 +2,7 @@
   <div style="text-align:center; font-family:'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
     <div style="display:inline-block; background-color:#F5F7FB; border:1px solid #d3d3d3; padding: 25px 70px">
 
-      <h1 style="margin-bottom:30px"> Welcome <%= @user.name %>! </h1>
+      <h1 style="margin-bottom:30px"> <%= t('email.activation.line0', name: @user.name) %> </h1>
 
       <p style="margin-bottom:20px;"> <%= t('email.activation.line1') %> </p>
 
