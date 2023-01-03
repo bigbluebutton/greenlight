@@ -139,7 +139,8 @@ namespace :migrations do
     start, stop = range(args)
     has_encountred_issue = 0
 
-    User.joins(shared_access: [:rooms])
+    User.unscoped
+        .joins(shared_access: [:rooms])
         .select(:id, :'rooms.uid', :email)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |sa|
             params = { shared_access: { friendly_id: sa.uid,
@@ -149,18 +150,19 @@ namespace :migrations do
 
             case response
             when Net::HTTPCreated
-              puts green "Successfully migrated Site Settings"
+              puts green "Successfully migrated Shared Access"
             else
-              puts red "Unable to migrate Site Settings"
+              puts red "Unable to migrate Shared Access"
               has_encountred_issue = 1 # At least one of the migrations failed.
             end
 
             puts
-            puts green "Site Settings migration completed."
+            puts green "Shared Access migration completed."
 
             unless has_encountred_issue.zero?
               puts yellow "In case of an error please retry the process to resolve."
-              puts yellow "If you have not migrated your users, kindly run 'rake migrations:site_settings' first and then retry."
+              puts yellow "If you have not migrated your users, kindly run 'rake migrations:users' first and then retry."
+              puts yellow "If you have not migrated your rooms, kindly run 'rake migrations:rooms' first and then retry."
             end
 
             exit has_encountred_issue
@@ -195,7 +197,6 @@ namespace :migrations do
 
     unless has_encountred_issue.zero?
       puts yellow "In case of an error please retry the process to resolve."
-      puts yellow "If you have not migrated your users, kindly run 'rake migrations:site_settings' first and then retry."
     end
 
     exit has_encountred_issue
