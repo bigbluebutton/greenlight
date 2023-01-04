@@ -172,15 +172,18 @@ namespace :migrations do
   task site_settings: :environment do |_task|
     has_encountred_issue = 0
 
-    params = { settings: { PrimaryColor: Rails.configuration.primary_color_default,
-                           PrimaryColorLight: Rails.configuration.primary_color_lighten_default,
-                           PrimaryColorDark: Rails.configuration.primary_color_darken_default,
-                           # Terms: ,
-                           # BrandingImage: ,
-                           # PrivacyPolicy: ,
-                           RegistrationMethod: Rails.configuration.registration_method_default,
-                           ShareRooms: Rails.configuration.shared_access_default,
-                           PreuploadPresentation: Rails.configuration.preupload_presentation_default } }
+    settings_hash = Setting.find_by(provider: 'greenlight').features.pluck(:name, :value).to_h
+
+    settings = { PrimaryColor: settings_hash['Primary Color'],
+                 PrimaryColorLight: settings_hash['Primary Color Lighten'],
+                 PrimaryColorDark: settings_hash['Primary Color Lighten'],
+                 Terms: settings_hash['Legal URL'],
+                 PrivacyPolicy: settings_hash['Privacy Policy URL'],
+                 RegistrationMethod: settings_hash['Registration Method'],
+                 ShareRooms: settings_hash['Shared Access'],
+                 PreuploadPresentation: settings_hash['Preupload Presentation'] }
+
+    params = { settings: settings.compact }
 
     response = Net::HTTP.post(uri('create_site_settings'), payload(params), COMMON[:headers])
 
