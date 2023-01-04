@@ -143,7 +143,8 @@ module Api
         end
 
         def site_settings_params
-          decrypted_params.require(:settings).permit(:PrimaryColor, :PrimaryColorLight, :PrimaryColorDark, :RegistrationMethod, :ShareRooms, :PreuploadPresentation)
+          decrypted_params.require(:settings).permit(:PrimaryColor, :PrimaryColorLight, :PrimaryColorDark, :RegistrationMethod, :ShareRooms,
+                                                     :PreuploadPresentation)
         end
 
         def decrypted_params
