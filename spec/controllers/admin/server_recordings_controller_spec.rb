@@ -51,6 +51,22 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
       expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recs.pluck(:id))
     end
 
+    context 'SuperAdmin accessing recordings for provider other than current provider' do
+      before do
+        super_admin_role = create(:role, provider: 'bn', name: 'SuperAdmin')
+        super_admin = create(:user, provider: 'bn', role: super_admin_role)
+        sign_in_user(super_admin)
+      end
+
+      it 'returns the list of recordings' do
+        recordings = [create(:recording, name: 'Tinky-Winky'), create(:recording, name: 'Dipsy'), create(:recording, name: 'Laa-Laa')]
+
+        get :index
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recordings.pluck(:id))
+      end
+    end
+
     context 'user without ManageRecordings permission' do
       before do
         sign_in_user(user)
