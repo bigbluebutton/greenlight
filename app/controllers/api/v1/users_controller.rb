@@ -24,24 +24,27 @@ module Api
       # Does: Creates and saves a new user record in the database with the provided parameters.
 
       def create
+        # Check if this is an admin creating a user
+        admin_create = current_user && PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call
+
         # Users created by a user will have the creator language by default with a fallback to the server configured default_locale.
         user_params[:language] = current_user&.language || I18n.default_locale if user_params[:language].blank?
 
         registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
 
-        if registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token
+        if registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token && !admin_create
           return render_error errors: Rails.configuration.custom_error_msgs[:invite_token_invalid]
         end
 
         user = UserCreator.new(user_params: user_params.except(:invite_token), provider: current_provider, role: default_role).call
 
         # TODO: Add proper error logging for non-verified token hcaptcha
-        if !current_user && hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+        if !admin_create && hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
           return render_error errors: Rails.configuration.custom_error_msgs[:hcaptcha_invalid]
         end
 
         # Set to pending if registration method is approval
-        user.pending! if !current_user && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
+        user.pending! if !admin_create && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
 
         if user.save
           # Delete invitation (ignore whether it exists or not)
