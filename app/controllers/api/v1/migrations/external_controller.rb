@@ -69,7 +69,7 @@ module Api
         # POST /api/v1/migrations/rooms.json
         # Expects: { room: { :name, :friendly_id, :meeting_id, :last_session } }
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
-        # Does: Creates a room.
+        # Does: Creates a Room and its RoomMeetingOptions.
         def create_room
           room_hash = room_params.to_h
 
@@ -89,8 +89,36 @@ module Api
 
           return render_error status: :bad_request unless room.save
 
-          # RoomMeetingOption
-          update_room_meeting_options(room_settings: room_hash[:room_settings], room_meeting_options: room.room_meeting_options)
+          # As per the task file in V2, V3 should receive and update ONLY the RoomMeetingOptions that differs from V3 default values
+          # In V3, RoomMeetingOptions default values are set to either "false" or "ALWAYS_ACCEPT" for guestPolicy
+          # Hence, the following is an example of an expected room_settings hash from V2: { "record": "true", glAnyoneCanStart": "true" }
+          room_hash[:room_settings].each do |name, value|
+            # Finds the RoomMeetingOption (V3) corresponding to the given RoomSetting (V2)
+            room_meeting_option = room.room_meeting_options.includes(:meeting_option).find_by(meeting_option: { name: })
+            return render_error status: :bad_request unless room_meeting_option
+
+            # Updates the RoomMeetingOption value
+            room_meeting_option.update!(value:) if room_meeting_option.value != value
+            return render_error status: :bad_request unless room_meeting_option.save
+          end
+
+          render_data status: :created
+        end
+
+        # POST /api/v1/migrations/shared_access.json
+        # Expects: { shared_access: { :friendly_id, :user_email } }
+        # Returns: { data: Array[serializable objects] , errors: Array[String] }
+        # Does: Creates a SharedAccess.
+        def create_shared_access
+          shared_access_hash = shared_access_params.to_h
+
+          room = Room.find_by(friendly_id: shared_access_hash[:friendly_id])
+          return render_error status: :bad_request unless room
+
+          user = User.find_by(email: shared_access_hash[:user_email])
+          return render_error status: :bad_request unless user
+
+          SharedAccess.create!(room:, user:)
 
           render_data status: :created
         end
@@ -113,21 +141,6 @@ module Api
           render_data status: :created
         end
 
-        # As per the task file in V2, V3 should receive and update ONLY the RoomMeetingOptions that differs from V3 default values
-        # In V3, RoomMeetingOptions default values are set to either "false" or "ALWAYS_ACCEPT" for guestPolicy
-        # Hence, the following is an example of an expected room_settings hash from V2: { "record": "true", glAnyoneCanStart": "true" }
-        def update_room_meeting_options(room_settings, room_meeting_options)
-          room_settings.each do |name, value|
-            # Finds the RoomMeetingOption (V3) corresponding to the given RoomSetting (V2)
-            room_meeting_option = room_meeting_options.includes(:meeting_option).find_by(meeting_option: { name: })
-            return render_error status: :bad_request unless room_meeting_option
-
-            # Updates the RoomMeetingOption value
-            room_meeting_option.update!(value:) if room_meeting_option.value != value
-            return render_error status: :bad_request unless room_meeting_option.save
-          end
-        end
-
         private
 
         def role_params
@@ -139,7 +152,11 @@ module Api
         end
 
         def room_params
-          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, :room_settings)
+          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, room_settings: {})
+        end
+
+        def shared_access_params
+          decrypted_params.require(:shared_access).permit(:friendly_id, :user_email)
         end
 
         def site_settings_params
