@@ -216,7 +216,7 @@
         "brand_image": "ロゴ画像",
         "click_to_upload": "クリックしてアップロード",
         "drag_and_drop": "、あるいはドラッグ＆ドロップ",
-        "upload_brand_image_description": "PNG、JPG、あるいはSVGファイルをアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。"
+        "upload_brand_image_description": "PNG、JPG、またはSVGファイルをアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。"
       },
       "administration": {
         "administration": "ポリシー",
@@ -356,6 +356,9 @@
       },
       "rooms": {
         "room_limit": "会議室数の制限に達したため、新たに作成することができません"
+      },
+      "session": {
+        "invalid_credentials": "ユーザー名とパスワードが正しくありません。確認の上、もう一度入力してみてください。"
       }
     }
   },
@@ -388,6 +391,7 @@
         "max": "メールアドレスは最大で255文字です"
       },
       "password": {
+        "required": "パスワードを入力してください",
         "match": "パスワードの条件は：",
         "min": "- 全長8文字以上",
         "lower": "- 1文字以上の英小文字",
@@ -419,6 +423,21 @@
           "password_confirmation": {
             "label": "パスワード確認",
             "placeholder": "パスワード確認"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "メールアドレス",
+            "placeholder": "メールアドレス入力"
+          },
+          "password": {
+            "label": "パスワード",
+            "placeholder": "パスワード入力"
+          },
+          "remember_me": {
+            "label": "ログイン状態を保存"
           }
         }
       }
