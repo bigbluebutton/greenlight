@@ -15,6 +15,13 @@ class ExternalController < ApplicationController
       verified: true
     }
 
+    registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
+
+    # Check if they have a valid token
+    if registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token(email: user_info[:email])
+      raise StandardError, Rails.configuration.custom_error_msgs[:invite_token_invalid]
+    end
+
     user = User.find_or_create_by!(external_id: credentials['uid'], provider:) do |u|
       user_info[:role] = default_role
       u.assign_attributes(user_info)
@@ -27,6 +34,9 @@ class ExternalController < ApplicationController
 
     user.generate_session_token!
     session[:session_token] = user.session_token
+
+    # Set to pending if registration method is approval
+    user.pending! if registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
 
     # TODO: - Ahmad: deal with errors
     redirect_location = cookies[:location]
@@ -75,5 +85,14 @@ class ExternalController < ApplicationController
     meeting_id = params[:meetingID]
     meeting_id = meeting_id.split('_')[0] if meeting_id.end_with?('_')
     meeting_id
+  end
+
+  def valid_invite_token(email:)
+    token = cookies[:inviteToken]
+
+    return false if token.blank?
+
+    # Try to delete the invitation and return true if it succeeds
+    Invitation.destroy_by(email:, provider: current_provider, token:).present?
   end
 end

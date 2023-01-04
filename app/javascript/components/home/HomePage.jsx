@@ -17,7 +17,7 @@ export default function HomePage() {
   const { data: registrationMethod } = useSiteSetting('RegistrationMethod');
 
   useEffect(() => {
-    document.cookie = `token=${inviteToken};path=/;`;
+    document.cookie = `inviteToken=${inviteToken};path=/;`;
   }, [inviteToken]);
 
   function showSignUp() {

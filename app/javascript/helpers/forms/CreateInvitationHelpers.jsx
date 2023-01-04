@@ -7,7 +7,7 @@ export const validationSchema = yup.object({
       .email('Entered value does not match email format.'),
 });
 
-export const createInvitaionFormFields = {
+export const createInvitationFormFields = {
   emails: {
     label: 'Emails',
     controlId: 'createInvitationFormEmail',
