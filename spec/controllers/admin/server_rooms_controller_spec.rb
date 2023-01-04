@@ -26,6 +26,27 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
         .to match_array(Room.all.pluck(:friendly_id))
     end
 
+    context 'SuperAdmin accessing rooms for provider other than current provider' do
+      before do
+        super_admin_role = create(:role, provider: 'bn', name: 'SuperAdmin')
+        super_admin = create(:user, provider: 'bn', role: super_admin_role)
+        sign_in_user(super_admin)
+      end
+
+      it 'returns all the Server Rooms from all users' do
+        user_one = create(:user)
+        user_two = create(:user)
+
+        create_list(:room, 2, user_id: user_one.id)
+        create_list(:room, 2, user_id: user_two.id)
+
+        allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
+        get :index
+        expect(JSON.parse(response.body)['data'].map { |room| room['friendly_id'] })
+          .to match_array(Room.all.pluck(:friendly_id))
+      end
+    end
+
     it 'returns the server room status as online if the meeting has started' do
       active_server_room = create(:room)
       active_server_room.update(meeting_id: 'hulsdzwvitlk1dbekzxdprshsxmvycvar0jeaszc')

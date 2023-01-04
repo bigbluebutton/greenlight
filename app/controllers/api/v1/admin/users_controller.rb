@@ -32,7 +32,6 @@ module Api
         def verified
           sort_config = config_sorting(allowed_columns: %w[name roles.name])
 
-          # TODO: Change to get verified users only
           users = User.includes(:role)
                       .with_provider(current_provider)
                       .where(status: 'active')

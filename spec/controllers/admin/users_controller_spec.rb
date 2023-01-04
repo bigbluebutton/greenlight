@@ -13,11 +13,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
 
   describe '#verified_users' do
     it 'returns the list of active users' do
-      # TODO: this test doesnt test anything
-      # TODO: active, banned, etc users feature has not been implemented yet (19.08)
-      # TODO: Change this test to return active users and not just any users
-      users = User.all
-
+      users = create_list(:user, 3, status: 'active') + [user, user_with_manage_users_permission]
       get :verified
       expect(response).to have_http_status(:ok)
       response_user_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
@@ -25,8 +21,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
     end
 
     it 'excludes users with a different provider' do
-      greenlight_users = create_list(:user, 3, provider: 'greenlight')
-      greenlight_users << user_with_manage_users_permission
+      greenlight_users = create_list(:user, 3, provider: 'greenlight') + [user_with_manage_users_permission]
       role_with_provider_test = create(:role, provider: 'test')
       create(:user, provider: 'test', role: role_with_provider_test)
 
@@ -74,6 +69,40 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
       it 'returns :forbidden for user without ManageUsers permission' do
         get :banned
         expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
+
+  describe '#verified/banned/pending for SuperAdmin' do
+    context 'SuperAdmin accessing users for provider other than current provider' do
+      before do
+        super_admin_role = create(:role, provider: 'bn', name: 'SuperAdmin')
+        super_admin = create(:user, provider: 'bn', role: super_admin_role)
+        sign_in_user(super_admin)
+      end
+
+      it 'returns the list of active users' do
+        users = create_list(:user, 3, status: 'active') + [user, user_with_manage_users_permission]
+        get :verified
+        expect(response).to have_http_status(:ok)
+        response_user_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
+        expect(response_user_ids).to match_array(users.pluck(:id))
+      end
+
+      it 'returns the list of pending users' do
+        users = create_list(:user, 3, status: 'pending')
+        get :pending
+        expect(response).to have_http_status(:ok)
+        response_user_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
+        expect(response_user_ids).to match_array(users.pluck(:id))
+      end
+
+      it 'returns the list of banned users' do
+        users = create_list(:user, 3, status: 'banned')
+        get :banned
+        expect(response).to have_http_status(:ok)
+        response_user_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
+        expect(response_user_ids).to match_array(users.pluck(:id))
       end
     end
   end
