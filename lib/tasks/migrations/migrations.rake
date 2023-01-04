@@ -174,12 +174,22 @@ namespace :migrations do
 
     settings_hash = Setting.find_by(provider: 'greenlight').features.pluck(:name, :value).to_h
 
+    # Registration Method returns "0", "1" or "2" but V3 expects "open", "invite" or "approval"
+    registration_method = case settings_hash['Registration Method']
+                          when "0"
+                            "open"
+                          when "1"
+                            "invite"
+                          when "2"
+                            "approval"
+                          end
+
     settings = { PrimaryColor: settings_hash['Primary Color'],
                  PrimaryColorLight: settings_hash['Primary Color Lighten'],
                  PrimaryColorDark: settings_hash['Primary Color Lighten'],
                  Terms: settings_hash['Legal URL'],
                  PrivacyPolicy: settings_hash['Privacy Policy URL'],
-                 RegistrationMethod: settings_hash['Registration Method'],
+                 RegistrationMethod: registration_method,
                  ShareRooms: settings_hash['Shared Access'],
                  PreuploadPresentation: settings_hash['Preupload Presentation'] }
 
