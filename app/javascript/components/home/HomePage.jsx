@@ -1,17 +1,20 @@
 import React, { useEffect } from 'react';
 import { Card, Form } from 'react-bootstrap';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import ButtonLink from '../shared_components/utilities/ButtonLink';
 import useEnv from '../../hooks/queries/env/useEnv';
 import Logo from '../shared_components/Logo';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
+import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function HomePage() {
   const { data: env } = useEnv();
   const { t } = useTranslation();
   const { search } = useLocation();
+  const currentUser = useAuth();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const inviteToken = searchParams.get('inviteToken');
   const { data: registrationMethod } = useSiteSetting('RegistrationMethod');
@@ -19,6 +22,18 @@ export default function HomePage() {
   useEffect(() => {
     document.cookie = `token=${inviteToken};path=/;`;
   }, [inviteToken]);
+
+  // redirect user to correct page based on signed in status and CreateRoom permission
+  useEffect(
+    () => {
+      if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'true') {
+        navigate('/rooms');
+      } else if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'false') {
+        navigate('/home');
+      }
+    },
+    [currentUser.signed_in],
+  );
 
   function showSignUp() {
     return registrationMethod !== 'invite' || !!inviteToken;
