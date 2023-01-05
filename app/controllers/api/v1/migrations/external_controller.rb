@@ -33,12 +33,15 @@ module Api
 
           return render_error status: :bad_request unless role.save
 
+          # Returns unless the Role has a RolePermission that differs from V3 default RolePermissions values
+          render_data status: :created unless role_hash[:role_permissions].any?
+
           # Creates the associated RolePermissions
           role_hash[:role_permissions].each do |name, value|
             role_permission = role.role_permissions.includes(:permission).find_by(permission: { name: })
             return render_error status: :bad_request unless role_permission
 
-            role_permission.update!(value:) if role_permission.value != value
+            role_permission.update!(value:)
             return render_error status: :bad_request unless role_permission.save
           end
 
@@ -98,6 +101,9 @@ module Api
 
           return render_error status: :bad_request unless room.save
 
+          # Returns created unless the Room has a RoomMeetingOption that differs from V3 default value
+          render_data status: :created unless room_hash[:room_settings].any?
+
           # As per the task file in V2, V3 should receive and update ONLY the RoomMeetingOptions that differs from V3 default values
           # In V3, RoomMeetingOptions default values are set to either "false" or "ALWAYS_ACCEPT" for guestPolicy
           # Hence, the following is an example of an expected room_settings hash from V2: { "record": "true", glAnyoneCanStart": "true" }
@@ -107,7 +113,7 @@ module Api
             return render_error status: :bad_request unless room_meeting_option
 
             # Updates the RoomMeetingOption value
-            room_meeting_option.update!(value:) if room_meeting_option.value != value
+            room_meeting_option.update!(value:)
             return render_error status: :bad_request unless room_meeting_option.save
           end
 
@@ -122,24 +128,6 @@ module Api
           render_data status: :created
         end
 
-        # POST /api/v1/migrations/shared_access.json
-        # Expects: { shared_access: { :friendly_id, :user_email } }
-        # Returns: { data: Array[serializable objects] , errors: Array[String] }
-        # Does: Creates a SharedAccess.
-        # def create_shared_access
-        #   shared_access_hash = shared_access_params.to_h
-        #
-        #   room = Room.find_by(friendly_id: shared_access_hash[:friendly_id])
-        #   return render_error status: :bad_request unless room
-        #
-        #   user = User.find_by(email: shared_access_hash[:user_email])
-        #   return render_error status: :bad_request unless user
-        #
-        #   SharedAccess.create!(room:, user:)
-        #
-        #   render_data status: :created
-        # end
-
         # POST /api/v1/migrations/site_settings.json
         # Expects: { settings: { :PrimaryColor, :PrimaryColorLight, :PrimaryColorDark, :RegistrationMethod, :ShareRooms, :PreuploadPresentation } }
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
@@ -147,8 +135,13 @@ module Api
         def create_site_settings
           settings = site_settings_params.to_h
 
+          render_data status: :created unless settings.any?
+
           settings.each do |name, value|
-            site_setting = SiteSetting.find_by(name:, provider: 'greenlight')
+            setting = Setting.find_by(name:)
+            return render_error status: :bad_request unless setting
+
+            site_setting = SiteSetting.find_by(setting:, provider: 'greenlight')
             return render_error status: :bad_request unless site_setting
 
             site_setting.update!(value:)
@@ -172,13 +165,9 @@ module Api
           decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, room_settings: {}, shared_users_emails: [])
         end
 
-        # def shared_access_params
-        #   decrypted_params.require(:shared_access).permit(:friendly_id, :user_email)
-        # end
-
         def site_settings_params
-          decrypted_params.require(:settings).permit(:PrimaryColor, :PrimaryColorLight, :PrimaryColorDark, :RegistrationMethod, :ShareRooms,
-                                                     :PreuploadPresentation)
+          decrypted_params.require(:settings).permit(:PrimaryColor, :PrimaryColorLight, :PrimaryColorDark, :Terms, :PrivacyPolicy,
+                                                     :RegistrationMethod, :ShareRooms, :PreuploadPresentation)
         end
 
         def decrypted_params

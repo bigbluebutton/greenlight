@@ -95,6 +95,7 @@ Rails.application.routes.draw do
         post '/roles', to: 'external#create_role'
         post '/users', to: 'external#create_user'
         post '/rooms', to: 'external#create_room'
+        post '/site_settings', to: 'external#create_site_settings'
       end
     end
   end
