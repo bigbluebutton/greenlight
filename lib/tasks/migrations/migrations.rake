@@ -104,9 +104,7 @@ namespace :migrations do
                              .where(name: COMMON[:filtered_user_roles])
                              .pluck(:id)
 
-    Room.unscoped
-        .joins(shared_access: [:user])
-        .select(:id, :uid, :name, :bbb_id, :last_session, :user_id, :room_settings)
+    Room.unscoped.select(:id, :uid, :name, :bbb_id, :last_session, :user_id, :room_settings)
         .includes(:owner)
         .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
@@ -122,8 +120,7 @@ namespace :migrations do
         guestPolicy: parsed_room_settings["requireModeratorApproval"] == false ? nil : "ASK_MODERATOR",
       }.compact
 
-      # SharedAccess
-      shared_users_emails = r.pluck(:email)
+      shared_users_emails = SharedAccess.joins(:user).where(room_id: r.id).pluck(:'users.email')
 
       params = { room: { friendly_id: r.uid,
                          name: r.name,
@@ -200,9 +197,7 @@ namespace :migrations do
     puts
     puts green "Site Settings migration completed."
 
-    unless has_encountred_issue.zero?
-      puts yellow "In case of an error please retry the process to resolve."
-    end
+    puts yellow "In case of an error please retry the process to resolve." unless has_encountred_issue.zero?
 
     exit has_encountred_issue
   end
