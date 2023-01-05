@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import Header from './components/shared_components/Header';
@@ -12,6 +12,7 @@ import BackgroundBuffer from './components/shared_components/BackgroundBuffer';
 export default function App() {
   const currentUser = useAuth();
   const pageHeight = currentUser?.signed_in ? 'regular-height' : 'no-header-height';
+  const location = useLocation();
 
   // //i18n
   const { i18n } = useTranslation();
@@ -29,7 +30,7 @@ export default function App() {
 
   return (
     <>
-      {currentUser?.signed_in && <Header /> }
+      {location.pathname !== '/' && currentUser?.signed_in && <Header /> }
       {currentUser?.verified && <BackgroundBuffer /> }
       <Container className={pageHeight}>
         <Outlet />
