@@ -33,6 +33,15 @@ module Api
 
           return render_error status: :bad_request unless role.save
 
+          # Creates the associated RolePermissions
+          role_hash[:role_permissions].each do |name, value|
+            role_permission = role.role_permissions.includes(:permission).find_by(permission: { name: })
+            return render_error status: :bad_request unless role_permission
+
+            role_permission.update!(value:) if role_permission.value != value
+            return render_error status: :bad_request unless role_permission.save
+          end
+
           render_data status: :created
         end
 
@@ -102,6 +111,14 @@ module Api
             return render_error status: :bad_request unless room_meeting_option.save
           end
 
+          # Creates the associated SharedAccess
+          room_hash[:shared_users_emails].each do |email|
+            user = User.find_by(email:)
+            return render_error status: :bad_request unless user
+
+            SharedAccess.create!(room:, user:)
+          end
+
           render_data status: :created
         end
 
@@ -109,19 +126,19 @@ module Api
         # Expects: { shared_access: { :friendly_id, :user_email } }
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Creates a SharedAccess.
-        def create_shared_access
-          shared_access_hash = shared_access_params.to_h
-
-          room = Room.find_by(friendly_id: shared_access_hash[:friendly_id])
-          return render_error status: :bad_request unless room
-
-          user = User.find_by(email: shared_access_hash[:user_email])
-          return render_error status: :bad_request unless user
-
-          SharedAccess.create!(room:, user:)
-
-          render_data status: :created
-        end
+        # def create_shared_access
+        #   shared_access_hash = shared_access_params.to_h
+        #
+        #   room = Room.find_by(friendly_id: shared_access_hash[:friendly_id])
+        #   return render_error status: :bad_request unless room
+        #
+        #   user = User.find_by(email: shared_access_hash[:user_email])
+        #   return render_error status: :bad_request unless user
+        #
+        #   SharedAccess.create!(room:, user:)
+        #
+        #   render_data status: :created
+        # end
 
         # POST /api/v1/migrations/site_settings.json
         # Expects: { settings: { :PrimaryColor, :PrimaryColorLight, :PrimaryColorDark, :RegistrationMethod, :ShareRooms, :PreuploadPresentation } }
@@ -144,7 +161,7 @@ module Api
         private
 
         def role_params
-          decrypted_params.require(:role).permit(:name)
+          decrypted_params.require(:role).permit(:name, role_permissions: {})
         end
 
         def user_params
@@ -152,12 +169,12 @@ module Api
         end
 
         def room_params
-          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, room_settings: {})
+          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, room_settings: {}, shared_users_emails: [])
         end
 
-        def shared_access_params
-          decrypted_params.require(:shared_access).permit(:friendly_id, :user_email)
-        end
+        # def shared_access_params
+        #   decrypted_params.require(:shared_access).permit(:friendly_id, :user_email)
+        # end
 
         def site_settings_params
           decrypted_params.require(:settings).permit(:PrimaryColor, :PrimaryColorLight, :PrimaryColorDark, :RegistrationMethod, :ShareRooms,
