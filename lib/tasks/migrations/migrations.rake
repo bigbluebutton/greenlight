@@ -18,19 +18,22 @@ namespace :migrations do
         .where.not(name: COMMON[:filtered_roles])
         .find_each(batch_size: COMMON[:batch_size]) do |r|
 
-      role_permissions_hash = RolePermission.where(role_id: r.id).pluck(:name, :value)
+      # RolePermissions
+      role_permissions_hash = RolePermission.where(role_id: r.id).pluck(:name, :value).to_h
+      # Returns nil if the Role Permission value is the same as the corresponding default value in V3
       role_permissions = {
-        CreateRoom: role_permissions_hash['can_create_room'],
-        CanRecord: role_permissions_hash['can_launch_recording'],
+        CreateRoom: role_permissions_hash['can_create_rooms'] == true ? nil : "false",
+        CanRecord: role_permissions_hash['can_launch_recording'] == true ? nil : "false",
         ManageUsers: role_permissions_hash['can_manage_users'],
         ManageRoles: role_permissions_hash['can_edit_roles'],
+        # In V3, can_manage_room_recordings is split into two distinct permissions: ManageRooms and ManageRecordings
         ManageRooms: role_permissions_hash['can_manage_room_recordings'],
         ManageRecordings: role_permissions_hash['can_manage_room_recordings'],
         ManageSiteSettings: role_permissions_hash['edit_site_settings']
-      }
+      }.compact
 
       params = { role: { name: r.name.capitalize,
-                         role_permissions: role_permissions.compact } }
+                         role_permissions: role_permissions } }
 
       response = Net::HTTP.post(uri('roles'), payload(params), COMMON[:headers])
 
@@ -62,8 +65,10 @@ namespace :migrations do
         .includes(:role)
         .where.not(roles: { name: COMMON[:filtered_user_roles] }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |u|
+
       role_name = infer_role_name(u.role.name)
       params = { user: { name: u.name, email: u.email, external_id: u.social_uid, language: u.language, role: role_name } }
+
       response = Net::HTTP.post(uri('users'), payload(params), COMMON[:headers])
 
       case response
@@ -100,6 +105,7 @@ namespace :migrations do
                              .pluck(:id)
 
     Room.unscoped
+        .joins(shared_access: [:user])
         .select(:id, :uid, :name, :bbb_id, :last_session, :user_id, :room_settings)
         .includes(:owner)
         .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
@@ -114,14 +120,18 @@ namespace :migrations do
         glAnyoneCanStart: parsed_room_settings["anyoneCanStart"] == false ? nil : "true",
         glAnyoneJoinAsModerator: parsed_room_settings["joinModerator"] == false ? nil : "true",
         guestPolicy: parsed_room_settings["requireModeratorApproval"] == false ? nil : "ASK_MODERATOR",
-      }
+      }.compact
+
+      # SharedAccess
+      shared_users_emails = r.pluck(:email)
 
       params = { room: { friendly_id: r.uid,
                          name: r.name,
                          meeting_id: r.bbb_id,
                          last_session: r.last_session&.to_datetime,
                          owner_email: r.owner.email,
-                         room_settings: room_settings.compact } }
+                         room_settings: room_settings,
+                         shared_users_emails: shared_users_emails } }
 
       response = Net::HTTP.post(uri('rooms'), payload(params), COMMON[:headers])
 
@@ -149,41 +159,6 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task :shared_access, [:start, :stop] => :environment do |_task, args|
-    start, stop = range(args)
-    has_encountred_issue = 0
-
-    # Returns the Room uid/friendly_id and the Shared User's email
-    User.unscoped
-        .joins(shared_access: [:room])
-        .select(:id, :'rooms.uid', :email)
-        .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |sa|
-      params = { shared_access: { friendly_id: sa.uid,
-                                  user_email: sa.email } }
-
-      response = Net::HTTP.post(uri('shared_access'), payload(params), COMMON[:headers])
-
-      case response
-      when Net::HTTPCreated
-        puts green "Successfully migrated Shared Access"
-      else
-        puts red "Unable to migrate Shared Access"
-        has_encountred_issue = 1 # At least one of the migrations failed.
-      end
-
-      puts
-      puts green "Shared Access migration completed."
-
-      unless has_encountred_issue.zero?
-        puts yellow "In case of an error please retry the process to resolve."
-        puts yellow "If you have not migrated your users, kindly run 'rake migrations:users' first and then retry."
-        puts yellow "If you have not migrated your rooms, kindly run 'rake migrations:rooms' first and then retry."
-      end
-
-      exit has_encountred_issue
-    end
-  end
-
   task site_settings: :environment do |_task|
     has_encountred_issue = 0
 
@@ -199,18 +174,20 @@ namespace :migrations do
                             "approval"
                           end
 
-    settings = { PrimaryColor: settings_hash['Primary Color'],
-                 PrimaryColorLight: settings_hash['Primary Color Lighten'],
-                 PrimaryColorDark: settings_hash['Primary Color Lighten'],
-                 Terms: settings_hash['Legal URL'],
-                 PrivacyPolicy: settings_hash['Privacy Policy URL'],
-                 RegistrationMethod: registration_method,
-                 ShareRooms: settings_hash['Shared Access'],
-                 PreuploadPresentation: settings_hash['Preupload Presentation'] }
+    settings = {
+      PrimaryColor: settings_hash['Primary Color'],
+      PrimaryColorLight: settings_hash['Primary Color Lighten'],
+      PrimaryColorDark: settings_hash['Primary Color Lighten'],
+      Terms: settings_hash['Legal URL'],
+      PrivacyPolicy: settings_hash['Privacy Policy URL'],
+      RegistrationMethod: registration_method,
+      ShareRooms: settings_hash['Shared Access'],
+      PreuploadPresentation: settings_hash['Preupload Presentation']
+    }.compact
 
-    params = { settings: settings.compact }
+    params = { settings: settings }
 
-    response = Net::HTTP.post(uri('create_site_settings'), payload(params), COMMON[:headers])
+    response = Net::HTTP.post(uri('site_settings'), payload(params), COMMON[:headers])
 
     case response
     when Net::HTTPCreated
