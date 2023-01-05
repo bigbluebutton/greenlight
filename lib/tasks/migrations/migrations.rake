@@ -5,14 +5,17 @@ namespace :migrations do
   COMMON = {
     headers: { "Content-Type" => "application/json" },
     batch_size: 500,
+    filtered_roles: %w[super_admin admin pending denied user],
+    filtered_user_roles: %w[super_admin pending denied]
   }.freeze
 
   desc "Migrates v2 resources to v3"
   task :roles, [] => :environment do |_task, _args|
     has_encountred_issue = 0
 
-    Role.select(:id, :name)
-        .where.not(name: Role::RESERVED_ROLE_NAMES)
+    Role.unscoped
+        .select(:id, :name)
+        .where.not(name: COMMON[:filtered_roles])
         .find_each(batch_size: COMMON[:batch_size]) do |r|
           params = { role: { name: r.name.capitalize } }
           response = Net::HTTP.post(uri('roles'), payload(params), COMMON[:headers])
@@ -40,9 +43,10 @@ namespace :migrations do
     start, stop = range(args)
     has_encountred_issue = 0
 
-    User.select(:id, :uid, :name, :email, :social_uid, :language, :role_id)
-        .joins(:role)
-        .where.not(roles: { name: %w[super_admin pending denied] }, deleted: true)
+    User.unscoped
+        .select(:id, :uid, :name, :email, :social_uid, :language, :role_id)
+        .includes(:role)
+        .where.not(roles: { name: COMMON[:filtered_user_roles] }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |u|
           role_name = infer_role_name(u.role.name)
           params = { user: { name: u.name, email: u.email, external_id: u.social_uid, language: u.language, role: role_name } }
@@ -76,11 +80,15 @@ namespace :migrations do
     start, stop = range(args)
     has_encountred_issue = 0
 
-    filtered_roles_ids = Role.where(name: %w[super_admin pending denied]).pluck(:id).uniq
+    filtered_roles_ids = Role.unscoped
+                             .select(:id, :name)
+                             .where(name: COMMON[:filtered_user_roles])
+                             .pluck(:id)
 
-    Room.select(:id, :uid, :name, :bbb_id, :last_session, :user_id)
-        .joins(:owner)
-        .where.not(users: { role_id: filtered_roles_ids, deleted: true })
+    Room.unscoped
+        .select(:id, :uid, :name, :bbb_id, :last_session, :user_id)
+        .includes(:owner)
+        .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
           params = { room: { friendly_id: r.uid,
                              name: r.name,
