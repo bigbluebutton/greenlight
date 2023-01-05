@@ -29,7 +29,7 @@ module Api
 
           return render_data status: :created if Role.exists? name: role_hash[:name], provider: 'greenlight'
 
-          role = Role.new role_hash.merge(provider: 'greenlight')
+          role = Role.new(name: role_hash[:name], provider: 'greenlight')
 
           return render_error status: :bad_request unless role.save
 
@@ -91,7 +91,7 @@ module Api
 
           return render_error status: :bad_request unless user
 
-          room = Room.new(room_hash.except(:owner_email, :owner_provider, :room_settings).merge({ user: }))
+          room = Room.new(room_hash.except(:owner_email, :room_settings, :shared_users_emails).merge({ user: }))
 
           # Redefines the validations method to do nothing
           # rubocop:disable Lint/EmptyBlock
@@ -102,7 +102,7 @@ module Api
           return render_error status: :bad_request unless room.save
 
           # Returns created unless the Room has a RoomMeetingOption that differs from V3 default value
-          render_data status: :created unless room_hash[:room_settings].any?
+          # render_data status: :created unless room_hash[:room_settings].any?
 
           # As per the task file in V2, V3 should receive and update ONLY the RoomMeetingOptions that differs from V3 default values
           # In V3, RoomMeetingOptions default values are set to either "false" or "ALWAYS_ACCEPT" for guestPolicy
@@ -117,12 +117,14 @@ module Api
             return render_error status: :bad_request unless room_meeting_option.save
           end
 
+          # render_data status: :created unless room_hash[:shared_users_emails].any?
+
           # Creates the associated SharedAccess
           room_hash[:shared_users_emails].each do |email|
             user = User.find_by(email:)
             return render_error status: :bad_request unless user
 
-            SharedAccess.create!(room:, user:)
+            SharedAccess.create!(room_id: room.id, user_id: user.id)
           end
 
           render_data status: :created
@@ -162,7 +164,8 @@ module Api
         end
 
         def room_params
-          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, room_settings: {}, shared_users_emails: [])
+          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, room_settings: {},
+                                                                                                                shared_users_emails: [])
         end
 
         def site_settings_params
