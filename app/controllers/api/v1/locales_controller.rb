@@ -30,7 +30,7 @@ module Api
       def show
         language = params[:name].tr('-', '_')
 
-        render file: Rails.root.join('app', 'assets', 'locales', "#{language}.json")
+        redirect_to ActionController::Base.helpers.asset_path("#{language}.json")
       rescue StandardError
         head :not_acceptable
       end
