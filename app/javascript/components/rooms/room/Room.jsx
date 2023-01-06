@@ -24,7 +24,9 @@ function copyInvite() {
 export default function Room() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
-  const { isLoading, isError, data: room, error } = useRoom(friendlyId);
+  const {
+    isLoading, isError, data: room, error,
+  } = useRoom(friendlyId);
   const startMeeting = useStartMeeting(friendlyId);
   const location = useLocation();
 
@@ -46,25 +48,25 @@ export default function Room() {
         <Col className="col-xxl-8">
           {
             isLoading
-            ? (
-              <RoomNamePlaceHolder />
-            ) : (
-              <Stack className="room-header-wrapper">
-                <Stack direction="horizontal" gap={2}>
-                  <h1>{room?.name}</h1>
-                  <Stack direction="horizontal" className="mb-1">
-                    { room?.online
+              ? (
+                <RoomNamePlaceHolder />
+              ) : (
+                <Stack className="room-header-wrapper">
+                  <Stack direction="horizontal" gap={2}>
+                    <h1>{room?.name}</h1>
+                    <Stack direction="horizontal" className="mb-1">
+                      { room?.online
                       && <MeetingBadges count={room?.participants} />}
-                    { room?.shared && <SharedBadge ownerName={room?.owner_name} /> }
+                      { room?.shared && <SharedBadge ownerName={room?.owner_name} /> }
+                    </Stack>
                   </Stack>
+                  { room?.last_session ? (
+                    <span className="text-muted"> { t('room.last_session', { room }) }  </span>
+                  ) : (
+                    <span className="text-muted"> { t('room.no_last_session') } </span>
+                  )}
                 </Stack>
-                { room?.last_session ? (
-                  <span className="text-muted"> { t('room.last_session', { room }) }  </span>
-                ) : (
-                  <span className="text-muted"> { t('room.no_last_session') } </span>
-                )}
-              </Stack>
-            )
+              )
           }
         </Col>
         <Col>

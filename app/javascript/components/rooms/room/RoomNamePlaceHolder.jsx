@@ -1,6 +1,6 @@
-import React from "react";
-import Placeholder from "../../shared_components/utilities/Placeholder";
-import { Row, Col, Stack } from "react-bootstrap";
+import React from 'react';
+import Stack from 'react-bootstrap';
+import Placeholder from '../../shared_components/utilities/Placeholder';
 
 export default function RoomNamePlaceHolder() {
   return (
