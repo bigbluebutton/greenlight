@@ -12,10 +12,10 @@ module Api
 
         # GET /api/v1/admin/server_rooms.json
         def index
-          sort_config = config_sorting(allowed_columns: %w[name user.name])
+          sort_config = config_sorting(allowed_columns: %w[name users.name])
 
-          rooms = Room.includes(:user).joins(:user).where(users: { provider: current_provider }).order(sort_config,
-                                                                                                       online: :desc)&.admin_search(params[:search])
+          rooms = Room.includes(:user).joins(:user).where(users: { provider: current_provider }).order(sort_config, online: :desc)
+                      .order(Room.arel_table[:last_session].desc.nulls_last)&.admin_search(params[:search])
 
           online_server_rooms(rooms)
 
