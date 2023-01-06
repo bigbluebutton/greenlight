@@ -161,28 +161,27 @@ namespace :migrations do
 
     settings_hash = Setting.find_by(provider: 'greenlight').features.pluck(:name, :value).to_h
 
-    # Registration Method returns "0", "1" or "2" but V3 expects "open", "invite" or "approval"
-    registration_method = case settings_hash['Registration Method']
-                          when "0"
-                            "open"
-                          when "1"
-                            "invite"
-                          when "2"
-                            "approval"
-                          end
-
-    settings = {
+    site_settings = {
       PrimaryColor: settings_hash['Primary Color'],
       PrimaryColorLight: settings_hash['Primary Color Lighten'],
       PrimaryColorDark: settings_hash['Primary Color Lighten'],
       Terms: settings_hash['Legal URL'],
       PrivacyPolicy: settings_hash['Privacy Policy URL'],
-      RegistrationMethod: registration_method,
+      RegistrationMethod: infer_registration_method(settings_hash['Registration Method']),
       ShareRooms: settings_hash['Shared Access'],
-      PreuploadPresentation: settings_hash['Preupload Presentation']
+      PreuploadPresentation: settings_hash['Preupload Presentation'],
     }.compact
 
-    params = { settings: settings }
+    room_configurations = {
+      record: settings_hash['Room Configuration Recording'],
+      muteOnStart: settings_hash['Room Configuration Mute On Join'],
+      guestPolicy: settings_hash['Room Configuration Require Moderator'],
+      glAnyoneCanStart: settings_hash['Room Configuration Allow Any Start'],
+      glAnyoneJoinAsModerator: settings_hash['Room Configuration All Join Moderator'],
+      glRequireAuthentication: settings_hash['Room Authentication']
+    }.compact
+
+    params = { settings: { site_settings: site_settings, room_configurations: room_configurations } }
 
     response = Net::HTTP.post(uri('site_settings'), payload(params), COMMON[:headers])
 
@@ -245,5 +244,19 @@ namespace :migrations do
 
   def infer_role_name(name)
     DEFAULT_ROLES_MAP[name] || name.capitalize
+  end
+
+  # Registration Method returns "0", "1" or "2" but V3 expects "open", "invite" or "approval"
+  def infer_registration_method(registration_method)
+    case registration_method
+    when "0"
+      "open"
+    when "1"
+      "invite"
+    when "2"
+      "approval"
+    else
+      raise red "Unable to find Registration Method"
+    end
   end
 end
