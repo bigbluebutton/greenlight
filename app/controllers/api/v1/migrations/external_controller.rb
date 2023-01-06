@@ -21,7 +21,9 @@ module Api
         end
 
         # POST /api/v1/migrations/roles.json
-        # Expects: { role: { :name } }
+        # Expects:
+        # { role: { :name,
+        #            role_permissions: { :CreateRoom, :CanRecord, :ManageUsers, :ManageRoles, :ManageRooms, :ManageRecordings, :ManageSiteSettings }}}
         # Returns: { data: Array[serializable objects(recordings)] , errors: Array[String] }
         # Does: Creates a role.
         def create_role
@@ -37,7 +39,8 @@ module Api
           render_data status: :created unless role_hash[:role_permissions].any?
 
           # Creates the associated RolePermissions
-          role_hash[:role_permissions].each do |name, value|
+          # The role_permissions hash contains only the permissions with value that differs from V3 default values
+          role_hash[:role_permissions].any? && role_hash[:role_permissions].each do |name, value|
             role_permission = role.role_permissions.includes(:permission).find_by(permission: { name: })
             return render_error status: :bad_request unless role_permission
 
@@ -79,7 +82,9 @@ module Api
         end
 
         # POST /api/v1/migrations/rooms.json
-        # Expects: { room: { :name, :friendly_id, :meeting_id, :last_session } }
+        # Expects: { room: { :name, :friendly_id, :meeting_id, :last_session, :owner_email,
+        #                    room_settings: { :record, :muteOnStart, :glAnyoneCanStart, :glAnyoneJoinAsModerator, :guestPolicy },
+        #                    shared_users_emails: [ <list of shared users emails> ] }}
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Creates a Room and its RoomMeetingOptions.
         def create_room
@@ -101,26 +106,18 @@ module Api
 
           return render_error status: :bad_request unless room.save
 
-          # Returns created unless the Room has a RoomMeetingOption that differs from V3 default value
-          # render_data status: :created unless room_hash[:room_settings].any?
-
-          # As per the task file in V2, V3 should receive and update ONLY the RoomMeetingOptions that differs from V3 default values
-          # In V3, RoomMeetingOptions default values are set to either "false" or "ALWAYS_ACCEPT" for guestPolicy
-          # Hence, the following is an example of an expected room_settings hash from V2: { "record": "true", glAnyoneCanStart": "true" }
-          room_hash[:room_settings].each do |name, value|
-            # Finds the RoomMeetingOption (V3) corresponding to the given RoomSetting (V2)
+          # Creates the RoomMeetingOptions associated with the Room
+          # The room_settings hash contains only the MeetingOption with value that differs from V3 rooms default values
+          room_hash[:room_settings].any? && room_hash[:room_settings].each do |name, value|
             room_meeting_option = room.room_meeting_options.includes(:meeting_option).find_by(meeting_option: { name: })
             return render_error status: :bad_request unless room_meeting_option
 
-            # Updates the RoomMeetingOption value
             room_meeting_option.update!(value:)
             return render_error status: :bad_request unless room_meeting_option.save
           end
 
-          # render_data status: :created unless room_hash[:shared_users_emails].any?
-
           # Creates the associated SharedAccess
-          room_hash[:shared_users_emails].each do |email|
+          room_hash[:shared_users_emails].any? && room_hash[:shared_users_emails].each do |email|
             user = User.find_by(email:)
             return render_error status: :bad_request unless user
 
@@ -131,7 +128,8 @@ module Api
         end
 
         # POST /api/v1/migrations/site_settings.json
-        # Expects: { settings: { :PrimaryColor, :PrimaryColorLight, :PrimaryColorDark, :RegistrationMethod, :ShareRooms, :PreuploadPresentation } }
+        # Expects: { settings: { :PrimaryColor, :PrimaryColorLight, :PrimaryColorDark,
+        #                        :Terms, :PrivacyPolicy, :RegistrationMethod, :ShareRooms, :PreuploadPresentation } }
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Creates a SiteSettings.
         def create_site_settings
