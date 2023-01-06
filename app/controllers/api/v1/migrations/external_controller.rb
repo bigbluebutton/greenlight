@@ -90,6 +90,10 @@ module Api
         def create_room
           room_hash = room_params.to_h
 
+
+          binding.break
+
+
           return render_data status: :created if Room.exists? friendly_id: room_hash[:friendly_id]
 
           user = User.find_by(email: room_hash[:owner_email], provider: 'greenlight')
@@ -107,9 +111,12 @@ module Api
           return render_error status: :bad_request unless room.save
 
           # Creates the RoomMeetingOptions associated with the Room
+          room_meeting_options = RoomMeetingOption.where(room:).includes(:meeting_option) # TODO - samuel: look at comment below
           # The room_settings hash contains only the MeetingOption with value that differs from V3 rooms default values
           room_hash[:room_settings].any? && room_hash[:room_settings].each do |name, value|
-            room_meeting_option = room.room_meeting_options.includes(:meeting_option).find_by(meeting_option: { name: })
+            # TODO - samuel: is room.room_meeting_options cached? is it equivalent to RoomMeetingOption.where(room:)
+            # room_meeting_option = room.room_meeting_options.includes(:meeting_option).find_by(meeting_option: { name: })
+            room_meeting_option = room_meeting_options.find_by('meeting_options.name': name)
             return render_error status: :bad_request unless room_meeting_option
 
             room_meeting_option.update!(value:)
