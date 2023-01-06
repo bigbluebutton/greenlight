@@ -128,24 +128,31 @@ module Api
         end
 
         # POST /api/v1/migrations/site_settings.json
-        # Expects: { settings: { :PrimaryColor, :PrimaryColorLight, :PrimaryColorDark,
-        #                        :Terms, :PrivacyPolicy, :RegistrationMethod, :ShareRooms, :PreuploadPresentation } }
+        # Expects: { settings: { site_settings: { :PrimaryColor, :PrimaryColorLight, :PrimaryColorDark,
+        #                          :Terms, :PrivacyPolicy, :RegistrationMethod, :ShareRooms, :PreuploadPresentation },
+        #                        room_configurations: { :record, :muteOnStart, :guestPolicy, :glAnyoneCanStart,
+        #                          :glAnyoneJoinAsModerator, :glRequireAuthentication } } }
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
-        # Does: Creates a SiteSettings.
+        # Does: Creates a SiteSettings or a RoomsConfiguration.
         def create_site_settings
-          settings = site_settings_params.to_h
+          settings_hash = site_settings_params.to_h
 
           render_data status: :created unless settings.any?
 
-          settings.each do |name, value|
-            setting = Setting.find_by(name:)
-            return render_error status: :bad_request unless setting
-
-            site_setting = SiteSetting.find_by(setting:, provider: 'greenlight')
+          settings_hash[:site_settings].any? && settings_hash[:site_settings].each do |name, value|
+            site_setting = SiteSetting.joins(:setting).find_by('settings.name': name, provider: 'greenlight')
             return render_error status: :bad_request unless site_setting
 
             site_setting.update!(value:)
             return render_error status: :bad_request unless site_setting.save
+          end
+
+          settings_hash[:room_configurations].any? && settings_hash[:room_configurations].each do |name, value|
+            room_configuration = RoomsConfiguration.joins(:meeting_option).find_by('meeting_options.name': name, provider: 'greenlight')
+            return render_error status: :bad_request unless room_configuration
+
+            room_configuration.update!(value:)
+            return render_error status: :bad_request unless room_configuration.save
           end
 
           render_data status: :created
@@ -167,8 +174,7 @@ module Api
         end
 
         def site_settings_params
-          decrypted_params.require(:settings).permit(:PrimaryColor, :PrimaryColorLight, :PrimaryColorDark, :Terms, :PrivacyPolicy,
-                                                     :RegistrationMethod, :ShareRooms, :PreuploadPresentation)
+          decrypted_params.require(:settings).permit(site_settings: {}, room_configurations: {})
         end
 
         def decrypted_params
