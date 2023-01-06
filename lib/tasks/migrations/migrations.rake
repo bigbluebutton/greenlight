@@ -22,14 +22,14 @@ namespace :migrations do
       role_permissions_hash = RolePermission.where(role_id: r.id).pluck(:name, :value).to_h
       # Returns nil if the Role Permission value is the same as the corresponding default value in V3
       role_permissions = {
-        CreateRoom: role_permissions_hash['can_create_rooms'] == true ? nil : "false",
-        CanRecord: role_permissions_hash['can_launch_recording'] == true ? nil : "false",
-        ManageUsers: role_permissions_hash['can_manage_users'],
-        ManageRoles: role_permissions_hash['can_edit_roles'],
+        CreateRoom: role_permissions_hash['can_create_rooms'] == "true" ? nil : "false",
+        CanRecord: role_permissions_hash['can_launch_recording'] == "true" ? nil : "false",
+        ManageUsers: role_permissions_hash['can_manage_users'] == "false" ? nil : "true",
+        ManageRoles: role_permissions_hash['can_edit_roles'] == "false" ? nil : "true",
         # In V3, can_manage_room_recordings is split into two distinct permissions: ManageRooms and ManageRecordings
-        ManageRooms: role_permissions_hash['can_manage_room_recordings'],
-        ManageRecordings: role_permissions_hash['can_manage_room_recordings'],
-        ManageSiteSettings: role_permissions_hash['edit_site_settings']
+        ManageRooms: role_permissions_hash['can_manage_rooms_recordings'] == "false" ? nil : "true",
+        ManageRecordings: role_permissions_hash['can_manage_room_recordings'] == "false" ? nil : "true",
+        ManageSiteSettings: role_permissions_hash['can_edit_site_settings'] == "false" ? nil : "true"
       }.compact
 
       params = { role: { name: r.name.capitalize,
