@@ -184,6 +184,15 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect { post :create, params: user_params }.to change(Invitation, :count).by(-1)
         end
 
+        it 'allows an admin to create a user without a token' do
+          sign_in_user(user_with_manage_users_permission)
+
+          expect { post :create, params: user_params }.to change(User, :count).by(1)
+
+          expect(response).to have_http_status(:created)
+          expect(JSON.parse(response.body)['errors']).to be_nil
+        end
+
         it 'returns an InviteInvalid error if no invite is passed' do
           expect { post :create, params: user_params }.not_to change(User, :count)
 

@@ -17,10 +17,9 @@ export default function Registration() {
 
   return (
     <>
-      {/* TODO - ahmad: complete this
       <SettingSelect
         settingName="RegistrationMethod"
-        defaultValue={siteSettings.RegistrationMethod}
+        defaultValue={siteSettings?.RegistrationMethod}
         title={t('admin.site_settings.registration.registration_method')}
         description={t('admin.site_settings.registration.registration_method_description')}
       >
@@ -28,7 +27,6 @@ export default function Registration() {
         <option value="invite"> {t('admin.site_settings.registration.registration_methods.invite')} </option>
         <option value="approval"> {t('admin.site_settings.registration.registration_methods.approval')} </option>
       </SettingSelect>
-      */}
 
       { env?.OPENID_CONNECT && (
         <Row className="mb-3">
