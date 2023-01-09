@@ -36,7 +36,7 @@ module Api
           return render_error status: :bad_request unless role.save
 
           # Returns unless the Role has a RolePermission that differs from V3 default RolePermissions values
-          render_data status: :created unless role_hash[:role_permissions].any?
+          return render_data status: :created unless role_hash[:role_permissions].any?
 
           # Finds & Updates the associated RolePermissions associated with the Role
           role_permissions = RolePermission.where(role_id: role.id).includes(:permission)
