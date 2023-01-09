@@ -43,7 +43,6 @@ class MeetingStarter
     moderator_message = "#{I18n.t('meeting.moderator_message')}<br>#{room_url}"
     moderator_message += "<br>#{I18n.t('meeting.access_code', code: access_code)}" if access_code.present?
     {
-      # TODO: - ahmad: Find a way to localize
       moderatorOnlyMessage: moderator_message,
       logoutURL: room_url,
       meta_endCallbackUrl: meeting_ended_url(host: @base_url),
