@@ -17,7 +17,7 @@ module Api
         render_data data: user, status: :ok
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       # POST /api/v1/users.json
       # Expects: { user: { :name, :email, :password} }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
@@ -63,7 +63,7 @@ module Api
           render_error errors: Rails.configuration.custom_error_msgs[:record_invalid], status: :bad_request
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       def update
         user = User.find(params[:id])
