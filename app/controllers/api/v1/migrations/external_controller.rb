@@ -42,7 +42,7 @@ module Api
           role_permissions = RolePermission.where(role_id: role.id).includes(:permission)
           # The role_permissions hash contains only the permissions with value that differs from V3 default values
           role_hash[:role_permissions].any? && role_hash[:role_permissions].each do |name, value|
-            role_permission = role_permissions.find_by(permission: { 'permissions.name': name })
+            role_permission = role_permissions.find_by('permissions.name': name)
             return render_error status: :bad_request unless role_permission
 
             role_permission.update!(value:)
