@@ -17,6 +17,7 @@ namespace :migrations do
         .select(:id, :name)
         .where.not(name: COMMON[:filtered_roles])
         .find_each(batch_size: COMMON[:batch_size]) do |r|
+
       # RolePermissions
       role_permissions_hash = RolePermission.where(role_id: r.id).pluck(:name, :value).to_h
       # Returns nil if the Role Permission value is the same as the corresponding default value in V3
@@ -64,6 +65,7 @@ namespace :migrations do
         .includes(:role)
         .where.not(roles: { name: COMMON[:filtered_user_roles] }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |u|
+
       role_name = infer_role_name(u.role.name)
       params = { user: { name: u.name, email: u.email, external_id: u.social_uid, language: u.language, role: role_name } }
 
@@ -106,16 +108,21 @@ namespace :migrations do
         .includes(:owner)
         .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
+
       # Room Settings migration
       parsed_room_settings = JSON.parse(r.room_settings)
       # Returns nil if the Room Setting value is the same as the corresponding default value in V3
-      room_settings = {
-        record: parsed_room_settings["recording"] == false ? nil : "true",
-        muteOnStart: parsed_room_settings["muteOnStart"] == false ? nil : "true",
-        glAnyoneCanStart: parsed_room_settings["anyoneCanStart"] == false ? nil : "true",
-        glAnyoneJoinAsModerator: parsed_room_settings["joinModerator"] == false ? nil : "true",
-        guestPolicy: parsed_room_settings["requireModeratorApproval"] == false ? nil : "ASK_MODERATOR",
-      }.compact
+      room_settings = if parsed_room_settings.empty? # Bypass Home Rome room_settings which is an empty string
+                        {}
+                      else
+                        {
+                          record: parsed_room_settings["recording"] == false ? nil : "true",
+                          muteOnStart: parsed_room_settings["muteOnStart"] == false ? nil : "true",
+                          glAnyoneCanStart: parsed_room_settings["anyoneCanStart"] == false ? nil : "true",
+                          glAnyoneJoinAsModerator: parsed_room_settings["joinModerator"] == false ? nil : "true",
+                          guestPolicy: parsed_room_settings["requireModeratorApproval"] == false ? nil : "ASK_MODERATOR",
+                        }.compact
+                      end
 
       shared_users_emails = SharedAccess.joins(:user).where(room_id: r.id).pluck(:'users.email')
 
@@ -246,14 +253,12 @@ namespace :migrations do
   # Registration Method returns "0", "1" or "2" but V3 expects "open", "invite" or "approval"
   def infer_registration_method(registration_method)
     case registration_method
-    when "0"
-      "open"
     when "1"
       "invite"
     when "2"
       "approval"
     else
-      raise red "Unable to find Registration Method"
+      "open"
     end
   end
 end
