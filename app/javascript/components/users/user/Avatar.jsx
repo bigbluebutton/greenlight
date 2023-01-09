@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import { Placeholder } from 'react-bootstrap';
 
 export default function Avatar({ avatar, radius, className }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   function onLoad() {
-    setIsLoading(true);
+    setIsLoaded(true);
   }
 
   return (
@@ -19,9 +19,10 @@ export default function Avatar({ avatar, radius, className }) {
         width={radius}
         height={radius}
         className={className}
+        style={{ display: isLoaded ? '' : 'none' }}
         onLoad={onLoad}
       />
-      {!isLoading && (
+      {!isLoaded && (
       <Placeholder animation="glow" className="mb-3">
         <Placeholder style={{ height: radius, width: radius, borderRadius: '50%' }} />
       </Placeholder>
