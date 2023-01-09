@@ -20,7 +20,7 @@ export default function HomePage() {
   const { data: registrationMethod } = useSiteSetting('RegistrationMethod');
 
   useEffect(() => {
-    document.cookie = `token=${inviteToken};path=/;`;
+    document.cookie = `inviteToken=${inviteToken};path=/;`;
   }, [inviteToken]);
 
   // redirect user to correct page based on signed in status and CreateRoom permission

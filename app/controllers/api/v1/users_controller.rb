@@ -17,7 +17,7 @@ module Api
         render_data data: user, status: :ok
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
       # POST /api/v1/users.json
       # Expects: { user: { :name, :email, :password} }
       # Returns: { data: Array[serializable objects] , errors: Array[String] }
@@ -47,12 +47,6 @@ module Api
         user.pending! if !admin_create && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
 
         if user.save
-          # Delete invitation (ignore whether it exists or not)
-          if registration_method == SiteSetting::REGISTRATION_METHODS[:invite]
-            Invitation.delete_by(email: user_params[:email], provider: current_provider,
-                                 token: user_params[:invite_token])
-          end
-
           user.generate_session_token!
           session[:session_token] = user.session_token unless current_user # if this is NOT an admin creating a user
 
@@ -69,7 +63,7 @@ module Api
           render_error errors: Rails.configuration.custom_error_msgs[:record_invalid], status: :bad_request
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 
       def update
         user = User.find(params[:id])
@@ -141,7 +135,8 @@ module Api
       def valid_invite_token
         return false if user_params[:invite_token].blank?
 
-        Invitation.exists?(email: user_params[:email], provider: current_provider, token: user_params[:invite_token])
+        # Try to delete the invitation and return true if it succeeds
+        Invitation.destroy_by(email: user_params[:email], provider: current_provider, token: user_params[:invite_token]).present?
       end
     end
   end

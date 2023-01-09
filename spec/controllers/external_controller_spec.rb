@@ -164,6 +164,68 @@ RSpec.describe ExternalController, type: :controller do
         expect(user.reload.role).to eq(new_role)
       end
     end
+
+    context 'Registration Method' do
+      context 'invite' do
+        before do
+          reg_method = instance_double(SettingGetter)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'RegistrationMethod', provider: 'greenlight').and_return(reg_method)
+          allow(reg_method).to receive(:call).and_return('invite')
+        end
+
+        it 'creates a user account if they have a valid invitation' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+          invite = create(:invitation, email: OmniAuth.config.mock_auth[:openid_connect][:info][:email])
+          cookies[:inviteToken] = {
+            value: invite.token
+          }
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.to change(User, :count).by(1)
+        end
+
+        it 'deletes an invitation after using it' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+          invite = create(:invitation, email: OmniAuth.config.mock_auth[:openid_connect][:info][:email])
+          cookies[:inviteToken] = {
+            value: invite.token
+          }
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.to change(Invitation, :count).by(-1)
+        end
+
+        it 'returns an InviteInvalid error if no invite is passed' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.to raise_error(StandardError)
+        end
+
+        it 'returns an InviteInvalid error if the token is wrong' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+          create(:invitation, email: OmniAuth.config.mock_auth[:openid_connect][:info][:email])
+          cookies[:inviteToken] = {
+            value: '123'
+          }
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.to raise_error(StandardError)
+        end
+      end
+
+      context 'approval' do
+        before do
+          reg_method = instance_double(SettingGetter)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'RegistrationMethod', provider: 'greenlight').and_return(reg_method)
+          allow(reg_method).to receive(:call).and_return(SiteSetting::REGISTRATION_METHODS[:approval])
+        end
+
+        it 'sets a user to pending when registering' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.to change(User, :count).by(1)
+
+          expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email])).to be_pending
+        end
+      end
+    end
   end
 
   describe '#recording_ready' do
