@@ -38,10 +38,11 @@ module Api
           # Returns unless the Role has a RolePermission that differs from V3 default RolePermissions values
           render_data status: :created unless role_hash[:role_permissions].any?
 
-          # Creates the associated RolePermissions
+          # Finds & Updates the associated RolePermissions associated with the Role
+          role_permissions = RolePermission.where(role_id: role.id).includes(:permission)
           # The role_permissions hash contains only the permissions with value that differs from V3 default values
           role_hash[:role_permissions].any? && role_hash[:role_permissions].each do |name, value|
-            role_permission = role.role_permissions.includes(:permission).find_by(permission: { name: })
+            role_permission = role_permissions.find_by(permission: { 'permissions.name': name })
             return render_error status: :bad_request unless role_permission
 
             role_permission.update!(value:)
@@ -106,12 +107,10 @@ module Api
 
           return render_error status: :bad_request unless room.save
 
-          # Creates the RoomMeetingOptions associated with the Room
-          room_meeting_options = RoomMeetingOption.where(room:).includes(:meeting_option) # TODO - samuel: look at comment below
+          # Finds & Updates the RoomMeetingOptions associated with the Room
+          room_meeting_options = RoomMeetingOption.where(room:).includes(:meeting_option)
           # The room_settings hash contains only the MeetingOption with value that differs from V3 rooms default values
           room_hash[:room_settings].any? && room_hash[:room_settings].each do |name, value|
-            # TODO - samuel: is room.room_meeting_options cached? is it equivalent to RoomMeetingOption.where(room:)
-            # room_meeting_option = room.room_meeting_options.includes(:meeting_option).find_by(meeting_option: { name: })
             room_meeting_option = room_meeting_options.find_by('meeting_options.name': name)
             return render_error status: :bad_request unless room_meeting_option
 
