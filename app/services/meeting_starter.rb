@@ -12,8 +12,15 @@ class MeetingStarter
   def call
     # TODO: amir - Check the legitimately of the action.
     options = RoomSettingsGetter.new(room_id: @room.id, provider: @room.user.provider, current_user: @current_user, only_bbb_options: true).call
+    viewer_code = RoomSettingsGetter.new(
+      room_id: @room.id,
+      provider: @room.user.provider,
+      current_user: @current_user,
+      show_codes: true,
+      settings: 'glViewerAccessCode'
+    ).call
 
-    options.merge!(computed_options)
+    options.merge!(computed_options(access_code: viewer_code['glViewerAccessCode']))
 
     retries = 0
     begin
@@ -31,11 +38,12 @@ class MeetingStarter
 
   private
 
-  def computed_options
+  def computed_options(access_code:)
     room_url = File.join(@base_url, '/rooms/', @room.friendly_id, '/join')
+    moderator_message = "#{I18n.t('meeting.moderator_message')}<br>#{room_url}"
+    moderator_message += "<br>#{I18n.t('meeting.access_code', code: access_code)}" if access_code.present?
     {
-      # TODO: - ahmad: Find a way to localize
-      moderatorOnlyMessage: "To invite someone to the meeting, send them this link: #{room_url}",
+      moderatorOnlyMessage: moderator_message,
       logoutURL: room_url,
       meta_endCallbackUrl: meeting_ended_url(host: @base_url),
       'meta_bbb-recording-ready-url': recording_ready_url(host: @base_url),
