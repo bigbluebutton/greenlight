@@ -17,7 +17,6 @@ namespace :migrations do
         .select(:id, :name)
         .where.not(name: COMMON[:filtered_roles])
         .find_each(batch_size: COMMON[:batch_size]) do |r|
-
       # RolePermissions
       role_permissions_hash = RolePermission.where(role_id: r.id).pluck(:name, :value).to_h
       # Returns nil if the RolePermission value is the same as the corresponding default value in V3
@@ -65,7 +64,6 @@ namespace :migrations do
         .includes(:role)
         .where.not(roles: { name: COMMON[:filtered_user_roles] }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |u|
-
       role_name = infer_role_name(u.role.name)
       params = { user: { name: u.name, email: u.email, external_id: u.social_uid, language: u.language, role: role_name } }
 
@@ -108,7 +106,6 @@ namespace :migrations do
         .includes(:owner)
         .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
-
       # RoomSettings
       parsed_room_settings = JSON.parse(r.room_settings)
       # Returns nil if the RoomSetting value is the same as the corresponding default value in V3
@@ -177,7 +174,7 @@ namespace :migrations do
       PreuploadPresentation: settings_hash['Preupload Presentation'],
     }.compact
 
-    #RoomConfigurations
+    # RoomConfigurations
     room_configurations = {
       record: settings_hash['Room Configuration Recording'],
       muteOnStart: settings_hash['Room Configuration Mute On Join'],
