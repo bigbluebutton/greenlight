@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import RoleRow from './RoleRow';
 import SortBy from '../../shared_components/search/SortBy';
-import Spinner from '../../shared_components/utilities/Spinner';
+import RolesListPlaceHolder from './RolesListPlaceHolder';
 
 export default function RolesList({ roles, isLoading }) {
   const { t } = useTranslation();
@@ -21,8 +21,10 @@ export default function RolesList({ roles, isLoading }) {
           (isLoading && (
             <tr>
               <td>
-                {/* TODO ADD PLACEHOLDER HERE */}
-                <Spinner />
+                {
+                  // eslint-disable-next-line react/no-array-index-key
+                  [...Array(5)].map((val, idx) => <RolesListPlaceHolder key={idx} />)
+                }
               </td>
             </tr>
           )) || (

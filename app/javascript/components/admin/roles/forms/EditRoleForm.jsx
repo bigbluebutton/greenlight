@@ -17,6 +17,7 @@ import useRoomConfigs from '../../../../hooks/queries/rooms/useRoomConfigs';
 import useRolePermissions from '../../../../hooks/queries/admin/role_permissions/useRolePermissions';
 import RolePermissionRow from '../RolePermissionRow';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
+import EditRolePlaceHolder from '../EditRolePlaceHolder';
 
 export default function EditRoleForm({ role }) {
   const { t } = useTranslation();
@@ -60,85 +61,94 @@ export default function EditRoleForm({ role }) {
 
   fieldsRoomLimit.value.placeHolder = rolePermissions?.RoomLimit;
 
-  if (roomConfigs.isLoading || isLoading) return null;
-
   return (
     <div id="edit-role-form">
-      <Form methods={methodsRoleName} onBlur={(e) => updateRoleAPI.mutate({ name: e.target.value })}>
-        <FormControl field={fieldsRoleName.name} type="text" />
-      </Form>
-      <RolePermissionRow
-        permissionName="CreateRoom"
-        description="Can create rooms"
-        roleId={role?.id}
-        defaultValue={rolePermissions?.CreateRoom === 'true'}
-        updateMutation={updateRolePermission}
-      />
-      <RolePermissionRow
-        permissionName="ManageUsers"
-        description="Allow users with this role to manage users"
-        roleId={role?.id}
-        defaultValue={rolePermissions?.ManageUsers === 'true'}
-        updateMutation={updateRolePermission}
-      />
-      {(roomConfigs?.data?.record === 'optional') && (
-      <RolePermissionRow
-        permissionName="CanRecord"
-        description="Allow users with this role to record their meetings"
-        roleId={role?.id}
-        defaultValue={rolePermissions?.CanRecord === 'true'}
-        updateMutation={updateRolePermission}
-      />
-      )}
-      <RolePermissionRow
-        permissionName="ManageRooms"
-        description="Allow users with this role to manage server rooms"
-        roleId={role?.id}
-        defaultValue={rolePermissions?.ManageRooms === 'true'}
-        updateMutation={updateRolePermission}
-      />
-      <RolePermissionRow
-        permissionName="ManageRecordings"
-        description="Allow users with this role to manage server recordings"
-        roleId={role?.id}
-        defaultValue={rolePermissions?.ManageRecordings === 'true'}
-        updateMutation={updateRolePermission}
-      />
-      <RolePermissionRow
-        permissionName="ManageSiteSettings"
-        description="Allow users with this role to manage site settings"
-        roleId={role?.id}
-        defaultValue={rolePermissions?.ManageSiteSettings === 'true'}
-        updateMutation={updateRolePermission}
-      />
-      {/* Don't show ManageRoles if current_user is editing their own role */}
-      {(currentUser.role.id !== role?.id) && (
-        <RolePermissionRow
-          permissionName="ManageRoles"
-          description="Allow users with this role to edit other roles"
-          roleId={role?.id}
-          defaultValue={rolePermissions?.ManageRoles === 'true'}
-          updateMutation={updateRolePermission}
-        />
-      )}
-      <RolePermissionRow
-        permissionName="SharedList"
-        description="Include users with this role in the dropdown for sharing rooms"
-        roleId={role?.id}
-        defaultValue={rolePermissions?.SharedList === 'true'}
-        updateMutation={updateRolePermission}
-      />
+      {
+      roomConfigs.isLoading || isLoading
+        ? (
+          // eslint-disable-next-line react/no-array-index-key
+          [...Array(9)].map((val, idx) => <EditRolePlaceHolder key={idx} />)
+        )
+        : (
+          <div>
+            <Form methods={methodsRoleName} onBlur={(e) => updateRoleAPI.mutate({ name: e.target.value })}>
+              <FormControl field={fieldsRoleName.name} type="text" />
+            </Form>
+            <RolePermissionRow
+              permissionName="CreateRoom"
+              description="Can create rooms"
+              roleId={role?.id}
+              defaultValue={rolePermissions?.CreateRoom === 'true'}
+              updateMutation={updateRolePermission}
+            />
+            <RolePermissionRow
+              permissionName="ManageUsers"
+              description="Allow users with this role to manage users"
+              roleId={role?.id}
+              defaultValue={rolePermissions?.ManageUsers === 'true'}
+              updateMutation={updateRolePermission}
+            />
+            {(roomConfigs?.data?.record === 'optional') && (
+            <RolePermissionRow
+              permissionName="CanRecord"
+              description="Allow users with this role to record their meetings"
+              roleId={role?.id}
+              defaultValue={rolePermissions?.CanRecord === 'true'}
+              updateMutation={updateRolePermission}
+            />
+            )}
+            <RolePermissionRow
+              permissionName="ManageRooms"
+              description="Allow users with this role to manage server rooms"
+              roleId={role?.id}
+              defaultValue={rolePermissions?.ManageRooms === 'true'}
+              updateMutation={updateRolePermission}
+            />
+            <RolePermissionRow
+              permissionName="ManageRecordings"
+              description="Allow users with this role to manage server recordings"
+              roleId={role?.id}
+              defaultValue={rolePermissions?.ManageRecordings === 'true'}
+              updateMutation={updateRolePermission}
+            />
+            <RolePermissionRow
+              permissionName="ManageSiteSettings"
+              description="Allow users with this role to manage site settings"
+              roleId={role?.id}
+              defaultValue={rolePermissions?.ManageSiteSettings === 'true'}
+              updateMutation={updateRolePermission}
+            />
+            {/* Don't show ManageRoles if current_user is editing their own role */}
+            {(currentUser.role.id !== role?.id) && (
+            <RolePermissionRow
+              permissionName="ManageRoles"
+              description="Allow users with this role to edit other roles"
+              roleId={role?.id}
+              defaultValue={rolePermissions?.ManageRoles === 'true'}
+              updateMutation={updateRolePermission}
+            />
+            )}
+            <RolePermissionRow
+              permissionName="SharedList"
+              description="Include users with this role in the dropdown for sharing rooms"
+              roleId={role?.id}
+              defaultValue={rolePermissions?.SharedList === 'true'}
+              updateMutation={updateRolePermission}
+            />
 
-      <Form methods={methodsRoomLimit} onBlur={methodsRoomLimit.handleSubmit(updateAPI.mutate)}>
-        <Stack direction="horizontal">
-          <div className="text-muted me-auto">
-            Room Limit
+            <Form methods={methodsRoomLimit} onBlur={methodsRoomLimit.handleSubmit(updateAPI.mutate)}>
+              <Stack direction="horizontal">
+                <div className="text-muted me-auto">
+                  Room Limit
+                </div>
+                <div className="float-end">
+                  <FormControl field={fieldsRoomLimit.value} noLabel className="room-limit" type="number" />
+                </div>
+              </Stack>
+            </Form>
           </div>
-          <div className="float-end">
-            <FormControl field={fieldsRoomLimit.value} noLabel className="room-limit" type="number" />
-          </div>
-        </Stack>
-      </Form>
+        )
+}
 
       {
         deleteRoleButton()
