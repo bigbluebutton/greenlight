@@ -27,7 +27,8 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     it 'makes a call to the MeetingStarter service with the right values and returns the join url' do
       expect(MeetingStarter).to receive(:new).with(room:, base_url: root_url, current_user: user).and_call_original
       expect_any_instance_of(MeetingStarter).to receive(:call)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Moderator')
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, guest: false, avatar_url: nil,
+                                                                              role: 'Moderator')
 
       post :start, params: { friendly_id: room.friendly_id }
 
@@ -45,7 +46,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
     it 'makes a call to the BigBlueButtonApi to get the join url' do
       expect_any_instance_of(BigBlueButtonApi)
         .to receive(:join_meeting)
-        .with(room:, name: user.name, avatar_url: nil, role: 'Moderator')
+        .with(room:, name: user.name, guest: false, avatar_url: nil, role: 'Moderator')
 
       post :start, params: { friendly_id: room.friendly_id }
     end
@@ -56,7 +57,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
       expect_any_instance_of(BigBlueButtonApi)
         .to receive(:join_meeting)
-        .with(room:, name: user.name, avatar_url:, role: 'Moderator')
+        .with(room:, name: user.name, guest: false, avatar_url:, role: 'Moderator')
 
       post :start, params: { friendly_id: room.friendly_id }
     end
@@ -113,7 +114,8 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
       it 'allows a user who the room is shared with to start the meeting' do
         expect_any_instance_of(MeetingStarter).to receive(:call)
-        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: guest_user.name, avatar_url: nil, role: 'Moderator')
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: guest_user.name, guest: false, avatar_url: nil,
+                                                                                role: 'Moderator')
 
         post :start, params: { friendly_id: room.friendly_id }
 
@@ -126,7 +128,8 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
   describe '#status' do
     it 'gets the joinUrl if the meeting is running' do
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room: test_room, name: user.name, avatar_url: nil, role: 'Viewer')
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room: test_room, name: user.name, guest: false, avatar_url: nil,
+                                                                              role: 'Viewer')
 
       post :status, params: { friendly_id: test_room.friendly_id, name: user.name }
       expect(response).to have_http_status(:ok)
@@ -144,14 +147,16 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
     it 'joins as viewer if no access code is required nor provided' do
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room: test_room, name: user.name, avatar_url: nil, role: 'Viewer')
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room: test_room, name: user.name, guest: false, avatar_url: nil,
+                                                                              role: 'Viewer')
       post :status, params: { friendly_id: test_room.friendly_id, name: user.name }
       expect(response).to have_http_status(:ok)
     end
 
     it 'joins as moderator if user is joining his own room' do
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Moderator')
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, guest: false, avatar_url: nil,
+                                                                              role: 'Moderator')
       post :status, params: { friendly_id: room.friendly_id, name: user.name }
       expect(response).to have_http_status(:ok)
     end
@@ -163,7 +168,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
       expect_any_instance_of(BigBlueButtonApi)
         .to receive(:join_meeting)
-        .with(room: test_room, name: user.name, avatar_url:, role: 'Viewer')
+        .with(room: test_room, name: user.name, guest: false, avatar_url:, role: 'Viewer')
 
       post :status, params: { friendly_id: test_room.friendly_id, name: user.name }
     end
@@ -176,7 +181,8 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
       it 'joins as moderator' do
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
-        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: guest_user.name, avatar_url: nil, role: 'Moderator')
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: guest_user.name, guest: false, avatar_url: nil,
+                                                                                role: 'Moderator')
         post :status, params: { friendly_id: room.friendly_id, name: guest_user.name }
       end
     end
@@ -192,7 +198,8 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       it 'joins as viewer if access code correspond to the viewer access code' do
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
 
-        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room: test_room, name: user.name, avatar_url: nil, role: 'Viewer')
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room: test_room, name: user.name, guest: false, avatar_url: nil,
+                                                                                role: 'Viewer')
         expect(RoomSettingsGetter).to receive(:new).with(
           room_id: test_room.id, provider: 'greenlight', show_codes: true, current_user: user,
           settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart glAnyoneJoinAsModerator]
@@ -207,7 +214,8 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       it 'joins as moderator if access code correspond to moderator access code' do
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
 
-        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Moderator')
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, guest: false, avatar_url: nil,
+                                                                                role: 'Moderator')
         expect(RoomSettingsGetter).to receive(:new).with(
           room_id: room.id, provider: 'greenlight', show_codes: true, current_user: user,
           settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart glAnyoneJoinAsModerator]
@@ -246,7 +254,8 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       it 'user joins as a moderator' do
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
 
-        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: guest_user.name, avatar_url: nil, role: 'Moderator')
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: guest_user.name, guest: false, avatar_url: nil,
+                                                                                role: 'Moderator')
         expect(RoomSettingsGetter).to receive(:new).with(
           room_id: room.id, provider: 'greenlight', show_codes: true, current_user: guest_user,
           settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart glAnyoneJoinAsModerator]
@@ -272,7 +281,8 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       it 'user joins as moderator if an access code is needed and the input correspond the viewer access code' do
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
 
-        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: guest_user.name, avatar_url: nil, role: 'Moderator')
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: guest_user.name, guest: false, avatar_url: nil,
+                                                                                role: 'Moderator')
         expect(RoomSettingsGetter).to receive(:new).with(
           room_id: room.id, provider: 'greenlight', show_codes: true, current_user: guest_user,
           settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart glAnyoneJoinAsModerator]
@@ -287,7 +297,8 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       it 'user joins as moderator if an access code is needed and the input correspond the moderator access code' do
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
 
-        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: guest_user.name, avatar_url: nil, role: 'Moderator')
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: guest_user.name, guest: false, avatar_url: nil,
+                                                                                role: 'Moderator')
         expect(RoomSettingsGetter).to receive(:new).with(
           room_id: room.id, provider: 'greenlight', show_codes: true, current_user: guest_user,
           settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart glAnyoneJoinAsModerator]
@@ -360,7 +371,8 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
       it 'allows the user to join if they are signed in' do
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
-        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room: test_room, name: user.name, avatar_url: nil, role: 'Viewer')
+        expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room: test_room, name: user.name, guest: false, avatar_url: nil,
+                                                                                role: 'Viewer')
 
         post :status, params: { friendly_id: test_room.friendly_id, name: user.name }
 
@@ -382,7 +394,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       session[:session_token] = nil
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Viewer')
+      expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, guest: true, avatar_url: nil, role: 'Viewer')
 
       post :status, params: { friendly_id: room.friendly_id, name: user.name }
 

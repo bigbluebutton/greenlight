@@ -23,7 +23,7 @@ class BigBlueButtonApi
     end
   end
 
-  def join_meeting(room:, role:, name: nil, avatar_url: nil)
+  def join_meeting(room:, role:, guest:, name: nil, avatar_url: nil)
     bbb_server.join_meeting_url(
       room.meeting_id,
       name,
@@ -31,7 +31,8 @@ class BigBlueButtonApi
       {
         role:,
         avatarURL: avatar_url,
-        createTime: room.last_session&.to_datetime&.strftime('%Q')
+        createTime: room.last_session&.to_datetime&.strftime('%Q'),
+        guest: (true if guest) # Only include it if true
       }.compact
     )
   end

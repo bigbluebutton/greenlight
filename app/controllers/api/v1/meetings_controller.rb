@@ -21,6 +21,7 @@ module Api
 
         render_data data: BigBlueButtonApi.new.join_meeting(
           room: @room,
+          guest: current_user.nil?,
           name: current_user.name,
           avatar_url: current_user.avatar.attached? ? url_for(current_user.avatar) : nil,
           role: 'Moderator'
@@ -62,6 +63,7 @@ module Api
         if data[:status]
           data[:joinUrl] = BigBlueButtonApi.new.join_meeting(
             room: @room,
+            guest: current_user.nil?,
             name: current_user ? current_user.name : params[:name],
             avatar_url: current_user&.avatar&.attached? ? url_for(current_user.avatar) : nil,
             role: bbb_role
