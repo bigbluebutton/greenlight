@@ -12,7 +12,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
     context 'when decryption passes' do
       describe 'when decrypted params encapsulation is conform and data is valid' do
         it 'returns :created and creates a role' do
-          encrypted_params = encrypt_params({ role: { name: 'CrazyRole', role_permissions: { } } }, expires_in: 10.seconds)
+          encrypted_params = encrypt_params({ role: { name: 'CrazyRole', role_permissions: {} } }, expires_in: 10.seconds)
           expect { post :create_role, params: { v2: { encrypted_params: } } }.to change(Role, :count).from(0).to(1)
           role = Role.take
           expect(role.name).to eq('CrazyRole')
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
 
       describe 'when decrypted params data are invalid' do
         it 'returns :bad_request without creating a role' do
-          encrypted_params = encrypt_params({ role: { name: '', role_permissions: { } } }, expires_in: 10.seconds)
+          encrypted_params = encrypt_params({ role: { name: '', role_permissions: {} } }, expires_in: 10.seconds)
           expect { post :create_role, params: { v2: { encrypted_params: } } }.not_to change(Role, :count)
           expect(response).to have_http_status(:bad_request)
         end
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
 
       describe 'when decrypted params encapsulation is not conform' do
         it 'returns :bad_request without creating a role' do
-          encrypted_params = encrypt_params({ not_role: { name: 'CrazyRole', role_permissions: { } } }, expires_in: 10.seconds)
+          encrypted_params = encrypt_params({ not_role: { name: 'CrazyRole', role_permissions: {} } }, expires_in: 10.seconds)
           expect { post :create_role, params: { v2: { encrypted_params: } } }.not_to change(Role, :count)
           expect(response).to have_http_status(:bad_request)
         end
@@ -41,7 +41,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
         let(:role) { create(:role, provider: 'greenlight', name: 'OnlyOne') }
 
         it 'returns :created without creating a role' do
-          encrypted_params = encrypt_params({ role: { name: role.name, role_permissions: { } } }, expires_in: 10.seconds)
+          encrypted_params = encrypt_params({ role: { name: role.name, role_permissions: {} } }, expires_in: 10.seconds)
           expect { post :create_role, params: { v2: { encrypted_params: } } }.not_to change(Role, :count)
           expect(response).to have_http_status(:created)
         end
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
     context 'when decryption failes' do
       describe 'because payload encapsulation is not conform' do
         it 'returns :bad_request without creating a role' do
-          encrypted_params = encrypt_params({ role: { name: 'CrazyRole', role_permissions: { } } }, expires_in: 10.seconds)
+          encrypted_params = encrypt_params({ role: { name: 'CrazyRole', role_permissions: {} } }, expires_in: 10.seconds)
           expect { post :create_role, params: { not_v2: { encrypted_params: } } }.not_to change(Role, :count)
           expect(response).to have_http_status(:bad_request)
         end
@@ -74,7 +74,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
 
       describe 'because the encrypted payload expired' do
         it 'returns :bad_request without creating a role' do
-          encrypted_params = encrypt_params({ role: { name: 'CrazyRole', role_permissions: { } } }, expires_in: 10.seconds)
+          encrypted_params = encrypt_params({ role: { name: 'CrazyRole', role_permissions: {} } }, expires_in: 10.seconds)
           travel_to 11.seconds.from_now
           expect { post :create_role, params: { v2: { encrypted_params: } } }.not_to change(Role, :count)
           expect(response).to have_http_status(:bad_request)
@@ -85,7 +85,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
         it 'returns :bad_request without creating a role' do
           key = Rails.application.secrets.secret_key_base[1..32]
 
-          encrypted_params = encrypt_params({ role: { name: 'CrazyRole', role_permissions: { } } }, key:, expires_in: 10.seconds)
+          encrypted_params = encrypt_params({ role: { name: 'CrazyRole', role_permissions: {} } }, key:, expires_in: 10.seconds)
           expect { post :create_role, params: { v2: { encrypted_params: } } }.not_to change(Role, :count)
           expect(response).to have_http_status(:bad_request)
         end
