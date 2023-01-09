@@ -20,7 +20,7 @@ namespace :migrations do
 
       # RolePermissions
       role_permissions_hash = RolePermission.where(role_id: r.id).pluck(:name, :value).to_h
-      # Returns nil if the Role Permission value is the same as the corresponding default value in V3
+      # Returns nil if the RolePermission value is the same as the corresponding default value in V3
       role_permissions = {
         CreateRoom: role_permissions_hash['can_create_rooms'] == "true" ? nil : "false",
         CanRecord: role_permissions_hash['can_launch_recording'] == "true" ? nil : "false",
@@ -109,10 +109,10 @@ namespace :migrations do
         .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
 
-      # Room Settings migration
+      # RoomSettings
       parsed_room_settings = JSON.parse(r.room_settings)
-      # Returns nil if the Room Setting value is the same as the corresponding default value in V3
-      room_settings = if parsed_room_settings.empty? # Bypass Home Rome room_settings which is an empty string
+      # Returns nil if the RoomSetting value is the same as the corresponding default value in V3
+      room_settings = if parsed_room_settings.empty? # Bypass Home Rome room_settings which is an empty hash by default
                         {}
                       else
                         {
@@ -165,6 +165,7 @@ namespace :migrations do
 
     settings_hash = Setting.find_by(provider: 'greenlight').features.pluck(:name, :value).to_h
 
+    # SiteSettings
     site_settings = {
       PrimaryColor: settings_hash['Primary Color'],
       PrimaryColorLight: settings_hash['Primary Color Lighten'],
@@ -176,6 +177,7 @@ namespace :migrations do
       PreuploadPresentation: settings_hash['Preupload Presentation'],
     }.compact
 
+    #RoomConfigurations
     room_configurations = {
       record: settings_hash['Room Configuration Recording'],
       muteOnStart: settings_hash['Room Configuration Mute On Join'],
