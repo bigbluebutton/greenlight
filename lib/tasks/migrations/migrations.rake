@@ -156,7 +156,7 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task site_settings: :environment do |_task|
+  task settings: :environment do |_task|
     has_encountred_issue = 0
 
     settings_hash = Setting.find_by(provider: 'greenlight').features.pluck(:name, :value).to_h
@@ -183,18 +183,18 @@ namespace :migrations do
 
     params = { settings: { site_settings: site_settings, room_configurations: room_configurations } }
 
-    response = Net::HTTP.post(uri('site_settings'), payload(params), COMMON[:headers])
+    response = Net::HTTP.post(uri('settings'), payload(params), COMMON[:headers])
 
     case response
     when Net::HTTPCreated
-      puts green "Successfully migrated Site Settings"
+      puts green "Successfully migrated Settings"
     else
-      puts red "Unable to migrate Site Settings"
+      puts red "Unable to migrate Settings"
       has_encountred_issue = 1 # At least one of the migrations failed.
     end
 
     puts
-    puts green "Site Settings migration completed."
+    puts green "Settings migration completed."
 
     puts yellow "In case of an error please retry the process to resolve." unless has_encountred_issue.zero?
 
