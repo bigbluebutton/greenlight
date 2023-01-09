@@ -30,6 +30,9 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 fa_IR:
+  meeting:
+    moderator_message: "برای دعوت از فردی به جلسه، این پیوند را برای او ارسال کنید:"
+    access_code: "کد دسترسی: %{code}"
   email:
     activation:
       line0: "%{name} خوش آمدی!"
