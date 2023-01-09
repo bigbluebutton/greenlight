@@ -90,10 +90,6 @@ module Api
         def create_room
           room_hash = room_params.to_h
 
-
-          binding.break
-
-
           return render_data status: :created if Room.exists? friendly_id: room_hash[:friendly_id]
 
           user = User.find_by(email: room_hash[:owner_email], provider: 'greenlight')
@@ -141,10 +137,10 @@ module Api
         #                          :glAnyoneJoinAsModerator, :glRequireAuthentication } } }
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Creates a SiteSettings or a RoomsConfiguration.
-        def create_site_settings
-          settings_hash = site_settings_params.to_h
+        def create_settings
+          settings_hash = settings_params.to_h
 
-          render_data status: :created unless settings.any?
+          render_data status: :created unless settings_hash.any?
 
           settings_hash[:site_settings].any? && settings_hash[:site_settings].each do |name, value|
             site_setting = SiteSetting.joins(:setting).find_by('settings.name': name, provider: 'greenlight')
@@ -180,7 +176,7 @@ module Api
                                                                                                                 shared_users_emails: [])
         end
 
-        def site_settings_params
+        def settings_params
           decrypted_params.require(:settings).permit(site_settings: {}, room_configurations: {})
         end
 
