@@ -32,5 +32,4 @@ export default function EmptyRoomsList() {
       </Card>
     </div>
   );
-
 }
