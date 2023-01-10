@@ -92,6 +92,8 @@
     "last_session": "Last Session: {{ room.last_session }}",
     "no_last_session": "No previous session created",
     "no_rooms_found": "No rooms found",
+    "rooms_list_is_empty": "Your rooms list is empty!",
+    "rooms_list_empty_create_room": "Create your first room by clicking on the button below and entering a room name.",
     "meeting": {
       "start_meeting": "Start Meeting",
       "join_meeting": "Join Meeting",

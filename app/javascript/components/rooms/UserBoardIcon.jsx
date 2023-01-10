@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 
-export default function UserBoardIcon() {
+export default function UserBoardIcon({...props}) {
   return (
     <svg
       aria-hidden="true"
@@ -9,7 +9,7 @@ export default function UserBoardIcon() {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 640 512"
       strokeWidth="1.5"
-      className="hi-m text-brand pt-4 d-block mx-auto"
+      {...props}
     >
       <path
         fill="currentColor"

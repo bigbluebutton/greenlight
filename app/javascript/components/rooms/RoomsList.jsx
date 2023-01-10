@@ -11,6 +11,7 @@ import Modal from '../shared_components/modals/Modal';
 import CreateRoomForm from './room/forms/CreateRoomForm';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import SearchBar from '../shared_components/search/SearchBar';
+import EmptyRoomsList from './EmptyRoomsList';
 
 export default function RoomsList() {
   const { t } = useTranslation();
@@ -18,6 +19,8 @@ export default function RoomsList() {
   const { isLoading, data: rooms } = useRooms(searchInput);
   const currentUser = useAuth();
   const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
+
+  if (rooms?.length === 0) return <EmptyRoomsList />;
 
   return (
     <>
