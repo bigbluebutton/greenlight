@@ -4,6 +4,7 @@ module Api
   module V1
     class LocalesController < ApiController
       skip_before_action :ensure_authenticated, only: :show
+      skip_before_action :ensure_valid_request, only: :show
 
       # GET /api/v1/locales
       def index
