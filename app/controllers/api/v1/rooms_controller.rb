@@ -26,7 +26,7 @@ module Api
         rooms = Room.where(user_id: current_user.id)
                     .or(Room.where(id: shared_rooms))
                     .order(online: :desc)
-                    .order(Room.arel_table[:last_session].desc.nulls_last)
+                    .order('last_session DESC NULLS LAST')
                     .search(params[:search])
 
         rooms.map do |room|

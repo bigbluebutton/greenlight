@@ -48,7 +48,7 @@ export default function ServerRooms() {
                       <thead>
                         <tr className="text-muted small">
                           <th className="fw-normal border-end-0">{ t('admin.server_rooms.name') }<SortBy fieldName="name" /></th>
-                          <th className="fw-normal border-0">{ t('admin.server_rooms.owner') }<SortBy fieldName="user.name" /></th>
+                          <th className="fw-normal border-0">{ t('admin.server_rooms.owner') }<SortBy fieldName="users.name" /></th>
                           <th className="fw-normal border-0">{ t('admin.server_rooms.room_id') }</th>
                           <th className="fw-normal border-0">{ t('admin.server_rooms.participants') }</th>
                           <th className="fw-normal border-0">{ t('admin.server_rooms.status') }</th>
