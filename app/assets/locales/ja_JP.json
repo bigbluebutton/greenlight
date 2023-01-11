@@ -153,7 +153,7 @@
     "are_you_sure_delete_recording": "本当にこの録画を削除しますか？"
   },
   "admin": {
-    "admin_panel": "管理者パネル",
+    "admin_panel": "管理者設定パネル",
     "manage_users": {
       "manage_users": "ユーザー管理",
       "active": "アクティブ",
@@ -167,6 +167,7 @@
       "invited_tab": "招待",
       "invite_user": "ユーザーを招待",
       "send_invitation": "招待状を送る",
+      "enter_user_email": "ユーザーのメールアドレスを入力",
       "new_user": "新規ユーザー",
       "add_new_user": "新規ユーザー",
       "create_new_user": "新しいユーザーを作成する",
