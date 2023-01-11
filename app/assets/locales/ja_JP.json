@@ -13,7 +13,7 @@
   "update": "更新",
   "report": "報告",
   "share": "共有",
-  "cancel": "やめる",
+  "cancel": "キャンセル",
   "close": "閉じる",
   "delete": "削除",
   "copy": "参加リンクをコピー",
@@ -50,10 +50,10 @@
     "email_address": "メールアドレス",
     "authenticator": "承認者",
     "full_name": "フルネーム",
-    "no_user_found": "ユーザーは存在しません",
+    "no_user_found": "該当ユーザーは存在しません",
     "type_three_characters": "他のユーザーを表示させるには、３文字以上入力してください。",
     "profile": {
-      "profile": "プロフィール",
+      "profile": "個人設定",
       "language": "言語",
       "role": "役割",
       "administrator": "管理者",
@@ -69,7 +69,7 @@
       "new_password": "新規パスワード",
       "confirm_password": "パスワード確認",
       "permanently_delete_account": "アカウントを完全に削除",
-      "delete_account_description": "アカウント削除を選択すれば、二度と元に戻せません。 \n アカウントに関するすべての情報、つまり設定、会議室、録画などが削除されます。",
+      "delete_account_description": "削除したアカウントは二度と元に戻せません。 \n アカウントに関するすべての情報、すなわち設定、会議室、録画などが消去されます。",
       "delete_account_confirmation": "はい、アカウントを削除してください",
       "are_you_sure_delete_account": "本当にこのアカウントを削除しますか？"
     },
@@ -84,12 +84,12 @@
     "rooms": "会議室",
     "room_name": "会議室名",
     "add_new_room": "＋新しい会議室",
-    "create_room": "会議室の削除",
-    "delete_room": "会議室の作成",
+    "create_room": "会議室の作成",
+    "delete_room": "会議室の削除",
     "create_new_room": "新しい会議室を作成する",
     "enter_room_name": "会議室名を入力してください",
     "shared_by": "共有者",
-    "last_session": "最後のセッション: {{lastSession}}",
+    "last_session": "最後のセッション: {{ room.last_session }}",
     "no_last_session": "会議はまだ開かれていません",
     "no_rooms_found": "会議室がありません",
     "meeting": {
@@ -108,9 +108,9 @@
       "are_you_sure_delete_presentation": "本当にこのプレゼンファイルを削除しますか？"
     },
     "shared_access": {
-      "access": "アクセス",
-      "add_share_access": "＋アクセスを共有",
-      "share_room_access": "会議室へのアクセスを共有",
+      "access": "接続",
+      "add_share_access": "＋接続を共有",
+      "share_room_access": "会議室への接続を共有",
       "add_some_users": "ユーザーを追加しましょう！",
       "add_some_users_description": "ユーザーを追加するには下のボタンをクリックし、この会議室を共有したいユーザーを探して選択してください。"
     },
@@ -140,7 +140,7 @@
     "recordings": "録画",
     "name": "名前",
     "length": "長さ",
-    "users": "ユーザー",
+    "users": "参加者",
     "visibility": "公開度",
     "formats": "フォーマット",
     "published": "公開",
@@ -153,7 +153,7 @@
     "are_you_sure_delete_recording": "本当にこの録画を削除しますか？"
   },
   "admin": {
-    "admin_panel": "管理者パネル",
+    "admin_panel": "管理者設定パネル",
     "manage_users": {
       "manage_users": "ユーザー管理",
       "active": "アクティブ",
@@ -167,6 +167,7 @@
       "invited_tab": "招待",
       "invite_user": "ユーザーを招待",
       "send_invitation": "招待状を送る",
+      "enter_user_email": "ユーザーのメールアドレスを入力",
       "new_user": "新規ユーザー",
       "add_new_user": "新規ユーザー",
       "create_new_user": "新しいユーザーを作成する",
@@ -195,7 +196,7 @@
       "not_running": "閉室",
       "active": "アクティブ",
       "current_session": "現在のセッション: {{lastSession}}",
-      "last_session": "最後のセッション: {{ room.last_session }}",
+      "last_session": "最後のセッション: {{lastSession}}",
       "no_meeting_yet": "会議は一度も行われていません。",
       "delete_server_rooms": "会議室の削除",
       "resync_recordings": "録画の再同期"
@@ -230,7 +231,7 @@
       },
       "settings": {
         "allow_users_to_share_rooms": "ユーザーに会議室の共有を許可",
-        "allow_users_to_share_rooms_description": "無効に設定してある場合、各会議室のドロップダウンからボタンが削除され、ユーザーが会議室を共有できなくなります",
+        "allow_users_to_share_rooms_description": "無効に設定した場合、各会議室のドロップダウンからボタンが削除され、ユーザーが会議室を共有できなくなります",
         "allow_users_to_preupload_presentation": "ユーザーにプレゼンファイルの事前アップロードを許可",
         "allow_users_to_preupload_presentation_description": "ユーザーがプレゼンファイルを事前にアップロードし、この会議室だけの標準のプレゼンとして使用できるようになります"
       },
