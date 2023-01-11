@@ -28,7 +28,7 @@ export default function RoomCard({ room }) {
           <div className="room-icon rounded">
             { room?.shared_owner
               ? <LinkIcon className="hi-m text-brand pt-4 d-block mx-auto" />
-              : <UserBoardIcon />}
+              : <UserBoardIcon className="hi-m text-brand pt-4 d-block mx-auto" />}
           </div>
           { room?.online
             && <MeetingBadges count={room?.participants} />}
