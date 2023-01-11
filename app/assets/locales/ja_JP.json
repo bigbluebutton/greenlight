@@ -13,7 +13,7 @@
   "update": "更新",
   "report": "報告",
   "share": "共有",
-  "cancel": "やめる",
+  "cancel": "キャンセル",
   "close": "閉じる",
   "delete": "削除",
   "copy": "参加リンクをコピー",
@@ -53,7 +53,7 @@
     "no_user_found": "ユーザーは存在しません",
     "type_three_characters": "他のユーザーを表示させるには、３文字以上入力してください。",
     "profile": {
-      "profile": "プロフィール",
+      "profile": "個人設定",
       "language": "言語",
       "role": "役割",
       "administrator": "管理者",
@@ -153,7 +153,7 @@
     "are_you_sure_delete_recording": "本当にこの録画を削除しますか？"
   },
   "admin": {
-    "admin_panel": "管理者パネル",
+    "admin_panel": "管理者設定パネル",
     "manage_users": {
       "manage_users": "ユーザー管理",
       "active": "アクティブ",
@@ -167,6 +167,7 @@
       "invited_tab": "招待",
       "invite_user": "ユーザーを招待",
       "send_invitation": "招待状を送る",
+      "enter_user_email": "ユーザーのメールアドレスを入力",
       "new_user": "新規ユーザー",
       "add_new_user": "新規ユーザー",
       "create_new_user": "新しいユーザーを作成する",
