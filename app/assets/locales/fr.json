@@ -167,6 +167,7 @@
       "invited_tab": "Invité·e",
       "invite_user": "Inviter un·e utilisateur·trice",
       "send_invitation": "Envoyer une invitation",
+      "enter_user_email": "Saisir le courriel de l'utilisateur·rice",
       "new_user": "Nouvel·le utilisateur·rice",
       "add_new_user": "Nouvel·le utilisateur·rice",
       "create_new_user": "Créer un compte utilisateur",
@@ -177,8 +178,6 @@
       "create_room": "Créer une salle",
       "create_new_room": "Créer une nouvelle salle",
       "user_created_at": "Créé: {{utilisateur_at}}",
-      "enter_user_email": "Saisir un courriel",
-      "enter_user_name": "Saisir un nom",
       "are_you_sure_delete_account": "Etes vous sûr de vouloir supprimer le compte de {{nom.utilisateur}} ?",
       "delete_account_warning": "Une fois ce compte supprimé il NE pourra PAS être rétabli",
       "invited": {
@@ -218,7 +217,7 @@
         "brand_image": "Logo",
         "click_to_upload": "Cliquez pour téléverser",
         "drag_and_drop": "ou glissez-déposez",
-        "upload_brand_image_description": "Téléversez un fichier PNG, JPG ou SVG. La durée du téléversement peut varier en fonction du volume de la présentation."
+        "upload_brand_image_description": "Téléverser un fichier PNG, JPG ou SVG. Selon le volume du fichier, il se peut que le téléversement prenne plus de temps avant d'être  opérationnel."
       },
       "administration": {
         "administration": "Administration",
@@ -296,12 +295,14 @@
   "toast": {
     "success": {
       "user": {
+        "user_created": "Compte utilisateur créé ",
         "user_updated": "L'utilisateur·rice a été mis à jour.",
         "user_deleted": "L'utilisateur·rice a été supprimé.",
         "avatar_updated": "L'avatar a été mis à jour.",
         "password_updated": "Le mot de passe a été changé.",
         "account_activated": "Le compte a été activé.",
-        "activation_email_sent": "Un courriel d'activation a été envoyé."
+        "activation_email_sent": "Un courriel d'activation a été envoyé.",
+        "challenge_passed": "Défi reussi."
       },
       "session": {
         "signed_out": "Vous vous êtes déconnecté.e avec succès."
@@ -351,10 +352,14 @@
         "role_assigned": "Ce rôle ne peut être supprimé car il est assigné à au moins un.e utilisateur.trice."
       },
       "users": {
-        "invalid_invite": "Votre jeton d'invitation est soit non valide soit erroné. Veuillez contacter votre administrateur·rice pour en recevoir un nouveau"
+        "invalid_invite": "Votre jeton d'invitation est soit non valide soit erroné. Veuillez contacter votre administrateur·rice pour en recevoir un nouveau",
+        "email_exists": "Il existe déjà un compte avec cette adresse. Veuillez réessayer avec une autre adresse de courriel."
       },
       "rooms": {
         "room_limit": "La salle ne peut être créée car la limite du nombre de salles a été atteint."
+      },
+      "session": {
+        "invalid_credentials": "Le nom d'utilisateur·rice ou le mot de passe sont incorrects. Veuillez vérifier vos identifiants et essayer à nouveau."
       }
     }
   },
@@ -372,5 +377,93 @@
     "message": "Pour pouvoir utiliser Greenlight, veuillez valider votre compte en suivant les instructions présentes dans le courriel d'activation qui vous a été envoyé.",
     "resend_activation_link": "Si vous n'avez pas reçu de courriel d'activation ou si son contenu pose problème, cliquez sur le bouton renvoyer pour le recevoir à nouveau",
     "resend_btn_lbl": "Renvoyer la demande de validation"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Veuillez saisir un nom complet.",
+        "min": "Le nom doit comporter 2 caractères au minimum .",
+        "max": "Le nom ne doit pas comporter plus de 255 caractères."
+      },
+      "email": {
+        "required": "Veuillez saisir une adresse de courriel.",
+        "email": "La saisie ne correspond pas au format d'une adresse de courriel.",
+        "min": "L'adresse de courriel doit comporter 6 caractères au minimum.",
+        "max": "L'adresse de courriel ne peut contenir plus de 255 caractères."
+      },
+      "password": {
+        "required": "Veuillez saisir un mot de passe",
+        "match": "Le mot de passe doit contenir au minimum:",
+        "min": "- Huit caractères",
+        "lower": "- Une minuscule",
+        "upper": "- Une majuscule",
+        "digit": "- Un chiffre",
+        "symbol": "- Un caractère spécial",
+        "max": "Le mot de passe doit contenir 255 caractères au maximum"
+      },
+      "password_confirmation": {
+        "required": "Veuillez confirmer le mot de passe",
+        "match": "Les mots de passe sont erronés"
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Nom complet",
+            "placeholder": "Saisissez votre nom complet"
+          },
+          "email": {
+            "label": "Courriel",
+            "placeholder": "Saisissez votre adresse de courriel"
+          },
+          "password": {
+            "label": "Mot de passe",
+            "placeholder": "Créer un mot de passe"
+          },
+          "password_confirmation": {
+            "label": "Confirmer le mot de passe",
+            "placeholder": "Confirmer le mot de passe"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "Courriel",
+            "placeholder": "Courriel"
+          },
+          "password": {
+            "label": "Mot de passe",
+            "placeholder": "Mot de passe"
+          },
+          "remember_me": {
+            "label": "Se souvenir de moi"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Nom complet",
+            "placeholder": "Saisissez le nom complet de l'utilisateur·rice"
+          },
+          "email": {
+            "label": "Courriel",
+            "placeholder": "Saisissez l'adresse de courriel de l'utilisateur·rice"
+          },
+          "password": {
+            "label": "Mot de passe",
+            "placeholder": "Saisissez le mot de passe de l'utilisateur·rice"
+          },
+          "password_confirmation": {
+            "label": "Confirmez le mot de passe",
+            "placeholder": "Confirmez le mot de passe"
+          }
+        }
+      }
+    }
   }
 }
