@@ -92,6 +92,8 @@
     "last_session": "最後のセッション: {{ room.last_session }}",
     "no_last_session": "会議はまだ開かれていません",
     "no_rooms_found": "会議室がありません",
+    "rooms_list_is_empty": "まだ会議室はありません！",
+    "rooms_list_empty_create_room": "下のボタンをクリックし、部屋の名前を入力して最初の会議室を作成しましょう。",
     "meeting": {
       "start_meeting": "会議を開始",
       "join_meeting": "会議に参加",
