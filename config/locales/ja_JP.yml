@@ -30,6 +30,9 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 ja_JP:
+  meeting:
+    moderator_message: "誰かを会議に招待したい時はこのリンクを送付してください:"
+    access_code: "接続コード: %{code}"
   email:
     activation:
       line0: "ようこそ%{name}さん！"
