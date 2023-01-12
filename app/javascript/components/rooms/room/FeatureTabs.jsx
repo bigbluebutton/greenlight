@@ -47,7 +47,7 @@ export default function FeatureTabs({ shared }) {
   return (
     <Row className="pt-4 mx-0">
       <Tabs defaultActiveKey="recordings" unmountOnExit>
-        <Tab eventKey="recordings" title={t('recording.recording')}>
+        <Tab eventKey="recordings" title={t('recording.recordings')}>
           <RoomRecordings />
         </Tab>
         {preuploadEnabled
