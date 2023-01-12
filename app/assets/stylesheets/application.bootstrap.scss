@@ -120,6 +120,10 @@ input.search-bar {
   @include media-breakpoint-down(sm) {
     min-width: $button-min-width;
   }
+
+  &:focus {
+    box-shadow: none !important
+  }
 }
 
 .icon-circle {
@@ -348,9 +352,9 @@ input.search-bar {
   }
 }
 
-input[type='text']:focus {
-    border-color: var(--brand-color) !important;
-}
+//input[type='text']:focus {
+//    border-color: var(--brand-color) !important;
+//}
 
 input[type='checkbox'] {
   &:checked {
@@ -385,13 +389,8 @@ input[type='checkbox'] {
 }
 
 .form-control:focus {
-  box-shadow: none;
+  box-shadow: 0 0 0 0.05rem rgba(13, 110, 253, 0.25);
 }
-
-.form-control:focus, .form-control:hover {
-  border-color: var(--brand-color) !important;
-}
-
 
 //Semantic UI pagination
 .pagination-wrapper {
