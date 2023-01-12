@@ -25,11 +25,11 @@
   "created_at": "作成時",
   "homepage": {
     "welcome_bbb": "BigBlueButton へようこそ。",
-    "greenlight_description": "Greenlightは、オープンソースWeb会議サーバ BigBlueButton のシンプルなフロントエンドです。 自分の会議室を作成してセッションを主催したり、簡単なリンクを使用して他のユーザーを招待したりできます。"
+    "greenlight_description": "Greenlightは、オープンソースWeb会議サーバ BigBlueButton のシンプルなフロントエンドです。 自分の会議室を作成して会議を主催したり、簡単なリンクを使用して他のユーザーを招待したりできます。"
   },
   "authentication": {
     "sign_in": "サインイン",
-    "sign_up": "サインアップ",
+    "sign_up": "登録",
     "sign_out": "サインアウト",
     "email": "メールアドレス",
     "password": "パスワード",
@@ -92,6 +92,8 @@
     "last_session": "最後のセッション: {{ room.last_session }}",
     "no_last_session": "会議はまだ開かれていません",
     "no_rooms_found": "会議室がありません",
+    "rooms_list_is_empty": "まだ会議室はありません！",
+    "rooms_list_empty_create_room": "下のボタンをクリックし、部屋の名前を入力して最初の会議室を作成しましょう。",
     "meeting": {
       "start_meeting": "会議を開始",
       "join_meeting": "会議に参加",
@@ -148,12 +150,12 @@
     "protected": "秘匿",
     "length_in_minutes": "{{recording.length}}分",
     "processing_recording": "録画処理中...",
-    "copy_recording_urls": "録画へのリンクをコピー",
+    "copy_recording_urls": "録画へのURLをコピー",
     "no_recording_found": "録画データがありません",
     "are_you_sure_delete_recording": "本当にこの録画を削除しますか？"
   },
   "admin": {
-    "admin_panel": "管理者設定パネル",
+    "admin_panel": "管理者設定",
     "manage_users": {
       "manage_users": "ユーザー管理",
       "active": "アクティブ",
@@ -170,7 +172,7 @@
       "enter_user_email": "ユーザーのメールアドレスを入力",
       "new_user": "新規ユーザー",
       "add_new_user": "新規ユーザー",
-      "create_new_user": "新しいユーザーを作成する",
+      "create_new_user": "ユーザーを新しく作成する",
       "edit_user": "ユーザーの編集",
       "delete_user": "ユーザーの削除",
       "users_edit_path": "ユーザー/編集",
@@ -193,26 +195,26 @@
       "participants": "参加者",
       "status": "状況",
       "running": "会議中",
-      "not_running": "閉室",
+      "not_running": "空室",
       "active": "アクティブ",
       "current_session": "現在のセッション: {{lastSession}}",
       "last_session": "最後のセッション: {{lastSession}}",
       "no_meeting_yet": "会議は一度も行われていません。",
-      "delete_server_rooms": "会議室の削除",
+      "delete_server_rooms": "全ての会議室を削除",
       "resync_recordings": "録画の再同期"
     },
     "server_recordings": {
       "server_recordings": "すべての録画",
       "latest_recordings": "最近の録画",
-      "no_recordings_found": "会議室はありません"
+      "no_recordings_found": "録画がありません"
     },
     "site_settings": {
       "site_settings": "サイトの設定",
-      "customize_greenlight": "Greenlightの調整",
+      "customize_greenlight": "Greenlightのカスタマイズ",
       "appearance": {
         "appearance": "外観",
-        "brand_color": "サイトの色調",
-        "regular": "基調色",
+        "brand_color": "サイトの基調色",
+        "regular": "標準色",
         "lighten": "明色",
         "brand_image": "ロゴ画像",
         "click_to_upload": "クリックしてアップロード",
@@ -220,20 +222,20 @@
         "upload_brand_image_description": "PNG、JPG、またはSVGファイルをアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。"
       },
       "administration": {
-        "administration": "ポリシー",
+        "administration": "法的根拠",
         "terms": "利用規約",
         "privacy": "プライバシー",
         "privacy_policy": "プライバシーポリシー",
         "change_term_links": "ページの下方に表示される利用規約へのリンクを変更する",
         "change_privacy_link": "ページの下方に表示されるプライベートポリシーへのリンクを変更する",
         "change_url": "URL変更",
-        "enter_link": "リンクを入力"
+        "enter_link": "リンクをここに入力"
       },
       "settings": {
         "allow_users_to_share_rooms": "ユーザーに会議室の共有を許可",
         "allow_users_to_share_rooms_description": "無効に設定した場合、各会議室のドロップダウンからボタンが削除され、ユーザーが会議室を共有できなくなります",
         "allow_users_to_preupload_presentation": "ユーザーにプレゼンファイルの事前アップロードを許可",
-        "allow_users_to_preupload_presentation_description": "ユーザーがプレゼンファイルを事前にアップロードし、この会議室だけの標準のプレゼンとして使用できるようになります"
+        "allow_users_to_preupload_presentation_description": "ユーザーがプレゼンファイルを事前にアップロードし、この会議室専用の標準プレゼンとして使用できるようになります"
       },
       "registration": {
         "registration": "ユーザー登録",
@@ -245,7 +247,7 @@
         "default_role": "標準の役割",
         "default_role_description": "新しく作成されたユーザーに割り当てられる標準の役割",
         "registration_method": "登録方法",
-        "registration_method_description": "ユーザーをこのサイトに登録する方法を変更",
+        "registration_method_description": "ユーザーがこのサイトに登録する方法を変更",
         "registration_methods" : {
           "open": "自由登録",
           "invite": "招待制",
@@ -262,7 +264,7 @@
         "allow_room_to_be_recorded": "会議室の録画を許可",
         "allow_room_to_be_recorded_description": "会議室のオーナーが、会議の録画機能の有無を決められるようになります。これをオンにしたとしても、録画を開始するためには、司会者が\"録画\"ボタンを押す必要があります。",
         "require_user_signed_in": "参加前にユーザーのサインインを求める",
-        "require_user_signed_in_description": "Greenlightのアカウントを持つユーザーにのみ会議への参加を許可します。もしサインインなしで会議室に入ろうとした場合、ログインページに差し戻されます。",
+        "require_user_signed_in_description": "Greenlightのアカウントを持つユーザーのみが会議に参加できます。もしサインインなしで参加しようとした場合、ログインページに差し戻されます。",
         "require_mod_approval": "参加に司会者の許可を必須とする",
         "require_mod_approval_description": "会議への参加希望に対し、許可するかどうか、司会者にその都度問い合わせます。許可されてはじめてユーザーは参加できます。",
         "allow_any_user_to_start_meeting": "誰でもこの会議を開始可能とする",
@@ -288,7 +290,7 @@
       "enter_role_name": "役割の名前を入力",
       "add_role": "+ 役割作成",
       "create_role": "役割作成",
-      "create_new_role": "新しい役割の作成",
+      "create_new_role": "役割を新しく作成",
       "no_role_found": "役割が見つかりません。"
     }
   },
@@ -314,7 +316,7 @@
         "room_shared": "会議室が共有されました。",
         "room_unshared": "会議室の共有が解除されました。",
         "recordings_synced": "会議室の録画が同期されました",
-        "server_room_deleted": "会議室が削除されました。",
+        "server_room_deleted": "全ての会議室が削除されました。",
         "room_configuration_updated": "会議室の構成が更新されました。",
         "room_setting_updated": "会議室の設定が更新されました。",
         "presentation_updated": "プレゼンファイルが更新されました。",
@@ -346,8 +348,8 @@
     "error": {
       "problem_completing_action": "操作をうまく完了できませんでした。\nもう一度やってみてください。",
       "file_type_not_supported": "ファイルの形式がサポートされていません。",
-      "file_size_too_large": "ファイルのサイズが大きすぎます。",
-      "signin_required": "このページへのアクセスにはサインインが必要です",
+      "file_size_too_large": "ファイルが大きすぎます。",
+      "signin_required": "このページに接続するにはサインインが必要です",
       "roles": {
         "role_assigned": "この役割はすでにユーザーに割り当てられているため、削除できません。"
       },
@@ -356,7 +358,7 @@
         "email_exists": "このメールアドレスで作成されたアカウントが既に存在します。他のメールアドレスでもう一度試してみてください。"
       },
       "rooms": {
-        "room_limit": "会議室数の制限に達したため、新たに作成することができません"
+        "room_limit": "会議室の数が上限に達したため、新たに作成することができません"
       },
       "session": {
         "invalid_credentials": "ユーザー名とパスワードが正しくありません。確認の上、もう一度入力してみてください。"
@@ -365,17 +367,17 @@
   },
   "global_error_page": {
     "title": "エラー",
-    "message": "問題が発生したようです！再発した場合、管理者に連絡してください。"
+    "message": "問題が発生したようです！同じことが起きるようでしたら、管理者に連絡してください。"
   },
   "not_found_error_page": {
     "title": "404",
-    "message": "アクセスしようとしているページが見つかりません！"
+    "message": "接続しようとしているページが見つかりません！"
   },
   "account_activation_page": {
     "title": "アカウントの有効化",
     "account_unverified": "あなたのアカウントはまだ認証されていません。",
     "message": "Greenlightを使用するために、送付されたアクチベーションメールの指示に従い、アカウントの認証を行ってください。",
-    "resend_activation_link": "アクチベーションメールが届かない、もしくはメールに問題がある場合、再送ボタンをクリックして新しいアクチベーションメールの送付を要請してください。",
+    "resend_activation_link": "アクチベーションメールが届かない、もしくはメールに問題がある場合、下の再送ボタンをクリックして新しいメールを送付してみてください。",
     "resend_btn_lbl": "認証メールの再送"
   },
   "forms": {
