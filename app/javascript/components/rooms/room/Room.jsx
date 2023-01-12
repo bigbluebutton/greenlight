@@ -47,7 +47,7 @@ export default function Room() {
       <Row className="my-5">
         <Col className="col-xxl-8">
           {
-            isLoading
+            !isLoading
               ? (
                 <RoomNamePlaceHolder />
               ) : (
