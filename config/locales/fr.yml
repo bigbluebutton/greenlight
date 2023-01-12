@@ -1,0 +1,58 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   "true": "foo"
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+fr:
+  meeting:
+    moderator_message: "Pour inviter quelqu'un à la réunion, envoyez ce lien:"
+    access_code: "Code d'accès: 1%{code}"
+  email:
+    activation:
+      line0: "Bienvenue 1%{nom} !"
+      line1: Plus qu'une étape avant de pouvoir profiter de ce que Greenlight et BigBluieButton peut vous offrir
+      line2: Vous êtes invité à authentifier votre identité en utilisant le lien ci-dessous pour activer votre compte.
+      line3: En activant votre compte vous bénéficierez de toutes les fonctionalités de Greenlight et BigBlueButton
+      line4: "Vous pouvez créer des salles, accueillir des séances, partager des enregistrements et collaborer avec d'autres!"
+      line5: Activer mon compte
+      line6: "Ce lien expire dans 1%{temps}"
+      line7: "Même après expiration du courriel, vous pouvez toujours vous connecter à votre compte pour obtenir un nouveau lien d'activation."
+    invitation:
+      line0: Invitation à rejoindre BigBlueButton
+      line1: "Vous avez été invité à rejoindre votre propre espace par 1%{nom} ."
+      line2: "POur vous enregistrez avec votre courriel, cliquez sur le bouton ci-dessous et suivez les étapes proposées."
+      line3: Cette invitation n'est valable que durant 48 heures.
+      line4: Enregistrez vous
+    reset:
+      line0: "Réinitialisation du mot de passe "
+      line1: "Une réinitialisation du mot de passe est demandée pour le courriel 1%{nom}"
+      line2: "Si vous êtes à l'origine de cette demande de réinitialisation, cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe:\""
+      line3: Réinitialiser le mot de passe.
+      line4: Vous pouvez ignorer ce courriel si vous n'êtes pas à l'origine de cette demande.
+      line5: "Ce lien expirera dans 1%{temps} ."
