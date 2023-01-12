@@ -92,6 +92,8 @@
     "last_session": "آخرین جلسه: {{ room.last_session }}",
     "no_last_session": "هنوز هیچ جلسه‌ای از قبل ایجاد نشده است",
     "no_rooms_found": "هیچ اتاقی پیدا نشد",
+    "rooms_list_is_empty": "شما هنوز هیچ اتاقی ندارید!",
+    "rooms_list_empty_create_room": "با کلیک بر روی دکمه زیر و وارد کردن نام اتاق، اولین اتاق خود را ایجاد کنید.",
     "meeting": {
       "start_meeting": "شروع جلسه",
       "join_meeting": "به جلسه بپیوندید",
