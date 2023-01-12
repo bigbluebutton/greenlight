@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  Col, Row, Form, Stack,
+  Col, Row, Form,
 } from 'react-bootstrap';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

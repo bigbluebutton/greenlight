@@ -10,8 +10,8 @@ import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
 
 export default function App() {
   const currentUser = useAuth();
-  const location = useLocation();
   const pageHeight = currentUser?.signed_in ? 'regular-height' : 'no-header-height';
+  const location = useLocation();
 
   // //i18n
   const { i18n } = useTranslation();
