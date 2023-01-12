@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Row, Tabs, Tab, Placeholder,
-} from 'react-bootstrap';
+import { Tabs, Tab, Placeholder } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
