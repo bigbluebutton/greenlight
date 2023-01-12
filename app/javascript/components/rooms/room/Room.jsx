@@ -14,6 +14,7 @@ import useRoom from '../../../hooks/queries/rooms/useRoom';
 import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from '../MeetingBadges';
 import SharedBadge from './SharedBadge';
+import RoomNamePlaceHolder from './RoomNamePlaceHolder';
 
 function copyInvite() {
   navigator.clipboard.writeText(`${window.location}/join`);
@@ -23,7 +24,9 @@ function copyInvite() {
 export default function Room() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
-  const { isError, data: room, error } = useRoom(friendlyId);
+  const {
+    isLoading, isError, data: room, error,
+  } = useRoom(friendlyId);
   const startMeeting = useStartMeeting(friendlyId);
   const location = useLocation();
 
@@ -43,21 +46,28 @@ export default function Room() {
       </Row>
       <Row className="my-5">
         <Col className="col-xxl-8">
-          <Stack className="room-header-wrapper">
-            <Stack direction="horizontal" gap={2}>
-              <h1>{room?.name}</h1>
-              <Stack direction="horizontal" className="mb-1">
-                { room?.online
-                  && <MeetingBadges count={room?.participants} />}
-                { room?.shared && <SharedBadge ownerName={room?.owner_name} /> }
-              </Stack>
-            </Stack>
-            { room?.last_session ? (
-              <span className="text-muted"> { t('room.last_session', { room }) }  </span>
-            ) : (
-              <span className="text-muted"> { t('room.no_last_session') } </span>
-            )}
-          </Stack>
+          {
+            isLoading
+              ? (
+                <RoomNamePlaceHolder />
+              ) : (
+                <Stack className="room-header-wrapper">
+                  <Stack direction="horizontal" gap={2}>
+                    <h1>{room?.name}</h1>
+                    <Stack direction="horizontal" className="mb-1">
+                      { room?.online
+                      && <MeetingBadges count={room?.participants} />}
+                      { room?.shared && <SharedBadge ownerName={room?.owner_name} /> }
+                    </Stack>
+                  </Stack>
+                  { room?.last_session ? (
+                    <span className="text-muted"> { t('room.last_session', { room }) }  </span>
+                  ) : (
+                    <span className="text-muted"> { t('room.no_last_session') } </span>
+                  )}
+                </Stack>
+              )
+          }
         </Col>
         <Col>
           <Button variant="brand" className="mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
