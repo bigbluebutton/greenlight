@@ -25,8 +25,8 @@ export default function RoomSettings() {
   const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
 
   return (
-    <div id="room-settings">
-      <Card className="mx-auto mt-3 p-4 border-0 shadow-sm">
+    <div id="room-settings" className="pt-3">
+      <Card className="mx-auto p-4 border-0 shadow-sm">
         <div className="mt-2">
           <Row>
             <Col className="border-end border-2">

@@ -22,8 +22,8 @@ export default function SharedAccess() {
 
   if (sharedUsers?.length || searchInput) {
     return (
-      <div id="shared-access-list">
-        <Stack direction="horizontal" className="w-100 mt-3">
+      <div id="shared-access-list" className="pt-3">
+        <Stack direction="horizontal" className="w-100">
           <div>
             <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
           </div>

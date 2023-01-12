@@ -24,7 +24,7 @@ export default function RoomsList() {
 
   return (
     <>
-      <Stack direction="horizontal" className="mt-5" gap={3}>
+      <Stack direction="horizontal" className="pt-5" gap={3}>
         <div>
           <SearchBar searchInput={searchInput} id="rooms-search" setSearchInput={setSearchInput} />
         </div>

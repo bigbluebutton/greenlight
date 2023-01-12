@@ -11,13 +11,13 @@ export default function Rooms() {
   const { data: recordingsCount } = useRecordingsCount();
 
   return (
-    <div className="pt-5 wide-background-rooms">
+    <div className="pt-5 wide-white">
       <Tabs defaultActiveKey="rooms" unmountOnExit>
-        <Tab eventKey="rooms" title="Rooms">
+        <Tab className="background-whitesmoke" eventKey="rooms" title="Rooms">
           <RoomsList />
         </Tab>
         {/* TODO: May need to change this to it's own component depending on how RecordingsTable will work */}
-        <Tab eventKey="recordings" title={<RecordingsCountTab count={recordingsCount} />}>
+        <Tab className="background-whitesmoke" eventKey="recordings" title={<RecordingsCountTab count={recordingsCount} />}>
           <Recordings />
         </Tab>
       </Tabs>

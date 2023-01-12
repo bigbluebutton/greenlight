@@ -36,55 +36,58 @@ export default function Room() {
   }
 
   return (
-    <div className="wide-background-room">
-      <Row className="pt-4">
-        <Col>
-          <Link to="/rooms">
-            <HomeIcon className="hi-m text-brand" />
-          </Link>
-        </Col>
-      </Row>
-      <Row className="my-5">
-        <Col className="col-xxl-8">
-          {
-            isLoading
-              ? (
-                <RoomNamePlaceHolder />
-              ) : (
-                <Stack className="room-header-wrapper">
-                  <Stack direction="horizontal" gap={2}>
-                    <h1>{room?.name}</h1>
-                    <Stack direction="horizontal" className="mb-1">
-                      { room?.online
-                      && <MeetingBadges count={room?.participants} />}
-                      { room?.shared && <SharedBadge ownerName={room?.owner_name} /> }
-                    </Stack>
-                  </Stack>
-                  { room?.last_session ? (
-                    <span className="text-muted"> { t('room.last_session', { room }) }  </span>
+    <>
+      <div className="wide-white">
+        <Row className="pt-4">
+          <Col>
+            <Link to="/rooms">
+              <HomeIcon className="hi-m text-brand" />
+            </Link>
+          </Col>
+        </Row>
+        <Row className="py-5">
+          <Col className="col-xxl-8">
+            {
+                isLoading
+                  ? (
+                    <RoomNamePlaceHolder />
                   ) : (
-                    <span className="text-muted"> { t('room.no_last_session') } </span>
-                  )}
-                </Stack>
-              )
-          }
-        </Col>
-        <Col>
-          <Button variant="brand" className="mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
-            {startMeeting.isLoading && <Spinner className="me-2" />}
-            { room?.online ? (
-              t('room.meeting.join_meeting')
-            ) : (
-              t('room.meeting.start_meeting')
-            )}
-          </Button>
-          <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={copyInvite}>
-            <Square2StackIcon className="hi-s me-1" />
-            { t('copy') }
-          </Button>
-        </Col>
-      </Row>
+                    <Stack className="room-header-wrapper">
+                      <Stack direction="horizontal" gap={2}>
+                        <h1>{room?.name}</h1>
+                        <Stack direction="horizontal" className="mb-1">
+                          { room?.online
+                            && <MeetingBadges count={room?.participants} />}
+                          { room?.shared && <SharedBadge ownerName={room?.owner_name} /> }
+                        </Stack>
+                      </Stack>
+                      { room?.last_session ? (
+                        <span className="text-muted"> { t('room.last_session', { room }) }  </span>
+                      ) : (
+                        <span className="text-muted"> { t('room.no_last_session') } </span>
+                      )}
+                    </Stack>
+                  )
+              }
+          </Col>
+          <Col>
+            <Button variant="brand" className="mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
+              {startMeeting.isLoading && <Spinner className="me-2" />}
+              { room?.online ? (
+                t('room.meeting.join_meeting')
+              ) : (
+                t('room.meeting.start_meeting')
+              )}
+            </Button>
+            <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={copyInvite}>
+              <Square2StackIcon className="hi-s me-1" />
+              { t('copy') }
+            </Button>
+          </Col>
+        </Row>
+      </div>
+
       <FeatureTabs shared={room?.shared} />
-    </div>
+    </>
   );
 }
