@@ -25,11 +25,11 @@
   "created_at": "作成時",
   "homepage": {
     "welcome_bbb": "BigBlueButton へようこそ。",
-    "greenlight_description": "Greenlightは、オープンソースWeb会議サーバ BigBlueButton のシンプルなフロントエンドです。 自分の会議室を作成してセッションを主催したり、簡単なリンクを使用して他のユーザーを招待したりできます。"
+    "greenlight_description": "Greenlightは、オープンソースWeb会議サーバ BigBlueButton のシンプルなフロントエンドです。 自分の会議室を作成して会議を主催したり、簡単なリンクを使用して他のユーザーを招待したりできます。"
   },
   "authentication": {
     "sign_in": "サインイン",
-    "sign_up": "サインアップ",
+    "sign_up": "登録",
     "sign_out": "サインアウト",
     "email": "メールアドレス",
     "password": "パスワード",
@@ -92,6 +92,8 @@
     "last_session": "最後のセッション: {{ room.last_session }}",
     "no_last_session": "会議はまだ開かれていません",
     "no_rooms_found": "会議室がありません",
+    "rooms_list_is_empty": "まだ会議室はありません！",
+    "rooms_list_empty_create_room": "下のボタンをクリックし、部屋の名前を入力して最初の会議室を作成しましょう。",
     "meeting": {
       "start_meeting": "会議を開始",
       "join_meeting": "会議に参加",
@@ -148,12 +150,12 @@
     "protected": "秘匿",
     "length_in_minutes": "{{recording.length}}分",
     "processing_recording": "録画処理中...",
-    "copy_recording_urls": "録画へのリンクをコピー",
+    "copy_recording_urls": "録画へのURLをコピー",
     "no_recording_found": "録画データがありません",
     "are_you_sure_delete_recording": "本当にこの録画を削除しますか？"
   },
   "admin": {
-    "admin_panel": "管理者設定パネル",
+    "admin_panel": "管理者設定",
     "manage_users": {
       "manage_users": "ユーザー管理",
       "active": "アクティブ",
@@ -170,7 +172,7 @@
       "enter_user_email": "ユーザーのメールアドレスを入力",
       "new_user": "新規ユーザー",
       "add_new_user": "新規ユーザー",
-      "create_new_user": "新しいユーザーを作成する",
+      "create_new_user": "ユーザーを新しく作成する",
       "edit_user": "ユーザーの編集",
       "delete_user": "ユーザーの削除",
       "users_edit_path": "ユーザー/編集",
@@ -193,26 +195,26 @@
       "participants": "参加者",
       "status": "状況",
       "running": "会議中",
-      "not_running": "閉室",
+      "not_running": "空室",
       "active": "アクティブ",
       "current_session": "現在のセッション: {{lastSession}}",
       "last_session": "最後のセッション: {{lastSession}}",
       "no_meeting_yet": "会議は一度も行われていません。",
-      "delete_server_rooms": "会議室の削除",
+      "delete_server_rooms": "全ての会議室を削除",
       "resync_recordings": "録画の再同期"
     },
     "server_recordings": {
       "server_recordings": "すべての録画",
       "latest_recordings": "最近の録画",
-      "no_recordings_found": "会議室はありません"
+      "no_recordings_found": "録画がありません"
     },
     "site_settings": {
       "site_settings": "サイトの設定",
-      "customize_greenlight": "Greenlightの調整",
+      "customize_greenlight": "Greenlightのカスタマイズ",
       "appearance": {
         "appearance": "外観",
-        "brand_color": "サイトの色調",
-        "regular": "基調色",
+        "brand_color": "サイトの基調色",
+        "regular": "標準色",
         "lighten": "明色",
         "brand_image": "ロゴ画像",
         "click_to_upload": "クリックしてアップロード",
@@ -220,14 +222,14 @@
         "upload_brand_image_description": "PNG、JPG、またはSVGファイルをアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。"
       },
       "administration": {
-        "administration": "ポリシー",
+        "administration": "法的根拠",
         "terms": "利用規約",
         "privacy": "プライバシー",
         "privacy_policy": "プライバシーポリシー",
         "change_term_links": "ページの下方に表示される利用規約へのリンクを変更する",
         "change_privacy_link": "ページの下方に表示されるプライベートポリシーへのリンクを変更する",
         "change_url": "URL変更",
-        "enter_link": "リンクを入力"
+        "enter_link": "リンクをここに入力"
       },
       "settings": {
         "allow_users_to_share_rooms": "ユーザーに会議室の共有を許可",
