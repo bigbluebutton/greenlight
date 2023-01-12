@@ -1,0 +1,58 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   "true": "foo"
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+ru:
+  meeting:
+    moderator_message: "Чтобы пригласить кого-либо на вебинар, отправьте ему эту ссылку:"
+    access_code: "Код доступа: %{code}"
+  email:
+    activation:
+      line0: "Добро пожаловать, %{name}!"
+      line1: "Остался всего один шаг, чтобы начать использовать по максимуму то, что могут предложить Greenlight и BigBlueButton!"
+      line2: Для активации учетной записи перейдите по ссылке ниже.
+      line3: Активация вашей учетной записи позволит вам использовать все функции Greenlight и BigBlueButton!
+      line4: "Вы можете создавать комнаты, проводить вебинары, делиться записями и сотрудничать с другими!"
+      line5: Активировать аккаунт
+      line6: "Срок действия этой ссылки истечет в %{time}"
+      line7: "Вы все еще можете войти в свою учетную запись, чтобы получить новую ссылку для активации, если срок действия этого письма истечет."
+    invitation:
+      line0: Приглашение присоединиться к BigBlueButton
+      line1: "Вы были приглашены в свое личное пространство %{name}."
+      line2: "Чтобы зарегистрироваться, используя свой электронный адрес, нажмите кнопку ниже и следуйте инструкциям."
+      line3: Приглашение действительно в течение 48 часов.
+      line4: Зарегистрироваться
+    reset:
+      line0: Сброс пароля
+      line1: "Письмо с инструкциями для сброса пароля отправлено на email %{email}"
+      line2: "Если вы запросили этот сброс, пожалуйста, перейдите по ссылке ниже, чтобы сбросить свой пароль:\""
+      line3: Сбросить пароль
+      line4: "Вы можете спокойно проигнорировать это электронное письмо, если вы не делали этого запроса."
+      line5: "Срок действия этой ссылки истечет в %{time}."
