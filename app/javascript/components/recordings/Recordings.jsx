@@ -15,7 +15,7 @@ export default function Recordings() {
 
   return (
     <div id="user-recordings">
-      <Stack direction="horizontal" className="w-100 mt-5">
+      <Stack direction="horizontal" className="w-100 pt-5">
         <div>
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>

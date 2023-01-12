@@ -44,16 +44,6 @@ body {
   }
 }
 
-.background-sm-buffer {
-  background-color: white;
-  height: $background-sm-buffer-height;
-}
-
-.background-lg-buffer {
-  background-color: white;
-  height: $background-lg-buffer-height;
-}
-
 // TODO - samuel: make responsive/add breakpoints
 .btn {
   min-width: $button-min-width;
@@ -597,5 +587,5 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 .placeholder-xlg {
   border-radius: 3px;
-  min-height: 1.8em;
+  min-height: 2.5em;
 }

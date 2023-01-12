@@ -19,12 +19,12 @@ export default function RoomRecordings() {
 
   return (
     <div id="user-recordings">
-      <Stack direction="horizontal" className="w-100 mt-3">
+      <Stack direction="horizontal" className="w-100 pt-3">
         <div>
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
       </Stack>
-      <Card className="border-0 shadow-sm mt-4 mb-5">
+      <Card className="border-0 shadow-sm mt-4">
         <RecordingsList
           recordings={roomRecordings?.data}
           RecordingRow={RoomsRecordingRow}

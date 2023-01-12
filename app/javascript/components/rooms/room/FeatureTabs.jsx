@@ -20,53 +20,49 @@ export default function FeatureTabs({ shared }) {
 
   if (isLoadingPreup || isLoadingShare) {
     return (
-      <Row className="pt-4 mx-0">
+      <div className="wide-white pt-4 pb-2 mx-0">
         <Placeholder className="ps-0" animation="glow">
           <Placeholder xs={1} size="lg" className="me-2" />
           <Placeholder xs={1} size="lg" className="mx-2" />
           <Placeholder xs={1} size="lg" className="mx-2" />
           <Placeholder xs={1} size="lg" className="mx-2" />
         </Placeholder>
-      </Row>
+      </div>
     );
   }
 
   // Returns only the Recording tab if the room is a Shared Room and the User does not have the ManageRoom permission
   if (shared && !currentUser?.permissions?.ManageRooms) {
     return (
-      <Row className="pt-4 mx-0">
-        <Tabs defaultActiveKey="recordings" unmountOnExit>
-          <Tab eventKey="recordings" title={t('recording.recording')}>
-            <RoomRecordings />
-          </Tab>
-        </Tabs>
-      </Row>
+      <Tabs className="wide-white pt-4 mx-0" defaultActiveKey="recordings" unmountOnExit>
+        <Tab className="background-whitesmoke" eventKey="recordings" title={t('recording.recording')}>
+          <RoomRecordings />
+        </Tab>
+      </Tabs>
     );
   }
 
   return (
-    <Row className="pt-4 mx-0">
-      <Tabs defaultActiveKey="recordings" unmountOnExit>
-        <Tab eventKey="recordings" title={t('recording.recordings')}>
-          <RoomRecordings />
-        </Tab>
-        {preuploadEnabled
-          && (
-            <Tab eventKey="presentation" title={t('room.presentation.presentation')}>
-              <Presentation />
-            </Tab>
-          )}
-        {shareRoomEnabled
-          && (
-            <Tab eventKey="access" title={t('room.shared_access.access')}>
-              <SharedAccess />
-            </Tab>
-          )}
-        <Tab eventKey="settings" title={t('room.settings.settings')}>
-          <RoomSettings />
-        </Tab>
-      </Tabs>
-    </Row>
+    <Tabs className="wide-white pt-4 mx-0" defaultActiveKey="recordings" unmountOnExit>
+      <Tab className="background-whitesmoke" eventKey="recordings" title={t('recording.recordings')}>
+        <RoomRecordings />
+      </Tab>
+      {preuploadEnabled
+        && (
+          <Tab className="background-whitesmoke" eventKey="presentation" title={t('room.presentation.presentation')}>
+            <Presentation />
+          </Tab>
+        )}
+      {shareRoomEnabled
+        && (
+          <Tab className="background-whitesmoke" eventKey="access" title={t('room.shared_access.access')}>
+            <SharedAccess />
+          </Tab>
+        )}
+      <Tab className="background-whitesmoke" eventKey="settings" title={t('room.settings.settings')}>
+        <RoomSettings />
+      </Tab>
+    </Tabs>
   );
 }
 
