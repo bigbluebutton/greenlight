@@ -231,6 +231,7 @@
         "enter_link": "Link eingeben"
       },
       "settings": {
+        "settings": "Einstellungen",
         "allow_users_to_share_rooms": "Räume können geteilt werden",
         "allow_users_to_share_rooms_description": "Wenn dies deaktiviert ist, dann wird der Knopf zum Teilen eines Raums von den Raumeinstellungen entfernt.",
         "allow_users_to_preupload_presentation": "Präsentationen können hochgeladen werden",

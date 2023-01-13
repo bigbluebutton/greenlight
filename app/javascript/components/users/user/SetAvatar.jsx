@@ -58,7 +58,7 @@ export default function SetAvatar({ user }) {
           onChange={handleNewAvatar}
           accept=".png,.jpg,.jpeg,.svg"
         />
-        <Button variant="brand" onClick={handleClick}>Upload Avatar</Button>
+        <Button variant="brand" onClick={handleClick}>{ t('user.avatar.upload_avatar')}</Button>
         <DeleteAvatarForm user={user} />
       </Stack>
 

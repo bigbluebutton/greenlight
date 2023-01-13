@@ -68,7 +68,7 @@ export default function UpdateUserForm({ user }) {
             role_id: user.role.id,
           })}
         >
-          Cancel
+          { t('cancel') }
         </Button>
         <Button variant="brand" type="submit" disabled={isSubmitting}>
           { t('update') }

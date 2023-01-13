@@ -38,16 +38,16 @@ export default function SiteSettings() {
                     <h3>{ t('admin.site_settings.customize_greenlight') }</h3>
                   </div>
                   <Tabs className="border-bottom ps-3" defaultActiveKey="appearance" unmountOnExit>
-                    <Tab className="p-4" eventKey="appearance" title="Appearance">
+                    <Tab className="p-4" eventKey="appearance" title={ t('admin.site_settings.appearance.appearance') }>
                       <Appearance />
                     </Tab>
-                    <Tab className="p-4" eventKey="administration" title="Administration">
+                    <Tab className="p-4" eventKey="administration" title={ t('admin.site_settings.administration.administration') }>
                       <Administration />
                     </Tab>
-                    <Tab className="p-4" eventKey="settings" title="Settings">
+                    <Tab className="p-4" eventKey="settings" title={ t('admin.site_settings.settings.settings') }>
                       <Settings />
                     </Tab>
-                    <Tab className="p-4" eventKey="registration" title="Registration">
+                    <Tab className="p-4" eventKey="registration" title={ t('admin.site_settings.registration.registration') }>
                       <Registration />
                     </Tab>
                   </Tabs>
