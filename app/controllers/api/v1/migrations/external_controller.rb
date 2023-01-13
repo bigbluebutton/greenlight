@@ -114,13 +114,11 @@ module Api
           room_meeting_options = room_meeting_options_temp.map { |k, v| [k, { value: room_hash[:room_settings][v.to_sym] }] }
           RoomMeetingOption.update!(room_meeting_options)
 
-          # Creates the associated SharedAccess
-          room_hash[:shared_users_emails].any? && room_hash[:shared_users_emails].each do |email|
-            user = User.find_by(email:)
-            return render_error status: :bad_request unless user
-
-            SharedAccess.create!(room_id: room.id, user_id: user.id)
-          end
+          # Finds all the users that have a SharedAccess to the Room
+          users_ids = User.where(email: room_hash[:shared_users_emails].keys).select(:id)
+          # Re-structure the data so it is in the format: { { room_id:, user_id: } }
+          shared_accesses = users_ids.map { |user_id| [room_id: room.id, user_id:] }
+          SharedAccess.create!(shared_accesses)
 
           render_data status: :created
         end
@@ -170,7 +168,7 @@ module Api
 
         def room_params
           decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, room_settings: {},
-                                                                                                                shared_users_emails: [])
+                                                 shared_users_emails: [])
         end
 
         def settings_params
