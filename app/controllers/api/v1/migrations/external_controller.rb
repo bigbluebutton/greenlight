@@ -107,9 +107,9 @@ module Api
 
           # Finds all the RoomMeetingOptions that need to be updated
           room_meeting_options_temp = RoomMeetingOption.includes(:meeting_option)
-                                                .where(room_id: room.id, 'meeting_options.name': room_hash[:room_settings].keys)
-                                                .pluck(:id, :'meeting_options.name')
-                                                .to_h
+                                                       .where(room_id: room.id, 'meeting_options.name': room_hash[:room_settings].keys)
+                                                       .pluck(:id, :'meeting_options.name')
+                                                       .to_h
           # Re-structure the data so it is in the format: { <room_meeting_option_id>: { value: <room_meeting_option_new_value> } }
           room_meeting_options = room_meeting_options_temp.map { |k, v| [k, { value: room_hash[:room_settings][v.to_sym] }] }
           RoomMeetingOption.update!(room_meeting_options)
@@ -139,18 +139,18 @@ module Api
 
           # Finds all the SiteSettings that need to be updated
           site_settings_temp = SiteSetting.joins(:setting)
-                                                .where('settings.name': settings_hash[:site_settings].keys, provider: 'greenlight')
-                                                .pluck(:id, :'settings.name')
-                                                .to_h
+                                          .where('settings.name': settings_hash[:site_settings].keys, provider: 'greenlight')
+                                          .pluck(:id, :'settings.name')
+                                          .to_h
           # Re-structure the data so it is in the format: { <site_setting_id>: { value: <site_setting_new_value> } }
           site_settings = site_settings_temp.map { |k, v| [k, { value: settings_hash[:site_settings][v.to_sym] }] }
           SiteSetting.update!(site_settings)
 
           # Finds all the RoomsConfiguration that need to be updated
           room_configurations_temp = RoomConfiguration.joins(:meeting_option)
-                                                .where('meeting_options.name': settings_hash[:room_configurations].keys, provider: 'greenlight')
-                                                .pluck(:id, :'meeting_options.name')
-                                                .to_h
+                                                      .where('meeting_options.name': settings_hash[:room_configurations].keys, provider: 'greenlight')
+                                                      .pluck(:id, :'meeting_options.name')
+                                                      .to_h
           # Re-structure the data so it is in the format: { <rooms_configuration_id>: { value: <rooms_configuration_new_value> } }
           room_configurations = room_configurations_temp.map { |k, v| [k, { value: settings_hash[:room_configurations][v.to_sym] }] }
           RoomsConfiguration.update!(room_configurations)
