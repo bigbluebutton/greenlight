@@ -5,18 +5,16 @@ import PropTypes from 'prop-types';
 import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
 import Presentation from './presentation/Presentation';
 import RoomSettings from './room_settings/RoomSettings';
-import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
 import SharedAccess from './shared_access/SharedAccess';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
+import useSiteSettings from '../../../hooks/queries/admin/site_settings/useSiteSettings';
 
 export default function FeatureTabs({ shared }) {
   const { t } = useTranslation();
-  const { isLoading: isLoadingPreup, data: preuploadEnabled } = useSiteSetting('PreuploadPresentation');
-  const { isLoading: isLoadingShare, data: shareRoomEnabled } = useSiteSetting('ShareRooms');
-
+  const { isLoading, data: settings } = useSiteSettings(['PreuploadPresentation', 'ShareRooms']);
   const currentUser = useAuth();
 
-  if (isLoadingPreup || isLoadingShare) {
+  if (isLoading) {
     return (
       <div className="wide-white pt-4 pb-2 mx-0">
         <Placeholder className="ps-0" animation="glow">
@@ -45,13 +43,13 @@ export default function FeatureTabs({ shared }) {
       <Tab className="background-whitesmoke" eventKey="recordings" title={t('recording.recordings')}>
         <RoomRecordings />
       </Tab>
-      {preuploadEnabled
+      {settings?.PreuploadPresentation
         && (
           <Tab className="background-whitesmoke" eventKey="presentation" title={t('room.presentation.presentation')}>
             <Presentation />
           </Tab>
         )}
-      {shareRoomEnabled
+      {settings?.ShareRooms
         && (
           <Tab className="background-whitesmoke" eventKey="access" title={t('room.shared_access.access')}>
             <SharedAccess />
