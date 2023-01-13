@@ -38,16 +38,14 @@ module Api
           # Returns unless the Role has a RolePermission that differs from V3 default RolePermissions values
           return render_data status: :created unless role_hash[:role_permissions].any?
 
-          # Finds & Updates the associated RolePermissions associated with the Role
-          role_permissions = RolePermission.where(role_id: role.id).includes(:permission)
-          # The role_permissions hash contains only the permissions with value that differs from V3 default values
-          role_hash[:role_permissions].any? && role_hash[:role_permissions].each do |name, value|
-            role_permission = role_permissions.find_by('permissions.name': name)
-            return render_error status: :bad_request unless role_permission
-
-            role_permission.update!(value:)
-            return render_error status: :bad_request unless role_permission.save
-          end
+          # Finds all the RolePermissions that need to be updated
+          role_permissions_temp = RolePermission.includes(:permission)
+                                                .where(role_id: role.id, 'permissions.name': role_hash[:role_permissions].keys)
+                                                .pluck(:id, :'permissions.name')
+                                                .to_h
+          # Re-structure the data so it is in the format: { <role_permission_id>: { value: <role_permission_new_value> } }
+          role_permissions = role_permissions_temp.map { |k, v| [k, { value: role_hash[:role_permissions][v.to_sym] }] }
+          RolePermission.update!(role_permissions)
 
           render_data status: :created
         end
@@ -107,16 +105,14 @@ module Api
 
           return render_error status: :bad_request unless room.save
 
-          # Finds & Updates the RoomMeetingOptions associated with the Room
-          room_meeting_options = RoomMeetingOption.where(room:).includes(:meeting_option)
-          # The room_settings hash contains only the MeetingOption with value that differs from V3 rooms default values
-          room_hash[:room_settings].any? && room_hash[:room_settings].each do |name, value|
-            room_meeting_option = room_meeting_options.find_by('meeting_options.name': name)
-            return render_error status: :bad_request unless room_meeting_option
-
-            room_meeting_option.update!(value:)
-            return render_error status: :bad_request unless room_meeting_option.save
-          end
+          # Finds all the RoomMeetingOptions that need to be updated
+          room_meeting_options_temp = RoomMeetingOption.includes(:meeting_option)
+                                                .where(room_id: room.id, 'meeting_options.name': room_hash[:room_settings].keys)
+                                                .pluck(:id, :'meeting_options.name')
+                                                .to_h
+          # Re-structure the data so it is in the format: { <room_meeting_option_id>: { value: <room_meeting_option_new_value> } }
+          room_meeting_options = room_meeting_options_temp.map { |k, v| [k, { value: room_hash[:room_settings][v.to_sym] }] }
+          RoomMeetingOption.update!(room_meeting_options)
 
           # Creates the associated SharedAccess
           room_hash[:shared_users_emails].any? && room_hash[:shared_users_emails].each do |email|
@@ -141,21 +137,23 @@ module Api
 
           render_data status: :created unless settings_hash.any?
 
-          settings_hash[:site_settings].any? && settings_hash[:site_settings].each do |name, value|
-            site_setting = SiteSetting.joins(:setting).find_by('settings.name': name, provider: 'greenlight')
-            return render_error status: :bad_request unless site_setting
+          # Finds all the SiteSettings that need to be updated
+          site_settings_temp = SiteSetting.joins(:setting)
+                                                .where('settings.name': settings_hash[:site_settings].keys, provider: 'greenlight')
+                                                .pluck(:id, :'settings.name')
+                                                .to_h
+          # Re-structure the data so it is in the format: { <site_setting_id>: { value: <site_setting_new_value> } }
+          site_settings = site_settings_temp.map { |k, v| [k, { value: settings_hash[:site_settings][v.to_sym] }] }
+          SiteSetting.update!(site_settings)
 
-            site_setting.update!(value:)
-            return render_error status: :bad_request unless site_setting.save
-          end
-
-          settings_hash[:room_configurations].any? && settings_hash[:room_configurations].each do |name, value|
-            room_configuration = RoomsConfiguration.joins(:meeting_option).find_by('meeting_options.name': name, provider: 'greenlight')
-            return render_error status: :bad_request unless room_configuration
-
-            room_configuration.update!(value:)
-            return render_error status: :bad_request unless room_configuration.save
-          end
+          # Finds all the RoomsConfiguration that need to be updated
+          room_configurations_temp = RoomConfiguration.joins(:meeting_option)
+                                                .where('meeting_options.name': settings_hash[:room_configurations].keys, provider: 'greenlight')
+                                                .pluck(:id, :'meeting_options.name')
+                                                .to_h
+          # Re-structure the data so it is in the format: { <rooms_configuration_id>: { value: <rooms_configuration_new_value> } }
+          room_configurations = room_configurations_temp.map { |k, v| [k, { value: settings_hash[:room_configurations][v.to_sym] }] }
+          RoomsConfiguration.update!(room_configurations)
 
           render_data status: :created
         end
