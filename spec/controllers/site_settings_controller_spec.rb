@@ -29,7 +29,8 @@ RSpec.describe Api::V1::SiteSettingsController, type: :controller do
       get :index, params: { names: %w[SettingName SettingName2] }
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']).to eq({ SettingName: 'false', SettingName2: 'false' })
+      expect(JSON.parse(response.body)['data']['SettingName']).to eq('false')
+      expect(JSON.parse(response.body)['data']['SettingName2']).to eq('false')
     end
 
     it 'returns forbidden if trying to access a forbidden setting' do
