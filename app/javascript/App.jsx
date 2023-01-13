@@ -6,8 +6,7 @@ import { useTranslation } from 'react-i18next';
 import Header from './components/shared_components/Header';
 import { useAuth } from './contexts/auth/AuthProvider';
 import Footer from './components/shared_components/Footer';
-import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
-import useSiteSettings from "./hooks/queries/admin/site_settings/useSiteSettings";
+import useSiteSettings from './hooks/queries/admin/site_settings/useSiteSettings';
 
 export default function App() {
   const currentUser = useAuth();
@@ -25,8 +24,8 @@ export default function App() {
 
   if (isLoading) return null;
 
-  document.documentElement.style.setProperty('--brand-color', brandColors['PrimaryColor']);
-  document.documentElement.style.setProperty('--brand-color-light', brandColors['PrimaryColorLight']);
+  document.documentElement.style.setProperty('--brand-color', brandColors.PrimaryColor);
+  document.documentElement.style.setProperty('--brand-color-light', brandColors.PrimaryColorLight);
 
   return (
     <>
