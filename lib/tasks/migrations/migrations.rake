@@ -166,7 +166,6 @@ namespace :migrations do
     site_settings = {
       PrimaryColor: settings_hash['Primary Color'],
       PrimaryColorLight: settings_hash['Primary Color Lighten'],
-      PrimaryColorDark: settings_hash['Primary Color Lighten'],
       Terms: settings_hash['Legal URL'],
       PrivacyPolicy: settings_hash['Privacy Policy URL'],
       RegistrationMethod: infer_registration_method(settings_hash['Registration Method']),
