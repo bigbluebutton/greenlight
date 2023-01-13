@@ -141,8 +141,8 @@ export default function EditRoleForm({ role }) {
                 <div className="text-muted me-auto">
                   Room Limit
                 </div>
-                <div className="float-end">
-                  <FormControl field={fieldsRoomLimit.value} noLabel className="room-limit" type="number" />
+                <div>
+                  <FormControl field={fieldsRoomLimit.value} noLabel className="room-limit float-end" type="number" />
                 </div>
               </Stack>
             </Form>
