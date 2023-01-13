@@ -60,7 +60,7 @@ Rails.application.routes.draw do
       resources :verify_account, only: :create do
         post '/activate', to: 'verify_account#activate', on: :collection
       end
-      resources :site_settings, only: :show, param: :name
+      resources :site_settings, only: :index
       resources :rooms_configurations, only: :index
       resources :locales, only: %i[index show], param: :name
 

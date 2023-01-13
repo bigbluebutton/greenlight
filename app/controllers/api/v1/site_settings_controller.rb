@@ -3,11 +3,31 @@
 module Api
   module V1
     class SiteSettingsController < ApiController
-      skip_before_action :ensure_authenticated, only: %i[show]
+      skip_before_action :ensure_authenticated, only: :index
+      FORBIDDEN_SETTINGS = %w[RoleMapping ResyncOnLogin DefaultRole].freeze # Should not be accessible to the frontend
 
-      # GET /api/v1/site_settings/:name
-      def show
-        render_data data: SettingGetter.new(setting_name: params[:name], provider: current_provider).call, status: :ok
+      # GET /api/v1/site_settings
+      def index
+        settings = {}
+        return render_error status: :forbidden if forbidden_settings(params[:names])
+
+        if params[:names].is_a?(Array)
+          params[:names].each do |name|
+            settings[name] = SettingGetter.new(setting_name: name, provider: current_provider).call
+          end
+        else
+          # return the value directly
+          settings = SettingGetter.new(setting_name: params[:names], provider: current_provider).call
+        end
+
+        render_data data: settings, status: :ok
+      end
+
+      private
+
+      def forbidden_settings(names)
+        # Check if the 2 arrays have any values in common
+        !(Array(names) & FORBIDDEN_SETTINGS).empty?
       end
     end
   end
