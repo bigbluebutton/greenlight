@@ -240,6 +240,7 @@
         "enter_link": "Enter link here"
       },
       "settings": {
+        "settings": "Settings",
         "allow_users_to_share_rooms": "Allow Users to Share Rooms",
         "allow_users_to_share_rooms_description": "Setting to disabled will remove the button from the room options dropdown, preventing users from sharing rooms",
         "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",

@@ -10,7 +10,7 @@ export default function BrandColor() {
 
   return (
     <div className="mb-3">
-      <h5> Brand Color </h5>
+      <h5> { t('admin.site_settings.appearance.brand_color')} </h5>
       <Stack direction="horizontal">
         <BrandColorPopover
           name="PrimaryColor"

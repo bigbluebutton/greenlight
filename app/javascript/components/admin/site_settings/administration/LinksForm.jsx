@@ -4,6 +4,7 @@ import {
   Button, InputGroup,
 } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import Form from '../../../shared_components/forms/Form';
 import { linksFormConfig, linksFormFields } from '../../../../helpers/forms/LinksFormHelpers';
 import Spinner from '../../../shared_components/utilities/Spinner';
@@ -11,7 +12,7 @@ import FormControlGeneric from '../../../shared_components/forms/FormControlGene
 
 export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAPI }) {
   const updateSiteSettingsAPI = useUpdateSiteSettingsAPI();
-
+  const { t } = useTranslation();
   const { defaultValues } = linksFormConfig;
   defaultValues.value = value;
   const fields = linksFormFields;
@@ -27,7 +28,7 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
         />
         <Button id={`${id}-submit-btn`} variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
           {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
-          Change URL
+          { t('admin.site_settings.administration.change_url') }
         </Button>
       </InputGroup>
     </Form>
