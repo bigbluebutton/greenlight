@@ -151,7 +151,7 @@
     "length_in_minutes": "{{recording.length}}分",
     "processing_recording": "録画処理中...",
     "copy_recording_urls": "録画へのURLをコピー",
-    "no_recording_found": "録画データがありません",
+    "no_recording_found": "録画がありません",
     "are_you_sure_delete_recording": "本当にこの録画を削除しますか？"
   },
   "admin": {
