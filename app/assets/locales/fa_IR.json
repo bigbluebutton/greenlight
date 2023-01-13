@@ -151,7 +151,7 @@
     "length_in_minutes": "{{recording.length}} دقیقه.",
     "processing_recording": "در حال پردازش ضبط...",
     "copy_recording_urls": "کپی آدرس(های) ضبط شده",
-    "no_recording_found": "هیچ ضبطی پیدا نشد",
+    "no_recording_found": "هیچ ضبطی یافت نشد",
     "are_you_sure_delete_recording": "آیا مطمئنید که می‌خواهید این ضبط را حذف کنید؟"
   },
   "admin": {
