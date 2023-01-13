@@ -42,13 +42,13 @@ export default function SetAvatar({ user }) {
   };
 
   return (
-    <div id="profile-avatar" className="vertical-center d-block ms-auto me-auto">
+    <div id="profile-avatar" className="mt-5 d-block ms-auto me-auto">
       <Stack direction="vertical" gap={2}>
-        <div onClick={handleClick} className="cursor-pointer" aria-hidden="true">
-          <Avatar avatar={user?.avatar} radius={150} />
-          <div className="avatar-icon-circle position-absolute rounded-circle">
+        <div onClick={handleClick} className="cursor-pointer position-relative" aria-hidden="true">
+          <div className="avatar-icon-circle float-end position-absolute rounded-circle">
             <FolderPlusIcon className="hi-s" />
           </div>
+          <Avatar avatar={user?.avatar} radius={150} />
         </div>
         <input
           id="avatarUpload"

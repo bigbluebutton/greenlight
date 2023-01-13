@@ -66,7 +66,7 @@ export default function SignupForm() {
         </Container>
         )}
       <Stack className="mt-1" gap={1}>
-        <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={createUserAPI.isLoading}>
+        <Button variant="brand" className="w-100 my-3 mt-1" type="submit" disabled={createUserAPI.isLoading}>
           { createUserAPI.isLoading && <Spinner className="me-2" /> }
           { t('authentication.create_account') }
         </Button>

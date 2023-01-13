@@ -8,12 +8,15 @@
   box-shadow: 0 0 0 100vmax white;
   clip-path: inset(0 -100vmax);
 }
+
 .vertical-center {
-  position: relative;
-  top: 45%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 70%;
 }
 
 .vertical-buffer {
@@ -21,7 +24,7 @@
 }
 
 .no-header-height {
-  height: calc(100vh - $footer-height - $footer-buffer-height);
+  min-height: calc(100vh - $footer-height - $footer-buffer-height);
 }
 
 .regular-height {
