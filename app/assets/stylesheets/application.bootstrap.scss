@@ -589,3 +589,16 @@ input[type="range"]:focus::-moz-range-thumb {
   border-radius: 3px;
   min-height: 2.5em;
 }
+
+.homepage-icon {
+  width: 300px;
+
+  img {
+    max-width: 100px;
+  }
+
+  h4 {
+    color: var(--brand-color) !important;
+  }
+}
+
