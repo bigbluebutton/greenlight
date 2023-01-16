@@ -148,7 +148,8 @@ module Api
 
           # Finds all the RoomsConfiguration that need to be updated
           room_configurations_temp = RoomsConfiguration.joins(:meeting_option)
-                                                       .where('meeting_options.name': settings_hash[:room_configurations].keys, provider: 'greenlight')
+                                                       .where('meeting_options.name': settings_hash[:room_configurations].keys,
+                                                              provider: 'greenlight')
                                                        .pluck(:id, :'meeting_options.name')
                                                        .to_h
           # Re-structure the data so it is in the format: { <rooms_configuration_id>: { value: <rooms_configuration_new_value> } }
