@@ -44,8 +44,8 @@ module Api
                                                 .pluck(:id, :'permissions.name')
                                                 .to_h
           # Re-structure the data so it is in the format: { <role_permission_id>: { value: <role_permission_new_value> } }
-          role_permissions = role_permissions_temp.map { |k, v| [k, { value: role_hash[:role_permissions][v.to_sym] }] }
-          RolePermission.update!(role_permissions)
+          role_permissions = role_permissions_temp.transform_values { |v| { value: role_hash[:role_permissions][v.to_sym] } }
+          RolePermission.update!(role_permissions.keys, role_permissions.values)
 
           render_data status: :created
         end
@@ -111,13 +111,15 @@ module Api
                                                        .pluck(:id, :'meeting_options.name')
                                                        .to_h
           # Re-structure the data so it is in the format: { <room_meeting_option_id>: { value: <room_meeting_option_new_value> } }
-          room_meeting_options = room_meeting_options_temp.map { |k, v| [k, { value: room_hash[:room_settings][v.to_sym] }] }
-          RoomMeetingOption.update!(room_meeting_options)
+          room_meeting_options = room_meeting_options_temp.transform_values { |v| { value: room_hash[:room_settings][v.to_sym] } }
+          RoomMeetingOption.update!(room_meeting_options.keys, room_meeting_options.values)
+
+          return render_data status: :created unless room_hash[:shared_users_emails].any?
 
           # Finds all the users that have a SharedAccess to the Room
-          users_ids = User.where(email: room_hash[:shared_users_emails].keys).select(:id)
+          users_ids = User.where(email: room_hash[:shared_users_emails]).pluck(:id)
           # Re-structure the data so it is in the format: { { room_id:, user_id: } }
-          shared_accesses = users_ids.map { |user_id| [room_id: room.id, user_id:] }
+          shared_accesses = users_ids.map { |user_id| { room_id: room.id, user_id: } }
           SharedAccess.create!(shared_accesses)
 
           render_data status: :created
@@ -141,17 +143,17 @@ module Api
                                           .pluck(:id, :'settings.name')
                                           .to_h
           # Re-structure the data so it is in the format: { <site_setting_id>: { value: <site_setting_new_value> } }
-          site_settings = site_settings_temp.map { |k, v| [k, { value: settings_hash[:site_settings][v.to_sym] }] }
-          SiteSetting.update!(site_settings)
+          site_settings = site_settings_temp.transform_values { |v| { value: settings_hash[:site_settings][v.to_sym] } }
+          SiteSetting.update!(site_settings.keys, site_settings.values)
 
           # Finds all the RoomsConfiguration that need to be updated
-          room_configurations_temp = RoomConfiguration.joins(:meeting_option)
-                                                      .where('meeting_options.name': settings_hash[:room_configurations].keys, provider: 'greenlight')
-                                                      .pluck(:id, :'meeting_options.name')
-                                                      .to_h
+          room_configurations_temp = RoomsConfiguration.joins(:meeting_option)
+                                                       .where('meeting_options.name': settings_hash[:room_configurations].keys, provider: 'greenlight')
+                                                       .pluck(:id, :'meeting_options.name')
+                                                       .to_h
           # Re-structure the data so it is in the format: { <rooms_configuration_id>: { value: <rooms_configuration_new_value> } }
-          room_configurations = room_configurations_temp.map { |k, v| [k, { value: settings_hash[:room_configurations][v.to_sym] }] }
-          RoomsConfiguration.update!(room_configurations)
+          room_configurations = room_configurations_temp.transform_values { |v| { value: settings_hash[:room_configurations][v.to_sym] } }
+          RoomsConfiguration.update!(room_configurations.keys, room_configurations.values)
 
           render_data status: :created
         end
@@ -168,7 +170,7 @@ module Api
 
         def room_params
           decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, room_settings: {},
-                                                 shared_users_emails: [])
+                                                                                                                shared_users_emails: [])
         end
 
         def settings_params
