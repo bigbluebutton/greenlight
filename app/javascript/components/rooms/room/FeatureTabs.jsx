@@ -7,11 +7,11 @@ import Presentation from './presentation/Presentation';
 import RoomSettings from './room_settings/RoomSettings';
 import SharedAccess from './shared_access/SharedAccess';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
-import useSiteSettings from '../../../hooks/queries/admin/site_settings/useSiteSettings';
+import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
 
 export default function FeatureTabs({ shared }) {
   const { t } = useTranslation();
-  const { isLoading, data: settings } = useSiteSettings(['PreuploadPresentation', 'ShareRooms']);
+  const { isLoading, data: settings } = useSiteSetting(['PreuploadPresentation', 'ShareRooms']);
   const currentUser = useAuth();
 
   if (isLoading) {

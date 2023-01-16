@@ -1,12 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import useEnv from '../../hooks/queries/env/useEnv';
-import useSiteSettings from '../../hooks/queries/admin/site_settings/useSiteSettings';
+import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 
 export default function Footer() {
   const { t } = useTranslation();
   const { data: env } = useEnv();
-  const { data: links } = useSiteSettings(['Terms', 'PrivacyPolicy']);
+  const { data: links } = useSiteSetting(['Terms', 'PrivacyPolicy']);
 
   return (
     <footer id="footer" className="footer background-whitesmoke text-center pb-2">
