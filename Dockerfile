@@ -39,8 +39,7 @@ RUN apk add --no-cache \
     && ( echo 'install: --no-document' ; echo 'update: --no-document' ) >>/etc/gemrc
 COPY . ./
 RUN bundle install -j4 \
-    && yarn install \
-    && ./node_modules/.bin/esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds
+    && yarn install
 
 ARG RAILS_ENV
 ENV RAILS_ENV=${RAILS_ENV:-production}
@@ -50,6 +49,9 @@ ARG RAILS_SERVE_STATIC_FILES
 ENV RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES:-true}
 ARG PORT
 ENV PORT=${PORT:-3000}
+
+ARG NODE_ENV
+ENV NODE_ENV=${NODE_ENV:-production}
 
 EXPOSE ${PORT}
 
