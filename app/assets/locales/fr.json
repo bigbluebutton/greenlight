@@ -25,7 +25,15 @@
   "created_at": "Créé à",
   "homepage": {
     "welcome_bbb": "Bienvenue sur BigBlueButton.",
-    "greenlight_description": "Greenlight est une interface simple pour votre serveur de web- conférence open-source BigBlueButton. Vous pouvez créer vos propres salles pour héberger des sessions ou en rejoindre d'autres via un lien court et pratique."
+    "greenlight_description": "Greenlight est une interface simple pour votre serveur de web- conférence open-source BigBlueButton. Vous pouvez créer vos propres salles pour héberger des sessions ou en rejoindre d'autres via un lien court et pratique.",
+    "meeting_title": "Commencer une réunion",
+    "meeting_description": "Commencer une classe virtuelle pour améliorer l'apprentissage",
+    "recording_title": "Enregistrez vos réunions",
+    "recording_description": "Les réunions avec BigBlueButton peuvent être enregistrées et partagées avec les étudiants.",
+    "settings_title": "Gérez vos salles",
+    "settings_description": "Paramétrer une salle pour vous aider a lancer une classe virtuelle efficace.",
+    "learning_tools_title": "Et plus encore!",
+    "learning_tools_description": "BigBlueButton vous offre des outils intégrés pour améliorer votre expérience de l'enseignement et de l'apprentissage en ligne"
   },
   "authentication": {
     "sign_in": "S'identifier",
@@ -92,6 +100,8 @@
     "last_session": "Dernière session : {{ salle.dernière_session }}",
     "no_last_session": "Il n'y a aucune session précédente",
     "no_rooms_found": "Aucune salle trouvée",
+    "rooms_list_is_empty": "Vous n'avez pas encore de salles!",
+    "rooms_list_empty_create_room": "Créez votre première salle en cliquant sur le bouton ci-dessous puis en lui donnant un nom",
     "meeting": {
       "start_meeting": "Commencer la réunion",
       "join_meeting": "Rejoindre la réunion",
@@ -149,7 +159,7 @@
     "length_in_minutes": "{{enregistrement.durée}} min.",
     "processing_recording": "Traitement de l'enregistrement...",
     "copy_recording_urls": "Copier l'URL de l'enregistrement",
-    "no_recording_found": "Aucun enregistrement trouvé",
+    "no_recording_found": "Aucun d'enregistrement trouvé",
     "are_you_sure_delete_recording": "Etes-vous sûr·e de vouloir supprimer cet enregistrement ?"
   },
   "admin": {
@@ -230,6 +240,7 @@
         "enter_link": "Saisir le lien ici"
       },
       "settings": {
+        "settings": "Paramètres",
         "allow_users_to_share_rooms": "Permettre aux utilisateurs·rices de partager les salles",
         "allow_users_to_share_rooms_description": "En réglant sur inactivé, le bouton  sera supprimé des options du menu paramètres de chaque salle et cela empêchera les utilisateurs·rices de les partager.",
         "allow_users_to_preupload_presentation": "Permettre aux utilisateurs·rices de téléverser les documents de présentations en avance",
