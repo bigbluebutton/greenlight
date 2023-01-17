@@ -16,7 +16,7 @@ export default function RequireAuthentication({ path }) {
       <div className="text-center pb-4">
         <Logo size="medium" />
       </div>
-      <Card className="col-md-6 mx-auto p-0 border-0 shadow-sm text-center">
+      <Card className="col-xl-4 col-lg-5 col-md-7 col-8 mx-auto p-0 border-0 shadow-sm text-center">
         <Card.Body className="pt-4 px-5">
           <p className="mb-0">{ t('room.settings.require_signed_in_message') }</p>
         </Card.Body>
