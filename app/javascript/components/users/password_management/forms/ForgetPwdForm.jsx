@@ -1,27 +1,23 @@
 import React from 'react';
 import { Button, Stack } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import FormControl from '../../../shared_components/forms/FormControl';
 import Form from '../../../shared_components/forms/Form';
-import { forgetPwdFormConfig, forgetPwdFormFields } from '../../../../helpers/forms/ForgetPwdFormHelpers';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import useCreateResetPwd from '../../../../hooks/mutations/users/useCreateResetPwd';
+import useForgetPwdForm from '../../../../hooks/forms/users/password_management/useForgetPwdForm';
 
 export default function ForgetPwdForm() {
   const { t } = useTranslation();
-  const createResetPwd = useCreateResetPwd();
-  const methods = useForm(forgetPwdFormConfig);
-  const { isSubmitting } = methods.formState;
-  const fields = forgetPwdFormFields;
+  const createResetPwdAPI = useCreateResetPwd();
+  const { methods, fields } = useForgetPwdForm();
 
   return (
-    <Form methods={methods} onSubmit={createResetPwd.mutate}>
-      <FormControl field={fields.email} type="email" />
-
+    <Form methods={methods} onSubmit={createResetPwdAPI.mutate}>
+      <FormControl field={fields.email} type="email" autoFocus />
       <Stack className="mt-1" gap={1}>
-        <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={isSubmitting}>
-          {isSubmitting && <Spinner className="me-2" />}
+        <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={createResetPwdAPI.isLoading}>
+          {createResetPwdAPI.isLoading && <Spinner className="me-2" />}
           { t('user.account.reset_password') }
         </Button>
       </Stack>
