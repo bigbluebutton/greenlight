@@ -257,7 +257,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       get :recordings, params: { friendly_id: room1.friendly_id }
       recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
       expect(response).to have_http_status(:ok)
-      expect(recording_ids).to eq(recordings.pluck(:id))
+      expect(recording_ids).to match_array(recordings.pluck(:id))
     end
 
     it 'returns an empty array if the room has no recordings' do
