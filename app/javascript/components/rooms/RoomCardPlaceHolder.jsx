@@ -1,7 +1,10 @@
 import React from 'react';
 import { Card, Placeholder } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 export default function RoomCardPlaceHolder() {
+  const { t } = useTranslation();
+
   return (
     <Card id="room-card" border="light">
       <Card.Body>
@@ -16,7 +19,7 @@ export default function RoomCardPlaceHolder() {
           <Placeholder xs={2} size="xs" />
         </Placeholder>
         <hr />
-        <Placeholder.Button variant="brand-outline" className="float-end" animation="glow"> Start</Placeholder.Button>
+        <Placeholder.Button variant="brand-outline" className="disabled float-end" animation="glow">{t('start')}</Placeholder.Button>
       </Card.Body>
     </Card>
   );

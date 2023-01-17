@@ -604,3 +604,20 @@ input[type="range"]:focus::-moz-range-thumb {
   }
 }
 
+
+// Table Placeholders length
+.sm-td-placeholder {
+  min-width: 100px;
+}
+
+.md-td-placeholder {
+  min-width: 125px;
+}
+
+.lg-td-placeholder {
+  min-width: 200px;
+}
+
+.xl-td-placeholder {
+  min-width: 300px;
+}
