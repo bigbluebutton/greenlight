@@ -25,7 +25,15 @@
   "created_at": "作成時",
   "homepage": {
     "welcome_bbb": "BigBlueButton へようこそ。",
-    "greenlight_description": "Greenlightは、オープンソースWeb会議サーバ BigBlueButton のシンプルなフロントエンドです。 自分の会議室を作成して会議を主催したり、簡単なリンクを使用して他のユーザーを招待したりできます。"
+    "greenlight_description": "Greenlightは、オープンソースWeb会議サーバ BigBlueButton のシンプルなフロントエンドです。 自分の会議室を作成して会議を主催したり、簡単なリンクを使用して他のユーザーを招待したりできます。",
+    "meeting_title": "会議を立ち上げる",
+    "meeting_description": "仮想のクラスを立ち上げて、学習効果を最大にすることができます。",
+    "recording_title": "会議を録画する",
+    "recording_description": "BigBlueButtonの会議を録画し、学生や生徒と共有することができます。",
+    "settings_title": "会議室を管理する",
+    "settings_description": "会議室の設定を調整し、仮想教室を効果的に運用できます。",
+    "learning_tools_title": "もちろんこれだけではありません！",
+    "learning_tools_description": "BigBlueButtonには多くの組み込みツールが用意され、オンライン学習＆授業を快適に行うことができます。"
   },
   "authentication": {
     "sign_in": "サインイン",
@@ -232,6 +240,7 @@
         "enter_link": "リンクをここに入力"
       },
       "settings": {
+        "settings": "設定",
         "allow_users_to_share_rooms": "ユーザーに会議室の共有を許可",
         "allow_users_to_share_rooms_description": "無効に設定した場合、各会議室のドロップダウンからボタンが削除され、ユーザーが会議室を共有できなくなります",
         "allow_users_to_preupload_presentation": "ユーザーにプレゼンファイルの事前アップロードを許可",
@@ -441,6 +450,27 @@
           },
           "remember_me": {
             "label": "ログイン状態を維持"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "現在のパスワード",
+            "placeholder": "パスワードを入力"
+          },
+          "new_password": {
+            "label": "新しいパスワード",
+            "placeholder": "新しいパスワードを入力"
+          },
+          "password_confirmation": {
+            "label": "パスワード確認",
+            "placeholder": "新しいパスワードを確認"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "現在のパスワードを入力してください"
           }
         }
       }
