@@ -582,12 +582,14 @@ input[type="range"]:focus::-moz-range-thumb {
   border-radius: 10px;
   background: #c4c4c4;
 }
+
 .placeholder {
   border-radius: 2px;
 }
+
 .placeholder-xlg {
   border-radius: 3px;
-  min-height: 2.5em;
+  min-height: 2em;
 }
 
 .homepage-icon {

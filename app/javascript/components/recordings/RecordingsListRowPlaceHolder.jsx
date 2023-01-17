@@ -1,26 +1,19 @@
 import React from 'react';
+import { Stack } from 'react-bootstrap';
 import Placeholder from '../shared_components/utilities/Placeholder';
+import RoundPlaceholder from '../shared_components/utilities/RoundPlaceholder';
 
 export default function RecordingsListRowPlaceHolder() {
   return (
     <tr>
-      <td className="border-0">
-        <Placeholder width={8} size="md" className="me-2" />
-        <Placeholder width={10} size="md" className="me-2" />
+      <td colSpan={12} className="border-0">
+        <Stack direction="horizontal">
+          <RoundPlaceholder radius="35px" className="ms-1 me-3 my-3" />
+          <Stack>
+            <Placeholder width={12} size="xlg" className="my-3" />
+          </Stack>
+        </Stack>
       </td>
-      <td className="border-0">
-        <Placeholder width={6} size="md" className="me-2" />
-      </td>
-      <td className="border-0">
-        <Placeholder width={6} size="md" className="me-2" />
-      </td>
-      <td className="border-0">
-        <Placeholder width={6} size="md" className="me-2" />
-      </td>
-      <td className="border-0">
-        <Placeholder width={6} size="md" className="me-2" />
-      </td>
-      <td className="border-0" />
     </tr>
   );
 }
