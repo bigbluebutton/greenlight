@@ -25,7 +25,15 @@
   "created_at": "Создано",
   "homepage": {
     "welcome_bbb": "Добро пожаловать в BigBlueButton",
-    "greenlight_description": "Greenlight — это простой веб-интерфейс для сервера веб-конференций  BigBlueButton с открытым исходным кодом. Вы можете создавать свои собственные комнаты для проведения встреч или присоединяться к другим используя короткую и удобную ссылку."
+    "greenlight_description": "Greenlight — это простой веб-интерфейс для сервера веб-конференций  BigBlueButton с открытым исходным кодом. Вы можете создавать свои собственные комнаты для проведения встреч или присоединяться к другим используя короткую и удобную ссылку.",
+    "meeting_title": "Начать вебинар",
+    "meeting_description": "Начать вебинар для высокого качества образования",
+    "recording_title": "Ведите запись вебинаров",
+    "recording_description": "Вебинар BigBlueButton может быть записан и опубликован для студентов.",
+    "settings_title": "Управление комнатами",
+    "settings_description": "Настройки комнаты для эффективной работы",
+    "learning_tools_title": "И многое!",
+    "learning_tools_description": "BigBlueButton предоставляет удобные инструменты для высокого качества онлайн-обучения."
   },
   "authentication": {
     "sign_in": "Войти",
@@ -232,6 +240,7 @@
         "enter_link": "Введите ссылку здесь"
       },
       "settings": {
+        "settings": "Настройки",
         "allow_users_to_share_rooms": "Разрешить пользователям совместное использование комнат",
         "allow_users_to_share_rooms_description": "Отключение опции удалит кнопку из выпадающего меню опций комнаты и не позволит пользователям совместно использовать комнаты",
         "allow_users_to_preupload_presentation": "Разрешить пользователям предварительно загружать презентации",
@@ -441,6 +450,52 @@
           },
           "remember_me": {
             "label": "Запомнить меня"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Текущий пароль",
+            "placeholder": "Введите пароль"
+          },
+          "new_password": {
+            "label": "Новый пароль",
+            "placeholder": "Введите новый пароль"
+          },
+          "password_confirmation": {
+            "label": "Подтвердите пароль",
+            "placeholder": "Подтвердите пароль"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Пожалуйста, введите текущий пароль"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Введите Email"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Введите Email"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Новый пароль",
+            "placeholder": "Введите новый пароль"
+          },
+          "password_confirmation": {
+            "label": "Подтвердите пароль",
+            "placeholder": "Подтвердите пароль"
           }
         }
       }
