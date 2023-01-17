@@ -7,6 +7,7 @@ module Api
       FORBIDDEN_SETTINGS = %w[RoleMapping ResyncOnLogin DefaultRole].freeze # Should not be accessible to the frontend
 
       # GET /api/v1/site_settings
+      # Returns the values of 1 or multiple site_settings that are not forbidden to access
       def index
         settings = {}
         return render_error status: :forbidden if forbidden_settings(params[:names])
@@ -25,6 +26,7 @@ module Api
 
       private
 
+      # Prevents front-end from accessing sensitive site settings
       def forbidden_settings(names)
         # Check if the 2 arrays have any values in common
         !(Array(names) & FORBIDDEN_SETTINGS).empty?

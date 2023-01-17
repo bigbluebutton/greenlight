@@ -10,8 +10,7 @@ module Api
       end
 
       # POST /api/v1/meetings/:friendly_id/start.json
-      # Returns: { data: Array[serializable objects] , errors: Array[String] }
-      # Does: Starts the Room meeting and joins in the meeting starter.
+      # Starts a BigBlueButton meetings and joins in the meeting starter
       def start
         begin
           MeetingStarter.new(room: @room, base_url: root_url, current_user:).call
@@ -28,6 +27,8 @@ module Api
       end
 
       # POST /api/v1/meetings/:friendly_id/status.json
+      # Checks if the meeting is running and either returns that value, or starts the meeting (if glAnyoneCanStart)
+      # then joins the meeting starter into the BigBlueButton meeting
       def status
         settings = RoomSettingsGetter.new(
           room_id: @room.id,
@@ -71,8 +72,8 @@ module Api
         render_data data:, status: :ok
       end
 
-      # Returns a bool if a meeting is running or not
       # GET /api/v1/meetings/:friendly_id/running.json
+      # Returns whether the meeting is running in BigBlueButton or not
       def running
         render_data data: BigBlueButtonApi.new.meeting_running?(room: @room), status: :ok
       end

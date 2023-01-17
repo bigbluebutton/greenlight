@@ -8,6 +8,8 @@ module Api
           ensure_authorized('ManageUsers')
         end
 
+        # GET /api/v1/admin/users/:id.json
+        # Updates the specified user's status
         def update
           user = User.find(params[:id])
 
@@ -18,6 +20,8 @@ module Api
           end
         end
 
+        # GET /api/v1/admin/users/pending.json
+        # Fetches the list of all users in the pending state
         def pending
           pending_users = User.includes(:role)
                               .with_provider(current_provider)
@@ -29,6 +33,8 @@ module Api
           render_data data: pending_users, meta: pagy_metadata(pagy), serializer: UserSerializer, status: :ok
         end
 
+        # GET /api/v1/admin/users/verified.json
+        # Fetches all active users
         def verified
           sort_config = config_sorting(allowed_columns: %w[name roles.name])
 
@@ -43,8 +49,9 @@ module Api
           render_data data: users, meta: pagy_metadata(pagy), serializer: UserSerializer, status: :ok
         end
 
+        # GET /api/v1/admin/users/banned.json
+        # Fetches all banned users
         def banned
-          # getting all the users who have a banned status
           users = User.includes(:role)
                       .with_provider(current_provider)
                       .with_attached_avatar

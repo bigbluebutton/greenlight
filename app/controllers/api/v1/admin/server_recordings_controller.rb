@@ -9,10 +9,7 @@ module Api
         end
 
         # POST /api/v1/admin/server_recordings.json
-        # Expects: {}
-        # Returns: { data: Array[serializable objects] , errors: Array[String] }
-        # Does: Fetches and returns the list of server recordings.
-
+        # Fetches and returns the list of all server recordings
         def index
           sort_config = config_sorting(allowed_columns: %w[name length visibility])
 

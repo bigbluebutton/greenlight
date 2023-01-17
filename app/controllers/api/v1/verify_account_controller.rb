@@ -9,10 +9,7 @@ module Api
       before_action :find_user_and_authorize, only: :create
 
       # POST /api/v1/verify_account.json
-      # Expects: { user: {:email} }
-      # Returns: { data: Array[serializable objects] , errors: Array[String] }
-      # Does: Creates a unique token, saves its digest and emails it.
-
+      # Creates a unique token, saves its digest to the user and emails it
       def create
         token = @user.generate_activation_token!
 
@@ -23,10 +20,7 @@ module Api
       end
 
       # POST /api/v1/verify_account/activate.json
-      # Expects: { user: {:token} }
-      # Returns: { data: Array[serializable objects] , errors: Array[String] }
-      # Does: Validates the token and activates the account.
-
+      # Validates the token and activates the account
       def activate
         return render_error status: :bad_request if params[:user].blank?
 

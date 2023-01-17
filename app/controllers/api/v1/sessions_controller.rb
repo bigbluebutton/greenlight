@@ -6,6 +6,7 @@ module Api
       skip_before_action :ensure_authenticated, only: %i[index create]
 
       # GET /api/v1/sessions
+      # Returns the current_user
       def index
         return render_data data: current_user, serializer: CurrentUserSerializer, status: :ok if current_user
 
@@ -13,6 +14,7 @@ module Api
       end
 
       # POST /api/v1/sessions
+      # Signs a user in and updates the session cookie
       def create
         user = User.find_by(email: session_params[:email])
 
@@ -29,6 +31,7 @@ module Api
       end
 
       # DELETE /api/v1/sessions/signout
+      # Clears the session cookie and signs the user out
       def destroy
         sign_out
         render_data status: :ok

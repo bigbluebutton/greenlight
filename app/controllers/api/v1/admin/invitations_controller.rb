@@ -9,6 +9,7 @@ module Api
         end
 
         # GET /api/v1/admin/invitations
+        # Returns a list of all invitations that have not been "redeemed/used"
         def index
           sort_config = config_sorting(allowed_columns: %w[email])
 
@@ -19,6 +20,7 @@ module Api
         end
 
         # POST /api/v1/admin/invitations
+        # Creates an invitation for the specified emails (comma separated) and sends them an email
         def create
           params[:invitations][:emails].split(',').each do |email|
             invitation = Invitation.find_or_initialize_by(email:, provider: current_provider).tap do |i|

@@ -21,6 +21,7 @@ module Api
       end
 
       # GET /api/v1/rooms.json
+      # Returns a list of the current_user's rooms and shared rooms
       def index
         shared_rooms = SharedAccess.where(user_id: current_user.id).select(:room_id)
         rooms = Room.where(user_id: current_user.id)
@@ -39,6 +40,7 @@ module Api
       end
 
       # GET /api/v1/rooms/:friendly_id.json
+      # Returns the info on a specific room
       def show
         RunningMeetingChecker.new(rooms: @room).call if @room.online
 
@@ -48,6 +50,7 @@ module Api
       end
 
       # GET /api/v1/rooms/:friendly_id/public.json
+      # Returns all publicly available information required for a room to be joined
       def public_show
         settings = RoomSettingsGetter.new(
           room_id: @room.id,
@@ -61,6 +64,7 @@ module Api
       end
 
       # POST /api/v1/rooms.json
+      # Creates a room for the specified user if they are allowed to
       def create
         return render_error status: :bad_request, errors: 'RoomLimitError' unless PermissionsChecker.new(
           permission_names: 'RoomLimit',
@@ -79,6 +83,8 @@ module Api
         end
       end
 
+      # PATCH /api/v1/rooms/:friendly_id.json
+      # Updates the values of the specified room
       def update
         if @room.update(room_params)
           render_data status: :ok
@@ -87,6 +93,8 @@ module Api
         end
       end
 
+      # DELETE /api/v1/rooms.json
+      # Updates the specified room
       def destroy
         if @room.destroy
           render_data status: :ok
@@ -95,6 +103,8 @@ module Api
         end
       end
 
+      # DELETE /api/v1/rooms/${friendlyId}/purge_presentation.json
+      # Removes the presentation attached to the room
       def purge_presentation
         @room.presentation.purge
 
@@ -102,12 +112,14 @@ module Api
       end
 
       # GET /api/v1/rooms/:friendly_id/recordings.json
+      # Returns all of a specific room's recordings
       def recordings
         pagy, room_recordings = pagy(@room.recordings&.search(params[:q]))
         render_data data: room_recordings, meta: pagy_metadata(pagy), status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id/recordings_processing.json
+      # Returns the total number of processing recordings for a specific room
       def recordings_processing
         render_data data: @room.recordings_processing, status: :ok
       end

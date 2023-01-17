@@ -4,6 +4,7 @@ class ExternalController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   # GET 'auth/:provider/callback'
+  # Creates the user using the information received through the external auth method
   def create_user
     provider = current_provider
 
@@ -47,6 +48,7 @@ class ExternalController < ApplicationController
   end
 
   # POST /recording_ready
+  # Creates the recording in Greenlight using information received from BigBlueButton
   def recording_ready
     response = BigBlueButtonApi.new.decode_jwt(params[:signed_parameters])
     record_id = response[0]['record_id']
@@ -65,6 +67,7 @@ class ExternalController < ApplicationController
   end
 
   # GET /meeting_ended
+  # Increments a rooms recordings_processing if the meeting was recorded
   def meeting_ended
     # TODO: - ahmad: Add some sort of validation
     return render json: {} unless params[:recordingmarks] == 'true'

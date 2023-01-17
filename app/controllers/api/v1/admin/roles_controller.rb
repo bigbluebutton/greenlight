@@ -13,10 +13,7 @@ module Api
         end
 
         # POST /api/v1/admin/roles.json
-        # Expects: {}
-        # Returns: { data: Array[serializable objects] , errors: Array[String] }
-        # Does: Fetches and returns the list of roles.
-
+        # Fetches and returns the list of roles
         def index
           sort_config = config_sorting(allowed_columns: %w[name])
 
@@ -26,19 +23,13 @@ module Api
         end
 
         # GET /api/v1/admin/roles/:role_id.json
-        # Expects: {}
-        # Returns: { data: Array[serializable objects] , errors: Array[String] }
-        # Does: Fetches and returns a role data.
-
+        # Fetches and returns a role's data
         def show
           render_data data: @role, status: :ok
         end
 
         # POST /api/v1/roles.json
-        # Expects: { role: {:name, :color} }
-        # Returns: { data: Array[serializable objects] , errors: Array[String] }
-        # Does: Creates a role.
-
+        # Creates a role
         def create
           role = Role.new(name: role_params[:name], provider: current_provider)
 
@@ -48,10 +39,7 @@ module Api
         end
 
         # POST /api/v1/:id/roles.json
-        # Expects: { role: {:name, :color} }
-        # Returns: { data: Array[serializable objects] , errors: Array[String] }
-        # Does: Updates a role.
-
+        # Updates a role
         def update
           return render_error errors: @role.errors.to_a, status: :bad_request unless @role.update role_params
 
@@ -59,9 +47,7 @@ module Api
         end
 
         # DELETE /api/v1/admin/roles.json
-        # Expects: {}
-        # Returns: { data: Array[serializable objects] , errors: Array[String] }
-        # Does: Deletes a role.
+        # Deletes a role
         def destroy
           undeletable_roles = %w[User Administrator Guest]
           return render_error errors: @role.errors.to_a, status: :method_not_allowed if undeletable_roles.include?(@role.name)
