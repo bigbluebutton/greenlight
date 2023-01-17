@@ -452,6 +452,27 @@
             "label": "Se souvenir de moi"
           }
         }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Mot de passe actuel",
+            "placeholder": "Saisissez votre mot de passe"
+          },
+          "new_password": {
+            "label": "Nouveau mot de passe",
+            "placeholder": "Saisissez votre nouveau de passe"
+          },
+          "password_confirmation": {
+            "label": "Confirmer le mot de passe",
+            "placeholder": "Confirmez votre nouveau mot de passe"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Veuillez saisir votre mot de passe actuel"
+          }
+        }
       }
     },
     "admin": {
