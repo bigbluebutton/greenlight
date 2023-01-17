@@ -25,7 +25,7 @@
   "created_at": "Créé à",
   "homepage": {
     "welcome_bbb": "Bienvenue sur BigBlueButton.",
-    "greenlight_description": "Greenlight est une interface simple pour votre serveur de web- conférence open-source BigBlueButton. Vous pouvez créer vos propres salles pour héberger des sessions ou en rejoindre d'autres via un lien court et pratique.",
+    "greenlight_description": "Greenlight est une interface simple pour votre serveur de web- conférence open-source BigBlueButton. Vous pouvez créer vos propres salles pour héberger des sessions ou en rejoindre d'autres via un lien court et pratique.",
     "meeting_title": "Commencer une réunion",
     "meeting_description": "Commencer une classe virtuelle pour améliorer l'apprentissage",
     "recording_title": "Enregistrez vos réunions",
@@ -450,6 +450,27 @@
           },
           "remember_me": {
             "label": "Se souvenir de moi"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Mot de passe actuel",
+            "placeholder": "Saisissez votre mot de passe"
+          },
+          "new_password": {
+            "label": "Nouveau mot de passe",
+            "placeholder": "Saisissez votre nouveau de passe"
+          },
+          "password_confirmation": {
+            "label": "Confirmer le mot de passe",
+            "placeholder": "Confirmez votre nouveau mot de passe"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Veuillez saisir votre mot de passe actuel"
           }
         }
       }
