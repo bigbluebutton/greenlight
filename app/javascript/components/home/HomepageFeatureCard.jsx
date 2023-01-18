@@ -21,6 +21,3 @@ HomepageFeatureCard.propTypes = {
   description: PropTypes.string.isRequired,
   icon: PropTypes.element.isRequired,
 };
-
-
-
