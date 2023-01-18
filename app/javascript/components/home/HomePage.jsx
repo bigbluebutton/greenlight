@@ -18,18 +18,9 @@ import LearningToolsIcon from '../../../assets/images/paint-brush.png';
 import HomepageIcon from './HomepageIcon';
 
 export default function HomePage() {
-  const { data: env } = useEnv();
   const { t } = useTranslation();
-  const { search } = useLocation();
   const currentUser = useAuth();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const inviteToken = searchParams.get('inviteToken');
-  const { data: registrationMethod } = useSiteSetting('RegistrationMethod');
-
-  useEffect(() => {
-    document.cookie = `inviteToken=${inviteToken};path=/;`;
-  }, [inviteToken]);
 
   // redirect user to correct page based on signed in status and CreateRoom permission
   useEffect(
@@ -43,10 +34,6 @@ export default function HomePage() {
     },
     [currentUser.signed_in],
   );
-
-  function showSignUp() {
-    return registrationMethod !== 'invite' || !!inviteToken;
-  }
 
   // TODO - samuel: OPENID signup and signin are both pointing at the same endpoint
   return (
@@ -63,27 +50,27 @@ export default function HomePage() {
             </p>
             <a href="https://bigbluebutton.org/" className="pt-5 fs-5 text-link"> Learn more about BigBlueButton. </a>
           </div>
-          <div className="text-center my-5">
-            {
-              env?.OPENID_CONNECT ? (
-                <Form action="/auth/openid_connect" method="POST" data-turbo="false">
-                  <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
-                  <Button variant="brand-outline-color" className="btn btn-xlg m-2" type="submit">{t('authentication.sign_up')}</Button>
-                  <Button variant="brand" className="btn btn-xlg m-2" type="submit">{t('authentication.sign_in')}</Button>
-                </Form>
-              ) : (
-                <>
-                  { showSignUp()
-                     && (
-                       <ButtonLink to={`/signup${search}`} variant="brand-outline-color" className="btn btn-xlg m-2">
-                         {t('authentication.sign_up')}
-                       </ButtonLink>
-                     ) }
-                  <ButtonLink to="/signin" variant="brand" className="btn btn-xlg m-2">{t('authentication.sign_in')}</ButtonLink>
-                </>
-              )
-            }
-          </div>
+          {/* <div className="text-center my-5"> */}
+          {/*   { */}
+          {/*     env?.OPENID_CONNECT ? ( */}
+          {/*       <Form action="/auth/openid_connect" method="POST" data-turbo="false"> */}
+          {/*         <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} /> */}
+          {/*         <Button variant="brand-outline-color" className="btn btn-xlg m-2" type="submit">{t('authentication.sign_up')}</Button> */}
+          {/*         <Button variant="brand" className="btn btn-xlg m-2" type="submit">{t('authentication.sign_in')}</Button> */}
+          {/*       </Form> */}
+          {/*     ) : ( */}
+          {/*       <> */}
+          {/*         { showSignUp() */}
+          {/*            && ( */}
+          {/*              <ButtonLink to={`/signup${search}`} variant="brand-outline-color" className="btn btn-xlg m-2"> */}
+          {/*                {t('authentication.sign_up')} */}
+          {/*              </ButtonLink> */}
+          {/*            ) } */}
+          {/*         <ButtonLink to="/signin" variant="brand" className="btn btn-xlg m-2">{t('authentication.sign_in')}</ButtonLink> */}
+          {/*       </> */}
+          {/*     ) */}
+          {/*   } */}
+          {/* </div> */}
         </Col>
       </Row>
       <Row>

@@ -29,7 +29,8 @@ export default function App() {
 
   return (
     <>
-      {location.pathname !== '/' && currentUser?.signed_in && <Header /> }
+      {/* {location.pathname !== '/' && currentUser?.signed_in && <Header /> } */}
+      <Header />
       <Container className={pageHeight}>
         <Outlet />
       </Container>
