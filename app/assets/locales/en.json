@@ -25,6 +25,7 @@
   "created_at": "Created at",
   "homepage": {
     "welcome_bbb": "Welcome to BigBlueButton.",
+    "learn_more": "Learn more about BigBlueButton",
     "greenlight_description": "Greenlight is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link.",
     "meeting_title": "Launch a meeting",
     "meeting_description": "Launch a virtual class that maximizes applied learning.",

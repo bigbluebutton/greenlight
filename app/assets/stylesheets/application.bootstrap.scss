@@ -556,15 +556,13 @@ input[type="range"]:focus::-moz-range-thumb {
   min-height: 2.5em;
 }
 
-.homepage-icon {
-  width: 300px;
+#homepage-hero {
+  margin-top: 6rem;
+  margin-bottom: 6rem;
 
-  img {
-    max-width: 100px;
-  }
-
-  h4 {
-    color: var(--brand-color) !important;
+  @include media-breakpoint-down(md) {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
   }
 }
 
