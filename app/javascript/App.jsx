@@ -12,11 +12,11 @@ export default function App() {
   const currentUser = useAuth();
   const location = useLocation();
 
-  // SignIn, SignUp and JoinMeeting pages do not need a Header
+  // Pages that do not need a header: SignIn, SignUp and JoinMeeting (if the user is not signed in)
   const headerPage = location.pathname !== '/signin' && location.pathname !== '/signup' && !location.pathname.includes('/join');
-  const pageHeight = headerPage ? 'regular-height' : 'no-header-height';
+  const pageHeight = (headerPage || currentUser.signed_in) ? 'regular-height' : 'no-header-height';
 
-  // //i18n
+  // i18n
   const { i18n } = useTranslation();
   useEffect(() => {
     i18n.changeLanguage(currentUser?.language);
