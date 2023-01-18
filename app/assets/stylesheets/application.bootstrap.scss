@@ -553,7 +553,6 @@ input[type="range"]:focus::-moz-range-thumb {
   }
 }
 
-
 // Table Placeholders length
 .sm-td-placeholder {
   min-width: 100px;
@@ -569,4 +568,20 @@ input[type="range"]:focus::-moz-range-thumb {
 
 .xl-td-placeholder {
   min-width: 300px;
+}
+
+// Circles & Avatars
+.small-circle {
+  width: 40px;
+  height: 40px;
+}
+
+.medium-circle {
+  width: 100px;
+  height: 100px;
+}
+
+.large-circle {
+  width: 150px;
+  height: 150px;
 }

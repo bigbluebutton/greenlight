@@ -27,7 +27,7 @@ export default function ManageUserRow({ user }) {
       <td className="border-end-0">
         <Stack direction="horizontal">
           <div className="me-2">
-            <Avatar avatar={user.avatar} radius={40} />
+            <Avatar avatar={user.avatar} size="small" />
           </div>
           <Stack>
             <span className="text-dark fw-bold"> {user.name} </span>

@@ -55,7 +55,7 @@ export default function SharedAccessList({ users }) {
                 <Row className="border-bottom py-3" key={user.id}>
                   <Col>
                     <Stack direction="horizontal">
-                      <Avatar avatar={user.avatar} radius={40} />
+                      <Avatar avatar={user.avatar} size="small" />
                       <h6 className="text-brand mb-0 ps-3"> {user.name} </h6>
                     </Stack>
                   </Col>

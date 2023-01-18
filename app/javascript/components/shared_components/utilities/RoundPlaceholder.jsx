@@ -1,20 +1,18 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Placeholder } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-export default function RoundPlaceholder({ radius, className }) {
+export default function RoundPlaceholder({ size, ...props }) {
+  const circleClass = `rounded-circle ${size}-circle`;
+
   return (
     <Placeholder animation="glow">
-      <Placeholder style={{ height: radius, width: radius, borderRadius: '50%' }} className={className} bg="secondary" />
+      <Placeholder className={circleClass} bg="secondary" {...props} />
     </Placeholder>
   );
 }
 
 RoundPlaceholder.propTypes = {
-  radius: PropTypes.number.isRequired,
-  className: PropTypes.string,
-};
-
-RoundPlaceholder.defaultProps = {
-  className: '',
+  size: PropTypes.string.isRequired,
 };
