@@ -155,7 +155,7 @@ export default function RoomJoin() {
             </Col>
             <Col>
               <Stack direction="vertical" gap={3}>
-                <Avatar className="d-block ms-auto me-auto" avatar={publicRoom?.data.owner_avatar} radius={100} />
+                <Avatar className="d-block ms-auto me-auto" avatar={publicRoom?.data.owner_avatar} size="medium" />
                 <h5 className="text-center">{publicRoom?.data.owner_name}</h5>
               </Stack>
             </Col>

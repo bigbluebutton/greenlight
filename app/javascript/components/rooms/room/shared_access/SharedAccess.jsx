@@ -51,7 +51,7 @@ export default function SharedAccess() {
                       <tr key={user.id} className="align-middle">
                         <td>
                           <Stack direction="horizontal" className="py-2">
-                            <Avatar avatar={user.avatar} radius={40} />
+                            <Avatar avatar={user.avatar} size="small" />
                             <h6 className="text-brand mb-0 ps-3"> {user.name} </h6>
                           </Stack>
                         </td>

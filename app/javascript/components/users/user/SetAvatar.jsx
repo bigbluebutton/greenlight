@@ -48,7 +48,7 @@ export default function SetAvatar({ user }) {
           <div className="avatar-icon-circle float-end position-absolute rounded-circle">
             <FolderPlusIcon className="hi-s" />
           </div>
-          <Avatar avatar={user?.avatar} radius={150} />
+          <Avatar avatar={user?.avatar} size="large" />
         </div>
         <input
           id="avatarUpload"

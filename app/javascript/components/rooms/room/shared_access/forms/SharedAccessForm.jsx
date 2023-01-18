@@ -48,7 +48,7 @@ export default function SharedAccessForm({ handleClose }) {
                                 className="pe-3"
                                 {...register('shared_users')}
                               />
-                              <Avatar avatar={user.avatar} radius={40} />
+                              <Avatar avatar={user.avatar} size="small" />
                               <h6 className="text-brand mb-0 ps-3"> {user.name} </h6>
                             </Stack>
                           </td>

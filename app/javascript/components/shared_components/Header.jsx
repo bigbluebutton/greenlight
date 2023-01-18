@@ -47,7 +47,7 @@ export default function Header() {
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" className="border-0">
-          <Avatar avatar={currentUser?.avatar} radius={40} />
+          <Avatar avatar={currentUser?.avatar} size="small" />
         </Navbar.Toggle>
 
         {/* /!* Visible only on mobile *!/ */}
@@ -78,7 +78,7 @@ export default function Header() {
         {/* Not visible on mobile */}
         <div className="justify-content-end d-none d-sm-block">
           <div className="d-inline-block">
-            <Avatar avatar={currentUser?.avatar} radius={40} />
+            <Avatar avatar={currentUser?.avatar} size="small" />
           </div>
           <NavDropdown title={currentUser?.name} id="nav-user-dropdown" className="d-inline-block" align="end">
             <NavDropdown.Item as={Link} to="/profile">
