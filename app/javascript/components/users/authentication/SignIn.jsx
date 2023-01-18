@@ -11,7 +11,7 @@ export default function SignIn() {
   return (
     <div className="vertical-center">
       <div className="text-center pb-4">
-        <Logo size="medium" />
+        <Logo />
       </div>
       <Card className="col-xl-3 col-lg-4 col-md-6 col-8 mx-auto p-4 border-0 shadow-sm">
         <Card.Title className="text-center pb-2"> { t('authentication.sign_in') } </Card.Title>

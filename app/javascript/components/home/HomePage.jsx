@@ -54,7 +54,7 @@ export default function HomePage() {
       <Row className="wide-white">
         <Col className="mx-auto">
           <div className="text-center pt-xl-5 my-3">
-            <Logo size="medium" />
+            <Logo />
           </div>
           <div className="text-center">
             <h1 className="my-4"> {t('homepage.welcome_bbb')} </h1>

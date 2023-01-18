@@ -43,7 +43,7 @@ export default function Header() {
     <Navbar collapseOnSelect id="navbar" expand="sm">
       <Container className="ps-0">
         <Navbar.Brand as={Link} to={homePath} className="ps-2">
-          <Logo />
+          <Logo size="small" />
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" className="border-0">
