@@ -4,8 +4,9 @@ import {
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import { ArrowRightIcon, ComputerDesktopIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../../contexts/auth/AuthProvider';
+import HomepageFeatureCard from './HomepageFeatureCard';
 
 export default function HomePage() {
   const { t } = useTranslation();
@@ -42,14 +43,17 @@ export default function HomePage() {
         </Col>
       </Row>
       <Row>
+        <h4 className="text-muted text-uppercase my-5">{t('homepage.explore_features')}</h4>
         <Col>
+          <HomepageFeatureCard
+            title={t('homepage.meeting_title')}
+            description={t('homepage.meeting_description')}
+            icon={<ComputerDesktopIcon className="hi-s" />}
+          />
         </Col>
-        <Col>
-        </Col>
-        <Col>
-        </Col>
-        <Col>
-        </Col>
+        <Col />
+        <Col />
+        <Col />
       </Row>
     </>
   );
