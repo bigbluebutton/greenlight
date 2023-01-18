@@ -452,6 +452,52 @@
             "label": "Να με θυμάσαι"
           }
         }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Τρέχων κωδικός πρόσβασης",
+            "placeholder": "Εισαγάγετε τον κωδικό πρόσβασης σας"
+          },
+          "new_password": {
+            "label": "Νέος κωδικός πρόσβασης",
+            "placeholder": "Εισαγάγετε τον νέο κωδικό πρόσβασης σας"
+          },
+          "password_confirmation": {
+            "label": "Επιβεβαίωση κωδικού πρόσβασης",
+            "placeholder": "Επιβεβαιώστε τον νέο κωδικό πρόσβασης σας"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Παρακαλούμε εισαγάγετε τον τρέχων κωδικό πρόσβασης σας"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Εισαγάγετε το email λογαριασμού"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Παρακαλούμε εισαγάγετε το email λογαριασμού"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Νέος κωδικός πρόσβασης",
+            "placeholder": "Εισαγάγετε τον νέο κωδικό πρόσβασης σας"
+          },
+          "password_confirmation": {
+            "label": "Επιβεβαίωση κωδικού πρόσβασης",
+            "placeholder": "Επιβεβαιώστε τον νέο κωδικό πρόσβασης σας"
+          }
+        }
       }
     },
     "admin": {
