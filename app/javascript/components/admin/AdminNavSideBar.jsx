@@ -14,6 +14,7 @@ export default function AdminNavSideBar() {
 
   return (
     <Nav variant="pills" className="flex-column">
+      {/* Todo: Use PermissionChecker */ }
       {(currentUser.permissions.ManageUsers === 'true') && (
       <Nav.Item>
         <Nav.Link

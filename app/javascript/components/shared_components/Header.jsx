@@ -22,6 +22,7 @@ export default function Header() {
       ManageUsers, ManageRooms, ManageRecordings, ManageSiteSettings, ManageRoles,
     } = permissions;
 
+    // Todo: Use PermissionChecker.
     if (ManageUsers === 'true'
       || ManageRooms === 'true'
       || ManageRecordings === 'true'
