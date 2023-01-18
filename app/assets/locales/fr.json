@@ -473,6 +473,31 @@
             "required": "Veuillez saisir votre mot de passe actuel"
           }
         }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "Courriel",
+            "placeholder": "Saisissez l'adresse courriel du compte"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Veuillez saisir l'adresse courriel du compte"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Nouveau mot de passe.",
+            "placeholder": "Saisissez le nouveau mot de passe"
+          },
+          "password_confirmation": {
+            "label": "Confirmez le mot de passe",
+            "placeholder": "Confirmez votre nouveau mot de passe"
+          }
+        }
       }
     },
     "admin": {
