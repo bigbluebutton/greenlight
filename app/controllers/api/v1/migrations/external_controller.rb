@@ -21,7 +21,9 @@ module Api
         end
 
         # POST /api/v1/migrations/roles.json
-        # Expects: { role: { :name } }
+        # Expects:
+        # { role: { :name,
+        #            role_permissions: { :CreateRoom, :CanRecord, :ManageUsers, :ManageRoles, :ManageRooms, :ManageRecordings, :ManageSiteSettings }}}
         # Returns: { data: Array[serializable objects(recordings)] , errors: Array[String] }
         # Does: Creates a role.
         def create_role
@@ -29,9 +31,21 @@ module Api
 
           return render_data status: :created if Role.exists? name: role_hash[:name], provider: 'greenlight'
 
-          role = Role.new role_hash.merge(provider: 'greenlight')
+          role = Role.new(name: role_hash[:name], provider: 'greenlight')
 
           return render_error status: :bad_request unless role.save
+
+          # Returns unless the Role has a RolePermission that differs from V3 default RolePermissions values
+          return render_data status: :created unless role_hash[:role_permissions].any?
+
+          # Finds all the RolePermissions that need to be updated
+          role_permissions_temp = RolePermission.includes(:permission)
+                                                .where(role_id: role.id, 'permissions.name': role_hash[:role_permissions].keys)
+                                                .pluck(:id, :'permissions.name')
+                                                .to_h
+          # Re-structure the data so it is in the format: { <role_permission_id>: { value: <role_permission_new_value> } }
+          role_permissions = role_permissions_temp.transform_values { |v| { value: role_hash[:role_permissions][v.to_sym] } }
+          RolePermission.update!(role_permissions.keys, role_permissions.values)
 
           render_data status: :created
         end
@@ -40,7 +54,6 @@ module Api
         # Expects: { user: { :name, :email, :external_id, :language, :role } }
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Creates a user.
-
         def create_user
           user_hash = user_params.to_h
 
@@ -68,9 +81,11 @@ module Api
         end
 
         # POST /api/v1/migrations/rooms.json
-        # Expects: { room: { :name, :friendly_id, :meeting_id, :last_session } }
+        # Expects: { room: { :name, :friendly_id, :meeting_id, :last_session, :owner_email,
+        #                    room_settings: { :record, :muteOnStart, :glAnyoneCanStart, :glAnyoneJoinAsModerator, :guestPolicy },
+        #                    shared_users_emails: [ <list of shared users emails> ] }}
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
-        # Does: Creates a room.
+        # Does: Creates a Room and its RoomMeetingOptions.
         def create_room
           room_hash = room_params.to_h
 
@@ -80,7 +95,7 @@ module Api
 
           return render_error status: :bad_request unless user
 
-          room = Room.new(room_hash.except(:owner_email, :owner_provider).merge({ user: }))
+          room = Room.new(room_hash.except(:owner_email, :room_settings, :shared_users_emails).merge({ user: }))
 
           # Redefines the validations method to do nothing
           # rubocop:disable Lint/EmptyBlock
@@ -90,13 +105,64 @@ module Api
 
           return render_error status: :bad_request unless room.save
 
+          # Finds all the RoomMeetingOptions that need to be updated
+          room_meeting_options_temp = RoomMeetingOption.includes(:meeting_option)
+                                                       .where(room_id: room.id, 'meeting_options.name': room_hash[:room_settings].keys)
+                                                       .pluck(:id, :'meeting_options.name')
+                                                       .to_h
+          # Re-structure the data so it is in the format: { <room_meeting_option_id>: { value: <room_meeting_option_new_value> } }
+          room_meeting_options = room_meeting_options_temp.transform_values { |v| { value: room_hash[:room_settings][v.to_sym] } }
+          RoomMeetingOption.update!(room_meeting_options.keys, room_meeting_options.values)
+
+          return render_data status: :created unless room_hash[:shared_users_emails].any?
+
+          # Finds all the users that have a SharedAccess to the Room
+          users_ids = User.where(email: room_hash[:shared_users_emails]).pluck(:id)
+          # Re-structure the data so it is in the format: { { room_id:, user_id: } }
+          shared_accesses = users_ids.map { |user_id| { room_id: room.id, user_id: } }
+          SharedAccess.create!(shared_accesses)
+
+          render_data status: :created
+        end
+
+        # POST /api/v1/migrations/site_settings.json
+        # Expects: { settings: { site_settings: { :PrimaryColor, :PrimaryColorLight, :PrimaryColorDark,
+        #                          :Terms, :PrivacyPolicy, :RegistrationMethod, :ShareRooms, :PreuploadPresentation },
+        #                        room_configurations: { :record, :muteOnStart, :guestPolicy, :glAnyoneCanStart,
+        #                          :glAnyoneJoinAsModerator, :glRequireAuthentication } } }
+        # Returns: { data: Array[serializable objects] , errors: Array[String] }
+        # Does: Creates a SiteSettings or a RoomsConfiguration.
+        def create_settings
+          settings_hash = settings_params.to_h
+
+          render_data status: :created unless settings_hash.any?
+
+          # Finds all the SiteSettings that need to be updated
+          site_settings_temp = SiteSetting.joins(:setting)
+                                          .where('settings.name': settings_hash[:site_settings].keys, provider: 'greenlight')
+                                          .pluck(:id, :'settings.name')
+                                          .to_h
+          # Re-structure the data so it is in the format: { <site_setting_id>: { value: <site_setting_new_value> } }
+          site_settings = site_settings_temp.transform_values { |v| { value: settings_hash[:site_settings][v.to_sym] } }
+          SiteSetting.update!(site_settings.keys, site_settings.values)
+
+          # Finds all the RoomsConfiguration that need to be updated
+          room_configurations_temp = RoomsConfiguration.joins(:meeting_option)
+                                                       .where('meeting_options.name': settings_hash[:room_configurations].keys,
+                                                              provider: 'greenlight')
+                                                       .pluck(:id, :'meeting_options.name')
+                                                       .to_h
+          # Re-structure the data so it is in the format: { <rooms_configuration_id>: { value: <rooms_configuration_new_value> } }
+          room_configurations = room_configurations_temp.transform_values { |v| { value: settings_hash[:room_configurations][v.to_sym] } }
+          RoomsConfiguration.update!(room_configurations.keys, room_configurations.values)
+
           render_data status: :created
         end
 
         private
 
         def role_params
-          decrypted_params.require(:role).permit(:name)
+          decrypted_params.require(:role).permit(:name, role_permissions: {})
         end
 
         def user_params
@@ -104,7 +170,12 @@ module Api
         end
 
         def room_params
-          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email)
+          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, room_settings: {},
+                                                                                                                shared_users_emails: [])
+        end
+
+        def settings_params
+          decrypted_params.require(:settings).permit(site_settings: {}, room_configurations: {})
         end
 
         def decrypted_params
