@@ -12,7 +12,7 @@ export default function DefaultErrorPage() {
   return (
     <div className="vertical-buffer">
       <div className="text-center pb-4">
-        <Logo size="medium" />
+        <Logo  />
       </div>
       <Card className="col-md-3 mx-auto p-4 border-0 shadow-sm text-center">
         <Card.Title className="pb-2 fs-1 text-danger">{ t('global_error_page.title') }</Card.Title>

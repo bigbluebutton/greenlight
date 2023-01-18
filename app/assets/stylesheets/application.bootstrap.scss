@@ -398,14 +398,14 @@ input[type='checkbox'] {
   max-height: $header-height;
 }
 
-.medium-logo {
-  max-width: 300px;
-  max-height: 150px;
+.logo {
+  max-width: 250px;
+  max-height: 125px;
 }
 
-.large-logo {
-  max-width: 400px;
-  max-height: 200px;
+.logo-wrapper {
+  width: 250px;
+  height: 125px;
 }
 
 /********** Range Input Styles **********/

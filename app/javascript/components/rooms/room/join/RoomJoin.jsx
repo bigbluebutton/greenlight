@@ -142,7 +142,7 @@ export default function RoomJoin() {
   return (
     <div className="vertical-buffer">
       <div className="text-center pb-4">
-        <Logo size="medium" />
+        <Logo  />
       </div>
       <Card className="col-md-6 mx-auto p-0 border-0 shadow-sm">
         <Card.Body className="pt-4 px-5">
