@@ -88,7 +88,7 @@ export default function RoomJoin() {
     if (hasStarted) {
       toast.success(t('toast.success.room.meeting_started'));
       console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting in 7s.`);
-      setTimeout(methods.handleSubmit(handleJoin), 7000); // TODO: Improve this race condition handling by the backend.
+      setTimeout(methods.handleSubmit(handleJoin), 7000); // TODO: Amir - Improve this race condition handling by the backend.
       reset();// Resetting the Join component.
     }
   }, [hasStarted]);

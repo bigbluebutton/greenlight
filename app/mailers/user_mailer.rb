@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserMailer < ApplicationMailer
-  # TODO: add i18n.
+  # TODO: Amir - add i18n.
   # rubocop:disable Rails/I18nLocaleTexts
   # Sends a test email
   def test_email

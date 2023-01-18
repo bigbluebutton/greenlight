@@ -31,7 +31,7 @@ module Api
         user = User.verify_activation_token(token)
         return render_error status: :forbidden unless user
 
-        # TODO: optimise this.
+        # TODO: Amir - optimise this.
         return render_error status: :internal_server_error unless user.invalidate_activation_token
 
         user.verify!

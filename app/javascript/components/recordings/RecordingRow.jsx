@@ -16,7 +16,7 @@ import UpdateRecordingForm from './forms/UpdateRecordingForm';
 import DeleteRecordingForm from './forms/DeleteRecordingForm';
 import Modal from '../shared_components/modals/Modal';
 
-// TODO: Refactor this.
+// TODO: Amir - Refactor this.
 export default function RecordingRow({
   recording, visibilityMutation: useVisibilityAPI, updateMutation: useUpdateAPI, deleteMutation: useDeleteAPI,
 }) {
@@ -41,7 +41,7 @@ export default function RecordingRow({
           </div>
           <Stack>
             <strong>
-              {/* TODO: add an x button or something to the edit name form */}
+              {/* TODO: Samuel - add an x button or something to the edit name form */}
               <UpdateRecordingForm
                 mutation={useUpdateAPI}
                 recordId={recording.record_id}

@@ -13,7 +13,7 @@ export default function AccessCodeRow({
   const handleGenerateCode = () => updateAPI.mutate({ settingName, settingValue: true });
   const handleDeleteCode = () => updateAPI.mutate({ settingName, settingValue: false });
 
-  // TODO: Extract this into a shared helper function.
+  // TODO: Samuel - Extract this into a shared helper function.
   const copyAccessCode = (copiedCode) => {
     navigator.clipboard.writeText(copiedCode);
     toast.success(t('room.settings.access_code_copied'));

@@ -57,7 +57,7 @@ module Api
         value == 'false' ? '' : generate_code
       end
 
-      # TODO: Check if we could extract all GL3 codes generation into a service.
+      # TODO: Amir - Check if we could extract all GL3 codes generation into a service.
       def generate_code
         SecureRandom.alphanumeric(6).downcase
       end
