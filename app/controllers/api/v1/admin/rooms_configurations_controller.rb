@@ -9,9 +9,7 @@ module Api
         end
 
         # PUT /api/v1/admin/rooms_configurations/:name.json
-        # Expects: { RoomsConfig: { :value } }
-        # Returns: { data: Array[serializable objects] , errors: Array[String] }
-        # Does: Update a rooms configuration :value.
+        # Update a rooms configuration value
         def update
           return render_error status: :bad_request unless params[:RoomsConfig] && params[:RoomsConfig][:value]
 

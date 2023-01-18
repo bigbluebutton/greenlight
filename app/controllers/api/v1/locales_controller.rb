@@ -7,6 +7,7 @@ module Api
       skip_before_action :ensure_valid_request, only: :show
 
       # GET /api/v1/locales
+      # Returns a cached list of locales available
       def index
         language_with_name = Rails.cache.fetch('locales/list', expires_in: 24.hours) do
           language_hash = {}
@@ -28,6 +29,7 @@ module Api
       end
 
       # GET /api/v1/locales/:name
+      # Returns the requested language's locale strings (returns 406 if locale doesn't exist)
       def show
         language = params[:name].tr('-', '_')
 

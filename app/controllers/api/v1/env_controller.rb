@@ -5,6 +5,8 @@ module Api
     class EnvController < ApiController
       skip_before_action :ensure_authenticated
 
+      # GET /api/v1/env
+      # Returns basic NON-CONFIDENTIAL information on the environment variables
       def index
         render_data data: {
           OPENID_CONNECT: ENV['OPENID_CONNECT_ISSUER'].present?,
