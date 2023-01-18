@@ -36,7 +36,7 @@ export default function RecordingRow({
     <tr key={recording.id} className="align-middle text-muted border border-2">
       <td className="border-end-0 text-dark">
         <Stack direction="horizontal" className="py-2">
-          <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
+          <div className="recording-icon-circle rounded-circle me-3 d-flex justify-content-center">
             <VideoCameraIcon className="hi-s text-brand" />
           </div>
           <Stack>

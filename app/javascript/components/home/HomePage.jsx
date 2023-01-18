@@ -4,7 +4,9 @@ import {
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowRightIcon, ComputerDesktopIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowRightIcon, Cog8ToothIcon, ComputerDesktopIcon, VideoCameraIcon, WrenchScrewdriverIcon,
+} from '@heroicons/react/24/outline';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import HomepageFeatureCard from './HomepageFeatureCard';
 
@@ -29,9 +31,12 @@ export default function HomePage() {
   return (
     <>
       <Row className="wide-white">
-        <Col lg={8}>
+        <Col lg={10}>
           <div id="homepage-hero">
             <h1 className="my-4"> {t('homepage.welcome_bbb')} </h1>
+            <p className="text-muted fs-5">
+              {t('homepage.bigbluebutton_description')}
+            </p>
             <p className="text-muted fs-5">
               {t('homepage.greenlight_description')}
             </p>
@@ -44,16 +49,34 @@ export default function HomePage() {
       </Row>
       <Row>
         <h4 className="text-muted text-uppercase my-5">{t('homepage.explore_features')}</h4>
-        <Col>
+        <Col className="mb-3">
           <HomepageFeatureCard
             title={t('homepage.meeting_title')}
             description={t('homepage.meeting_description')}
-            icon={<ComputerDesktopIcon className="hi-s" />}
+            icon={<ComputerDesktopIcon className="hi-s text-white" />}
           />
         </Col>
-        <Col />
-        <Col />
-        <Col />
+        <Col className="mb-3">
+          <HomepageFeatureCard
+            title={t('homepage.recording_title')}
+            description={t('homepage.recording_description')}
+            icon={<VideoCameraIcon className="hi-s text-white" />}
+          />
+        </Col>
+        <Col className="mb-3">
+          <HomepageFeatureCard
+            title={t('homepage.settings_title')}
+            description={t('homepage.settings_description')}
+            icon={<Cog8ToothIcon className="hi-s text-white" />}
+          />
+        </Col>
+        <Col className="mb-3">
+          <HomepageFeatureCard
+            title={t('homepage.and_more_title')}
+            description={t('homepage.and_more_description')}
+            icon={<WrenchScrewdriverIcon className="hi-s text-white" />}
+          />
+        </Col>
       </Row>
     </>
   );
