@@ -66,7 +66,7 @@ module Api
       # POST /api/v1/rooms.json
       # Creates a room for the specified user if they are allowed to
       def create
-        return render_error status: :bad_request, errors: 'RoomLimitError' unless PermissionsChecker.new(
+        return render_error status: :bad_request, errors: Rails.configuration.custom_error_msgs[:room_limit] unless PermissionsChecker.new(
           permission_names: 'RoomLimit',
           user_id: room_params[:user_id], current_user:, current_provider:
         ).call

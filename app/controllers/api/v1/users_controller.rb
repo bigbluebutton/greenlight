@@ -111,7 +111,7 @@ module Api
 
         return render_error status: :bad_request if new_password.blank? || old_password.blank?
 
-        return render_error status: :bad_request unless current_user.authenticate old_password
+        return render_error status: :bad_request, errors: Rails.configuration.custom_error_msgs[:incorrect_old_password] unless current_user.authenticate old_password
 
         current_user.update! password: new_password
         render_data status: :ok
