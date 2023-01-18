@@ -10,8 +10,11 @@ import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
 
 export default function App() {
   const currentUser = useAuth();
-  const pageHeight = currentUser?.signed_in ? 'regular-height' : 'no-header-height';
   const location = useLocation();
+
+  // SignIn, SignUp and JoinMeeting pages do not need a Header
+  const headerPage = location.pathname !== '/signin' && location.pathname !== '/signup' && !location.pathname.includes('/join');
+  const pageHeight = headerPage ? 'regular-height' : 'no-header-height';
 
   // //i18n
   const { i18n } = useTranslation();
@@ -29,8 +32,7 @@ export default function App() {
 
   return (
     <>
-      {/* {location.pathname !== '/' && currentUser?.signed_in && <Header /> } */}
-      <Header />
+      {headerPage && <Header /> }
       <Container className={pageHeight}>
         <Outlet />
       </Container>

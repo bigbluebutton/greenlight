@@ -5,6 +5,7 @@ import {
 import { Link } from 'react-router-dom';
 import { IdentificationIcon, QuestionMarkCircleIcon, StarIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
 import Avatar from '../users/user/Avatar';
 
@@ -36,6 +37,7 @@ export default function NavbarSignedIn({ currentUser }) {
         <Avatar avatar={currentUser?.avatar} size="small" />
       </Navbar.Toggle>
 
+      {/* Hidden Mobile */}
       <Navbar.Collapse id="navbar-menu" className="bg-white w-100 position-absolute">
         <Nav className="d-block d-sm-none text-black px-2">
           <Nav.Link eventKey={1} as={Link} to="/profile">
@@ -65,6 +67,7 @@ export default function NavbarSignedIn({ currentUser }) {
         </Nav>
       </Navbar.Collapse>
 
+      {/* Mobile Navbar Toggle */}
       <div className="justify-content-end d-none d-sm-block">
         <div className="d-inline-block">
           <Avatar avatar={currentUser?.avatar} radius={40} />
@@ -96,3 +99,17 @@ export default function NavbarSignedIn({ currentUser }) {
     </>
   );
 }
+
+NavbarSignedIn.propTypes = {
+  currentUser: PropTypes.shape({
+    avatar: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    permissions: PropTypes.shape({
+      ManageUsers: PropTypes.string.isRequired,
+      ManageRooms: PropTypes.string.isRequired,
+      ManageRecordings: PropTypes.string.isRequired,
+      ManageSiteSettings: PropTypes.string.isRequired,
+      ManageRoles: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
