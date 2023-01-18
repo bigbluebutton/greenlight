@@ -120,6 +120,10 @@ input.search-bar {
   @include media-breakpoint-down(sm) {
     min-width: $button-min-width;
   }
+
+  &:focus {
+    border-color: rgb(222, 226, 230) !important;
+  }
 }
 
 .icon-circle {
@@ -349,7 +353,8 @@ input.search-bar {
 }
 
 input[type='text']:focus {
-    border-color: var(--brand-color) !important;
+  border-color: whitesmoke !important;
+  box-shadow: 0 0 0 2px var(--brand-color-light) !important;
 }
 
 input[type='checkbox'] {
@@ -385,11 +390,8 @@ input[type='checkbox'] {
 }
 
 .form-control:focus {
-  box-shadow: none;
-}
-
-.form-control:focus, .form-control:hover {
-  border-color: var(--brand-color) !important;
+  border-color: whitesmoke !important;
+  box-shadow: 0 0 0 2px var(--brand-color-light) !important;
 }
 
 //Logo
