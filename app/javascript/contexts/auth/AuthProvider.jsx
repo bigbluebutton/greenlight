@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import useSessions from '../../hooks/queries/users/useSessions';
 import getLanguage from '../../helpers/Language';
 
-// TODO: Refactor this to use QueryClient context and fetch sessions data from queryCache.
+// TODO: Amir - Refactor this to use QueryClient context and fetch sessions data from queryCache.
 
 const AuthContext = React.createContext();
 

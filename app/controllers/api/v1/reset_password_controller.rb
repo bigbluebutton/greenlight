@@ -41,7 +41,7 @@ module Api
         return render_error status: :bad_request if new_password.blank?
 
         # Invalidating token and changing the password.
-        # TODO: optimise this.
+        # TODO: Amir - optimise this.
         return render_error status: :internal_server_error unless @user.invalidate_reset_token
 
         @user.update! password: new_password

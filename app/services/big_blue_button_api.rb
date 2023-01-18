@@ -8,7 +8,6 @@ class BigBlueButtonApi
   # Sets a BigBlueButtonApi object for interacting with the API.
   def bbb_server
     # TODO: Amir - Protect the BBB secret.
-    # TODO: Hadi - Add additional logic here...
     @bbb_server ||= BigBlueButton::BigBlueButtonApi.new(Rails.configuration.bigbluebutton_endpoint, Rails.configuration.bigbluebutton_secret, '1.8')
   end
 
