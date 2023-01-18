@@ -14,7 +14,7 @@ export default function RequireAuthentication({ path }) {
   return (
     <div className="vertical-center">
       <div className="text-center pb-4">
-        <Logo  />
+        <Logo />
       </div>
       <Card className="col-xl-4 col-lg-5 col-md-7 col-8 mx-auto p-0 border-0 shadow-sm text-center">
         <Card.Body className="pt-4 px-5">

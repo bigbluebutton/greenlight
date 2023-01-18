@@ -12,7 +12,7 @@ export default function NotFoundPage() {
   return (
     <div className="vertical-buffer">
       <div className="text-center pb-4">
-        <Logo  />
+        <Logo />
       </div>
       <Card className="col-md-3 mx-auto p-4 border-0 shadow-sm text-center">
         <Card.Title className="pb-2 fs-1 text-danger">{ t('not_found_error_page.title') }</Card.Title>
