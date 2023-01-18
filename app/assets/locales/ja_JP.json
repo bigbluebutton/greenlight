@@ -473,6 +473,31 @@
             "required": "現在のパスワードを入力してください"
           }
         }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "メールアドレス",
+            "placeholder": "アカウントのメールアドレスを入力"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "アカウント作成に使用したメールアドレスを入力してください"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "新しいパスワード",
+            "placeholder": "新しいパスワードを入力してください"
+          },
+          "password_confirmation": {
+            "label": "パスワード確認",
+            "placeholder": "新しいパスワードをもう一度確認してください"
+          }
+        }
       }
     },
     "admin": {
