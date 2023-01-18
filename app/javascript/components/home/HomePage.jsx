@@ -34,6 +34,7 @@ export default function HomePage() {
   // redirect user to correct page based on signed in status and CreateRoom permission
   useEffect(
     () => {
+      // Todo: Use PermissionChecker.
       if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'true') {
         navigate('/rooms');
       } else if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'false') {

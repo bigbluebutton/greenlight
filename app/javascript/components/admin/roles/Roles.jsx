@@ -14,7 +14,7 @@ import { useAuth } from '../../../contexts/auth/AuthProvider';
 export default function Roles() {
   const { t } = useTranslation();
   const [searchInput, setSearchInput] = useState();
-  const { data: roles, isLoading } = useRoles(searchInput);
+  const { data: roles, isLoading } = useRoles({ search: searchInput });
   const currentUser = useAuth();
 
   if (currentUser.permissions?.ManageRoles !== 'true') {

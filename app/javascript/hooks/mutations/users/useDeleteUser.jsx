@@ -10,7 +10,7 @@ export default function useDeleteUser(userId) {
   const navigate = useNavigate();
 
   return useMutation(
-    (data) => axios.delete(`/users/${userId}.json`, data),
+    () => axios.delete(`/users/${userId}.json`),
     {
       onSuccess: () => {
         queryClient.invalidateQueries('useSessions');

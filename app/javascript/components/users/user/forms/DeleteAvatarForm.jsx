@@ -5,16 +5,18 @@ import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Form from '../../../shared_components/forms/Form';
 import useDeleteAvatar from '../../../../hooks/mutations/users/useDeleteAvatar';
+import Spinner from '../../../shared_components/utilities/Spinner';
 
 export default function DeleteAvatarForm({ user }) {
   const { t } = useTranslation();
   const methods = useForm();
-  const deleteAvatar = useDeleteAvatar(user);
+  const deleteAvatarAPI = useDeleteAvatar(user);
 
   return (
-    <Form methods={methods} onSubmit={deleteAvatar.mutate}>
-      <Button type="submit" variant="delete" className="w-100">
-        { t('user.avatar.delete_avatar')}
+    <Form methods={methods} onSubmit={deleteAvatarAPI.mutate}>
+      <Button type="submit" variant="delete" className="w-100" disabled={deleteAvatarAPI.isLoading}>
+        {t('user.avatar.delete_avatar')}
+        {deleteAvatarAPI.isLoading && <Spinner className="me-2" />}
       </Button>
     </Form>
   );
