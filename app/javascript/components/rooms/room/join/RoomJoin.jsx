@@ -41,10 +41,12 @@ export default function RoomJoin() {
   const path = encodeURIComponent(location.pathname);
 
   useEffect(() => { // set cookie to return to if needed
-    document.cookie = `location=${path};path=/;`;
+    const date = new Date();
+    date.setTime(date.getTime() + (60 * 1000)); // expire the cookie in 1min
+    document.cookie = `location=${path};path=/;expires=${date.toGMTString()}`;
 
     return () => { // delete redirect location when unmounting
-      document.cookie = 'location=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = `location=${path};path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
     };
   }, []);
 
