@@ -13,7 +13,7 @@ export default function Logo({ size }) {
     ? 'small-logo cursor-pointer'
     : 'logo cursor-pointer position-absolute bottom-0 mx-auto start-0 end-0 text-center';
   // Small Logo is used in Header only and does not require a wrapper
-  const sizeWrapperClass = !size && 'logo-wrapper position-relative d-block mx-auto';
+  const sizeWrapperClass = !size ? 'logo-wrapper position-relative d-block mx-auto' : undefined;
 
   if (isLoading) return <div className={sizeWrapperClass} />;
 
