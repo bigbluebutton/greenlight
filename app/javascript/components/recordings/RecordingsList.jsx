@@ -27,7 +27,7 @@ export default function RecordingsList({
           isLoading
             ? (
               // eslint-disable-next-line react/no-array-index-key
-              [...Array(10)].map((val, idx) => <RecordingsListRowPlaceHolder key={idx} />)
+              [...Array(7)].map((val, idx) => <RecordingsListRowPlaceHolder key={idx} />)
             )
             : (
               (recordings?.length

@@ -18,9 +18,10 @@ export default function RoomCardPlaceHolder() {
           <Placeholder xs={4} size="xs" /> <Placeholder xs={6} size="xs" />
           <Placeholder xs={2} size="xs" />
         </Placeholder>
-        <hr />
-        <Placeholder.Button variant="brand-outline" className="disabled float-end" animation="glow" bg="placeholder">{t('start')}</Placeholder.Button>
       </Card.Body>
+      <Card.Footer className="bg-white">
+        <Placeholder.Button variant="brand-outline" className="disabled float-end" animation="glow" bg="placeholder">{t('start')}</Placeholder.Button>
+      </Card.Footer>
     </Card>
   );
 }
