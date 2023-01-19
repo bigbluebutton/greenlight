@@ -9,6 +9,7 @@
 @import 'presentation';
 @import 'admin_panel';
 @import 'pagination';
+@import 'fonts';
 
 html,
 body {
@@ -17,6 +18,7 @@ body {
 
 body {
   background: whitesmoke;
+  font-family: "Inter";
 }
 
 #navbar {
