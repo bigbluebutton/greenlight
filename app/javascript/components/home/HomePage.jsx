@@ -48,7 +48,7 @@ export default function HomePage() {
         </Col>
       </Row>
       <Row>
-        <h4 className="text-muted text-uppercase my-5">{t('homepage.explore_features')}</h4>
+        <h4 className="text-muted text-uppercase my-4 py-1">{t('homepage.explore_features')}</h4>
         <Col className="mb-3">
           <HomepageFeatureCard
             title={t('homepage.meeting_title')}
