@@ -498,6 +498,22 @@
             "placeholder": "新しいパスワードをもう一度確認してください"
           }
         }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "名前"
+          },
+          "email": {
+            "label": "メールアドレス"
+          },
+          "language": {
+            "label": "言語"
+          },
+          "role": {
+            "label": "役割"
+          }
+        }
       }
     },
     "admin": {
