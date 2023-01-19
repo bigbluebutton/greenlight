@@ -17,6 +17,7 @@ body {
 
 body {
   background: whitesmoke;
+
 }
 
 #navbar {
@@ -99,12 +100,17 @@ body {
 
 // Smoothen bootstrap transition
 .fade {
+  padding-right: 0 !important;
   transition: opacity 0.3s ease !important;
 
   & .modal-dialog {
     transition: opacity 0.3s ease !important;
     transform: none !important;
   }
+}
+
+.modal-open {
+  padding-right: 0 !important;
 }
 
 //TODO: samuel - need to confirm for Browsers compatibility (maybe Scope this a bit more?)
