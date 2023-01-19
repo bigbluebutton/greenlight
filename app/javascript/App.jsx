@@ -10,10 +10,13 @@ import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
 
 export default function App() {
   const currentUser = useAuth();
-  const pageHeight = currentUser?.signed_in ? 'regular-height' : 'no-header-height';
   const location = useLocation();
 
-  // //i18n
+  // Pages that do not need a header: SignIn, SignUp and JoinMeeting (if the user is not signed in)
+  const headerPage = location.pathname !== '/signin' && location.pathname !== '/signup' && !location.pathname.includes('/join');
+  const pageHeight = (headerPage || currentUser.signed_in) ? 'regular-height' : 'no-header-height';
+
+  // i18n
   const { i18n } = useTranslation();
   useEffect(() => {
     i18n.changeLanguage(currentUser?.language);
@@ -29,7 +32,7 @@ export default function App() {
 
   return (
     <>
-      {location.pathname !== '/' && currentUser?.signed_in && <Header /> }
+      {headerPage && <Header /> }
       <Container className={pageHeight}>
         <Outlet />
       </Container>

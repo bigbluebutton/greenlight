@@ -25,15 +25,18 @@
   "created_at": "Created at",
   "homepage": {
     "welcome_bbb": "Welcome to BigBlueButton.",
-    "greenlight_description": "Greenlight is a simple front-end for your BigBlueButton open-source web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link.",
+    "bigbluebutton_description": "BigBlueButton is an open source web conferencing system for online classes. The platform maximizes time for applied learning by enabling students to collaborate and receive feedback in real-time.",
+    "greenlight_description": "Create your own rooms to host sessions, or join others using a short and convenient link.",
+    "learn_more": "Learn more about BigBlueButton",
+    "explore_features": "Explore our features",
     "meeting_title": "Launch a meeting",
-    "meeting_description": "Launch a virtual class that maximizes applied learning.",
+    "meeting_description": "Launch a virtual class with video, audio, screen sharing, chat, and all the tools required for applied learning.",
     "recording_title": "Record your meetings",
-    "recording_description": "BigBlueButton meetings can be recorded and shared to the students.",
+    "recording_description": "Record the BigBlueButton meetings and share them with the students to review and reflect on the material.",
     "settings_title": "Manage your rooms",
-    "settings_description": "Configure a room to help you run an effective virtual classroom.",
-    "learning_tools_title": "And more!",
-    "learning_tools_description": "BigBlueButton gives you built-in tools to improve the online learning & teaching experience."
+    "settings_description": "Configure the rooms, the meeting settings, to be in charge an effective classroom.",
+    "and_more_title": "And more!",
+    "and_more_description": "BigBlueButton offers built-in tools for applied learning and is designed to save you time during class."
   },
   "authentication": {
     "sign_in": "Sign In",
