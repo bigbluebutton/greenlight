@@ -41,7 +41,7 @@ export default function RoomJoin() {
   const path = encodeURIComponent(location.pathname);
 
   useEffect(() => { // set cookie to return to if needed
-    let date = new Date();
+    const date = new Date();
     date.setTime(date.getTime() + (60 * 1000)); // expire the cookie in 1min
     document.cookie = `location=${path};path=/;expires=${date.toGMTString()}`;
 
