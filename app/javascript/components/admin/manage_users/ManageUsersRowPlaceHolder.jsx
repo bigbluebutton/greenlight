@@ -8,7 +8,7 @@ export default function RecordingsListRowPlaceHolder() {
     <tr>
       <td className="border-0 py-2 xl-td-placeholder">
         <Stack direction="horizontal">
-          <RoundPlaceholder radius="35px" className="ms-1 me-3 mt-1" />
+          <RoundPlaceholder size="small" className="ms-1 me-3 mt-1" />
           <Stack>
             <Placeholder width={10} size="md" />
             <Placeholder width={10} size="md" />

@@ -7,8 +7,8 @@ export default function RoundPlaceholder({ size, ...props }) {
   const circleClass = `rounded-circle ${size}-circle`;
 
   return (
-    <Placeholder animation="glow">
-      <Placeholder className={circleClass} bg="secondary" {...props} />
+    <Placeholder animation="glow" {...props}>
+      <Placeholder className={circleClass} bg="secondary" />
     </Placeholder>
   );
 }
