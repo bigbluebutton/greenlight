@@ -32,7 +32,7 @@ export default function App() {
 
   return (
     <>
-      {headerPage && <Header /> }
+      {(headerPage || currentUser.signed_in) && <Header /> }
       <Container className={pageHeight}>
         <Outlet />
       </Container>

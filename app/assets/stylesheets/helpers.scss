@@ -16,19 +16,23 @@
   left: 0;
   right: 0;
   margin: auto;
-  height: 70%;
-}
-
-.vertical-buffer {
-  padding-top: 10%;
+  height: 75%;
 }
 
 .no-header-height {
   min-height: calc(100vh - $footer-height - $footer-buffer-height);
+
+  .vertical-buffer {
+    padding-top: 10%;
+  }
 }
 
 .regular-height {
   min-height: calc(100vh - $header-height - $footer-height - $footer-buffer-height);
+
+  .vertical-buffer {
+    padding-top: 5%;
+  }
 }
 
 .cursor-pointer {
