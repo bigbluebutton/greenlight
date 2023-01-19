@@ -107,6 +107,10 @@ body {
   }
 }
 
+.modal-open {
+  padding-right: 0 !important;
+}
+
 //TODO: samuel - need to confirm for Browsers compatibility (maybe Scope this a bit more?)
 input[type='search']::-webkit-search-cancel-button {
   -webkit-appearance: none;
