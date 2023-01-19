@@ -40,13 +40,13 @@ export default function UpdateUserForm({ user }) {
     <Form methods={methods} onSubmit={updateUserAPI.mutate}>
       <FormControl field={fields.name} type="text" />
       <FormControl field={fields.email} type="email" />
-      <FormSelect field={fields.language}>
+      <FormSelect field={fields.language} variant="dropdown">
         {
           Object.keys(localesAPI.data || {}).map((code) => <Option key={code} value={code}>{localesAPI.data[code]}</Option>)
         }
       </FormSelect>
       {(canUpdateRole && rolesAPI.data) && (
-        <FormSelect field={fields.role_id}>
+        <FormSelect field={fields.role_id} variant="dropdown">
           {
             rolesAPI.data.map((role) => <Option key={role.id} value={role.id}>{role.name}</Option>)
           }
