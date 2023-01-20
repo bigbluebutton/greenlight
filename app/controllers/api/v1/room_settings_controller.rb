@@ -10,6 +10,7 @@ module Api
       end
 
       # GET /api/v1/room_settings/:friendly_id
+      # Returns all room settings including the access codes but without those disabled through room configs
       def show
         options = RoomSettingsGetter.new(room_id: @room.id, provider: current_provider, current_user:, show_codes: true,
                                          only_enabled: true).call
@@ -18,6 +19,7 @@ module Api
       end
 
       # PATCH /api/v1/room_settings/:friendly_id
+      # Updates a room's settings if the room config is set to optional
       def update
         name = room_setting_params[:settingName]
         value = room_setting_params[:settingValue].to_s
@@ -55,7 +57,7 @@ module Api
         value == 'false' ? '' : generate_code
       end
 
-      # TODO: Check if we could extract all GL3 codes generation into a service.
+      # TODO: Amir - Check if we could extract all GL3 codes generation into a service.
       def generate_code
         SecureRandom.alphanumeric(6).downcase
       end

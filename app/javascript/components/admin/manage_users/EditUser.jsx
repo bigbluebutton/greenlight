@@ -17,7 +17,7 @@ export default function EditUser() {
   const { isLoading, data: user } = useUser(userId);
   const navigate = useNavigate();
   const currentUser = useAuth();
-
+  // Todo: Use PermissionChecker.
   if (currentUser.permissions?.ManageUsers !== 'true') {
     return <Navigate to="/404" />;
   }

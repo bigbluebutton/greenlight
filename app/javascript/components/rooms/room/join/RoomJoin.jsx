@@ -41,10 +41,12 @@ export default function RoomJoin() {
   const path = encodeURIComponent(location.pathname);
 
   useEffect(() => { // set cookie to return to if needed
-    document.cookie = `location=${path};path=/;`;
+    const date = new Date();
+    date.setTime(date.getTime() + (60 * 1000)); // expire the cookie in 1min
+    document.cookie = `location=${path};path=/;expires=${date.toGMTString()}`;
 
     return () => { // delete redirect location when unmounting
-      document.cookie = 'location=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = `location=${path};path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
     };
   }, []);
 
@@ -88,7 +90,7 @@ export default function RoomJoin() {
     if (hasStarted) {
       toast.success(t('toast.success.room.meeting_started'));
       console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting in 7s.`);
-      setTimeout(methods.handleSubmit(handleJoin), 7000); // TODO: Improve this race condition handling by the backend.
+      setTimeout(methods.handleSubmit(handleJoin), 7000); // TODO: Amir - Improve this race condition handling by the backend.
       reset();// Resetting the Join component.
     }
   }, [hasStarted]);
@@ -142,7 +144,7 @@ export default function RoomJoin() {
   return (
     <div className="vertical-buffer">
       <div className="text-center pb-4">
-        <Logo size="medium" />
+        <Logo />
       </div>
       <Card className="col-md-6 mx-auto p-0 border-0 shadow-sm">
         <Card.Body className="pt-4 px-5">
@@ -155,7 +157,7 @@ export default function RoomJoin() {
             </Col>
             <Col>
               <Stack direction="vertical" gap={3}>
-                <Avatar className="d-block ms-auto me-auto" avatar={publicRoom?.data.owner_avatar} radius={100} />
+                <Avatar className="d-block ms-auto me-auto" avatar={publicRoom?.data.owner_avatar} size="medium" />
                 <h5 className="text-center">{publicRoom?.data.owner_name}</h5>
               </Stack>
             </Col>

@@ -1,0 +1,58 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   "true": "foo"
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+el_GR:
+  meeting:
+    moderator_message: "Για αποστολή πρόσκλησης στη διάσκεψη, χρησιμοποιήστε τον σύνδεσμο:"
+    access_code: "Κωδικός πρόσβασης: %{code}"
+  email:
+    activation:
+      line0: "Καλωσορίσατε %{name}!"
+      line1: Απομένει μόνο ένα βήμα για να αρχίσετε να χρησιμοποιείτε και να αξιοποιείτε όσα προσφέρουν το Greenlight και το BigBlueButton!
+      line2: Καλείστε να επαληθεύσετε την ταυτότητά σας ακολουθώντας τον παρακάτω σύνδεσμο για να ενεργοποιήσετε τον λογαριασμό σας.
+      line3: Η ενεργοποίηση του λογαριασμού σας θα σας επιτρέψει να αξιοποιήσετε όλες τις λειτουργίες του Greenlight και του BigBlueButton!
+      line4: "Μπορείτε να δημιουργήσετε αίθουσες, να φιλοξενήσετε συνεδρίες, να μοιραστείτε καταγραφές και να συνεργαστείτε με άλλους!"
+      line5: Ενεργοποίηση του λογαριασμού μου
+      line6: "Αυτός ο σύνδεσμος θα λήξει σε %{time}."
+      line7: Μπορείτε να συνδεθείτε στον λογαριασμό σας για να λάβετε έναν νέο σύνδεσμο ενεργοποίησης εάν λήξει αυτό το email.
+    invitation:
+      line0: Πρόσκληση για εγγραφή στο BigBlueButton
+      line1: "Έχετε προσκληθεί στον προσωπικό σας χώρο από %{name}."
+      line2: "Για να εγγραφείτε χρησιμοποιώντας το email σας, κάντε κλικ στο παρακάτω κουμπί και ακολουθήστε τα βήματα."
+      line3: Η πρόσκληση ισχύει μόνο για 48 ώρες.
+      line4: Εγγραφή
+    reset:
+      line0: Επαναφορά κωδικού πρόσβασης
+      line1: "Ζητήθηκε επαναφορά κωδικού πρόσβασης για το email %{email}"
+      line2: "Εάν ζητήσατε αυτήν την επαναφορά, κάντε κλικ στον παρακάτω σύνδεσμο για να επαναφέρετε τον κωδικό πρόσβασής σας:"
+      line3: Επαναφορά κωδικού πρόσβασης
+      line4: Μπορείτε να αγνοήσετε με ασφάλεια αυτό το email εάν δεν υποβάλατε αυτό το αίτημα.
+      line5: "Αυτός ο σύνδεσμος θα λήξει σε %{time}."

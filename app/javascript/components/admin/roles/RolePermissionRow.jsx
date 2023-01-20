@@ -17,7 +17,6 @@ export default function RolePermissionRow({
           type="checkbox"
           defaultChecked={defaultValue}
           onClick={(event) => {
-          // TODO: Currently using roleId and name, review this
             updateAPI.mutate({ role_id: roleId, name: permissionName, value: event.target.checked });
           }}
         />

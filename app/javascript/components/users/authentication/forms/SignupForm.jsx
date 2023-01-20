@@ -5,7 +5,7 @@ import FormControl from '../../../shared_components/forms/FormControl';
 import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import useCreateUser from '../../../../hooks/mutations/users/useCreateUser';
-import useSignUpForm from '../../../../hooks/forms/authentication/useSignUpForm';
+import useSignUpForm from '../../../../hooks/forms/users/authentication/useSignUpForm';
 import HCaptcha from '../../../shared_components/utilities/HCaptcha';
 
 export default function SignupForm() {
@@ -29,7 +29,7 @@ export default function SignupForm() {
       <FormControl field={fields.password_confirmation} type="password" />
       <HCaptcha ref={captchaRef} />
       <Stack className="mt-1" gap={1}>
-        <Button variant="brand" className="w-100 mb- mt-1" type="submit" disabled={createUserAPI.isLoading}>
+        <Button variant="brand" className="w-100 my-3 mt-1" type="submit" disabled={createUserAPI.isLoading}>
           { createUserAPI.isLoading && <Spinner className="me-2" /> }
           { t('authentication.create_account') }
         </Button>

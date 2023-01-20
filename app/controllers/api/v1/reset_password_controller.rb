@@ -9,10 +9,7 @@ module Api
       skip_before_action :ensure_authenticated, only: %i[create reset verify]
 
       # POST /api/v1/reset_password.json
-      # Expects: { user: {:email} }
-      # Returns: { data: Array[serializable objects] , errors: Array[String] }
-      # Does: Creates a unique token, saves its digest and emails it.
-
+      # Creates a unique token, saves its digest to the user and emails it
       def create
         # TODO: Log events.
         return render_error unless params[:user]
@@ -31,17 +28,14 @@ module Api
       end
 
       # POST /api/v1/reset_password/reset.json
-      # Expects: { user: {:token, :new_password} }
-      # Returns: { data: Array[serializable objects] , errors: Array[String] }
-      # Does: Validates the token and reset the user password.
-
+      # Validates the token and resets the user's password
       def reset
         new_password = params[:user][:new_password]
 
         return render_error status: :bad_request if new_password.blank?
 
         # Invalidating token and changing the password.
-        # TODO: optimise this.
+        # TODO: Amir - optimise this.
         return render_error status: :internal_server_error unless @user.invalidate_reset_token
 
         @user.update! password: new_password
@@ -50,10 +44,7 @@ module Api
       end
 
       # POST /api/v1/reset_password/verify.json
-      # Expects: { user: {:token} }
-      # Returns: { data: Array[serializable objects] , errors: Array[String] }
-      # Does: Validates the token.
-
+      # Validates the token
       def verify
         render_data status: :ok
       end

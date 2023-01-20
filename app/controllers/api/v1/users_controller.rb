@@ -11,6 +11,8 @@ module Api
         ensure_authorized('ManageUsers', user_id: params[:id])
       end
 
+      # GET /api/v1/users/:id.json
+      # Returns the details of a specific user
       def show
         user = User.find(params[:id])
 
@@ -19,10 +21,7 @@ module Api
 
       # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       # POST /api/v1/users.json
-      # Expects: { user: { :name, :email, :password} }
-      # Returns: { data: Array[serializable objects] , errors: Array[String] }
-      # Does: Creates and saves a new user record in the database with the provided parameters.
-
+      # Creates and saves a new user record in the database with the provided parameters
       def create
         # Check if this is an admin creating a user
         admin_create = current_user && PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call
@@ -65,6 +64,8 @@ module Api
       end
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+      # PATCH /api/v1/users/:id.json
+      # Updates the values of a user
       def update
         user = User.find(params[:id])
         # user is updating themselves
@@ -80,6 +81,8 @@ module Api
         end
       end
 
+      # DELETE /api/v1/users/:id.json
+      # Deletes a user
       def destroy
         user = User.find(params[:id])
         if user.destroy
@@ -89,6 +92,8 @@ module Api
         end
       end
 
+      # DELETE /api/v1/users/:id/purge_avatar.json
+      # Removes the avatar attached to the user
       def purge_avatar
         user = User.find(params[:id])
         user.avatar.purge
@@ -97,10 +102,7 @@ module Api
       end
 
       # POST /api/v1/users/change_password.json
-      # Expects: { user: { :old, :new } }
-      # Returns: { data: Array[serializable objects] , errors: Array[String] }
-      # Does: Validates and change the user password.
-
+      # Validates and change the user's password
       def change_password
         return render_error status: :forbidden if current_user.external_id?
 
@@ -109,7 +111,10 @@ module Api
 
         return render_error status: :bad_request if new_password.blank? || old_password.blank?
 
-        return render_error status: :bad_request unless current_user.authenticate old_password
+        unless current_user.authenticate old_password
+          return render_error status: :bad_request,
+                              errors: Rails.configuration.custom_error_msgs[:incorrect_old_password]
+        end
 
         current_user.update! password: new_password
         render_data status: :ok

@@ -24,6 +24,7 @@ RUN apk add --no-cache \
     curl-dev \
     git \
     gettext \
+    imagemagick \
     libxml2-dev \
     libxslt-dev \
     pkgconf \
@@ -47,10 +48,12 @@ ARG RAILS_LOG_TO_STDOUT
 ENV RAILS_LOG_TO_STDOUT=${RAILS_LOG_TO_STDOUT:-true}
 ARG RAILS_SERVE_STATIC_FILES
 ENV RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES:-true}
+ARG PORT
+ENV PORT=${PORT:-3000}
 
-ARG VERSION_CODE
-ENV VERSION_CODE=$VERSION_CODE
+EXPOSE ${PORT}
 
-EXPOSE 3000
+ARG VERSION_TAG
+ENV VERSION_TAG=$VERSION_TAG
 
 ENTRYPOINT [ "./bin/start" ]

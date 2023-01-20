@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import RoleRow from './RoleRow';
 import SortBy from '../../shared_components/search/SortBy';
-import RolesListPlaceHolder from './RolesListPlaceHolder';
+import RoleRowPlaceHolder from './RoleRowPlaceHolder';
 
 export default function RolesList({ roles, isLoading }) {
   const { t } = useTranslation();
@@ -18,25 +18,24 @@ export default function RolesList({ roles, isLoading }) {
       </thead>
       <tbody className="border-top-0">
         {
-          (isLoading && (
-            <tr>
-              <td>
-                {
-                  // eslint-disable-next-line react/no-array-index-key
-                  [...Array(5)].map((val, idx) => <RolesListPlaceHolder key={idx} />)
-                }
-              </td>
-            </tr>
-          )) || (
-            roles?.length ? (roles?.map((role) => <RoleRow key={role.id} role={role} />))
-              : (
-                <tr>
-                  <td className="fw-bold" colSpan="6">
-                    { t('admin.roles.no_role_found') }
-                  </td>
-                </tr>
-              )
-          )
+          isLoading
+            ? (
+            // eslint-disable-next-line react/no-array-index-key
+              [...Array(10)].map((val, idx) => <RoleRowPlaceHolder key={idx} />)
+            )
+            : (
+              roles?.length
+                ? (
+                  roles?.map((role) => <RoleRow key={role.id} role={role} />)
+                )
+                : (
+                  <tr>
+                    <td className="fw-bold" colSpan="6">
+                      { t('admin.roles.no_role_found') }
+                    </td>
+                  </tr>
+                )
+            )
         }
       </tbody>
     </Table>

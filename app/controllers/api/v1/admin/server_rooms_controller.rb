@@ -11,6 +11,7 @@ module Api
         before_action :find_room, only: %i[resync]
 
         # GET /api/v1/admin/server_rooms.json
+        # Fetches a list of all server rooms
         def index
           sort_config = config_sorting(allowed_columns: %w[name users.name])
 
@@ -25,9 +26,7 @@ module Api
         end
 
         # GET /api/v1/admin/server_rooms/:friendly_id/resync.json
-        # Expects: {}
-        # Returns: { data: Array[serializable objects] , errors: Array[String] }
-        # Does: Re-syncs a room recordings.
+        # Re-syncs a room recordings.
         def resync
           RecordingsSync.new(room: @room).call
 

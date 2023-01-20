@@ -25,7 +25,18 @@
   "created_at": "Oluşturulma",
   "homepage": {
     "welcome_bbb": "BigBlueButton uygulamasına hoş geldiniz.",
-    "greenlight_description": "Greenlight, açık kaynaklı BigBlueButton web konferans sunucunuz için basit bir ön uç uygulamasıdır. Oturumlara ev sahipliği yapmak için kendi odalarınızı ekleyebilir ya da kısa ve kullanışlı bir bağlantı kullanarak diğerlerine katılabilirsiniz."
+    "bigbluebutton_description": "BigBlueButton, çevrimiçi sınıflar için açık kaynaklı bir web konferans sistemidir. Platform, öğrencilerin gerçek zamanlı olarak işbirliği yapmalarını ve geri bildirim almalarını sağlayarak uygulamalı öğrenme zamanının en iyi şekilde kullanılmasını sağlar.",
+    "greenlight_description": "Oturumları başlatmak için kendi odalarınızı oluşturun ya da kısa ve kullanışlı bir bağlantı ile başkalarının odalarına katılın.",
+    "learn_more": "BigBlueButton hakkında ayrıntılı bilgi alın",
+    "explore_features": "Özelliklerimizi keşfedin",
+    "meeting_title": "Bir toplantı başlatın",
+    "meeting_description": "Görüntü, ses, ekran paylaşımı, sohbet ve uygulamalı öğrenim için gerekli tüm araçları kapsayan bir sanal sınıf oluşturun.",
+    "recording_title": "Toplantılarınızı kaydedin",
+    "recording_description": "BigBlueButton toplantılarını kaydedin. İncelemek ve üzerinde düşünmek için öğrencilerle çeşitli eğitim materyallerini paylaşın.",
+    "settings_title": "Odalarınızı yönetin",
+    "settings_description": "Etkili bir sınıfın sorumluluğunu almak için odalarınızı ve toplantı ayarlarınızı yapılandırın.",
+    "and_more_title": "Ve diğer özellikler!",
+    "and_more_description": "BigBlueButton, ders sırasında size zaman kazandırmak için yerleşik uygulamalı öğrenim araçları sağlar."
   },
   "authentication": {
     "sign_in": "Oturum aç",
@@ -51,7 +62,7 @@
     "authenticator": "Kimlik doğrulayıcı",
     "full_name": "Tam ad",
     "no_user_found": "Herhangi bir kullanıcı bulunamadı.",
-    "type_three_characters": "Diğer kullanıcıları görebilmek için en az üç (3) karakter yazın.",
+    "type_three_characters": "Diğer kullanıcıları görebilmek için lütfen en az üç (3) karakter yazın.",
     "profile": {
       "profile": "Profil",
       "language": "Dil",
@@ -92,6 +103,8 @@
     "last_session": "Son oturum: {{ room.last_session }}",
     "no_last_session": "Daha önce bir oturum yapılmamış",
     "no_rooms_found": "Herhangi bir oda bulunamadı",
+    "rooms_list_is_empty": "Henüz bir oda oluşturmamışsınız!",
+    "rooms_list_empty_create_room": "Aşağıdaki düğmeye tıklayıp bir oda adı yazarak ilk odanızı oluşturabilirsiniz.",
     "meeting": {
       "start_meeting": "Toplantıyı başlat",
       "join_meeting": "Toplantıya katıl",
@@ -149,7 +162,7 @@
     "length_in_minutes": "{{recording.length}} dakika",
     "processing_recording": "Kayıt işleniyor...",
     "copy_recording_urls": "Kayıt adreslerini kopyala",
-    "no_recording_found": "Herhangi bir kayıt bulunamadı.",
+    "no_recording_found": "Herhangi bir kayıt bulunamadı",
     "are_you_sure_delete_recording": "Bu kaydı silmek istediğinize emin misiniz?"
   },
   "admin": {
@@ -167,6 +180,7 @@
       "invited_tab": "Çağrılmış",
       "invite_user": "Kullanıcıyı çağır",
       "send_invitation": "Çağır",
+      "enter_user_email": "Kullanıcının e-posta adresini yazın",
       "new_user": "Yeni kullanıcı",
       "add_new_user": "Yeni kullanıcı",
       "create_new_user": "Yeni kullanıcı ekle",
@@ -177,8 +191,6 @@
       "create_room": "Oda ekle",
       "create_new_room": "Yeni oda ekle",
       "user_created_at": "Oluşturulma: {{user.created_at}}",
-      "enter_user_email": "Bir e-posta adresi yazın",
-      "enter_user_name": "Bir ad yazın",
       "are_you_sure_delete_account": "{{user.name}} kullanıcısının hesabını silmek istediğinize emin misiniz?",
       "delete_account_warning": "Bu hesabı silmeyi seçerseniz, bu işlem geri alınamaz.",
       "invited": {
@@ -222,7 +234,7 @@
       },
       "administration": {
         "administration": "Yönetim",
-        "terms": "Koşullar",
+        "terms": "Hüküm ve koşullar",
         "privacy": "Gizlilik",
         "privacy_policy": "Gizlilik ilkesi",
         "change_term_links": "Sayfanın altında görüntülenecek koşullar bağlantısını değiştir",
@@ -231,6 +243,7 @@
         "enter_link": "Bağlantıyı buraya yazın"
       },
       "settings": {
+        "settings": "Ayarlar",
         "allow_users_to_share_rooms": "Kullanıcılar odayı paylaşabilsin",
         "allow_users_to_share_rooms_description": "Bu seçenek devre dışı olarak ayarlandığında, düğme oda seçenekleri açılır menüsünden kaldırılır ve kullanıcıların odaları paylaşması engellenir.",
         "allow_users_to_preupload_presentation": "Kullanıcılar önceden sunum yükleyebilsin",
@@ -302,7 +315,8 @@
         "avatar_updated": "Avatar güncellendi.",
         "password_updated": "Parola güncellendi.",
         "account_activated": "Hesap etkinleştirildi.",
-        "activation_email_sent": "Etkinleştirme e-postası gönderildi."
+        "activation_email_sent": "Etkinleştirme e-postası gönderildi.",
+        "challenge_passed": "Güvenlik doğrulamasından geçtiniz"
       },
       "session": {
         "signed_out": "Oturumunuz kapatıldı."
@@ -357,6 +371,9 @@
       },
       "rooms": {
         "room_limit": "Oda sayısı sınırına ulaşıldığından oda eklenemedi"
+      },
+      "session": {
+        "invalid_credentials": "Kullanıcı adı ya da parola geçersiz. Lütfen kimlik doğrulama bilgilerinizi denetleyip yeniden deneyin."
       }
     }
   },
@@ -374,5 +391,155 @@
     "message": "Greenlight kullanmak için lütfen size gönderilen etkinleştirme e-postasındaki yönergeleri izleyerek hesabınızı doğrulayın.",
     "resend_activation_link": "Etkinleştirme e-postasını almadıysanız ya da gelen e-posta ile sorun yaşıyorsanız aşağıdaki Yeniden gönder düğmesine tıklayarak yeni bir etkinleştirme e-postası alabilirsiniz.",
     "resend_btn_lbl": "Doğrulamayı yeniden gönder"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Lütfen bir ad yazın",
+        "min": "Ad en az 2 karakter uzunluğunda olabilir",
+        "max": "Ad en fazla 255 karakter uzunluğunda olabilir"
+      },
+      "email": {
+        "required": "Lütfen bir e-posta adresi yazın",
+        "email": "Yazılan e-posta adresi biçimi geçersiz",
+        "min": "E-posta adresi en az 6 karakter uzunluğunda olabilir",
+        "max": "E-posta adresi en fazla 255 karakter uzunluğunda olabilir"
+      },
+      "password": {
+        "required": "Lütfen bir parola yazın",
+        "match": "Parolanın en az özellikleri şunlar olmalıdır:",
+        "min": "- Sekiz karakter",
+        "lower": "- Bir küçük harf",
+        "upper": "- Bir büyük harf",
+        "digit": "- Bir rakam",
+        "symbol": "- Bir simge",
+        "max": "Parola en fazla 255 karakter uzunluğunda olabilir"
+      },
+      "password_confirmation": {
+        "required": "Lütfen parolayı onaylamak için yeniden yazın",
+        "match": "Parola ile onayı aynı değil"
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Tam ad",
+            "placeholder": "Tam adınızı yazın"
+          },
+          "email": {
+            "label": "E-posta adresi",
+            "placeholder": "E-posta adresinizi yazın"
+          },
+          "password": {
+            "label": "Parola",
+            "placeholder": "Bir parola yazın"
+          },
+          "password_confirmation": {
+            "label": "Parola onayı",
+            "placeholder": "Parolayı yeniden yazın"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "E-posta",
+            "placeholder": "E-posta"
+          },
+          "password": {
+            "label": "Parola",
+            "placeholder": "Parola"
+          },
+          "remember_me": {
+            "label": "Beni hatırla"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Geçerli parola",
+            "placeholder": "Parolanızı yazın"
+          },
+          "new_password": {
+            "label": "Yeni parola",
+            "placeholder": "Yeni parolanızı yazın"
+          },
+          "password_confirmation": {
+            "label": "Parola onayı",
+            "placeholder": "Yeni parolanızı yeniden yazın"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Lütfen geçerli parolanızı yazın"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "E-posta",
+            "placeholder": "Hesabın e-posta adresini yazın"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Lütfen hesabın e-posta adresini yazın"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Yeni parola",
+            "placeholder": "Yeni parolanızı yazın"
+          },
+          "password_confirmation": {
+            "label": "Parola onayı",
+            "placeholder": "Yeni parolanızı yeniden yazın"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Tam ad"
+          },
+          "email": {
+            "label": "E-posta"
+          },
+          "language": {
+            "label": "Dil"
+          },
+          "role": {
+            "label": "Rol"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Tam ad",
+            "placeholder": "Kullanıcının tam adını yazın"
+          },
+          "email": {
+            "label": "E-posta adresi",
+            "placeholder": "Kullanıcının e-posta adresini yazın"
+          },
+          "password": {
+            "label": "Parola",
+            "placeholder": "Kullanıcının parolasını yazın"
+          },
+          "password_confirmation": {
+            "label": "Parola onayı",
+            "placeholder": "Kullanıcının parolasını yeniden yazın"
+          }
+        }
+      }
+    }
   }
 }

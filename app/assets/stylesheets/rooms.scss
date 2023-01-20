@@ -20,7 +20,7 @@
   }
 
   &:hover {
-    border: 2px solid var(--brand-color-light) !important;
+    box-shadow: 0 0 10px rgba(33,33,33,.2) !important;
   }
 
   .room-icon {

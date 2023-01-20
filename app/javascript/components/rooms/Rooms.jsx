@@ -16,7 +16,6 @@ export default function Rooms() {
       <Tab className="background-whitesmoke" eventKey="rooms" title={t('room.rooms')}>
         <RoomsList />
       </Tab>
-      {/* TODO: May need to change this to it's own component depending on how RecordingsTable will work */}
       <Tab className="background-whitesmoke" eventKey="recordings" title={<RecordingsCountTab count={recordingsCount} />}>
         <Recordings />
       </Tab>

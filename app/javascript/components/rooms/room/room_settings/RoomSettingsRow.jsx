@@ -18,7 +18,7 @@ export default function RoomSettingsRow({
     return null;
   }
 
-  //  TODO: Refactor this to use react-hook-form & react-bootstrap.
+  //  TODO: Amir - Refactor this to use react-hook-form & react-bootstrap.
   return (
     <div className="room-settings-row text-muted py-2 d-flex">
       <label className="form-check-label me-auto" htmlFor={settingName}>

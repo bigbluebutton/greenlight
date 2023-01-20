@@ -10,7 +10,7 @@ import FormControl from '../../../shared_components/forms/FormControl';
 import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import useCreateSession from '../../../../hooks/mutations/sessions/useCreateSession';
-import useSignInForm from '../../../../hooks/forms/authentication/useSignInForm';
+import useSignInForm from '../../../../hooks/forms/users/authentication/useSignInForm';
 import HCaptcha from '../../../shared_components/utilities/HCaptcha';
 import FormCheckBox from '../../../shared_components/forms/controls/FormCheckBox';
 

@@ -17,7 +17,7 @@ export default function FormCheckBox({
 }
 
 FormCheckBox.propTypes = {
-  // TODO: refactor propTypes to reduce duplication.
+  // TODO: Amir - refactor propTypes to reduce duplication.
   field: PropTypes.shape(
     {
       label: PropTypes.string,

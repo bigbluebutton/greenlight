@@ -39,8 +39,10 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --loader:.png=dataurl",
-    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+    "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds --loader:.png=dataurl --minify",
+    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules --style compressed",
+    "build:development": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --loader:.png=dataurl",
+    "build:development:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.14.0",

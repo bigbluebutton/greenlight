@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 export function useSignInFormValidation() {
   return useMemo(() => (yup.object({
@@ -12,7 +12,7 @@ export function useSignInFormValidation() {
   })), []);
 }
 
-export default function useSignInForm(_config = {}) {
+export default function useSignInForm({ defaultValues: _defaultValues, ..._config } = {}) {
   const { t, i18n } = useTranslation();
 
   const fields = useMemo(() => ({
@@ -44,15 +44,25 @@ export default function useSignInForm(_config = {}) {
   const validationSchema = useSignInFormValidation();
 
   const config = useMemo(() => ({
-    mode: 'onSubmit',
-    criteriaMode: 'firstError',
-    defaultValues: {
-      email: '',
-      password: '',
-      extend_session: false,
+    ...{
+      mode: 'onSubmit',
+      criteriaMode: 'firstError',
+      defaultValues: {
+        ...{
+          email: '',
+          password: '',
+          extend_session: false,
+        },
+        ..._defaultValues,
+      },
+      resolver: yupResolver(validationSchema),
     },
-    resolver: yupResolver(validationSchema),
-  }), [validationSchema]);
+    ..._config,
+  }), [validationSchema, _defaultValues]);
 
-  return { methods: useForm({ ...config, ..._config }), fields };
+  const methods = useForm(config);
+
+  const reset = useCallback(() => methods.reset(config.defaultValues), [methods.reset, config.defaultValues]);
+
+  return { methods, fields, reset };
 }

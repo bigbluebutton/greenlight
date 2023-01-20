@@ -12,9 +12,7 @@ module Api
       end
 
       # GET /api/v1/recordings.json
-      # Returns: { data: Array[serializable objects(recordings)] , errors: Array[String] }
-      # Does: Returns all the Recordings from all the current user's rooms
-
+      # Returns all of the current_user's recordings
       def index
         sort_config = config_sorting(allowed_columns: %w[name length visibility])
 
@@ -22,8 +20,10 @@ module Api
         render_data data: recordings, meta: pagy_metadata(pagy), status: :ok
       end
 
+      # DELETE /api/v1/recordings/:id.json
+      # Deletes a recording in both BigBlueButton and Greenlight
       def destroy
-        # TODO: - Need to change this to work preferably with after_destroy in recordings model
+        # TODO: Hadi - Need to change this to work preferably with after_destroy in recordings model
         BigBlueButtonApi.new.delete_recordings(record_ids: params[:id])
 
         Recording.destroy_by(record_id: params[:id])
@@ -31,9 +31,8 @@ module Api
         render_data status: :ok
       end
 
-      # PUT/PATCH /api/v1/recordings/:recording_id.json
-      # Returns: { data: Array[serializable objects(recordings)] , errors: Array[String] }
-      # Does: Update the recording name.
+      # PUT/PATCH /api/v1/recordings/:id.json
+      # Updates a recording's name in both BigBlueButton and Greenlight
       def update
         new_name = recording_params[:name]
         return render_error errors: [Rails.configuration.custom_error_msgs[:missing_params]] if new_name.blank?
@@ -45,12 +44,7 @@ module Api
       end
 
       # POST /api/v1/recordings/update_visibility.json
-      # unpublished -> protected (publish: true, protected: true)
-      # unpublished -> published (publish: true, protected: false)
-      # protected -> unpublished (publish: false, protected: false)
-      # protected -> published (publish: true, protected: false)
-      # published -> protected (publish: true, protected: true)
-      # published -> unpublished (publish: false, protected: false)
+      # Update's a recordings visibility by setting publish/unpublish and protected/unprotected
       def update_visibility
         new_visibility = params[:visibility]
         old_visibility = @recording.visibility
@@ -69,6 +63,8 @@ module Api
         render_data status: :ok
       end
 
+      # GET /api/v1/recordings/recordings_count.json
+      # Returns the total number of recordings for the current_user
       def recordings_count
         count = current_user.recordings.count
         render_data data: count, status: :ok

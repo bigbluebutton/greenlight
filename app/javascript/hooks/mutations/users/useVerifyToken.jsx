@@ -9,7 +9,7 @@ export default function useVerifyToken(token) {
     () => axios.post('/reset_password/verify.json', { user: { token } }),
     {
       onError: () => {
-        navigate('/'); // TODO: Obsecure this as a 404 case.
+        navigate('/'); // TODO: Amir - Obsecure this as a 404 case.
       },
     },
   );

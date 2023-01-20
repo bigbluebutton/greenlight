@@ -17,7 +17,7 @@ import useRoomConfigs from '../../../../hooks/queries/rooms/useRoomConfigs';
 import useRolePermissions from '../../../../hooks/queries/admin/role_permissions/useRolePermissions';
 import RolePermissionRow from '../RolePermissionRow';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
-import EditRolePlaceHolder from '../EditRolePlaceHolder';
+import RolePermissionRowPlaceHolder from '../RolePermissionRowPlaceHolder';
 
 export default function EditRoleForm({ role }) {
   const { t } = useTranslation();
@@ -67,7 +67,7 @@ export default function EditRoleForm({ role }) {
       roomConfigs.isLoading || isLoading
         ? (
           // eslint-disable-next-line react/no-array-index-key
-          [...Array(9)].map((val, idx) => <EditRolePlaceHolder key={idx} />)
+          [...Array(9)].map((val, idx) => <RolePermissionRowPlaceHolder key={idx} />)
         )
         : (
           <div>

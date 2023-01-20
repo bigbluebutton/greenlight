@@ -1,17 +1,12 @@
 import React from 'react';
-import { Table, Dropdown } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import {
-  EllipsisVerticalIcon, CheckIcon, XCircleIcon, CheckCircleIcon,
-} from '@heroicons/react/24/outline';
 import BannedPendingRow from './BannedPendingRow';
-import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
 
 // pendingTable prop is true when table is being used for pending data, false when table is being used for banned data
 export default function BannedPendingUsersTable({ users, pendingTable }) {
   const { t } = useTranslation();
-  const updateUserStatus = useUpdateUserStatus();
 
   return (
     <div id="admin-table">
@@ -27,30 +22,7 @@ export default function BannedPendingUsersTable({ users, pendingTable }) {
           {users?.length
             ? (
               users?.map((user) => (
-                <BannedPendingRow key={user.id} user={user}>
-                  <Dropdown className="float-end cursor-pointer">
-                    <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
-                    <Dropdown.Menu>
-                      {pendingTable ? (
-                        <>
-                          <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'active' })}>
-                            <CheckCircleIcon className="hi-s me-2" />
-                            {t('admin.manage_users.approve')}
-                          </Dropdown.Item>
-                          <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'banned' })}>
-                            <XCircleIcon className="hi-s me-2" />
-                            {t('admin.manage_users.decline')}
-                          </Dropdown.Item>
-                        </>
-                      ) : (
-                        <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'active' })}>
-                          <CheckIcon className="hi-s me-2" />
-                          {t('admin.manage_users.unban')}
-                        </Dropdown.Item>
-                      )}
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </BannedPendingRow>
+                <BannedPendingRow key={user.id} user={user} pendingTable={pendingTable} />
               ))
             )
             : (

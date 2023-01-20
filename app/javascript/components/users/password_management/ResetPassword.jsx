@@ -18,9 +18,9 @@ export default function ResetPassword() {
   return (
     <div className="vertical-center">
       <div className="text-center pb-4">
-        <Logo size="medium" />
+        <Logo />
       </div>
-      <Card className="col-md-4 mx-auto p-4 border-0 shadow-sm">
+      <Card className="col-xl-3 col-lg-4 col-md-6 col-8 mx-auto p-4 border-0 shadow-sm">
         <ResetPwdForm token={token} />
       </Card>
     </div>

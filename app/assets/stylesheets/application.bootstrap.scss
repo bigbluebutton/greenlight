@@ -8,7 +8,8 @@
 @import 'shared_accesses';
 @import 'presentation';
 @import 'admin_panel';
-@import '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/components/menu.min.css';
+@import 'pagination';
+@import 'fonts';
 
 html,
 body {
@@ -17,6 +18,7 @@ body {
 
 body {
   background: whitesmoke;
+  font-family: "Inter";
 }
 
 #navbar {
@@ -42,6 +44,10 @@ body {
   a {
     color: $black !important;
   }
+}
+
+.bg-placeholder {
+  color: silver;
 }
 
 // TODO - samuel: make responsive/add breakpoints
@@ -103,6 +109,10 @@ body {
   }
 }
 
+.modal-open {
+  padding-right: 0 !important;
+}
+
 //TODO: samuel - need to confirm for Browsers compatibility (maybe Scope this a bit more?)
 input[type='search']::-webkit-search-cancel-button {
   -webkit-appearance: none;
@@ -119,6 +129,10 @@ input.search-bar {
 
   @include media-breakpoint-down(sm) {
     min-width: $button-min-width;
+  }
+
+  &:focus {
+    border-color: #DEE2E6 !important;
   }
 }
 
@@ -157,7 +171,13 @@ input.search-bar {
 #footer {
   margin-top: $footer-buffer-height;
   max-height: $footer-height;
+
+  #footer-container {
+    border-top: 1px solid #d0d5dd;
+  }
+
   a {
+    color: var(--brand-color) !important;
     text-decoration: none !important;
   }
 }
@@ -348,8 +368,22 @@ input.search-bar {
   }
 }
 
+.btn-dropdown {
+  border: 2px solid gainsboro;
+  box-shadow: var(--brand-color-light);
+
+  &:hover {
+    border-color: gainsboro !important;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem var(--brand-color-light);
+  }
+}
+
 input[type='text']:focus {
-    border-color: var(--brand-color) !important;
+  border-color: whitesmoke !important;
+  box-shadow: 0 0 0 2px var(--brand-color-light) !important;
 }
 
 input[type='checkbox'] {
@@ -385,62 +419,8 @@ input[type='checkbox'] {
 }
 
 .form-control:focus {
-  box-shadow: none;
-}
-
-.form-control:focus, .form-control:hover {
-  border-color: var(--brand-color) !important;
-}
-
-
-//Semantic UI pagination
-.pagination-wrapper {
-  border-bottom: 2px solid whitesmoke;
-  border-right: 2px solid whitesmoke;
-  border-left: 2px solid whitesmoke;
-}
-
-.semantic-ui-pagination {
-  .ui.menu {
-    position: relative;
-    padding: 8px 12px 8px 16px;
-  }
-
-  .ui.menu .item {
-    justify-content: center;
-  }
-
-  .ui.secondary.menu .active.item {
-    color: var(--brand-color);
-    border-radius: $border-radius;
-  }
-
-  .ui.secondary.menu .item {
-    border-radius: $border-radius;
-
-    &:hover {
-      color: var(--brand-color) !important;
-    }
-  }
-
-  .ui.menu > .item:first-child {
-    display: block;
-    margin-right: auto;
-    padding: 0 !important;
-  }
-
-  .ui.menu > .item:last-child {
-    display: block;
-    margin-left: auto;
-    margin-right: 0 !important;
-    padding: 0 !important;
-  }
-
-  .ui.pagination {
-    width: 100%;
-    border: none;
-    box-shadow: none;
-  }
+  border-color: whitesmoke !important;
+  box-shadow: 0 0 0 2px var(--brand-color-light) !important;
 }
 
 //Logo
@@ -449,14 +429,14 @@ input[type='checkbox'] {
   max-height: $header-height;
 }
 
-.medium-logo {
-  max-width: 300px;
-  max-height: 150px;
+.logo {
+  max-width: 250px;
+  max-height: 125px;
 }
 
-.large-logo {
-  max-width: 400px;
-  max-height: 200px;
+.logo-wrapper {
+  width: 250px;
+  height: 125px;
 }
 
 /********** Range Input Styles **********/
@@ -582,23 +562,68 @@ input[type="range"]:focus::-moz-range-thumb {
   border-radius: 10px;
   background: #c4c4c4;
 }
+
 .placeholder {
   border-radius: 2px;
 }
+
 .placeholder-xlg {
   border-radius: 3px;
   min-height: 2.5em;
 }
 
-.homepage-icon {
-  width: 300px;
+// Homepage
+#homepage-hero {
+  margin-top: 4.5rem;
+  margin-bottom: 4.5rem;
 
-  img {
-    max-width: 100px;
-  }
-
-  h4 {
-    color: var(--brand-color) !important;
+  @include media-breakpoint-down(md) {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
   }
 }
 
+.homepage-card {
+  min-height: 16.5rem;
+  min-width: 16.5rem;
+}
+
+.homepage-card-icon-circle {
+  width: 50px;
+  height: 50px;
+  background-color: var(--brand-color);
+  box-shadow: 0 0 0 8px whitesmoke;
+}
+
+// Table Placeholders length
+.sm-td-placeholder {
+  min-width: 100px;
+}
+
+.md-td-placeholder {
+  min-width: 125px;
+}
+
+.lg-td-placeholder {
+  min-width: 200px;
+}
+
+.xl-td-placeholder {
+  min-width: 300px;
+}
+
+// Circles & Avatars
+.small-circle {
+  width: 40px;
+  height: 40px;
+}
+
+.medium-circle {
+  width: 100px;
+  height: 100px;
+}
+
+.large-circle {
+  width: 150px;
+  height: 150px;
+}
