@@ -25,15 +25,18 @@
   "created_at": "Créé à",
   "homepage": {
     "welcome_bbb": "Bienvenue sur BigBlueButton.",
-    "greenlight_description": "Greenlight est une interface simple pour votre serveur de web- conférence open-source BigBlueButton. Vous pouvez créer vos propres salles pour héberger des sessions ou en rejoindre d'autres via un lien court et pratique.",
+    "bigbluebutton_description": "BigBluButton est un système de webconférence dont le code source ouvert et qui est destinée à l'enseignement en ligne. La plateforme permet de profiter au mieux du temps dédié à la formation en favorisant la collaboration et une supervision en temps réel. ",
+    "greenlight_description": "Créez vos salles et sessions ou rejoignez celles de autres grâce à un lien court et pratique.",
+    "learn_more": "En apprendre plus sur BigBlueButton",
+    "explore_features": "Découvrez les fonctionnalités",
     "meeting_title": "Commencer une réunion",
-    "meeting_description": "Commencer une classe virtuelle pour améliorer l'apprentissage",
+    "meeting_description": "Démarrez une classe virtuelles avec de la vidéo, de l'audio, du partage d'écran, un chat et tous les outils nécessaires à une formation.",
     "recording_title": "Enregistrez vos réunions",
-    "recording_description": "Les réunions avec BigBlueButton peuvent être enregistrées et partagées avec les étudiants.",
+    "recording_description": "Enregistrez des conférences dans BigBlueButton et partagez les avec les étudiants pour en étudier les contenus.",
     "settings_title": "Gérez vos salles",
-    "settings_description": "Paramétrer une salle pour vous aider a lancer une classe virtuelle efficace.",
-    "learning_tools_title": "Et plus encore!",
-    "learning_tools_description": "BigBlueButton vous offre des outils intégrés pour améliorer votre expérience de l'enseignement et de l'apprentissage en ligne"
+    "settings_description": "Paramétrez vos salles et chaque réunion pour une salle de classe optimale",
+    "and_more_title": "Et plus encore!",
+    "and_more_description": "BigBlueButton propose de outils intégrés pour la formation et est conçu pour vous faire gagner du temps pendant le cours"
   },
   "authentication": {
     "sign_in": "S'identifier",
@@ -471,6 +474,47 @@
         "validations": {
           "old_password": {
             "required": "Veuillez saisir votre mot de passe actuel"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "Courriel",
+            "placeholder": "Saisissez l'adresse courriel du compte"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Veuillez saisir l'adresse courriel du compte"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Nouveau mot de passe.",
+            "placeholder": "Saisissez le nouveau mot de passe"
+          },
+          "password_confirmation": {
+            "label": "Confirmez le mot de passe",
+            "placeholder": "Confirmez votre nouveau mot de passe"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Nom complet"
+          },
+          "email": {
+            "label": "Courriel"
+          },
+          "language": {
+            "label": "Langue"
+          },
+          "role": {
+            "label": "Rôle"
           }
         }
       }
