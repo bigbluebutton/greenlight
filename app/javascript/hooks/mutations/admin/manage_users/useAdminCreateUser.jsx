@@ -14,8 +14,12 @@ export default function useAdminCreateUser({ onSettled }) {
         queryClient.invalidateQueries('getAdminUsers');
         toast.success(t('toast.success.user.user_created'));
       },
-      onError: () => {
-        toast.error(t('toast.error.problem_completing_action'));
+      onError: (err) => {
+        if (err.response.data.errors === 'EmailAlreadyExists'){
+          toast.error(t('toast.error.users.email_exists'));
+        } else {
+          toast.error(t('toast.error.problem_completing_action'));
+        }
       },
       onSettled,
     },
