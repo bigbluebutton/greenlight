@@ -20,20 +20,23 @@
   "or": "Ou",
   "online": "En ligne",
   "help_center": "Aide",
-  "are_you_sure": "Etes-vous sûr·e?",
+  "are_you_sure": "Etes-vous sûr?",
   "return_home": "Retourner à l'accueil",
   "created_at": "Créé à",
   "homepage": {
     "welcome_bbb": "Bienvenue sur BigBlueButton.",
-    "greenlight_description": "Greenlight est une interface simple pour votre serveur de web- conférence open-source BigBlueButton. Vous pouvez créer vos propres salles pour héberger des sessions ou en rejoindre d'autres via un lien court et pratique.",
+    "bigbluebutton_description": "BigBluButton est un système de webconférence dont le code source ouvert et qui est destinée à l'enseignement en ligne. La plateforme permet de profiter au mieux du temps dédié à la formation en favorisant la collaboration et une supervision en temps réel. ",
+    "greenlight_description": "Créez vos salles et sessions ou rejoignez celles de autres grâce à un lien court et pratique.",
+    "learn_more": "En apprendre plus sur BigBlueButton",
+    "explore_features": "Découvrez les fonctionnalités",
     "meeting_title": "Commencer une réunion",
-    "meeting_description": "Commencer une classe virtuelle pour améliorer l'apprentissage",
+    "meeting_description": "Démarrez une classe virtuelles avec de la vidéo, de l'audio, du partage d'écran, un chat et tous les outils nécessaires à une formation.",
     "recording_title": "Enregistrez vos réunions",
-    "recording_description": "Les réunions avec BigBlueButton peuvent être enregistrées et partagées avec les étudiants.",
+    "recording_description": "Enregistrez des conférences dans BigBlueButton et partagez les avec les étudiants pour en étudier les contenus.",
     "settings_title": "Gérez vos salles",
-    "settings_description": "Paramétrer une salle pour vous aider a lancer une classe virtuelle efficace.",
-    "learning_tools_title": "Et plus encore!",
-    "learning_tools_description": "BigBlueButton vous offre des outils intégrés pour améliorer votre expérience de l'enseignement et de l'apprentissage en ligne"
+    "settings_description": "Paramétrez vos salles et chaque réunion pour une salle de classe optimale",
+    "and_more_title": "Et plus encore!",
+    "and_more_description": "BigBlueButton propose de outils intégrés pour la formation et est conçu pour vous faire gagner du temps pendant le cours"
   },
   "authentication": {
     "sign_in": "S'identifier",
@@ -52,20 +55,20 @@
     "already_have_account": "Vous avez déjà un compte ?"
   },
   "user": {
-    "user": "Utilisateur·rice",
-    "users": "Utilisateurs·rices",
+    "user": "Utilisateur",
+    "users": "Utilisateurs",
     "name": "Nom",
     "email_address": "Adresse de courriel",
     "authenticator": "Authentifiant",
     "full_name": "Nom complet",
-    "no_user_found": "Aucun utilisateur·rice trouvé ",
+    "no_user_found": "Aucun utilisateur trouvé ",
     "type_three_characters": "Veuillez taper trois (3) lettres ou plus pour voir d'autres utilisateurs",
     "profile": {
       "profile": "Profil",
       "language": "Langue",
       "role": "Rôle",
-      "administrator": "Administrateur·rice",
-      "guest": "Invité·e"
+      "administrator": "Administrateur",
+      "guest": "Invité"
     },
     "account": {
       "account_info": "Informations sur le compte",
@@ -79,7 +82,7 @@
       "permanently_delete_account": "Supprimer définitivement votre compte",
       "delete_account_description": "Si vous choisissez de supprimer votre compte, il NE pourra PAS être rétabli. Toutes les informations de votre compte, y compris les paramètres, les salles, et les enregistrements, seront effacés.",
       "delete_account_confirmation": "Oui, je veux supprimer mon compte",
-      "are_you_sure_delete_account": "Etes-vous sûr·e de vouloir supprimer votre compte ?"
+      "are_you_sure_delete_account": "Etes-vous sûr de vouloir supprimer votre compte ?"
     },
     "avatar": {
       "upload_avatar": "Téléverser un avatar",
@@ -105,10 +108,10 @@
     "meeting": {
       "start_meeting": "Commencer la réunion",
       "join_meeting": "Rejoindre la réunion",
-      "meeting_invitation": "Vous avez été invité·e à rejoindre la réunion",
+      "meeting_invitation": "Vous avez été invité à rejoindre la réunion",
       "meeting_not_started": "La réunion n'a pas encore commencé.",
       "join_meeting_automatically": "Vous rejoindrez automatiquement la réunion quand elle débutera",
-      "recording_consent": "J'admets être informé·e que cette session pourrait être enregistrée. Le cas échéant ma voix et mon image vidéo feront partie de la captation."
+      "recording_consent": "J'admets être informé que cette session pourrait être enregistrée. Le cas échéant ma voix et mon image vidéo feront partie de la captation."
     },
     "presentation": {
       "presentation": "Captation",
@@ -121,19 +124,19 @@
       "access": "Accès",
       "add_share_access": "+ Partager l'accès",
       "share_room_access": "Partager l'accès à la salle",
-      "add_some_users": "Il est temps d'ajouter quelques utilisateurs·rices !",
-      "add_some_users_description": "Pour partager cette salle avec de nouveaux utilisateurs·rices, cliquez sur le bouton ci-dessous pour les rechercher ou les sélectionner."
+      "add_some_users": "Il est temps d'ajouter quelques utilisateurs !",
+      "add_some_users_description": "Pour partager cette salle avec de nouveaux utilisateurs, cliquez sur le bouton ci-dessous pour les rechercher ou les sélectionner."
     },
     "settings": {
       "settings": "Paramètres",
       "room_name": "Nom de la salle",
-      "user_settings": "Paramètres de l'utilisateur·rice",
+      "user_settings": "Paramètres de l'utilisateur",
       "allow_room_to_be_recorded": "Permettre les enregistrements dans cette salle",
-      "require_signed_in": "Seuls les utilisateurs·rices identifiés·ées peuvent rejoindre la salle",
+      "require_signed_in": "Seuls les utilisateurs identifiés peuvent rejoindre la salle",
       "require_signed_in_message": "Vous devez vous identifier pour rejoindre la salle",
-      "require_mod_approval": "L'approbation d'un modérateur·rice est nécessaire pour rejoindre la réunion.",
-      "allow_any_user_to_start": "Tout utilisateur·rices peut démarrer la réunion",
-      "all_users_join_as_mods": "Tout utilisateur·rice rejoint la salle en tant que modérateur",
+      "require_mod_approval": "L'approbation d'un modérateur est nécessaire pour rejoindre la réunion.",
+      "allow_any_user_to_start": "Tout utilisateur peut démarrer la réunion",
+      "all_users_join_as_mods": "Tout utilisateur rejoint la salle en tant que modérateur",
       "mute_users_on_join": "Les utilisateurs·rice rejoignent la salle en mode silencieux",
       "generate": "Générer",
       "access_code": "Code d'accès",
@@ -471,6 +474,47 @@
         "validations": {
           "old_password": {
             "required": "Veuillez saisir votre mot de passe actuel"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "Courriel",
+            "placeholder": "Saisissez l'adresse courriel du compte"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Veuillez saisir l'adresse courriel du compte"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Nouveau mot de passe.",
+            "placeholder": "Saisissez le nouveau mot de passe"
+          },
+          "password_confirmation": {
+            "label": "Confirmez le mot de passe",
+            "placeholder": "Confirmez votre nouveau mot de passe"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Nom complet"
+          },
+          "email": {
+            "label": "Courriel"
+          },
+          "language": {
+            "label": "Langue"
+          },
+          "role": {
+            "label": "Rôle"
           }
         }
       }
