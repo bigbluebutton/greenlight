@@ -40,7 +40,7 @@ export default function UpdateUserForm({ user }) {
     <Form methods={methods} onSubmit={updateUserAPI.mutate}>
       <FormControl field={fields.name} type="text" />
       <FormControl field={fields.email} type="email" readOnly />
-      <FormSelect field={fields.language}>
+      <FormSelect field={fields.language} variant="dropdown">
         {
           Object.keys(localesAPI.data || {}).map((code) => <Option key={code} value={code}>{localesAPI.data[code]}</Option>)
         }
