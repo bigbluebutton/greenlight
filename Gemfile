@@ -34,7 +34,7 @@ gem 'omniauth-twitter', '~> 1.4.0'
 gem 'pagy', '~> 3.11.0'
 gem 'pluck_to_hash', '~> 1.0.2'
 gem 'puma', '~> 4.3.12'
-gem 'rails', '~> 5.2.8.1'
+gem 'rails', '~> 6.1.7.1'
 gem 'random_password', '~> 0.1.1'
 gem "recaptcha", '~> 5.7.0'
 gem 'redcarpet', '~> 3.5.1'
@@ -59,7 +59,7 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 11.1', platform: :mri
-  gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
+  gem 'dotenv-rails', '~> 2.8', '>= 2.8.1'
 end
 
 group :test do
