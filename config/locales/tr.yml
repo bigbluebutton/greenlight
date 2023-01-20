@@ -30,8 +30,12 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 tr:
+  meeting:
+    moderator_message: "Toplantıya katılmasını istediğiniz kişilere bu bağlantıyı gönderin: "
+    access_code: "Erişim kodu: %{code}"
   email:
     activation:
+      line0: "Hoş geldiniz %{name}!"
       line1: Greenlight ve BigBlueButton uygulamalarını kullanmaya ve bunlardan yararlanmaya başlamak için yalnızca bir adım kaldı!
       line2: Hesabınızı etkinleştirmek için aşağıdaki bağlantıyı açarak kimliğinizi doğrulamaya çağrıldınız.
       line3: "Hesabınızı etkinleştirdiğinizde, tüm Greenlight ve BigBlueButton özelliklerinden yararlanabileceksiniz!"
@@ -39,3 +43,16 @@ tr:
       line5: Hesabımı etkinleştir
       line6: "Bağlantı %{time} sonra geçersiz olacak"
       line7: Bu e-postadaki bağlantının süresi geçse bile hesabınızda oturum açarak yeni bir etkinleştirme bağlantısı isteğinde bulunabilirsiniz.
+    invitation:
+      line0: BigBlueButton toplantısına katılma çağrısı
+      line1: "%{name} tarafından kendi kişisel alanınıza çağrıldınız."
+      line2: E-posta adresinizi kullanarak hesap açmak için aşağıdaki düğmeye tıklayın ve yönergeleri izleyin.
+      line3: Bu çağrı 48 saat süreyle geçerlidir.
+      line4: Hesap aç
+    reset:
+      line0: Parolayı sıfırla
+      line1: "%{email} adresi için bir parola sıfırlama isteğinde bulunuldu"
+      line2: "Bu işlemi siz yaptıysanız, parolanızı sıfırlamak için aşağıdaki bağlantıya tıklayın:\""
+      line3: Parolayı sıfırla
+      line4: Bu işlemi siz yapmadıysanız bu e-postayı yok sayabilirsiniz.
+      line5: "Bu bağlantı %{time} sonra geçersiz olacak."
