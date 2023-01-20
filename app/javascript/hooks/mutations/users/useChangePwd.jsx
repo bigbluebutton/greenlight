@@ -12,8 +12,12 @@ export default function useChangePwd() {
       onSuccess: () => {
         toast.success(t('toast.success.user.password_updated'));
       },
-      onError: () => {
-        toast.error(t('toast.error.problem_completing_action'));
+      onError: (err) => {
+        if (err.response.data.errors === 'IncorrectOldPassword') {
+          toast.error(t('toast.error.users.old_password'));
+        } else {
+          toast.error(t('toast.error.problem_completing_action'));
+        }
       },
     },
   );

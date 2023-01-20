@@ -29,7 +29,9 @@ module Greenlight
       email_exists: 'EmailAlreadyExists',
       record_invalid: 'RecordInvalid',
       invite_token_invalid: 'InviteInvalid',
-      hcaptcha_invalid: 'HCaptchaInvalid'
+      hcaptcha_invalid: 'HCaptchaInvalid',
+      incorrect_old_password: 'IncorrectOldPassword',
+      room_limit: 'RoomLimitError'
     }
 
     ActiveModelSerializers.config.adapter = :json
