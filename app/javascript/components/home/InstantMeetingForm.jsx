@@ -22,7 +22,7 @@ export default function InstantMeetingForm() {
       >
         {instantMeeting?.isLoading
           ? <Spinner className="me-2" />
-          : 'Start Meeting'}
+          : 'Démarrer la réunion'}
       </Button>
     </Form>
   );

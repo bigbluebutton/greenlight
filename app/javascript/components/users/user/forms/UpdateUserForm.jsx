@@ -68,8 +68,7 @@ export default function UpdateUserForm({ user }) {
             name: user.name,
             email: user.email,
           })}
-        >
-          Cancel
+        >{t('cancel')}
         </Button>
         <Button variant="brand" type="submit" disabled={isSubmitting}>
           {isSubmitting && <Spinner className="me-2" />}

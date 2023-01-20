@@ -26,8 +26,8 @@ export default function InstantMeeting() {
 
             <div id="instant-meeting-banner" className="position-absolute bottom-0">
               <h3 className="mb-3"> BLINDSIDE NETWORKS </h3>
-              <span className="header-title fw-bold my-3"> Start & join meetings now!</span>
-              <p className="mt-3"> No account necessary </p>
+              <span className="header-title fw-bold my-3"> Créer une réunion <br /> en un seul clic!</span>
+              <p className="mt-3"> L'enregistrement du compte n'est pas requis </p>
               <InstantMeetingForm />
             </div>
           </div>

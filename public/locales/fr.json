@@ -9,7 +9,7 @@
   "join": "Rejoindre",
   "edit": "Modifier",
   "save": "Enregistrer",
-  "save_changes": "Enregistrer les modifications",
+  "save_changes": "Enregistrer",
   "update": "Mettre à jour",
   "report": "Signaler",
   "share": "Partager",
@@ -60,7 +60,7 @@
       "guest": "Invité·e"
     },
     "account": {
-      "account_info": "Informations sur le compte",
+      "account_info": "Mon compte",
       "delete_account": "Supprimer le compte",
       "change_password": "Changer de mot de passe",
       "reset_password": "Réinitialiser le mot de passe",
@@ -74,8 +74,8 @@
       "are_you_sure_delete_account": "Etes-vous sûr·e de vouloir supprimer votre compte ?"
     },
     "avatar": {
-      "upload_avatar": "Téléverser un avatar",
-      "delete_avatar": "Effacer l'avatar",
+      "upload_avatar": "Téléverser",
+      "delete_avatar": "Effacer",
       "crop_avatar": "Recadrer votre avatar"
     }
   },
@@ -89,7 +89,7 @@
     "create_new_room": "Créer une nouvelle salle",
     "enter_room_name": "Saisissez le nom de la salle",
     "shared_by": "Partagé par",
-    "last_session": "Dernière session : {{ salle.dernière_session }}",
+    "last_session": "Dernière session : {{ room.last_session }}",
     "no_last_session": "Il n'y a aucune session précédente",
     "no_rooms_found": "Aucune salle trouvée",
     "meeting": {
@@ -101,7 +101,7 @@
       "recording_consent": "J'admets être informé·e que cette session pourrait être enregistrée. Le cas échéant ma voix et mon image vidéo feront partie de la captation."
     },
     "presentation": {
-      "presentation": "Captation",
+      "presentation": "Présentation",
       "click_to_upload": "Cliquez pour téléverser",
       "drag_and_drop": "ou glissez-déposez",
       "upload_description": "Téléversez n'importe quel document Office ou fichier pdf. Le temps nécessaire au téléversement dépend du volume du fichier.",
@@ -146,7 +146,7 @@
     "published": "Publiée",
     "unpublished": "Non publiée",
     "protected": "Protégée",
-    "length_in_minutes": "{{enregistrement.durée}} min.",
+    "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Traitement de l'enregistrement...",
     "copy_recording_urls": "Copier l'URL de l'enregistrement",
     "no_recording_found": "Aucun enregistrement trouvé",
@@ -155,7 +155,7 @@
   "admin": {
     "admin_panel": "Panneau d'administration",
     "manage_users": {
-      "manage_users": "Gestion des utilisateurs·rices",
+      "manage_users": "Utilisateurs·rices",
       "active": "Actif",
       "approve": "Approuver",
       "decline": "Refuser",
@@ -176,10 +176,10 @@
       "create_account": "Créer un compte",
       "create_room": "Créer une salle",
       "create_new_room": "Créer une nouvelle salle",
-      "user_created_at": "Créé: {{utilisateur_at}}",
+      "user_created_at": "Créé: {{user.created_at}}",
       "enter_user_email": "Saisir un courriel",
       "enter_user_name": "Saisir un nom",
-      "are_you_sure_delete_account": "Etes vous sûr de vouloir supprimer le compte de {{nom.utilisateur}} ?",
+      "are_you_sure_delete_account": "Etes vous sûr de vouloir supprimer le compte de {{user.name}} ?",
       "delete_account_warning": "Une fois ce compte supprimé il NE pourra PAS être rétabli",
       "invited": {
         "time_sent": "Heure d'envoi",
@@ -187,7 +187,7 @@
       }
     },
     "server_rooms": {
-      "server_rooms": "Salles serveur",
+      "server_rooms": "Tous les Salles",
       "name": "Nom",
       "owner": "Propriétaire",
       "room_id": "ID de la salle",
@@ -196,14 +196,14 @@
       "running": "En activité",
       "not_running": "Inactif",
       "active": "Actif",
-      "current_session": "Session en cours: {{dernièreSession}}",
-      "last_session": "Dernière Session: {{dernièreSession}}",
+      "current_session": "Session en cours: {{lastSession}}",
+      "last_session": "Dernière Session: {{lastSession}}",
       "no_meeting_yet": "Pas de réunion pour l'instant",
       "delete_server_rooms": "Supprimer la salle du serveur",
       "resync_recordings": "Resynchronisation des enregistrements"
     },
     "server_recordings": {
-      "server_recordings": "Enregistrements du serveur",
+      "server_recordings": "Tous les Enregistrements",
       "latest_recordings": "Derniers enregistrements",
       "no_recordings_found": "Aucun enregistrement trouvé"
     },
@@ -260,14 +260,14 @@
       "enabled": "Activé",
       "disabled": "Désactivé",
       "configurations": {
-        "allow_room_to_be_recorded": "Autoriser les enregistrements pour cette salle",
-        "allow_room_to_be_recorded_description": "Permettre aux propriétaires de la salle de préciser s'ils veulent ou non disposer de l'enregistrement. S'ils l'activent ils devront tout de même cliquer sur le bouton \"Enregistrer\" une fois que la session à débuté.",
+        "allow_room_to_be_recorded": "Autoriser les enregistrements pour la salle",
+        "allow_room_to_be_recorded_description": "Permettre aux propriétaires de la salle de préciser s'ils veulent ou non disposer de l'enregistrement. S'ils l'activent ils devront tout de même cliquer sur le bouton \"Enregistrer\" une fois que la session à débuté",
         "require_user_signed_in": "Demander l'identification des utilisateurs pour rejoindre une salle",
-        "require_user_signed_in_description": "Autoriser uniquement les utilisateurs·rices disposant d'un compte Greenlight à se joindre à une réunion. S'ils·elles ne sont pas authentifiés·ées, ils·elles seront redirigés·es vers la page d'identification quand ils·elles essayent de rejoindre une salle",
-        "require_mod_approval": "L'approbation d'un modérateur est nécessaire pour se joindre à une réunion.",
+        "require_user_signed_in_description": "Autoriser uniquement les utilisateurs·rices disposant d'un compte Greenlight à se joindre à une réunion. S'ils·elles ne sont pas authentifiés·ées, ils·elles seront redirigés·es vers la page d'identification quand ils·elles essayent de rejoindre une réunion",
+        "require_mod_approval": "L'approbation d'un modérateur est nécessaire pour se joindre à une réunion",
         "require_mod_approval_description": "Notifie le modérateur quand un·e utilisateur·rice tente de rejoindre la salle. Après approbation, l'utilisateur·rice pourra se joindre à la réunion",
         "allow_any_user_to_start_meeting": "Permettre à tout·e utilisateur·rice de lancer une réunion",
-        "allow_any_user_to_start_meeting_description": "Permettre tout·e utilisateur·rice de commencer la réunion à tout  moment. Par défaut, seul le propriétaire de la salle peut commencer la réunion.",
+        "allow_any_user_to_start_meeting_description": "Permettre tout·e utilisateur·rice de commencer la réunion à tout  moment. Par défaut, seul le propriétaire de la salle peut commencer la réunion",
         "allow_users_to_join_as_mods": "Les utilisateurs·rices rejoignent la réunion en tant que modérateurs·rices",
         "allow_users_to_join_as_mods_description": "Donne à tous·tes les utilisateurs·rices qui se joignent à la réunion les droits de modération",
         "mute_users_on_join": "Les utilisateurs·rices se joignent à la réunion en mode silencieux",
