@@ -44,7 +44,7 @@ export default function UpdateUserForm({ user }) {
   return (
     <Form methods={methods} onSubmit={updateUser.mutate}>
       <FormControl field={fields.name} type="text" />
-      <FormControl field={fields.email} type="email" />
+      <FormControl field={fields.email} type="email" readOnly/>
       <FormSelect field={fields.language}>
         {
           Object.keys(locales || {}).map((code) => <Option key={code} value={code}>{locales[code]}</Option>)

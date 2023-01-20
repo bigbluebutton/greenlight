@@ -72,7 +72,7 @@ module Api
           params[:user].delete(:role_id)
         end
 
-        if user.update(user_params)
+        if user.update(user_params) 
           create_default_room(user)
           render_data  status: :ok
         else
@@ -118,7 +118,7 @@ module Api
       private
 
       def user_params
-        @user_params ||= params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id, :invite_token)
+        @user_params ||= params.require(:user).permit(:name, :password, :avatar, :language, :role_id, :invite_token)
       end
 
       def create_default_room(user)
