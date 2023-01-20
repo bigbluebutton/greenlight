@@ -13,7 +13,7 @@ import Spinner from '../../../shared_components/utilities/Spinner';
 export default function DeleteUserForm({ user, handleClose }) {
   const { t } = useTranslation();
   const methods = useForm();
-  const deleteUser = useDeleteUser(user.id);
+  const deleteUserAPI = useDeleteUser(user.id);
 
   return (
     <>
@@ -21,13 +21,13 @@ export default function DeleteUserForm({ user, handleClose }) {
         <br />
         { t('admin.manage_users.delete_account_warning') }
       </p>
-      <Form methods={methods} onSubmit={deleteUser.mutate}>
+      <Form methods={methods} onSubmit={deleteUserAPI.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="neutral" onClick={handleClose}>
             { t('close') }
           </Button>
-          <Button variant="danger" type="submit" disabled={deleteUser.isLoading}>
-            { deleteUser.isLoading && <Spinner className="me-2" /> }
+          <Button variant="danger" type="submit" disabled={deleteUserAPI.isLoading}>
+            { deleteUserAPI.isLoading && <Spinner className="me-2" /> }
             { t('delete') }
           </Button>
         </Stack>

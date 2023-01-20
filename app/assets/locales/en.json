@@ -418,6 +418,10 @@
       "password_confirmation": {
         "required": "Please enter a password confirmation",
         "match": "The passwords do not match"
+      },
+      "emails": {
+        "required": "Please enter at least one valid email",
+        "list": "Please provide a comma separated list of valid emails (user@users.com,user1@users.com,user2@users.com)"
       }
     },
     "user": {
@@ -537,6 +541,13 @@
           "password_confirmation": {
             "label": "Confirm Password",
             "placeholder": "Confirm the password"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "Emails"
           }
         }
       }
