@@ -22,7 +22,7 @@ export default function useUpdateSiteSetting(name) {
   const uploadPresentation = (data) => {
     let settings;
 
-    if (name === 'BrandingImage') {
+    if (name === 'BrandingImage' && data !== 'bbb_logo') {
       imageValidation(data);
       settings = new FormData();
       settings.append('site_setting[value]', data);

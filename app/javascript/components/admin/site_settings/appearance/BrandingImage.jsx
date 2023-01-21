@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import { CloudArrowUpIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
@@ -43,6 +43,12 @@ export default function BrandingImage() {
           </label>
         </Card>
       </FilesDragAndDrop>
+      <Button
+        variant="neutral"
+        className="btn-sm my-4"
+        onClick={() => updateSiteSetting.mutate('bbb_logo')}
+      > { t('admin.site_settings.appearance.remove_branding_image') }
+      </Button>
     </div>
   );
 }

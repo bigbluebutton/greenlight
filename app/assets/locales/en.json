@@ -230,7 +230,8 @@
         "brand_image": "Brand Image",
         "click_to_upload": "Click to Upload",
         "drag_and_drop": " or drag and drop",
-        "upload_brand_image_description": "Upload any PNG, JPG, or SVG file. Depending on the size of the file, it may require additional time to upload before it can be used"
+        "upload_brand_image_description": "Upload any PNG, JPG, or SVG file. Depending on the size of the file, it may require additional time to upload before it can be used",
+        "remove_branding_image": "Remove Custom Branding Image"
       },
       "administration": {
         "administration": "Administration",

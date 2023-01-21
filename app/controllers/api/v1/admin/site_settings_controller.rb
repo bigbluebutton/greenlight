@@ -29,11 +29,17 @@ module Api
                                     )
           return render_error status: :not_found unless site_setting
 
-          update = if params[:name] == 'BrandingImage'
-                     site_setting.image.attach params[:site_setting][:value]
-                   else
-                     site_setting.update(value: params[:site_setting][:value].to_s)
-                   end
+          # Case where user is removing the custom branding image
+          if params[:site_setting][:value].nil?
+            site_setting.image.purge
+            update = true
+          else
+            update = if params[:name] == 'BrandingImage'
+                       site_setting.image.attach params[:site_setting][:value]
+                     else
+                       site_setting.update(value: params[:site_setting][:value].to_s)
+                     end
+          end
 
           return render_error status: :bad_request unless update
 
