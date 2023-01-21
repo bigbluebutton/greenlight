@@ -15,7 +15,7 @@ export default function useAdminCreateUser({ onSettled }) {
         toast.success(t('toast.success.user.user_created'));
       },
       onError: (err) => {
-        if (err.response.data.errors === 'EmailAlreadyExists'){
+        if (err.response.data.errors === 'EmailAlreadyExists') {
           toast.error(t('toast.error.users.email_exists'));
         } else {
           toast.error(t('toast.error.problem_completing_action'));
