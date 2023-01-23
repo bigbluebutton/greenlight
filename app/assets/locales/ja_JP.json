@@ -25,15 +25,18 @@
   "created_at": "作成時",
   "homepage": {
     "welcome_bbb": "BigBlueButton へようこそ。",
-    "greenlight_description": "Greenlightは、オープンソースWeb会議サーバ BigBlueButton のシンプルなフロントエンドです。 自分の会議室を作成して会議を主催したり、簡単なリンクを使用して他のユーザーを招待したりできます。",
+    "bigbluebutton_description": "BigBlueButtonは、オンライン授業に最適化された、オープンソースのウェブ会議システムです。生徒や学生が協働し、即時にフィードバックが得られるようにすることで、実践的な学びの時間を最大化します。",
+    "greenlight_description": "自分専用の会議室を作成し、会議を主催しましょう。簡単で便利なリンクを使って、他人を招待することもできます。",
+    "learn_more": "BigBlueButtonについてもっと知る",
+    "explore_features": "ソフトウェアの機能をお試しください",
     "meeting_title": "会議を立ち上げる",
-    "meeting_description": "仮想のクラスを立ち上げて、学習効果を最大にすることができます。",
+    "meeting_description": "ビデオ、音声、画面共有、チャットなど、実践的な学びに必要な全てのツールを備えた、仮想授業を立ちあげることができます。",
     "recording_title": "会議を録画する",
-    "recording_description": "BigBlueButtonの会議を録画し、学生や生徒と共有することができます。",
+    "recording_description": "BigBlueButtonの会議を録画し、それを生徒や学生と共有することで、教材を効果的に復習させることができます。",
     "settings_title": "会議室を管理する",
-    "settings_description": "会議室の設定を調整し、仮想教室を効果的に運用できます。",
-    "learning_tools_title": "もちろんこれだけではありません！",
-    "learning_tools_description": "BigBlueButtonには多くの組み込みツールが用意され、オンライン学習＆授業を快適に行うことができます。"
+    "settings_description": "自分の会議室や会議方法の設定を変更し、効果的な学びの場を作り上げることができます。",
+    "and_more_title": "もちろんそれだけではありません！",
+    "and_more_description": "BigBlueButtonには、実践的な学びのためのさまざまなツールが用意されており、授業を行う上で時間を大幅に節約できます。"
   },
   "authentication": {
     "sign_in": "サインイン",
@@ -364,7 +367,8 @@
       },
       "users": {
         "invalid_invite": "あなたの招待トークンはすでに無効か、誤ったものです。管理者に連絡して、新しいものを受け取ってください。",
-        "email_exists": "このメールアドレスで作成されたアカウントが既に存在します。他のメールアドレスでもう一度試してみてください。"
+        "email_exists": "このメールアドレスで作成されたアカウントが既に存在します。他のメールアドレスでもう一度試してみてください。",
+        "old_password": "入力された現パスワードは正しくありません"
       },
       "rooms": {
         "room_limit": "会議室の数が上限に達したため、新たに作成することができません"
@@ -415,6 +419,10 @@
       "password_confirmation": {
         "required": "確認のためパスワードを再入力してください",
         "match": "2つのパスワードが一致しません"
+      },
+      "emails": {
+        "required": "有効なメールアドレスを少なくとも一つ入力してください",
+        "list": "有効なメールアドレスのリストをコンマで区切って入力してください（例：user@users.com,user1@users.com,user2@users.com）"
       }
     },
     "user": {
@@ -534,6 +542,13 @@
           "password_confirmation": {
             "label": "パスワード確認",
             "placeholder": "入力したパスワードを確認"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "メールアドレス"
           }
         }
       }
