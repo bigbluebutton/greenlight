@@ -1,49 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Row, Stack, Form as BootStrapForm, Col,
-} from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
+import { Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import FormControlGeneric from '../../shared_components/forms/FormControlGeneric';
-import Form from '../../shared_components/forms/Form';
-import { RoomConfigFormConfig, RoomConfigFormFields } from '../../../helpers/forms/RoomConfigFormHelpers';
+import SettingSelect from '../site_settings/settings/SettingSelect';
+import useUpdateRoomConfig from '../../../hooks/mutations/admin/room_configuration/useUpdateRoomConfig';
 
 export default function RoomConfigRow({
-  value, title, subtitle, mutation: useUpdateRoomConfig,
+  value, title, subtitle, settingName,
 }) {
   const { t } = useTranslation();
-  const fields = RoomConfigFormFields;
-  const { defaultValues } = RoomConfigFormConfig;
-  defaultValues.value = value;
-
-  const updateRoomConfig = useUpdateRoomConfig();
-  const methods = useForm(RoomConfigFormConfig);
+  const useUpdateRoom = useUpdateRoomConfig(settingName);
 
   return (
-    <Row className="mb-4">
-      <Col md="9">
-        <Stack>
-          <strong> {title} </strong>
-          <span className="text-muted"> {subtitle} </span>
-        </Stack>
-      </Col>
-      <Col md="3">
-        <Form className="mb-0 float-end" methods={methods} onChange={methods.handleSubmit(updateRoomConfig.mutate)}>
-          <FormControlGeneric control={BootStrapForm.Select} field={fields.value} disabled={updateRoomConfig.isLoading}>
-            <option value="optional">{ t('admin.room_configuration.optional') }</option>
-            <option value="false">{ t('admin.room_configuration.disabled') }</option>
-            <option value="true">{ t('admin.room_configuration.enabled') }</option>
-          </FormControlGeneric>
-        </Form>
-      </Col>
-    </Row>
+    <SettingSelect
+      defaultValue={value}
+      title={title}
+      description={subtitle}
+    >
+      <Dropdown.Item value="optional" onClick={() => useUpdateRoom.mutate({ value: 'optional' })}>
+        {t('admin.room_configuration.optional')}
+      </Dropdown.Item>
+      <Dropdown.Item value="false" onClick={() => useUpdateRoom.mutate({ value: 'false' })}>
+        {t('admin.room_configuration.disabled')}
+      </Dropdown.Item>
+      <Dropdown.Item value="true" onClick={() => useUpdateRoom.mutate({ value: 'true' })}>
+        {t('admin.room_configuration.enabled')}
+      </Dropdown.Item>
+    </SettingSelect>
   );
 }
 
 RoomConfigRow.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
-  mutation: PropTypes.func.isRequired,
+  settingName: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
 };

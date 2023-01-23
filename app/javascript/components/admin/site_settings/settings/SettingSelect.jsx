@@ -1,12 +1,13 @@
-import { Form, Stack } from 'react-bootstrap';
+import { Dropdown, Stack } from 'react-bootstrap';
 import React from 'react';
 import PropTypes from 'prop-types';
-import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 export default function SettingSelect({
-  settingName, defaultValue, title, description, children,
+  defaultValue, title, description, children,
 }) {
-  const updateSiteSetting = useUpdateSiteSetting(settingName);
+  // Get the currently selected option and set the dropdown toggle to that value
+  const defaultString = children?.filter((item) => item.props.value === defaultValue)[0];
 
   return (
     <Stack direction="horizontal" className="mb-3">
@@ -14,24 +15,24 @@ export default function SettingSelect({
         <strong> { title } </strong>
         <div className="text-muted">{ description }</div>
       </Stack>
-      <div>
-        <Form.Select
-          value={defaultValue}
-          onChange={(event) => {
-            updateSiteSetting.mutate({ value: event.target.value });
-          }}
-        >
-          { children }
-        </Form.Select>
+      <div className="ms-5">
+        <Dropdown className="setting-select">
+          <Dropdown.Toggle>
+            { defaultString?.props?.children }
+            <ChevronDownIcon className="hi-s float-end" />
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {children}
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
     </Stack>
   );
 }
 
 SettingSelect.propTypes = {
-  settingName: PropTypes.string.isRequired,
   defaultValue: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
 };
