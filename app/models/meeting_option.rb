@@ -24,4 +24,14 @@ class MeetingOption < ApplicationRecord
       .pluck(:name, :value)
       .to_h
   end
+
+  def true_value
+    if name.ends_with? 'AccessCode'
+      SecureRandom.alphanumeric(6).downcase
+    elsif name == 'guestPolicy'
+      'ASK_MODERATOR'
+    else
+      'true'
+    end
+  end
 end

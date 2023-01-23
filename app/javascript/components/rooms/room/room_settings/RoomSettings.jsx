@@ -19,7 +19,7 @@ export default function RoomSettings() {
   const currentUser = useAuth();
   const { friendlyId } = useParams();
   const roomSetting = useRoomSettings(friendlyId);
-  const roomsConfigs = useRoomConfigs();
+  const { data: roomConfigs } = useRoomConfigs();
 
   const updateMutationWrapper = () => useUpdateRoomSetting(friendlyId);
   const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
@@ -35,14 +35,14 @@ export default function RoomSettings() {
                 settingName="glViewerAccessCode"
                 updateMutation={updateMutationWrapper}
                 code={roomSetting?.data?.glViewerAccessCode}
-                config={roomsConfigs?.data?.glViewerAccessCode}
+                config={roomConfigs?.glViewerAccessCode}
                 description={t('room.settings.generate_viewers_access_code')}
               />
               <AccessCodeRow
                 settingName="glModeratorAccessCode"
                 updateMutation={updateMutationWrapper}
                 code={roomSetting?.data?.glModeratorAccessCode}
-                config={roomsConfigs?.data?.glModeratorAccessCode}
+                config={roomConfigs?.glModeratorAccessCode}
                 description={t('room.settings.generate_mods_access_code')}
               />
             </Col>
@@ -53,7 +53,7 @@ export default function RoomSettings() {
                   settingName="record"
                   updateMutation={updateMutationWrapper}
                   value={roomSetting?.data?.record}
-                  config={roomsConfigs?.data?.record}
+                  config={roomConfigs?.record}
                   description={t('room.settings.allow_room_to_be_recorded')}
                 />
               )}
@@ -61,35 +61,35 @@ export default function RoomSettings() {
                 settingName="glRequireAuthentication"
                 updateMutation={updateMutationWrapper}
                 value={roomSetting?.data?.glRequireAuthentication}
-                config={roomsConfigs?.data?.glRequireAuthentication}
+                config={roomConfigs?.glRequireAuthentication}
                 description={t('room.settings.require_signed_in')}
               />
               <RoomSettingsRow
                 settingName="guestPolicy"
                 updateMutation={updateMutationWrapper}
                 value={roomSetting?.data?.guestPolicy}
-                config={roomsConfigs?.data?.guestPolicy}
+                config={roomConfigs?.guestPolicy}
                 description={t('room.settings.require_mod_approval')}
               />
               <RoomSettingsRow
                 settingName="glAnyoneCanStart"
                 updateMutation={updateMutationWrapper}
                 value={roomSetting?.data?.glAnyoneCanStart}
-                config={roomsConfigs?.data?.glAnyoneCanStart}
+                config={roomConfigs?.glAnyoneCanStart}
                 description={t('room.settings.allow_any_user_to_start')}
               />
               <RoomSettingsRow
                 settingName="glAnyoneJoinAsModerator"
                 updateMutation={updateMutationWrapper}
                 value={roomSetting?.data?.glAnyoneJoinAsModerator}
-                config={roomsConfigs?.data?.glAnyoneJoinAsModerator}
+                config={roomConfigs?.glAnyoneJoinAsModerator}
                 description={t('room.settings.all_users_join_as_mods')}
               />
               <RoomSettingsRow
                 settingName="muteOnStart"
                 updateMutation={updateMutationWrapper}
                 value={roomSetting?.data?.muteOnStart}
-                config={roomsConfigs?.data?.muteOnStart}
+                config={roomConfigs?.muteOnStart}
                 description={t('room.settings.mute_users_on_join')}
               />
               <div className="float-end mt-3">

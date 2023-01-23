@@ -18,7 +18,7 @@ class RoomSettingsGetter
     # Fetching only rooms configs that are not optional to overwrite the settings values.
     @rooms_configs = MeetingOption.joins(:rooms_configurations)
                                   .where(rooms_configurations: { provider: })
-                                  .where.not(rooms_configurations: { value: 'optional' })
+                                  .where.not(rooms_configurations: { value: %w[optional default] })
                                   .pluck(:name, :value)
                                   .to_h
   end

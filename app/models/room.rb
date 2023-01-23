@@ -47,11 +47,14 @@ class Room < ApplicationRecord
 
   # Autocreate all meeting options using the default values
   def create_meeting_options
-    configs = MeetingOption.get_config_value(name: %w[glViewerAccessCode glModeratorAccessCode], provider: user.provider)
-    configs = configs.select { |_k, v| v == 'true' }
+    configs = RoomsConfiguration.joins(:meeting_option).where(provider: user.provider).pluck(:name, :value).to_h
 
     MeetingOption.all.find_each do |option|
-      value = configs.key?(option.name) ? SecureRandom.alphanumeric(6).downcase : option.default_value
+      value = if %w[true default].include? configs[option.name]
+                option.true_value
+              else
+                option.default_value
+              end
       RoomMeetingOption.create(room: self, meeting_option: option, value:)
     end
   end

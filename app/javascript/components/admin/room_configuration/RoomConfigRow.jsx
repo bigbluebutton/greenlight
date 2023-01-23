@@ -17,14 +17,17 @@ export default function RoomConfigRow({
       title={title}
       description={subtitle}
     >
+      <Dropdown.Item value="true" onClick={() => useUpdateRoom.mutate({ value: 'true' })}>
+        {t('admin.room_configuration.enabled')}
+      </Dropdown.Item>
+      <Dropdown.Item value="default" onClick={() => useUpdateRoom.mutate({ value: 'default' })}>
+        {t('admin.room_configuration.default')}
+      </Dropdown.Item>
       <Dropdown.Item value="optional" onClick={() => useUpdateRoom.mutate({ value: 'optional' })}>
         {t('admin.room_configuration.optional')}
       </Dropdown.Item>
       <Dropdown.Item value="false" onClick={() => useUpdateRoom.mutate({ value: 'false' })}>
         {t('admin.room_configuration.disabled')}
-      </Dropdown.Item>
-      <Dropdown.Item value="true" onClick={() => useUpdateRoom.mutate({ value: 'true' })}>
-        {t('admin.room_configuration.enabled')}
       </Dropdown.Item>
     </SettingSelect>
   );

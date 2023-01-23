@@ -269,8 +269,9 @@
     },
     "room_configuration": {
       "room_configuration": "Room Configuration",
-      "optional": "Optional",
-      "enabled": "Enabled",
+      "default": "Optional (default: enabled)",
+      "optional": "Optional (default: disabled)",
+      "enabled": "Force Enabled",
       "disabled": "Disabled",
       "configurations": {
         "allow_room_to_be_recorded": "Allow Room to be recorded",

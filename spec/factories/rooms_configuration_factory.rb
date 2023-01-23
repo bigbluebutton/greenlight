@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :rooms_configuration do
     meeting_option
     provider { 'greenlight' }
-    value { %w[true false optional].sample }
+    value { %w[true false optional default].sample }
   end
 end
