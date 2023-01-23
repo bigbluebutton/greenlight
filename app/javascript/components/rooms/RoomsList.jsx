@@ -21,46 +21,46 @@ export default function RoomsList() {
   const currentUser = useAuth();
   const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
 
-  if (rooms?.length || searchInput) {
-    return (
-      <>
-        <Stack direction="horizontal" className="pt-5" gap={3}>
-          <div>
-            <SearchBar searchInput={searchInput} id="rooms-search" setSearchInput={setSearchInput} />
-          </div>
-          <Modal
-            modalButton={(
-              <Button
-                variant="brand"
-                className="ms-auto me-xxl-1"
-              >{t('room.add_new_room')}
-              </Button>
-            )}
-            title={t('room.create_new_room')}
-            body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
-          />
-        </Stack>
-        <Row className="g-4 mt-4">
-          {
-                      (isLoading && [...Array(8)].map((val, idx) => (
-                        <Col
-                          // eslint-disable-next-line react/no-array-index-key
-                          key={idx}
-                          className="col-md-auto mt-0 mb-4"
-                        ><RoomCardPlaceHolder />
-                        </Col>
-                      )))
-                      || (rooms?.length && rooms?.map((room) => (
-                        <Col key={room.friendly_id} className="col-md-auto col-xs-12 mt-0 mb-4">
-                          {(room.optimistic && <RoomCardPlaceHolder />) || <RoomCard room={room} />}
-                        </Col>
-                      )))
-                      || <NoRoomsFound searchInput={searchInput} />
-          }
-        </Row>
-      </>
-    );
+  if (!isLoading && !rooms?.length) {
+    return <EmptyRoomsList />;
   }
 
-  return <EmptyRoomsList />;
+  return (
+    <>
+      <Stack direction="horizontal" className="pt-5" gap={3}>
+        <div>
+          <SearchBar searchInput={searchInput} id="rooms-search" setSearchInput={setSearchInput} />
+        </div>
+        <Modal
+          modalButton={(
+            <Button
+              variant="brand"
+              className="ms-auto me-xxl-1"
+            >{t('room.add_new_room')}
+            </Button>
+            )}
+          title={t('room.create_new_room')}
+          body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
+        />
+      </Stack>
+      <Row className="g-4 mt-4">
+        {
+          (isLoading && [...Array(8)].map((val, idx) => (
+            <Col
+              // eslint-disable-next-line react/no-array-index-key
+              key={idx}
+              className="col-md-auto mt-0 mb-4"
+            ><RoomCardPlaceHolder />
+            </Col>
+          )))
+          || (rooms?.length && rooms?.map((room) => (
+            <Col key={room.friendly_id} className="col-md-auto col-xs-12 mt-0 mb-4">
+              {(room.optimistic && <RoomCardPlaceHolder />) || <RoomCard room={room} />}
+            </Col>
+          )))
+          || <NoRoomsFound searchInput={searchInput} />
+          }
+      </Row>
+    </>
+  );
 }
