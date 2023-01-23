@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row } from 'react-bootstrap';
+import { Dropdown, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 import RegistrationForm from './forms/RegistrationForm';
@@ -14,18 +14,25 @@ export default function Registration() {
   const { data: env } = useEnv();
   const { data: siteSettings } = useSiteSettings(['RoleMapping', 'DefaultRole', 'ResyncOnLogin', 'RegistrationMethod']);
   const { data: roles } = useRoles();
+  const updateRegistrationMethod = useUpdateSiteSetting('RegistrationMethod');
+  const updateDefaultRole = useUpdateSiteSetting('DefaultRole');
 
   return (
     <>
       <SettingSelect
-        settingName="RegistrationMethod"
         defaultValue={siteSettings?.RegistrationMethod}
         title={t('admin.site_settings.registration.registration_method')}
         description={t('admin.site_settings.registration.registration_method_description')}
       >
-        <option value="open"> {t('admin.site_settings.registration.registration_methods.open')} </option>
-        <option value="invite"> {t('admin.site_settings.registration.registration_methods.invite')} </option>
-        <option value="approval"> {t('admin.site_settings.registration.registration_methods.approval')} </option>
+        <Dropdown.Item value="open" onClick={() => updateRegistrationMethod.mutate({ value: 'open' })}>
+          {t('admin.site_settings.registration.registration_methods.open')}
+        </Dropdown.Item>
+        <Dropdown.Item value="invite" onClick={() => updateRegistrationMethod.mutate({ value: 'invite' })}>
+          {t('admin.site_settings.registration.registration_methods.invite')}
+        </Dropdown.Item>
+        <Dropdown.Item value="approval" onClick={() => updateRegistrationMethod.mutate({ value: 'approval' })}>
+          {t('admin.site_settings.registration.registration_methods.approval')}
+        </Dropdown.Item>
       </SettingSelect>
 
       { env?.OPENID_CONNECT && (
@@ -44,12 +51,17 @@ export default function Registration() {
       )}
 
       <SettingSelect
-        settingName="DefaultRole"
         defaultValue={siteSettings?.DefaultRole}
         title={t('admin.site_settings.registration.default_role')}
         description={t('admin.site_settings.registration.default_role_description')}
       >
-        { roles?.map((role) => (<option key={role.id} value={role.name}> {role.name} </option>)) }
+        {
+          roles?.map((role) => (
+            <Dropdown.Item value={role.name} onClick={() => updateDefaultRole.mutate({ value: role.name })}>
+              {role.name}
+            </Dropdown.Item>
+          ))
+        }
       </SettingSelect>
 
       <Row className="mb-3">
