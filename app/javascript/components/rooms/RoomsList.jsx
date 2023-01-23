@@ -21,7 +21,7 @@ export default function RoomsList() {
   const currentUser = useAuth();
   const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
 
-  if (!isLoading && !rooms?.length) {
+  if (!isLoading && !rooms?.length && !searchInput) {
     return <EmptyRoomsList />;
   }
 
