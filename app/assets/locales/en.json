@@ -163,7 +163,7 @@
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Processing recording...",
     "copy_recording_urls": "Copy Recording Url(s)",
-    "no_recording_found": "No recordings found",
+    "no_recordings_found": "No Recordings found",
     "recordings_list_empty": "You don't have any recordings yet!",
     "recordings_list_empty_description": "Recordings will appear here after you start a meeting and record it.",
     "are_you_sure_delete_recording": "Are you sure you want to delete this recording?"

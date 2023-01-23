@@ -12,7 +12,7 @@ export default function NoRecordingsFound({ searchInput }) {
       <div className="icon-circle rounded-circle d-block mx-auto mb-3 bg-white">
         <MagnifyingGlassIcon className="hi-l text-brand d-block mx-auto pt-4" />
       </div>
-      <h2>{t('room.no_rooms_found')}</h2>
+      <h2>{t('recording.no_recordings_found')}</h2>
       <p>{t('no_result_search_input', { searchInput })}</p>
     </Stack>
   );
