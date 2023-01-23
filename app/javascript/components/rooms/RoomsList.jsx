@@ -42,9 +42,9 @@ export default function RoomsList() {
         </Stack>
         <Row className="g-4 mt-4">
           {
-                      // eslint-disable-next-line react/no-array-index-key
                       (isLoading && [...Array(8)].map((val, idx) => (
                         <Col
+                          // eslint-disable-next-line react/no-array-index-key
                           key={idx}
                           className="col-md-auto mt-0 mb-4"
                         ><RoomCardPlaceHolder />
