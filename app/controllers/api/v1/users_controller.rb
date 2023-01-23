@@ -27,7 +27,7 @@ module Api
         admin_create = current_user && PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call
 
         # Users created by a user will have the creator language by default with a fallback to the server configured default_locale.
-        user_params[:language] = current_user&.language || I18n.default_locale if user_params[:language].blank?
+        create_user_params[:language] = current_user&.language || I18n.default_locale if create_user_params[:language].blank?
 
         registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
 
@@ -35,7 +35,7 @@ module Api
           return render_error errors: Rails.configuration.custom_error_msgs[:invite_token_invalid]
         end
 
-        user = UserCreator.new(user_params: user_params.except(:invite_token), provider: current_provider, role: default_role).call
+        user = UserCreator.new(user_params: create_user_params.except(:invite_token), provider: current_provider, role: default_role).call
 
         # TODO: Add proper error logging for non-verified token hcaptcha
         if !admin_create && hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
@@ -73,7 +73,7 @@ module Api
           params[:user].delete(:role_id)
         end
 
-        if user.update(user_params)
+        if user.update(update_user_params)
           create_default_room(user)
           render_data  status: :ok
         else
@@ -122,8 +122,12 @@ module Api
 
       private
 
-      def user_params
-        @user_params ||= params.require(:user).permit(:name, :password, :avatar, :language, :role_id, :invite_token)
+      def create_user_params
+        @create_user_params ||= params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id, :invite_token)
+      end
+
+      def update_user_params
+        @update_user_params ||= params.require(:user).permit(:name, :password, :avatar, :language, :role_id, :invite_token)
       end
 
       def create_default_room(user)
@@ -138,10 +142,10 @@ module Api
       end
 
       def valid_invite_token
-        return false if user_params[:invite_token].blank?
+        return false if create_user_params[:invite_token].blank?
 
         # Try to delete the invitation and return true if it succeeds
-        Invitation.destroy_by(email: user_params[:email], provider: current_provider, token: user_params[:invite_token]).present?
+        Invitation.destroy_by(email: create_user_params[:email], provider: current_provider, token: create_user_params[:invite_token]).present?
       end
     end
   end
