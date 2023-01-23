@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import {
-  Card, Stack,
+  Stack,
 } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import useRoomRecordings from '../../../hooks/queries/recordings/useRoomRecordings';
 import SearchBar from '../../shared_components/search/SearchBar';
 import RecordingsList from '../RecordingsList';
 import useRoomRecordingsProcessing from '../../../hooks/queries/recordings/useRoomRecordingsProcessing';
-import RoomsRecordingRow from './RoomsRecordingRow';
-import Pagination from '../../shared_components/Pagination';
-import Recordings from "../Recordings";
 
 export default function RoomRecordings() {
   const [searchInput, setSearchInput] = useState('');
@@ -25,17 +22,7 @@ export default function RoomRecordings() {
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
       </Stack>
-      <Card className="border-0 shadow-sm mt-4">
-        <Recordings />
-      </Card>
-      {!isLoading
-        && (
-        <Pagination
-          page={roomRecordings.meta.page}
-          totalPages={roomRecordings.meta.pages}
-          setPage={setPage}
-        />
-        )}
+      <RecordingsList recording={roomRecordings} isLoading={isLoading} recordingsProcessing={roomRecordingsProcessing} setPage={setPage} />
     </div>
   );
 }
