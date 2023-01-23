@@ -13,13 +13,15 @@ export default function RecordingsList({
 }) {
   const { t } = useTranslation();
 
-  if (searchInput && recordings?.data.length === 0) {
+  if (searchInput && recordings?.length === 0) {
     return (
       <div className="mt-5">
         <NoRecordingsFound searchInput={searchInput} />
       </div>
     );
   }
+
+  console.log('recordings are', recordings)
 
   return (
     <Card className="border-0 shadow-sm p-0 mt-4 mb-5">
@@ -40,20 +42,20 @@ export default function RecordingsList({
             // eslint-disable-next-line react/no-array-index-key
             <RecordingsListRowPlaceHolder key={idx} />
           )))
-          || (recordings?.data.length && recordings?.data.map((recording) => (
+          || (recordings?.length && recordings?.map((recording) => (
             <RoomsRecordingRow key={recording.id} recording={recording} />
           )))
         }
         </tbody>
       </Table>
-      {!isLoading
-        && (
-          <Pagination
-            page={recordings.meta.page}
-            totalPages={recordings.meta.pages}
-            setPage={setPage}
-          />
-        )}
+      {/*{!isLoading*/}
+      {/*  && (*/}
+      {/*    <Pagination*/}
+      {/*      page={recordings.meta.page}*/}
+      {/*      totalPages={recordings.meta.pages}*/}
+      {/*      setPage={setPage}*/}
+      {/*    />*/}
+      {/*  )}*/}
     </Card>
   );
 }

@@ -7,13 +7,18 @@ import useRoomRecordings from '../../../hooks/queries/recordings/useRoomRecordin
 import SearchBar from '../../shared_components/search/SearchBar';
 import RecordingsList from '../RecordingsList';
 import useRoomRecordingsProcessing from '../../../hooks/queries/recordings/useRoomRecordingsProcessing';
+import EmptyRecordingsList from '../EmptyRecordingsList';
 
 export default function RoomRecordings() {
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState();
   const [page, setPage] = useState();
   const { friendlyId } = useParams();
   const { isLoading, data: roomRecordings } = useRoomRecordings(friendlyId, searchInput, page);
   const roomRecordingsProcessing = useRoomRecordingsProcessing(friendlyId);
+
+  if (!isLoading && roomRecordings?.data.length === 0 && !searchInput) {
+    return <EmptyRecordingsList />;
+  }
 
   return (
     <div id="user-recordings">
@@ -22,7 +27,7 @@ export default function RoomRecordings() {
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
       </Stack>
-      <RecordingsList recording={roomRecordings} isLoading={isLoading} recordingsProcessing={roomRecordingsProcessing} setPage={setPage} />
+      <RecordingsList recording={roomRecordings?.data} isLoading={isLoading} recordingsProcessing={roomRecordingsProcessing} setPage={setPage} />
     </div>
   );
 }

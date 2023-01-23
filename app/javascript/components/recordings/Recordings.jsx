@@ -8,7 +8,7 @@ import EmptyRecordingsList from './EmptyRecordingsList';
 import RecordingsList from './RecordingsList';
 
 export default function Recordings() {
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState();
   const [page, setPage] = useState();
   const { isLoading, data: recordings } = useRecordings(searchInput, page);
 
@@ -23,7 +23,7 @@ export default function Recordings() {
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
       </Stack>
-      <RecordingsList recordings={recordings} isLoading={isLoading} setPage={setPage} />
+      <RecordingsList recordings={recordings?.data} isLoading={isLoading} setPage={setPage} />
     </div>
   );
 }
