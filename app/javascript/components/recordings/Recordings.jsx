@@ -21,7 +21,7 @@ export default function Recordings() {
   if (recordings?.length || searchInput) {
     return (
       <div id="user-recordings">
-        <Stack direction="horizontal" className="w-100 pt-5">
+        <Stack direction="horizontal" className="pt-5" className="w-100">
           <div>
             <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
           </div>
