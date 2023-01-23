@@ -9,6 +9,7 @@ import RecordingsList from '../RecordingsList';
 import useRoomRecordingsProcessing from '../../../hooks/queries/recordings/useRoomRecordingsProcessing';
 import RoomsRecordingRow from './RoomsRecordingRow';
 import Pagination from '../../shared_components/Pagination';
+import Recordings from "../Recordings";
 
 export default function RoomRecordings() {
   const [searchInput, setSearchInput] = useState('');
@@ -25,11 +26,7 @@ export default function RoomRecordings() {
         </div>
       </Stack>
       <Card className="border-0 shadow-sm mt-4">
-        <RecordingsList
-          recordings={roomRecordings?.data}
-          RecordingRow={RoomsRecordingRow}
-          recordingsProcessing={roomRecordingsProcessing.data}
-        />
+        <Recordings />
       </Card>
       {!isLoading
         && (

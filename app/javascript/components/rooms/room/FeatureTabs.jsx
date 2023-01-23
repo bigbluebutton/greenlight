@@ -2,12 +2,12 @@ import React from 'react';
 import { Tabs, Tab, Placeholder } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
 import Presentation from './presentation/Presentation';
 import RoomSettings from './room_settings/RoomSettings';
 import SharedAccess from './shared_access/SharedAccess';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
+import Recordings from '../../recordings/Recordings';
 
 export default function FeatureTabs({ shared }) {
   const { t } = useTranslation();
@@ -32,7 +32,7 @@ export default function FeatureTabs({ shared }) {
     return (
       <Tabs className="wide-white pt-4 mx-0" defaultActiveKey="recordings" unmountOnExit>
         <Tab className="background-whitesmoke" eventKey="recordings" title={t('recording.recording')}>
-          <RoomRecordings />
+          <Recordings />
         </Tab>
       </Tabs>
     );
@@ -41,7 +41,7 @@ export default function FeatureTabs({ shared }) {
   return (
     <Tabs className="wide-white pt-4 mx-0" defaultActiveKey="recordings" unmountOnExit>
       <Tab className="background-whitesmoke" eventKey="recordings" title={t('recording.recordings')}>
-        <RoomRecordings />
+        <Recordings />
       </Tab>
       {settings?.PreuploadPresentation
         && (

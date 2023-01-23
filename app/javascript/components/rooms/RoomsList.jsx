@@ -61,6 +61,5 @@ export default function RoomsList() {
       </>
     );
   }
-
   return <EmptyRoomsList />;
 }
