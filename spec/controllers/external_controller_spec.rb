@@ -193,6 +193,15 @@ RSpec.describe ExternalController, type: :controller do
           expect { get :create_user, params: { provider: 'openid_connect' } }.to change(Invitation, :count).by(-1)
         end
 
+        it 'allows a user with an existing account to sign in without a token' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+          create(:user, external_id: OmniAuth.config.mock_auth[:openid_connect][:uid])
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.not_to raise_error
+          expect(response).to redirect_to('/rooms')
+        end
+
         it 'returns an InviteInvalid error if no invite is passed' do
           request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
 

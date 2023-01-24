@@ -16,20 +16,20 @@ class ExternalController < ApplicationController
       verified: true
     }
 
+    user = User.find_by(external_id: credentials['uid'], provider:)
+
     registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
 
-    # Check if they have a valid token
-    if registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token(email: user_info[:email])
+    # Check if they have a valid token only if a new sign up
+    if user.blank? && registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token(email: user_info[:email])
       raise StandardError, Rails.configuration.custom_error_msgs[:invite_token_invalid]
     end
 
-    user = User.find_or_create_by!(external_id: credentials['uid'], provider:) do |u|
-      user_info[:role] = default_role
-      u.assign_attributes(user_info)
-    end
+    # Create the user if they dont exist
+    user = User.create({ external_id: credentials['uid'], provider:, role: default_role }.merge(user_info)) if user.blank?
 
     if SettingGetter.new(setting_name: 'ResyncOnLogin', provider:).call
-      user.assign_attributes(user_info)
+      user.assign_attributes(user_info.except(:language)) # Don't reset the user's language
       user.save! if user.changed?
     end
 
