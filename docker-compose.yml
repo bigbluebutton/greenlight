@@ -8,7 +8,6 @@ services:
     volumes:
       - ./data/postgres/14/database_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=
 
