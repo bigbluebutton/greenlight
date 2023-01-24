@@ -23,7 +23,7 @@ export default function Recordings() {
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
       </Stack>
-      <RecordingsList recordings={recordings?.data} isLoading={isLoading} setPage={setPage} />
+      <RecordingsList recordings={recordings} isLoading={isLoading} setPage={setPage} />
     </div>
   );
 }

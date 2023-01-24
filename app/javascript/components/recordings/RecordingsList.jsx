@@ -13,15 +13,15 @@ export default function RecordingsList({
 }) {
   const { t } = useTranslation();
 
-  if (searchInput && recordings?.length === 0) {
-    return (
-      <div className="mt-5">
-        <NoRecordingsFound searchInput={searchInput} />
-      </div>
-    );
-  }
-
   console.log('recordings are', recordings)
+
+  // if (searchInput && recordings?.data?.length === 0) {
+  //   return (
+  //     <div className="mt-5">
+  //       <NoRecordingsFound searchInput={searchInput} />
+  //     </div>
+  //   );
+  // }
 
   return (
     <Card className="border-0 shadow-sm p-0 mt-4 mb-5">
@@ -42,26 +42,26 @@ export default function RecordingsList({
             // eslint-disable-next-line react/no-array-index-key
             <RecordingsListRowPlaceHolder key={idx} />
           )))
-          || (recordings?.length && recordings?.map((recording) => (
+          || (recordings?.data?.length && recordings?.data?.map((recording) => (
             <RoomsRecordingRow key={recording.id} recording={recording} />
           )))
+          || <NoRecordingsFound searchInput={searchInput} />
         }
         </tbody>
       </Table>
-      {/*{!isLoading*/}
-      {/*  && (*/}
-      {/*    <Pagination*/}
-      {/*      page={recordings.meta.page}*/}
-      {/*      totalPages={recordings.meta.pages}*/}
-      {/*      setPage={setPage}*/}
-      {/*    />*/}
-      {/*  )}*/}
+      {!isLoading
+        && (
+          <Pagination
+            page={recordings?.meta?.page}
+            totalPages={recordings?.meta?.pages}
+            setPage={setPage}
+          />
+        )}
     </Card>
   );
 }
 
 RecordingsList.defaultProps = {
-  recordings: [],
   recordingsProcessing: 0,
   isLoading: false,
 };
@@ -75,7 +75,7 @@ RecordingsList.propTypes = {
     visibility: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
     map: PropTypes.func,
-  })),
+  })).isRequired,
   recordingsProcessing: PropTypes.number,
   isLoading: PropTypes.bool,
   searchInput: PropTypes.string.isRequired,

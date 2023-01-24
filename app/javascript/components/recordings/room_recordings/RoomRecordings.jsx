@@ -27,7 +27,7 @@ export default function RoomRecordings() {
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
       </Stack>
-      <RecordingsList recording={roomRecordings?.data} isLoading={isLoading} recordingsProcessing={roomRecordingsProcessing} setPage={setPage} />
+      <RecordingsList recordings={roomRecordings} isLoading={isLoading} recordingsProcessing={roomRecordingsProcessing} setPage={setPage} />
     </div>
   );
 }
