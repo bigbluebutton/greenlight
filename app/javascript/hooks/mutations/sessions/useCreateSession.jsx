@@ -26,8 +26,14 @@ export default function useCreateSession() {
           navigate('/rooms');
         }
       },
-      onError: () => {
-        toast.error(t('toast.error.session.invalid_credentials'));
+      onError: (err) => {
+        if (err.response.data.errors === 'PendingUser') {
+          toast.error(t('toast.error.users.pending'));
+        } else if (err.response.data.errors === 'BannedUser') {
+          toast.error(t('toast.error.users.banned'));
+        } else {
+          toast.error(t('toast.error.session.invalid_credentials'));
+        }
       },
     },
   );

@@ -23,6 +23,9 @@ module Api
 
         # TODO: Add proper error logging for non-verified token hcaptcha
         if user.present? && user.authenticate(session_params[:password])
+          return render_error errors: Rails.configuration.custom_error_msgs[:pending_user] if user.pending?
+          return render_error errors: Rails.configuration.custom_error_msgs[:banned_user] if user.banned?
+
           sign_in user
           render_data data: current_user, serializer: CurrentUserSerializer, status: :ok
         else

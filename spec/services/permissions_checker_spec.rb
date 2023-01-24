@@ -44,6 +44,18 @@ describe PermissionsChecker, type: :service do
       ).call).to be(true)
     end
 
+    it 'returns false if the users status is not active' do
+      banned_user = create(:user, status: :banned)
+      expect(described_class.new(
+        current_user: banned_user,
+        permission_names: permission.name,
+        user_id: '',
+        friendly_id: '',
+        record_id: '',
+        current_provider: user.provider
+      ).call).to be(false)
+    end
+
     context 'multiple permission names' do
       let(:permission2) { create(:permission) }
 

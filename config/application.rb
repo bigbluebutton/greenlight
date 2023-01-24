@@ -31,7 +31,9 @@ module Greenlight
       invite_token_invalid: 'InviteInvalid',
       hcaptcha_invalid: 'HCaptchaInvalid',
       incorrect_old_password: 'IncorrectOldPassword',
-      room_limit: 'RoomLimitError'
+      room_limit: 'RoomLimitError',
+      pending_user: 'PendingUser',
+      banned_user: 'BannedUser'
     }
 
     ActiveModelSerializers.config.adapter = :json

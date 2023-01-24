@@ -11,7 +11,7 @@ import Avatar from '../users/user/Avatar';
 
 export default function NavbarSignedIn({ currentUser }) {
   const { t } = useTranslation();
-  const deleteSession = useDeleteSession();
+  const deleteSession = useDeleteSession({ showToast: true });
 
   const adminAccess = () => {
     const { permissions } = currentUser;
