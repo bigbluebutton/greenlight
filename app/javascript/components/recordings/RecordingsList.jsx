@@ -15,12 +15,12 @@ export default function RecordingsList({
 }) {
   const { t } = useTranslation();
 
-  if (!isLoading && recordings?.data.length === 0 && !searchInput) {
+  if (!isLoading && recordings?.data?.length === 0 && !searchInput) {
     return <EmptyRecordingsList />;
   }
 
   return (
-    <div id="user-recordings">
+    <>
       <Stack direction="horizontal" className="w-100">
         <div>
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
@@ -68,7 +68,7 @@ export default function RecordingsList({
             </Card>
           )
       }
-    </div>
+    </>
   );
 }
 

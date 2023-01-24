@@ -41,25 +41,14 @@ export default function ServerRecordings() {
                   <div className="p-4 border-bottom">
                     <h3> {t('admin.server_recordings.latest_recordings')} </h3>
                   </div>
-                  <div className="p-4">
-                    <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
-                    <Row className="mt-4">
-                      <Col>
-                        <RecordingsList
-                          recordings={serverRecordings?.data}
-                          isLoading={isLoading}
-                          RecordingRow={ServerRecordingRow}
-                        />
-                        {!isLoading
-                          && (
-                            <Pagination
-                              page={serverRecordings.meta.page}
-                              totalPages={serverRecordings.meta.pages}
-                              setPage={setPage}
-                            />
-                          )}
-                      </Col>
-                    </Row>
+                  <div id="server-recordings" className="p-4">
+                    <RecordingsList
+                      recordings={serverRecordings}
+                      isLoading={isLoading}
+                      setPage={setPage}
+                      setSearchInput={setSearchInput}
+                      searchInput={searchInput}
+                    />
                   </div>
                 </Container>
               </Tab.Content>

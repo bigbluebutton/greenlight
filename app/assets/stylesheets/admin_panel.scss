@@ -193,3 +193,9 @@
     max-width: $input-max-width;
   }
 }
+
+#server-recordings {
+  .card {
+    box-shadow: none !important;
+  }
+}

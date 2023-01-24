@@ -12,7 +12,7 @@ export default function RoomRecordings() {
   const roomRecordingsProcessing = useRoomRecordingsProcessing(friendlyId);
 
   return (
-    <div className="pt-3">
+    <div id="user-recordings" className="pt-3">
       <RecordingsList
         recordings={roomRecordings}
         isLoading={isLoading}
