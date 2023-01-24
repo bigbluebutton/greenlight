@@ -7,7 +7,7 @@ export default function ProcessingRecordingRow() {
   const { t } = useTranslation();
 
   return (
-    <tr className="align-middle">
+    <tr id="room-recordings" className="align-middle text-muted border border-2">
       <td className="text-dark border-end-0">
         <Stack direction="horizontal" className="py-2">
           <div className="recording-icon-circle rounded-circle me-3 d-flex align-items-center justify-content-center">
