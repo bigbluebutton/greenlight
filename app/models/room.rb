@@ -50,7 +50,7 @@ class Room < ApplicationRecord
     configs = RoomsConfiguration.joins(:meeting_option).where(provider: user.provider).pluck(:name, :value).to_h
 
     MeetingOption.all.find_each do |option|
-      value = if %w[true default].include? configs[option.name]
+      value = if %w[true default_enabled].include? configs[option.name]
                 option.true_value
               else
                 option.default_value
