@@ -5,7 +5,7 @@
   "previous": "前",
   "back": "戻る",
   "next": "次",
-  "view": "見る",
+  "view": "情報を見る",
   "join": "参加",
   "edit": "編集",
   "save": "保存",
@@ -25,15 +25,18 @@
   "created_at": "作成時",
   "homepage": {
     "welcome_bbb": "BigBlueButton へようこそ。",
-    "greenlight_description": "Greenlightは、オープンソースWeb会議サーバ BigBlueButton のシンプルなフロントエンドです。 自分の会議室を作成して会議を主催したり、簡単なリンクを使用して他のユーザーを招待したりできます。",
+    "bigbluebutton_description": "BigBlueButtonは、オンライン授業に最適化された、オープンソースのウェブ会議システムです。生徒や学生が協働し、即時にフィードバックが得られるようにすることで、実践的な学びの時間を最大化します。",
+    "greenlight_description": "自分専用の会議室を作成し、会議を主催してみてください。簡便なリンクを使って、他人を招待することもできます。",
+    "learn_more": "BigBlueButtonについてもっと知る",
+    "explore_features": "こんな機能があります",
     "meeting_title": "会議を立ち上げる",
-    "meeting_description": "仮想のクラスを立ち上げて、学習効果を最大にすることができます。",
+    "meeting_description": "ビデオ、音声、画面共有、チャットなど、実践的な学びに必要な全てのツールを備えた、仮想授業を立ちあげることができます。",
     "recording_title": "会議を録画する",
-    "recording_description": "BigBlueButtonの会議を録画し、学生や生徒と共有することができます。",
+    "recording_description": "BigBlueButtonの会議を録画し、それを生徒や学生と共有することで、教材を効果的に復習させることができます。",
     "settings_title": "会議室を管理する",
-    "settings_description": "会議室の設定を調整し、仮想教室を効果的に運用できます。",
-    "learning_tools_title": "もちろんこれだけではありません！",
-    "learning_tools_description": "BigBlueButtonには多くの組み込みツールが用意され、オンライン学習＆授業を快適に行うことができます。"
+    "settings_description": "自分の会議室や会議方法の設定を変更し、効果的な学びの場を作り上げることができます。",
+    "and_more_title": "もちろんそれだけではありません！",
+    "and_more_description": "BigBlueButtonには実践的な学びのためのさまざまなツールが用意されており、授業を効率的に行うことができるようデザインされています。"
   },
   "authentication": {
     "sign_in": "サインイン",
@@ -78,7 +81,7 @@
       "confirm_password": "パスワード確認",
       "permanently_delete_account": "アカウントを完全に削除",
       "delete_account_description": "削除したアカウントは二度と元に戻せません。 \n アカウントに関するすべての情報、すなわち設定、会議室、録画などが消去されます。",
-      "delete_account_confirmation": "はい、アカウントを削除してください",
+      "delete_account_confirmation": "はい、アカウントを削除します",
       "are_you_sure_delete_account": "本当にこのアカウントを削除しますか？"
     },
     "avatar": {
@@ -158,7 +161,7 @@
     "protected": "秘匿",
     "length_in_minutes": "{{recording.length}}分",
     "processing_recording": "録画処理中...",
-    "copy_recording_urls": "録画へのURLをコピー",
+    "copy_recording_urls": "録画のURLをコピー",
     "no_recording_found": "録画がありません",
     "are_you_sure_delete_recording": "本当にこの録画を削除しますか？"
   },
@@ -224,7 +227,7 @@
         "brand_color": "サイトの基調色",
         "regular": "標準色",
         "lighten": "明色",
-        "brand_image": "ロゴ画像",
+        "brand_image": "ブランド画像",
         "click_to_upload": "クリックしてアップロード",
         "drag_and_drop": "、あるいはドラッグ＆ドロップ",
         "upload_brand_image_description": "PNG、JPG、またはSVGファイルをアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。"
@@ -234,7 +237,7 @@
         "terms": "利用規約",
         "privacy": "プライバシー",
         "privacy_policy": "プライバシーポリシー",
-        "change_term_links": "ページの下方に表示される利用規約へのリンクを変更する",
+        "change_term_links": "ページ下方の利用規約へのリンクを変更する",
         "change_privacy_link": "ページの下方に表示されるプライベートポリシーへのリンクを変更する",
         "change_url": "URL変更",
         "enter_link": "リンクをここに入力"
@@ -364,7 +367,8 @@
       },
       "users": {
         "invalid_invite": "あなたの招待トークンはすでに無効か、誤ったものです。管理者に連絡して、新しいものを受け取ってください。",
-        "email_exists": "このメールアドレスで作成されたアカウントが既に存在します。他のメールアドレスでもう一度試してみてください。"
+        "email_exists": "このメールアドレスで作成されたアカウントが既に存在します。他のメールアドレスでもう一度試してみてください。",
+        "old_password": "入力された現パスワードは正しくありません"
       },
       "rooms": {
         "room_limit": "会議室の数が上限に達したため、新たに作成することができません"
@@ -415,6 +419,10 @@
       "password_confirmation": {
         "required": "確認のためパスワードを再入力してください",
         "match": "2つのパスワードが一致しません"
+      },
+      "emails": {
+        "required": "有効なメールアドレスを少なくとも一つ入力してください",
+        "list": "有効なメールアドレスのリストをコンマで区切って入力してください（例：user@users.com,user1@users.com,user2@users.com）"
       }
     },
     "user": {
@@ -534,6 +542,13 @@
           "password_confirmation": {
             "label": "パスワード確認",
             "placeholder": "入力したパスワードを確認"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "メールアドレス"
           }
         }
       }
