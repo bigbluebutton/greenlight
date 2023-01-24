@@ -114,7 +114,9 @@ module Api
       # GET /api/v1/rooms/:friendly_id/recordings.json
       # Returns all of a specific room's recordings
       def recordings
-        pagy, room_recordings = pagy(@room.recordings&.search(params[:q]))
+        sort_config = config_sorting(allowed_columns: %w[name length visibility])
+
+        pagy, room_recordings = pagy(@room.recordings&.order(sort_config, created_at: :desc)&.search(params[:q]))
         render_data data: room_recordings, meta: pagy_metadata(pagy), status: :ok
       end
 
