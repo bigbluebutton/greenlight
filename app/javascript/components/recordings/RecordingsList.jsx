@@ -77,7 +77,9 @@ export default function RecordingsList({
 }
 
 RecordingsList.defaultProps = {
+  recordings: { data: [], meta: { page: 1, pages: 1 } },
   recordingsProcessing: 0,
+  searchInput: '',
 };
 
 RecordingsList.propTypes = {
@@ -97,10 +99,10 @@ RecordingsList.propTypes = {
       page: PropTypes.number,
       pages: PropTypes.number,
     }),
-  }).isRequired,
+  }),
   isLoading: PropTypes.bool.isRequired,
   setPage: PropTypes.func.isRequired,
-  searchInput: PropTypes.string.isRequired,
+  searchInput: PropTypes.string,
   setSearchInput: PropTypes.func.isRequired,
   recordingsProcessing: PropTypes.number,
 };
