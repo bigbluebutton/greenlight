@@ -13,16 +13,6 @@ export default function RecordingsList({
 }) {
   const { t } = useTranslation();
 
-  console.log('recordings are', recordings)
-
-  // if (searchInput && recordings?.data?.length === 0) {
-  //   return (
-  //     <div className="mt-5">
-  //       <NoRecordingsFound searchInput={searchInput} />
-  //     </div>
-  //   );
-  // }
-
   return (
     <Card className="border-0 shadow-sm p-0 mt-4 mb-5">
       <Table id="recordings-table" className="table-bordered border border-2 mb-0 recordings-list" hover responsive>
@@ -45,7 +35,6 @@ export default function RecordingsList({
           || (recordings?.data?.length && recordings?.data?.map((recording) => (
             <RoomsRecordingRow key={recording.id} recording={recording} />
           )))
-          || <NoRecordingsFound searchInput={searchInput} />
         }
         </tbody>
       </Table>

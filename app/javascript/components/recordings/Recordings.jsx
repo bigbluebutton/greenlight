@@ -6,6 +6,7 @@ import useRecordings from '../../hooks/queries/recordings/useRecordings';
 import SearchBar from '../shared_components/search/SearchBar';
 import EmptyRecordingsList from './EmptyRecordingsList';
 import RecordingsList from './RecordingsList';
+import NoRecordingsFound from './NoRecordingsFound';
 
 export default function Recordings() {
   const [searchInput, setSearchInput] = useState();
@@ -18,12 +19,21 @@ export default function Recordings() {
 
   return (
     <div id="user-recordings">
-      <Stack direction="horizontal" className="pt-5 w-100">
+      <Stack direction="horizontal" className="w-100 pt-5">
         <div>
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
       </Stack>
-      <RecordingsList recordings={recordings} isLoading={isLoading} setPage={setPage} />
+      {
+        (searchInput && recordings?.data.length === 0)
+          ? (
+            <div className="mt-5">
+              <NoRecordingsFound searchInput={searchInput} />
+            </div>
+          ) : (
+            <RecordingsList recordings={recordings} isLoading={isLoading} setPage={setPage} />
+          )
+      }
     </div>
   );
 }
