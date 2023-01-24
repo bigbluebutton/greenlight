@@ -17,16 +17,17 @@ class ExternalController < ApplicationController
     }
 
     user = User.find_by(external_id: credentials['uid'], provider:)
+    new_user = user.blank?
 
     registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
 
     # Check if they have a valid token only if a new sign up
-    if user.blank? && registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token(email: user_info[:email])
+    if new_user && registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token(email: user_info[:email])
       raise StandardError, Rails.configuration.custom_error_msgs[:invite_token_invalid]
     end
 
     # Create the user if they dont exist
-    user = User.create({ external_id: credentials['uid'], provider:, role: default_role }.merge(user_info)) if user.blank?
+    user = User.create({ external_id: credentials['uid'], provider:, role: default_role }.merge(user_info)) if new_user
 
     if SettingGetter.new(setting_name: 'ResyncOnLogin', provider:).call
       user.assign_attributes(user_info.except(:language)) # Don't reset the user's language
@@ -37,7 +38,7 @@ class ExternalController < ApplicationController
     session[:session_token] = user.session_token
 
     # Set to pending if registration method is approval
-    user.pending! if registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
+    user.pending! if new_user && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
 
     # TODO: - Ahmad: deal with errors
     redirect_location = cookies[:location]
