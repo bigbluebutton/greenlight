@@ -11,7 +11,8 @@ export default function useUpdateRecording(recordId) {
     (recordingData) => axios.put(`/recordings/${recordId}.json`, recordingData),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('getRecordings');
+        queryClient.invalidateQueries(['getRecordings']);
+        queryClient.invalidateQueries(['getRoomRecordings']);
         queryClient.invalidateQueries('getServerRecordings');
         toast.success(t('toast.success.recording.recording_name_updated'));
       },

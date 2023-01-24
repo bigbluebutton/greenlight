@@ -18,7 +18,7 @@ import Modal from '../shared_components/modals/Modal';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
-  recording, visibilityMutation: useVisibilityAPI, updateMutation: useUpdateAPI, deleteMutation: useDeleteAPI,
+  recording, visibilityMutation: useVisibilityAPI, deleteMutation: useDeleteAPI,
 }) {
   const { t } = useTranslation();
 
@@ -29,7 +29,7 @@ export default function RecordingRow({
   }
 
   const visibilityAPI = useVisibilityAPI();
-  const [isEditing, setIsEditing] = useState(+false);
+  const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
   return (
@@ -43,12 +43,11 @@ export default function RecordingRow({
             <strong>
               {/* TODO: Samuel - add an x button or something to the edit name form */}
               <UpdateRecordingForm
-                mutation={useUpdateAPI}
                 recordId={recording.record_id}
                 name={recording.name}
                 hidden={!isEditing || isUpdating}
                 setIsUpdating={setIsUpdating}
-                noLabel
+                setIsEditing={setIsEditing}
               />
               {
                 !isEditing
@@ -144,6 +143,5 @@ RecordingRow.propTypes = {
     map: PropTypes.func,
   }).isRequired,
   visibilityMutation: PropTypes.func.isRequired,
-  updateMutation: PropTypes.func.isRequired,
   deleteMutation: PropTypes.func.isRequired,
 };

@@ -11,7 +11,7 @@ export default function useDeleteRecording({ recordId, onSettled }) {
     () => axios.delete(`/recordings/${recordId}.json`),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('getRecordings');
+        queryClient.invalidateQueries(['getRecordings']);
         queryClient.invalidateQueries('getRecordingsCount');
         queryClient.invalidateQueries(['getRoomRecordings']);
         queryClient.invalidateQueries('getServerRecordings');

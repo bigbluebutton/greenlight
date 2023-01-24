@@ -13,7 +13,7 @@ export default function useRecordingsReSync(friendlyId) {
       onSuccess: () => {
         queryClient.invalidateQueries('getServerRecordings');
         queryClient.invalidateQueries(['getRoomRecordings', { friendlyId }]);
-        queryClient.invalidateQueries('getRecordings');
+        queryClient.invalidateQueries(['getRecordings']);
         toast.success(t('toast.success.room.recordings_synced'));
       },
       onError: () => {

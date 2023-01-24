@@ -11,7 +11,7 @@ export default function useUpdateRecordingVisibility() {
     (visibilityData) => axios.post('/recordings/update_visibility.json', visibilityData),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('getRecordings');
+        queryClient.invalidateQueries(['getRecordings']);
         toast.success(t('toast.success.recording.recording_visibility_updated'));
       },
       onError: () => {
