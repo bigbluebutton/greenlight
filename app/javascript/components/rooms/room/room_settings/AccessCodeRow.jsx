@@ -23,7 +23,7 @@ export default function AccessCodeRow({
     return null;
   }
 
-  const deleteButton = config === 'optional' ? (
+  const deleteButton = ['optional', 'default_enabled'].includes(config) ? (
     <Button
       variant="icon"
       onClick={handleDeleteCode}

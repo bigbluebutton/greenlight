@@ -48,7 +48,7 @@ module Api
 
         def create_meeting_options(provider:)
           RoomsConfiguration.create! [
-            { meeting_option: MeetingOption.find_by(name: 'record'), value: 'optional', provider: },
+            { meeting_option: MeetingOption.find_by(name: 'record'), value: 'default_enabled', provider: },
             { meeting_option: MeetingOption.find_by(name: 'muteOnStart'), value: 'optional', provider: },
             { meeting_option: MeetingOption.find_by(name: 'guestPolicy'), value: 'optional', provider: },
             { meeting_option: MeetingOption.find_by(name: 'glAnyoneCanStart'), value: 'optional', provider: },

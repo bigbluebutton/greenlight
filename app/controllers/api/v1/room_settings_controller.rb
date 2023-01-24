@@ -19,7 +19,7 @@ module Api
       end
 
       # PATCH /api/v1/room_settings/:friendly_id
-      # Updates a room's settings if the room config is set to optional
+      # Updates a room's settings if the room config is set to optional or default
       def update
         name = room_setting_params[:settingName]
         value = room_setting_params[:settingValue].to_s
@@ -31,7 +31,10 @@ module Api
 
         is_access_code = %w[glViewerAccessCode glModeratorAccessCode].include? name
 
-        return render_error status: :forbidden unless config_value == 'optional' || (config_value == 'true' && is_access_code && value != 'false')
+        # Only allow the settings to update if the room config is default or optional / if it is an access_code regeneration
+        unless %w[optional default_enabled].include?(config_value) || (config_value == 'true' && is_access_code && value != 'false')
+          return render_error status: :forbidden
+        end
 
         value = infer_access_code(value:) if is_access_code # Handling access code update.
 

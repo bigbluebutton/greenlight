@@ -88,7 +88,7 @@ export default function EditRoleForm({ role }) {
               defaultValue={rolePermissions?.ManageUsers === 'true'}
               updateMutation={updateRolePermission}
             />
-            {(roomConfigs?.data?.record === 'optional') && (
+            {['optional', 'default_enabled'].includes(roomConfigs?.data?.record) && (
             <RolePermissionRow
               permissionName="CanRecord"
               description="Allow users with this role to record their meetings"

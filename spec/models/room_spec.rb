@@ -74,13 +74,10 @@ RSpec.describe Room, type: :model do
     describe 'create_meeting_options' do
       let!(:viewer_access_code) { create(:meeting_option, name: 'glViewerAccessCode', default_value: '') }
       let!(:moderator_access_code) { create(:meeting_option, name: 'glModeratorAccessCode', default_value: '') }
-
-      before do
-        create_list(:meeting_option, 3)
-      end
+      let!(:meeting_options) { create_list(:meeting_option, 4) }
 
       it 'creates a RoomMeetingOption for each MeetingOption' do
-        expect { create(:room) }.to change(RoomMeetingOption, :count).from(0).to(5)
+        expect { create(:room) }.to change(RoomMeetingOption, :count).from(0).to(6)
       end
 
       it 'does not generate an access code if the room config is not enabled' do
@@ -88,32 +85,48 @@ RSpec.describe Room, type: :model do
         expect(RoomMeetingOption.find_by(meeting_option: viewer_access_code).value).to eql('')
       end
 
-      context 'when access code room config is enabled' do
-        before do
-          create(:rooms_configuration, provider: 'greenlight', value: 'true', meeting_option: viewer_access_code)
-          create(:rooms_configuration, provider: 'greenlight', value: 'true', meeting_option: moderator_access_code)
-        end
+      context 'room configs' do
+        it 'sets the meeting option settings correctly based on the room configs' do
+          create(:rooms_configuration, meeting_option: meeting_options[0], value: 'true')
+          create(:rooms_configuration, meeting_option: meeting_options[1], value: 'false')
+          create(:rooms_configuration, meeting_option: meeting_options[2], value: 'optional')
+          create(:rooms_configuration, meeting_option: meeting_options[3], value: 'default_enabled')
 
-        it 'creates a room and generates an access code if enabled' do
           create(:room)
-          expect(RoomMeetingOption.find_by(meeting_option: viewer_access_code).value).not_to eql('')
+
+          expect(RoomMeetingOption.find_by(meeting_option: meeting_options[0]).value).to eq('true')
+          expect(RoomMeetingOption.find_by(meeting_option: meeting_options[1]).value).to eq(meeting_options[1].default_value)
+          expect(RoomMeetingOption.find_by(meeting_option: meeting_options[2]).value).to eq(meeting_options[2].default_value)
+          expect(RoomMeetingOption.find_by(meeting_option: meeting_options[3]).value).to eq('true')
         end
 
-        it 'creates a room and generates both access code if both are enabled' do
-          create(:room)
-          expect(RoomMeetingOption.find_by(meeting_option: viewer_access_code).value).not_to eql('')
-          expect(RoomMeetingOption.find_by(meeting_option: moderator_access_code).value).not_to eql('')
-        end
-      end
+        context 'when access code room config is enabled' do
+          before do
+            create(:rooms_configuration, provider: 'greenlight', value: 'true', meeting_option: viewer_access_code)
+            create(:rooms_configuration, provider: 'greenlight', value: 'true', meeting_option: moderator_access_code)
+          end
 
-      context 'when access code room config is optional' do
-        before do
-          create(:rooms_configuration, provider: 'greenlight', value: 'optional', meeting_option: viewer_access_code)
+          it 'creates a room and generates an access code if enabled' do
+            create(:room)
+            expect(RoomMeetingOption.find_by(meeting_option: viewer_access_code).value).not_to eql('')
+          end
+
+          it 'creates a room and generates both access code if both are enabled' do
+            create(:room)
+            expect(RoomMeetingOption.find_by(meeting_option: viewer_access_code).value).not_to eql('')
+            expect(RoomMeetingOption.find_by(meeting_option: moderator_access_code).value).not_to eql('')
+          end
         end
 
-        it 'does not generate an access code' do
-          create(:room)
-          expect(RoomMeetingOption.find_by(meeting_option: viewer_access_code).value).to eql('')
+        context 'when access code room config is optional' do
+          before do
+            create(:rooms_configuration, provider: 'greenlight', value: 'optional', meeting_option: viewer_access_code)
+          end
+
+          it 'does not generate an access code' do
+            create(:room)
+            expect(RoomMeetingOption.find_by(meeting_option: viewer_access_code).value).to eql('')
+          end
         end
       end
     end
