@@ -1,46 +1,37 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
-import FormControl from '../../shared_components/forms/FormControl';
-import Form from '../../shared_components/forms/Form';
-import { UpdateRecordingsFormConfig, UpdateRecordingsFormFields } from '../../../helpers/forms/UpdateRecordingsFormHelpers';
+import useUpdateRecording from '../../../hooks/mutations/recordings/useUpdateRecording';
 
 export default function UpdateRecordingForm({
-  name, noLabel, recordId, hidden, setIsUpdating, mutation: useUpdateAPI,
+  name, recordId, hidden, setIsUpdating, setIsEditing,
 }) {
-  const updateAPI = useUpdateAPI(recordId);
+  const updateRecording = useUpdateRecording(recordId);
 
-  UpdateRecordingsFormConfig.defaultValues.name = name;
-
-  const methods = useForm(UpdateRecordingsFormConfig);
-  const fields = UpdateRecordingsFormFields;
-
-  useEffect(() => { setIsUpdating(updateAPI.isLoading); }, [updateAPI.isLoading]);
+  useEffect(() => { setIsUpdating(updateRecording.isLoading); }, [updateRecording.isLoading]);
 
   return (
-    <Form methods={methods} onBlur={methods.handleSubmit(updateAPI.mutate)} hidden={hidden}>
-      <FormControl
-        field={fields.name}
-        noLabel={noLabel}
-        type="text"
-        disabled={updateAPI.isLoading}
-      />
-    </Form>
+    <input
+      type="text"
+      className="form-control"
+      hidden={hidden}
+      disabled={updateRecording.isLoading}
+      onBlur={(e) => { setIsEditing(false); updateRecording.mutate({ recording: { name: e.target.value } }); }}
+      defaultValue={name}
+    />
   );
 }
 
 UpdateRecordingForm.defaultProps = {
   name: '',
-  noLabel: true,
   hidden: false,
   setIsUpdating: () => { },
+  setIsEditing: () => { },
 };
 
 UpdateRecordingForm.propTypes = {
   name: PropTypes.string,
-  noLabel: PropTypes.bool,
   recordId: PropTypes.string.isRequired,
   hidden: PropTypes.bool,
   setIsUpdating: PropTypes.func,
-  mutation: PropTypes.func.isRequired,
+  setIsEditing: PropTypes.func,
 };
