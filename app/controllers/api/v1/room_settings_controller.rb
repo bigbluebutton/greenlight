@@ -32,7 +32,7 @@ module Api
         is_access_code = %w[glViewerAccessCode glModeratorAccessCode].include? name
 
         # Only allow the settings to update if the room config is default or optional / if it is an access_code regeneration
-        unless %w[optional default].include?(config_value) || (config_value == 'true' && is_access_code && value != 'false')
+        unless %w[optional default_enabled].include?(config_value) || (config_value == 'true' && is_access_code && value != 'false')
           return render_error status: :forbidden
         end
 

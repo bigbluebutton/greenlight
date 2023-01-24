@@ -57,6 +57,18 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
       expect(room.room_meeting_options.take.value).to eq('notOptionalAnymore')
     end
 
+    it 'uses MeetingOption::get_config_value and updates the setting if its config is "default_enabled"' do
+      expect(MeetingOption).to receive(:get_config_value).with(name: 'setting', provider: 'greenlight').and_call_original
+
+      meeting_option = create(:meeting_option, name: 'setting')
+      create(:rooms_configuration, meeting_option:, value: 'default_enabled')
+      create(:room_meeting_option, room:, meeting_option:)
+
+      put :update, params: { room_setting: { settingName: 'setting', settingValue: 'notOptionalAnymore' }, friendly_id: room.friendly_id }
+      expect(response).to have_http_status(:ok)
+      expect(room.room_meeting_options.take.value).to eq('notOptionalAnymore')
+    end
+
     context 'Access codes' do
       it 'uses MeetingOption::get_config_value and generates a code if it\'s not disabled and the value is "true"' do
         random_access_code_name = %w[glViewerAccessCode glModeratorAccessCode].sample
