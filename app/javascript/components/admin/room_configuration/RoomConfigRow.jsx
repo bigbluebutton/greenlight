@@ -20,7 +20,7 @@ export default function RoomConfigRow({
       <Dropdown.Item value="true" onClick={() => useUpdateRoom.mutate({ value: 'true' })}>
         {t('admin.room_configuration.enabled')}
       </Dropdown.Item>
-      <Dropdown.Item value="default" onClick={() => useUpdateRoom.mutate({ value: 'default' })}>
+      <Dropdown.Item value="default" onClick={() => useUpdateRoom.mutate({ value: 'default_enabled' })}>
         {t('admin.room_configuration.default')}
       </Dropdown.Item>
       <Dropdown.Item value="optional" onClick={() => useUpdateRoom.mutate({ value: 'optional' })}>

@@ -90,7 +90,7 @@ RSpec.describe Room, type: :model do
           create(:rooms_configuration, meeting_option: meeting_options[0], value: 'true')
           create(:rooms_configuration, meeting_option: meeting_options[1], value: 'false')
           create(:rooms_configuration, meeting_option: meeting_options[2], value: 'optional')
-          create(:rooms_configuration, meeting_option: meeting_options[3], value: 'default')
+          create(:rooms_configuration, meeting_option: meeting_options[3], value: 'default_enabled')
 
           create(:room)
 
