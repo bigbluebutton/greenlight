@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Stack, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -74,19 +74,29 @@ export default function RecordingsList({
 
 RecordingsList.defaultProps = {
   recordingsProcessing: 0,
-  isLoading: false,
 };
 
 RecordingsList.propTypes = {
-  recordings: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    length: PropTypes.number.isRequired,
-    participants: PropTypes.number.isRequired,
-    visibility: PropTypes.string.isRequired,
-    created_at: PropTypes.string.isRequired,
-    map: PropTypes.func,
-  })).isRequired,
+  recordings: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      length: PropTypes.number,
+      visibility: PropTypes.string,
+      formats: PropTypes.arrayOf(PropTypes.string),
+      users: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+      })),
+    })),
+    meta: PropTypes.shape({
+      page: PropTypes.number,
+      pages: PropTypes.number,
+    }),
+  }).isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  setPage: PropTypes.func.isRequired,
+  searchInput: PropTypes.string.isRequired,
+  setSearchInput: PropTypes.func.isRequired,
   recordingsProcessing: PropTypes.number,
-  isLoading: PropTypes.bool,
 };
