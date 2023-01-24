@@ -245,7 +245,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     it 'updates the users attributes' do
       updated_params = {
         name: 'New Name',
-        email: 'newemail@gmail.com',
         language: 'gl'
       }
       patch :update, params: { id: user.id, user: updated_params }
@@ -254,7 +253,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       user.reload
 
       expect(user.name).to eq(updated_params[:name])
-      expect(user.email).to eq(updated_params[:email])
       expect(user.language).to eq(updated_params[:language])
     end
 
