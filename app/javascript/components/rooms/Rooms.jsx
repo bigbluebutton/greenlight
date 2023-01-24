@@ -4,7 +4,7 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import RoomsList from './RoomsList';
-import Recordings from '../recordings/Recordings';
+import UserRecordings from '../recordings/UserRecordings';
 import RecordingsCountTab from '../recordings/RecordingsCountTab';
 import useRecordingsCount from '../../hooks/queries/recordings/useRecordingsCount';
 
@@ -17,7 +17,7 @@ export default function Rooms() {
         <RoomsList />
       </Tab>
       <Tab className="background-whitesmoke" eventKey="recordings" title={<RecordingsCountTab count={recordingsCount} />}>
-        <Recordings />
+        <UserRecordings />
       </Tab>
     </Tabs>
   );

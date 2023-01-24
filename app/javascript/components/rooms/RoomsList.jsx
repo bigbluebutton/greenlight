@@ -21,7 +21,7 @@ export default function RoomsList() {
   const currentUser = useAuth();
   const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
 
-  if (!isLoading && !rooms?.length && !searchInput) {
+  if (!isLoading && rooms?.length === 0 && !searchInput) {
     return <EmptyRoomsList />;
   }
 
@@ -38,7 +38,7 @@ export default function RoomsList() {
               className="ms-auto me-xxl-1"
             >{t('room.add_new_room')}
             </Button>
-            )}
+          )}
           title={t('room.create_new_room')}
           body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
         />
@@ -59,7 +59,7 @@ export default function RoomsList() {
             </Col>
           )))
           || <NoRoomsFound searchInput={searchInput} />
-          }
+        }
       </Row>
     </>
   );

@@ -6,11 +6,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Navigate } from 'react-router-dom';
 import AdminNavSideBar from '../AdminNavSideBar';
-import SearchBar from '../../shared_components/search/SearchBar';
 import RecordingsList from '../../recordings/RecordingsList';
 import useServerRecordings from '../../../hooks/queries/admin/server_recordings/useServerRecordings';
-import ServerRecordingRow from './ServerRecordingRow';
-import Pagination from '../../shared_components/Pagination';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function ServerRecordings() {
@@ -41,25 +38,14 @@ export default function ServerRecordings() {
                   <div className="p-4 border-bottom">
                     <h3> {t('admin.server_recordings.latest_recordings')} </h3>
                   </div>
-                  <div className="p-4">
-                    <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
-                    <Row className="mt-4">
-                      <Col>
-                        <RecordingsList
-                          recordings={serverRecordings?.data}
-                          isLoading={isLoading}
-                          RecordingRow={ServerRecordingRow}
-                        />
-                        {!isLoading
-                          && (
-                            <Pagination
-                              page={serverRecordings.meta.page}
-                              totalPages={serverRecordings.meta.pages}
-                              setPage={setPage}
-                            />
-                          )}
-                      </Col>
-                    </Row>
+                  <div id="server-recordings" className="p-4">
+                    <RecordingsList
+                      recordings={serverRecordings}
+                      isLoading={isLoading}
+                      setPage={setPage}
+                      setSearchInput={setSearchInput}
+                      searchInput={searchInput}
+                    />
                   </div>
                 </Container>
               </Tab.Content>

@@ -1,4 +1,4 @@
-#user-recordings {
+#user-recordings, #room-recordings {
   table {
     border-top-right-radius: $border-radius-lg;
     border-top-left-radius: $border-radius-lg;
@@ -40,6 +40,12 @@
 
   .no-recordings-found {
     border-bottom: 0 !important;
+  }
+}
+
+#room-recordings {
+  .search-bar {
+    margin-top: 1rem;
   }
 }
 

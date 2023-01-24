@@ -2,12 +2,12 @@ import React from 'react';
 import { Tabs, Tab, Placeholder } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
 import Presentation from './presentation/Presentation';
 import RoomSettings from './room_settings/RoomSettings';
 import SharedAccess from './shared_access/SharedAccess';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
+import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
 
 export default function FeatureTabs({ shared }) {
   const { t } = useTranslation();
