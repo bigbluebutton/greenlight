@@ -35,6 +35,32 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       expect(cookies.encrypted[:_extended_session]['session_token']).to eq(user.reload.session_token)
       expect(session[:session_token]).to eq(user.session_token)
     end
+
+    it 'returns BannedUser error if the user is banned' do
+      banned_user = create(:user, password: 'Password1!', status: :banned)
+
+      post :create, params: {
+        session: {
+          email: banned_user.email,
+          password: 'Password1!'
+        }
+      }
+
+      expect(JSON.parse(response.body)['errors']).to eq('BannedUser')
+    end
+
+    it 'returns Pending error if the user is banned' do
+      banned_user = create(:user, password: 'Password1!', status: :pending)
+
+      post :create, params: {
+        session: {
+          email: banned_user.email,
+          password: 'Password1!'
+        }
+      }
+
+      expect(JSON.parse(response.body)['errors']).to eq('PendingUser')
+    end
   end
 
   describe '#destroy' do

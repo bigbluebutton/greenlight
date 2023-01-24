@@ -16,6 +16,8 @@ class PermissionsChecker
 
     # checking if user is trying to access users/rooms/recordings from different provider
     return false unless current_provider_check
+    # Make sure the user is not banned or pending
+    return false unless @current_user.active?
 
     return true if RolePermission.joins(:permission).exists?(
       role_id: @current_user.role_id,

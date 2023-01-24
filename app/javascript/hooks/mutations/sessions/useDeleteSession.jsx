@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 
-export default function useDeleteSession() {
+export default function useDeleteSession({ showToast = true }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function useDeleteSession() {
         currentUser.stateChanging = true;
         queryClient.refetchQueries('useSessions');
         await navigate('/');
-        toast.success(t('toast.success.session.signed_out'));
+        if (showToast) { toast.success(t('toast.success.session.signed_out')); }
         currentUser.stateChanging = false;
       },
       onError: () => {
