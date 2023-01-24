@@ -19,7 +19,7 @@ export default function RoomRecordings() {
         setPage={setPage}
         setSearchInput={setSearchInput}
         searchInput={searchInput}
-        recordingsProcessing={roomRecordingsProcessing}
+        recordingsProcessing={roomRecordingsProcessing.data}
       />
     </div>
   );

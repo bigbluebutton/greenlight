@@ -9,6 +9,7 @@ import RoomsRecordingRow from './room_recordings/RoomsRecordingRow';
 import Pagination from '../shared_components/Pagination';
 import EmptyRecordingsList from './EmptyRecordingsList';
 import SearchBar from '../shared_components/search/SearchBar';
+import ProcessingRecordingRow from './ProcessingRecordingRow';
 
 export default function RecordingsList({
   recordings, isLoading, setPage, searchInput, setSearchInput, recordingsProcessing,
@@ -46,15 +47,18 @@ export default function RecordingsList({
                   </tr>
                 </thead>
                 <tbody className="border-top-0">
+                  {[...Array(recordingsProcessing)].map(() => <ProcessingRecordingRow />)}
                   {
-                  (isLoading && [...Array(7)].map((val, idx) => (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <RecordingsListRowPlaceHolder key={idx} />
-                  )))
-                  || (recordings?.data?.length && recordings?.data?.map((recording) => (
-                    <RoomsRecordingRow key={recording.id} recording={recording} />
-                  )))
-                }
+                    (isLoading && [...Array(7)].map((val, idx) => (
+                      // eslint-disable-next-line react/no-array-index-key
+                      <RecordingsListRowPlaceHolder key={idx} />
+                    )))
+                  }
+                  {
+                    (recordings?.data?.length && recordings?.data?.map((recording) => (
+                      <RoomsRecordingRow key={recording.id} recording={recording} />
+                    )))
+                  }
                 </tbody>
               </Table>
               {!isLoading
