@@ -13,8 +13,8 @@ export default function App() {
   const location = useLocation();
 
   // Pages that do not need a header: SignIn, SignUp and JoinMeeting (if the user is not signed in)
-  const headerPage = location.pathname !== '/signin' && location.pathname !== '/signup' && !location.pathname.includes('/join');
-  const pageHeight = (headerPage || currentUser.signed_in) ? 'regular-height' : 'no-header-height';
+  const homePage = location.pathname === '/';
+  const pageHeight = (homePage || currentUser.signed_in) ? 'regular-height' : 'no-header-height';
 
   // i18n
   const { i18n } = useTranslation();
@@ -32,7 +32,7 @@ export default function App() {
 
   return (
     <>
-      {(headerPage || currentUser.signed_in) && <Header /> }
+      {(homePage || currentUser.signed_in) && <Header /> }
       <Container className={pageHeight}>
         <Outlet />
       </Container>

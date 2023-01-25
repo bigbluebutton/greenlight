@@ -28,7 +28,7 @@ export default function useCreateSession() {
       },
       onError: (err) => {
         if (err.response.data.errors === 'PendingUser') {
-          toast.error(t('toast.error.users.pending'));
+          navigate('/pending');
         } else if (err.response.data.errors === 'BannedUser') {
           toast.error(t('toast.error.users.banned'));
         } else {
