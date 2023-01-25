@@ -1,5 +1,3 @@
-
-
 #user-recordings, #room-recordings {
   table {
     border-top-right-radius: $border-radius-lg;
@@ -20,26 +18,6 @@
         border-bottom: 4px solid whitesmoke !important;
       }
     }
-  }
-
-  @media (max-width: 767px) {
-    .table-responsive .dropdown-menu,
-    .table-responsive .dropdown-toggle {
-      position: static !important;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .table-responsive {
-      overflow: visible;
-    }
-  }
-  //.table-responsive {
-  //  min-height: 100vh;
-  //}
-
-  .dropdown {
-    position: static !important;
   }
 
   .dropdown-item {
