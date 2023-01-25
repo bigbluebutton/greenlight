@@ -3,11 +3,12 @@ import { Form, Stack } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import PropTypes from "prop-types";
 import ButtonLink from '../shared_components/utilities/ButtonLink';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 import useEnv from '../../hooks/queries/env/useEnv';
 
-export default function AuthButtons() {
+export default function AuthButtons({ direction }) {
   const { data: env } = useEnv();
   const { t } = useTranslation();
   const { search } = useLocation();
@@ -27,17 +28,19 @@ export default function AuthButtons() {
     return (
       <Form action="/auth/openid_connect" method="POST" data-turbo="false">
         <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
-        <Button variant="brand-outline-color" className="btn m-2" type="submit">{t('authentication.sign_up')}</Button>
-        <Button variant="brand" className="btn m-2" type="submit">{t('authentication.sign_in')}</Button>
+        <Stack direction={direction} gap={2}>
+          <Button variant="brand-outline-color" className="btn" type="submit">{t('authentication.sign_up')}</Button>
+          <Button variant="brand" className="btn" type="submit">{t('authentication.sign_in')}</Button>
+        </Stack>
       </Form>
     );
   }
 
   return (
-    <Stack direction="horizontal">
+    <Stack direction={direction} gap={2}>
       { showSignUp()
           && (
-            <ButtonLink to={`/signup${search}`} variant="brand-outline-color" className="btn me-2">
+            <ButtonLink to={`/signup${search}`} variant="brand-outline-color" className="btn">
               {t('authentication.sign_up')}
             </ButtonLink>
           ) }
@@ -45,3 +48,11 @@ export default function AuthButtons() {
     </Stack>
   );
 }
+
+AuthButtons.defaultProps = {
+  direction: 'horizontal',
+};
+
+AuthButtons.propTypes = {
+  direction: PropTypes.oneOf(['horizontal', 'vertical']),
+};
