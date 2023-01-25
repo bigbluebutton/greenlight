@@ -1,3 +1,5 @@
+
+
 #user-recordings, #room-recordings {
   table {
     border-top-right-radius: $border-radius-lg;
@@ -20,8 +22,24 @@
     }
   }
 
+  @media (max-width: 767px) {
+    .table-responsive .dropdown-menu,
+    .table-responsive .dropdown-toggle {
+      position: static !important;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .table-responsive {
+      overflow: visible;
+    }
+  }
+  //.table-responsive {
+  //  min-height: 100vh;
+  //}
+
   .dropdown {
-    position: static;
+    position: static !important;
   }
 
   .dropdown-item {
@@ -96,4 +114,14 @@
 
 .recordings-count-badge {
   background-color: whitesmoke !important;
+}
+
+.recordings-icons:first-child {
+  .dropdown-item:hover, .dropdown-item:focus {
+    background-color: transparent !important;
+  }
+
+  svg:hover {
+    color: var(--brand-color) !important;
+  }
 }

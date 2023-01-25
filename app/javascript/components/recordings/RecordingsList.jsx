@@ -12,11 +12,11 @@ import SearchBar from '../shared_components/search/SearchBar';
 import ProcessingRecordingRow from './ProcessingRecordingRow';
 
 export default function RecordingsList({
-  recordings, isLoading, setPage, searchInput, setSearchInput, recordingsProcessing,
+  recordings, isLoading, setPage, searchInput, setSearchInput, recordingsProcessing, adminTable,
 }) {
   const { t } = useTranslation();
 
-  if (!isLoading && recordings?.data?.length === 0 && !searchInput) {
+  if (!isLoading && recordings?.data?.length === 0 && !searchInput && recordingsProcessing === 0) {
     return <EmptyRecordingsList />;
   }
 
@@ -55,8 +55,8 @@ export default function RecordingsList({
                     )))
                   }
                   {
-                    (recordings?.data?.length && recordings?.data?.map((recording) => (
-                      <RoomsRecordingRow key={recording.id} recording={recording} />
+                    (recordings?.data?.length > 0 && recordings?.data?.map((recording) => (
+                      <RoomsRecordingRow key={recording.id} recording={recording} adminTable={adminTable} />
                     )))
                   }
                 </tbody>
@@ -80,6 +80,7 @@ RecordingsList.defaultProps = {
   recordings: { data: [], meta: { page: 1, pages: 1 } },
   recordingsProcessing: 0,
   searchInput: '',
+  adminTable: false,
 };
 
 RecordingsList.propTypes = {
@@ -105,4 +106,5 @@ RecordingsList.propTypes = {
   searchInput: PropTypes.string,
   setSearchInput: PropTypes.func.isRequired,
   recordingsProcessing: PropTypes.number,
+  adminTable: PropTypes.bool,
 };
