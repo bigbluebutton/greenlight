@@ -89,6 +89,10 @@
       "upload_avatar": "Upload Avatar",
       "delete_avatar": "Delete Avatar",
       "crop_avatar": "Crop Your Avatar"
+    },
+    "pending": {
+      "title": "Pending Registration",
+      "message": "Thank you for registering! Your account is currently pending approval by an administrator."
     }
   },
   "room": {
@@ -374,7 +378,7 @@
         "invalid_invite": "Your invitation token is either invalid or incorrect. Please contact your administrator to receive a new one",
         "email_exists": "An account under this email already exists. Please try again with another email",
         "old_password": "The current password you have entered is incorrect",
-        "pending": "Your registration is pending approval",
+        "pending": "Your registration is pending approval from your administrator",
         "banned": "You do not have access to this application. Please contact your administrator if you believe this is a mistake"
       },
       "rooms": {

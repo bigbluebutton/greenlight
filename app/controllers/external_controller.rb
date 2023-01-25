@@ -34,11 +34,14 @@ class ExternalController < ApplicationController
       user.save! if user.changed?
     end
 
+    # Set to pending if registration method is approval
+    if registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
+      user.pending! if new_user
+      return redirect_to '/pending' if user.pending?
+    end
+
     user.generate_session_token!
     session[:session_token] = user.session_token
-
-    # Set to pending if registration method is approval
-    user.pending! if new_user && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
 
     # TODO: - Ahmad: deal with errors
     redirect_location = cookies[:location]

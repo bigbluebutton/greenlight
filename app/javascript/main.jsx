@@ -34,6 +34,7 @@ import UnauthenticatedOnly from './routes/UnauthenticatedOnly';
 import AuthenticatedOnly from './routes/AuthenticatedOnly';
 import DefaultErrorPage from './components/errors/DefaultErrorPage';
 import NotFoundPage from './components/errors/NotFoundPage';
+import PendingRegistration from './components/users/registration/PendingRegistration';
 
 const queryClientConfig = {
   defaultOptions: {
@@ -58,6 +59,7 @@ const router = createBrowserRouter(
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/forget_password" element={<ForgetPassword />} />
+        <Route path="/pending" element={<PendingRegistration />} />
       </Route>
 
       <Route element={<AuthenticatedOnly />}>

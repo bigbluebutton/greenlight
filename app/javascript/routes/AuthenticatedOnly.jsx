@@ -17,12 +17,13 @@ export default function AuthenticatedOnly() {
 
   // User is either pending or banned
   if (currentUser.signed_in && currentUser.status !== 'active') {
+    deleteSession.mutate();
+
     if (currentUser.status === 'pending') {
       toast.error(t('toast.error.users.pending'));
     } else {
       toast.error(t('toast.error.users.banned'));
     }
-    return deleteSession.mutate();
   }
 
   if (currentUser.signed_in && !currentUser?.verified) {
