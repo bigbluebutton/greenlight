@@ -162,6 +162,7 @@
     "protected": "Protected",
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Processing recording...",
+    "copied_urls": "Copied Recording Url(s)",
     "copy_recording_urls": "Copy Recording Url(s)",
     "no_recordings_found": "No Recordings found",
     "recordings_list_empty": "You don't have any recordings yet!",
