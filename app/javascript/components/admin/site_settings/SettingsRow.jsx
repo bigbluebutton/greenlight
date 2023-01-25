@@ -18,7 +18,7 @@ export default function SettingsRow({
         <input
           className="form-check-input fs-5"
           type="checkbox"
-          defaultChecked={value === 'true'}
+          checked={value === 'true'}
           onClick={(event) => {
             updateSiteSetting.mutate({ value: event.target.checked });
           }}
@@ -28,9 +28,13 @@ export default function SettingsRow({
   );
 }
 
+SettingsRow.defaultProps = {
+  value: '',
+};
+
 SettingsRow.propTypes = {
   name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   description: PropTypes.node.isRequired,
 };
