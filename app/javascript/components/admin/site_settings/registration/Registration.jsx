@@ -1,8 +1,8 @@
 import React from 'react';
-import { Dropdown, Row } from 'react-bootstrap';
+import { Dropdown, Row, Stack } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import Button from 'react-bootstrap/Button';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
-import RegistrationForm from './forms/RegistrationForm';
 import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSiteSettings';
 import SettingsRow from '../SettingsRow';
 import useEnv from '../../../../hooks/queries/env/useEnv';
@@ -16,6 +16,7 @@ export default function Registration() {
   const { data: roles } = useRoles();
   const updateRegistrationMethod = useUpdateSiteSetting('RegistrationMethod');
   const updateDefaultRole = useUpdateSiteSetting('DefaultRole');
+  const updateRoleMapping = useUpdateSiteSetting('RoleMapping');
 
   return (
     <>
@@ -24,13 +25,13 @@ export default function Registration() {
         title={t('admin.site_settings.registration.registration_method')}
         description={t('admin.site_settings.registration.registration_method_description')}
       >
-        <Dropdown.Item value="open" onClick={() => updateRegistrationMethod.mutate({ value: 'open' })}>
+        <Dropdown.Item key="open" value="open" onClick={() => updateRegistrationMethod.mutate({ value: 'open' })}>
           {t('admin.site_settings.registration.registration_methods.open')}
         </Dropdown.Item>
-        <Dropdown.Item value="invite" onClick={() => updateRegistrationMethod.mutate({ value: 'invite' })}>
+        <Dropdown.Item key="invite" value="invite" onClick={() => updateRegistrationMethod.mutate({ value: 'invite' })}>
           {t('admin.site_settings.registration.registration_methods.invite')}
         </Dropdown.Item>
-        <Dropdown.Item value="approval" onClick={() => updateRegistrationMethod.mutate({ value: 'approval' })}>
+        <Dropdown.Item key="approval" value="approval" onClick={() => updateRegistrationMethod.mutate({ value: 'approval' })}>
           {t('admin.site_settings.registration.registration_methods.approval')}
         </Dropdown.Item>
       </SettingSelect>
@@ -41,7 +42,7 @@ export default function Registration() {
             name="ResyncOnLogin"
             title={t('admin.site_settings.registration.resync_on_login')}
             description={(
-              <p className="text-muted">
+              <p className="text-muted mb-0">
                 { t('admin.site_settings.registration.resync_on_login_description') }
               </p>
             )}
@@ -57,7 +58,7 @@ export default function Registration() {
       >
         {
           roles?.map((role) => (
-            <Dropdown.Item value={role.name} onClick={() => updateDefaultRole.mutate({ value: role.name })}>
+            <Dropdown.Item key={role.name} value={role.name} onClick={() => updateDefaultRole.mutate({ value: role.name })}>
               {role.name}
             </Dropdown.Item>
           ))
@@ -65,12 +66,22 @@ export default function Registration() {
       </SettingSelect>
 
       <Row className="mb-3">
-        <h6> { t('admin.site_settings.registration.role_mapping_by_email') } </h6>
+        <strong> { t('admin.site_settings.registration.role_mapping_by_email') } </strong>
         <p className="text-muted"> { t('admin.site_settings.registration.role_mapping_by_email_description') } </p>
-        <RegistrationForm
-          mutation={() => useUpdateSiteSetting('RoleMapping')}
-          value={siteSettings?.RoleMapping}
-        />
+        <Stack direction="horizontal">
+          <input
+            className="form-control"
+            placeholder={t('admin.site_settings.registration.enter_role_mapping_rule')}
+            defaultValue={siteSettings?.RoleMapping}
+          />
+          <Button
+            variant="brand"
+            className="ms-2"
+            onClick={(e) => updateRoleMapping.mutate({ value: e.target.previousSibling.value })}
+          >
+            {t('update')}
+          </Button>
+        </Stack>
       </Row>
     </>
   );
