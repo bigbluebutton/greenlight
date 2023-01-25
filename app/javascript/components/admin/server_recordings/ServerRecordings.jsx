@@ -40,6 +40,7 @@ export default function ServerRecordings() {
                   </div>
                   <div id="server-recordings" className="p-4">
                     <RecordingsList
+                      adminTable
                       recordings={serverRecordings}
                       isLoading={isLoading}
                       setPage={setPage}

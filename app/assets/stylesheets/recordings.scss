@@ -20,10 +20,6 @@
     }
   }
 
-  .dropdown {
-    position: static;
-  }
-
   .dropdown-item {
     color: $muted;
     &:hover {
@@ -96,4 +92,14 @@
 
 .recordings-count-badge {
   background-color: whitesmoke !important;
+}
+
+.recordings-icons:first-child {
+  .dropdown-item:hover, .dropdown-item:focus {
+    background-color: transparent !important;
+  }
+
+  svg:hover {
+    color: var(--brand-color) !important;
+  }
 }

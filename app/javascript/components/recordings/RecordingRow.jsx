@@ -1,7 +1,5 @@
 import {
-  VideoCameraIcon, Square2StackIcon,
-  EllipsisVerticalIcon,
-  TrashIcon, PencilSquareIcon,
+  VideoCameraIcon, TrashIcon, PencilSquareIcon, ClipboardDocumentIcon, EllipsisVerticalIcon,
 } from '@heroicons/react/24/outline';
 import Form from 'react-bootstrap/Form';
 import React, { useState } from 'react';
@@ -18,14 +16,14 @@ import Modal from '../shared_components/modals/Modal';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
-  recording, visibilityMutation: useVisibilityAPI, deleteMutation: useDeleteAPI,
+  recording, visibilityMutation: useVisibilityAPI, deleteMutation: useDeleteAPI, adminTable,
 }) {
   const { t } = useTranslation();
 
   function copyUrls() {
     const formatUrls = recording.formats.map((format) => format.url);
     navigator.clipboard.writeText(formatUrls);
-    toast.success('Copied');
+    toast.success(t('recording.copied_urls'));
   }
 
   const visibilityAPI = useVisibilityAPI();
@@ -102,29 +100,57 @@ export default function RecordingRow({
         ))}
       </td>
       <td className="border-start-0">
-        <Dropdown className="float-end cursor-pointer">
-          <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={() => copyUrls()}>
-              <Square2StackIcon className="hi-s me-2" />
-              { t('recording.copy_recording_urls') }
-            </Dropdown.Item>
-            <Modal
-              modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{ t('delete') }</Dropdown.Item>}
-              title={t('are_you_sure')}
-              body={(
-                <DeleteRecordingForm
-                  mutation={useDeleteAPI}
-                  recordId={recording.record_id}
+        {adminTable
+          ? (
+            <Dropdown className="float-end cursor-pointer">
+              <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => copyUrls()}>
+                  <ClipboardDocumentIcon className="hi-s me-2" />
+                  { t('recording.copy_recording_urls') }
+                </Dropdown.Item>
+                <Modal
+                  modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{ t('delete') }</Dropdown.Item>}
+                  title={t('are_you_sure')}
+                  body={(
+                    <DeleteRecordingForm
+                      mutation={useDeleteAPI}
+                      recordId={recording.record_id}
+                    />
+                )}
                 />
-              )}
-            />
-          </Dropdown.Menu>
-        </Dropdown>
+              </Dropdown.Menu>
+            </Dropdown>
+          )
+          : (
+            <Stack direction="horizontal" className="float-end recordings-icons">
+              <Button
+                variant="icon"
+                className="mt-1 me-3"
+                onClick={() => copyUrls()}
+              >
+                <ClipboardDocumentIcon className="hi-s text-muted" />
+              </Button>
+              <Modal
+                modalButton={<Dropdown.Item className="btn btn-icon"><TrashIcon className="hi-s me-2" /></Dropdown.Item>}
+                title={t('are_you_sure')}
+                body={(
+                  <DeleteRecordingForm
+                    mutation={useDeleteAPI}
+                    recordId={recording.record_id}
+                  />
+                )}
+              />
+            </Stack>
+          )}
       </td>
     </tr>
   );
 }
+
+RecordingRow.defaultProps = {
+  adminTable: false,
+};
 
 RecordingRow.propTypes = {
   recording: PropTypes.shape({
@@ -144,4 +170,5 @@ RecordingRow.propTypes = {
   }).isRequired,
   visibilityMutation: PropTypes.func.isRequired,
   deleteMutation: PropTypes.func.isRequired,
+  adminTable: PropTypes.bool,
 };

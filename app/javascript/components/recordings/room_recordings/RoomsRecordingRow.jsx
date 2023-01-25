@@ -4,15 +4,20 @@ import useUpdateRecordingVisibility from '../../../hooks/mutations/recordings/us
 import useDeleteRecording from '../../../hooks/mutations/recordings/useDeleteRecording';
 import RecordingRow from '../RecordingRow';
 
-export default function RoomsRecordingRow({ recording }) {
+export default function RoomsRecordingRow({ recording, adminTable }) {
   return (
     <RecordingRow
+      adminTable={adminTable}
       recording={recording}
       visibilityMutation={useUpdateRecordingVisibility}
       deleteMutation={useDeleteRecording}
     />
   );
 }
+
+RoomsRecordingRow.defaultProps = {
+  adminTable: false,
+};
 
 RoomsRecordingRow.propTypes = {
   recording: PropTypes.shape({
@@ -29,4 +34,5 @@ RoomsRecordingRow.propTypes = {
     created_at: PropTypes.string.isRequired,
     map: PropTypes.func,
   }).isRequired,
+  adminTable: PropTypes.bool,
 };
