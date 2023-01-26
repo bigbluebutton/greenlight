@@ -39,9 +39,6 @@ export default function SharedAccessList({ users }) {
             <Col>
               <span className="text-muted small">{ t('user.name') }</span>
             </Col>
-            <Col>
-              <span className="text-muted small">{ t('user.email_address') }</span>
-            </Col>
           </Row>
           {
             users?.filter((user) => {
@@ -60,7 +57,6 @@ export default function SharedAccessList({ users }) {
                     </Stack>
                   </Col>
                   <Col className="my-auto">
-                    <span className="text-muted"> {user.email} </span>
                     <Button
                       variant="icon"
                       className="float-end pe-2"

@@ -137,6 +137,18 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       expect(response).to have_http_status(:not_found)
     end
 
+    it 'allows a shared user to update a recording name' do
+      shared_user = create(:user)
+      create(:shared_access, user_id: shared_user.id, room_id: room.id)
+      sign_in_user(shared_user)
+
+      expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: recording.record_id,
+                                                                                   meta_hash: { meta_name: 'My Awesome Recording!' })
+
+      expect { post :update, params: { recording: { name: 'My Awesome Recording!' }, id: recording.record_id } }.to(change { recording.reload.name })
+      expect(response).to have_http_status(:ok)
+    end
+
     it 'user cannot update another users recordings name' do
       user = create(:user)
       room = create(:room, user:)
@@ -214,6 +226,18 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       allow_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings)
       post :update_visibility, params: { visibility: 'Unpublished', id: unpublished_recording.record_id }
       expect(unpublished_recording.reload.visibility).to eq('Unpublished')
+    end
+
+    it 'allows a shared user to update a recording visibility' do
+      shared_user = create(:user)
+      create(:shared_access, user_id: shared_user.id, room_id: room.id)
+      sign_in_user(shared_user)
+
+      expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: published_recording.record_id, publish: false)
+      expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+      expect do
+        post :update_visibility, params: { visibility: 'Unpublished', id: published_recording.record_id }
+      end.to(change { published_recording.reload.visibility })
     end
 
     # TODO: samuel - add tests for user_with_manage_recordings_permission

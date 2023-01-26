@@ -12,6 +12,7 @@ import SearchBar from '../../../shared_components/search/SearchBar';
 import useDeleteSharedAccess from '../../../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
 import useSharedUsers from '../../../../hooks/queries/shared_accesses/useSharedUsers';
 import SharedAccessEmpty from './SharedAccessEmpty';
+import useRoom from '../../../../hooks/queries/rooms/useRoom';
 
 export default function SharedAccess() {
   const { t } = useTranslation();
@@ -19,6 +20,7 @@ export default function SharedAccess() {
   const [searchInput, setSearchInput] = useState();
   const { data: sharedUsers } = useSharedUsers(friendlyId, searchInput);
   const deleteSharedAccess = useDeleteSharedAccess(friendlyId);
+  const { data: room } = useRoom(friendlyId);
 
   if (sharedUsers?.length || searchInput) {
     return (
@@ -27,21 +29,29 @@ export default function SharedAccess() {
           <div>
             <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
           </div>
-          <Modal
-            modalButton={<Button variant="brand-outline" className="ms-auto">{ t('room.shared_access.add_share_access')}</Button>}
-            title={t('room.shared_access.share_room_access')}
-            body={<SharedAccessForm />}
-            size="lg"
-            id="shared-access-modal"
-          />
+          { !room.shared && (
+            <Modal
+              modalButton={(
+                <Button
+                  variant="brand-outline"
+                  className="ms-auto"
+                >{t('room.shared_access.add_share_access')}
+                </Button>
+)}
+              title={t('room.shared_access.share_room_access')}
+              body={<SharedAccessForm />}
+              size="lg"
+              id="shared-access-modal"
+            />
+          )}
         </Stack>
         <Card className="border-0 shadow-sm mt-3">
           <Card.Body className="p-0">
             <Table hover responsive className="text-secondary mb-0">
               <thead>
                 <tr className="text-muted small">
-                  <th className="fw-normal w-50">{ t('user.name') }</th>
-                  <th className="fw-normal w-50">{ t('user.email_address') }</th>
+                  <th className="fw-normal w-75">{ t('user.name') }</th>
+                  <th className="fw-normal w-25" aria-label="delete" />
                 </tr>
               </thead>
               <tbody className="border-top-0">
@@ -56,7 +66,7 @@ export default function SharedAccess() {
                           </Stack>
                         </td>
                         <td>
-                          <span className="text-muted"> {user.email} </span>
+                          {!room.shared && (
                           <Button
                             variant="icon"
                             className="float-end pe-2"
@@ -64,6 +74,7 @@ export default function SharedAccess() {
                           >
                             <TrashIcon className="hi-s" />
                           </Button>
+                          )}
                         </td>
                       </tr>
                     ))

@@ -59,9 +59,10 @@ class PermissionsChecker
   end
 
   def authorize_shared_room
-    return false if @friendly_id.blank?
+    return false if @friendly_id.blank? && @record_id.blank?
 
-    @current_user.shared_rooms.exists?(friendly_id: @friendly_id)
+    @current_user.shared_rooms.exists?(friendly_id: @friendly_id) ||
+      @current_user.shared_rooms.exists?(id: Recording.find_by(record_id: @record_id)&.room_id)
   end
 
   def authorize_manage_recordings

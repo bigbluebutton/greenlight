@@ -41,13 +41,14 @@ export default function RoomSettingsRow({
 }
 
 RoomSettingsRow.defaultProps = {
+  value: '',
   config: 'false',
 };
 
 RoomSettingsRow.propTypes = {
   settingName: PropTypes.string.isRequired,
   updateMutation: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   config: PropTypes.string,
   description: PropTypes.string.isRequired,
 };

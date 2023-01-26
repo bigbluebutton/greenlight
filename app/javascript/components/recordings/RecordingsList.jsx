@@ -86,7 +86,7 @@ RecordingsList.defaultProps = {
 RecordingsList.propTypes = {
   recordings: PropTypes.shape({
     data: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.string,
       name: PropTypes.string,
       length: PropTypes.number,
       visibility: PropTypes.string,

@@ -13,10 +13,10 @@ module Api
       before_action only: %i[create] do
         ensure_authorized('ManageUsers', user_id: room_params[:user_id])
       end
-      before_action only: %i[show] do
+      before_action only: %i[show update recordings recordings_processing purge_presentation] do
         ensure_authorized(%w[ManageRooms SharedRoom], friendly_id: params[:friendly_id])
       end
-      before_action only: %i[update destroy recordings recordings_processing purge_presentation] do
+      before_action only: %i[destroy] do
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
 
