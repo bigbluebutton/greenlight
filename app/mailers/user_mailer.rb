@@ -32,9 +32,8 @@ class UserMailer < ApplicationMailer
   end
 
   def branding
-    branding_hash = SiteSetting.includes(:setting).where(settings: { name: ['PrimaryColor', 'BrandingImage'] }).pluck(:'settings.name', :value).to_h
+    branding_hash = SiteSetting.includes(:setting).where(settings: { name: %w[PrimaryColor BrandingImage] }).pluck(:'settings.name', :value).to_h
     @brand_image = branding_hash['BrandingImage']
     @brand_color = branding_hash['PrimaryColor']
   end
-  # rubocop:enable Rails/I18nLocaleTexts
 end
