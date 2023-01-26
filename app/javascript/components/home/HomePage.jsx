@@ -2,17 +2,17 @@ import React, { useEffect } from 'react';
 import {
   Col, Row,
 } from 'react-bootstrap';
-import {useNavigate, useSearchParams} from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   ArrowRightIcon, Cog8ToothIcon, ComputerDesktopIcon, VideoCameraIcon, WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline';
+import { toast } from 'react-hot-toast';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import HomepageFeatureCard from './HomepageFeatureCard';
-import {toast, useToaster} from "react-hot-toast";
 
 export default function HomePage() {
-  let { t } = useTranslation();
+  const { t } = useTranslation();
   const currentUser = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -32,13 +32,13 @@ export default function HomePage() {
   );
 
   useEffect(() => {
-    if(error === 'InviteInvalid') {
+    if (error === 'InviteInvalid') {
       toast.error(t('toast.error.users.invalid_invite'));
     }
-  }, [error])
+  }, [error]);
 
   // Small hack because the InviteInvalid toast won't fire unless this is here (I have no idea why)
-  toast.success('hidden', {style: { display: 'none' }})
+  toast.success('hidden', { style: { display: 'none' } });
 
   return (
     <>
