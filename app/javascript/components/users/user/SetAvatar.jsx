@@ -19,16 +19,29 @@ export default function SetAvatar({ user }) {
 
   // Editor Modal
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   // Cropped Avatar Upload
   const [avatar, setAvatar] = useState();
   const [scale, setScale] = useState();
-  const handleNewAvatar = (e) => {
-    handleShow();
-    setAvatar(e.target.files[0]);
+
+  const handleShow = () => {
+    setShow(true);
   };
+
+  const handleClose = () => {
+    document.getElementById('avatarUpload').value = '';
+    setAvatar(undefined);
+    setScale(undefined);
+    setShow(false);
+  };
+
+  const handleNewAvatar = (e) => {
+    const { files } = e.target;
+    if (files.length > 0) {
+      handleShow();
+      setAvatar(e.target.files[0]);
+    }
+  };
+
   const handleScale = (e) => {
     setScale(parseFloat(e.target.value));
   };
