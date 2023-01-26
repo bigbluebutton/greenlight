@@ -51,7 +51,7 @@ export default function EditRoleForm({ role }) {
     return (
       <div>
         <Modal
-          modalButton={<Button variant="delete" className="float-end"> { t('admin.roles.delete_role') } </Button>}
+          modalButton={<Button variant="delete" className="float-end my-4"> { t('admin.roles.delete_role') } </Button>}
           title={t('admin.roles.delete_role')}
           body={<DeleteRoleForm role={role} />}
         />
