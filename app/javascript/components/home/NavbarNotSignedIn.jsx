@@ -1,5 +1,5 @@
 import React from 'react';
-import {Nav, Navbar} from 'react-bootstrap';
+import { Nav, Navbar } from 'react-bootstrap';
 import AuthButtons from './AuthButtons';
 
 export default function NavbarNotSignedIn() {

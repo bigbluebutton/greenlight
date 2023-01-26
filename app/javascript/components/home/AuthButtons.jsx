@@ -3,7 +3,7 @@ import { Form, Stack } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import ButtonLink from '../shared_components/utilities/ButtonLink';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 import useEnv from '../../hooks/queries/env/useEnv';
