@@ -205,7 +205,9 @@ RSpec.describe ExternalController, type: :controller do
         it 'returns an InviteInvalid error if no invite is passed' do
           request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
 
-          expect { get :create_user, params: { provider: 'openid_connect' } }.to raise_error(StandardError)
+          get :create_user, params: { provider: 'openid_connect' }
+
+          expect(response).to redirect_to('/?error=InviteInvalid')
         end
 
         it 'returns an InviteInvalid error if the token is wrong' do
@@ -215,7 +217,9 @@ RSpec.describe ExternalController, type: :controller do
             value: '123'
           }
 
-          expect { get :create_user, params: { provider: 'openid_connect' } }.to raise_error(StandardError)
+          get :create_user, params: { provider: 'openid_connect' }
+
+          expect(response).to redirect_to('/?error=InviteInvalid')
         end
       end
 

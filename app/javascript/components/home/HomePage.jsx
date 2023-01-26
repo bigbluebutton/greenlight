@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import {
   Col, Row,
 } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   ArrowRightIcon, Cog8ToothIcon, ComputerDesktopIcon, VideoCameraIcon, WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline';
+import { toast } from 'react-hot-toast';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import HomepageFeatureCard from './HomepageFeatureCard';
 
@@ -14,6 +15,8 @@ export default function HomePage() {
   const { t } = useTranslation();
   const currentUser = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const error = searchParams.get('error');
 
   // Redirects the user to the proper page based on signed in status and CreateRoom permission
   useEffect(
@@ -27,6 +30,15 @@ export default function HomePage() {
     },
     [currentUser.signed_in],
   );
+
+  useEffect(() => {
+    if (error === 'InviteInvalid') {
+      toast.error(t('toast.error.users.invalid_invite'));
+    }
+  }, [error]);
+
+  // Small hack because the InviteInvalid toast won't fire unless this is here (I have no idea why)
+  toast.success('hidden', { style: { display: 'none' } });
 
   return (
     <>

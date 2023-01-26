@@ -23,7 +23,7 @@ class ExternalController < ApplicationController
 
     # Check if they have a valid token only if a new sign up
     if new_user && registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token(email: user_info[:email])
-      raise StandardError, Rails.configuration.custom_error_msgs[:invite_token_invalid]
+      return redirect_to "/?error=#{Rails.configuration.custom_error_msgs[:invite_token_invalid]}"
     end
 
     # Create the user if they dont exist
