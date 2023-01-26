@@ -12,7 +12,7 @@ import CreateRoomForm from './room/forms/CreateRoomForm';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import SearchBar from '../shared_components/search/SearchBar';
 import EmptyRoomsList from './EmptyRoomsList';
-import NoRoomsFound from './NoRoomsFound';
+import NoSearchResults from '../shared_components/search/NoSearchResults';
 
 export default function RoomsList() {
   const { t } = useTranslation();
@@ -58,7 +58,7 @@ export default function RoomsList() {
               {(room.optimistic && <RoomCardPlaceHolder />) || <RoomCard room={room} />}
             </Col>
           )))
-          || <NoRoomsFound searchInput={searchInput} />
+          || <NoSearchResults name={t('room.rooms')} searchInput={searchInput} />
         }
       </Row>
     </>

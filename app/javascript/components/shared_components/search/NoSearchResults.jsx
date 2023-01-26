@@ -1,10 +1,10 @@
 import React from 'react';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { Stack } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { Stack } from 'react-bootstrap';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
 
-export default function NoRoomsFound({ searchInput }) {
+export default function NoSearchResults({ name, searchInput }) {
   const { t } = useTranslation();
 
   return (
@@ -12,12 +12,13 @@ export default function NoRoomsFound({ searchInput }) {
       <div className="icon-circle rounded-circle d-block mx-auto mb-3 bg-white">
         <MagnifyingGlassIcon className="hi-l text-brand d-block mx-auto pt-4" />
       </div>
-      <h2>{t('room.no_rooms_found')}</h2>
+      <h2>{t('search_not_found', { name })}</h2>
       <p>{t('no_result_search_input', { searchInput })}</p>
     </Stack>
   );
 }
 
-NoRoomsFound.propTypes = {
+NoSearchResults.propTypes = {
   searchInput: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };

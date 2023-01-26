@@ -23,6 +23,7 @@
   "are_you_sure": "Are you sure?",
   "return_home": "Return Home",
   "created_at": "Created at",
+  "search_not_found": "No {{ name }} found",
   "no_result_search_input": "Could not find any results for \"{{ searchInput }}\"",
   "homepage": {
     "welcome_bbb": "Welcome to BigBlueButton.",
@@ -168,7 +169,6 @@
     "processing_recording": "Processing recording...",
     "copied_urls": "Copied Recording Url(s)",
     "copy_recording_urls": "Copy Recording Url(s)",
-    "no_recordings_found": "No Recordings found",
     "recordings_list_empty": "You don't have any recordings yet!",
     "recordings_list_empty_description": "Recordings will appear here after you start a meeting and record it.",
     "are_you_sure_delete_recording": "Are you sure you want to delete this recording?"
