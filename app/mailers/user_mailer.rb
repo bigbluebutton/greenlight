@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class UserMailer < ApplicationMailer
-  # TODO: Amir - add i18n.
-  # rubocop:disable Rails/I18nLocaleTexts
+  before_action :branding
+
   # Sends a test email
   def test_email
     mail(to: params[:to], subject: params[:subject])
@@ -13,7 +13,7 @@ class UserMailer < ApplicationMailer
     @reset_url = params[:reset_url]
     @expires_in = params[:expires_in]
 
-    mail(to: email_address_with_name(@user.email, @user.name), subject: 'Reset Password')
+    mail(to: email_address_with_name(@user.email, @user.name), subject: t('email.reset.password_reset'))
   end
 
   def activate_account_email
@@ -21,14 +21,20 @@ class UserMailer < ApplicationMailer
     @activation_url = params[:activation_url]
     @expires_in = params[:expires_in]
 
-    mail(to: email_address_with_name(@user.email, @user.name), subject: 'Account Activation')
+    mail(to: email_address_with_name(@user.email, @user.name), subject: t('email.activation.account_activation'))
   end
 
   def invitation_email
     @name = params[:name]
     @signup_url = params[:signup_url]
 
-    mail(to: @email, subject: 'Invitation to join BigBlueButton')
+    mail(to: @email, subject: t('email.invitation.invitation_to_join'))
+  end
+
+  def branding
+    branding_hash = SiteSetting.includes(:setting).where(settings: { name: ['PrimaryColor', 'BrandingImage'] }).pluck(:'settings.name', :value).to_h
+    @brand_image = branding_hash['BrandingImage']
+    @brand_color = branding_hash['PrimaryColor']
   end
   # rubocop:enable Rails/I18nLocaleTexts
 end
