@@ -16,8 +16,8 @@ module Api
           language_list = I18n::Language::Mapping.language_mapping_list
 
           languages.each do |lang|
-            language = lang.split('.').first
-            native_name = language_list.dig(language.tr('_', '-'), 'nativeName')
+            language = lang.split('.').first.tr('_', '-')
+            native_name = language_list.dig(language, 'nativeName')
 
             language_hash[language] = native_name if native_name.present?
           end
