@@ -23,6 +23,7 @@ import Avatar from '../../../users/user/Avatar';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
+import RoomJoinPlaceholder from './RoomJoinPlaceholder';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -111,7 +112,7 @@ export default function RoomJoin() {
     }
   }, [roomStatusAPI.isError]);
 
-  if (publicRoom.isLoading) return null;
+  if (publicRoom.isLoading) return <RoomJoinPlaceholder />;
 
   if (!currentUser.signed_in && publicRoom.data.require_authentication === 'true') {
     return <RequireAuthentication path={path} />;
