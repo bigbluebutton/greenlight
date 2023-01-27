@@ -23,7 +23,6 @@ import Avatar from '../../../users/user/Avatar';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
-import ServerRoomsRowPlaceHolder from '../../../admin/server_rooms/ServerRoomsRowPlaceHolder';
 import RoomJoinPlaceholder from './RoomJoinPlaceholder';
 
 export default function RoomJoin() {
