@@ -5,12 +5,17 @@ import {
 import { useTranslation } from 'react-i18next';
 import Logo from '../shared_components/Logo';
 import ButtonLink from '../shared_components/utilities/ButtonLink';
+import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 
 export default function NotFoundPage() {
   const { t } = useTranslation();
 
+  // Needed for Route Errors
+  const { data: brandColor } = useSiteSetting('PrimaryColor');
+  document.documentElement.style.setProperty('--brand-color', brandColor);
+
   return (
-    <div className="vertical-buffer">
+    <div className="pt-lg-5">
       <div className="text-center pb-4">
         <Logo />
       </div>

@@ -27,6 +27,8 @@ export default function App() {
 
   if (isLoading) return null;
 
+  console.log(brandColors);
+
   document.documentElement.style.setProperty('--brand-color', brandColors.PrimaryColor);
   document.documentElement.style.setProperty('--brand-color-light', brandColors.PrimaryColorLight);
 

@@ -32,9 +32,8 @@ import VerifyAccount from './components/users/account_activation/VerifyAccount';
 import AdminPanel from './components/admin/AdminPanel';
 import UnauthenticatedOnly from './routes/UnauthenticatedOnly';
 import AuthenticatedOnly from './routes/AuthenticatedOnly';
-import DefaultErrorPage from './components/errors/DefaultErrorPage';
-import NotFoundPage from './components/errors/NotFoundPage';
 import PendingRegistration from './components/users/registration/PendingRegistration';
+import RootBoundary from './RootBoundary';
 
 const queryClientConfig = {
   defaultOptions: {
@@ -51,7 +50,7 @@ const router = createBrowserRouter(
     <Route
       path="/"
       element={<App />}
-      errorElement={<DefaultErrorPage />}
+      errorElement={<RootBoundary />}
     >
       <Route index element={<HomePage />} />
 
@@ -84,7 +83,6 @@ const router = createBrowserRouter(
       <Route path="/profile" element={<Profile />} />
       <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
 
-      <Route path="*" element={<NotFoundPage />} />
     </Route>,
   ),
 );
