@@ -23,6 +23,7 @@
   "are_you_sure": "Emin misiniz?",
   "return_home": "Girişe dön",
   "created_at": "Oluşturulma",
+  "no_result_search_input": "\"{{ searchInput }}\" için herhangi bir sonuç bulunamadı",
   "homepage": {
     "welcome_bbb": "BigBlueButton uygulamasına hoş geldiniz.",
     "bigbluebutton_description": "BigBlueButton, çevrimiçi sınıflar için açık kaynaklı bir web konferans sistemidir. Platform, öğrencilerin gerçek zamanlı olarak işbirliği yapmalarını ve geri bildirim almalarını sağlayarak uygulamalı öğrenme zamanının en iyi şekilde kullanılmasını sağlar.",
@@ -88,6 +89,10 @@
       "upload_avatar": "Avatar yükle",
       "delete_avatar": "Avatarı sil",
       "crop_avatar": "Avatarınızı kırpın"
+    },
+    "pending": {
+      "title": "Açılan hesabın onaylanması bekleniyor",
+      "message": "Hesap açtığınız için teşekkürler. Hesabınız bir yönetici tarafından onaylanmayı bekliyor"
     }
   },
   "room": {
@@ -161,8 +166,11 @@
     "protected": "Korunmuş",
     "length_in_minutes": "{{recording.length}} dakika",
     "processing_recording": "Kayıt işleniyor...",
+    "copied_urls": "Kayıt adresleri kopyalandı",
     "copy_recording_urls": "Kayıt adreslerini kopyala",
-    "no_recording_found": "Herhangi bir kayıt bulunamadı",
+    "no_recordings_found": "Herhangi bir kayıt bulunamadı",
+    "recordings_list_empty": "Henüz bir kaydınız yok!",
+    "recordings_list_empty_description": "Toplantıları başlatıp kayıt ettikten sonra kayıtlarınız burada görüntülenecek.",
     "are_you_sure_delete_recording": "Bu kaydı silmek istediğinize emin misiniz?"
   },
   "admin": {
@@ -269,8 +277,9 @@
     },
     "room_configuration": {
       "room_configuration": "Oda yapılandırması",
-      "optional": "İsteğe bağlı",
-      "enabled": "Etkin",
+      "default": "İsteğe bağlı (varsayılan olarak etkin)",
+      "optional": "İsteğe bağlı (varsayılan olarak devre dışı)",
+      "enabled": "Zorla etkinleştirilsin",
       "disabled": "Devre dışı",
       "configurations": {
         "allow_room_to_be_recorded": "Odanın kaydı alınabilsin",
@@ -367,7 +376,10 @@
       },
       "users": {
         "invalid_invite": "Çağrı kodunuz geçersiz ya da yanlış. Yeni bir tane almak için yöneticinizle görüşün",
-        "email_exists": "Bu e-posta adresi ile açılmış bir hesap zaten vafr. Lütfen başka bir e-posta adresi ile yeniden deneyin"
+        "email_exists": "Bu e-posta adresi ile açılmış bir hesap zaten vafr. Lütfen başka bir e-posta adresi ile yeniden deneyin",
+        "old_password": "Yazdığınız geçerli parola doğru değil",
+        "pending": "Hesabınız yöneticiniz tarafından onaylanmayı bekliyor",
+        "banned": "Bu uygulamaya erişme izniniz yok. Bir yanlışlık olduğunu düşünüyorsanız yöneticiniz ile görüşün."
       },
       "rooms": {
         "room_limit": "Oda sayısı sınırına ulaşıldığından oda eklenemedi"
@@ -418,6 +430,10 @@
       "password_confirmation": {
         "required": "Lütfen parolayı onaylamak için yeniden yazın",
         "match": "Parola ile onayı aynı değil"
+      },
+      "emails": {
+        "required": "Lütfen en az bir geçerli e-posta adresi yazın",
+        "list": "Lütfen virgül ile ayırarak e-posta adresleri listesini yazın (kullanici@websitesi.com,kullanici1@websitesi.com,kullanici2@websitesi.com)"
       }
     },
     "user": {
@@ -537,6 +553,13 @@
           "password_confirmation": {
             "label": "Parola onayı",
             "placeholder": "Kullanıcının parolasını yeniden yazın"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "E-posta adresleri"
           }
         }
       }
