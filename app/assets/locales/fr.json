@@ -23,6 +23,7 @@
   "are_you_sure": "Etes-vous sûr?",
   "return_home": "Retourner à l'accueil",
   "created_at": "Créé à",
+  "no_result_search_input": "Aucun résultat trouvé pour {{ searchInput }}",
   "homepage": {
     "welcome_bbb": "Bienvenue sur BigBlueButton.",
     "bigbluebutton_description": "BigBluButton est un système de webconférence dont le code source ouvert et qui est destinée à l'enseignement en ligne. La plateforme permet de profiter au mieux du temps dédié à la formation en favorisant la collaboration et une supervision en temps réel. ",
@@ -88,6 +89,10 @@
       "upload_avatar": "Téléverser un avatar",
       "delete_avatar": "Effacer l'avatar",
       "crop_avatar": "Recadrer votre avatar"
+    },
+    "pending": {
+      "title": "Inscription en attente",
+      "message": "Merci pour votre inscription! Votre compte et en attente d'approbation par un administrateur."
     }
   },
   "room": {
@@ -161,8 +166,11 @@
     "protected": "Protégée",
     "length_in_minutes": "{{enregistrement.durée}} min.",
     "processing_recording": "Traitement de l'enregistrement...",
+    "copied_urls": "Url(s) des enregistrements copiés",
     "copy_recording_urls": "Copier l'URL de l'enregistrement",
-    "no_recording_found": "Aucun d'enregistrement trouvé",
+    "no_recordings_found": "Aucun enregistrement trouvé",
+    "recordings_list_empty": "Vous n'avez pas encore d'enregistrements!",
+    "recordings_list_empty_description": "Les enregistrements apparaîtront ici dès que vous aurez réalisé la captation d'une réunion",
     "are_you_sure_delete_recording": "Etes-vous sûr·e de vouloir supprimer cet enregistrement ?"
   },
   "admin": {
@@ -269,8 +277,9 @@
     },
     "room_configuration": {
       "room_configuration": "Paramétrage de la salle",
-      "optional": "Facultatif",
-      "enabled": "Activé",
+      "default": "Optionnel (par défaut: activé)",
+      "optional": "Optionnel (par défaut: désactivé)",
+      "enabled": "Forcer l'activation",
       "disabled": "Désactivé",
       "configurations": {
         "allow_room_to_be_recorded": "Autoriser les enregistrements pour cette salle",
@@ -367,7 +376,10 @@
       },
       "users": {
         "invalid_invite": "Votre jeton d'invitation est soit non valide soit erroné. Veuillez contacter votre administrateur pour en recevoir un nouveau",
-        "email_exists": "Il existe déjà un compte avec cette adresse. Veuillez réessayer avec une autre adresse de courriel."
+        "email_exists": "Il existe déjà un compte avec cette adresse. Veuillez réessayer avec une autre adresse de courriel.",
+        "old_password": "Le mot de passe que vous avez saisi est erroné",
+        "pending": "Votre inscription est en attente d'approbation par l'administrateur",
+        "banned": "Vous n'êtes pas autorisé à accéder à cette application. Veuillez contacter l'administrateur si vous pensez qu'il s'agit d'une erreur."
       },
       "rooms": {
         "room_limit": "La salle ne peut être créée car la limite du nombre de salles a été atteint."
@@ -418,6 +430,10 @@
       "password_confirmation": {
         "required": "Veuillez confirmer le mot de passe",
         "match": "Les mots de passe sont erronés"
+      },
+      "emails": {
+        "required": "Veuillez saisir au minimum une adresse de courriel valide",
+        "list": "Veuillez saisir une liste d'adresses de courriel en séparant chaque adresse par une virgule  (utilisateur@utilisateurs.com,utilisateur1@utilisateurs.com,utilisateur2@utilisateurs.com)"
       }
     },
     "user": {
@@ -537,6 +553,13 @@
           "password_confirmation": {
             "label": "Confirmez le mot de passe",
             "placeholder": "Confirmez le mot de passe"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "Courriels"
           }
         }
       }
