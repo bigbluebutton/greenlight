@@ -29,6 +29,15 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
       expect(JSON.parse(response.body)['data']).to eq({ 'setting' => 'value' })
     end
 
+    it 'returns the value for a shared user' do
+      shared_user = create(:user)
+      create(:shared_access, user_id: shared_user.id, room_id: room.id)
+      sign_in_user(shared_user)
+
+      get :show, params: { friendly_id: room.friendly_id }
+      expect(JSON.parse(response.body)['data']).to eq({ 'setting' => 'value' })
+    end
+
     context 'AuthN' do
       it 'returns :unauthorized response for unauthenticated requests' do
         session[:session_token] = nil
@@ -66,6 +75,19 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
 
       put :update, params: { room_setting: { settingName: 'setting', settingValue: 'notOptionalAnymore' }, friendly_id: room.friendly_id }
       expect(response).to have_http_status(:ok)
+      expect(room.room_meeting_options.take.value).to eq('notOptionalAnymore')
+    end
+
+    it 'updates the value for a shared user' do
+      shared_user = create(:user)
+      create(:shared_access, user_id: shared_user.id, room_id: room.id)
+      sign_in_user(shared_user)
+
+      meeting_option = create(:meeting_option, name: 'setting')
+      create(:rooms_configuration, meeting_option:, value: 'optional')
+      create(:room_meeting_option, room:, meeting_option:)
+
+      put :update, params: { room_setting: { settingName: 'setting', settingValue: 'notOptionalAnymore' }, friendly_id: room.friendly_id }
       expect(room.room_meeting_options.take.value).to eq('notOptionalAnymore')
     end
 

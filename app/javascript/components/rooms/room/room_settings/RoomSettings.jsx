@@ -13,6 +13,7 @@ import AccessCodeRow from './AccessCodeRow';
 import useUpdateRoomSetting from '../../../../hooks/mutations/room_settings/useUpdateRoomSetting';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import UpdateRoomNameForm from './forms/UpdateRoomNameForm';
+import useRoom from '../../../../hooks/queries/rooms/useRoom';
 
 export default function RoomSettings() {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ export default function RoomSettings() {
   const { friendlyId } = useParams();
   const roomSetting = useRoomSettings(friendlyId);
   const { data: roomConfigs } = useRoomConfigs();
+  const { data: room } = useRoom(friendlyId);
 
   const updateMutationWrapper = () => useUpdateRoomSetting(friendlyId);
   const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
@@ -93,11 +95,19 @@ export default function RoomSettings() {
                 description={t('room.settings.mute_users_on_join')}
               />
               <div className="float-end mt-3">
+                {!room.shared && (
                 <Modal
-                  modalButton={<Button variant="delete" className="mt-1 mx-2 float-end">{ t('room.delete_room') }</Button>}
+                  modalButton={(
+                    <Button
+                      variant="delete"
+                      className="mt-1 mx-2 float-end"
+                    >{t('room.delete_room')}
+                    </Button>
+)}
                   title={t('room.delete_room')}
                   body={<DeleteRoomForm mutation={deleteMutationWrapper} />}
                 />
+                )}
               </div>
             </Col>
           </Row>

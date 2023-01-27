@@ -4,8 +4,11 @@ module Api
   module V1
     class RecordingsController < ApiController
       before_action :find_recording, only: %i[update update_visibility]
-      before_action only: %i[update destroy update_visibility] do
+      before_action only: %i[destroy] do
         ensure_authorized('ManageRecordings', record_id: params[:id])
+      end
+      before_action only: %i[update update_visibility] do
+        ensure_authorized(%w[ManageRecordings SharedRoom], record_id: params[:id])
       end
       before_action only: %i[index recordings_count] do
         ensure_authorized('CreateRoom')

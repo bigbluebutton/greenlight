@@ -49,15 +49,27 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
       response_users_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
       expect(response_users_ids).to match_array(searched_users.pluck(:id))
     end
+
+    it 'allows a shared user to view the shared access list' do
+      shared_user = create(:user)
+      sign_in_user(shared_user)
+
+      shared_users = create_list(:user, 5)
+      room.shared_users = shared_users + [shared_user]
+
+      get :show, params: { friendly_id: room.friendly_id, search: '' }
+      shared_user_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
+      expect(shared_user_ids).to match_array((shared_users + [shared_user]).pluck(:id))
+    end
   end
 
   describe '#shareable_users' do
-    it 'does not return any users if the search params is empty' do
+    it 'returns an empty list if the search params is empty' do
       shareable_users = create_list(:user, 5, name: 'John Doe')
       shareable_users << user
 
       get :shareable_users, params: { friendly_id: room.friendly_id, search: '' }
-      expect(response).to have_http_status(:bad_request)
+      expect(JSON.parse(response.body)['data']).to be_empty
     end
 
     it 'does not return any users if the search params has less than 3 characters' do
@@ -65,7 +77,7 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
       shareable_users << user
 
       get :shareable_users, params: { friendly_id: room.friendly_id, search: 'Jo' }
-      expect(response).to have_http_status(:bad_request)
+      expect(JSON.parse(response.body)['data']).to be_empty
     end
 
     it 'returns the users that the room can be shared to' do

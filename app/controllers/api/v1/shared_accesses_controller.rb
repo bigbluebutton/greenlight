@@ -5,8 +5,11 @@ module Api
     class SharedAccessesController < ApiController
       before_action :find_room
 
-      before_action only: %i[show create destroy shareable_users] do
+      before_action only: %i[create destroy shareable_users] do
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
+      end
+      before_action only: %i[show] do
+        ensure_authorized(%w[ManageRooms SharedRoom], friendly_id: params[:friendly_id])
       end
 
       # POST /api/v1/shared_accesses.json
@@ -38,7 +41,7 @@ module Api
       # GET /api/v1/shared_accesses/friendly_id/shareable_users.json
       # Returns a list of users with whom a room can be shared with (based on role permissions)
       def shareable_users
-        return render_error status: :bad_request unless params[:search].present? && params[:search].length >= 3
+        return render_data data: [], status: :ok unless params[:search].present? && params[:search].length >= 3
 
         # role_id of roles that have SharedList permission set to true
         role_ids = RolePermission.joins(:permission).where(permission: { name: 'SharedList' }).where(value: 'true').pluck(:role_id)

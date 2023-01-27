@@ -29,8 +29,7 @@ export default function SharedAccessForm({ handleClose }) {
           <Table hover responsive className="text-secondary my-3">
             <thead>
               <tr className="text-muted small">
-                <th className="fw-normal w-50">{ t('user.name') }</th>
-                <th className="fw-normal w-50">{ t('user.email_address') }</th>
+                <th className="fw-normal">{ t('user.name') }</th>
               </tr>
             </thead>
             <tbody className="border-top-0">
@@ -39,10 +38,18 @@ export default function SharedAccessForm({ handleClose }) {
                   if (searchInput?.length >= 3 && shareableUsers?.length) {
                     return (
                       shareableUsers.map((user) => (
-                        <tr key={user.id} className="align-middle">
+                        <tr
+                          key={user.id}
+                          className="align-middle"
+                          onClick={() => {
+                            const checkbox = document.getElementById(`${user.id}-checkbox`);
+                            checkbox.checked = !checkbox.checked;
+                          }}
+                        >
                           <td>
                             <Stack direction="horizontal" className="py-2">
                               <Form.Check
+                                id={`${user.id}-checkbox`}
                                 type="checkbox"
                                 value={user.id}
                                 className="pe-3"
@@ -51,9 +58,6 @@ export default function SharedAccessForm({ handleClose }) {
                               <Avatar avatar={user.avatar} size="small" />
                               <h6 className="text-brand mb-0 ps-3"> {user.name} </h6>
                             </Stack>
-                          </td>
-                          <td>
-                            <span className="text-muted"> {user.email} </span>
                           </td>
                         </tr>
                       )));

@@ -6,7 +6,7 @@ module Api
       before_action :find_room, only: %i[show update]
 
       before_action only: %i[show update] do
-        ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
+        ensure_authorized(%w[ManageRooms SharedRoom], friendly_id: params[:friendly_id])
       end
 
       # GET /api/v1/room_settings/:friendly_id

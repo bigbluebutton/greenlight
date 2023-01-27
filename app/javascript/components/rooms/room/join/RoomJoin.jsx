@@ -117,7 +117,7 @@ export default function RoomJoin() {
     return <RequireAuthentication path={path} />;
   }
 
-  if (publicRoom.data.owner_id === currentUser?.id) {
+  if (publicRoom.data.owner_id === currentUser?.id || publicRoom.data.shared_user_ids.includes(currentUser?.id)) {
     return <Navigate to={`/rooms/${publicRoom.data.friendly_id}`} />;
   }
 

@@ -164,7 +164,7 @@ RecordingRow.propTypes = {
       recording_type: PropTypes.string.isRequired,
     })),
     visibility: PropTypes.string.isRequired,
-    protectable: PropTypes.bool.isRequired,
+    protectable: PropTypes.bool,
     created_at: PropTypes.string.isRequired,
     map: PropTypes.func,
   }).isRequired,

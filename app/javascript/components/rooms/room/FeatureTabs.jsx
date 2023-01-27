@@ -62,6 +62,10 @@ export default function FeatureTabs({ shared }) {
   );
 }
 
+FeatureTabs.defaultProps = {
+  shared: false,
+};
+
 FeatureTabs.propTypes = {
-  shared: PropTypes.bool.isRequired,
+  shared: PropTypes.bool,
 };
