@@ -31,7 +31,7 @@ export default function RecordingsList({
         (searchInput && recordings?.data.length === 0)
           ? (
             <div className="mt-5">
-              <NoSearchResults name={t('recording.recordings')} searchInput={searchInput} />
+              <NoSearchResults text={t('recording.search_not_found')} searchInput={searchInput} />
             </div>
           ) : (
             <Card className="border-0 shadow-sm p-0 mt-4 mb-5">

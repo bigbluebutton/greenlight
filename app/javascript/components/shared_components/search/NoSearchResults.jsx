@@ -4,7 +4,7 @@ import { Stack } from 'react-bootstrap';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
 
-export default function NoSearchResults({ name, searchInput }) {
+export default function NoSearchResults({ text, searchInput }) {
   const { t } = useTranslation();
 
   return (
@@ -12,7 +12,7 @@ export default function NoSearchResults({ name, searchInput }) {
       <div className="icon-circle rounded-circle d-block mx-auto mb-3 bg-white">
         <MagnifyingGlassIcon className="hi-l text-brand d-block mx-auto pt-4" />
       </div>
-      <h2>{t('search_not_found', { name })}</h2>
+      <h2>{text}</h2>
       <p>{t('no_result_search_input', { searchInput })}</p>
     </Stack>
   );
@@ -20,5 +20,5 @@ export default function NoSearchResults({ name, searchInput }) {
 
 NoSearchResults.propTypes = {
   searchInput: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
 };

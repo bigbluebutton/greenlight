@@ -51,7 +51,7 @@ export default function ServerRooms() {
                       (searchInput && serverRooms?.data.length === 0)
                         ? (
                           <div className="mt-5">
-                            <NoSearchResults name={t('room.rooms')} searchInput={searchInput} />
+                            <NoSearchResults text={t('room.search_not_found')} searchInput={searchInput} />
                           </div>
                         ) : (
                           <div className="p-4">

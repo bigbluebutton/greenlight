@@ -58,7 +58,7 @@ export default function RoomsList() {
               {(room.optimistic && <RoomCardPlaceHolder />) || <RoomCard room={room} />}
             </Col>
           )))
-          || <NoSearchResults name={t('room.rooms')} searchInput={searchInput} />
+          || <NoSearchResults text={t('room.search_not_found')} searchInput={searchInput} />
         }
       </Row>
     </>

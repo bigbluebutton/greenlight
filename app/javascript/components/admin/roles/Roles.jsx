@@ -50,7 +50,7 @@ export default function Roles() {
                       (searchInput && roles?.length === 0)
                         ? (
                           <div className="mt-5">
-                            <NoSearchResults name={t('admin.roles.roles')} searchInput={searchInput} />
+                            <NoSearchResults text={t('admin.roles.search_not_found')} searchInput={searchInput} />
                           </div>
                         ) : (
                           <RolesList isLoading={isLoading} roles={roles} />

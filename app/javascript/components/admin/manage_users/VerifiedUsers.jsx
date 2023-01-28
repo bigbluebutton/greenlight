@@ -17,7 +17,7 @@ export default function VerifiedUsers({ searchInput }) {
       (searchInput && verifiedUsers?.data.length === 0)
         ? (
           <div className="mt-5">
-            <NoSearchResults name={t('user.users')} searchInput={searchInput} />
+            <NoSearchResults text={t('user.search_not_found')} searchInput={searchInput} />
           </div>
         ) : (
           <div>
