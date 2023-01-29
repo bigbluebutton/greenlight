@@ -30,18 +30,25 @@ module Api
           return render_error status: :not_found unless site_setting
 
           update = if params[:name] == 'BrandingImage'
-                     # Case where user is removing the custom branding image
-                     if params[:site_setting][:value].nil?
-                       site_setting.image.purge
-                       return true
-                     else
-                       site_setting.image.attach params[:site_setting][:value]
-                     end
+                     site_setting.image.attach params[:site_setting][:value]
                    else
                      site_setting.update(value: params[:site_setting][:value].to_s)
                    end
 
           return render_error status: :bad_request unless update
+
+          render_data status: :ok
+        end
+
+        # DELETE /api/v1/admin/site_settings/purge_branding_image.json
+        # Removes the custom branding image back to bbb default
+        def purge_branding_image
+          site_setting = SiteSetting.joins(:setting)
+                                    .find_by(
+                                      provider: current_provider,
+                                      setting: { name: 'BrandingImage' }
+                                    )
+          site_setting.image.purge
 
           render_data status: :ok
         end

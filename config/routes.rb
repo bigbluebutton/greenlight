@@ -77,7 +77,11 @@ Rails.application.routes.draw do
         resources :server_rooms, only: %i[index destroy], param: :friendly_id do
           get '/resync', to: 'server_rooms#resync', on: :member
         end
-        resources :site_settings, only: %i[index update], param: :name
+        resources :site_settings, only: %i[index update], param: :name do
+          collection do
+            delete '/', to: 'site_settings#purge_branding_image'
+          end
+        end
         resources :rooms_configurations, only: :update, param: :name
         resources :roles
         resources :invitations, only: %i[index create]
