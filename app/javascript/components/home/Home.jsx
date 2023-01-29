@@ -7,7 +7,7 @@ import Logo from '../shared_components/Logo';
 export default function Home() {
   return (
     <div className="mt-5">
-      <div className="text-center mb-4">
+      <div className="text-center">
         <Logo size="large" />
       </div>
       <Card className="col-md-8 mx-auto p-5 border-0 shadow-sm text-center">
