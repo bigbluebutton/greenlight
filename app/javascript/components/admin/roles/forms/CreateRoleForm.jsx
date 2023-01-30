@@ -1,5 +1,4 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import {
   Button, Stack,
 } from 'react-bootstrap';
@@ -8,14 +7,13 @@ import { useTranslation } from 'react-i18next';
 import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import FormControl from '../../../shared_components/forms/FormControl';
-import { createRoleFormConfig, createRoleFormFields } from '../../../../helpers/forms/CreateRoleFormHelpers';
 import useCreateRole from '../../../../hooks/mutations/admin/roles/useCreateRole';
+import useRoleForm from '../../../../hooks/forms/admin/roles/useRoleForm';
 
 export default function CreateRoleForm({ handleClose }) {
   const { t } = useTranslation();
   const createRole = useCreateRole({ onSettled: handleClose });
-  const methods = useForm(createRoleFormConfig);
-  const fields = createRoleFormFields;
+  const { methods, fields } = useRoleForm();
 
   return (
     <Form methods={methods} onSubmit={createRole.mutate}>

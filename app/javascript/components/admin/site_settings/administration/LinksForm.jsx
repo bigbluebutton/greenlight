@@ -3,20 +3,17 @@ import PropTypes from 'prop-types';
 import {
   Button, InputGroup,
 } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import Form from '../../../shared_components/forms/Form';
-import { linksFormConfig, linksFormFields } from '../../../../helpers/forms/LinksFormHelpers';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
+import useLinksForm from '../../../../hooks/forms/admin/site_settings/useLinksForm';
 
 export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAPI }) {
   const updateSiteSettingsAPI = useUpdateSiteSettingsAPI();
   const { t } = useTranslation();
-  const { defaultValues } = linksFormConfig;
-  defaultValues.value = value;
-  const fields = linksFormFields;
-  const methods = useForm(linksFormConfig);
+
+  const { methods, fields } = useLinksForm({ defaultValues: { value } });
 
   return (
     <Form id={id} methods={methods} onSubmit={updateSiteSettingsAPI.mutate}>
