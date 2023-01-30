@@ -33,7 +33,7 @@ module Api
 
           role = Role.new(name: role_hash[:name], provider: 'greenlight')
 
-          return render_error status: :bad_request unless role.save
+          return render_error(status: :bad_request, errors: role.errors.to_a) unless role.save
 
           # Returns unless the Role has a RolePermission that differs from V3 default RolePermissions values
           return render_data status: :created unless role_hash[:role_permissions].any?
@@ -63,12 +63,13 @@ module Api
 
           role = Role.find_by(name: user_hash[:role], provider: 'greenlight')
 
-          return render_error status: :bad_request unless role
+          return render_error(status: :bad_request, errors: role.errors.to_a) unless role
 
           user_hash[:password] = generate_secure_pwd if user_hash[:external_id].blank?
 
           user = User.new(user_hash.merge(provider: 'greenlight', role:))
-          return render_error status: :bad_request unless user.save
+
+          return render_error(status: :bad_request, errors: user.errors.to_a) unless user.save
 
           return render_data status: :created if user.external_id?
 
@@ -93,7 +94,7 @@ module Api
 
           user = User.find_by(email: room_hash[:owner_email], provider: 'greenlight')
 
-          return render_error status: :bad_request unless user
+          return render_error(status: :bad_request, errors: user.errors.to_a) unless user
 
           room = Room.new(room_hash.except(:owner_email, :room_settings, :shared_users_emails).merge({ user: }))
 
@@ -103,7 +104,7 @@ module Api
           room.define_singleton_method(:set_meeting_id) {}
           # rubocop:enable Lint/EmptyBlock
 
-          return render_error status: :bad_request unless room.save
+          return render_error(status: :bad_request, errors: room.errors.to_a) unless room.save
 
           # Finds all the RoomMeetingOptions that need to be updated
           room_meeting_options_temp = RoomMeetingOption.includes(:meeting_option)
