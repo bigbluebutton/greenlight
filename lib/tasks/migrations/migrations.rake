@@ -39,12 +39,13 @@ namespace :migrations do
       case response
       when Net::HTTPCreated
         puts green "Succesfully migrated Role:"
-        puts cyan "  ID: #{r.id}"
-        puts cyan "  Name: #{params[:role][:name]}"
+        puts cyan "ID: #{r.id}"
+        puts cyan "Name: #{params[:role][:name]}"
       else
         puts red "Unable to migrate Role:"
         puts yellow "  ID: #{r.id}"
         puts yellow "  Name: #{params[:role][:name]}"
+        puts red "  Errors: #{JSON.parse(response.body.to_s)['errors']}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
     end
@@ -78,6 +79,7 @@ namespace :migrations do
         puts red "Unable to migrate User:"
         puts yellow "  UID: #{u.uid}"
         puts yellow "  Name: #{params[:user][:name]}"
+        puts red "  Errors: #{JSON.parse(response.body.to_s)['errors']}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
     end
@@ -142,6 +144,7 @@ namespace :migrations do
         puts red "Unable to migrate Room:"
         puts yellow "  UID: #{r.uid}"
         puts yellow "  Name: #{r.name}"
+        puts red "  Errors: #{JSON.parse(response.body.to_s)['errors']}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
     end
@@ -192,6 +195,7 @@ namespace :migrations do
       puts green "Successfully migrated Settings"
     else
       puts red "Unable to migrate Settings"
+      puts red "Errors: #{JSON.parse(response.body.to_s)['errors']}"
       has_encountred_issue = 1 # At least one of the migrations failed.
     end
 
