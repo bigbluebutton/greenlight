@@ -9,7 +9,9 @@
 
   <body style="background-color: whitesmoke;">
     <div style="text-align:center; font-family:'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
-      <%= image_tag @brand_image, :style => "max-width: 300px; max-height: 200px; margin-top: 64px; margin-bottom: 1.5rem; display: block; margin-left: auto; margin-right: auto;" %>
+      <% if @brand_image %>
+        <%= image_tag @brand_image, :style => "max-width: 300px; max-height: 200px; margin-top: 64px; margin-bottom: 1.5rem; display: block; margin-left: auto; margin-right: auto;" %>
+      <% end %>
       <div style="max-width: 800px; display:block; margin-left:auto; margin-right: auto; border-radius: 12px; background-color: white; box-shadow: 0 0.125rem 0.25rem rgb(33 37 41 / 8%);">
         <div style="padding: 64px;">
 
