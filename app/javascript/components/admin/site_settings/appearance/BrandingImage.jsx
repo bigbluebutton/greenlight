@@ -1,13 +1,15 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import { CloudArrowUpIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 import FilesDragAndDrop from '../../../shared_components/utilities/FilesDragAndDrop';
+import useDeleteBrandingImage from '../../../../hooks/mutations/admin/site_settings/useDeleteBrandingImage';
 
 export default function BrandingImage() {
   const { t } = useTranslation();
   const updateSiteSetting = useUpdateSiteSetting('BrandingImage');
+  const updateBrandingImage = useDeleteBrandingImage();
 
   return (
     <div className="mb-3">
@@ -43,6 +45,12 @@ export default function BrandingImage() {
           </label>
         </Card>
       </FilesDragAndDrop>
+      <Button
+        variant="neutral"
+        className="btn-sm my-4"
+        onClick={() => updateBrandingImage.mutate()}
+      > { t('admin.site_settings.appearance.remove_branding_image') }
+      </Button>
     </div>
   );
 }

@@ -58,4 +58,17 @@ RSpec.describe Api::V1::Admin::SiteSettingsController, type: :controller do
       end
     end
   end
+
+  describe '#purge_branding_image' do
+    it 'deletes the BrandingImage' do
+      setting = create(:setting, name: 'BrandingImage')
+      site_setting = create(:site_setting, setting:)
+
+      site_setting.image.attach(io: fixture_file_upload('default-avatar.png'), filename: 'default-avatar.png', content_type: 'image/png')
+
+      expect(site_setting.reload.image).to be_attached
+      delete :purge_branding_image
+      expect(site_setting.reload.image).not_to be_attached
+    end
+  end
 end

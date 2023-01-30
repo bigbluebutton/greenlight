@@ -39,6 +39,19 @@ module Api
 
           render_data status: :ok
         end
+
+        # DELETE /api/v1/admin/site_settings/purge_branding_image.json
+        # Removes the custom branding image back to bbb default
+        def purge_branding_image
+          site_setting = SiteSetting.joins(:setting)
+                                    .find_by(
+                                      provider: current_provider,
+                                      setting: { name: 'BrandingImage' }
+                                    )
+          site_setting.image.purge
+
+          render_data status: :ok
+        end
       end
     end
   end
