@@ -438,6 +438,23 @@
       "emails": {
         "required": "Please enter at least one valid email",
         "list": "Please provide a comma separated list of valid emails (user@users.com,user1@users.com,user2@users.com)"
+      },
+      "role_name": {
+        "required": "Please enter the role name"
+      },
+      "room": {
+        "name": {
+          "required": "Please enter the room name.",
+          "min": "Name must be at least 2 characters long"
+        }
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Room Name",
+          "placeholder": "Enter a room name..."
+        }
       }
     },
     "user": {
@@ -564,6 +581,21 @@
         "fields": {
           "emails": {
             "label": "Emails"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "Enter link here..."
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "Role Name",
+            "placeholder": "Enter a role name..."
           }
         }
       }

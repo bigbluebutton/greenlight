@@ -162,8 +162,10 @@
   width: 100px;
 }
 
-.invalid-feedback{
-  width: 200px;
+#edit-role-form {
+  .invalid-feedback{
+    width: 200px;
+  }
 }
 
 .role-badge {
