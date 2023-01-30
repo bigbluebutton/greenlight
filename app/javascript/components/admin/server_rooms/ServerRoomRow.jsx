@@ -24,6 +24,7 @@ export default function ServerRoomRow({ room }) {
   const currentUser = useAuth();
   const roomStatusAPI = useRoomStatus(friendlyId);
   const recordingsResyncAPI = useRecordingsReSync(friendlyId);
+  const strftime = require('strftime').timezone(-1 * new Date().getTimezoneOffset());
 
   // TODO - samuel: useRoomStatus will not work if room has an access code. Will need to add bypass in MeetingController
   const handleJoin = () => roomStatusAPI.mutate({ name: currentUser.name });
@@ -33,9 +34,9 @@ export default function ServerRoomRow({ room }) {
       return t('admin.server_rooms.no_meeting_yet');
     }
     if (online) {
-      return t('admin.server_rooms.current_session', { lastSession });
+      return t('admin.server_rooms.current_session', { lastSession: strftime(t('date_time'), new Date(lastSession)) });
     }
-    return t('admin.server_rooms.last_session', { lastSession });
+    return t('admin.server_rooms.last_session', { lastSession: strftime(t('date_time'), new Date(lastSession)) });
   };
 
   const meetingRunning = () => {

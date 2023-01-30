@@ -8,8 +8,4 @@ class RoomSerializer < ApplicationSerializer
   def shared_owner
     object.user.name
   end
-
-  def last_session
-    object.last_session&.strftime('%B %e, %Y %l:%M%P')
-  end
 end

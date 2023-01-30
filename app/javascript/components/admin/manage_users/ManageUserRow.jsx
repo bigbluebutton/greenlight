@@ -21,6 +21,7 @@ export default function ManageUserRow({ user }) {
   const { t } = useTranslation();
   const mutationWrapper = (args) => useCreateServerRoom({ userId: user.id, ...args });
   const updateUserStatus = useUpdateUserStatus();
+  const strftime = require('strftime').timezone(-1 * new Date().getTimezoneOffset());
 
   return (
     <tr key={user.id} className="align-middle text-muted border border-2">
@@ -31,7 +32,13 @@ export default function ManageUserRow({ user }) {
           </div>
           <Stack>
             <span className="text-dark fw-bold"> {user.name} </span>
-            <span className="small"> { t('admin.manage_users.user_created_at', { user }) }</span>
+            <span className="small"> { t('admin.manage_users.user_created_at', {
+              created_at: strftime(
+                t('date_time'),
+                new Date(user.created_at),
+              ),
+            }) }
+            </span>
           </Stack>
         </Stack>
       </td>

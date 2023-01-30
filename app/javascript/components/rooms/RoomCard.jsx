@@ -21,7 +21,9 @@ export default function RoomCard({ room }) {
   const handleClick = useCallback(() => { navigate(room.friendly_id); }, [room.friendly_id]);
   const startMeeting = useStartMeeting(room.friendly_id);
 
+  const strftime = require('strftime').timezone(-1 * new Date().getTimezoneOffset());
   return (
+
     <Card id="room-card" className="h-100 shadow-sm border-0">
       <Card.Body className="pb-0" onClick={handleClick}>
         <Stack direction="horizontal">
@@ -40,7 +42,8 @@ export default function RoomCard({ room }) {
             <span className="text-muted">{ t('room.shared_by') } <strong>{ room.shared_owner }</strong></span>
           )}
           { room.last_session ? (
-            <span className="text-muted"> { t('room.last_session', { room }) } </span>
+
+            <span className="text-muted"> { t('room.last_session', { last_session: strftime(t('date_time'), new Date(room.last_session)) })} </span>
           ) : (
             <span className="text-muted mt-2"> { t('room.no_last_session') } </span>
           )}

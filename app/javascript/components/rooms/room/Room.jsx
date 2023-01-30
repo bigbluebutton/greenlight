@@ -29,6 +29,7 @@ export default function Room() {
   } = useRoom(friendlyId);
   const startMeeting = useStartMeeting(friendlyId);
   const location = useLocation();
+  const strftime = require('strftime').timezone(-1 * new Date().getTimezoneOffset());
 
   // Custom logic to redirect from Rooms page to join page if this isnt the users room and they're not allowed to view it
   if (isError && error.response.status === 403) {
@@ -62,7 +63,13 @@ export default function Room() {
                         </Stack>
                       </Stack>
                       { room?.last_session ? (
-                        <span className="text-muted"> { t('room.last_session', { room }) }  </span>
+                        <span className="text-muted"> { t('room.last_session', {
+                          last_session: strftime(
+                            t('day_date_time'),
+                            new Date(room.last_session),
+                          ),
+                        }) }
+                        </span>
                       ) : (
                         <span className="text-muted"> { t('room.no_last_session') } </span>
                       )}

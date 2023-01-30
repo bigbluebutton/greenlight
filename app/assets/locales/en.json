@@ -23,6 +23,8 @@
   "are_you_sure": "Are you sure?",
   "return_home": "Return Home",
   "created_at": "Created at",
+  "date_time": "%B %e, %Y %l:%M%P",
+  "day_date_time": "%A %B %e, %Y %l:%M%P",
   "homepage": {
     "welcome_bbb": "Welcome to BigBlueButton.",
     "bigbluebutton_description": "BigBlueButton is an open source web conferencing system for online classes. The platform maximizes time for applied learning by enabling students to collaborate and receive feedback in real-time.",
@@ -100,7 +102,7 @@
     "create_new_room": "Create New Room",
     "enter_room_name": "Enter the room name",
     "shared_by": "shared by ",
-    "last_session": "Last Session: {{ room.last_session }}",
+    "last_session": "Last Session: {{ last_session }}",
     "no_last_session": "No previous session created",
     "no_rooms_found": "No rooms found",
     "rooms_list_is_empty": "You don't have any rooms yet!",
@@ -190,7 +192,7 @@
       "create_account": "Create Account",
       "create_room": "Create Room",
       "create_new_room": "Create New Room",
-      "user_created_at": "Created: {{user.created_at}}",
+      "user_created_at": "Created: {{created_at}}",
       "are_you_sure_delete_account": "Are you sure you want to delete {{user.name}}'s account?",
       "delete_account_warning": "If you choose to delete this account, it will NOT be recoverable.",
       "invited": {

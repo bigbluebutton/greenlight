@@ -31,6 +31,7 @@ export default function RecordingRow({
   const visibilityAPI = useVisibilityAPI();
   const [isEditing, setIsEditing] = useState(+false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const strftime = require('strftime').timezone(-1 * new Date().getTimezoneOffset());
 
   return (
     <tr key={recording.id} className="align-middle text-muted border border-2">
@@ -69,7 +70,7 @@ export default function RecordingRow({
                 isUpdating && <Spinner animation="grow" variant="brand" />
               }
             </strong>
-            <span className="small text-muted"> {recording.created_at} </span>
+            <span className="small text-muted"> {strftime(t('date_time'), new Date(recording.created_at))} </span>
           </Stack>
         </Stack>
       </td>
