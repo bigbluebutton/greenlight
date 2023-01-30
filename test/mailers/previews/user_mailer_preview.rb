@@ -16,4 +16,10 @@ class UserMailerPreview < ActionMailer::Preview
 
     UserMailer.with(user: fake_user.new('user', 'user@users.com'), expires_in: 1.hour.from_now, activation_url: 'https://example.com/activate').activate_account_email
   end
+
+  def invitation_email
+    fake_user = Struct.new(:name, :email)
+
+    UserMailer.with(user: fake_user.new('user', 'user@users'), expires_in: 1.hour.from_now, invitation_url: 'https://example.com/invite').invitation_email
+  end
 end

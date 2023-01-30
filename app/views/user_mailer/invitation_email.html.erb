@@ -1,18 +1,17 @@
-<%# TODO: Amir - Revisit this (i18n, styling, template,, add in logo, ...). %>
 
-<div style="text-align:center; font-family:'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
-  <div style="display:inline-block; background-color:#F5F7FB; border:1px solid #d3d3d3; padding: 25px 70px">
+    <p style="font-size: 40px; margin-bottom: 20px;"><%= t('email.invitation.invitation_to_join') %></p>
 
-    <h1 style="margin-bottom:30px"><%= t('email.invitation.line0') %></h1>
+    <p style="font-size: 24px;"><%= t('email.invitation.you_have_been_invited', name: @name) %></p>
 
-    <p><%= t('email.invitation.line1', name: @name) %></p>
+    <p><%= t('email.invitation.get_started') %></p>
 
-    <p><%= t('email.invitation.line2') %></p>
-
-    <p style="margin-bottom:35px;"><%= t('email.invitation.line3') %></p>
-
-    <a style="color: #ffffff; padding: 10px 15px; box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);border: 1px solid transparent;text-decoration:none;" href="<%= @signup_url %>">
-      <%= t('email.invitation.line4') %>
+    <a href="<%= @signup_url %>">
+      <button style="background-color: <%= @brand_color %>; border-radius: 10px; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; font-weight: 600; margin-top: 16px; margin-bottom: 64px;">
+        <%= t('email.invitation.sign_up') %>
+      </button>
     </a>
+
+    <p style="margin-bottom:35px;"><%= t('email.invitation.valid_invitation') %></p>
+
   </div>
 </div>

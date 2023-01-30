@@ -34,25 +34,22 @@ en:
     moderator_message: "To invite someone to the meeting, send them this link:"
     access_code: "Access Code: %{code}"
   email:
+    link_expires: The link will expire in %{time}.
     activation:
-      line0: Welcome %{name}!
-      line1: There's only one step left to start using and leverage what Greenlight and BigBlueButton has to offer!
-      line2: You are invited to verifiy your identity by following the link below to activate your account.
-      line3: Activating your account will enable you to leverage all of Greenlight and BigBlueButton features!
-      line4: You can create rooms, host sessions, share recordings and collaborate with others!
-      line5: Activate My Account
-      line6: This link will expire in %{time}
-      line7: You can still login to your account to get a new activation link if this email expires.
+      account_activation: Account Activation
+      welcome_to_bbb: Welcome to BigBlueButton!
+      get_started: To get started, please activate your account by clicking on the button below.
+      activate_account: Activate Account
+      if_link_expires: If the link expires, please log in and request a new activation email.
     invitation:
-      line0: Invitation to join BigBlueButton
-      line1: You have been invited to your own personal space by %{name}.
-      line2: To signup using your email, click the button below and follow the steps.
-      line3: The invite is only valid for 48 hours.
-      line4: Sign Up
+      invitation_to_join: Invitation to join BigBlueButton
+      you_have_been_invited: You have been invited to create a BigBlueButton account by %{name}.
+      get_started: To sign up, please click the button below and follow the steps.
+      valid_invitation: The invitation is valid for 48 hours.
+      sign_up: Sign Up
     reset:
-      line0: Password Reset
-      line1: A password reset has been requested for the email %{email}
-      line2: If you requested this reset, then please click the link below to reset your password:"
-      line3: Reset Password
-      line4: You can safely ignore this email if you did not make this request.
-      line5: This link will expire in %{time}.
+      password_reset: Password Reset Request
+      password_reset_requested: A password reset has been requested for %{email}
+      password_reset_confirmation: To reset your password, please click on the button below"
+      reset_password: Reset Password
+      ignore_request: If you did not make a request to change your password, please ignore this email.

@@ -1,21 +1,13 @@
-  <%# TODO: Amir - Revisit this (i18n, styling, template,, add in logo, ...). %>
-  <div style="text-align:center; font-family:'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
-    <div style="display:inline-block; background-color:#F5F7FB; border:1px solid #d3d3d3; padding: 25px 70px">
 
-      <h1 style="margin-bottom:30px"> <%= t('email.activation.line0', name: @user.name) %> </h1>
+  <p style="font-size: 40px; margin-bottom: 20px;"> <%= t('email.activation.welcome_to_bbb') %> </p>
 
-      <p style="margin-bottom:20px;"> <%= t('email.activation.line1') %> </p>
+  <p style="font-size: 24px;"> <%= t('email.activation.get_started') %> </p>
 
-      <p style="margin-bottom:20px;"> <%= t('email.activation.line2') %> </p>
+  <a href="<%= @activation_url %>" target="_blank">
+    <button style="background-color: <%= @brand_color %>; border-radius: 10px; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; font-weight: 600; margin-top: 16px; margin-bottom: 64px;">
+      <%= t('email.activation.activate_account') %>
+    </button>
+  </a>
 
-      <p style="margin-bottom:20px;"> <%= t('email.activation.line3') %>  </p>
-
-      <p style="margin-bottom:20px;"> <%= t('email.activation.line4') %> </p>
-
-      <a href="<%= @activation_url %>" target="_blank">  <%= t('email.activation.line5') %> </a>
-
-      <p> <%= t('email.activation.line6', time: time_ago_in_words(@expires_in)) %> </p>
-
-      <p> <%= t('email.activation.line7') %> </p>
-    </div>
-  </div>
+  <p> <%= t('email.link_expires', time: time_ago_in_words(@expires_in)) %> </p>
+  <p> <%= t('email.activation.if_link_expires') %> </p>
