@@ -10,6 +10,7 @@ import SearchBar from '../../shared_components/search/SearchBar';
 import useRoles from '../../../hooks/queries/admin/roles/useRoles';
 import CreateRoleModal from '../../shared_components/modals/CreateRoleModal';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
+import NoSearchResults from '../../shared_components/search/NoSearchResults';
 
 export default function Roles() {
   const { t } = useTranslation();
@@ -45,7 +46,16 @@ export default function Roles() {
                       </div>
                       <CreateRoleModal />
                     </Stack>
-                    <RolesList isLoading={isLoading} roles={roles} />
+                    {
+                      (searchInput && roles?.length === 0)
+                        ? (
+                          <div className="mt-5">
+                            <NoSearchResults text={t('admin.roles.search_not_found')} searchInput={searchInput} />
+                          </div>
+                        ) : (
+                          <RolesList isLoading={isLoading} roles={roles} />
+                        )
+}
                   </div>
                 </Container>
               </Tab.Content>

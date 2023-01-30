@@ -4,7 +4,7 @@ import { Card, Stack, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import SortBy from '../shared_components/search/SortBy';
 import RecordingsListRowPlaceHolder from './RecordingsListRowPlaceHolder';
-import NoRecordingsFound from './NoRecordingsFound';
+import NoSearchResults from '../shared_components/search/NoSearchResults';
 import RoomsRecordingRow from './room_recordings/RoomsRecordingRow';
 import Pagination from '../shared_components/Pagination';
 import EmptyRecordingsList from './EmptyRecordingsList';
@@ -31,7 +31,7 @@ export default function RecordingsList({
         (searchInput && recordings?.data.length === 0)
           ? (
             <div className="mt-5">
-              <NoRecordingsFound searchInput={searchInput} />
+              <NoSearchResults text={t('recording.search_not_found')} searchInput={searchInput} />
             </div>
           ) : (
             <Card className="border-0 shadow-sm p-0 mt-4 mb-5">

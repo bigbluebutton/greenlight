@@ -13,6 +13,7 @@ import Pagination from '../../shared_components/Pagination';
 import SortBy from '../../shared_components/search/SortBy';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import ServerRoomsRowPlaceHolder from './ServerRoomsRowPlaceHolder';
+import NoSearchResults from '../../shared_components/search/NoSearchResults';
 
 export default function ServerRooms() {
   const { t } = useTranslation();
@@ -42,23 +43,34 @@ export default function ServerRooms() {
                   <div className="p-4 border-bottom">
                     <h3> { t('admin.server_rooms.server_rooms') } </h3>
                   </div>
-                  <div className="p-4">
+                  <div className="px-4 pt-4">
                     <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
-                    <Table id="server-rooms-table" className="table-bordered border border-2 mt-4 mb-0" hover responsive>
-                      <thead>
-                        <tr className="text-muted small">
-                          <th className="fw-normal border-end-0">{ t('admin.server_rooms.name') }<SortBy fieldName="name" /></th>
-                          <th className="fw-normal border-0">{ t('admin.server_rooms.owner') }<SortBy fieldName="users.name" /></th>
-                          <th className="fw-normal border-0">{ t('admin.server_rooms.room_id') }</th>
-                          <th className="fw-normal border-0">{ t('admin.server_rooms.participants') }</th>
-                          <th className="fw-normal border-0">{ t('admin.server_rooms.status') }</th>
-                          <th className="border-start-0" aria-label="options" />
-                        </tr>
-                      </thead>
+                  </div>
 
-                      <tbody className="border-top-0">
+                  {
+                      (searchInput && serverRooms?.data.length === 0)
+                        ? (
+                          <div className="mt-5">
+                            <NoSearchResults text={t('room.search_not_found')} searchInput={searchInput} />
+                          </div>
+                        ) : (
+                          <div className="p-4">
 
-                        {
+                            <Table id="server-rooms-table" className="table-bordered border border-2 mt-4 mb-0" hover responsive>
+                              <thead>
+                                <tr className="text-muted small">
+                                  <th className="fw-normal border-end-0">{ t('admin.server_rooms.name') }<SortBy fieldName="name" /></th>
+                                  <th className="fw-normal border-0">{ t('admin.server_rooms.owner') }<SortBy fieldName="users.name" /></th>
+                                  <th className="fw-normal border-0">{ t('admin.server_rooms.room_id') }</th>
+                                  <th className="fw-normal border-0">{ t('admin.server_rooms.participants') }</th>
+                                  <th className="fw-normal border-0">{ t('admin.server_rooms.status') }</th>
+                                  <th className="border-start-0" aria-label="options" />
+                                </tr>
+                              </thead>
+
+                              <tbody className="border-top-0">
+
+                                {
                           isLoading
                             ? (
                               // eslint-disable-next-line react/no-array-index-key
@@ -79,9 +91,9 @@ export default function ServerRooms() {
                             )
                         }
 
-                      </tbody>
-                    </Table>
-                    {!isLoading
+                              </tbody>
+                            </Table>
+                            {!isLoading
                       && (
                         <Pagination
                           page={serverRooms.meta.page}
@@ -89,7 +101,10 @@ export default function ServerRooms() {
                           setPage={setPage}
                         />
                       )}
-                  </div>
+
+                          </div>
+                        )
+}
                 </Container>
               </Tab.Content>
             </Col>
