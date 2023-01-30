@@ -10,8 +10,8 @@ export default function Logo({ size }) {
 
   // Logo can be small or regular size
   const sizeClass = size === 'small'
-    ? 'small-logo cursor-pointer'
-    : 'logo cursor-pointer position-absolute bottom-0 mx-auto start-0 end-0 text-center';
+    ? 'mb-4 small-logo cursor-pointer'
+    : 'mb-4 logo cursor-pointer position-absolute bottom-0 mx-auto start-0 end-0 text-center';
   // Small Logo is used in Header only and does not require a wrapper
   const sizeWrapperClass = !size ? 'logo-wrapper position-relative d-block mx-auto' : undefined;
 
