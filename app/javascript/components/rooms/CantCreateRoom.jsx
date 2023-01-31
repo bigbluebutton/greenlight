@@ -9,7 +9,7 @@ export default function CantCreateRoom() {
   const { t } = useTranslation();
 
   return (
-    <div className="mt-5">
+    <div className="pt-5">
       <div className="text-center mb-4">
         <Logo />
       </div>
