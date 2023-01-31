@@ -6,7 +6,7 @@ export default function ServerRoomsRowPlaceHolder() {
     <tr>
       {/* Name */}
       <td className="border-0 py-2 lg-td-placeholder">
-        <Placeholder width={6} size="md" />
+        <Placeholder width={8} size="md" />
         <Placeholder width={10} size="lg" />
       </td>
       {/* Owner name */}
