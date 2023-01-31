@@ -18,8 +18,8 @@ export default function ManageUsersRowPlaceHolder() {
       <td className="border-0 py-3 lg-td-placeholder">
         <Placeholder width={10} size="md" />
       </td>
-      <td className="border-0 py-3 md-td-placeholder">
-        <Placeholder width={6} size="md" />
+      <td className="border-0 py-3 sm-td-placeholder">
+        <Placeholder width={12} size="md" />
       </td>
     </tr>
   );

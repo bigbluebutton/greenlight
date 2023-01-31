@@ -108,7 +108,6 @@
 }
 
 #recordings-table {
-
   @include media-breakpoint-down(xl) {
     td, tr {
       // Name and recording date
