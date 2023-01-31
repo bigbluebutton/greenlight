@@ -27,6 +27,7 @@ class UserMailer < ApplicationMailer
   def invitation_email
     @name = params[:name]
     @signup_url = params[:signup_url]
+    @email = params[:email]
 
     mail(to: @email, subject: t('email.invitation.invitation_to_join'))
   end
