@@ -655,3 +655,9 @@ input[type="range"]:focus::-moz-range-thumb {
   width: 150px;
   height: 150px;
 }
+
+.back-button {
+  &:hover {
+    color: var(--brand-color) !important;
+  }
+}

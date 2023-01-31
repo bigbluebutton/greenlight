@@ -42,7 +42,7 @@ export default function EditUser() {
                         <h3>{ t('admin.manage_users.edit_user')}</h3>
                       </div>
                       <Stack
-                        className="d-inline-block float-end cursor-pointer pe-2 pt-2 text-muted"
+                        className="d-inline-block float-end cursor-pointer pe-2 pt-2 text-muted back-button"
                         aria-hidden="true"
                         onClick={() => navigate('/admin/users')}
                       >
