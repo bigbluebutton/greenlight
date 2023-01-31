@@ -23,6 +23,7 @@
   "are_you_sure": "本当によろしいですか？",
   "return_home": "ホームに戻る",
   "created_at": "作成時",
+  "no_result_search_input": "\"{{ searchInput }}\"は見つかりませんでした",
   "homepage": {
     "welcome_bbb": "BigBlueButton へようこそ。",
     "bigbluebutton_description": "BigBlueButtonは、オンライン授業に最適化された、オープンソースのウェブ会議システムです。生徒や学生が協働し、即時にフィードバックが得られるようにすることで、実践的な学びの時間を最大化します。",
@@ -63,6 +64,7 @@
     "full_name": "フルネーム",
     "no_user_found": "該当ユーザーは存在しません",
     "type_three_characters": "他のユーザーを表示させるには、３文字以上入力してください。",
+    "search_not_found": "ユーザーが見つかりません",
     "profile": {
       "profile": "個人設定",
       "language": "言語",
@@ -88,6 +90,10 @@
       "upload_avatar": "アバターのアップロード",
       "delete_avatar": "アバターの削除",
       "crop_avatar": "アバター画像の切り出し"
+    },
+    "pending": {
+      "title": "登録保留中",
+      "message": "登録していただきありがとうございます。現在、アカウント作成の可否について管理者の判断を待っています。"
     }
   },
   "room": {
@@ -102,7 +108,8 @@
     "shared_by": "共有者",
     "last_session": "最後のセッション: {{ room.last_session }}",
     "no_last_session": "会議はまだ開かれていません",
-    "no_rooms_found": "会議室がありません",
+    "no_rooms_found": "会議室が見つかりません",
+    "search_not_found": "会議室が見つかりません",
     "rooms_list_is_empty": "まだ会議室はありません！",
     "rooms_list_empty_create_room": "下のボタンをクリックし、部屋の名前を入力して最初の会議室を作成しましょう。",
     "meeting": {
@@ -161,9 +168,12 @@
     "protected": "秘匿",
     "length_in_minutes": "{{recording.length}}分",
     "processing_recording": "録画処理中...",
+    "copied_urls": "録画URLをコピーしました",
     "copy_recording_urls": "録画のURLをコピー",
-    "no_recording_found": "録画がありません",
-    "are_you_sure_delete_recording": "本当にこの録画を削除しますか？"
+    "recordings_list_empty": "まだ録画がありません！",
+    "recordings_list_empty_description": "会議を開始してそれを録画すれば、録画データが現れます。",
+    "are_you_sure_delete_recording": "本当にこの録画を削除しますか？",
+    "search_not_found": "録画が見つかりません"
   },
   "admin": {
     "admin_panel": "管理者設定",
@@ -206,7 +216,7 @@
       "participants": "参加者",
       "status": "状況",
       "running": "会議中",
-      "not_running": "空室",
+      "not_running": "使われていません",
       "active": "アクティブ",
       "current_session": "現在のセッション: {{lastSession}}",
       "last_session": "最後のセッション: {{lastSession}}",
@@ -230,7 +240,8 @@
         "brand_image": "ブランド画像",
         "click_to_upload": "クリックしてアップロード",
         "drag_and_drop": "、あるいはドラッグ＆ドロップ",
-        "upload_brand_image_description": "PNG、JPG、またはSVGファイルをアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。"
+        "upload_brand_image_description": "PNG、JPG、またはSVGファイルをアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。",
+        "remove_branding_image": "設定したブランド画像を消去"
       },
       "administration": {
         "administration": "法的根拠",
@@ -268,9 +279,10 @@
       }
     },
     "room_configuration": {
-      "room_configuration": "会議室の構成",
-      "optional": "選択制",
-      "enabled": "有効",
+      "room_configuration": "会議室の設定",
+      "default": "選択（通常は有効）",
+      "optional": "選択（通常は無効）",
+      "enabled": "常に許可",
       "disabled": "無効",
       "configurations": {
         "allow_room_to_be_recorded": "会議室の録画を許可",
@@ -303,7 +315,8 @@
       "add_role": "+ 役割作成",
       "create_role": "役割作成",
       "create_new_role": "役割を新しく作成",
-      "no_role_found": "役割が見つかりません。"
+      "no_role_found": "役割が見つかりません。",
+      "search_not_found": "役割が見つかりません"
     }
   },
   "toast": {
@@ -329,7 +342,7 @@
         "room_unshared": "会議室の共有が解除されました。",
         "recordings_synced": "会議室の録画が同期されました",
         "server_room_deleted": "全ての会議室が削除されました。",
-        "room_configuration_updated": "会議室の構成が更新されました。",
+        "room_configuration_updated": "会議室の設定が更新されました。",
         "room_setting_updated": "会議室の設定が更新されました。",
         "presentation_updated": "プレゼンファイルが更新されました。",
         "presentation_deleted": "プレゼンファイルが削除されました。",
@@ -368,7 +381,9 @@
       "users": {
         "invalid_invite": "あなたの招待トークンはすでに無効か、誤ったものです。管理者に連絡して、新しいものを受け取ってください。",
         "email_exists": "このメールアドレスで作成されたアカウントが既に存在します。他のメールアドレスでもう一度試してみてください。",
-        "old_password": "入力された現パスワードは正しくありません"
+        "old_password": "入力された現パスワードは正しくありません",
+        "pending": "あなたの登録申請は、管理者の許可待ちです",
+        "banned": "このアプリケーションに接続できません。もし何かの間違いであると思われたら、管理者に直接連絡してみてください"
       },
       "rooms": {
         "room_limit": "会議室の数が上限に達したため、新たに作成することができません"
@@ -423,6 +438,23 @@
       "emails": {
         "required": "有効なメールアドレスを少なくとも一つ入力してください",
         "list": "有効なメールアドレスのリストをコンマで区切って入力してください（例：user@users.com,user1@users.com,user2@users.com）"
+      },
+      "role_name": {
+        "required": "役割名を入力してください"
+      },
+      "room": {
+        "name": {
+          "required": "会議室名を入力してください",
+          "min": "名前は２文字以上必要です"
+        }
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "会議室名",
+          "placeholder": "会議室名を入力..."
+        }
       }
     },
     "user": {
@@ -549,6 +581,21 @@
         "fields": {
           "emails": {
             "label": "メールアドレス"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "ここにリンクを入力..."
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "役割名",
+            "placeholder": "役割名を入力..."
           }
         }
       }
