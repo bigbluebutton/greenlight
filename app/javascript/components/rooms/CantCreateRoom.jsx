@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Logo from '../shared_components/Logo';
 
 // This page is shown is the current_user does NOT have CreateRoom permission
-export default function HomeCantCreateRoom() {
+export default function CantCreateRoom() {
   const { t } = useTranslation();
 
   return (
