@@ -1,12 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Stack } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  editRoleFormConfigRoleName, validationSchemaRoomLimit, editRoleFormFieldsRoomLimit, editRoleFormFieldsRoleName,
-} from '../../../../helpers/forms/EditRoleFormHelpers';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import useUpdateRole from '../../../../hooks/mutations/admin/roles/useUpdateRole';
@@ -18,31 +13,25 @@ import useRolePermissions from '../../../../hooks/queries/admin/role_permissions
 import RolePermissionRow from '../RolePermissionRow';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import RolePermissionRowPlaceHolder from '../RolePermissionRowPlaceHolder';
+import useEditRoleNameForm from '../../../../hooks/forms/admin/roles/useEditRoleNameForm';
+import useEditRoleLimitForm from '../../../../hooks/forms/admin/roles/useEditRoleLimitForm';
 
 export default function EditRoleForm({ role }) {
   const { t } = useTranslation();
-  const methodsRoleName = useForm(editRoleFormConfigRoleName);
-  const updateRoleAPI = useUpdateRole(role?.id);
-  const updateRolePermission = () => useUpdateRolePermission();
-  const updateAPI = updateRolePermission();
-  const fieldsRoleName = editRoleFormFieldsRoleName;
-  const fieldsRoomLimit = editRoleFormFieldsRoomLimit;
-  const roomConfigs = useRoomConfigs();
-  const { isLoading, data: rolePermissions } = useRolePermissions(role?.id);
   const currentUser = useAuth();
-  const editRoleFormConfigRoomLimit = {
-    mode: 'onBlur',
-    defaultValues: { role_id: role?.id, name: 'RoomLimit' },
-    resolver: yupResolver(validationSchemaRoomLimit),
-  };
-  const methodsRoomLimit = useForm(editRoleFormConfigRoomLimit);
 
-  useEffect(
-    () => {
-      methodsRoleName.setValue('name', role?.name);
-    },
-    [role?.name],
-  );
+  const { isLoading: isLoadingRoomConfigs, data: roomConfigs } = useRoomConfigs();
+  const { isLoading, data: rolePermissions } = useRolePermissions(role?.id);
+
+  const updateRoleAPI = useUpdateRole(role?.id);
+  const updatePermissionAPI = useUpdateRolePermission();
+
+  const { methods: methodsName, fields: fieldsName } = useEditRoleNameForm({ defaultValues: { name: role?.name } });
+
+  const {
+    methods: methodsLimit,
+    fields: fieldsLimit,
+  } = useEditRoleLimitForm({ defaultValues: { role_id: role?.id, name: 'RoomLimit' } });
 
   function deleteRoleButton() {
     if (role?.name === 'User' || role?.name === 'Administrator' || role?.name === 'Guest') {
@@ -59,95 +48,91 @@ export default function EditRoleForm({ role }) {
     );
   }
 
-  fieldsRoomLimit.value.placeHolder = rolePermissions?.RoomLimit;
-
   return (
     <div id="edit-role-form">
       {
-      roomConfigs.isLoading || isLoading
-        ? (
+        isLoadingRoomConfigs || isLoading
+          ? (
           // eslint-disable-next-line react/no-array-index-key
-          [...Array(9)].map((val, idx) => <RolePermissionRowPlaceHolder key={idx} />)
-        )
-        : (
-          <div>
-            <Form methods={methodsRoleName} onBlur={(e) => updateRoleAPI.mutate({ name: e.target.value })}>
-              <FormControl field={fieldsRoleName.name} type="text" />
-            </Form>
-            <RolePermissionRow
-              permissionName="CreateRoom"
-              description="Can create rooms"
-              roleId={role?.id}
-              defaultValue={rolePermissions?.CreateRoom === 'true'}
-              updateMutation={updateRolePermission}
-            />
-            <RolePermissionRow
-              permissionName="ManageUsers"
-              description="Allow users with this role to manage users"
-              roleId={role?.id}
-              defaultValue={rolePermissions?.ManageUsers === 'true'}
-              updateMutation={updateRolePermission}
-            />
-            {['optional', 'default_enabled'].includes(roomConfigs?.data?.record) && (
-            <RolePermissionRow
-              permissionName="CanRecord"
-              description="Allow users with this role to record their meetings"
-              roleId={role?.id}
-              defaultValue={rolePermissions?.CanRecord === 'true'}
-              updateMutation={updateRolePermission}
-            />
-            )}
-            <RolePermissionRow
-              permissionName="ManageRooms"
-              description="Allow users with this role to manage server rooms"
-              roleId={role?.id}
-              defaultValue={rolePermissions?.ManageRooms === 'true'}
-              updateMutation={updateRolePermission}
-            />
-            <RolePermissionRow
-              permissionName="ManageRecordings"
-              description="Allow users with this role to manage server recordings"
-              roleId={role?.id}
-              defaultValue={rolePermissions?.ManageRecordings === 'true'}
-              updateMutation={updateRolePermission}
-            />
-            <RolePermissionRow
-              permissionName="ManageSiteSettings"
-              description="Allow users with this role to manage site settings"
-              roleId={role?.id}
-              defaultValue={rolePermissions?.ManageSiteSettings === 'true'}
-              updateMutation={updateRolePermission}
-            />
-            {/* Don't show ManageRoles if current_user is editing their own role */}
-            {(currentUser.role.id !== role?.id) && (
-            <RolePermissionRow
-              permissionName="ManageRoles"
-              description="Allow users with this role to edit other roles"
-              roleId={role?.id}
-              defaultValue={rolePermissions?.ManageRoles === 'true'}
-              updateMutation={updateRolePermission}
-            />
-            )}
-            <RolePermissionRow
-              permissionName="SharedList"
-              description="Include users with this role in the dropdown for sharing rooms"
-              roleId={role?.id}
-              defaultValue={rolePermissions?.SharedList === 'true'}
-              updateMutation={updateRolePermission}
-            />
+            [...Array(9)].map((val, idx) => <RolePermissionRowPlaceHolder key={idx} />)
+          )
+          : (
+            <div>
+              <Form methods={methodsName} onBlur={(e) => updateRoleAPI.mutate({ name: e.target.value })}>
+                <FormControl field={fieldsName.name} type="text" />
+              </Form>
+              <RolePermissionRow
+                permissionName="CreateRoom"
+                description={t('admin.roles.edit.create_room')}
+                roleId={role?.id}
+                defaultValue={rolePermissions?.CreateRoom === 'true'}
+              />
+              {['optional', 'default_enabled'].includes(roomConfigs?.record) && (
+              <RolePermissionRow
+                permissionName="CanRecord"
+                description={t('admin.roles.edit.record')}
+                roleId={role?.id}
+                defaultValue={rolePermissions?.CanRecord === 'true'}
+              />
+              )}
+              <RolePermissionRow
+                permissionName="ManageUsers"
+                description={t('admin.roles.edit.manage_users')}
+                roleId={role?.id}
+                defaultValue={rolePermissions?.ManageUsers === 'true'}
+              />
+              <RolePermissionRow
+                permissionName="ManageRooms"
+                description={t('admin.roles.edit.manage_rooms')}
+                roleId={role?.id}
+                defaultValue={rolePermissions?.ManageRooms === 'true'}
+              />
+              <RolePermissionRow
+                permissionName="ManageRecordings"
+                description={t('admin.roles.edit.manage_recordings')}
+                roleId={role?.id}
+                defaultValue={rolePermissions?.ManageRecordings === 'true'}
+              />
+              <RolePermissionRow
+                permissionName="ManageSiteSettings"
+                description={t('admin.roles.edit.manage_site_settings')}
+                roleId={role?.id}
+                defaultValue={rolePermissions?.ManageSiteSettings === 'true'}
+              />
+              {/* Don't show ManageRoles if current_user is editing their own role */}
+              {(currentUser.role.id !== role?.id) && (
+              <RolePermissionRow
+                permissionName="ManageRoles"
+                description={t('admin.roles.edit.manage_roles')}
+                roleId={role?.id}
+                defaultValue={rolePermissions?.ManageRoles === 'true'}
+              />
+              )}
+              <RolePermissionRow
+                permissionName="SharedList"
+                description={t('admin.roles.edit.shared_list')}
+                roleId={role?.id}
+                defaultValue={rolePermissions?.SharedList === 'true'}
+              />
 
-            <Form methods={methodsRoomLimit} onBlur={methodsRoomLimit.handleSubmit(updateAPI.mutate)}>
-              <Stack direction="horizontal">
-                <div className="text-muted me-auto">
-                  Room Limit
-                </div>
-                <div>
-                  <FormControl field={fieldsRoomLimit.value} noLabel className="room-limit float-end" type="number" />
-                </div>
-              </Stack>
-            </Form>
-          </div>
-        )
+              <Form methods={methodsLimit} onBlur={methodsLimit.handleSubmit(updatePermissionAPI.mutate)}>
+                <Stack direction="horizontal">
+                  <div className="text-muted me-auto">
+                    {t('admin.roles.edit.room_limit')}
+                  </div>
+                  <div>
+                    <FormControl
+                      field={fieldsLimit.value}
+                      defaultValue={rolePermissions?.RoomLimit}
+                      noLabel
+                      className="room-limit float-end"
+                      type="number"
+                    />
+                  </div>
+                </Stack>
+              </Form>
+            </div>
+          )
 }
 
       {

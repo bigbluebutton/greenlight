@@ -317,7 +317,18 @@
       "create_role": "Create Role",
       "create_new_role": "Create a new role",
       "no_role_found": "No role found.",
-      "search_not_found": "No Roles found"
+      "search_not_found": "No Roles found",
+      "edit": {
+        "create_room": "Allow users with this role to create rooms",
+        "record": "Allow users with this role to record their meetings",
+        "manage_users": "Allow users with this role to manage users",
+        "manage_rooms": "Allow users with this role to manage server rooms",
+        "manage_recordings": "Allow users with this role to manage server recordings",
+        "manage_site_settings": "Allow users with this role to manage site settings",
+        "manage_roles": "Allow users with this role to edit other roles",
+        "shared_list": "Include users with this role in the dropdown for sharing rooms",
+        "room_limit": "Room Limit"
+      }
     }
   },
   "toast": {
@@ -443,6 +454,13 @@
       },
       "role_name": {
         "required": "Please enter the role name"
+      },
+      "role": {
+        "limit": {
+          "required": "Please enter the room count limit",
+          "min": "Allowed minimum is 0",
+          "max": "Allowed maximum is 100"
+        }
       },
       "room": {
         "name": {
