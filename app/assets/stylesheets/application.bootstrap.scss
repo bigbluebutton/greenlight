@@ -616,21 +616,29 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 // Table Placeholders length
+.xs-td-placeholder {
+  min-width: $column-xs-width;
+}
+
 .sm-td-placeholder {
-  min-width: 100px;
+  min-width: $column-sm-width;
 }
 
 .md-td-placeholder {
-  min-width: 125px;
+  min-width: $column-md-width;
 }
 
 .lg-td-placeholder {
-  min-width: 200px;
+  min-width: $column-lg-width
 }
 
-.xl-td-placeholder {
-  min-width: 300px;
-}
+//.xl-td-placeholder {
+//  min-width: 300px;
+//
+//  @include media-breakpoint-down(xxl) {
+//    width: 150px;
+//  }
+//}
 
 // Circles & Avatars
 .small-circle {
