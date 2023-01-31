@@ -632,15 +632,12 @@ input[type="range"]:focus::-moz-range-thumb {
   min-width: $column-lg-width
 }
 
-//.xl-td-placeholder {
-//  min-width: 300px;
-//
-//  @include media-breakpoint-down(xxl) {
-//    width: 150px;
-//  }
-//}
-
 // Circles & Avatars
+.xs-circle {
+  width: 20px;
+  height: 20px;
+}
+
 .small-circle {
   width: 40px;
   height: 40px;

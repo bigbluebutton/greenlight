@@ -8,7 +8,7 @@ export default function RoleRowPlaceHolder() {
     <tr className="align-middle border border-2 cursor-pointer">
       <td colSpan={12} className="py-4">
         <Stack direction="horizontal">
-          <RoundPlaceholder radius="20px" className="mx-1" />
+          <RoundPlaceholder size="xs" className="mx-1" />
           <Stack>
             <Placeholder width={3} size="lg" />
           </Stack>
