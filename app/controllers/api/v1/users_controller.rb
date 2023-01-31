@@ -51,7 +51,8 @@ module Api
 
           token = user.generate_activation_token!
           UserMailer.with(user:, expires_in: User::ACTIVATION_TOKEN_VALIDITY_PERIOD.from_now,
-                          activation_url: activate_account_url(token)).activate_account_email.deliver_later
+                          activation_url: activate_account_url(token), base_url: request.base_url,
+                          provider: current_provider).activate_account_email.deliver_later
 
           create_default_room(user)
 

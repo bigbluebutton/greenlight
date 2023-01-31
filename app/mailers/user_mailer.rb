@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserMailer < ApplicationMailer
-  before_action :branding
+  before_action :preset, :branding # :preset must be called before :branding.
 
   # Sends a test email
   def test_email
@@ -25,15 +25,25 @@ class UserMailer < ApplicationMailer
   end
 
   def invitation_email
+    @email = params[:email]
     @name = params[:name]
     @signup_url = params[:signup_url]
+    @email = params[:email]
 
     mail(to: @email, subject: t('email.invitation.invitation_to_join'))
   end
 
+  private
+
+  def preset
+    @provider = params[:provider] || 'greenlight'
+    @base_url = params[:base_url]
+  end
+
   def branding
-    branding_hash = SiteSetting.includes(:setting).where(settings: { name: %w[PrimaryColor BrandingImage] }).pluck(:'settings.name', :value).to_h
-    @brand_image = branding_hash['BrandingImage']
+    branding_hash = SiteSetting.includes(:setting).where(provider: @provider, settings: { name: %w[PrimaryColor BrandingImage] })
+                               .pluck(:name, :value).to_h
+    @brand_image = ActionController::Base.helpers.image_url(branding_hash['BrandingImage'], host: @base_url)
     @brand_color = branding_hash['PrimaryColor']
   end
 end

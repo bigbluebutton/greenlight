@@ -12,6 +12,7 @@ export default function useCreateResetPwd() {
     (user) => axios.post('/reset_password.json', { user }),
     {
       onSuccess: () => {
+        toast.success(t('toast.success.user.reset_pwd_email_sent'));
         navigate('/');
       },
       onError: () => {
