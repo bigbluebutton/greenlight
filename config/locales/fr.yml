@@ -34,25 +34,22 @@ fr:
     moderator_message: "Pour inviter quelqu'un à la réunion, envoyez ce lien:"
     access_code: "Code d'accès: 1%{code}"
   email:
+    link_expires: "Le lien expire dans 1%{time}"
     activation:
-      line0: "Bienvenue 1%{nom} !"
-      line1: Plus qu'une étape avant de pouvoir profiter de ce que Greenlight et BigBluieButton peut vous offrir
-      line2: Vous êtes invité à authentifier votre identité en utilisant le lien ci-dessous pour activer votre compte.
-      line3: En activant votre compte vous bénéficierez de toutes les fonctionalités de Greenlight et BigBlueButton
-      line4: "Vous pouvez créer des salles, accueillir des séances, partager des enregistrements et collaborer avec d'autres!"
-      line5: Activer mon compte
-      line6: "Ce lien expire dans 1%{temps}"
-      line7: "Même après expiration du courriel, vous pouvez toujours vous connecter à votre compte pour obtenir un nouveau lien d'activation."
+      account_activation: Activation du compte
+      welcome_to_bbb: Bienvenue dans BigBlueButton!
+      get_started: "Pour commencer, veuillez activer votre compte en cliquant sur le lien ci-dessous."
+      activate_account: Activer le compte
+      if_link_expires: "Si le lien a expiré, veuillez vous connecter et demander un nouveau courriel d'activation"
     invitation:
-      line0: Invitation à rejoindre BigBlueButton
-      line1: "Vous avez été invité à rejoindre votre propre espace par 1%{nom} ."
-      line2: "POur vous enregistrez avec votre courriel, cliquez sur le bouton ci-dessous et suivez les étapes proposées."
-      line3: Cette invitation n'est valable que durant 48 heures.
-      line4: Enregistrez vous
+      invitation_to_join: Invitation à rejoindre BigBlueButton
+      you_have_been_invited: "Vous avez été invité à créer un compte dans BigBlueButton par 1%{name}."
+      get_started: "Pour vous inscrire, veuillez cliquer sur le bouton ci-dessous et suivre les étapes proposées"
+      valid_invitation: L'invitation est valable pendant 48 heures.
+      sign_up: inscription
     reset:
-      line0: "Réinitialisation du mot de passe "
-      line1: "Une réinitialisation du mot de passe est demandée pour le courriel 1%{nom}"
-      line2: "Si vous êtes à l'origine de cette demande de réinitialisation, cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe:\""
-      line3: Réinitialiser le mot de passe.
-      line4: Vous pouvez ignorer ce courriel si vous n'êtes pas à l'origine de cette demande.
-      line5: "Ce lien expirera dans 1%{temps} ."
+      password_reset: Demande de réinitialisation du mot de passe
+      password_reset_requested: "Une demande de réinitialisation de mot de passe est demandée par 1%{email}"
+      password_reset_confirmation: "Pour réinitialiser votre mot de passe, veuillez cliquer sur la bouton ci-dessous\""
+      reset_password: Réinitialisation du mot de passe
+      ignore_request: "Si vous n'avez pas demandé à changer de mot de passe, ignorez ce message."
