@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
 import Avatar from '../users/user/Avatar';
+import ButtonLink from '../shared_components/utilities/ButtonLink';
 
 export default function NavbarSignedIn({ currentUser }) {
   const { t } = useTranslation();
@@ -33,7 +34,7 @@ export default function NavbarSignedIn({ currentUser }) {
 
   return (
     <>
-      {/* Mobile Navbar Toggle */}
+      {/* Mobile Navbar Toggle - Hidden on Desktop */}
       <Navbar.Toggle aria-controls="responsive-navbar-nav" className="border-0">
         <Avatar avatar={currentUser?.avatar} size="small" />
       </Navbar.Toggle>
@@ -66,10 +67,12 @@ export default function NavbarSignedIn({ currentUser }) {
         </Nav>
       </Navbar.Collapse>
 
-      {/* Hidden on Mobile */}
-      <div className="justify-content-end d-none d-sm-block">
+      {/* Desktop User Dropdown - Hidden on Mobile */}
+      <div className="justify-content-end d-none d-sm-block user-dropdown">
         <div className="d-inline-block">
-          <Avatar avatar={currentUser?.avatar} size="small" />
+          <ButtonLink to="/profile" className="btn-icon">
+            <Avatar avatar={currentUser?.avatar} size="small" />
+          </ButtonLink>
         </div>
         <NavDropdown title={currentUser?.name} id="nav-user-dropdown" className="d-inline-block" align="end">
           <NavDropdown.Item as={Link} to="/profile">

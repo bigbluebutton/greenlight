@@ -76,9 +76,13 @@ body {
   cursor: pointer;
   outline: inherit;
   min-width: auto;
+  background-color: transparent !important;
 
   &:focus {
     box-shadow: none;
+  }
+  &:active {
+    box-shadow: none !important;
   }
 }
 
@@ -206,9 +210,21 @@ input.search-bar {
   }
 }
 
+.user-dropdown {
+  img {
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0 0 0 3px gainsboro;
+    }
+  }
+  .dropdown-menu {
+    margin-top: 10px;
+  }
+}
+
 #nav-user-dropdown {
   &:hover {
-    color: $black !important;
+    color: var(--brand-color) !important;
   }
   &:active {
     background-color: transparent !important;
@@ -658,3 +674,4 @@ input[type="range"]:focus::-moz-range-thumb {
     color: var(--brand-color) !important;
   }
 }
+
