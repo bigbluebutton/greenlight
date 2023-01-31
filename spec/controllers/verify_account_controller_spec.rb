@@ -7,7 +7,6 @@ RSpec.describe Api::V1::VerifyAccountController, type: :controller do
 
   before do
     request.headers['ACCEPT'] = 'application/json'
-    sign_in_user(user)
   end
 
   describe 'POST verify_account#create' do
@@ -20,14 +19,10 @@ RSpec.describe Api::V1::VerifyAccountController, type: :controller do
     end
 
     context 'when account is unverified' do
-      before do
-        sign_in_user(unverified_user)
-      end
-
       it 'generates and sends the activation link' do
         expect_any_instance_of(User).to receive(:generate_activation_token!)
 
-        post :create, params: { user: { email: unverified_user.email } }
+        post :create, params: { user: { id: unverified_user.id } }
         expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
                                                                                                      'deliver_now', Hash)
         expect(response).to have_http_status(:ok)
@@ -35,30 +30,12 @@ RSpec.describe Api::V1::VerifyAccountController, type: :controller do
     end
 
     context 'when account is verified' do
-      before do
-        sign_in_user(verified_user)
-      end
-
       it 'returns :ok without generating or sending the activation link' do
         expect_any_instance_of(User).not_to receive(:generate_activation_token!)
 
-        post :create, params: { user: { email: verified_user.email } }
+        post :create, params: { user: { id: verified_user.id } }
         expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
         expect(response).to have_http_status(:ok)
-      end
-    end
-
-    context 'when not authenticated' do
-      before do
-        session[:session_token] = nil
-      end
-
-      it 'returns :unauthorized without generating or sending the activation link' do
-        expect_any_instance_of(User).not_to receive(:generate_activation_token!)
-
-        post :create, params: { user: { email: unverified_user.email } }
-        expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
-        expect(response).to have_http_status(:unauthorized)
       end
     end
 
@@ -71,20 +48,10 @@ RSpec.describe Api::V1::VerifyAccountController, type: :controller do
         it 'generates and sends the activation link' do
           expect_any_instance_of(User).to receive(:generate_activation_token!)
 
-          post :create, params: { user: { email: unverified_user.email } }
+          post :create, params: { user: { id: unverified_user.id } }
           expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
                                                                                                        'deliver_now', Hash)
           expect(response).to have_http_status(:ok)
-        end
-      end
-
-      describe 'without "ManageUsers" permission' do
-        it 'returns :forbidden without generating or sending the activation link' do
-          expect_any_instance_of(User).not_to receive(:generate_activation_token!)
-
-          post :create, params: { user: { email: unverified_user.email } }
-          expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
-          expect(response).to have_http_status(:forbidden)
         end
       end
     end
@@ -93,7 +60,7 @@ RSpec.describe Api::V1::VerifyAccountController, type: :controller do
       it 'returns :bad_request without generating or sending the activation link' do
         expect_any_instance_of(User).not_to receive(:generate_activation_token!)
 
-        post :create, params: { not_user: { not_email: 'unverified@greenlight.com' } }
+        post :create, params: { not_user: { not_id: '12312312313' } }
         expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
         expect(response).to have_http_status(:bad_request)
       end
@@ -103,7 +70,7 @@ RSpec.describe Api::V1::VerifyAccountController, type: :controller do
       it 'returns :ok without generating or sending the activation link' do
         expect_any_instance_of(User).not_to receive(:generate_activation_token!)
 
-        post :create, params: { user: { email: 'not_found@greenlight.com' } }
+        post :create, params: { user: { id: 'not_found_id' } }
         expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
         expect(response).to have_http_status(:ok)
       end
@@ -116,7 +83,7 @@ RSpec.describe Api::V1::VerifyAccountController, type: :controller do
     end
 
     it 'activates the found user by digest for valid params' do
-      user = create(:user)
+      user = create(:user, verified: false)
       allow(User).to receive(:verify_activation_token).with(valid_params[:token]).and_return(user)
 
       post :activate, params: { user: valid_params }
@@ -134,7 +101,7 @@ RSpec.describe Api::V1::VerifyAccountController, type: :controller do
     end
 
     it 'returns :internal_server_error if unable to invalidate tokens' do
-      user = create(:user)
+      user = create(:user, verified: false)
       allow(User).to receive(:verify_activation_token).and_return(user)
       allow_any_instance_of(User).to receive(:invalidate_activation_token).and_return(false)
 

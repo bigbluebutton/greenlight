@@ -11,6 +11,7 @@ FactoryBot.define do
     last_login { nil }
     status { 0 }
     language { %w[en fr es ar].sample }
+    verified { true }
 
     trait :with_manage_users_permission do
       after(:create) do |user|

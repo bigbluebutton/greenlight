@@ -327,7 +327,7 @@
         "user_deleted": "User deleted.",
         "avatar_updated": "Avatar updated.",
         "password_updated": "Password updated.",
-        "account_activated": "Account activated.",
+        "account_activated": "Account successfully activated. Please sign in to your account.",
         "activation_email_sent": "Activation email has been sent",
         "reset_pwd_email_sent": "Reset password email should be sent, kindly check your inbox",
         "challenge_passed": "Challenge Passed"

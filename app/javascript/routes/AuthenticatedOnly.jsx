@@ -5,7 +5,6 @@ import {
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/auth/AuthProvider';
-import VerifyAccount from '../components/users/account_activation/VerifyAccount';
 import useDeleteSession from '../hooks/mutations/sessions/useDeleteSession';
 
 export default function AuthenticatedOnly() {
@@ -24,10 +23,6 @@ export default function AuthenticatedOnly() {
     } else {
       toast.error(t('toast.error.users.banned'));
     }
-  }
-
-  if (currentUser.signed_in && !currentUser?.verified) {
-    return <VerifyAccount currentUser={currentUser} />;
   }
 
   // Custom logic to redirect from Rooms page to join page if the user isn't signed in

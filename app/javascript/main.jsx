@@ -59,9 +59,14 @@ const router = createBrowserRouter(
         <Route path="/signin" element={<SignIn />} />
         <Route path="/forget_password" element={<ForgetPassword />} />
         <Route path="/pending" element={<PendingRegistration />} />
+        <Route path="/verify" element={<VerifyAccount />} />
+        <Route path="/reset_password/:token" element={<ResetPassword />} />
+        <Route path="/activate_account/:token" element={<ActivateAccount />} />
       </Route>
 
       <Route element={<AuthenticatedOnly />}>
+        <Route path="/profile" element={<Profile />} />
+
         <Route path="/rooms" element={<Rooms />} />
         <Route path="/rooms/:friendlyId" element={<Room />} />
         <Route path="/home" element={<Home />} />
@@ -77,12 +82,7 @@ const router = createBrowserRouter(
         <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
       </Route>
 
-      <Route path="/reset_password/:token" element={<ResetPassword />} />
-      <Route path="/activate_account/:token" element={<ActivateAccount />} />
-      <Route path="/verify_account" element={<VerifyAccount />} />
-      <Route path="/profile" element={<Profile />} />
       <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
-
     </Route>,
   ),
 );

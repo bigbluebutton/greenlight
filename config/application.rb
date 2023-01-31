@@ -33,7 +33,8 @@ module Greenlight
       incorrect_old_password: 'IncorrectOldPassword',
       room_limit: 'RoomLimitError',
       pending_user: 'PendingUser',
-      banned_user: 'BannedUser'
+      banned_user: 'BannedUser',
+      unverified_user: 'UnverifiedUser'
     }
 
     ActiveModelSerializers.config.adapter = :json

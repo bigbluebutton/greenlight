@@ -15,7 +15,7 @@ export default function useActivateAccount(token) {
       onSuccess: () => {
         queryClient.invalidateQueries('useSessions');
         toast.success(t('toast.success.user.account_activated'));
-        navigate('/rooms');
+        navigate('/');
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));
