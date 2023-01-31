@@ -22,7 +22,8 @@ module Api
         token = user.generate_reset_token!
 
         UserMailer.with(user:, expires_in: User::RESET_TOKEN_VALIDITY_PERIOD.from_now,
-                        reset_url: reset_password_url(token)).reset_password_email.deliver_later
+                        reset_url: reset_password_url(token), base_url: request.base_url,
+                        provider: current_provider).reset_password_email.deliver_later
 
         render_data status: :ok
       end

@@ -120,13 +120,13 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
     context 'when decryption passes' do
       describe 'when decrypted params encapsulation is conform and data is valid' do
         context 'when external_id isn\'t present' do
-          it 'returns :created, creates a user and sends a reset email' do
+          it 'returns :created, creates a user' do
             encrypted_params = encrypt_params({ user: valid_user_params }, expires_in: 10.seconds)
 
             expect_any_instance_of(described_class).to receive(:generate_secure_pwd).and_call_original
             expect { post :create_user, params: { v2: { encrypted_params: } } }.to change(User, :count).from(0).to(1)
-            expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'reset_password_email',
-                                                                                                         'deliver_now', Hash)
+            expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+
             user = User.take
             expect(user.name).to eq(valid_user_params[:name])
             expect(user.email).to eq(valid_user_params[:email])
@@ -136,14 +136,13 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
             expect(user.provider).to eq('greenlight')
             expect(response).to have_http_status(:created)
             expect(user.password_digest).to be_present
-            expect(user.reset_digest).to be_present
           end
         end
 
         context 'when external_id is present' do
           before { valid_user_params[:external_id] = 'EXTERNAL' }
 
-          it 'returns :created, creates a user but does not generate a pwd nor send a reset email' do
+          it 'returns :created, creates a user but does not generate a pwd' do
             encrypted_params = encrypt_params({ user: valid_user_params }, expires_in: 10.seconds)
 
             expect_any_instance_of(described_class).not_to receive(:generate_secure_pwd).and_call_original
@@ -159,7 +158,6 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
             expect(user.provider).to eq('greenlight')
             expect(response).to have_http_status(:created)
             expect(user.password_digest).to be_blank
-            expect(user.reset_digest).to be_blank
           end
         end
 
@@ -167,9 +165,10 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
           describe 'when language is empty' do
             before { valid_user_params[:language] = nil }
 
-            it 'returns :created, creates a user with the default locale and sends a reset email' do
+            it 'returns :created, creates a user with the default locale' do
               encrypted_params = encrypt_params({ user: valid_user_params }, expires_in: 10.seconds)
               expect { post :create_user, params: { v2: { encrypted_params: } } }.to change(User, :count).from(0).to(1)
+              expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
 
               user = User.take
               expect(user.name).to eq(valid_user_params[:name])
@@ -185,9 +184,10 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
           describe 'when language is "default"' do
             before { valid_user_params[:language] = 'default' }
 
-            it 'returns :created, creates a user with the default locale and sends a reset email' do
+            it 'returns :created, creates a user with the default locale' do
               encrypted_params = encrypt_params({ user: valid_user_params }, expires_in: 10.seconds)
               expect { post :create_user, params: { v2: { encrypted_params: } } }.to change(User, :count).from(0).to(1)
+              expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
 
               user = User.take
               expect(user.name).to eq(valid_user_params[:name])
