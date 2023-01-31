@@ -27,7 +27,7 @@ export default function EditUser() {
       <h3 className="py-5"> { t('admin.admin_panel') } </h3>
       <Card className="border-0 shadow-sm">
         <Tab.Container activekey="users">
-          <Container className="admin-table">
+          <Container>
             <Row>
               <Col className="px-0" sm={3}>
                 <div id="admin-sidebar">
@@ -36,7 +36,7 @@ export default function EditUser() {
               </Col>
               <Col className="px-0" sm={9}>
                 <Tab.Content className="ps-0">
-                  <Container className="admin-table p-0">
+                  <Container className="p-0">
                     <div className="p-4 border-bottom">
                       <div className="d-inline-block">
                         <h3>{ t('admin.manage_users.edit_user')}</h3>
