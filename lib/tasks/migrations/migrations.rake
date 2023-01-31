@@ -259,6 +259,8 @@ namespace :migrations do
       "invite"
     when "2"
       "approval"
+    else
+      "open"
     end
   end
 end
