@@ -34,25 +34,22 @@ ja_JP:
     moderator_message: "誰かを会議に招待したい時はこのリンクを送付してください:"
     access_code: "接続コード: %{code}"
   email:
+    link_expires: "リンクが無効になるまで %{time}."
     activation:
-      line0: "ようこそ%{name}さん！"
-      line1: あと少しでGreenlightとBigBlueButtonのすべての機能が使えるようになります！
-      line2: 身元の確認をお願いします。以下のリンクをたどり、アカウントを有効化してください。
-      line3: アカウントを有効にすることで、GreenlightとBigBlueButtonのすべての機能を活用できるようになります！
-      line4: 会議室の作成、セッションの司会、録画のシェアなどを通じて、みんなとコラボできます！
-      line5: アカウント有効化
-      line6: "このリンクは%{time}で期限切れとなります"
-      line7: このメールが期限切れとなってもログインは可能です。ログインすれば、アカウントを有効化するための新しいリンクを取得できます。
+      account_activation: アカウントの有効化
+      welcome_to_bbb: BigBlueButtonへようこそ！
+      get_started: まず初めに、下のボタンをクリックしてアカウントを有効化してください。
+      activate_account: アカウント有効化
+      if_link_expires: もしリンクの期限が切れていたら、ログインして新しい有効化メールを要求してください。
     invitation:
-      line0: BigBlueButtonへの招待
-      line1: "%{name}さんがあなたを個人アカウントの作成に招待してくれました。"
-      line2: メールアドレスを使用してサインアップするには、下のボタンをクリックし、指示にしたがってください。
-      line3: 招待は48時間有効です。
-      line4: 登録
+      invitation_to_join: BigBlueButtonへの参加招待
+      you_have_been_invited: "%{name}さんから、BigBlueButtonのアカウント作成に招待されています。"
+      get_started: 登録するには下のボタンをクリックし、手順にしたがってください。
+      valid_invitation: この招待は48時間有効です。
+      sign_up: 登録
     reset:
-      line0: パスワードを再設定
-      line1: "メールアドレス%{email}に対して、パスワードの再設定が要求されました"
-      line2: もしこの再設定要求を出したのが確かにあなたであれば、下のリンクをクリックしてパスワードを再設定してください。
-      line3: パスワード再設定
-      line4: もしこのような要求をした覚えがなければ、このメールは読み捨ててください。
-      line5: "このリンクは%{time}で無効になります。"
+      password_reset: パスワードの再設定を要請
+      password_reset_requested: "メールアドレス%{email}に対するパスワード再設定が要請されました"
+      password_reset_confirmation: パスワードを再設定するには、下のボタンをクリックしてください
+      reset_password: パスワード再設定
+      ignore_request: もしパスワード再設定の要請をした覚えがないようでしたら、このメールは読み捨ててください。
