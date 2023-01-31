@@ -616,24 +616,24 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 // Table Placeholders length
+.xs-td-placeholder {
+  min-width: $column-xs-width;
+}
+
 .sm-td-placeholder {
-  min-width: 100px;
+  min-width: $column-sm-width;
 }
 
 .md-td-placeholder {
-  min-width: 125px;
+  min-width: $column-md-width;
 }
 
 .lg-td-placeholder {
-  min-width: 200px;
-}
-
-.xl-td-placeholder {
-  min-width: 300px;
+  min-width: $column-lg-width
 }
 
 // Circles & Avatars
-.extra-small-circle {
+.xs-circle {
   width: 20px;
   height: 20px;
 }
