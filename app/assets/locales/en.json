@@ -37,7 +37,8 @@
     "settings_title": "Manage your rooms",
     "settings_description": "Configure your rooms and meeting settings to be in charge of an effective classroom.",
     "and_more_title": "And more!",
-    "and_more_description": "BigBlueButton offers built-in tools for applied learning and is designed to save you time during class."
+    "and_more_description": "BigBlueButton offers built-in tools for applied learning and is designed to save you time during class.",
+    "enter_meeting_url": "Please enter the URL of your BigBlueButton meeting in the field below."
   },
   "authentication": {
     "sign_in": "Sign In",

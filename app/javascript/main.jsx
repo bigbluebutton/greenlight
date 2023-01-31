@@ -26,7 +26,7 @@ import Roles from './components/admin/roles/Roles';
 import ResetPassword from './components/users/password_management/ResetPassword';
 import EditUser from './components/admin/manage_users/EditUser';
 import EditRole from './components/admin/roles/EditRole';
-import Home from './components/home/Home';
+import HomeCantCreateRoom from './components/home/HomeCantCreateRoom';
 import ActivateAccount from './components/users/account_activation/ActivateAccount';
 import VerifyAccount from './components/users/account_activation/VerifyAccount';
 import AdminPanel from './components/admin/AdminPanel';
@@ -64,7 +64,7 @@ const router = createBrowserRouter(
       <Route element={<AuthenticatedOnly />}>
         <Route path="/rooms" element={<Rooms />} />
         <Route path="/rooms/:friendlyId" element={<Room />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<HomeCantCreateRoom />} />
 
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/admin/users" element={<ManageUsers />} />
