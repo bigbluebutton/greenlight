@@ -329,6 +329,7 @@
         "password_updated": "Password updated.",
         "account_activated": "Account activated.",
         "activation_email_sent": "Activation email has been sent",
+        "reset_pwd_email_sent": "Reset password email should be sent, kindly check your inbox",
         "challenge_passed": "Challenge Passed"
       },
       "session": {
