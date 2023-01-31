@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {
   Col, Row,
 } from 'react-bootstrap';
@@ -31,14 +31,12 @@ export default function HomePage() {
     [currentUser.signed_in],
   );
 
-  useEffect(() => {
+  // hack to deal with the fact that useEffect and toast dont work together very well
+  useMemo(() => {
     if (error === 'InviteInvalid') {
       toast.error(t('toast.error.users.invalid_invite'));
     }
   }, [error]);
-
-  // Small hack because the InviteInvalid toast won't fire unless this is here (I have no idea why)
-  toast.success('hidden', { style: { display: 'none' } });
 
   return (
     <>
