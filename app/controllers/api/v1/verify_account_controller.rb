@@ -5,7 +5,7 @@ module Api
     class VerifyAccountController < ApiController
       include ClientRoutable
 
-      skip_before_action :ensure_authenticated, only: %i[activate]
+      skip_before_action :ensure_authenticated, only: %i[create activate]
       before_action :find_user_and_authorize, only: :create
 
       # POST /api/v1/verify_account.json
@@ -44,10 +44,8 @@ module Api
       def find_user_and_authorize
         return render_error status: :bad_request unless params[:user]
 
-        @user = User.find_by email: params[:user][:email]
+        @user = User.find_by id: params[:user][:id]
         return render_data status: :ok unless @user && !@user.verified?
-
-        ensure_authorized('ManageUsers', user_id: @user.id)
       end
     end
   end

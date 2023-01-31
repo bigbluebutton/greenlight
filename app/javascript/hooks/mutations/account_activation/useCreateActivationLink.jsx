@@ -4,12 +4,12 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../../helpers/Axios';
 
-export default function useCreateActivationLink(email) {
+export default function useCreateActivationLink(id) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   return useMutation(
-    () => axios.post('/verify_account.json', { user: { email } }),
+    () => axios.post('/verify_account.json', { user: { id } }),
     {
       onSuccess: () => {
         toast.success(t('toast.success.user.activation_email_sent'));

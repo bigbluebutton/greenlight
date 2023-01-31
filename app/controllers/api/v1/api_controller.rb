@@ -53,10 +53,11 @@ module Api
         render args
       end
 
-      def render_error(errors: [], status: :bad_request)
+      def render_error(data: nil, errors: [], status: :bad_request)
         render json: {
+          data:,
           errors:
-        }, status:
+        }.compact, status:
       end
 
       def config_sorting(allowed_columns: [])

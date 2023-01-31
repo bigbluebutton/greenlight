@@ -31,6 +31,8 @@ export default function useCreateSession() {
           navigate('/pending');
         } else if (err.response.data.errors === 'BannedUser') {
           toast.error(t('toast.error.users.banned'));
+        } else if (err.response.data.errors === 'UnverifiedUser') {
+          navigate(`/verify?id=${err.response.data.data}`);
         } else {
           toast.error(t('toast.error.session.invalid_credentials'));
         }

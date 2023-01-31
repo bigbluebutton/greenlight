@@ -36,6 +36,20 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       expect(session[:session_token]).to eq(user.session_token)
     end
 
+    it 'returns UnverifiedUser error if the user is not verified' do
+      unverified_user = create(:user, password: 'Password1!', verified: false)
+
+      post :create, params: {
+        session: {
+          email: unverified_user.email,
+          password: 'Password1!'
+        }
+      }
+
+      expect(JSON.parse(response.body)['data']).to eq(unverified_user.id)
+      expect(JSON.parse(response.body)['errors']).to eq('UnverifiedUser')
+    end
+
     it 'returns BannedUser error if the user is banned' do
       banned_user = create(:user, password: 'Password1!', status: :banned)
 

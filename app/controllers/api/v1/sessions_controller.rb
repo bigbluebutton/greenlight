@@ -25,6 +25,7 @@ module Api
         if user.present? && user.authenticate(session_params[:password])
           return render_error errors: Rails.configuration.custom_error_msgs[:pending_user] if user.pending?
           return render_error errors: Rails.configuration.custom_error_msgs[:banned_user] if user.banned?
+          return render_error data: user.id, errors: Rails.configuration.custom_error_msgs[:unverified_user] unless user.verified?
 
           sign_in user
           render_data data: current_user, serializer: CurrentUserSerializer, status: :ok

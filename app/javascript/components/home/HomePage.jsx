@@ -37,8 +37,8 @@ export default function HomePage() {
     }
   }, [error]);
 
-  // Small hack because the InviteInvalid toast won't fire unless this is here (I have no idea why)
-  toast.success('hidden', { style: { display: 'none' } });
+  // // Small hack because the InviteInvalid toast won't fire unless this is here (I have no idea why)
+  // toast.success('hidden', { style: { display: 'none' } });
 
   return (
     <>

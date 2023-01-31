@@ -3,14 +3,16 @@ import {
   Button, Card,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../../../contexts/auth/AuthProvider';
+import { useSearchParams } from 'react-router-dom';
 import useCreateActivationLink from '../../../hooks/mutations/account_activation/useCreateActivationLink';
 import Spinner from '../../shared_components/utilities/Spinner';
 import Logo from '../../shared_components/Logo';
 
 export default function VerifyAccount() {
-  const currentUser = useAuth();
-  const createActivationLinkAPI = useCreateActivationLink(currentUser?.email);
+  const [searchParams] = useSearchParams();
+  const userId = searchParams.get('id');
+
+  const createActivationLinkAPI = useCreateActivationLink(userId);
   const { t } = useTranslation();
 
   return (
