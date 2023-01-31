@@ -57,7 +57,7 @@ export default function SetAvatar({ user }) {
   return (
     <div id="profile-avatar" className="mt-5 d-block ms-auto me-auto">
       <Stack direction="vertical" gap={2}>
-        <div onClick={handleClick} className="cursor-pointer position-relative" aria-hidden="true">
+        <div onClick={handleClick} className="cursor-pointer position-relative mx-auto" aria-hidden="true">
           <div className="avatar-icon-circle float-end position-absolute rounded-circle">
             <FolderPlusIcon className="hi-s" />
           </div>
