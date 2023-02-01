@@ -211,6 +211,7 @@ input.search-bar {
 }
 
 #nav-user-dropdown {
+  padding-right: 0;
   &:hover {
     color: $black !important;
     img {
@@ -219,9 +220,15 @@ input.search-bar {
   }
   &:active {
     background-color: transparent !important;
+    img {
+      box-shadow: 0 0 0 3px gainsboro;
+    }
   }
   &:focus {
     background-color: transparent !important;
+    img {
+      box-shadow: 0 0 0 3px gainsboro;
+    }
   }
 
   &::after {
