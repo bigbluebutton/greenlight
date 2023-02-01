@@ -124,10 +124,13 @@ export default function RoomJoin() {
 
   const hasAccessCode = publicRoom.data?.viewer_access_code || publicRoom.data?.moderator_access_code;
 
-  if (!publicRoom.data?.viewer_access_code && publicRoom.data?.moderator_access_code) {
-    fields.accessCode.label = t('room.settings.mod_access_code_optional');
-  } else {
+  if (publicRoom.data?.viewer_access_code || !publicRoom.data?.moderator_access_code) {
     fields.accessCode.label = t('room.settings.access_code');
+  // for the case where anyone_join_as_moderator is true and only the moderator access code is required
+  } else if (publicRoom.data?.anyone_join_as_moderator === 'true') {
+    fields.accessCode.label = t('room.settings.mod_access_code');
+  } else {
+    fields.accessCode.label = t('room.settings.mod_access_code_optional');
   }
 
   const WaitingPage = (
