@@ -270,7 +270,7 @@ describe RoomsController, type: :controller do
       allow_any_instance_of(BigBlueButton::BigBlueButtonApi).to receive(:is_meeting_running?).and_return(true)
       post :join, params: { room_uid: @room, join_name: "Join Name" }
 
-      expect(response).to redirect_to(join_path(@owner.main_room, "Join Name", { guest: true }, response.cookies["guest_id"]))
+      expect(response).to redirect_to(join_path(@owner.main_room, "Join Name", {}, response.cookies["guest_id"]))
     end
 
     it "should use join name if user is not logged in and meeting running and moderator access code is enabled and set" do
@@ -286,7 +286,7 @@ describe RoomsController, type: :controller do
 
       post :join, params: { room_uid: room, join_name: "Join Name" }, session: { moderator_access_code: "abcdef" }
 
-      expect(response).to redirect_to(join_path(room, "Join Name", { user_is_moderator: true, guest: true },
+      expect(response).to redirect_to(join_path(room, "Join Name", { user_is_moderator: true },
 response.cookies["guest_id"]))
     end
 
@@ -428,7 +428,7 @@ response.cookies["guest_id"]))
 
       post :join, params: { room_uid: room, join_name: "Join Name" }, session: { moderator_access_code: "abcdef" }
 
-      expect(response).to redirect_to(join_path(room, "Join Name", { user_is_moderator: true, guest: true },
+      expect(response).to redirect_to(join_path(room, "Join Name", { user_is_moderator: true },
 response.cookies["guest_id"]))
     end
 
@@ -445,8 +445,7 @@ response.cookies["guest_id"]))
 
       post :join, params: { room_uid: room, join_name: "Join Name" }, session: { moderator_access_code: "abcdef" }
 
-      expect(response).to redirect_to(join_path(room, "Join Name", { user_is_moderator: true, guest: true },
-response.cookies["guest_id"]))
+      expect(response).to redirect_to(join_path(room, "Join Name", { user_is_moderator: true }, response.cookies["guest_id"]))
     end
 
     it "should redirect to login if a wrong moderator access code is supplied" do
