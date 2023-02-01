@@ -19,8 +19,11 @@ export default function useCreateUser() {
     {
       onSuccess: (response) => {
         queryClient.invalidateQueries('useSessions');
+
         // if the current user does NOT have the CreateRoom permission, then do not re-direct to rooms page
-        if (redirect) {
+        if (!response.verified) {
+          navigate(`/verify?id=${response.id}`);
+        } else if (redirect) {
           navigate(redirect);
         } else if (response.permissions.CreateRoom === 'false') {
           navigate('/home');

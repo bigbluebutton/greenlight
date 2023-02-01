@@ -73,14 +73,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect(user).not_to be_verified
         end
 
-        it 'sends activation email to and signs in the created user' do
+        it 'sends activation email to and does not sign in the created user' do
           session[:session_token] = nil
           expect { post :create, params: user_params }.to change(User, :count).by(1)
           expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
                                                                                                        'deliver_now', Hash)
           expect(response).to have_http_status(:created)
-          expect(session[:session_token]).to be_present
-          expect(session[:session_token]).not_to eql(user.session_token)
+          expect(session[:session_token]).to be_nil
         end
       end
 

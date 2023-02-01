@@ -46,15 +46,17 @@ module Api
         user.pending! if !admin_create && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
 
         if user.save
-          user.generate_session_token!
-          session[:session_token] = user.session_token unless current_user # if this is NOT an admin creating a user
-
           token = user.generate_activation_token!
           UserMailer.with(user:, expires_in: User::ACTIVATION_TOKEN_VALIDITY_PERIOD.from_now,
                           activation_url: activate_account_url(token), base_url: request.base_url,
                           provider: current_provider).activate_account_email.deliver_later
 
           create_default_room(user)
+
+          return render_data data: user, serializer: CurrentUserSerializer, status: :created unless user.verified?
+
+          user.generate_session_token!
+          session[:session_token] = user.session_token unless current_user # if this is NOT an admin creating a user
 
           render_data data: current_user, serializer: CurrentUserSerializer, status: :created
         elsif user.errors.size == 1 && user.errors.of_kind?(:email, :taken)
