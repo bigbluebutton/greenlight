@@ -12,7 +12,7 @@ export default function useDeletePresentation(friendlyId) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['getRoom', { friendlyId }]);
-        toast.success(t('toast.success.presentation_deleted'));
+        toast.success(t('toast.success.room.presentation_deleted'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));
