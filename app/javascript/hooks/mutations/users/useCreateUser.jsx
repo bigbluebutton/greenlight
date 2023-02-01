@@ -3,10 +3,9 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
-import getLanguage from '../../../helpers/Language';
 
 export default function useCreateUser() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
@@ -14,7 +13,7 @@ export default function useCreateUser() {
   const inviteToken = searchParams.get('inviteToken') || '';
 
   return useMutation(
-    ({ user, token }) => axios.post('/users.json', { user: { language: getLanguage(), invite_token: inviteToken, ...user }, token })
+    ({ user, token }) => axios.post('/users.json', { user: { language: i18n.resolvedLanguage, invite_token: inviteToken, ...user }, token })
       .then((resp) => resp.data.data),
     {
       onSuccess: (response) => {

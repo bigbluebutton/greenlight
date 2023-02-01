@@ -1,7 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import useSessions from '../../hooks/queries/users/useSessions';
-import getLanguage from '../../helpers/Language';
 
 // TODO: Amir - Refactor this to use QueryClient context and fetch sessions data from queryCache.
 
@@ -23,7 +22,7 @@ export default function AuthProvider({ children }) {
     provider: currentUser?.provider,
     avatar: currentUser?.avatar,
     signed_in: currentUser?.signed_in ?? false,
-    language: currentUser?.language || getLanguage(),
+    language: currentUser?.language || window.navigator.language || window.navigator.userLanguage,
     permissions: currentUser?.permissions,
     role: currentUser?.role,
     verified: currentUser?.verified,

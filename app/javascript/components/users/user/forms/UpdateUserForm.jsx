@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -18,20 +18,16 @@ export default function UpdateUserForm({ user }) {
   const currentUser = useAuth();
   const localesAPI = useLocales();
   const updateUserAPI = useUpdateUser(user?.id);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const { methods, fields, reset } = useUpdateUserForm({
     defaultValues: {
       name: user?.name,
       email: user?.email,
-      language: i18n.resolvedLanguage, // Whatever language is currently rendering (needed to handle unsupported languages)
+      language: user?.language,
       role_id: user?.role?.id,
     },
   });
-
-  useEffect(() => {
-    methods.setValue('language', i18n.resolvedLanguage);
-  }, [i18n.resolvedLanguage]);
 
   const canUpdateRole = PermissionChecker.hasManageUsers(currentUser);
   const rolesAPI = useRoles({ enabled: canUpdateRole });
