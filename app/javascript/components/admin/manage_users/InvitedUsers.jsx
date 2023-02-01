@@ -14,7 +14,7 @@ export default function InvitedUsers({ searchInput }) {
   const [page, setPage] = useState();
   const { data: invitations } = useInvitations(searchInput, page);
 
-  if (!searchInput && invitations.length === 0) {
+  if (!searchInput && invitations?.data?.length === 0) {
     return <EmptyUsersList text="invited" />;
   }
 
