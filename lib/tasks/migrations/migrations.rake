@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable all
 
 namespace :migrations do
   DEFAULT_ROLES_MAP = { "admin" => "Administrator", "user" => "User" }.freeze
@@ -116,15 +117,15 @@ namespace :migrations do
                         {}
                       else
                         {
-                          record: parsed_room_settings["recording"] == false ? nil : "true",
-                          muteOnStart: parsed_room_settings["muteOnStart"] == false ? nil : "true",
-                          glAnyoneCanStart: parsed_room_settings["anyoneCanStart"] == false ? nil : "true",
-                          glAnyoneJoinAsModerator: parsed_room_settings["joinModerator"] == false ? nil : "true",
-                          guestPolicy: parsed_room_settings["requireModeratorApproval"] == false ? nil : "ASK_MODERATOR",
-                        }.compact
+                          record: parsed_room_settings["recording"] == true ? "true" : "false",
+                          muteOnStart: parsed_room_settings["muteOnStart"] == true ? "true" : "false",
+                          glAnyoneCanStart: parsed_room_settings["anyoneCanStart"] == true ? "true" : "false",
+                          glAnyoneJoinAsModerator: parsed_room_settings["joinModerator"] == true ? "true" : "false",
+                          guestPolicy: parsed_room_settings["requireModeratorApproval"] == true ? "ASK_MODERATOR" : "ALWAYS_ACCEPT"
+                        }
                       end
 
-      shared_users_emails = SharedAccess.joins(:user).where(room_id: r.id).pluck(:'users.email')
+      shared_users_emails = r.shared_access.joins(:user).pluck(:'users.email')
 
       params = { room: { friendly_id: r.uid,
                          name: r.name,
