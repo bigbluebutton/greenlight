@@ -41,22 +41,20 @@ export default function SharedAccessForm({ handleClose }) {
                         <tr
                           key={user.id}
                           className="align-middle"
-                          onClick={() => {
-                            const checkbox = document.getElementById(`${user.id}-checkbox`);
-                            checkbox.checked = !checkbox.checked;
-                          }}
                         >
                           <td>
                             <Stack direction="horizontal" className="py-2">
-                              <Form.Check
-                                id={`${user.id}-checkbox`}
-                                type="checkbox"
-                                value={user.id}
-                                className="pe-3"
-                                {...register('shared_users')}
-                              />
-                              <Avatar avatar={user.avatar} size="small" />
-                              <h6 className="text-brand mb-0 ps-3"> {user.name} </h6>
+                              <Form.Label className="w-100 mb-0 text-brand">
+                                <Form.Check
+                                  id={`${user.id}-checkbox`}
+                                  type="checkbox"
+                                  value={user.id}
+                                  className="d-inline-block"
+                                  {...register('shared_users')}
+                                />
+                                <Avatar avatar={user.avatar} size="small" className="d-inline-block px-3" />
+                                {user.name}
+                              </Form.Label>
                             </Stack>
                           </td>
                         </tr>
