@@ -7,11 +7,16 @@ import SortBy from '../../shared_components/search/SortBy';
 import useInvitations from '../../../hooks/queries/admin/manage_users/useInvitations';
 import Pagination from '../../shared_components/Pagination';
 import NoSearchResults from '../../shared_components/search/NoSearchResults';
+import EmptyUsersList from './EmptyUsersList';
 
 export default function InvitedUsers({ searchInput }) {
   const { t } = useTranslation();
   const [page, setPage] = useState();
   const { data: invitations } = useInvitations(searchInput, page);
+
+  if (!searchInput && invitations.length === 0) {
+    return <EmptyUsersList text="invited" />;
+  }
 
   return (
     <div>
@@ -33,7 +38,7 @@ export default function InvitedUsers({ searchInput }) {
               </thead>
               <tbody className="border-top-0">
                 {invitations?.data?.length
-                  ? (
+                  && (
                     invitations?.data?.map((invitation) => (
                       <tr key={invitation.email} className="align-middle text-muted">
                         <td className="text-dark border-0">{invitation.email}</td>
@@ -43,13 +48,6 @@ export default function InvitedUsers({ searchInput }) {
                         </td>
                       </tr>
                     ))
-                  )
-                  : (
-                    <tr>
-                      <td className="fw-bold">
-                        { t('user.no_user_found') }
-                      </td>
-                    </tr>
                   )}
               </tbody>
             </Table>

@@ -1,0 +1,25 @@
+import React from 'react';
+import { Card } from 'react-bootstrap';
+// import { useTranslation } from 'react-i18next';
+
+import UserBoardIcon from './UserBoardIcon';
+
+export default function EmptyServerRoomsList() {
+  // const { t } = useTranslation();
+
+  return (
+    <div id="list-empty">
+      <Card className="border-0 text-center">
+        <Card.Body className="py-5">
+          <div className="icon-circle rounded-circle d-block mx-auto mb-3">
+            <UserBoardIcon className="hi-l text-brand d-block mx-auto" />
+          </div>
+          <Card.Title className="text-brand"> There are no server rooms yet!</Card.Title>
+          <Card.Text>
+            Rooms will appear here after creating your first room.
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    </div>
+  );
+}

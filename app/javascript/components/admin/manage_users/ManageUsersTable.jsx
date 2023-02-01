@@ -6,8 +6,14 @@ import ManageUserRow from './ManageUserRow';
 import SortBy from '../../shared_components/search/SortBy';
 import ManageUsersRowPlaceHolder from './ManageUsersRowPlaceHolder';
 
+import EmptyUsersList from './EmptyUsersList';
+
 export default function ManageUsersTable({ users, isLoading }) {
   const { t } = useTranslation();
+
+  if (users.length === 0) {
+    return <EmptyUsersList text="active" />;
+  }
 
   return (
     <Table id="manage-users-table" className="table-bordered border border-2 mb-0" hover responsive>
