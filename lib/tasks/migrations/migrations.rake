@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable all
 
 namespace :migrations do
   DEFAULT_ROLES_MAP = { "admin" => "Administrator", "user" => "User" }.freeze
@@ -15,21 +16,22 @@ namespace :migrations do
 
     Role.unscoped
         .select(:id, :name)
+        .includes(:role_permissions)
         .where.not(name: COMMON[:filtered_roles])
         .find_each(batch_size: COMMON[:batch_size]) do |r|
       # RolePermissions
-      role_permissions_hash = RolePermission.where(role_id: r.id).pluck(:name, :value).to_h
-      # Returns nil if the RolePermission value is the same as the corresponding default value in V3
+      role_permissions_hash = r.role_permissions.pluck(:name, :value).to_h
+
       role_permissions = {
-        CreateRoom: role_permissions_hash['can_create_rooms'] == "true" ? nil : "false",
-        CanRecord: role_permissions_hash['can_launch_recording'] == "true" ? nil : "false",
-        ManageUsers: role_permissions_hash['can_manage_users'] == "false" ? nil : "true",
-        ManageRoles: role_permissions_hash['can_edit_roles'] == "false" ? nil : "true",
+        CreateRoom: role_permissions_hash['can_create_rooms'] == "true" ? "true" : "false",
+        CanRecord: role_permissions_hash['can_launch_recording'] == "true" ? "true" : "false",
+        ManageUsers: role_permissions_hash['can_manage_users'] == "true" ? "true" : "false",
+        ManageRoles: role_permissions_hash['can_edit_roles'] == "true" ? "true" : "false",
         # In V3, can_manage_room_recordings is split into two distinct permissions: ManageRooms and ManageRecordings
-        ManageRooms: role_permissions_hash['can_manage_rooms_recordings'] == "false" ? nil : "true",
-        ManageRecordings: role_permissions_hash['can_manage_room_recordings'] == "false" ? nil : "true",
-        ManageSiteSettings: role_permissions_hash['can_edit_site_settings'] == "false" ? nil : "true"
-      }.compact
+        ManageRooms: role_permissions_hash['can_manage_rooms_recordings'] == "true" ? "true" : "false",
+        ManageRecordings: role_permissions_hash['can_manage_rooms_recordings'] == "true" ? "true" : "false",
+        ManageSiteSettings: role_permissions_hash['can_edit_site_settings'] == "true" ? "true" : "false"
+      }
 
       params = { role: { name: r.name.capitalize,
                          role_permissions: role_permissions } }
@@ -115,15 +117,15 @@ namespace :migrations do
                         {}
                       else
                         {
-                          record: parsed_room_settings["recording"] == false ? nil : "true",
-                          muteOnStart: parsed_room_settings["muteOnStart"] == false ? nil : "true",
-                          glAnyoneCanStart: parsed_room_settings["anyoneCanStart"] == false ? nil : "true",
-                          glAnyoneJoinAsModerator: parsed_room_settings["joinModerator"] == false ? nil : "true",
-                          guestPolicy: parsed_room_settings["requireModeratorApproval"] == false ? nil : "ASK_MODERATOR",
-                        }.compact
+                          record: parsed_room_settings["recording"] == true ? "true" : "false",
+                          muteOnStart: parsed_room_settings["muteOnStart"] == true ? "true" : "false",
+                          glAnyoneCanStart: parsed_room_settings["anyoneCanStart"] == true ? "true" : "false",
+                          glAnyoneJoinAsModerator: parsed_room_settings["joinModerator"] == true ? "true" : "false",
+                          guestPolicy: parsed_room_settings["requireModeratorApproval"] == true ? "ASK_MODERATOR" : "ALWAYS_ACCEPT"
+                        }
                       end
 
-      shared_users_emails = SharedAccess.joins(:user).where(room_id: r.id).pluck(:'users.email')
+      shared_users_emails = r.shared_access.joins(:user).pluck(:'users.email')
 
       params = { room: { friendly_id: r.uid,
                          name: r.name,
