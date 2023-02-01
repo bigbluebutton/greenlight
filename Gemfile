@@ -59,7 +59,7 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 11.1', platform: :mri
-  gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
+  gem 'dotenv-rails', '~> 2.8', '>= 2.8.1'
 end
 
 group :test do
