@@ -57,7 +57,7 @@ module Api
           provider: current_provider,
           current_user:,
           show_codes: false,
-          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode record]
+          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode record glAnyoneJoinAsModerator]
         ).call
 
         render_data data: @room, serializer: PublicRoomSerializer, options: { settings: }, status: :ok

@@ -96,7 +96,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       allow(RoomSettingsGetter).to receive(:new).and_return(fake_room_settings_getter)
       allow(fake_room_settings_getter).to receive(:call).and_return(
-        { 'glRequireAuthentication' => true, 'glViewerAccessCode' => true, 'glModeratorAccessCode' => false }
+        { 'glRequireAuthentication' => true, 'glViewerAccessCode' => true, 'glModeratorAccessCode' => false, 'glAnyoneJoinAsModerator' => true }
       )
     end
 
@@ -104,7 +104,11 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       room = create(:room, user:)
 
       expect(RoomSettingsGetter).to receive(:new).with(room_id: room.id, provider: 'greenlight', current_user: nil, show_codes: false,
-                                                       settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode record])
+                                                       settings: %w[glRequireAuthentication
+                                                                    glViewerAccessCode
+                                                                    glModeratorAccessCode
+                                                                    record
+                                                                    glAnyoneJoinAsModerator])
       expect(fake_room_settings_getter).to receive(:call)
 
       get :public_show, params: { friendly_id: room.friendly_id }
@@ -113,6 +117,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(JSON.parse(response.body)['data']['require_authentication']).to be(true)
       expect(JSON.parse(response.body)['data']['viewer_access_code']).to be(true)
       expect(JSON.parse(response.body)['data']['moderator_access_code']).to be(false)
+      expect(JSON.parse(response.body)['data']['anyone_join_as_moderator']).to be(true)
       expect(JSON.parse(response.body)['data']['owner_name']).to eq(user.name)
       expect(JSON.parse(response.body)['data']['owner_avatar']).to be_present
     end
