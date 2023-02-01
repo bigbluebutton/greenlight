@@ -1,9 +1,11 @@
 import React from 'react';
 import {
-  Button, Nav, Navbar, NavDropdown,
+  Button, Nav, Navbar, NavDropdown, Stack,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { IdentificationIcon, QuestionMarkCircleIcon, StarIcon } from '@heroicons/react/24/outline';
+import {
+  IdentificationIcon, QuestionMarkCircleIcon, StarIcon, ChevronDownIcon,
+} from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
@@ -69,12 +71,17 @@ export default function NavbarSignedIn({ currentUser }) {
 
       {/* Desktop User Dropdown - Hidden on Mobile */}
       <div className="justify-content-end d-none d-sm-block user-dropdown">
-        <div className="d-inline-block">
-          <ButtonLink to="/profile" className="btn-icon">
-            <Avatar avatar={currentUser?.avatar} size="small" />
-          </ButtonLink>
-        </div>
-        <NavDropdown title={currentUser?.name} id="nav-user-dropdown" className="d-inline-block" align="end">
+        <NavDropdown
+          title={(
+            <Stack direction="horizontal" gap={1}>
+              <Avatar avatar={currentUser?.avatar} size="small" />
+              <ChevronDownIcon className="hi-xs" />
+            </Stack>
+          )}
+          id="nav-user-dropdown"
+          className="d-inline-block"
+          align="end"
+        >
           <NavDropdown.Item as={Link} to="/profile">
             <IdentificationIcon className="hi-s me-3" />
             { t('user.profile.profile') }

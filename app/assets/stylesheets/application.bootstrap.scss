@@ -210,27 +210,22 @@ input.search-bar {
   }
 }
 
-.user-dropdown {
-  img {
-    &:hover {
-      cursor: pointer;
-      box-shadow: 0 0 0 3px gainsboro;
-    }
-  }
-  .dropdown-menu {
-    margin-top: 10px;
-  }
-}
-
 #nav-user-dropdown {
   &:hover {
-    color: var(--brand-color) !important;
+    color: $black !important;
+    img {
+      box-shadow: 0 0 0 3px gainsboro;
+    }
   }
   &:active {
     background-color: transparent !important;
   }
   &:focus {
     background-color: transparent !important;
+  }
+
+  &::after {
+    display: none !important;
   }
 }
 
