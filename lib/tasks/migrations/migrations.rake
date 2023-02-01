@@ -15,21 +15,22 @@ namespace :migrations do
 
     Role.unscoped
         .select(:id, :name)
+        .includes(:role_permissions)
         .where.not(name: COMMON[:filtered_roles])
         .find_each(batch_size: COMMON[:batch_size]) do |r|
       # RolePermissions
-      role_permissions_hash = RolePermission.where(role_id: r.id).pluck(:name, :value).to_h
-      # Returns nil if the RolePermission value is the same as the corresponding default value in V3
+      role_permissions_hash = r.role_permissions.pluck(:name, :value).to_h
+
       role_permissions = {
-        CreateRoom: role_permissions_hash['can_create_rooms'] == "true" ? nil : "false",
-        CanRecord: role_permissions_hash['can_launch_recording'] == "true" ? nil : "false",
-        ManageUsers: role_permissions_hash['can_manage_users'] == "false" ? nil : "true",
-        ManageRoles: role_permissions_hash['can_edit_roles'] == "false" ? nil : "true",
+        CreateRoom: role_permissions_hash['can_create_rooms'] == "true" ? "true" : "false",
+        CanRecord: role_permissions_hash['can_launch_recording'] == "true" ? "true" : "false",
+        ManageUsers: role_permissions_hash['can_manage_users'] == "true" ? "true" : "false",
+        ManageRoles: role_permissions_hash['can_edit_roles'] == "true" ? "true" : "false",
         # In V3, can_manage_room_recordings is split into two distinct permissions: ManageRooms and ManageRecordings
-        ManageRooms: role_permissions_hash['can_manage_rooms_recordings'] == "false" ? nil : "true",
-        ManageRecordings: role_permissions_hash['can_manage_room_recordings'] == "false" ? nil : "true",
-        ManageSiteSettings: role_permissions_hash['can_edit_site_settings'] == "false" ? nil : "true"
-      }.compact
+        ManageRooms: role_permissions_hash['can_manage_rooms_recordings'] == "true" ? "true" : "false",
+        ManageRecordings: role_permissions_hash['can_manage_rooms_recordings'] == "true" ? "true" : "false",
+        ManageSiteSettings: role_permissions_hash['can_edit_site_settings'] == "true" ? "true" : "false"
+      }
 
       params = { role: { name: r.name.capitalize,
                          role_permissions: role_permissions } }
