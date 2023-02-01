@@ -1,4 +1,4 @@
-FROM ruby:2.7.5-alpine3.14 AS base
+FROM ruby:2.7.7-alpine3.16 AS base
 
 # Set a variable for the install location.
 ARG RAILS_ROOT=/usr/src/app

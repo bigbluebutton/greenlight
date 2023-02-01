@@ -507,7 +507,7 @@ DEPENDENCIES
   byebug (~> 11.1)
   cancancan (~> 2.3.0)
   coveralls (~> 0.8.23)
-  dotenv-rails (~> 2.7, >= 2.7.6)
+  dotenv-rails (~> 2.8, >= 2.8.1)
   factory_bot_rails (~> 6.2, >= 6.2.0)
   faker (~> 2.16)
   font-awesome-sass (~> 5.9.0)
