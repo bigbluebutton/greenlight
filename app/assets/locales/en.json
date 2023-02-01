@@ -294,7 +294,7 @@
         "require_mod_approval_description": "Prompts the moderator of the BigBlueButton meeting when a user tries to join. If the user is approved, they will be able to join the meeting.",
         "allow_any_user_to_start_meeting": "Allow any user to start a meeting",
         "allow_any_user_to_start_meeting_description": "Allow any user to start the meeting at any time. By default, only the room owner can start the meeting.",
-        "allow_users_to_join_as_mods": "Allow users to join as moderators",
+        "allow_users_to_join_as_mods": "All users join as moderators",
         "allow_users_to_join_as_mods_description": "Gives all users the moderator privileges in BigBlueButton when they join the meeting",
         "mute_users_on_join": "Mute users when they join",
         "mute_users_on_join_description": "Automatically mutes the user when they join the BigBlueButton meeting",
