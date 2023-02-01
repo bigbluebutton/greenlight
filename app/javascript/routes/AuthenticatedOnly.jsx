@@ -15,13 +15,15 @@ export default function AuthenticatedOnly() {
   const deleteSession = useDeleteSession({ showToast: false });
 
   // User is either pending or banned
-  if (currentUser.signed_in && currentUser.status !== 'active') {
+  if (currentUser.signed_in && (currentUser.status !== 'active' || !currentUser.verified)) {
     deleteSession.mutate();
 
     if (currentUser.status === 'pending') {
       toast.error(t('toast.error.users.pending'));
-    } else {
+    } else if (currentUser.status === 'banned') {
       toast.error(t('toast.error.users.banned'));
+    } else {
+      toast.error(t('toast.error.signin_required'));
     }
   }
 
