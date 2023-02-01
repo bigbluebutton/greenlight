@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
 import Avatar from '../users/user/Avatar';
-import ButtonLink from '../shared_components/utilities/ButtonLink';
 
 export default function NavbarSignedIn({ currentUser }) {
   const { t } = useTranslation();
