@@ -9,6 +9,7 @@ import Form from '../../../shared_components/forms/Form';
 import useDeleteUser from '../../../../hooks/mutations/users/useDeleteUser';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import Spinner from '../../../shared_components/utilities/Spinner';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
 export default function DeleteUserForm({ handleClose }) {
   const { t } = useTranslation();
@@ -18,7 +19,14 @@ export default function DeleteUserForm({ handleClose }) {
 
   return (
     <>
-      <p className="text-center"> { t('user.account.are_you_sure_delete_account') }</p>
+      <Stack direction="horizontal" className="mb-3">
+        <ExclamationTriangleIcon className="text-danger hi-xl" />
+        <Stack direction="vertical" className="ps-3">
+          <h3> { t('user.account.delete_account') } </h3>
+          <p className="mb-0"> { t('user.account.are_you_sure_delete_account') } </p>
+          <p className="mt-0"><strong> { t('action_permanent') } </strong></p>
+        </Stack>
+      </Stack>
       <Form methods={methods} onSubmit={deleteUserAPI.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="neutral" onClick={handleClose}> { t('close') } </Button>

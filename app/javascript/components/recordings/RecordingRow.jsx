@@ -111,7 +111,6 @@ export default function RecordingRow({
                 </Dropdown.Item>
                 <Modal
                   modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{ t('delete') }</Dropdown.Item>}
-                  title={t('are_you_sure')}
                   body={(
                     <DeleteRecordingForm
                       mutation={useDeleteAPI}
@@ -133,7 +132,6 @@ export default function RecordingRow({
               </Button>
               <Modal
                 modalButton={<Dropdown.Item className="btn btn-icon"><TrashIcon className="hi-s me-2" /></Dropdown.Item>}
-                title={t('are_you_sure')}
                 body={(
                   <DeleteRecordingForm
                     mutation={useDeleteAPI}

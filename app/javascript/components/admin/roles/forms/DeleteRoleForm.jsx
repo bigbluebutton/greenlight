@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import useDeleteRole from '../../../../hooks/mutations/admin/roles/useDeleteRole';
@@ -16,7 +17,15 @@ export default function DeleteRoleForm({ role, handleClose }) {
 
   return (
     <>
-      <p className="text-center">{ t('admin.roles.are_you_sure_delete_role') }</p>
+      <Stack direction="horizontal" className="mb-3">
+        <ExclamationTriangleIcon className="text-danger hi-xl" />
+        <Stack direction="vertical" className="ps-3">
+          <h3> { t('admin.roles.delete_role') } </h3>
+          <p className="mb-0"> { t('admin.roles.are_you_sure_delete_role') } </p>
+          <p className="mt-0"><strong> { t('action_permanent') } </strong></p>
+        </Stack>
+      </Stack>
+      <p className="text-center"></p>
       <Form methods={methods} onSubmit={deleteRoleAPI.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="neutral" onClick={handleClose}>

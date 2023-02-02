@@ -84,7 +84,6 @@ export default function ServerRoomRow({ room }) {
             </Dropdown.Item>
             <Modal
               modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{ t('delete') }</Dropdown.Item>}
-              title={t('admin.server_rooms.delete_server_rooms')}
               body={<DeleteRoomForm mutation={mutationWrapper} />}
             />
           </Dropdown.Menu>
