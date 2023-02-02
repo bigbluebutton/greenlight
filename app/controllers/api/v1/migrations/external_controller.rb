@@ -39,13 +39,16 @@ module Api
           return render_data status: :created unless role_hash[:role_permissions].any?
 
           # Finds all the RolePermissions that need to be updated
-          role_permissions_temp = RolePermission.includes(:permission)
-                                                .where(role_id: role.id, 'permissions.name': role_hash[:role_permissions].keys)
-                                                .pluck(:id, :'permissions.name')
-                                                .to_h
-          # Re-structure the data so it is in the format: { <role_permission_id>: { value: <role_permission_new_value> } }
-          role_permissions = role_permissions_temp.transform_values { |v| { value: role_hash[:role_permissions][v.to_sym] } }
-          RolePermission.update!(role_permissions.keys, role_permissions.values)
+          role_permissions_joined = RolePermission.includes(:permission)
+                                                  .where(role_id: role.id, 'permissions.name': role_hash[:role_permissions].keys)
+
+          okay = true
+          role_permissions_joined.each do |role_permission|
+            permission_name = role_permission.permission.name
+            okay = false unless role_permission.update(value: role_hash[:role_permissions][permission_name])
+          end
+
+          return render_error status: :bad_request, errors: 'Something went wrong when migrating the role permissions.' unless okay
 
           render_data status: :created
         end
@@ -159,7 +162,9 @@ module Api
         private
 
         def role_params
-          decrypted_params.require(:role).permit(:name, role_permissions: {})
+          decrypted_params.require(:role).permit(:name,
+                                                 role_permissions: %w[CreateRoom CanRecord ManageUsers ManageRoles ManageRooms ManageRecordings
+                                                                      ManageSiteSettings])
         end
 
         def user_params
