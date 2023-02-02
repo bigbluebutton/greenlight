@@ -658,3 +658,59 @@ input[type="range"]:focus::-moz-range-thumb {
     color: var(--brand-color) !important;
   }
 }
+
+.toast-card {
+  border-radius: $border-radius;
+  //transition: inherit !important;
+  //transform: inherit !important;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+  .btn-close {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+}
+
+.success-toast {
+  svg {
+    color: #62d346;
+  }
+  &::before {
+    border-bottom-left-radius: $border-radius;
+    border-top-left-radius: $border-radius;
+    background: #62d346;
+    width: 10px;
+  }
+}
+
+.error-toast {
+  svg {
+    color: #ff355b;
+  }
+  &::before {
+    border-bottom-left-radius: $border-radius;
+    border-top-left-radius: $border-radius;
+    background: #ff355b;
+    width: 10px;
+  }
+}
+
+.warning-toast {
+  svg {
+    color: #fec121;
+  }
+  &::before {
+    border-bottom-left-radius: $border-radius;
+    border-top-left-radius: $border-radius;
+    background: #fec121;
+    width: 10px;
+  }
+}
+
+
