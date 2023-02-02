@@ -41,7 +41,6 @@ export default function HomePage() {
         toast.error(t('toast.error.users.signup_error'));
         break;
       default:
-        toast.error(t('toast.error.problem_completing_action'));
     }
     // Remove the error
     setSearchParams(searchParams.delete('error'));
