@@ -25,7 +25,6 @@ export default function DeleteRoleForm({ role, handleClose }) {
           <p className="mt-0"><strong> { t('action_permanent') } </strong></p>
         </Stack>
       </Stack>
-      <p className="text-center"></p>
       <Form methods={methods} onSubmit={deleteRoleAPI.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="neutral" onClick={handleClose}>

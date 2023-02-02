@@ -5,11 +5,11 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import Form from '../../../shared_components/forms/Form';
 import useDeleteUser from '../../../../hooks/mutations/users/useDeleteUser';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import Spinner from '../../../shared_components/utilities/Spinner';
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
 export default function DeleteUserForm({ handleClose }) {
   const { t } = useTranslation();
