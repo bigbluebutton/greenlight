@@ -180,12 +180,12 @@ namespace :migrations do
 
     # RoomConfigurations
     room_configurations = {
-      record: settings_hash['Room Configuration Recording'],
-      muteOnStart: settings_hash['Room Configuration Mute On Join'],
-      guestPolicy: settings_hash['Room Configuration Require Moderator'],
-      glAnyoneCanStart: settings_hash['Room Configuration Allow Any Start'],
-      glAnyoneJoinAsModerator: settings_hash['Room Configuration All Join Moderator'],
-      glRequireAuthentication: settings_hash['Room Authentication']
+      record: infer_room_config_value(settings_hash['Room Configuration Recording']),
+      muteOnStart: infer_room_config_value(settings_hash['Room Configuration Mute On Join']),
+      guestPolicy: infer_room_config_value(settings_hash['Room Configuration Require Moderator']),
+      glAnyoneCanStart: infer_room_config_value(settings_hash['Room Configuration Allow Any Start']),
+      glAnyoneJoinAsModerator: infer_room_config_value(settings_hash['Room Configuration All Join Moderator']),
+      glRequireAuthentication: infer_room_config_value(settings_hash['Room Authentication'])
     }.compact
 
     params = { settings: { site_settings: site_settings, room_configurations: room_configurations } }
@@ -264,5 +264,20 @@ namespace :migrations do
     else
       "open"
     end
+  end
+
+  def infer_room_config_value(config_val)
+    return nil unless config_val.present?
+
+    case config_val
+      when "enabled"
+        "true"
+      when "true"
+        "true"
+      when "disabled"
+        "false"
+      else
+        "optional"
+      end 
   end
 end
