@@ -24,6 +24,7 @@
   "return_home": "Return Home",
   "created_at": "Created at",
   "no_result_search_input": "Could not find any results for \"{{ searchInput }}\"",
+  "action_permanent": "This action cannot be undone.",
   "homepage": {
     "welcome_bbb": "Welcome to BigBlueButton.",
     "bigbluebutton_description": "BigBlueButton is an open source web conferencing system for online classes. The platform maximizes time for applied learning by enabling students to collaborate and receive feedback in real-time.",
@@ -153,7 +154,8 @@
       "access_code_required": "Please enter the access code",
       "wrong_access_code": "Wrong Access Code",
       "generate_viewers_access_code": "Generate access code for viewers",
-      "generate_mods_access_code": "Generate access code for moderators"
+      "generate_mods_access_code": "Generate access code for moderators",
+      "are_you_sure_delete_room": "Are you sure you want to delete this room?"
     }
   },
   "recording": {
@@ -173,6 +175,7 @@
     "copy_recording_urls": "Copy Recording Url(s)",
     "recordings_list_empty": "You don't have any recordings yet!",
     "recordings_list_empty_description": "Recordings will appear here after you start a meeting and record it.",
+    "delete_recording": "Delete Recording",
     "are_you_sure_delete_recording": "Are you sure you want to delete this recording?",
     "search_not_found": "No Recordings found"
   },

@@ -103,8 +103,7 @@ export default function RoomSettings() {
                       className="mt-1 mx-2 float-end"
                     >{t('room.delete_room')}
                     </Button>
-)}
-                  title={t('room.delete_room')}
+                  )}
                   body={<DeleteRoomForm mutation={deleteMutationWrapper} />}
                 />
                 )}

@@ -78,7 +78,6 @@ export default function Presentation() {
             <Col>
               <Modal
                 modalButton={<TrashIcon className="cursor-pointer hi-s" />}
-                title={t('are_you_sure')}
                 body={<DeletePresentationForm />}
               />
             </Col>

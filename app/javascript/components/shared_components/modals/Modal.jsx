@@ -17,7 +17,7 @@ export default function Modal({
     <>
       {ModalButton}
       <BootstrapModal show={show} onHide={handleClose} centered size={size} id={id} contentClassName="border-0 shadow-sm">
-        <BootstrapModal.Header className="d-block mx-auto border-0 pb-0">
+        <BootstrapModal.Header className="border-0 pb-0">
           <BootstrapModal.Title>{title}</BootstrapModal.Title>
         </BootstrapModal.Header>
         <BootstrapModal.Body>{Body}</BootstrapModal.Body>
@@ -27,7 +27,7 @@ export default function Modal({
 }
 
 Modal.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   modalButton: PropTypes.element.isRequired,
   body: PropTypes.node.isRequired,
   size: PropTypes.string,
@@ -37,4 +37,5 @@ Modal.propTypes = {
 Modal.defaultProps = {
   id: '',
   size: '',
+  title: '',
 };
