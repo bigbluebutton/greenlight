@@ -250,7 +250,7 @@
       "administration": {
         "administration": "Administration",
         "terms": "Terms & Conditions",
-        "privacy": "Privacy",
+        "privacy": "Privacy Policy",
         "privacy_policy": "Privacy Policy",
         "change_term_links": "Change the terms links that appears at the bottom of the page",
         "change_privacy_link": "Change the privacy link that appears at the bottom of the page",
@@ -395,6 +395,7 @@
         "role_assigned": "This role can't be deleted as it is assigned to at least one user."
       },
       "users": {
+        "signup_error": "There was an error signing you in. Please contact your administrator.",
         "invalid_invite": "Your invitation token is either invalid or incorrect. Please contact your administrator to receive a new one",
         "email_exists": "An account under this email already exists. Please try again with another email",
         "old_password": "The current password you have entered is incorrect",

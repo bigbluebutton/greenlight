@@ -41,6 +41,14 @@ class ApplicationController < ActionController::Base
     @default_role = Role.find_by(name: default_role_setting, provider: current_provider) || Role.find_by(name: 'User', provider: current_provider)
   end
 
+  # Creates the default room for the user if they don't already have one
+  def create_default_room(user)
+    return unless user.rooms.count <= 0
+    return unless PermissionsChecker.new(permission_names: 'CreateRoom', user_id: user.id, current_user: user, current_provider:).call
+
+    Room.create(name: "#{user.name}'s Room", user_id: user.id)
+  end
+
   private
 
   # Checks if the user's session_token matches the session and that it is not expired
