@@ -27,6 +27,7 @@ export default function AuthProvider({ children }) {
     role: currentUser?.role,
     verified: currentUser?.verified,
     status: currentUser?.status,
+    external_account: currentUser?.external_account,
     stateChanging: false,
   };
 
