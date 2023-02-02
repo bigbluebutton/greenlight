@@ -6,15 +6,17 @@ i18next
   .use(initReactI18next)
   .use(HttpApi)
   .init({
-    fallbackLng: 'en',
     backend: {
       loadPath: '/api/v1/locales/{{lng}}.json',
-      requestOptions: {
-        cache: 'no-store', // TODO - samuel: i18n will sometime use the cache translation
-      },
     },
-    interpolation: {
-      escapeValue: false,
+    load: 'currentOnly',
+    fallbackLng: (locale) => {
+      const fallbacks = [];
+      if (locale?.indexOf('-') > -1) {
+        fallbacks.push(locale.split('-')[0]);
+      }
+      fallbacks.push('en');
+      return fallbacks;
     },
   });
 export default i18next;
