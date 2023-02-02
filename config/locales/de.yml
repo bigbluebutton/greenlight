@@ -30,12 +30,26 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 de:
+  meeting:
+    moderator_message: "Um jemanden zur Konferenz einzuladen, schicken Sie ihm diesen Link:"
+    access_code: "Zugangscode: %{code}"
   email:
+    link_expires: "Der Link läuft in %{time} ab."
     activation:
-      line1: "Nur noch ein Schritt, um Greenlight und BigBlueButton zu benutzen!"
-      line2: Bitte auf den unten stehenden Link klicken um diese Mail-Adresse zu bestätigen.
-      line3: Durch die Aktivierung das Kontos können alle Funktionen von Greenlight und BigBlueButton genutzt werden!
-      line4: "Man kann Meetings erstellen, Aufnahmen teilen und mit anderen zusammenarbeiten!"
-      line5: Account aktivieren
-      line6: "Dieser Link läuft in %{time} ab."
-      line7: "Wenn dieser Aktivierungslink abgelaufen ist, kann im Konto ein neuer angefordert werden."
+      account_activation: Kontoaktivierung
+      welcome_to_bbb: Willkommen in BigBlueButton!
+      get_started: "Um loszulegen, aktivieren Sie bitte Ihr Konto, indem Sie auf die Schaltfläche unten klicken."
+      activate_account: Konto aktivieren
+      if_link_expires: "Wenn der Link abläuft, melden Sie sich bitte an und fordern Sie eine neue E-Mail zur Aktivierung an."
+    invitation:
+      invitation_to_join: Einladung zur Teilnahme in BigBlueButton
+      you_have_been_invited: "Sie wurden von %{name} eingeladen, ein BigBlueButton-Konto zu erstellen."
+      get_started: "Um sich zu registrieren, klicken Sie bitte auf die Schaltfläche unten und folgen Sie den Schritten."
+      valid_invitation: Die Einladung ist 48 Stunden gültig.
+      sign_up: Registrieren
+    reset:
+      password_reset: Anforderung zur Passwortrücksetzung
+      password_reset_requested: "Eine Passwortrücksetzung wurde für %{email} beantragt"
+      password_reset_confirmation: "Um Ihr Passwort zurückzusetzen, klicken Sie bitte auf die folgende Schaltfläche"
+      reset_password: Passwort zurücksetzen
+      ignore_request: "Wenn Sie keinen Antrag auf Änderung Ihres Passworts gestellt haben, ignorieren Sie bitte diese E-Mail."
