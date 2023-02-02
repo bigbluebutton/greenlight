@@ -27,7 +27,7 @@
   "homepage": {
     "welcome_bbb": "BigBlueButton へようこそ。",
     "bigbluebutton_description": "BigBlueButtonは、オンライン授業に最適化された、オープンソースのウェブ会議システムです。生徒や学生が協働し、即時にフィードバックが得られるようにすることで、実践的な学びの時間を最大化します。",
-    "greenlight_description": "自分専用の会議室を作成し、会議を主催してみてください。簡便なリンクを使って、他人を招待することもできます。",
+    "greenlight_description": "自分の会議室を作成し、会議を開いてみてください。簡便なリンクを使って、他人を招待することもできます。",
     "learn_more": "BigBlueButtonについてもっと知る",
     "explore_features": "こんな機能があります",
     "meeting_title": "会議を立ち上げる",
@@ -144,7 +144,7 @@
       "require_signed_in_message": "この会議への入室にはサインインが必要です。",
       "require_mod_approval": "参加に司会者の許可を必須とする",
       "allow_any_user_to_start": "誰でもこの会議を開始可能とする",
-      "all_users_join_as_mods": "すべてのユーザーが司会者として参加する",
+      "all_users_join_as_mods": "全てのユーザーが司会者として参加する",
       "mute_users_on_join": "参加時にユーザーをミュートする",
       "generate": "作成",
       "access_code": "接続コード",
@@ -210,7 +210,7 @@
       }
     },
     "server_rooms": {
-      "server_rooms": "すべての会議室",
+      "server_rooms": "全ての会議室",
       "name": "名前",
       "owner": "オーナー",
       "room_id": "会議室ID",
@@ -294,7 +294,7 @@
         "require_mod_approval_description": "会議への参加希望に対し、許可するかどうか、司会者にその都度問い合わせます。許可されてはじめてユーザーは参加できます。",
         "allow_any_user_to_start_meeting": "誰でもこの会議を開始可能とする",
         "allow_any_user_to_start_meeting_description": "全てのユーザーがいつでも会議を開始することを許可します。通常は、会議室のオーナーだけが会議を開始できます。",
-        "allow_users_to_join_as_mods": "全ユーザーが司会者として参加することを許可",
+        "allow_users_to_join_as_mods": "すべてのユーザーを司会者として参加させる",
         "allow_users_to_join_as_mods_description": "すべてのユーザーに、会議に参加した時点で司会者の権限をあたえます",
         "mute_users_on_join": "参加時にユーザーをミュートする",
         "mute_users_on_join_description": "ユーザーが会議に参加した時、自動的にミュートします。",
