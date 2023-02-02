@@ -11,7 +11,7 @@ import EmptyUsersList from './EmptyUsersList';
 export default function ManageUsersTable({ users, isLoading }) {
   const { t } = useTranslation();
 
-  if (users.length === 0) {
+  if (!isLoading && users.length === 0) {
     return <EmptyUsersList text={t('admin.manage_users.empty_active_users')} subtext={t('admin.manage_users.empty_active_users_subtext')} />;
   }
 
