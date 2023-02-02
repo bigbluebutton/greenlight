@@ -37,7 +37,7 @@ fa:
     link_expires: "این پیوند در %{time} منقضی می‌شود."
     activation:
       account_activation: فعال‌سازی حساب کاربری
-      welcome_to_bbb: به BigBlueButton خوش آمدید.
+      welcome_to_bbb: به BigBlueButton خوش آمدید!
       get_started: برای شروع، لطفا با کلیک بر روی دکمه زیر حساب کاربری خود را فعال کنید.
       activate_account: فعال کردن حساب کاربری
       if_link_expires: در صورت منقضی شدن پیوند، لطفا در سیستم وارد شوید و درخواست فعال سازی ایمیل، جدید کنید.
