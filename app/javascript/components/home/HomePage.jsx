@@ -15,7 +15,7 @@ export default function HomePage() {
   const { t } = useTranslation();
   const currentUser = useAuth();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const error = searchParams.get('error');
 
   // Redirects the user to the proper page based on signed in status and CreateRoom permission
@@ -33,9 +33,18 @@ export default function HomePage() {
 
   // hack to deal with the fact that useEffect and toast dont work together very well
   useMemo(() => {
-    if (error === 'InviteInvalid') {
-      toast.error(t('toast.error.users.invalid_invite'));
+    switch (error) {
+      case 'InviteInvald':
+        toast.error(t('toast.error.users.invalid_invite'));
+        break;
+      case 'SignupError':
+        toast.error(t('toast.error.users.signup_error'));
+        break;
+      default:
+        toast.error(t('toast.error.problem_completing_action'));
     }
+    // Remove the error
+    setSearchParams(searchParams.delete('error'));
   }, [error]);
 
   return (

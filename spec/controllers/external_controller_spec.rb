@@ -239,6 +239,25 @@ RSpec.describe ExternalController, type: :controller do
         end
       end
     end
+
+    context 'Role mapping' do
+      let!(:role1) { create(:role, name: 'role1') }
+
+      before do
+        role_map = instance_double(SettingGetter)
+        allow(SettingGetter).to receive(:new).with(setting_name: 'RoleMapping', provider: 'greenlight').and_return(role_map)
+        allow(role_map).to receive(:call).and_return(
+          "role1=#{OmniAuth.config.mock_auth[:openid_connect][:info][:email].split('@')[1]}"
+        )
+      end
+
+      it 'Creates a User and assign a role if a rule matches their email' do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+        expect { get :create_user, params: { provider: 'openid_connect' } }.to change(User, :count).by(1)
+        expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).role).to eq(role1)
+      end
+    end
   end
 
   describe '#recording_ready' do

@@ -13,6 +13,7 @@ class ExternalController < ApplicationController
       name: credentials['info']['name'],
       email: credentials['info']['email'],
       language: extract_language_code(credentials['info']['locale']),
+      external_id: credentials['uid'],
       verified: true
     }
 
@@ -27,7 +28,11 @@ class ExternalController < ApplicationController
     end
 
     # Create the user if they dont exist
-    user = User.create({ external_id: credentials['uid'], provider:, role: default_role }.merge(user_info)) if new_user
+    if new_user
+      user = UserCreator.new(user_params: user_info, provider: current_provider, role: default_role).call
+      user.save!
+      create_default_room(user)
+    end
 
     if SettingGetter.new(setting_name: 'ResyncOnLogin', provider:).call
       user.assign_attributes(user_info.except(:language)) # Don't reset the user's language
@@ -49,6 +54,9 @@ class ExternalController < ApplicationController
     return redirect_to redirect_location if redirect_location&.match?('\A\/rooms\/\w{3}-\w{3}-\w{3}-\w{3}\/join\z')
 
     redirect_to '/rooms'
+  rescue StandardError => e
+    Rails.logger.error("Error during authentication: #{e}")
+    redirect_to '/?error=SignupError'
   end
 
   # POST /recording_ready
