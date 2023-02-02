@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/PerceivedComplexity
+
 module Api
   module V1
     module Migrations
@@ -102,22 +104,31 @@ module Api
 
           return render_error(status: :bad_request, errors: room&.errors&.to_a) unless room.save
 
-          # Finds all the RoomMeetingOptions that need to be updated
-          room_meeting_options_temp = RoomMeetingOption.includes(:meeting_option)
-                                                       .where(room_id: room.id, 'meeting_options.name': room_hash[:room_settings].keys)
-                                                       .pluck(:id, :'meeting_options.name')
-                                                       .to_h
-          # Re-structure the data so it is in the format: { <room_meeting_option_id>: { value: <room_meeting_option_new_value> } }
-          room_meeting_options = room_meeting_options_temp.transform_values { |v| { value: room_hash[:room_settings][v.to_sym] } }
-          RoomMeetingOption.update!(room_meeting_options.keys, room_meeting_options.values)
+          if room_hash[:room_settings].any?
+            # Finds all the RoomMeetingOptions that need to be updated
+            room_meeting_options_joined = RoomMeetingOption.includes(:meeting_option)
+                                                           .where(room_id: room.id, 'meeting_options.name': room_hash[:room_settings].keys)
+
+            okay = true
+            room_meeting_options_joined.each do |room_meeting_option|
+              option_name = room_meeting_option.meeting_option.name
+              okay = false unless room_meeting_option.update(value: room_hash[:room_settings][option_name])
+            end
+
+            return render_error status: :bad_request, errors: 'Something went wrong when migrating the room settings.' unless okay
+          end
 
           return render_data status: :created unless room_hash[:shared_users_emails].any?
 
           # Finds all the users that have a SharedAccess to the Room
-          users_ids = User.where(email: room_hash[:shared_users_emails]).pluck(:id)
-          # Re-structure the data so it is in the format: { { room_id:, user_id: } }
-          shared_accesses = users_ids.map { |user_id| { room_id: room.id, user_id: } }
-          SharedAccess.create!(shared_accesses)
+          shared_with_users = User.where(email: room_hash[:shared_users_emails])
+
+          okay = true
+          shared_with_users.each do |shared_with_user|
+            okay = false unless SharedAccess.new(room_id: room.id, user_id: shared_with_user.id).save
+          end
+
+          return render_error status: :bad_request, errors: 'Something went wrong when sharing the room.' unless okay
 
           render_data status: :created
         end
@@ -172,8 +183,9 @@ module Api
         end
 
         def room_params
-          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, room_settings: {},
-                                                                                                                shared_users_emails: [])
+          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email,
+                                                 shared_users_emails: [],
+                                                 room_settings: %w[record muteOnStart guestPolicy glAnyoneCanStart glAnyoneJoinAsModerator])
         end
 
         def settings_params
@@ -208,3 +220,4 @@ module Api
     end
   end
 end
+# rubocop:enable Metrics/PerceivedComplexity
