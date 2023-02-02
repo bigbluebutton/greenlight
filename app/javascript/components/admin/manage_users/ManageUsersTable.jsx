@@ -12,7 +12,7 @@ export default function ManageUsersTable({ users, isLoading }) {
   const { t } = useTranslation();
 
   if (users.length === 0) {
-    return <EmptyUsersList text="active" />;
+    return <EmptyUsersList text={t('admin.manage_users.empty_active_users')} subtext={t('admin.manage_users.empty_active_users_subtext')} />;
   }
 
   return (
@@ -34,15 +34,8 @@ export default function ManageUsersTable({ users, isLoading }) {
             )
             : (
               users?.length
-                ? (
+                && (
                   users?.map((user) => <ManageUserRow key={user.id} user={user} />)
-                )
-                : (
-                  <tr>
-                    <td className="fw-bold" colSpan="6">
-                      {t('user.no_user_found')}
-                    </td>
-                  </tr>
                 )
             )
         }

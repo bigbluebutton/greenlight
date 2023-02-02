@@ -11,9 +11,9 @@ export default function BannedPendingUsersTable({ users, pendingTable }) {
 
   if (users.length === 0) {
     if (pendingTable) {
-      return <EmptyUsersList text="pending" />;
+      return <EmptyUsersList text={t('admin.manage_users.empty_pending_users')} subtext={t('admin.manage_users.empty_pending_users_subtext')} />;
     }
-    return <EmptyUsersList text="banned" />;
+    return <EmptyUsersList text={t('admin.manage_users.empty_banned_users')} subtext={t('admin.manage_users.empty_banned_users_subtext')} />;
   }
 
   return (

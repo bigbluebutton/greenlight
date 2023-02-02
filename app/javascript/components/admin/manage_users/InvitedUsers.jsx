@@ -15,7 +15,7 @@ export default function InvitedUsers({ searchInput }) {
   const { data: invitations } = useInvitations(searchInput, page);
 
   if (!searchInput && invitations?.data?.length === 0) {
-    return <EmptyUsersList text="invited" />;
+    return <EmptyUsersList text={t('admin.manage_users.empty_invited_users')} subtext={t('admin.manage_users.empty_invited_users_subtext')} />;
   }
 
   return (

@@ -1,12 +1,9 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-// import { useTranslation } from 'react-i18next';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
 
-export default function EmptyUsersList({ text }) {
-  // const { t } = useTranslation();
-
+export default function EmptyUsersList({ text, subtext }) {
   return (
     <div id="list-empty">
       <Card className="border-0 text-center">
@@ -14,9 +11,9 @@ export default function EmptyUsersList({ text }) {
           <div className="icon-circle rounded-circle d-block mx-auto mb-3">
             <UsersIcon className="hi-l text-brand d-block mx-auto" />
           </div>
-          <Card.Title className="text-brand"> {`There are no ${text} users on this server yet!`}</Card.Title>
+          <Card.Title className="text-brand"> {text}</Card.Title>
           <Card.Text>
-            {`When a user's status gets changed to ${text}, they will appear here.`}
+            {subtext}
           </Card.Text>
         </Card.Body>
       </Card>
@@ -26,4 +23,5 @@ export default function EmptyUsersList({ text }) {
 
 EmptyUsersList.propTypes = {
   text: PropTypes.string.isRequired,
+  subtext: PropTypes.string.isRequired,
 };
