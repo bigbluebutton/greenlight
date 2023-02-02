@@ -46,7 +46,7 @@ export default function BrandingImage() {
         </Card>
       </FilesDragAndDrop>
       <Button
-        variant="neutral"
+        variant="delete"
         className="btn-sm my-4"
         onClick={() => updateBrandingImage.mutate()}
       > { t('admin.site_settings.appearance.remove_branding_image') }
