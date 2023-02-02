@@ -3,10 +3,18 @@ import { Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import BannedPendingRow from './BannedPendingRow';
+import EmptyUsersList from './EmptyUsersList';
 
 // pendingTable prop is true when table is being used for pending data, false when table is being used for banned data
 export default function BannedPendingUsersTable({ users, pendingTable }) {
   const { t } = useTranslation();
+
+  if (users.length === 0) {
+    if (pendingTable) {
+      return <EmptyUsersList text={t('admin.manage_users.empty_pending_users')} subtext={t('admin.manage_users.empty_pending_users_subtext')} />;
+    }
+    return <EmptyUsersList text={t('admin.manage_users.empty_banned_users')} subtext={t('admin.manage_users.empty_banned_users_subtext')} />;
+  }
 
   return (
     <div id="admin-table">
@@ -20,17 +28,10 @@ export default function BannedPendingUsersTable({ users, pendingTable }) {
         </thead>
         <tbody className="border-top-0">
           {users?.length
-            ? (
+            && (
               users?.map((user) => (
                 <BannedPendingRow key={user.id} user={user} pendingTable={pendingTable} />
               ))
-            )
-            : (
-              <tr>
-                <td className="fw-bold" colSpan="6">
-                  { t('user.no_user_found') }
-                </td>
-              </tr>
             )}
         </tbody>
       </Table>

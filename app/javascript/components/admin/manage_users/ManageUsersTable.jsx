@@ -6,8 +6,14 @@ import ManageUserRow from './ManageUserRow';
 import SortBy from '../../shared_components/search/SortBy';
 import ManageUsersRowPlaceHolder from './ManageUsersRowPlaceHolder';
 
+import EmptyUsersList from './EmptyUsersList';
+
 export default function ManageUsersTable({ users, isLoading }) {
   const { t } = useTranslation();
+
+  if (!isLoading && users.length === 0) {
+    return <EmptyUsersList text={t('admin.manage_users.empty_active_users')} subtext={t('admin.manage_users.empty_active_users_subtext')} />;
+  }
 
   return (
     <Table id="manage-users-table" className="table-bordered border border-2 mb-0" hover responsive>
@@ -28,15 +34,8 @@ export default function ManageUsersTable({ users, isLoading }) {
             )
             : (
               users?.length
-                ? (
+                && (
                   users?.map((user) => <ManageUserRow key={user.id} user={user} />)
-                )
-                : (
-                  <tr>
-                    <td className="fw-bold" colSpan="6">
-                      {t('user.no_user_found')}
-                    </td>
-                  </tr>
                 )
             )
         }

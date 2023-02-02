@@ -14,6 +14,7 @@ import SortBy from '../../shared_components/search/SortBy';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import ServerRoomsRowPlaceHolder from './ServerRoomsRowPlaceHolder';
 import NoSearchResults from '../../shared_components/search/NoSearchResults';
+import EmptyServerRoomsList from '../../rooms/EmptyServerRoomsList';
 
 export default function ServerRooms() {
   const { t } = useTranslation();
@@ -46,65 +47,61 @@ export default function ServerRooms() {
                   <div className="px-4 pt-4">
                     <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
                   </div>
-
                   {
-                      (searchInput && serverRooms?.data.length === 0)
+                      (!searchInput && serverRooms?.data.length === 0)
                         ? (
-                          <div className="mt-5">
-                            <NoSearchResults text={t('room.search_not_found')} searchInput={searchInput} />
-                          </div>
+                          <EmptyServerRoomsList />
                         ) : (
-                          <div className="p-4">
 
-                            <Table id="server-rooms-table" className="table-bordered border border-2 mt-4 mb-0" hover responsive>
-                              <thead>
-                                <tr className="text-muted small">
-                                  <th className="fw-normal border-end-0">{ t('admin.server_rooms.name') }<SortBy fieldName="name" /></th>
-                                  <th className="fw-normal border-0">{ t('admin.server_rooms.owner') }<SortBy fieldName="users.name" /></th>
-                                  <th className="fw-normal border-0">{ t('admin.server_rooms.room_id') }</th>
-                                  <th className="fw-normal border-0">{ t('admin.server_rooms.participants') }</th>
-                                  <th className="fw-normal border-0">{ t('admin.server_rooms.status') }</th>
-                                  <th className="border-start-0" aria-label="options" />
-                                </tr>
-                              </thead>
-
-                              <tbody className="border-top-0">
-
-                                {
-                          isLoading
+                          (searchInput && serverRooms?.data.length === 0)
                             ? (
-                              // eslint-disable-next-line react/no-array-index-key
-                              [...Array(10)].map((val, idx) => <ServerRoomsRowPlaceHolder key={idx} />)
-                            )
-                            : (
-                              serverRooms?.data.length
-                                ? (
-                                  serverRooms?.data.map((room) => <ServerRoomRow key={room.friendly_id} room={room} />)
-                                )
-                                : (
-                                  <tr>
-                                    <td className="fw-bold" colSpan="6">
-                                      { t('room.no_rooms_found') }
-                                    </td>
-                                  </tr>
-                                )
-                            )
-                        }
+                              <div className="mt-5">
+                                <NoSearchResults text={t('room.search_not_found')} searchInput={searchInput} />
+                              </div>
+                            ) : (
+                              <div className="p-4">
 
-                              </tbody>
-                            </Table>
-                            {!isLoading
-                      && (
-                        <Pagination
-                          page={serverRooms.meta.page}
-                          totalPages={serverRooms.meta.pages}
-                          setPage={setPage}
-                        />
-                      )}
+                                <Table id="server-rooms-table" className="table-bordered border border-2 mt-4 mb-0" hover responsive>
+                                  <thead>
+                                    <tr className="text-muted small">
+                                      <th className="fw-normal border-end-0">{ t('admin.server_rooms.name') }<SortBy fieldName="name" /></th>
+                                      <th className="fw-normal border-0">{ t('admin.server_rooms.owner') }<SortBy fieldName="users.name" /></th>
+                                      <th className="fw-normal border-0">{ t('admin.server_rooms.room_id') }</th>
+                                      <th className="fw-normal border-0">{ t('admin.server_rooms.participants') }</th>
+                                      <th className="fw-normal border-0">{ t('admin.server_rooms.status') }</th>
+                                      <th className="border-start-0" aria-label="options" />
+                                    </tr>
+                                  </thead>
 
-                          </div>
+                                  <tbody className="border-top-0">
+
+                                    {
+                                    isLoading
+                                      ? (
+                                        // eslint-disable-next-line react/no-array-index-key
+                                        [...Array(10)].map((val, idx) => <ServerRoomsRowPlaceHolder key={idx} />)
+                                      )
+                                      : (
+                                        serverRooms?.data.length
+                                          && (
+                                            serverRooms?.data.map((room) => <ServerRoomRow key={room.friendly_id} room={room} />)
+                                          )
+                                      )
+                                  }
+                                  </tbody>
+                                </Table>
+                                {!isLoading
+                                && (
+                                <Pagination
+                                  page={serverRooms.meta.page}
+                                  totalPages={serverRooms.meta.pages}
+                                  setPage={setPage}
+                                />
+                                )}
+                              </div>
+                            )
                         )
-}
+                    }
                 </Container>
               </Tab.Content>
             </Col>
