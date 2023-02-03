@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Container } from 'react-bootstrap';
 import OriginHCaptcha from '@hcaptcha/react-hcaptcha';
-import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import useEnv from '../../../hooks/queries/env/useEnv';
 

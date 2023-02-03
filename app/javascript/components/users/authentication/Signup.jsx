@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import { Navigate, Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import SignupForm from './forms/SignupForm';
 import Logo from '../../shared_components/Logo';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';

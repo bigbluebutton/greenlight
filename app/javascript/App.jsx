@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { Outlet, useLocation } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
 import Header from './components/shared_components/Header';
 import { useAuth } from './contexts/auth/AuthProvider';
 import Footer from './components/shared_components/Footer';
@@ -36,12 +36,7 @@ export default function App() {
       <Container className={pageHeight}>
         <Outlet />
       </Container>
-      <Toaster
-        position="bottom-right"
-        toastOptions={{
-          duration: 4000,
-        }}
-      />
+      <ToastContainer />
       <Footer />
     </>
   );

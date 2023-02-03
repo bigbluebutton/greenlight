@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import {
   Button, Stack, Dropdown,
 } from 'react-bootstrap';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../shared_components/utilities/Spinner';
 import UpdateRecordingForm from './forms/UpdateRecordingForm';

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Row, Stack } from 'react-bootstrap';
 import { TrashIcon, Square2StackIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
 export default function AccessCodeRow({
