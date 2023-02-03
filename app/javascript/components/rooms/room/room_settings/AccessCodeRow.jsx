@@ -16,7 +16,7 @@ export default function AccessCodeRow({
   // TODO: Samuel - Extract this into a shared helper function.
   const copyAccessCode = (copiedCode) => {
     navigator.clipboard.writeText(copiedCode);
-    toast.success(t('room.settings.access_code_copied'));
+    toast.success(t('toast.success.room.access_code_copied'));
   };
 
   if (config === 'false') {

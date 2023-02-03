@@ -39,7 +39,8 @@ export default function useUpdateSiteSetting(name) {
       onSuccess: () => {
         queryClient.invalidateQueries(['getSiteSettings', name]);
         queryClient.invalidateQueries('getSiteSettings');
-        toast.success(t('toast.success.site_settings.site_setting_updated'));
+        // Prevents 2 toasts from showing up when updating the primary color - which also updates the lighten color
+        return name !== 'PrimaryColor' && toast.success(t('toast.success.site_settings.site_setting_updated'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

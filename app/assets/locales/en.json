@@ -170,7 +170,6 @@
     "protected": "Protected",
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Processing recording...",
-    "copied_urls": "Copied Recording Url(s)",
     "copy_recording_urls": "Copy Recording Url(s)",
     "recordings_list_empty": "You don't have any recordings yet!",
     "recordings_list_empty_description": "Recordings will appear here after you start a meeting and record it.",
@@ -364,7 +363,7 @@
         "room_updated": "The room has been updated.",
         "room_deleted": "The room has been deleted.",
         "room_shared": "The room has been shared.",
-        "room_unshared": "The room has been unshare.d",
+        "room_unshared": "The room has been unshared.",
         "recordings_synced": "The room recordings have been synchronized.",
         "room_configuration_updated": "The room configuration have been updated.",
         "room_setting_updated": "The room setting has been updated.",
@@ -374,7 +373,8 @@
         "meeting_started": "Meeting started.",
         "access_code_copied": "The access code has been copied.",
         "access_code_generated": "A new access code has been generated.",
-        "access_code_removed": "The access code has been removed."
+        "access_code_deleted": "The access code has been deleted.",
+        "copied_meeting_url": "The meeting URL has been copied. The link can be used to join the meeting."
       },
       "site_settings": {
         "site_setting_updated": "The site setting has been updated."
@@ -382,7 +382,8 @@
       "recording": {
         "recording_visibility_updated": "The recording visibility has been updated.",
         "recording_name_updated": "The recording name has been updated.",
-        "recording_deleted": "The recording has been deleted."
+        "recording_deleted": "The recording has been deleted.",
+        "copied_urls": "The recording URLs have been copied."
       },
       "role": {
         "role_created": "A new role has been created.",

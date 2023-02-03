@@ -10,16 +10,18 @@ import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from './MeetingBadges';
 import UserBoardIcon from './UserBoardIcon';
 
-function copyInvite(friendlyId) {
-  navigator.clipboard.writeText(`${window.location}/${friendlyId}/join`);
-  toast.success('Copied');
-}
+
 
 export default function RoomCard({ room }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const handleClick = useCallback(() => { navigate(room.friendly_id); }, [room.friendly_id]);
   const startMeeting = useStartMeeting(room.friendly_id);
+
+  function copyInvite(friendlyId) {
+    navigator.clipboard.writeText(`${window.location}/${friendlyId}/join`);
+    toast.success(t('toast.success.room.copied_meeting_url'));
+  }
 
   return (
     <Card id="room-card" className="h-100 shadow-sm border-0">
