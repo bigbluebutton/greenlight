@@ -22,7 +22,7 @@ export default function useUpdateRoomSetting(friendlyId) {
       if (variables.settingValue) {
         return toast.success(t('toast.success.room.access_code_generated'));
       }
-      return toast.success(t('toast.success.room.access_code_removed'));
+      return toast.success(t('toast.success.room.access_code_deleted'));
     }
     return toast.success(t('toast.success.room.room_setting_updated'));
   };
