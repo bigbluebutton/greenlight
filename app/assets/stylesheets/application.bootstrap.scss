@@ -662,3 +662,9 @@ input[type="range"]:focus::-moz-range-thumb {
     color: var(--brand-color) !important;
   }
 }
+
+.Toastify {
+  .Toastify__toast-icon {
+    width: 25px;
+  }
+}
