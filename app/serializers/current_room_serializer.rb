@@ -15,10 +15,6 @@ class CurrentRoomSerializer < ApplicationSerializer
     presentation_thumbnail(object)
   end
 
-  def last_session
-    object.last_session.strftime('%B %e, %Y %l:%M%P')
-  end
-
   def owner_name
     object.user.name
   end

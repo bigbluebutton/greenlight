@@ -21,6 +21,10 @@ export default function ManageUserRow({ user }) {
   const { t } = useTranslation();
   const mutationWrapper = (args) => useCreateServerRoom({ userId: user.id, ...args });
   const updateUserStatus = useUpdateUserStatus();
+  const event = new Date(user?.created_at);
+  const options = {
+    year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric',
+  };
 
   return (
     <tr key={user.id} className="align-middle text-muted border border-2">
@@ -31,7 +35,7 @@ export default function ManageUserRow({ user }) {
           </div>
           <Stack>
             <span className="text-dark fw-bold"> {user.name} </span>
-            <span className="small"> { t('admin.manage_users.user_created_at', { user }) }</span>
+            <span className="small"> { event.toLocaleDateString(user?.language, options) }</span>
           </Stack>
         </Stack>
       </td>
@@ -74,6 +78,7 @@ ManageUserRow.propTypes = {
     avatar: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
     provider: PropTypes.string.isRequired,
     role: PropTypes.shape({
       id: PropTypes.string.isRequired,

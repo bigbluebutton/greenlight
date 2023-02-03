@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../contexts/auth/AuthProvider';
 import Spinner from '../shared_components/utilities/Spinner';
 import UpdateRecordingForm from './forms/UpdateRecordingForm';
 import DeleteRecordingForm from './forms/DeleteRecordingForm';
@@ -29,6 +30,11 @@ export default function RecordingRow({
   const visibilityAPI = useVisibilityAPI();
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const currentUser = useAuth();
+  const date = new Date(recording?.created_at);
+  const options = {
+    year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric',
+  };
 
   return (
     <tr key={recording.id} className="align-middle text-muted border border-2">
@@ -66,7 +72,7 @@ export default function RecordingRow({
                 isUpdating && <Spinner animation="grow" variant="brand" />
               }
             </strong>
-            <span className="small text-muted"> {recording.created_at} </span>
+            <span className="small text-muted"> {date.toLocaleDateString(currentUser?.language, options)} </span>
           </Stack>
         </Stack>
       </td>

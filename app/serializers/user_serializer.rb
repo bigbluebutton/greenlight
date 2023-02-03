@@ -10,8 +10,4 @@ class UserSerializer < ApplicationSerializer
   def avatar
     user_avatar(object)
   end
-
-  def created_at
-    object.created_at.strftime('%A %B %e, %Y')
-  end
 end

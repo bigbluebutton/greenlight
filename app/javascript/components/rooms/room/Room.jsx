@@ -8,6 +8,7 @@ import {
 import { HomeIcon, Square2StackIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 import FeatureTabs from './FeatureTabs';
 import Spinner from '../../shared_components/utilities/Spinner';
 import useRoom from '../../../hooks/queries/rooms/useRoom';
@@ -28,7 +29,12 @@ export default function Room() {
     isLoading, isError, data: room, error,
   } = useRoom(friendlyId);
   const startMeeting = useStartMeeting(friendlyId);
+  const currentUser = useAuth();
   const location = useLocation();
+  const event = new Date(room?.last_session);
+  const options = {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric',
+  };
 
   // Custom logic to redirect from Rooms page to join page if this isnt the users room and they're not allowed to view it
   if (isError && error.response.status === 403) {
@@ -62,7 +68,7 @@ export default function Room() {
                         </Stack>
                       </Stack>
                       { room?.last_session ? (
-                        <span className="text-muted"> { t('room.last_session', { room }) }  </span>
+                        <span className="text-muted"> { event.toLocaleDateString(currentUser?.language, options)}  </span>
                       ) : (
                         <span className="text-muted"> { t('room.no_last_session') } </span>
                       )}
