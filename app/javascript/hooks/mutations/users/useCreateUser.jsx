@@ -16,8 +16,8 @@ export default function useCreateUser() {
     ({ user, token }) => axios.post('/users.json', { user: { language: i18n.resolvedLanguage, invite_token: inviteToken, ...user }, token })
       .then((resp) => resp.data.data),
     {
-      onSuccess: (response) => {
-        queryClient.invalidateQueries('useSessions');
+      onSuccess: async (response) => {
+        await queryClient.refetchQueries('useSessions');
 
         // if the current user does NOT have the CreateRoom permission, then do not re-direct to rooms page
         if (!response.verified) {
