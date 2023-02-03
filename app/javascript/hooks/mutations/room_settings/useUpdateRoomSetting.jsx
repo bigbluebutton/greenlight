@@ -18,11 +18,11 @@ export default function useUpdateRoomSetting(friendlyId) {
 
   // Returns a more suiting toast message if the updated room setting is an access code
   const toastSuccess = (variables) => {
-    if ((variables.settingName === 'glModeratorAccessCode' || variables.settingName === 'glViewerAccessCode') && variables.settingValue === true) {
-      return toast.success(t('toast.success.room.access_code_generated'));
-    }
-    if ((variables.settingName === 'glModeratorAccessCode' || variables.settingName === 'glViewerAccessCode') && variables.settingValue === false) {
-      return toast.success(t('toast.success.room.access_code_deleted'));
+    if (variables.settingName === 'glModeratorAccessCode' || variables.settingName === 'glViewerAccessCode') {
+      if (variables.settingValue) {
+        return toast.success(t('toast.success.room.access_code_generated'));
+      }
+      return toast.success(t('toast.success.room.access_code_removed'));
     }
     return toast.success(t('toast.success.room.room_setting_updated'));
   };
