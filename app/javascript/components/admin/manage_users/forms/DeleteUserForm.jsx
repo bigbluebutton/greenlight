@@ -5,6 +5,7 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import Form
   from '../../../shared_components/forms/Form';
 import useDeleteUser from '../../../../hooks/mutations/admin/manage_users/useDeleteUser';
@@ -17,10 +18,14 @@ export default function DeleteUserForm({ user, handleClose }) {
 
   return (
     <>
-      <p className="text-center"> { t('admin.manage_users.are_you_sure_delete_account', { user }) }
-        <br />
-        { t('admin.manage_users.delete_account_warning') }
-      </p>
+      <Stack direction="horizontal" className="mb-3">
+        <ExclamationTriangleIcon className="text-danger hi-xl" />
+        <Stack direction="vertical" className="ps-3">
+          <h3> {t('admin.manage_users.delete_user')} </h3>
+          <p className="mb-0">{ t('admin.manage_users.are_you_sure_delete_account', { user }) }</p>
+          <p className="mt-0"><strong> { t('action_permanent') } </strong></p>
+        </Stack>
+      </Stack>
       <Form methods={methods} onSubmit={deleteUserAPI.mutate}>
         <Stack direction="horizontal" gap={1} className="float-end">
           <Button variant="neutral" onClick={handleClose}>

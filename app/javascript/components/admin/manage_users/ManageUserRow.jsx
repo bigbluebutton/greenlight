@@ -58,7 +58,6 @@ export default function ManageUserRow({ user }) {
             </Dropdown.Item>
             <Modal
               modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{ t('delete') }</Dropdown.Item>}
-              title={t('admin.manage_users.delete_user')}
               body={<DeleteUserForm user={user} />}
             />
           </Dropdown.Menu>
