@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
+import {useAuth} from "../../../contexts/auth/AuthProvider";
 
 export default function useCreateUser() {
   const { t, i18n } = useTranslation();
@@ -11,13 +12,14 @@ export default function useCreateUser() {
   const [searchParams] = useSearchParams();
   const redirect = searchParams.get('location');
   const inviteToken = searchParams.get('inviteToken') || '';
+  const currentUser = useAuth();
 
   return useMutation(
     ({ user, token }) => axios.post('/users.json', { user: { language: i18n.resolvedLanguage, invite_token: inviteToken, ...user }, token })
       .then((resp) => resp.data.data),
     {
-      onSuccess: (response) => {
-        queryClient.invalidateQueries('useSessions');
+      onSuccess: async (response) => {
+        await queryClient.refetchQueries('useSessions');
 
         // if the current user does NOT have the CreateRoom permission, then do not re-direct to rooms page
         if (!response.verified) {
