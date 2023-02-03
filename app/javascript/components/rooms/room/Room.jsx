@@ -79,7 +79,7 @@ export default function Room() {
                 t('room.meeting.start_meeting')
               )}
             </Button>
-            <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={copyInvite}>
+            <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyInvite()}>
               <Square2StackIcon className="hi-s me-1" />
               { t('copy') }
             </Button>

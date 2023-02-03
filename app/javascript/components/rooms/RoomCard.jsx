@@ -10,8 +10,6 @@ import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from './MeetingBadges';
 import UserBoardIcon from './UserBoardIcon';
 
-
-
 export default function RoomCard({ room }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
