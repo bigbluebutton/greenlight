@@ -165,27 +165,27 @@ namespace :migrations do
   task settings: :environment do |_task|
     has_encountred_issue = 0
 
-    settings_hash = Setting.find_by(provider: 'greenlight').features.pluck(:name, :value).to_h
+    setting = Setting.includes(:features).find_by(provider: 'greenlight')
 
     # SiteSettings
     site_settings = {
-      PrimaryColor: settings_hash['Primary Color'],
-      PrimaryColorLight: settings_hash['Primary Color Lighten'],
-      Terms: settings_hash['Legal URL'],
-      PrivacyPolicy: settings_hash['Privacy Policy URL'],
-      RegistrationMethod: infer_registration_method(settings_hash['Registration Method']),
-      ShareRooms: settings_hash['Shared Access'],
-      PreuploadPresentation: settings_hash['Preupload Presentation'],
+      PrimaryColor: setting.get_value('Primary Color'),
+      PrimaryColorLight: setting.get_value('Primary Color Lighten'),
+      Terms: setting.get_value('Legal URL'),
+      PrivacyPolicy: setting.get_value('Privacy Policy URL'),
+      RegistrationMethod: infer_registration_method(setting.get_value('Registration Method')),
+      ShareRooms: setting.get_value('Shared Access'),
+      PreuploadPresentation: setting.get_value('Preupload Presentation'),
     }.compact
 
     # RoomConfigurations
     room_configurations = {
-      record: infer_room_config_value(settings_hash['Room Configuration Recording']),
-      muteOnStart: infer_room_config_value(settings_hash['Room Configuration Mute On Join']),
-      guestPolicy: infer_room_config_value(settings_hash['Room Configuration Require Moderator']),
-      glAnyoneCanStart: infer_room_config_value(settings_hash['Room Configuration Allow Any Start']),
-      glAnyoneJoinAsModerator: infer_room_config_value(settings_hash['Room Configuration All Join Moderator']),
-      glRequireAuthentication: infer_room_config_value(settings_hash['Room Authentication'])
+      record: infer_room_config_value(setting.get_value('Room Configuration Recording')),
+      muteOnStart: infer_room_config_value(setting.get_value('Room Configuration Mute On Join')),
+      guestPolicy: infer_room_config_value(setting.get_value('Room Configuration Require Moderator')),
+      glAnyoneCanStart: infer_room_config_value(setting.get_value('Room Configuration Allow Any Start')),
+      glAnyoneJoinAsModerator: infer_room_config_value(setting.get_value('Room Configuration All Join Moderator')),
+      glRequireAuthentication: infer_room_config_value(setting.get_value('Room Authentication'))
     }.compact
 
     params = { settings: { site_settings: site_settings, room_configurations: room_configurations } }
