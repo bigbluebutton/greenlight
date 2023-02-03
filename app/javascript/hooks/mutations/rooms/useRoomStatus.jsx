@@ -1,4 +1,4 @@
-import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import { useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import {
   ArrowRightIcon, Cog8ToothIcon, ComputerDesktopIcon, VideoCameraIcon, WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import HomepageFeatureCard from './HomepageFeatureCard';
 

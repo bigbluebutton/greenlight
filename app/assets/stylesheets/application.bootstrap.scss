@@ -1,5 +1,7 @@
+
 @import 'variables';
 @import 'bootstrap/scss/bootstrap';
+@import 'react-toastify/dist/ReactToastify';
 
 @import 'helpers';
 @import 'rooms';
@@ -10,6 +12,8 @@
 @import 'admin_panel';
 @import 'pagination';
 @import 'fonts';
+
+
 
 html,
 body {

@@ -7,7 +7,7 @@ import {
 import {
   Button, Col, Row, Spinner, Stack, Form as RegularForm,
 } from 'react-bootstrap';
-import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import usePublicRoom from '../../../../hooks/queries/rooms/usePublicRoom';

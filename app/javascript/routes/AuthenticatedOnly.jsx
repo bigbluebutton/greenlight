@@ -2,8 +2,8 @@ import React from 'react';
 import {
   Navigate, Outlet, useLocation, useMatch,
 } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useAuth } from '../contexts/auth/AuthProvider';
 import useDeleteSession from '../hooks/mutations/sessions/useDeleteSession';
 

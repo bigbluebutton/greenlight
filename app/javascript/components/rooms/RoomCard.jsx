@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Card, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { DocumentDuplicateIcon, LinkIcon } from '@heroicons/react/24/outline';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import Spinner from '../shared_components/utilities/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 
 export default function FilesDragAndDrop({
   onDrop, children, numOfFiles, formats,

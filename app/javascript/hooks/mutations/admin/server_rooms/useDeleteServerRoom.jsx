@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from 'react-query';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../../helpers/Axios';
 
@@ -12,7 +12,7 @@ export default function useDeleteServerRoom({ friendlyId, onSettled }) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getServerRooms');
-        toast.success(t('toast.success.room.server_room_deleted'));
+        toast.success(t('toast.success.room.room_deleted'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

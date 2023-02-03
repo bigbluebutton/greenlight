@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from 'react-query';
 
 import axios from '../../../../helpers/Axios';
