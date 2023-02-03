@@ -26,7 +26,7 @@ function HCaptcha(_props, ref) {
     },
 
     handleVerified: () => {
-      toast.success(t('toast.success.user.challenge_passed'));
+      toast.success(t('toast.success.success'));
     },
   }), [i18n.resolvedLanguage]);
 

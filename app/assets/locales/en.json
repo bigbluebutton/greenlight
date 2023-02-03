@@ -344,78 +344,77 @@
     }
   },
   "toast": {
+    "success": "Success",
     "success": {
       "user": {
-        "user_created": "User created.",
-        "user_updated": "User updated.",
-        "user_deleted": "User deleted.",
-        "avatar_updated": "Avatar updated.",
-        "password_updated": "Password updated.",
-        "account_activated": "Account successfully activated. Please sign in to your account.",
-        "activation_email_sent": "Activation email has been sent",
-        "reset_pwd_email_sent": "Reset password email should be sent, kindly check your inbox",
-        "challenge_passed": "Challenge Passed"
+        "user_created": "A new user has been created.",
+        "user_updated": "The user has been updated.",
+        "user_deleted": "The user has been deleted.",
+        "avatar_updated": "The avatar has been updated.",
+        "password_updated": "The password has been updated.",
+        "account_activated": "Your account has been activated.",
+        "activation_email_sent": "An email that contains the instructions to activate your account has been sent.",
+        "reset_pwd_email_sent": "An email that contains the instructions to reset your password has been sent."
       },
       "session": {
-        "signed_out": "You have successfully signed out."
+        "signed_out": "You have been signed out."
       },
       "room": {
-        "room_created": "Room created.",
-        "room_updated": "Room updated.",
-        "room_deleted": "Room deleted.",
-        "room_shared": "Room shared",
-        "room_unshared": "Room unshared",
-        "recordings_synced": "Room recordings are now synchronized",
-        "server_room_deleted": "Server room deleted.",
-        "room_configuration_updated": "Room configuration updated.",
-        "room_setting_updated": "Room setting updated.",
-        "presentation_updated": "Presentation updated.",
-        "presentation_deleted": "Presentation deleted.",
+        "room_created": "A new room has been created.",
+        "room_updated": "The room has been updated.",
+        "room_deleted": "The room has been deleted.",
+        "room_shared": "The room has been shared.",
+        "room_unshared": "The room has been unshared",
+        "recordings_synced": "The room recordings have been synchronized",
+        "room_configuration_updated": "The room configuration have been updated.",
+        "room_setting_updated": "The room setting has been updated.",
+        "presentation_updated": "The presentation has been updated.",
+        "presentation_deleted": "The presentation has been deleted.",
         "joining_meeting": "Joining the meeting...",
         "meeting_started": "Meeting started.",
-        "access_code_copied": "Access code copied.",
-        "access_code_generated": "Access code generated.",
-        "access_code_removed": "Access code removed."
+        "access_code_copied": "The access code has been copied.",
+        "access_code_generated": "A new access code has been generated.",
+        "access_code_removed": "The access code has been removed."
       },
       "site_settings": {
-        "site_setting_updated": "Site setting updated."
+        "site_setting_updated": "The site setting has been updated."
       },
       "recording": {
-        "recording_visibility_updated": "Recording visibility updated.",
-        "recording_name_updated": "Recording name updated.",
-        "recording_deleted": "Recording deleted."
+        "recording_visibility_updated": "The recording visibility has been updated.",
+        "recording_name_updated": "The recording name has been updated.",
+        "recording_deleted": "The recording has been deleted."
       },
       "role": {
-        "role_created": "Role created.",
-        "role_updated": "Role updated.",
-        "role_deleted": "Role deleted.",
-        "role_permission_updated": "Role permission updated."
+        "role_created": "A new role has been created.",
+        "role_updated": "The role has been updated.",
+        "role_deleted": "The role has been deleted.",
+        "role_permission_updated": "The role permission has been updated."
       },
       "invitations": {
-        "invitation_sent": "Invitation sent"
+        "invitation_sent": "An invitation has been sent."
       }
     },
     "error": {
-      "problem_completing_action": "There was a problem completing that action. \n Please try again.",
-      "file_type_not_supported": "File type is not supported.",
-      "file_size_too_large": "File size is too large.",
-      "signin_required": "You must be signed in to access this page",
+      "problem_completing_action": "The action can't be completed. \n Please try again.",
+      "file_type_not_supported": "The file type is not supported.",
+      "file_size_too_large": "The file size is too large.",
+      "signin_required": "You must be signed in to access this page.",
       "roles": {
-        "role_assigned": "This role can't be deleted as it is assigned to at least one user."
+        "role_assigned": "This role can't be deleted because it is assigned to at least one user."
       },
       "users": {
-        "signup_error": "There was an error signing you in. Please contact your administrator.",
-        "invalid_invite": "Your invitation token is either invalid or incorrect. Please contact your administrator to receive a new one",
-        "email_exists": "An account under this email already exists. Please try again with another email",
-        "old_password": "The current password you have entered is incorrect",
-        "pending": "Your registration is pending approval from your administrator",
-        "banned": "You do not have access to this application. Please contact your administrator if you believe this is a mistake"
+        "signup_error": "You can't be authenticated. Please contact your administrator.",
+        "invalid_invite": "Your invitation token is either invalid or incorrect. Please contact your administrator to receive a new token",
+        "email_exists": "An account under this email already exists. Please try again with another email.",
+        "old_password": "The password you have entered is incorrect.",
+        "pending": "Your registration is pending approval from the administrator. Please try again later.",
+        "banned": "You do not have access to this application. Please contact your administrator if you believe this is a mistake."
       },
       "rooms": {
-        "room_limit": "Room can not be created due to room limit being reached"
+        "room_limit": "The room can't be created due to reaching the room limit."
       },
       "session": {
-        "invalid_credentials": "Invalid username or password. Please check your credentials and try again."
+        "invalid_credentials": "The username or password is invalid. Please verify your credentials and try again."
       }
     }
   },
@@ -430,8 +429,8 @@
   "account_activation_page": {
     "title": "Account Activation",
     "account_unverified": "Your account has not been verified yet.",
-    "message": "In order to use Greenlight, please verify your account by following the instructions in the activation email that was sent to you.",
-    "resend_activation_link": "If you haven't received an activation email or if you are having a problem using it, click the resend button below to request a new activation email.",
+    "message": "In order to use Greenlight, please verify your account by following the instructions in the activation email that has been sent to you.",
+    "resend_activation_link": "If you haven't received an activation email or if you are having a problem using it, click on the button below to request a new activation email.",
     "resend_btn_lbl": "Resend Verification"
   },
   "forms": {

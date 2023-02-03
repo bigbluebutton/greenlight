@@ -36,7 +36,10 @@ export default function App() {
       <Container className={pageHeight}>
         <Outlet />
       </Container>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-right"
+        newestOnTop
+      />
       <Footer />
     </>
   );
