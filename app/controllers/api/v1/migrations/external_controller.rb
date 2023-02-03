@@ -146,26 +146,29 @@ module Api
           render_data status: :created unless settings_hash.any?
 
           # Finds all the SiteSettings that need to be updated
-          site_settings_temp = SiteSetting.joins(:setting)
-                                          .where('settings.name': settings_hash[:site_settings].keys, provider: 'greenlight')
-                                          .pluck(:id, :'settings.name')
-                                          .to_h
+          site_settings_joined = SiteSetting.joins(:setting)
+                                            .where('settings.name': settings_hash[:site_settings].keys, provider: 'greenlight')
 
-          return render_error(status: :bad_request, errors: 'A site setting does not exist.') unless site_settings_temp
+          okay = true
+          site_settings_joined.each do |site_setting|
+            site_setting_name = site_setting.setting.name
+            okay = false unless site_setting.update(value: settings_hash[:site_settings][site_setting_name])
+          end
 
-          # Re-structure the data so it is in the format: { <site_setting_id>: { value: <site_setting_new_value> } }
-          site_settings = site_settings_temp.transform_values { |v| { value: settings_hash[:site_settings][v.to_sym] } }
-          SiteSetting.update!(site_settings.keys, site_settings.values)
+          return render_error status: :bad_request, errors: 'Something went wrong when migrating site settings.' unless okay
 
           # Finds all the RoomsConfiguration that need to be updated
-          room_configurations_temp = RoomsConfiguration.joins(:meeting_option)
-                                                       .where('meeting_options.name': settings_hash[:room_configurations].keys,
-                                                              provider: 'greenlight')
-                                                       .pluck(:id, :'meeting_options.name')
-                                                       .to_h
-          # Re-structure the data so it is in the format: { <rooms_configuration_id>: { value: <rooms_configuration_new_value> } }
-          room_configurations = room_configurations_temp.transform_values { |v| { value: settings_hash[:room_configurations][v.to_sym] } }
-          RoomsConfiguration.update!(room_configurations.keys, room_configurations.values)
+          room_configurations_joined = RoomsConfiguration.joins(:meeting_option)
+                                                         .where('meeting_options.name': settings_hash[:room_configurations].keys,
+                                                                provider: 'greenlight')
+
+          okay = true
+          room_configurations_joined.each do |room_configuration|
+            room_configuration_name = room_configuration.meeting_option.name
+            okay = false unless room_configuration.update(value: settings_hash[:room_configurations][room_configuration_name])
+          end
+
+          return render_error status: :bad_request, errors: 'Something went wrong when migrating room configurations.' unless okay
 
           render_data status: :created
         end
@@ -189,7 +192,10 @@ module Api
         end
 
         def settings_params
-          decrypted_params.require(:settings).permit(site_settings: {}, room_configurations: {})
+          decrypted_params.require(:settings).permit(site_settings: %w[PrimaryColor PrimaryColorLight Terms PrivacyPolicy RegistrationMethod
+                                                                       ShareRooms PreuploadPresentation],
+                                                     room_configurations: %w[record muteOnStart guestPolicy glAnyoneCanStart glAnyoneJoinAsModerator
+                                                                             glRequireAuthentication])
         end
 
         def decrypted_params
