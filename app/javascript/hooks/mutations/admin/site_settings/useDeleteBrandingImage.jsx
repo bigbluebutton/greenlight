@@ -13,7 +13,7 @@ export default function useDeleteBrandingImage() {
       onSuccess: () => {
         queryClient.invalidateQueries(['getSiteSettings', 'BrandingImage']);
         queryClient.invalidateQueries('getSiteSettings');
-        toast.success(t('toast.success.site_settings.site_setting_updated'));
+        toast.success(t('toast.success.site_settings.brand_image_deleted'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

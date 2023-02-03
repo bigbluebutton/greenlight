@@ -377,7 +377,12 @@
         "copied_meeting_url": "The meeting URL has been copied. The link can be used to join the meeting."
       },
       "site_settings": {
-        "site_setting_updated": "The site setting has been updated."
+        "site_setting_updated": "The site setting has been updated.",
+        "brand_color_updated": "The brand color has been updated.",
+        "brand_image_updated": "The brand image has been updated.",
+        "brand_image_deleted": "The brand image has been deleted.",
+        "privacy_policy_updated": "The privacy policy has been updated.",
+        "terms_of_service_updated": "The terms of service have been updated."
       },
       "recording": {
         "recording_visibility_updated": "The recording visibility has been updated.",
