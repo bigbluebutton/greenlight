@@ -23,6 +23,7 @@ module Api
       # POST /api/v1/users.json
       # Creates and saves a new user record in the database with the provided parameters
       def create
+        smtp_enabled = ENV['SMTP_SERVER'].present?
         # Check if this is an admin creating a user
         admin_create = current_user && PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call
 
@@ -37,6 +38,8 @@ module Api
 
         user = UserCreator.new(user_params: create_user_params.except(:invite_token), provider: current_provider, role: default_role).call
 
+        user.verify! unless smtp_enabled
+
         # TODO: Add proper error logging for non-verified token hcaptcha
         if !admin_create && hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
           return render_error errors: Rails.configuration.custom_error_msgs[:hcaptcha_invalid]
@@ -46,10 +49,12 @@ module Api
         user.pending! if !admin_create && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
 
         if user.save
-          token = user.generate_activation_token!
-          UserMailer.with(user:, expires_in: User::ACTIVATION_TOKEN_VALIDITY_PERIOD.from_now,
-                          activation_url: activate_account_url(token), base_url: request.base_url,
-                          provider: current_provider).activate_account_email.deliver_later
+          if smtp_enabled
+            token = user.generate_activation_token!
+            UserMailer.with(user:, expires_in: User::ACTIVATION_TOKEN_VALIDITY_PERIOD.from_now,
+                            activation_url: activate_account_url(token), base_url: request.base_url,
+                            provider: current_provider).activate_account_email.deliver_later
+          end
 
           create_default_room(user)
 

@@ -8,6 +8,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   let(:fake_setting_getter) { instance_double(SettingGetter) }
 
   before do
+    ENV['SMTP_SERVER'] = 'test.com'
     request.headers['ACCEPT'] = 'application/json'
   end
 
@@ -63,23 +64,39 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       context 'activation' do
-        it 'generates an activation token for the user' do
-          freeze_time
+        context 'SMTP enabled' do
+          it 'generates an activation token for the user' do
+            freeze_time
 
-          post :create, params: user_params
-          user = User.find_by email: user_params[:user][:email]
-          expect(user.verification_digest).to be_present
-          expect(user.verification_sent_at).to eq(Time.current)
-          expect(user).not_to be_verified
+            post :create, params: user_params
+            user = User.find_by email: user_params[:user][:email]
+            expect(user.verification_digest).to be_present
+            expect(user.verification_sent_at).to eq(Time.current)
+            expect(user).not_to be_verified
+          end
+
+          it 'sends activation email to and does not sign in the created user' do
+            session[:session_token] = nil
+            expect { post :create, params: user_params }.to change(User, :count).by(1)
+            expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
+                                                                                                         'deliver_now', Hash)
+            expect(response).to have_http_status(:created)
+            expect(session[:session_token]).to be_nil
+          end
         end
 
-        it 'sends activation email to and does not sign in the created user' do
-          session[:session_token] = nil
-          expect { post :create, params: user_params }.to change(User, :count).by(1)
-          expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
-                                                                                                       'deliver_now', Hash)
-          expect(response).to have_http_status(:created)
-          expect(session[:session_token]).to be_nil
+        context 'SMTP disabled' do
+          before do
+            ENV['SMTP_SERVER'] = ''
+          end
+
+          it 'marks the user as verified and signs them in' do
+            post :create, params: user_params
+
+            user = User.find_by email: user_params[:user][:email]
+            expect(user).to be_verified
+            expect(session[:session_token]).to eq(user.session_token)
+          end
         end
       end
 
