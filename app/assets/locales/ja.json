@@ -24,10 +24,11 @@
   "return_home": "ホームに戻る",
   "created_at": "作成時",
   "no_result_search_input": "\"{{ searchInput }}\"は見つかりませんでした",
+  "action_permanent": "この操作は取り消すことができません",
   "homepage": {
     "welcome_bbb": "BigBlueButton へようこそ。",
     "bigbluebutton_description": "BigBlueButtonは、オンライン授業に最適化された、オープンソースのウェブ会議システムです。生徒や学生が協働し、即時にフィードバックが得られるようにすることで、実践的な学びの時間を最大化します。",
-    "greenlight_description": "自分専用の会議室を作成し、会議を主催してみてください。簡便なリンクを使って、他人を招待することもできます。",
+    "greenlight_description": "自分の会議室を作成し、会議を開いてみてください。簡便なリンクを使って、他人を招待することもできます。",
     "learn_more": "BigBlueButtonについてもっと知る",
     "explore_features": "こんな機能があります",
     "meeting_title": "会議を立ち上げる",
@@ -103,13 +104,12 @@
     "room_name": "会議室名",
     "add_new_room": "＋新しい会議室",
     "create_room": "会議室の作成",
-    "delete_room": "会議室の削除",
+    "delete_room": "この会議室を削除",
     "create_new_room": "新しい会議室を作成する",
     "enter_room_name": "会議室名を入力してください",
     "shared_by": "共有者",
     "last_session": "最後のセッション: {{ room.last_session }}",
     "no_last_session": "会議はまだ開かれていません",
-    "no_rooms_found": "会議室が見つかりません",
     "search_not_found": "会議室が見つかりません",
     "rooms_list_is_empty": "まだ会議室はありません！",
     "rooms_list_empty_create_room": "下のボタンをクリックし、部屋の名前を入力して最初の会議室を作成しましょう。",
@@ -144,7 +144,7 @@
       "require_signed_in_message": "この会議への入室にはサインインが必要です。",
       "require_mod_approval": "参加に司会者の許可を必須とする",
       "allow_any_user_to_start": "誰でもこの会議を開始可能とする",
-      "all_users_join_as_mods": "すべてのユーザーが司会者として参加する",
+      "all_users_join_as_mods": "全てのユーザーが司会者として参加する",
       "mute_users_on_join": "参加時にユーザーをミュートする",
       "generate": "作成",
       "access_code": "接続コード",
@@ -153,7 +153,8 @@
       "access_code_required": "接続コードを入力してください",
       "wrong_access_code": "誤った接続コード",
       "generate_viewers_access_code": "視聴者用接続コードを作成する",
-      "generate_mods_access_code": "司会者用接続コードを作成する"
+      "generate_mods_access_code": "司会者用接続コードを作成する",
+      "are_you_sure_delete_room": "本当にこの会議室を削除しますか？"
     }
   },
   "recording": {
@@ -173,6 +174,7 @@
     "copy_recording_urls": "録画のURLをコピー",
     "recordings_list_empty": "まだ録画がありません！",
     "recordings_list_empty_description": "会議を開始してそれを録画すれば、録画データが現れます。",
+    "delete_recording": "この録画を削除",
     "are_you_sure_delete_recording": "本当にこの録画を削除しますか？",
     "search_not_found": "録画が見つかりません"
   },
@@ -180,7 +182,7 @@
     "admin_panel": "管理者設定",
     "manage_users": {
       "manage_users": "ユーザー管理",
-      "active": "アクティブ",
+      "active": "活動中",
       "approve": "承認",
       "decline": "却下",
       "pending": "保留",
@@ -196,7 +198,7 @@
       "add_new_user": "新規ユーザー",
       "create_new_user": "ユーザーを新しく作成する",
       "edit_user": "ユーザーの編集",
-      "delete_user": "ユーザーの削除",
+      "delete_user": "このユーザーを削除",
       "users_edit_path": "ユーザー/編集",
       "create_account": "アカウント作成",
       "create_room": "会議室作成",
@@ -204,13 +206,21 @@
       "user_created_at": "作成日時: {{user.created_at}}",
       "are_you_sure_delete_account": "本当に{{user.name}}のアカウントを削除しますか？",
       "delete_account_warning": "このアカウントを削除すると、二度と元にもどすことはできません。",
+      "empty_active_users": "このサーバーでは、活動中のユーザーはまだいません！",
+      "empty_active_users_subtext": "ユーザーの状態が「活動中」に変わると、こちらに表示されます。",
+      "empty_pending_users": "このサーバーには、保留中のユーザーはまだいません！",
+      "empty_pending_users_subtext": "ユーザーの状態が「保留」に変わると、こちらに表示されます。",
+      "empty_banned_users": "このサーバーには、ロックされているユーザーはまだいません！",
+      "empty_banned_users_subtext": "ユーザーの状態がロックに変わると、こちらに表示されます。",
+      "empty_invited_users": "このサーバーには、招待されているユーザーはまだいません！",
+      "empty_invited_users_subtext": "ユーザーの状態が招待中に変わると、こちらに表示されます。",
       "invited": {
         "time_sent": "送付日時",
         "valid": "有効"
       }
     },
     "server_rooms": {
-      "server_rooms": "すべての会議室",
+      "server_rooms": "全ての会議室",
       "name": "名前",
       "owner": "オーナー",
       "room_id": "会議室ID",
@@ -223,10 +233,12 @@
       "last_session": "最後のセッション: {{lastSession}}",
       "no_meeting_yet": "会議は一度も行われていません。",
       "delete_server_rooms": "全ての会議室を削除",
-      "resync_recordings": "録画の再同期"
+      "resync_recordings": "録画の再同期",
+      "empty_room_list": "まだ会議室はひとつもありません！",
+      "empty_room_list_subtext": "最初の会議室が作成されると、こちらに表示されます。"
     },
     "server_recordings": {
-      "server_recordings": "すべての録画",
+      "server_recordings": "全ての録画",
       "latest_recordings": "最近の録画",
       "no_recordings_found": "録画がありません"
     },
@@ -242,12 +254,12 @@
         "click_to_upload": "クリックしてアップロード",
         "drag_and_drop": "、あるいはドラッグ＆ドロップ",
         "upload_brand_image_description": "PNG、JPG、またはSVGファイルをアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。",
-        "remove_branding_image": "設定したブランド画像を消去"
+        "remove_branding_image": "ブランド画像の削除"
       },
       "administration": {
         "administration": "法的根拠",
         "terms": "利用規約",
-        "privacy": "プライバシー",
+        "privacy": "プライバシーポリシー",
         "privacy_policy": "プライバシーポリシー",
         "change_term_links": "ページ下方の利用規約へのリンクを変更する",
         "change_privacy_link": "ページ下方のプライバシーポリシーへのリンクを変更する",
@@ -275,7 +287,7 @@
         "registration_methods" : {
           "open": "誰でも自由に登録",
           "invite": "招待制",
-          "approval": "許可/却下"
+          "approval": "承認制"
         }
       }
     },
@@ -294,8 +306,8 @@
         "require_mod_approval_description": "会議への参加希望に対し、許可するかどうか、司会者にその都度問い合わせます。許可されてはじめてユーザーは参加できます。",
         "allow_any_user_to_start_meeting": "誰でもこの会議を開始可能とする",
         "allow_any_user_to_start_meeting_description": "全てのユーザーがいつでも会議を開始することを許可します。通常は、会議室のオーナーだけが会議を開始できます。",
-        "allow_users_to_join_as_mods": "全ユーザーが司会者として参加することを許可",
-        "allow_users_to_join_as_mods_description": "すべてのユーザーに、会議に参加した時点で司会者の権限をあたえます",
+        "allow_users_to_join_as_mods": "全てのユーザーを司会者として参加させる",
+        "allow_users_to_join_as_mods_description": "全てのユーザーに、会議に参加した時点で司会者の権限をあたえます",
         "mute_users_on_join": "参加時にユーザーをミュートする",
         "mute_users_on_join_description": "ユーザーが会議に参加した時、自動的にミュートします。",
         "viewer_access_code": "視聴者用接続コード",
@@ -310,7 +322,7 @@
       "administrator": "管理者",
       "guest": "ゲスト",
       "manage_roles": "役割管理",
-      "delete_role": "役割を削除",
+      "delete_role": "この役割を削除",
       "are_you_sure_delete_role": "本当にこの役割を削除しますか？",
       "enter_role_name": "役割の名前を入力",
       "add_role": "+ 役割作成",
@@ -392,6 +404,7 @@
         "role_assigned": "この役割はすでにユーザーに割り当てられているため、削除できません。"
       },
       "users": {
+        "signup_error": "サインインでエラーが生じました。管理者に連絡してください。",
         "invalid_invite": "あなたの招待トークンはすでに無効か、誤ったものです。管理者に連絡して、新しいものを受け取ってください。",
         "email_exists": "このメールアドレスで作成されたアカウントが既に存在します。他のメールアドレスでもう一度試してみてください。",
         "old_password": "入力された現パスワードは正しくありません",
