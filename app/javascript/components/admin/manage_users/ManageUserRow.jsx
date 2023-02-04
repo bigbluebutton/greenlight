@@ -9,6 +9,7 @@ import {
   EllipsisVerticalIcon, HomeIcon, PencilSquareIcon, TrashIcon, NoSymbolIcon,
 } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
+import { localizeDateTimeString } from '../../../helpers/TimeDateHelper';
 import Avatar from '../../users/user/Avatar';
 import Modal from '../../shared_components/modals/Modal';
 import CreateRoomForm from '../../rooms/room/forms/CreateRoomForm';
@@ -21,10 +22,7 @@ export default function ManageUserRow({ user }) {
   const { t } = useTranslation();
   const mutationWrapper = (args) => useCreateServerRoom({ userId: user.id, ...args });
   const updateUserStatus = useUpdateUserStatus();
-  const event = new Date(user?.created_at);
-  const options = {
-    year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric',
-  };
+  const localizedTime = localizeDateTimeString(user);
 
   return (
     <tr key={user.id} className="align-middle text-muted border border-2">
@@ -35,7 +33,7 @@ export default function ManageUserRow({ user }) {
           </div>
           <Stack>
             <span className="text-dark fw-bold"> {user.name} </span>
-            <span className="small"> { event.toLocaleDateString(user?.language, options) }</span>
+            <span className="small"> { localizedTime }</span>
           </Stack>
         </Stack>
       </td>

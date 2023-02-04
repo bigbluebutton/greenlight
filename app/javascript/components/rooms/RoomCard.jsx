@@ -6,6 +6,7 @@ import { DocumentDuplicateIcon, LinkIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/auth/AuthProvider';
+import { localizeDateTimeString } from '../../helpers/TimeDateHelper';
 import Spinner from '../shared_components/utilities/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from './MeetingBadges';
@@ -22,10 +23,7 @@ export default function RoomCard({ room }) {
   const handleClick = useCallback(() => { navigate(room.friendly_id); }, [room.friendly_id]);
   const startMeeting = useStartMeeting(room.friendly_id);
   const currentUser = useAuth();
-  const event = new Date(room?.last_session);
-  const options = {
-    year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric',
-  };
+  const localizedTime = localizeDateTimeString(currentUser, room);
 
   return (
     <Card id="room-card" className="h-100 shadow-sm border-0">
@@ -46,7 +44,7 @@ export default function RoomCard({ room }) {
             <span className="text-muted">{ t('room.shared_by') } <strong>{ room.shared_owner }</strong></span>
           )}
           { room.last_session ? (
-            <span className="text-muted"> { event.toLocaleDateString(currentUser?.language, options) } </span>
+            <span className="text-muted"> { localizedTime} </span>
           ) : (
             <span className="text-muted mt-2"> { t('room.no_last_session') } </span>
           )}

@@ -14,6 +14,7 @@ import Spinner from '../shared_components/utilities/Spinner';
 import UpdateRecordingForm from './forms/UpdateRecordingForm';
 import DeleteRecordingForm from './forms/DeleteRecordingForm';
 import Modal from '../shared_components/modals/Modal';
+import { localizeDateTimeString } from '../../helpers/TimeDateHelper';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
@@ -31,10 +32,7 @@ export default function RecordingRow({
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const currentUser = useAuth();
-  const date = new Date(recording?.created_at);
-  const options = {
-    year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric',
-  };
+  const localizedTime = localizeDateTimeString(currentUser, null, recording);
 
   return (
     <tr key={recording.id} className="align-middle text-muted border border-2">
@@ -72,7 +70,7 @@ export default function RecordingRow({
                 isUpdating && <Spinner animation="grow" variant="brand" />
               }
             </strong>
-            <span className="small text-muted"> {date.toLocaleDateString(currentUser?.language, options)} </span>
+            <span className="small text-muted"> {localizedTime} </span>
           </Stack>
         </Stack>
       </td>
