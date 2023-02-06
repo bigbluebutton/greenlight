@@ -9,6 +9,7 @@ import {
   EllipsisVerticalIcon, HomeIcon, PencilSquareIcon, TrashIcon, NoSymbolIcon,
 } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
+import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
 import Avatar from '../../users/user/Avatar';
 import Modal from '../../shared_components/modals/Modal';
 import CreateRoomForm from '../../rooms/room/forms/CreateRoomForm';
@@ -21,6 +22,7 @@ export default function ManageUserRow({ user }) {
   const { t } = useTranslation();
   const mutationWrapper = (args) => useCreateServerRoom({ userId: user.id, ...args });
   const updateUserStatus = useUpdateUserStatus();
+  const localizedTime = localizeDateTimeString(user?.created_at, user?.language);
 
   return (
     <tr key={user.id} className="align-middle text-muted border border-2">
@@ -31,7 +33,7 @@ export default function ManageUserRow({ user }) {
           </div>
           <Stack>
             <span className="text-dark fw-bold"> {user.name} </span>
-            <span className="small"> { t('admin.manage_users.user_created_at', { user }) }</span>
+            <span className="small"> { localizedTime }</span>
           </Stack>
         </Stack>
       </td>
@@ -73,6 +75,7 @@ ManageUserRow.propTypes = {
     avatar: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
     provider: PropTypes.string.isRequired,
     role: PropTypes.shape({
       id: PropTypes.string.isRequired,

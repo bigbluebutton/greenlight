@@ -9,10 +9,12 @@ import {
 } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../contexts/auth/AuthProvider';
 import Spinner from '../shared_components/utilities/Spinner';
 import UpdateRecordingForm from './forms/UpdateRecordingForm';
 import DeleteRecordingForm from './forms/DeleteRecordingForm';
 import Modal from '../shared_components/modals/Modal';
+import { localizeDateTimeString } from '../../helpers/DateTimeHelper';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
@@ -29,6 +31,8 @@ export default function RecordingRow({
   const visibilityAPI = useVisibilityAPI();
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const currentUser = useAuth();
+  const localizedTime = localizeDateTimeString(recording?.created_at, currentUser?.language);
 
   return (
     <tr key={recording.id} className="align-middle text-muted border border-2">
@@ -66,7 +70,7 @@ export default function RecordingRow({
                 isUpdating && <Spinner animation="grow" variant="brand" />
               }
             </strong>
-            <span className="small text-muted"> {recording.created_at} </span>
+            <span className="small text-muted"> {localizedTime} </span>
           </Stack>
         </Stack>
       </td>
