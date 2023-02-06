@@ -4,41 +4,38 @@ require_relative 'task_helpers'
 
 namespace :user do
   desc 'Create a user'
-  task :create, %i[name email password role verified status language] => :environment do |_task, args|
+  task :create, %i[name email password role] => :environment do |_task, args|
     # Default values.
-    u = {
-      role: 'User',
-      verified: false,
+    user = {
+      provider: 'greenlight',
+      verified: true,
       status: :active,
       language: I18n.default_locale
     }.merge(args)
 
-    u[:provider] = 'greenlight'
+    user[:role] = SettingGetter.new(setting_name: 'DefaultRole', provider: 'greenlight').call if user[:role].blank?
 
-    filter_values!(user: u)
-    u = User.new(u)
+    check_role!(user:)
+    user = User.new(user)
 
-    display_user_errors(user: u) unless u.save
+    display_user_errors(user:) unless user.save
 
     success 'User account was created successfully!'
-    info "  Name: #{u.name}"
-    info "  Email: #{u.email}"
-    info "  Password: #{u.password}"
-    info "  Role: #{u.role.name}"
-    info "  Verified: #{u.verified}"
-    info "  Status: #{u.status}"
-    info "  Language: #{u.language}"
+    info "  Name: #{user.name}"
+    info "  Email: #{user.email}"
+    info "  Password: #{user.password}"
+    info "  Role: #{user.role.name}"
+    info "  Verified: #{user.verified}"
+    info "  Status: #{user.status}"
+    info "  Language: #{user.language}"
 
     exit 0
   end
 
   private
 
-  def filter_values!(user:)
-    roles_black_list = %w[SuperAdmin]
+  def check_role!(user:)
     role_name = user[:role]
-    role_name = SettingGetter.new(setting_name: 'DefaultRole', provider: 'greenlight').call if roles_black_list.include?(user[:role])
-
     user[:role] = Role.find_by(name: role_name, provider: 'greenlight')
     return if user[:role]
 
@@ -48,6 +45,6 @@ namespace :user do
 
   def display_user_errors(user:)
     warning "Unable to create user: '#{user.name}'"
-    err "   Failed to pass the following validations: #{user.errors.to_a}"
+    err "   Failed to pass the following validations:\n    #{user.errors.to_a}"
   end
 end
