@@ -30,14 +30,15 @@ export default function Profile() {
                       { t('user.account.account_info') }
                     </Nav.Link>
                   </Nav.Item>
-                  { !currentUser.external_account &&
+                  { !currentUser.external_account
+                    && (
                     <Nav.Item>
                       <Nav.Link className="cursor-pointer text-muted" eventKey="third">
                         <LockClosedIcon className="hi-s text-muted me-3 pb-1" />
                         { t('user.account.change_password') }
                       </Nav.Link>
                     </Nav.Item>
-                  }
+                    )}
                   <Nav.Item>
                     <Nav.Link className="cursor-pointer text-muted" eventKey="second">
                       <TrashIcon className="hi-s text-muted me-3 pb-1" />
@@ -55,11 +56,12 @@ export default function Profile() {
                 <Tab.Pane eventKey="second">
                   <DeleteAccount />
                 </Tab.Pane>
-                { !currentUser.external_account &&
+                { !currentUser.external_account
+                  && (
                   <Tab.Pane eventKey="third">
                     <ChangePassword />
                   </Tab.Pane>
-                }
+                  )}
               </Tab.Content>
             </Col>
           </Row>
