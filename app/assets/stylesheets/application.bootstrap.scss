@@ -211,20 +211,24 @@ input.search-bar {
 }
 
 #nav-user-dropdown {
-  padding: 6px;
+  padding: 6px 0px 6px 6px;
   border-radius: $border-radius;
+
   &:hover {
-    color: var(--brand-color);
-    background-color: var(--brand-color-light);
+    background-color: white;
+    color: black !important;
   }
   &:active {
-    background-color: var(--brand-color-light) !important;
+    background-color: white !important;
   }
   &:focus {
-    background-color: var(--brand-color-light) !important;
+    background-color: white !important;
   }
   &::after {
     display: none;
+  }
+  #chevron-profile {
+    padding-top: 2px;
   }
 }
 
