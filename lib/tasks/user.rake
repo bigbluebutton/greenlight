@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'task_helpers'
+
 namespace :user do
   desc 'Create a user'
   task :create, %i[name email password role verified status language] => :environment do |_task, args|
@@ -40,30 +42,12 @@ namespace :user do
     user[:role] = Role.find_by(name: role_name, provider: 'greenlight')
     return if user[:role]
 
-    warning "Unable to create user: '#{user.name}'"
+    warning "Unable to create user: '#{user[:name]}'"
     err "   Role '#{role_name}' does not exist, maybe you have not run the DB migrations?"
   end
 
   def display_user_errors(user:)
     warning "Unable to create user: '#{user.name}'"
     err "   Failed to pass the following validations: #{user.errors.to_a}"
-  end
-
-  def err(msg)
-    warn msg
-
-    exit 1
-  end
-
-  def warning(msg)
-    warn msg
-  end
-
-  def info(msg)
-    puts msg
-  end
-
-  def success(msg)
-    puts msg
   end
 end
