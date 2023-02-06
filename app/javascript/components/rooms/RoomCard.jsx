@@ -6,7 +6,7 @@ import { DocumentDuplicateIcon, LinkIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/auth/AuthProvider';
-import { localizeDateTimeString } from '../../helpers/TimeDateHelper';
+import { localizeDateTimeString } from '../../helpers/DateTimeHelper';
 import Spinner from '../shared_components/utilities/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from './MeetingBadges';
@@ -23,7 +23,7 @@ export default function RoomCard({ room }) {
   const handleClick = useCallback(() => { navigate(room.friendly_id); }, [room.friendly_id]);
   const startMeeting = useStartMeeting(room.friendly_id);
   const currentUser = useAuth();
-  const localizedTime = localizeDateTimeString(currentUser, room);
+  const localizedTime = localizeDateTimeString(room?.last_session, currentUser?.language);
 
   return (
     <Card id="room-card" className="h-100 shadow-sm border-0">

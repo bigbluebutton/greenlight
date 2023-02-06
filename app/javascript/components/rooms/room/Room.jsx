@@ -9,7 +9,7 @@ import { HomeIcon, Square2StackIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
-import { localizeDayDateTimeString } from '../../../helpers/TimeDateHelper';
+import { localizeDayDateTimeString } from '../../../helpers/DateTimeHelper';
 import FeatureTabs from './FeatureTabs';
 import Spinner from '../../shared_components/utilities/Spinner';
 import useRoom from '../../../hooks/queries/rooms/useRoom';
@@ -32,7 +32,7 @@ export default function Room() {
   const startMeeting = useStartMeeting(friendlyId);
   const currentUser = useAuth();
   const location = useLocation();
-  const localizedTime = localizeDayDateTimeString(currentUser, room);
+  const localizedTime = localizeDayDateTimeString(room?.last_session, currentUser?.language);
 
   // Custom logic to redirect from Rooms page to join page if this isnt the users room and they're not allowed to view it
   if (isError && error.response.status === 403) {

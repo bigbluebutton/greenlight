@@ -14,7 +14,7 @@ import Spinner from '../shared_components/utilities/Spinner';
 import UpdateRecordingForm from './forms/UpdateRecordingForm';
 import DeleteRecordingForm from './forms/DeleteRecordingForm';
 import Modal from '../shared_components/modals/Modal';
-import { localizeDateTimeString } from '../../helpers/TimeDateHelper';
+import { localizeDateTimeString } from '../../helpers/DateTimeHelper';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
@@ -32,7 +32,7 @@ export default function RecordingRow({
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const currentUser = useAuth();
-  const localizedTime = localizeDateTimeString(currentUser, null, recording);
+  const localizedTime = localizeDateTimeString(recording?.created_at, currentUser?.language);
 
   return (
     <tr key={recording.id} className="align-middle text-muted border border-2">
