@@ -1,11 +1,12 @@
 import React from 'react';
 import {
-  Button, Nav, Navbar, NavDropdown,
+  Button, Nav, Navbar, NavDropdown, Stack,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { IdentificationIcon, QuestionMarkCircleIcon, StarIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
 import Avatar from '../users/user/Avatar';
 
@@ -33,7 +34,7 @@ export default function NavbarSignedIn({ currentUser }) {
 
   return (
     <>
-      {/* Mobile Navbar Toggle */}
+      {/* Mobile Navbar Toggle - Hidden on Desktop */}
       <Navbar.Toggle aria-controls="responsive-navbar-nav" className="border-0">
         <Avatar avatar={currentUser?.avatar} size="small" />
       </Navbar.Toggle>
@@ -66,12 +67,21 @@ export default function NavbarSignedIn({ currentUser }) {
         </Nav>
       </Navbar.Collapse>
 
-      {/* Hidden on Mobile */}
+      {/* Desktop User Dropdown - Hidden on Mobile */}
       <div className="justify-content-end d-none d-sm-block">
-        <div className="d-inline-block">
-          <Avatar avatar={currentUser?.avatar} size="small" />
-        </div>
-        <NavDropdown title={currentUser?.name} id="nav-user-dropdown" className="d-inline-block" align="end">
+        <NavDropdown
+          title={(
+            <Stack direction="horizontal" gap={2}>
+              <Avatar avatar={currentUser?.avatar} size="small" />
+              <span className="text-brand ms-1">{currentUser?.name}</span>
+              <ChevronDownIcon className="hi-s text-muted" />
+            </Stack>
+          )}
+          id="nav-user-dropdown"
+          className="d-inline-block"
+          align="end"
+        >
+
           <NavDropdown.Item as={Link} to="/profile">
             <IdentificationIcon className="hi-s me-3" />
             { t('user.profile.profile') }

@@ -211,15 +211,25 @@ input.search-bar {
 }
 
 #nav-user-dropdown {
+  padding: 6px;
+  border-radius: $border-radius;
   &:hover {
-    color: $black !important;
+    color: var(--brand-color);
+    background-color: var(--brand-color-light);
   }
   &:active {
-    background-color: transparent !important;
+    background-color: var(--brand-color-light) !important;
   }
   &:focus {
-    background-color: transparent !important;
+    background-color: var(--brand-color-light) !important;
   }
+  &::after {
+    display: none;
+  }
+}
+
+.dropdown-menu.show {
+  margin-top: 0px;
 }
 
 .dropdown {
