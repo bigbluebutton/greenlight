@@ -73,7 +73,7 @@ export default function NavbarSignedIn({ currentUser }) {
           title={(
             <Stack direction="horizontal" gap={2}>
               <Avatar avatar={currentUser?.avatar} size="small" />
-              <span className="fw-bold text-brand">{currentUser?.name}</span>
+              <span className="text-brand ms-1">{currentUser?.name}</span>
               <ChevronDownIcon className="hi-s text-muted" />
             </Stack>
           )}
