@@ -13,8 +13,6 @@ namespace :user do
       language: I18n.default_locale
     }.merge(args)
 
-    user[:role] = SettingGetter.new(setting_name: 'DefaultRole', provider: 'greenlight').call if user[:role].blank?
-
     check_role!(user:)
     user = User.new(user)
 
@@ -25,9 +23,6 @@ namespace :user do
     info "  Email: #{user.email}"
     info "  Password: #{user.password}"
     info "  Role: #{user.role.name}"
-    info "  Verified: #{user.verified}"
-    info "  Status: #{user.status}"
-    info "  Language: #{user.language}"
 
     exit 0
   end
