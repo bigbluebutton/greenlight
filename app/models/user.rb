@@ -56,6 +56,7 @@ class User < ApplicationRecord
   validate :check_user_role_provider, if: :role_changed?
 
   before_validation :set_session_token, on: :create
+  after_create :create_default_room
 
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
 
@@ -188,5 +189,11 @@ class User < ApplicationRecord
     return unless role
 
     errors.add(:user_provider, 'has to be the same as the Role provider') if provider != role.provider
+  end
+
+  def create_default_room
+    return unless PermissionsChecker.new(permission_names: 'CreateRoom', user_id: id, current_user: self, current_provider: provider).call
+
+    Room.create(name: "#{name}'s Room", user_id: id)
   end
 end

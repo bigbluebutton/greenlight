@@ -31,7 +31,6 @@ class ExternalController < ApplicationController
     if new_user
       user = UserCreator.new(user_params: user_info, provider: current_provider, role: default_role).call
       user.save!
-      create_default_room(user)
     end
 
     if SettingGetter.new(setting_name: 'ResyncOnLogin', provider:).call

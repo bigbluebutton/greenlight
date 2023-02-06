@@ -56,8 +56,6 @@ module Api
                             provider: current_provider).activate_account_email.deliver_later
           end
 
-          create_default_room(user)
-
           return render_data data: user, serializer: CurrentUserSerializer, status: :created unless user.verified?
 
           user.generate_session_token!
@@ -82,7 +80,6 @@ module Api
         end
 
         if user.update(update_user_params)
-          create_default_room(user)
           render_data  status: :ok
         else
           render_error errors: Rails.configuration.custom_error_msgs[:record_invalid]
