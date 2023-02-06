@@ -16,11 +16,6 @@ import MeetingBadges from '../MeetingBadges';
 import SharedBadge from './SharedBadge';
 import RoomNamePlaceHolder from './RoomNamePlaceHolder';
 
-function copyInvite() {
-  navigator.clipboard.writeText(`${window.location}/join`);
-  toast.success('Copied');
-}
-
 export default function Room() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
@@ -29,6 +24,11 @@ export default function Room() {
   } = useRoom(friendlyId);
   const startMeeting = useStartMeeting(friendlyId);
   const location = useLocation();
+
+  function copyInvite() {
+    navigator.clipboard.writeText(`${window.location}/join`);
+    toast.success(t('toast.success.room.copied_meeting_url'));
+  }
 
   // Custom logic to redirect from Rooms page to join page if this isnt the users room and they're not allowed to view it
   if (isError && error.response.status === 403) {
@@ -79,7 +79,7 @@ export default function Room() {
                 t('room.meeting.start_meeting')
               )}
             </Button>
-            <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={copyInvite}>
+            <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyInvite()}>
               <Square2StackIcon className="hi-s me-1" />
               { t('copy') }
             </Button>

@@ -23,7 +23,7 @@ export default function RecordingRow({
   function copyUrls() {
     const formatUrls = recording.formats.map((format) => format.url);
     navigator.clipboard.writeText(formatUrls);
-    toast.success(t('recording.copied_urls'));
+    toast.success(t('toast.success.recording.copied_urls'));
   }
 
   const visibilityAPI = useVisibilityAPI();

@@ -16,12 +16,23 @@ export default function useUpdateRoomSetting(friendlyId) {
     return axios.patch(`/room_settings/${friendlyId}.json`, data);
   };
 
+  // Returns a more suiting toast message if the updated room setting is an access code
+  const toastSuccess = (variables) => {
+    if (variables.settingName === 'glModeratorAccessCode' || variables.settingName === 'glViewerAccessCode') {
+      if (variables.settingValue) {
+        return toast.success(t('toast.success.room.access_code_generated'));
+      }
+      return toast.success(t('toast.success.room.access_code_deleted'));
+    }
+    return toast.success(t('toast.success.room.room_setting_updated'));
+  };
+
   return useMutation(
     updateRoomSetting,
     {
-      onSuccess: () => {
+      onSuccess: (data, variables) => {
         queryClient.invalidateQueries('getRoomSettings');
-        toast.success(t('toast.success.room.room_setting_updated'));
+        toastSuccess(variables);
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

@@ -33,13 +33,35 @@ export default function useUpdateSiteSetting(name) {
     return axios.patch(`/admin/site_settings/${name}.json`, settings);
   };
 
+  const toastSuccess = () => {
+    switch (name) {
+      case 'PrimaryColor':
+        // Prevents 2 toasts from showing up when updating the primary color - which also updates the lighten color
+        break;
+      case 'PrimaryColorLight':
+        toast.success(t('toast.success.site_settings.brand_color_updated'));
+        break;
+      case 'BrandingImage':
+        toast.success(t('toast.success.site_settings.brand_image_updated'));
+        break;
+      case 'PrivacyPolicy':
+        toast.success(t('toast.success.site_settings.privacy_policy_updated'));
+        break;
+      case 'TermsOfService':
+        toast.success(t('toast.success.site_settings.terms_of_service_updated'));
+        break;
+      default:
+        toast.success(t('toast.success.site_settings.site_setting_updated'));
+    }
+  };
+
   return useMutation(
     uploadPresentation,
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['getSiteSettings', name]);
         queryClient.invalidateQueries('getSiteSettings');
-        toast.success(t('toast.success.site_settings.site_setting_updated'));
+        toastSuccess();
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

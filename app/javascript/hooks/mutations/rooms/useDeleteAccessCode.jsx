@@ -12,7 +12,7 @@ export default function useDeleteAccessCode(friendlyId) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('getAccessCodes');
-        toast.success(t('toast.success.access_code_removed'));
+        toast.success(t('toast.success.access_code_deleted'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));
