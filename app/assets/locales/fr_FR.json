@@ -24,6 +24,7 @@
   "return_home": "Retourner à l'accueil",
   "created_at": "Créé à",
   "no_result_search_input": "Aucun résultat trouvé pour {{ searchInput }}",
+  "action_permanent": "Cette action ne peut être annulée",
   "homepage": {
     "welcome_bbb": "Bienvenue sur BigBlueButton.",
     "bigbluebutton_description": "BigBluButton est un système de webconférence au code source ouvert et qui est destinée à l'enseignement en ligne. La plateforme permet de profiter au mieux du temps dédié à la formation en favorisant la collaboration et une supervision en temps réel. ",
@@ -109,7 +110,6 @@
     "shared_by": "Partagé par",
     "last_session": "Dernière session : {{ room.last_session }}",
     "no_last_session": "Il n'y a aucune session précédente",
-    "no_rooms_found": "Aucune salle trouvée",
     "search_not_found": "Aucune salle trouvée",
     "rooms_list_is_empty": "Vous n'avez pas encore de salles!",
     "rooms_list_empty_create_room": "Créez votre première salle en cliquant sur le bouton ci-dessous puis nommez la.",
@@ -153,7 +153,8 @@
       "access_code_required": "Veuillez saisir le code d'accès",
       "wrong_access_code": "Code d'accès erroné",
       "generate_viewers_access_code": "Générer un code d'accès pour les auditeurs",
-      "generate_mods_access_code": "Générer un code d'accès pour les modérateurs"
+      "generate_mods_access_code": "Générer un code d'accès pour les modérateurs",
+      "are_you_sure_delete_room": "Êtes vous sur de vouloir supprimer cette salle?"
     }
   },
   "recording": {
@@ -173,6 +174,7 @@
     "copy_recording_urls": "Copier les URL(s) des enregistrements",
     "recordings_list_empty": "Vous n'avez pas encore d'enregistrements!",
     "recordings_list_empty_description": "Les enregistrements apparaîtront ici dès que vous aurez réalisé la captation d'une réunion",
+    "delete_recording": "Effacer l'enregistrement",
     "are_you_sure_delete_recording": "Etes-vous sûr de vouloir supprimer cet enregistrement ?",
     "search_not_found": "Aucun enregistrement trouvé"
   },
@@ -204,6 +206,14 @@
       "user_created_at": "Créé: {{user.created_at}}",
       "are_you_sure_delete_account": "Etes-vous sûr de vouloir supprimer le compte de {{user.name}} ?",
       "delete_account_warning": "Une fois ce compte supprimé il NE pourra PAS être rétabli",
+      "empty_active_users": "Il n'y pas encore d'utilisateur actif sur ce serveur!",
+      "empty_active_users_subtext": "Lorsque le statut d'un utilisateur passe à actif, il apparaîtra ici.",
+      "empty_pending_users": "Il n'y a pas encore d'utilisateur en attente sur ce serveur!",
+      "empty_pending_users_subtext": "Lorsque le statut d'un utilisateur passe à en attente, il apparaîtra ici.",
+      "empty_banned_users": "Il n'y pas encore d'utilisateur exclu sur ce serveur!",
+      "empty_banned_users_subtext": "Lorsque le statut d'un utilisateur passe à exclu, il apparaîtra ici.",
+      "empty_invited_users": "Il n'y pas encore d'utilisateur invité sur ce serveur!",
+      "empty_invited_users_subtext": "Lorsque le statut d'un utilisateur passe à invité, il apparaîtra ici.",
       "invited": {
         "time_sent": "Heure d'envoi",
         "valid": "Valide"
@@ -223,7 +233,9 @@
       "last_session": "Dernière session: {{lastSession}}",
       "no_meeting_yet": "Pas de réunion pour l'instant",
       "delete_server_rooms": "Supprimer la salle du serveur",
-      "resync_recordings": "Resynchronisation des enregistrements"
+      "resync_recordings": "Resynchronisation des enregistrements",
+      "empty_room_list": "Il n'y pas encore de salles sur le serveur!",
+      "empty_room_list_subtext": "Après leur création, les salles apparaîtront ici."
     },
     "server_recordings": {
       "server_recordings": "Enregistrements au serveur",
@@ -242,12 +254,12 @@
         "click_to_upload": "Cliquez pour téléverser",
         "drag_and_drop": "ou glissez-déposez",
         "upload_brand_image_description": "Téléverser un fichier PNG, JPG ou SVG. Selon le volume du fichier, il se peut que le téléversement prenne plus de temps avant d'être opérationnel.",
-        "remove_branding_image": "Retirer l'image personnalisée"
+        "remove_branding_image": "Retirer le logo"
       },
       "administration": {
         "administration": "Administration",
         "terms": "Conditions générales",
-        "privacy": "Confidentialité",
+        "privacy": "Politique de confidentialité",
         "privacy_policy": "Règles de confidentialité",
         "change_term_links": "Modifier les liens vers les conditions générales présentés en bas de page",
         "change_privacy_link": "Modifier le lien vers les règles de confidentialité présenté en bas de page",
@@ -294,7 +306,7 @@
         "require_mod_approval_description": "Notifie le modérateur quand un utilisateur tente de rejoindre la salle. Après approbation, l'utilisateur pourra se joindre à la réunion",
         "allow_any_user_to_start_meeting": "Permettre à tout utilisateur de lancer une réunion",
         "allow_any_user_to_start_meeting_description": "Permettre tout utilisateur de commencer la réunion à tout  moment. Par défaut, seul le propriétaire de la salle peut commencer la réunion.",
-        "allow_users_to_join_as_mods": "Les utilisateurs rejoignent la réunion en tant que modérateurs",
+        "allow_users_to_join_as_mods": "Tout utilisateur rejoint la salle en tant que modérateur",
         "allow_users_to_join_as_mods_description": "Donne à tous les utilisateurs qui se joignent à la réunion les droits de modération",
         "mute_users_on_join": "Les utilisateurs se joignent à la réunion en mode silencieux",
         "mute_users_on_join_description": "L'utilisateur est mis automatiquement en mode silencieux quand il se joint à la réunion",
@@ -392,6 +404,7 @@
         "role_assigned": "Ce rôle ne peut être supprimé car il est assigné à au moins un utilisateur."
       },
       "users": {
+        "signup_error": "Une erreur est survenue lors de votre connexion. Veuillez contacter votre administrateur.",
         "invalid_invite": "Votre jeton d'invitation est soit non valide soit erroné. Veuillez contacter votre administrateur pour en recevoir un nouveau",
         "email_exists": "Il existe déjà un compte avec cette adresse. Veuillez réessayer avec une autre adresse de courriel.",
         "old_password": "Le mot de passe que vous avez saisi est erroné",
