@@ -29,6 +29,7 @@ export default function App() {
 
   document.documentElement.style.setProperty('--brand-color', brandColors.PrimaryColor);
   document.documentElement.style.setProperty('--brand-color-light', brandColors.PrimaryColorLight);
+  document.documentElement.style.setProperty('--toastify-color-success', brandColors.PrimaryColor);
 
   return (
     <>
@@ -39,6 +40,7 @@ export default function App() {
       <ToastContainer
         position="bottom-right"
         newestOnTop
+        autoClose={3000}
       />
       <Footer />
     </>
