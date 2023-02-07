@@ -81,3 +81,11 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Max: 13
 
+Rails/Exit:
+  Exclude:
+    - 'lib/tasks/task_helpers.rb'
+
+Rails/Output:
+  Exclude:
+    - 'lib/tasks/task_helpers.rb'
+
