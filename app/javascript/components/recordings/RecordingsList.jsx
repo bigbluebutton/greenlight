@@ -90,7 +90,10 @@ RecordingsList.propTypes = {
       name: PropTypes.string,
       length: PropTypes.number,
       visibility: PropTypes.string,
-      formats: PropTypes.arrayOf(PropTypes.string),
+      formats: PropTypes.arrayOf(PropTypes.shape({
+        recording_type: PropTypes.string,
+        url: PropTypes.string,
+      })),
       users: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number,
         name: PropTypes.string,

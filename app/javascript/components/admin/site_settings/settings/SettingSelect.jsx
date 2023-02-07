@@ -32,11 +32,12 @@ export default function SettingSelect({
 
 SettingSelect.defaultProps = {
   defaultValue: '',
+  children: undefined,
 };
 
 SettingSelect.propTypes = {
   defaultValue: PropTypes.string,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.arrayOf(PropTypes.element),
 };

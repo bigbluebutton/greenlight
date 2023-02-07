@@ -97,7 +97,7 @@ export default function RecordingRow({
           <Button
             onClick={() => window.open(format.url, '_blank')}
             className={`btn-sm rounded-pill me-1 mt-1 border-0 btn-format-${format.recording_type.toLowerCase()}`}
-            key={format.id}
+            key={`${format.recording_type}-${format.url}`}
           >
             {format.recording_type}
           </Button>
