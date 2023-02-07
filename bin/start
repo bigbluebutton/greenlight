@@ -1,13 +1,29 @@
 #!/usr/bin/env bash
 
 PORT="${PORT:=3000}"
-PGHOST=postgres
-PGPORT=5432
-RSHOST=redis
-RSPORT=6379
+
+# Parse Rails DATABASE and REDIS urls to get host and port
+TXADDR=${DATABASE_URL/*:\/\/}
+TXADDR=${TXADDR/*@/}
+TXADDR=${TXADDR/\/*/}
+IFS=: TXADDR=($TXADDR) IFS=' '
+PGHOST=${TXADDR[0]}
+PGPORT=${TXADDR[1]:-5432}
+
+TXADDR=${REDIS_URL/*:\/\/}
+TXADDR=${TXADDR/*@/}
+TXADDR=${TXADDR/\/*/}
+IFS=: TXADDR=($TXADDR) IFS=' '
+RDHOST=${TXADDR[0]}
+RDPORT=${TXADDR[1]:-6379}
 
 echo "Greenlight-v3 starting on port: $PORT"
 
+echo $PGHOST
+echo $PGPORT
+
+echo $RDHOST
+echo $RDPORT
 
 if [ "$RAILS_ENV" = "production" ]; then
   while ! nc -zw3 $PGHOST $PGPORT
@@ -16,7 +32,7 @@ if [ "$RAILS_ENV" = "production" ]; then
     sleep 1
   done
 
-  while ! nc -zw3 $RSHOST $RSPORT
+  while ! nc -zw3 $RDHOST $RDPORT
   do
     echo "Waiting for redis to start up ..."
     sleep 1
