@@ -28,6 +28,10 @@
 
   .vertical-buffer {
     padding-top: 10%;
+
+    @include media-breakpoint-down(xxl) {
+      height: 5%;
+    }
   }
 }
 
@@ -36,6 +40,10 @@
 
   .vertical-buffer {
     padding-top: 5%;
+
+    @include media-breakpoint-down(xxl) {
+      height: 3%;
+    }
   }
 }
 
