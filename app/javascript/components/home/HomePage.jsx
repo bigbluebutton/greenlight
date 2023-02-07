@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import {
   Col, Row,
 } from 'react-bootstrap';
@@ -31,10 +31,9 @@ export default function HomePage() {
     [currentUser.signed_in],
   );
 
-  // hack to deal with the fact that useEffect and toast dont work together very well
-  useMemo(() => {
+  useEffect(() => {
     switch (error) {
-      case 'InviteInvald':
+      case 'InviteInvalid':
         toast.error(t('toast.error.users.invalid_invite'));
         break;
       case 'SignupError':
@@ -42,8 +41,7 @@ export default function HomePage() {
         break;
       default:
     }
-    // Remove the error
-    setSearchParams(searchParams.delete('error'));
+    if (error) { setSearchParams(searchParams.delete('error')); }
   }, [error]);
 
   return (

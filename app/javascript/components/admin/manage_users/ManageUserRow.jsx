@@ -17,12 +17,15 @@ import useCreateServerRoom from '../../../hooks/mutations/admin/manage_users/use
 import DeleteUserForm from './forms/DeleteUserForm';
 import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
 import RoleBadge from '../roles/RoleBadge';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function ManageUserRow({ user }) {
   const { t } = useTranslation();
+  const currentUser = useAuth();
+
   const mutationWrapper = (args) => useCreateServerRoom({ userId: user.id, ...args });
   const updateUserStatus = useUpdateUserStatus();
-  const localizedTime = localizeDateTimeString(user?.created_at, user?.language);
+  const localizedTime = localizeDateTimeString(user?.created_at, currentUser?.language);
 
   return (
     <tr key={user.id} className="align-middle text-muted border border-2">
