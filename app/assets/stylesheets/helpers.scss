@@ -16,14 +16,21 @@
   left: 0;
   right: 0;
   margin: auto;
-  height: 75%;
+  height: 80%;
+
+  @include media-breakpoint-down(xxl) {
+    height: 90%;
+  }
 }
 
 .no-header-height {
   min-height: calc(100vh - $footer-height - $footer-buffer-height);
 
   .vertical-buffer {
-    padding-top: 10%;
+    padding-top: 5%;
+    @include media-breakpoint-down(xxl) {
+      padding-top: 1%;
+    }
   }
 }
 
@@ -31,7 +38,10 @@
   min-height: calc(100vh - $header-height - $footer-height - $footer-buffer-height);
 
   .vertical-buffer {
-    padding-top: 5%;
+    padding-top: 3%;
+    @include media-breakpoint-down(xxl) {
+      padding-top: 1%;
+    }
   }
 }
 
