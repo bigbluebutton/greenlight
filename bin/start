@@ -1,22 +1,36 @@
 #!/usr/bin/env bash
 
+if [ -f .env ]; then
+  export $(echo $(cat .env | sed 's/#.*//g'| xargs) | envsubst)
+fi
+
 PORT="${PORT:=3000}"
-PGHOST=postgres
-PGPORT=5432
-RSHOST=redis
-RSPORT=6379
+
+# Parse Rails DATABASE and REDIS urls to get host and port
+pgProtocol="$(echo $DATABASE_URL | grep :// | sed -e's,^\(.*://\).*,\1,g')" # extract the protocol
+pgUrl="$(echo ${DATABASE_URL/$pgProtocol/})" # remove the protocol
+pgUser="$(echo $pgUrl | grep @ | cut -d@ -f1)" # extract the user (if any)
+pgHostport="$(echo ${pgUrl/$pgUser@/} | cut -d/ -f1)" # extract the host and port
+pgHost="$(echo $pgHostport | sed -e 's,:.*,,g')" # by request host without port
+pgPort="$(echo $pgHostport | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')" # by request - try to extract the port
+
+rdProtocol="$(echo $REDIS_URL | grep :// | sed -e's,^\(.*://\).*,\1,g')" # extract the protocol
+rdUrl="$(echo ${REDIS_URL/$rdProtocol/})" # remove the protocol
+rdUser="$(echo $rdUrl | grep @ | cut -d@ -f1)" # extract the user (if any)
+rdHostport="$(echo ${rdUrl/$rdUser@/} | cut -d/ -f1)" # extract the host and port
+rdHost="$(echo $rdHostport | sed -e 's,:.*,,g')" # by request host without port
+rdPort="$(echo $rdHostport | sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')" # by request - try to extract the port
 
 echo "Greenlight-v3 starting on port: $PORT"
 
-
 if [ "$RAILS_ENV" = "production" ]; then
-  while ! nc -zw3 $PGHOST $PGPORT
+  while ! nc -zw3 $pgHost $pgPort
   do
     echo "Waiting for postgres to start up ..."
     sleep 1
   done
 
-  while ! nc -zw3 $RSHOST $RSPORT
+  while ! nc -zw3 $rdHost $rdPort
   do
     echo "Waiting for redis to start up ..."
     sleep 1
