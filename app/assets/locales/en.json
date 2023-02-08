@@ -133,7 +133,9 @@
       "add_share_access": "+ Share Access",
       "share_room_access": "Share Room Access",
       "add_some_users": "Time to add some users!",
-      "add_some_users_description": "To add new users, click the button below and search or select the users you want to share this room with."
+      "add_some_users_description": "To add new users, click the button below and search or select the users you want to share this room with.",
+      "delete_shared_access": "Delete Shared Access",
+      "are_you_sure_delete_shared_access": "Are you sure you want to delete this Shared Access?"
     },
     "settings": {
       "settings": "Settings",

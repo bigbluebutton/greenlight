@@ -5,7 +5,7 @@ module Api
     class SharedAccessesController < ApiController
       before_action :find_room
 
-      before_action only: %i[create destroy shareable_users] do
+      before_action only: %i[create shareable_users] do
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
       before_action only: %i[show] do
