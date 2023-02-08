@@ -65,6 +65,12 @@ class User < ApplicationRecord
     all
   end
 
+  def self.name_search(input)
+    return where('users.name ILIKE :input', input: "%#{input}%") if input
+
+    all
+  end
+
   # Verifies the token existence, fetches its user and validates its expiration
   # and invalidates the user token if expired.
 
