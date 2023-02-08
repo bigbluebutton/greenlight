@@ -27,9 +27,6 @@ export default function RoomSettings() {
   const updateMutationWrapper = () => useUpdateRoomSetting(friendlyId);
   const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
 
-  console.log(currentUser)
-  console.log(room)
-
   return (
     <div id="room-settings" className="pt-3">
       <Card className="mx-auto p-4 border-0 shadow-sm">

@@ -52,6 +52,7 @@ class PermissionsChecker
     @current_user.id.to_s == @user_id.to_s
   end
 
+  # return true if the user is trying to access it's own room
   def authorize_manage_rooms
     return false if @friendly_id.blank?
 
@@ -60,6 +61,9 @@ class PermissionsChecker
 
   def authorize_shared_room
     return false if @friendly_id.blank? && @record_id.blank?
+
+    # SharedAccess.joins(:shared_room).find_by(user_id: @current_user.id, 'shared_room.friendly_id': @friendly_id).present?
+      # double check the other method with Recording.. not sure why this exists
 
     @current_user.shared_rooms.exists?(friendly_id: @friendly_id) ||
       @current_user.shared_rooms.exists?(id: Recording.find_by(record_id: @record_id)&.room_id)

@@ -8,7 +8,7 @@ module Api
       before_action only: %i[create shareable_users] do
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
-      before_action only: %i[show] do
+      before_action only: %i[show destroy] do
         ensure_authorized(%w[ManageRooms SharedRoom], friendly_id: params[:friendly_id])
       end
 
