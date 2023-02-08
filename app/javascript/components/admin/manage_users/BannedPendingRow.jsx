@@ -13,11 +13,13 @@ import {
 import Avatar from '../../users/user/Avatar';
 import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
 import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function BannedPendingRow({ user, pendingTable }) {
   const { t } = useTranslation();
   const updateUserStatus = useUpdateUserStatus();
-  const localizedTime = localizeDateTimeString(user?.created_at, user?.language);
+  const currentUser = useAuth();
+  const localizedTime = localizeDateTimeString(currentUser?.created_at, currentUser?.language);
 
   return (
     <tr key={user.id} className="align-middle text-muted border border-2">
