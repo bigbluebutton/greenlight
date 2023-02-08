@@ -19,7 +19,7 @@ export default function BannedPendingRow({ user, pendingTable }) {
   const { t } = useTranslation();
   const updateUserStatus = useUpdateUserStatus();
   const currentUser = useAuth();
-  const localizedTime = localizeDateTimeString(currentUser?.created_at, currentUser?.language);
+  const localizedTime = localizeDateTimeString(user?.created_at, currentUser?.language);
 
   return (
     <tr key={user.id} className="align-middle text-muted border border-2">
