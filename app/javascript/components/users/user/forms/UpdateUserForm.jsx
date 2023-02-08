@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -15,22 +15,38 @@ import useUpdateUserForm from '../../../../hooks/forms/users/user/useUpdateUserF
 import PermissionChecker from '../../../../helpers/PermissionChecker';
 
 export default function UpdateUserForm({ user }) {
-  const currentUser = useAuth();
-  const localesAPI = useLocales();
-  const updateUserAPI = useUpdateUser(user?.id);
   const { t } = useTranslation();
+  const currentUser = useAuth();
+
+  const canUpdateRole = PermissionChecker.hasManageUsers(currentUser);
+  const { data: roles } = useRoles({ enabled: canUpdateRole });
+  const { data: locales } = useLocales();
+  const updateUserAPI = useUpdateUser(user?.id);
+
+  function currentLanguage() {
+    const language = user?.language;
+    const noDialect = language.substring(0, language.indexOf('-'));
+
+    if (locales?.[language] !== undefined) {
+      return language;
+    } if (noDialect !== '' && locales?.[noDialect] !== undefined) {
+      return noDialect;
+    }
+    return 'en';
+  }
+
+  useEffect(() => {
+    methods.setValue('language', currentLanguage());
+  }, [currentLanguage()]);
 
   const { methods, fields, reset } = useUpdateUserForm({
     defaultValues: {
       name: user?.name,
       email: user?.email,
-      language: user?.language,
+      language: currentLanguage(),
       role_id: user?.role?.id,
     },
   });
-
-  const canUpdateRole = PermissionChecker.hasManageUsers(currentUser);
-  const rolesAPI = useRoles({ enabled: canUpdateRole });
 
   return (
     <Form methods={methods} onSubmit={updateUserAPI.mutate}>
@@ -38,13 +54,13 @@ export default function UpdateUserForm({ user }) {
       <FormControl field={fields.email} type="email" readOnly />
       <FormSelect field={fields.language} variant="dropdown">
         {
-          Object.keys(localesAPI.data || {}).map((code) => <Option key={code} value={code}>{localesAPI.data[code]}</Option>)
+          Object.keys(locales || {}).map((code) => <Option key={code} value={code}>{locales[code]}</Option>)
         }
       </FormSelect>
-      {(canUpdateRole && rolesAPI.data) && (
+      {(canUpdateRole && roles) && (
         <FormSelect field={fields.role_id} variant="dropdown">
           {
-            rolesAPI.data.map((role) => <Option key={role.id} value={role.id}>{role.name}</Option>)
+            roles.map((role) => <Option key={role.id} value={role.id}>{role.name}</Option>)
           }
         </FormSelect>
       )}
