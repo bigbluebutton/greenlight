@@ -35,10 +35,6 @@ export default function UpdateUserForm({ user }) {
     return 'en';
   }
 
-  useEffect(() => {
-    methods.setValue('language', currentLanguage());
-  }, [currentLanguage()]);
-
   const { methods, fields, reset } = useUpdateUserForm({
     defaultValues: {
       name: user?.name,
@@ -47,6 +43,10 @@ export default function UpdateUserForm({ user }) {
       role_id: user?.role?.id,
     },
   });
+
+  useEffect(() => {
+    methods.setValue('language', currentLanguage());
+  }, [currentLanguage()]);
 
   return (
     <Form methods={methods} onSubmit={updateUserAPI.mutate}>
