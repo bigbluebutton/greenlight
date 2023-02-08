@@ -1,71 +1,23 @@
-# README
+<img width="1012" alt="bbb-greenlight-banner" src="https://user-images.githubusercontent.com/1273169/141143584-684766cf-8633-4d66-b35e-f134a368e4c8.png">
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Greenlight
 
-Things you may want to cover:
+![Docker Pulls](https://img.shields.io/docker/pulls/bigbluebutton/greenlight.svg)
 
-* Ruby version
+Greenlight is an open-source, LGPL-3.0 licensed web application that allows organizations to quickly set up a complete web conferencing platform using their existing BigBlueButton server. It is user-friendly for both regular and advanced users.
 
-Install Ruby 3.1.0
+Greenlight v3, the latest version, is constructed with the cutting-edge versions of Ruby on Rails and React - a robust technology stack adopted by millions of projects and trusted by major corporations worldwide.
 
-* System dependencies
+Interested? Try Greenlight v3 out on our [demo server](https://demo.bigbluebutton.org/)!
 
-```
-bundle install
-```
+## Installation
 
-* Configuration
+To install and configure Greenlight v3, please follow the instructions [here](https://docs.bigbluebutton.org/greenlight_v3/gl3-install.html).
 
-Initialize environment variables (DATABASE_URL, BIGBLUEBUTTON_SECRET and BIGBLUEBUTTON_ENDPOINT, PORT is optional)
+## Source Code & Contributing
 
-```
-cp dotenv .env
-```
+We invite you to build upon Greenlight and help make it better. See [Contributing to BigBlueButton](http://docs.bigbluebutton.org/support/faq.html#contributing-to-bigbluebutton).
 
+We invite your feedback, questions, and suggests about Greenlight too. Please post them to the [Greenlight mailing list](https://groups.google.com/forum/#!forum/bigbluebutton-greenlight).
 
-* Database creation
-
-```
-rake db:create
-rake db:migrate:with_data
-```
-
-* Database initialization
-
-```
-rake db:seed
-```
-
-* How to run the test suite
-
-```
-./bin/start
-```
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Install Ruby 3.1.0
-
-bundle install
-cp dotenv .env
-
-Set DATABASE_URL, BIGBLUEBUTTON_SECRET and BIGBLUEBUTTON_ENDPOINT
-
-rake db:create
-rake db:migrate:with_data
-
-./bin/start
-
-
-For production
-
-RAILS_ENV=production
-RAILS_SERVE_STATIC_FILES=true
-
-rake assets:precompile
+To help with organization and consistency, we have implemented a Pull Request template that must be used for all Pull Requests. This template helps ensure that the project maintainers can review all PRs in a timely manner. When creating a Pull Request, please provide as much information as possible.
