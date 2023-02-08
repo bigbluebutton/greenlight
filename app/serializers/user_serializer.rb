@@ -7,6 +7,10 @@ class UserSerializer < ApplicationSerializer
 
   belongs_to :role
 
+  def language
+    object.language.tr('_', '-')
+  end
+
   def avatar
     user_avatar(object)
   end
