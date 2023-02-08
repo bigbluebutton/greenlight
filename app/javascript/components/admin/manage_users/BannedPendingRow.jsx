@@ -12,10 +12,14 @@ import {
 } from '@heroicons/react/24/outline';
 import Avatar from '../../users/user/Avatar';
 import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
+import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function BannedPendingRow({ user, pendingTable }) {
   const { t } = useTranslation();
   const updateUserStatus = useUpdateUserStatus();
+  const currentUser = useAuth();
+  const localizedTime = localizeDateTimeString(user?.created_at, currentUser?.language);
 
   return (
     <tr key={user.id} className="align-middle text-muted border border-2">
@@ -26,13 +30,12 @@ export default function BannedPendingRow({ user, pendingTable }) {
           </div>
           <Stack>
             <span className="text-dark fw-bold"> {user.name} </span>
-            <span className="small"> { t('admin.manage_users.user_created_at', { user }) }</span>
+            <span className="small"> { localizedTime }</span>
           </Stack>
         </Stack>
       </td>
 
       <td className="border-0"> {user.email} </td>
-      <td className="border-0"> {user.created_at} </td>
       <td className="border-start-0">
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
@@ -68,6 +71,7 @@ BannedPendingRow.propTypes = {
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
   }).isRequired,
   pendingTable: PropTypes.bool.isRequired,
 };

@@ -23,7 +23,6 @@ export default function BannedPendingUsersTable({ users, pendingTable }) {
           <tr className="text-muted small">
             <th className="fw-normal border-end-0">{ t('user.name') } </th>
             <th className="fw-normal border-0">{ t('user.email_address') } </th>
-            <th className="fw-normal border-0">{ t('created_at') } </th>
           </tr>
         </thead>
         <tbody className="border-top-0">

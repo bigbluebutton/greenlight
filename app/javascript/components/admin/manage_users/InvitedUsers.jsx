@@ -8,11 +8,14 @@ import useInvitations from '../../../hooks/queries/admin/manage_users/useInvitat
 import Pagination from '../../shared_components/Pagination';
 import NoSearchResults from '../../shared_components/search/NoSearchResults';
 import EmptyUsersList from './EmptyUsersList';
+import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function InvitedUsers({ searchInput }) {
   const { t } = useTranslation();
   const [page, setPage] = useState();
   const { data: invitations } = useInvitations(searchInput, page);
+  const currentUser = useAuth();
 
   if (!searchInput && invitations?.data?.length === 0) {
     return <EmptyUsersList text={t('admin.manage_users.empty_invited_users')} subtext={t('admin.manage_users.empty_invited_users_subtext')} />;
@@ -42,7 +45,7 @@ export default function InvitedUsers({ searchInput }) {
                     invitations?.data?.map((invitation) => (
                       <tr key={invitation.email} className="align-middle text-muted">
                         <td className="text-dark border-0">{invitation.email}</td>
-                        <td className="text-dark border-0">{invitation.updated_at}</td>
+                        <td className="text-dark border-0">{localizeDateTimeString(invitation.updated_at, currentUser?.language)}</td>
                         <td className="text-dark border-0">
                           { invitation.valid ? <CheckIcon className="text-success hi-s" /> : <XMarkIcon className="text-danger hi-s" />}
                         </td>
