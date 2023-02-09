@@ -29,8 +29,6 @@ RUN apk add --no-cache \
     libxslt-dev \
     pkgconf \
     postgresql-dev \
-    sqlite-libs \
-    sqlite-dev \
     ruby-dev \
     nodejs npm \
     yarn \
