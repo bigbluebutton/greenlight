@@ -1,4 +1,4 @@
-FROM alpine:3.16 AS alpine
+FROM alpine:3.17 AS alpine
 
 ARG RAILS_ROOT=/usr/src/app
 ENV RAILS_ROOT=${RAILS_ROOT}
@@ -40,7 +40,6 @@ RUN apk add --no-cache \
 COPY . ./
 RUN bundle install -j4 \
     && yarn install \
-    && ./node_modules/.bin/esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds
 
 ARG RAILS_ENV
 ENV RAILS_ENV=${RAILS_ENV:-production}

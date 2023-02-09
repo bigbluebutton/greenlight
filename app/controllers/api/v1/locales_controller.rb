@@ -12,7 +12,7 @@ module Api
         language_with_name = Rails.cache.fetch('locales/list', expires_in: 24.hours) do
           language_hash = {}
 
-          languages = Dir.entries(Rails.root.join('app/assets/locales')).select { |file_name| file_name.ends_with?('.json') }
+          languages = Rails.root.join('app/assets/locales').entries.select { |file_name| file_name.ends_with?('.json') }
           language_list = I18n::Language::Mapping.language_mapping_list
 
           languages.each do |lang|
