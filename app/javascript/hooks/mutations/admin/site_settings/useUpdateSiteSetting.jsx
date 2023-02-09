@@ -33,7 +33,7 @@ export default function useUpdateSiteSetting(name) {
     return axios.patch(`/admin/site_settings/${name}.json`, settings);
   };
 
-  const toastSuccess = () => {
+  const handleSuccess = () => {
     switch (name) {
       case 'PrimaryColor':
         // Prevents 2 toasts from showing up when updating the primary color - which also updates the lighten color
@@ -55,7 +55,7 @@ export default function useUpdateSiteSetting(name) {
     }
   };
 
-  const toastError = (error) => {
+  const handleError = (error) => {
     switch (error.message) {
       case 'fileSizeTooLarge':
         toast.error(t('toast.error.file_size_too_large'));
@@ -74,10 +74,10 @@ export default function useUpdateSiteSetting(name) {
       onSuccess: () => {
         queryClient.invalidateQueries(['getSiteSettings', name]);
         queryClient.invalidateQueries('getSiteSettings');
-        toastSuccess();
+        handleSuccess();
       },
       onError: (error) => {
-        toastError(error);
+        handleError(error);
       },
     },
   );
