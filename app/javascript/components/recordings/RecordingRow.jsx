@@ -33,6 +33,9 @@ export default function RecordingRow({
   const [isUpdating, setIsUpdating] = useState(false);
   const currentUser = useAuth();
   const localizedTime = localizeDateTimeString(recording?.created_at, currentUser?.language);
+  const formats = recording.formats.sort(
+    (a, b) => (a.recording_type.toLowerCase() > b.recording_type.toLowerCase() ? 1 : -1),
+  );
 
   return (
     <tr key={recording.id} className="align-middle text-muted border border-2">
@@ -93,7 +96,7 @@ export default function RecordingRow({
         </Form.Select>
       </td>
       <td className="border-0">
-        {recording.formats.map((format) => (
+        {formats.map((format) => (
           <Button
             onClick={() => window.open(format.url, '_blank')}
             className={`btn-sm rounded-pill me-1 mt-1 border-0 btn-format-${format.recording_type.toLowerCase()}`}
