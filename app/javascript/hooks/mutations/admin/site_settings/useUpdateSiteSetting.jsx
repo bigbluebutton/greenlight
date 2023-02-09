@@ -13,9 +13,9 @@ export default function useUpdateSiteSetting(name) {
     const SUPPORTED_FORMATS = 'image/jpeg|image/png|image/svg';
 
     if (image.size > FILE_SIZE) {
-      throw new Error(t('toast.error.file_type_not_supported'));
+      throw new Error('fileSizeTooLarge');
     } else if (!image.type.match(SUPPORTED_FORMATS)) {
-      throw new Error(t('toast.error.file_size_too_large'));
+      throw new Error('fileTypeNotSupported');
     }
   };
 
@@ -55,6 +55,19 @@ export default function useUpdateSiteSetting(name) {
     }
   };
 
+  const toastError = (error) => {
+    switch (error.message) {
+      case 'fileSizeTooLarge':
+        toast.error(t('toast.error.file_size_too_large'));
+        break;
+      case 'fileTypeNotSupported':
+        toast.error(t('toast.error.file_type_not_supported'));
+        break;
+      default:
+        toast.error(t('toast.error.problem_completing_action'));
+    }
+  };
+
   return useMutation(
     uploadPresentation,
     {
@@ -63,8 +76,8 @@ export default function useUpdateSiteSetting(name) {
         queryClient.invalidateQueries('getSiteSettings');
         toastSuccess();
       },
-      onError: () => {
-        toast.error(t('toast.error.problem_completing_action'));
+      onError: (error) => {
+        toastError(error);
       },
     },
   );
