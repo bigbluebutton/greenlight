@@ -2,14 +2,16 @@ import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
+import { fileValidation, handleError } from '../../../helpers/FileValidationHelper';
 
 export default function useUploadPresentation(friendlyId) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const uploadPresentation = (data) => {
+  const uploadPresentation = (presentation) => {
+    fileValidation(presentation, 'presentation');
     const formData = new FormData();
-    formData.append('room[presentation]', data);
+    formData.append('room[presentation]', presentation);
     return axios.patch(`/rooms/${friendlyId}.json`, formData);
   };
 
@@ -18,8 +20,8 @@ export default function useUploadPresentation(friendlyId) {
       queryClient.invalidateQueries(['getRoom', { friendlyId }]);
       toast.success(t('toast.success.room.presentation_updated'));
     },
-    onError: () => {
-      toast.error(t('toast.error.problem_completing_action'));
+    onError: (error) => {
+      handleError(error, t, toast);
     },
   });
 
