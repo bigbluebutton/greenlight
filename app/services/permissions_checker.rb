@@ -62,8 +62,7 @@ class PermissionsChecker
   def authorize_shared_room
     return false if @friendly_id.blank? && @record_id.blank?
 
-    SharedAccess.joins(:shared_room).find_by(user_id: @current_user.id, 'shared_room.friendly_id': @friendly_id).present? ||
-      # allow shared user to access shared rooms
+    @current_user.shared_rooms.exists?(friendly_id: @friendly_id) ||
       @current_user.shared_rooms.exists?(id: Recording.find_by(record_id: @record_id)&.room_id)
   end
 

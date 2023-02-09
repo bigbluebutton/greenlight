@@ -3,17 +3,13 @@ import { Button, Stack } from 'react-bootstrap';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import useDeleteSharedAccess from '../../../../hooks/mutations/shared_accesses/useDeleteSharedAccess';
+import useUnshareRoom from '../../../../hooks/mutations/shared_accesses/useUnshareRoom';
 import Spinner from '../../../shared_components/utilities/Spinner';
-import { useAuth } from '../../../../contexts/auth/AuthProvider';
 
-export default function DeleteSharedAccess({ userId, roomFriendlyId, handleClose }) {
+export default function UnshareRoom({ userId, roomFriendlyId, handleClose }) {
   const { t } = useTranslation();
-  const currentUser = useAuth();
 
-  // User needs to be redirected if they are deleting their own access to the room, unless they are an admin
-  const redirect = currentUser?.id === userId && currentUser?.permissions?.ManageRooms === 'false';
-  const deleteSharedAccess = useDeleteSharedAccess(roomFriendlyId, redirect);
+  const deleteSharedAccess = useUnshareRoom(roomFriendlyId);
 
   const handleDelete = () => {
     deleteSharedAccess.mutate({ user_id: userId });
@@ -43,7 +39,7 @@ export default function DeleteSharedAccess({ userId, roomFriendlyId, handleClose
   );
 }
 
-DeleteSharedAccess.propTypes = {
+UnshareRoom.propTypes = {
   userId: PropTypes.string.isRequired,
   roomFriendlyId: PropTypes.string.isRequired,
   handleClose: PropTypes.func.isRequired,

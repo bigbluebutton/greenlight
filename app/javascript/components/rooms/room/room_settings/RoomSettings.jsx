@@ -16,7 +16,7 @@ import useUpdateRoomSetting from '../../../../hooks/mutations/room_settings/useU
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import UpdateRoomNameForm from './forms/UpdateRoomNameForm';
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
-import DeleteSharedAccess from './DeleteSharedAccess';
+import UnshareRoom from './UnshareRoom';
 
 export default function RoomSettings() {
   const { t } = useTranslation();
@@ -110,7 +110,7 @@ export default function RoomSettings() {
                             >{t('room.shared_access.delete_shared_access')}
                             </Button>
                           )}
-                          body={<DeleteSharedAccess userId={currentUser.id} roomFriendlyId={friendlyId} />}
+                          body={<UnshareRoom userId={currentUser.id} roomFriendlyId={friendlyId} />}
                         />
                       )
                   }
