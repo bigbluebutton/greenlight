@@ -84,19 +84,6 @@ export default function SetAvatar({ user }) {
     }
   };
 
-  // const handleError = (error) => {
-  //     switch (error.message) {
-  //     case 'fileSizeTooLarge':
-  //       toast.error(t('toast.error.avatar.file_size_too_large'));
-  //       break;
-  //     case 'fileTypeNotSupported':
-  //       toast.error(t('toast.error.avatar.file_type_not_supported'));
-  //       break;
-  //     default:
-  //       toast.error(t('toast.error.avatar.upload_error'));
-  //   }
-  // }
-
   return (
     <div id="profile-avatar" className="mt-5 d-block ms-auto me-auto">
       <Stack direction="vertical" gap={2}>
