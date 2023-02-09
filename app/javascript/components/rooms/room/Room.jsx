@@ -22,7 +22,7 @@ export default function Room() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
   const {
-    isLoading, isError, data: room, error,
+    isLoading: isRoomLoading, isError, data: room, error,
   } = useRoom(friendlyId);
   const startMeeting = useStartMeeting(friendlyId);
   const currentUser = useAuth();
@@ -52,7 +52,7 @@ export default function Room() {
         <Row className="py-5">
           <Col className="col-xxl-8">
             {
-                isLoading
+                isRoomLoading
                   ? (
                     <RoomNamePlaceHolder />
                   ) : (
@@ -91,7 +91,7 @@ export default function Room() {
         </Row>
       </div>
 
-      <FeatureTabs shared={room?.shared} />
+      <FeatureTabs shared={room?.shared} isRoomLoading={isRoomLoading} />
     </>
   );
 }

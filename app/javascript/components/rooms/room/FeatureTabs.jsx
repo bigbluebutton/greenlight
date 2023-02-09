@@ -9,12 +9,12 @@ import { useAuth } from '../../../contexts/auth/AuthProvider';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
 import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
 
-export default function FeatureTabs({ shared }) {
+export default function FeatureTabs({ shared, isRoomLoading }) {
   const { t } = useTranslation();
   const { isLoading, data: settings } = useSiteSetting(['PreuploadPresentation', 'ShareRooms']);
   const currentUser = useAuth();
 
-  if (isLoading) {
+  if (isLoading || isRoomLoading) {
     return (
       <div className="wide-white pt-4 pb-2 mx-0">
         <Placeholder className="ps-0" animation="glow">
@@ -24,17 +24,6 @@ export default function FeatureTabs({ shared }) {
           <Placeholder xs={1} size="lg" className="mx-2" />
         </Placeholder>
       </div>
-    );
-  }
-
-  // Returns only the Recording tab if the room is a Shared Room and the User does not have the ManageRoom permission
-  if (shared && !currentUser?.permissions?.ManageRooms) {
-    return (
-      <Tabs className="wide-white pt-4 mx-0" defaultActiveKey="recordings" unmountOnExit>
-        <Tab className="background-whitesmoke" eventKey="recordings" title={t('recording.recording')}>
-          <RoomRecordings />
-        </Tab>
-      </Tabs>
     );
   }
 
@@ -49,7 +38,7 @@ export default function FeatureTabs({ shared }) {
             <Presentation />
           </Tab>
         )}
-      {settings?.ShareRooms
+      {(settings?.ShareRooms && (!shared || currentUser?.permissions?.ManageRooms === 'true'))
         && (
           <Tab className="background-whitesmoke" eventKey="access" title={t('room.shared_access.access')}>
             <SharedAccess />
@@ -68,4 +57,5 @@ FeatureTabs.defaultProps = {
 
 FeatureTabs.propTypes = {
   shared: PropTypes.bool,
+  isRoomLoading: PropTypes.bool.isRequired,
 };

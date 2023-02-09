@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       resources :shared_accesses, only: %i[create show destroy], param: :friendly_id do
         member do
           get '/shareable_users', to: 'shared_accesses#shareable_users'
+          post '/unshare_room', to: 'shared_accesses#unshare_room'
         end
       end
       resources :env, only: :index

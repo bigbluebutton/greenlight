@@ -39,8 +39,12 @@ export default function UnshareRoom({ userId, roomFriendlyId, handleClose }) {
   );
 }
 
+UnshareRoom.defaultProps = {
+  handleClose: () => {},
+};
+
 UnshareRoom.propTypes = {
   userId: PropTypes.string.isRequired,
   roomFriendlyId: PropTypes.string.isRequired,
-  handleClose: PropTypes.func.isRequired,
+  handleClose: PropTypes.func,
 };
