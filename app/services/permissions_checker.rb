@@ -52,7 +52,6 @@ class PermissionsChecker
     @current_user.id.to_s == @user_id.to_s
   end
 
-  # return true if the user is trying to access it's own room
   def authorize_manage_rooms
     return false if @friendly_id.blank?
 
