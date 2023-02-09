@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import AvatarEditor from 'react-avatar-editor';
 import { PhotoIcon, FolderPlusIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import DeleteAvatarForm from './forms/DeleteAvatarForm';
 import Avatar from './Avatar';
 import useCreateAvatar from '../../../hooks/mutations/users/useCreateAvatar';
@@ -34,11 +35,40 @@ export default function SetAvatar({ user }) {
     setShow(false);
   };
 
+  const imageValidation = (image) => {
+    const FILE_SIZE = 3_000_000;
+    const SUPPORTED_FORMATS = 'image/jpeg|image/png|image/svg';
+
+    if (image.size > FILE_SIZE) {
+      throw new Error('fileSizeTooLarge');
+    } else if (!image.type.match(SUPPORTED_FORMATS)) {
+      throw new Error('fileTypeNotSupported');
+    }
+  };
+
+  const handleError = (error) => {
+    switch (error.message) {
+      case 'fileSizeTooLarge':
+        toast.error(t('toast.error.file_size_too_large'));
+        break;
+      case 'fileTypeNotSupported':
+        toast.error(t('toast.error.file_type_not_supported'));
+        break;
+      default:
+        toast.error(t('toast.error.file_upload_error'));
+    }
+  };
+
   const handleNewAvatar = (e) => {
-    const { files } = e.target;
-    if (files.length > 0) {
-      handleShow();
-      setAvatar(e.target.files[0]);
+    try {
+      imageValidation(e.target.files[0]);
+      const { files } = e.target;
+      if (files.length > 0) {
+        handleShow();
+        setAvatar(e.target.files[0]);
+      }
+    } catch (error) {
+      handleError(error);
     }
   };
 
@@ -53,6 +83,19 @@ export default function SetAvatar({ user }) {
       handleClose();
     }
   };
+
+  // const handleError = (error) => {
+  //     switch (error.message) {
+  //     case 'fileSizeTooLarge':
+  //       toast.error(t('toast.error.avatar.file_size_too_large'));
+  //       break;
+  //     case 'fileTypeNotSupported':
+  //       toast.error(t('toast.error.avatar.file_type_not_supported'));
+  //       break;
+  //     default:
+  //       toast.error(t('toast.error.avatar.upload_error'));
+  //   }
+  // }
 
   return (
     <div id="profile-avatar" className="mt-5 d-block ms-auto me-auto">
