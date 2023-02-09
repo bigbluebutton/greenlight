@@ -89,3 +89,6 @@ Rails/Output:
   Exclude:
     - 'lib/tasks/task_helpers.rb'
 
+Rails/RootPathnameMethods:
+  Enabled: false
+
