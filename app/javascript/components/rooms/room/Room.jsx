@@ -91,7 +91,7 @@ export default function Room() {
         </Row>
       </div>
 
-      <FeatureTabs shared={room?.shared} isRoomLoading={isRoomLoading} />
+      <FeatureTabs />
     </>
   );
 }

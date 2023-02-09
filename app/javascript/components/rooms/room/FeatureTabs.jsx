@@ -1,20 +1,24 @@
 import React from 'react';
 import { Tabs, Tab, Placeholder } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 import Presentation from './presentation/Presentation';
 import RoomSettings from './room_settings/RoomSettings';
 import SharedAccess from './shared_access/SharedAccess';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
 import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
+import useRoom from '../../../hooks/queries/rooms/useRoom';
 
-export default function FeatureTabs({ shared, isRoomLoading }) {
+export default function FeatureTabs() {
   const { t } = useTranslation();
   const { isLoading, data: settings } = useSiteSetting(['PreuploadPresentation', 'ShareRooms']);
   const currentUser = useAuth();
 
-  if (isLoading || isRoomLoading) {
+  const { friendlyId } = useParams();
+  const { data: room } = useRoom(friendlyId);
+
+  if (isLoading) {
     return (
       <div className="wide-white pt-4 pb-2 mx-0">
         <Placeholder className="ps-0" animation="glow">
@@ -38,7 +42,7 @@ export default function FeatureTabs({ shared, isRoomLoading }) {
             <Presentation />
           </Tab>
         )}
-      {(settings?.ShareRooms && (!shared || currentUser?.permissions?.ManageRooms === 'true'))
+      {(settings?.ShareRooms && (!room?.shared || currentUser?.permissions?.ManageRooms === 'true'))
         && (
           <Tab className="background-whitesmoke" eventKey="access" title={t('room.shared_access.access')}>
             <SharedAccess />
@@ -50,12 +54,3 @@ export default function FeatureTabs({ shared, isRoomLoading }) {
     </Tabs>
   );
 }
-
-FeatureTabs.defaultProps = {
-  shared: false,
-};
-
-FeatureTabs.propTypes = {
-  shared: PropTypes.bool,
-  isRoomLoading: PropTypes.bool.isRequired,
-};
