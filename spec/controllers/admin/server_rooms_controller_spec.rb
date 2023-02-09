@@ -22,7 +22,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
 
       allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
       get :index
-      expect(JSON.parse(response.body)['data'].map { |room| room['friendly_id'] })
+      expect(JSON.parse(response.body)['data'].pluck('friendly_id'))
         .to match_array(Room.all.pluck(:friendly_id))
     end
 
@@ -42,7 +42,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
 
         allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
         get :index
-        expect(JSON.parse(response.body)['data'].map { |room| room['friendly_id'] })
+        expect(JSON.parse(response.body)['data'].pluck('friendly_id'))
           .to match_array(Room.all.pluck(:friendly_id))
       end
     end

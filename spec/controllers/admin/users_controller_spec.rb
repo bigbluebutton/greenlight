@@ -16,7 +16,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
       users = create_list(:user, 3, status: 'active') + [user, user_with_manage_users_permission]
       get :verified
       expect(response).to have_http_status(:ok)
-      response_user_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
+      response_user_ids = JSON.parse(response.body)['data'].pluck('id')
       expect(response_user_ids).to match_array(users.pluck(:id))
     end
 
@@ -85,7 +85,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
         users = create_list(:user, 3, status: 'active') + [user, user_with_manage_users_permission]
         get :verified
         expect(response).to have_http_status(:ok)
-        response_user_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
+        response_user_ids = JSON.parse(response.body)['data'].pluck('id')
         expect(response_user_ids).to match_array(users.pluck(:id))
       end
 
@@ -93,7 +93,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
         users = create_list(:user, 3, status: 'pending')
         get :pending
         expect(response).to have_http_status(:ok)
-        response_user_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
+        response_user_ids = JSON.parse(response.body)['data'].pluck('id')
         expect(response_user_ids).to match_array(users.pluck(:id))
       end
 
@@ -101,7 +101,7 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
         users = create_list(:user, 3, status: 'banned')
         get :banned
         expect(response).to have_http_status(:ok)
-        response_user_ids = JSON.parse(response.body)['data'].map { |user| user['id'] }
+        response_user_ids = JSON.parse(response.body)['data'].pluck('id')
         expect(response_user_ids).to match_array(users.pluck(:id))
       end
     end

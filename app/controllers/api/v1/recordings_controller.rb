@@ -23,17 +23,6 @@ module Api
         render_data data: recordings, meta: pagy_metadata(pagy), status: :ok
       end
 
-      # DELETE /api/v1/recordings/:id.json
-      # Deletes a recording in both BigBlueButton and Greenlight
-      def destroy
-        # TODO: Hadi - Need to change this to work preferably with after_destroy in recordings model
-        BigBlueButtonApi.new.delete_recordings(record_ids: params[:id])
-
-        Recording.destroy_by(record_id: params[:id])
-
-        render_data status: :ok
-      end
-
       # PUT/PATCH /api/v1/recordings/:id.json
       # Updates a recording's name in both BigBlueButton and Greenlight
       def update
@@ -44,6 +33,17 @@ module Api
         @recording.update! name: new_name
 
         render_data data: @recording, status: :ok
+      end
+
+      # DELETE /api/v1/recordings/:id.json
+      # Deletes a recording in both BigBlueButton and Greenlight
+      def destroy
+        # TODO: Hadi - Need to change this to work preferably with after_destroy in recordings model
+        BigBlueButtonApi.new.delete_recordings(record_ids: params[:id])
+
+        Recording.destroy_by(record_id: params[:id])
+
+        render_data status: :ok
       end
 
       # POST /api/v1/recordings/update_visibility.json

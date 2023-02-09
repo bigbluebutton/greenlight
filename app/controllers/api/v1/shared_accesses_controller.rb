@@ -12,6 +12,12 @@ module Api
         ensure_authorized(%w[ManageRooms SharedRoom], friendly_id: params[:friendly_id])
       end
 
+      # GET /api/v1/shared_accesses/:friendly_id.json
+      # Returns a list of all of the room's shared users
+      def show
+        render_data data: @room.shared_users.search(params[:search]), serializer: SharedAccessSerializer, status: :ok
+      end
+
       # POST /api/v1/shared_accesses.json
       # Shares the room with all of the specified users
       def create
@@ -30,12 +36,6 @@ module Api
         SharedAccess.delete_by(user_id: params[:user_id], room_id: @room.id)
 
         render_data status: :ok
-      end
-
-      # GET /api/v1/shared_accesses/:friendly_id.json
-      # Returns a list of all of the room's shared users
-      def show
-        render_data data: @room.shared_users.search(params[:search]), serializer: SharedAccessSerializer, status: :ok
       end
 
       # GET /api/v1/shared_accesses/friendly_id/shareable_users.json

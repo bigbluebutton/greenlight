@@ -19,14 +19,14 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       rooms = create_list(:room, 3, user:) + shared_rooms
       get :index
       expect(response).to have_http_status(:ok)
-      response_room_ids = JSON.parse(response.body)['data'].map { |room| room['id'] }
+      response_room_ids = JSON.parse(response.body)['data'].pluck('id')
       expect(response_room_ids).to match_array(rooms.pluck(:id))
     end
 
     it 'no rooms for current_user should return empty list' do
       get :index
       expect(response).to have_http_status(:ok)
-      response_room_ids = JSON.parse(response.body)['data'].map { |room| room['id'] }
+      response_room_ids = JSON.parse(response.body)['data'].pluck('id')
       expect(response_room_ids).to be_empty
     end
 
@@ -283,7 +283,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       recordings = create_list(:recording, 5, room: room1)
       create_list(:recording, 5, room: room2)
       get :recordings, params: { friendly_id: room1.friendly_id }
-      recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      recording_ids = JSON.parse(response.body)['data'].pluck('id')
       expect(response).to have_http_status(:ok)
       expect(recording_ids).to match_array(recordings.pluck(:id))
     end
@@ -291,7 +291,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     it 'returns an empty array if the room has no recordings' do
       room1 = create(:room, user:, friendly_id: 'friendly_id_1')
       get :recordings, params: { friendly_id: room1.friendly_id }
-      recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      recording_ids = JSON.parse(response.body)['data'].pluck('id')
       expect(response).to have_http_status(:ok)
       expect(recording_ids).to be_empty
     end
@@ -306,7 +306,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       get :recordings, params: { friendly_id: room.friendly_id }
 
-      recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      recording_ids = JSON.parse(response.body)['data'].pluck('id')
       expect(response).to have_http_status(:ok)
       expect(recording_ids).to match_array(recordings.pluck(:id))
     end

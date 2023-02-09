@@ -24,7 +24,7 @@ class MeetingStarter
 
     retries = 0
     begin
-      meeting = BigBlueButtonApi.new.start_meeting room: @room, options: options, presentation_url: presentation_url
+      meeting = BigBlueButtonApi.new.start_meeting(room: @room, options:, presentation_url:)
 
       @room.update!(online: true, last_session: DateTime.strptime(meeting[:createTime].to_s, '%Q'))
 

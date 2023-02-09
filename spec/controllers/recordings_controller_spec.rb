@@ -18,7 +18,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       get :index
 
       expect(response).to have_http_status(:ok)
-      response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      response_recording_ids = JSON.parse(response.body)['data'].pluck('id')
       expect(response_recording_ids).to match_array(recordings.pluck(:id))
     end
 
@@ -40,7 +40,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       create_list(:recording, 10)
 
       get :index, params: { search: 'greenlight' }
-      response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      response_recording_ids = JSON.parse(response.body)['data'].pluck('id')
       expect(response_recording_ids).to match_array(recordings.pluck(:id))
     end
 
@@ -54,7 +54,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       create_list(:recording, 10)
 
       get :index, params: { search: 'presentation' }
-      response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      response_recording_ids = JSON.parse(response.body)['data'].pluck('id')
       expect(response_recording_ids).to match_array(recordings.pluck(:id))
     end
 
@@ -68,7 +68,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       create_list(:recording, 10)
 
       get :index, params: { search: 'unpublished' }
-      response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      response_recording_ids = JSON.parse(response.body)['data'].pluck('id')
       expect(response_recording_ids).to match_array(recordings.pluck(:id))
     end
 
@@ -77,7 +77,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       create(:room, user:, recordings:)
 
       get :index, params: { search: '' }
-      response_recording_ids = JSON.parse(response.body)['data'].map { |recording| recording['id'] }
+      response_recording_ids = JSON.parse(response.body)['data'].pluck('id')
       expect(response_recording_ids).to match_array(recordings.pluck(:id))
     end
 

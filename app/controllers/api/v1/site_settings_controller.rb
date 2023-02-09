@@ -29,7 +29,7 @@ module Api
       # Prevents front-end from accessing sensitive site settings
       def forbidden_settings(names)
         # Check if the 2 arrays have any values in common
-        !(Array(names) & FORBIDDEN_SETTINGS).empty?
+        !!Array(names).intersect?(FORBIDDEN_SETTINGS)
       end
     end
   end

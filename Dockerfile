@@ -1,4 +1,4 @@
-FROM alpine:3.16 AS alpine
+FROM alpine:3.17 AS alpine
 
 ARG RAILS_ROOT=/usr/src/app
 ENV RAILS_ROOT=${RAILS_ROOT}
@@ -29,8 +29,6 @@ RUN apk add --no-cache \
     libxslt-dev \
     pkgconf \
     postgresql-dev \
-    sqlite-libs \
-    sqlite-dev \
     ruby-dev \
     nodejs npm \
     yarn \
