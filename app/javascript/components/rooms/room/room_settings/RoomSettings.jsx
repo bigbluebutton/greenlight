@@ -1,5 +1,7 @@
 import React from 'react';
-import { Row, Col, Button, Stack } from 'react-bootstrap';
+import {
+  Row, Col, Button, Stack,
+} from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import { useTranslation } from 'react-i18next';

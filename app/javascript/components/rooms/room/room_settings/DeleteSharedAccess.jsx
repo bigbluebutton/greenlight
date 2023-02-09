@@ -15,8 +15,6 @@ export default function DeleteSharedAccess({ userId, roomFriendlyId, handleClose
   const redirect = currentUser?.id === userId && currentUser?.permissions?.ManageRooms === 'false';
   const deleteSharedAccess = useDeleteSharedAccess(roomFriendlyId, redirect);
 
-  console.log(currentUser)
-
   const handleDelete = () => {
     deleteSharedAccess.mutate({ user_id: userId });
     handleClose();
