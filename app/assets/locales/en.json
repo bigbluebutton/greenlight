@@ -66,7 +66,7 @@
     "full_name": "Full Name",
     "no_user_found": "No user found",
     "type_three_characters": "Please type three (3) characters or more to show the other users.",
-    "search_not_found": "No Users found",
+    "search_not_found": "No Users Found",
     "profile": {
       "profile": "Profile",
       "language": "Language",
@@ -110,7 +110,7 @@
     "shared_by": "shared by ",
     "last_session": "Last Session: {{ room.last_session }}",
     "no_last_session": "No previous session created",
-    "search_not_found": "No Rooms found",
+    "search_not_found": "No Rooms Found",
     "rooms_list_is_empty": "You don't have any rooms yet!",
     "rooms_list_empty_create_room": "Create your first room by clicking on the button below and entering a room name.",
     "meeting": {
@@ -175,7 +175,7 @@
     "recordings_list_empty_description": "Recordings will appear here after you start a meeting and record it.",
     "delete_recording": "Delete Recording",
     "are_you_sure_delete_recording": "Are you sure you want to delete this recording?",
-    "search_not_found": "No Recordings found"
+    "search_not_found": "No Recordings Found"
   },
   "admin": {
     "admin_panel": "Administrator Panel",
@@ -328,7 +328,7 @@
       "create_role": "Create Role",
       "create_new_role": "Create a new role",
       "no_role_found": "No role found.",
-      "search_not_found": "No Roles found",
+      "search_not_found": "No Roles Found",
       "edit": {
         "create_room": "Allow users with this role to create rooms",
         "record": "Allow users with this role to record their meetings",
