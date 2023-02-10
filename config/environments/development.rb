@@ -48,9 +48,9 @@ Rails.application.configure do
       user_name: ENV.fetch('SMTP_USERNAME', nil),
       password: ENV.fetch('SMTP_PASSWORD', nil),
       authentication: ENV.fetch('SMTP_AUTH', nil),
-      enable_starttls_auto: ENV.fetch('SMTP_STARTTLS_AUTO', true),
-      enable_starttls: ENV.fetch('SMTP_STARTTLS', false),
-      tls: ENV.fetch('SMTP_TLS', 'false') != 'false',
+      enable_starttls_auto: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS_AUTO', 'true')),
+      enable_starttls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS', 'false')),
+      tls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_TLS', 'false')),
       openssl_verify_mode: ENV.fetch('SMTP_SSL_VERIFY', 'true') == 'false' ? OpenSSL::SSL::VERIFY_NONE : OpenSSL::SSL::VERIFY_PEER
     }
     config.action_mailer.default_options = {
