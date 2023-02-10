@@ -21,7 +21,7 @@ export default function BannedUsers({ searchInput }) {
           </div>
         ) : (
           <div>
-            <BannedPendingUsersTable users={bannedUsers?.data} pendingTable={false} />
+            <BannedPendingUsersTable users={bannedUsers?.data} pendingTable={false} isLoading={isLoading} />
             {!isLoading
         && (
           <Pagination

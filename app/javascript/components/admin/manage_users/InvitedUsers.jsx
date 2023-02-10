@@ -10,11 +10,12 @@ import NoSearchResults from '../../shared_components/search/NoSearchResults';
 import EmptyUsersList from './EmptyUsersList';
 import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
+import ManageUsersInvitedRowPlaceHolder from './ManageUsersInvitedRowPlaceHolder';
 
 export default function InvitedUsers({ searchInput }) {
   const { t } = useTranslation();
   const [page, setPage] = useState();
-  const { data: invitations } = useInvitations(searchInput, page);
+  const { isLoading, data: invitations } = useInvitations(searchInput, page);
   const currentUser = useAuth();
 
   if (!searchInput && invitations?.data?.length === 0) {
@@ -24,7 +25,7 @@ export default function InvitedUsers({ searchInput }) {
   return (
     <div>
       {
-      (searchInput && invitations?.data.length === 0)
+      (!isLoading && searchInput && invitations?.data.length === 0)
         ? (
           <div className="mt-5">
             <NoSearchResults text={t('user.search_not_found')} searchInput={searchInput} />
@@ -40,18 +41,27 @@ export default function InvitedUsers({ searchInput }) {
                 </tr>
               </thead>
               <tbody className="border-top-0">
-                {invitations?.data?.length
-                  && (
-                    invitations?.data?.map((invitation) => (
-                      <tr key={invitation.email} className="align-middle text-muted">
-                        <td className="text-dark border-0">{invitation.email}</td>
-                        <td className="text-dark border-0">{localizeDateTimeString(invitation.updated_at, currentUser?.language)}</td>
-                        <td className="text-dark border-0">
-                          { invitation.valid ? <CheckIcon className="text-success hi-s" /> : <XMarkIcon className="text-danger hi-s" />}
-                        </td>
-                      </tr>
-                    ))
-                  )}
+                {
+                isLoading
+                  ? (
+                  // eslint-disable-next-line react/no-array-index-key
+                    [...Array(5)].map((val, idx) => <ManageUsersInvitedRowPlaceHolder key={idx} />)
+                  )
+                  : (
+                    invitations?.data?.length
+                    && (
+                      invitations?.data?.map((invitation) => (
+                        <tr key={invitation.email} className="align-middle text-muted">
+                          <td className="text-dark border-0">{invitation.email}</td>
+                          <td className="text-dark border-0">{localizeDateTimeString(invitation.updated_at, currentUser?.language)}</td>
+                          <td className="text-dark border-0">
+                            { invitation.valid ? <CheckIcon className="text-success hi-s" /> : <XMarkIcon className="text-danger hi-s" />}
+                          </td>
+                        </tr>
+                      ))
+                    )
+                  )
+}
               </tbody>
             </Table>
             <div className="pagination-wrapper">

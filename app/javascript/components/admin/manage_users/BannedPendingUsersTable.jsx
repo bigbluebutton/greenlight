@@ -4,12 +4,13 @@ import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import BannedPendingRow from './BannedPendingRow';
 import EmptyUsersList from './EmptyUsersList';
+import ManageUsersPendingBannedRowPlaceHolder from './ManageUsersPendingBannedRowPlaceHolder';
 
 // pendingTable prop is true when table is being used for pending data, false when table is being used for banned data
-export default function BannedPendingUsersTable({ users, pendingTable }) {
+export default function BannedPendingUsersTable({ users, pendingTable, isLoading }) {
   const { t } = useTranslation();
 
-  if (users.length === 0) {
+  if (!isLoading && users.length === 0) {
     if (pendingTable) {
       return <EmptyUsersList text={t('admin.manage_users.empty_pending_users')} subtext={t('admin.manage_users.empty_pending_users_subtext')} />;
     }
@@ -26,12 +27,21 @@ export default function BannedPendingUsersTable({ users, pendingTable }) {
           </tr>
         </thead>
         <tbody className="border-top-0">
-          {users?.length
-            && (
-              users?.map((user) => (
-                <BannedPendingRow key={user.id} user={user} pendingTable={pendingTable} />
-              ))
-            )}
+          {
+            isLoading
+              ? (
+                // eslint-disable-next-line react/no-array-index-key
+                [...Array(5)].map((val, idx) => <ManageUsersPendingBannedRowPlaceHolder key={idx} />)
+              )
+              : (
+                users?.length
+                && (
+                  users?.map((user) => (
+                    <BannedPendingRow key={user.id} user={user} pendingTable={pendingTable} />
+                  ))
+                )
+              )
+          }
         </tbody>
       </Table>
     </div>
@@ -49,4 +59,5 @@ BannedPendingUsersTable.propTypes = {
     name: PropTypes.string.isRequired,
   })),
   pendingTable: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
