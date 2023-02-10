@@ -14,7 +14,7 @@ export default function PendingUsers({ searchInput }) {
   return (
     <div>
       {
-      (!isLoading && searchInput && users?.data.length === 0)
+      (searchInput && users?.data.length === 0)
         ? (
           <div className="mt-5">
             <NoSearchResults text={t('user.search_not_found')} searchInput={searchInput} />
