@@ -1,28 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, Stack } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { useTranslation } from 'react-i18next';
-import Logo from '../shared_components/Logo';
+import { useNavigate } from 'react-router-dom';
 
-// This page is shown is the current_user does NOT have CreateRoom permission
+// This page is shown if the user does NOT have the CreateRoom permission
 export default function CantCreateRoom() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const [meetingUrl, setMeetingUrl] = useState('');
+
+  const handleChange = (event) => {
+    setMeetingUrl(event.target.value);
+  };
 
   return (
-    <div className="pt-5">
-      <div className="text-center mb-4">
-        <Logo />
-      </div>
-      <Card className="col-md-8 mx-auto p-5 border-0 card-shadow text-center">
-        <div className="mt-4 px-xxl-5">
-          <div className="text-start">
-            <h6> { t('homepage.enter_meeting_url') } </h6>
-            <Stack direction="horizontal">
-              <input className="form-control" id="joinUrl" />
-              <Button variant="brand" className="ms-2">{ t('join') }</Button>
+    <div className="vertical-buffer">
+      <Card className="col-md-8 mx-auto border-0 card-shadow">
+        <div className="p-5 pb-4">
+          <h2><strong>{t('homepage.enter_meeting_url')}</strong></h2>
+          <h5>{t('homepage.enter_meeting_url_instruction')}</h5>
+        </div>
+        <Card.Footer className="bg-white p-0">
+          <div className="p-5 pt-4">
+            <Stack direction="horizontal" gap={3}>
+              <input name="meetingUrl" className="form-control" id="joinUrl" onChange={handleChange} />
+              <Button
+                onClick={() => navigate(`/${meetingUrl.toString().split('/').slice(-3).join('/')}`, { replace: true })}
+                variant="brand"
+              >
+                { t('join') }
+              </Button>
             </Stack>
           </div>
-        </div>
+        </Card.Footer>
       </Card>
     </div>
   );
