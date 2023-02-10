@@ -1,18 +1,22 @@
 import React from 'react';
 import { Tabs, Tab, Placeholder } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 import Presentation from './presentation/Presentation';
 import RoomSettings from './room_settings/RoomSettings';
 import SharedAccess from './shared_access/SharedAccess';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
 import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
+import useRoom from '../../../hooks/queries/rooms/useRoom';
 
-export default function FeatureTabs({ shared }) {
+export default function FeatureTabs() {
   const { t } = useTranslation();
   const { isLoading, data: settings } = useSiteSetting(['PreuploadPresentation', 'ShareRooms']);
   const currentUser = useAuth();
+
+  const { friendlyId } = useParams();
+  const { data: room } = useRoom(friendlyId);
 
   if (isLoading) {
     return (
@@ -27,17 +31,6 @@ export default function FeatureTabs({ shared }) {
     );
   }
 
-  // Returns only the Recording tab if the room is a Shared Room and the User does not have the ManageRoom permission
-  if (shared && !currentUser?.permissions?.ManageRooms) {
-    return (
-      <Tabs className="wide-white pt-4 mx-0" defaultActiveKey="recordings" unmountOnExit>
-        <Tab className="background-whitesmoke" eventKey="recordings" title={t('recording.recording')}>
-          <RoomRecordings />
-        </Tab>
-      </Tabs>
-    );
-  }
-
   return (
     <Tabs className="wide-white pt-4 mx-0" defaultActiveKey="recordings" unmountOnExit>
       <Tab className="background-whitesmoke" eventKey="recordings" title={t('recording.recordings')}>
@@ -49,7 +42,7 @@ export default function FeatureTabs({ shared }) {
             <Presentation />
           </Tab>
         )}
-      {settings?.ShareRooms
+      {(settings?.ShareRooms && (!room?.shared || currentUser?.permissions?.ManageRooms === 'true'))
         && (
           <Tab className="background-whitesmoke" eventKey="access" title={t('room.shared_access.access')}>
             <SharedAccess />
@@ -61,11 +54,3 @@ export default function FeatureTabs({ shared }) {
     </Tabs>
   );
 }
-
-FeatureTabs.defaultProps = {
-  shared: false,
-};
-
-FeatureTabs.propTypes = {
-  shared: PropTypes.bool,
-};

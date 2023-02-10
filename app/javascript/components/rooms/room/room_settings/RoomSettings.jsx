@@ -1,5 +1,7 @@
 import React from 'react';
-import { Row, Col, Button } from 'react-bootstrap';
+import {
+  Row, Col, Button, Stack,
+} from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +16,7 @@ import useUpdateRoomSetting from '../../../../hooks/mutations/room_settings/useU
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import UpdateRoomNameForm from './forms/UpdateRoomNameForm';
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
+import UnshareRoom from './UnshareRoom';
 
 export default function RoomSettings() {
   const { t } = useTranslation();
@@ -95,18 +98,38 @@ export default function RoomSettings() {
                 description={t('room.settings.mute_users_on_join')}
               />
               <div className="float-end mt-3">
-                {!room.shared && (
-                <Modal
-                  modalButton={(
-                    <Button
-                      variant="delete"
-                      className="mt-1 mx-2 float-end"
-                    >{t('room.delete_room')}
-                    </Button>
-                  )}
-                  body={<DeleteRoomForm mutation={deleteMutationWrapper} />}
-                />
-                )}
+                <Stack direction="horizontal" gap={2}>
+                  {
+                    room.shared
+                      && (
+                        <Modal
+                          modalButton={(
+                            <Button
+                              variant="delete"
+                              className="mt-1 mx-2 float-end"
+                            >{t('room.shared_access.delete_shared_access')}
+                            </Button>
+                          )}
+                          body={<UnshareRoom userId={currentUser.id} roomFriendlyId={friendlyId} />}
+                        />
+                      )
+                  }
+                  {
+                    (!room.shared || currentUser?.permissions?.ManageRooms === 'true')
+                      && (
+                        <Modal
+                          modalButton={(
+                            <Button
+                              variant="delete"
+                              className="mt-1 mx-2 float-end"
+                            >{t('room.delete_room')}
+                            </Button>
+                          )}
+                          body={<DeleteRoomForm mutation={deleteMutationWrapper} />}
+                        />
+                      )
+                  }
+                </Stack>
               </div>
             </Col>
           </Row>

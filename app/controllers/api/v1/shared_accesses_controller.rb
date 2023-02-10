@@ -8,7 +8,7 @@ module Api
       before_action only: %i[create destroy shareable_users] do
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
-      before_action only: %i[show] do
+      before_action only: %i[show unshare_room] do
         ensure_authorized(%w[ManageRooms SharedRoom], friendly_id: params[:friendly_id])
       end
 
@@ -34,6 +34,15 @@ module Api
       # Unshares a room with the specified user
       def destroy
         SharedAccess.delete_by(user_id: params[:user_id], room_id: @room.id)
+
+        render_data status: :ok
+      end
+
+      # DELETE /api/v1/shared_accesses/friendly_id.json
+      # Similar to the destroy action
+      # Unshares a room that is shared with the current user as a the current user
+      def unshare_room
+        SharedAccess.delete_by(user_id: current_user.id, room_id: @room.id)
 
         render_data status: :ok
       end
