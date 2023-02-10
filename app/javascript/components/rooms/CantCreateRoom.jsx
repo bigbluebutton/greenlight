@@ -13,7 +13,7 @@ export default function CantCreateRoom() {
       <div className="text-center mb-4">
         <Logo />
       </div>
-      <Card className="col-md-8 mx-auto p-5 border-0 shadow-sm text-center">
+      <Card className="col-md-8 mx-auto p-5 border-0 card-shadow text-center">
         <div className="mt-4 px-xxl-5">
           <div className="text-start">
             <h6> { t('homepage.enter_meeting_url') } </h6>

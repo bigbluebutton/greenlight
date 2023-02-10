@@ -45,7 +45,7 @@ export default function SharedAccess() {
             />
           )}
         </Stack>
-        <Card className="border-0 shadow-sm mt-3">
+        <Card className="border-0 card-shadow mt-3">
           <Card.Body className="p-0">
             <Table hover responsive className="text-secondary mb-0">
               <thead>

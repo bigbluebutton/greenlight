@@ -14,7 +14,7 @@ export default function EmptyRoomsList() {
 
   return (
     <div id="rooms-list-empty" className="pt-5">
-      <Card className="border-0 shadow-sm text-center">
+      <Card className="border-0 card-shadow text-center">
         <Card.Body className="py-5">
           <div className="icon-circle rounded-circle d-block mx-auto mb-3">
             <UserBoardIcon className="hi-l text-brand d-block mx-auto" />

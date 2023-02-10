@@ -50,7 +50,7 @@ export default function BrandColorPopover({
       show={show}
       overlay={(
         <Popover className="border-0">
-          <div className="color-picker rounded-3 shadow-sm">
+          <div className="color-picker rounded-3 card-shadow">
             <HexColorPicker color={color} onChange={handleChange} />
             <div className="mt-3 px-3">
               <HexColorInput className="w-100 form-control" color={color} onChange={handleChange} prefixed />

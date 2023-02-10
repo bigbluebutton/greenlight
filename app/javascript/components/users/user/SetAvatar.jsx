@@ -82,7 +82,7 @@ export default function SetAvatar({ user }) {
         <DeleteAvatarForm user={user} />
       </Stack>
 
-      <Modal show={show} onHide={handleClose} centered contentClassName="border-0 shadow-sm">
+      <Modal show={show} onHide={handleClose} centered contentClassName="border-0 card-shadow">
         <Modal.Header closeButton>
           <Modal.Title>{ t('user.avatar.crop_avatar') }</Modal.Title>
         </Modal.Header>

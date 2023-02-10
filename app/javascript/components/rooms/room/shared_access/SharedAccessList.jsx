@@ -33,7 +33,7 @@ export default function SharedAccessList({ users }) {
         />
       </Stack>
 
-      <Card className="border-0 shadow-sm mt-4">
+      <Card className="border-0 card-shadow mt-4">
         <Card.Body>
           <Row className="border-bottom pb-2">
             <Col>
