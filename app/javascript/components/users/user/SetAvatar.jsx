@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import AvatarEditor from 'react-avatar-editor';
 import { PhotoIcon, FolderPlusIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import DeleteAvatarForm from './forms/DeleteAvatarForm';
 import Avatar from './Avatar';
 import useCreateAvatar from '../../../hooks/mutations/users/useCreateAvatar';
+import { fileValidation, handleError } from '../../../helpers/FileValidationHelper';
 
 export default function SetAvatar({ user }) {
   const { t } = useTranslation();
@@ -35,10 +37,15 @@ export default function SetAvatar({ user }) {
   };
 
   const handleNewAvatar = (e) => {
-    const { files } = e.target;
-    if (files.length > 0) {
-      handleShow();
-      setAvatar(e.target.files[0]);
+    try {
+      fileValidation(e.target.files[0], 'image');
+      const { files } = e.target;
+      if (files.length > 0) {
+        handleShow();
+        setAvatar(e.target.files[0]);
+      }
+    } catch (error) {
+      handleError(error, t, toast);
     }
   };
 
