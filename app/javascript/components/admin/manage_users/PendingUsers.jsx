@@ -14,14 +14,14 @@ export default function PendingUsers({ searchInput }) {
   return (
     <div>
       {
-      (searchInput && users?.data.length === 0)
+      (!isLoading && searchInput && users?.data.length === 0)
         ? (
           <div className="mt-5">
             <NoSearchResults text={t('user.search_not_found')} searchInput={searchInput} />
           </div>
         ) : (
           <div>
-            <BannedPendingUsersTable users={users?.data} pendingTable />
+            <BannedPendingUsersTable users={users?.data} pendingTable isLoading={isLoading} />
             {!isLoading
         && (
         <Pagination
