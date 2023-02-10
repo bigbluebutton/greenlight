@@ -16,7 +16,7 @@ export default function Modal({
   return (
     <>
       {ModalButton}
-      <BootstrapModal show={show} onHide={handleClose} centered size={size} id={id} contentClassName="border-0 shadow-sm">
+      <BootstrapModal show={show} onHide={handleClose} centered size={size} id={id} contentClassName="border-0 card-shadow">
         <BootstrapModal.Header className="border-0 pb-0">
           <BootstrapModal.Title>{title}</BootstrapModal.Title>
         </BootstrapModal.Header>

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export default function HomepageFeatureCard({ title, description, icon }) {
   return (
-    <Card className="homepage-card h-100 shadow-sm border-0">
+    <Card className="homepage-card h-100 card-shadow border-0">
       <Card.Body className="p-4">
         <div className="homepage-card-icon-circle rounded-circle mb-4 d-flex align-items-center justify-content-center">
           { icon }

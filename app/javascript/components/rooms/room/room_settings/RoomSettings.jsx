@@ -31,7 +31,7 @@ export default function RoomSettings() {
 
   return (
     <div id="room-settings" className="pt-3">
-      <Card className="mx-auto p-4 border-0 shadow-sm">
+      <Card className="mx-auto p-4 border-0 card-shadow">
         <div className="mt-2">
           <Row>
             <Col className="border-end border-2">

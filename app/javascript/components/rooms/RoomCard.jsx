@@ -26,7 +26,7 @@ export default function RoomCard({ room }) {
   }
 
   return (
-    <Card id="room-card" className="h-100 shadow-sm border-0">
+    <Card id="room-card" className="h-100 card-shadow border-0">
       <Card.Body className="pb-0" onClick={handleClick}>
         <Stack direction="horizontal">
           <div className="room-icon rounded">

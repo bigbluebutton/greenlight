@@ -23,7 +23,7 @@ export default function Signup() {
       <div className="text-center pb-4">
         <Logo />
       </div>
-      <Card className="col-xl-3 col-lg-4 col-md-6 col-8 mx-auto p-4 border-0 shadow-sm">
+      <Card className="col-xl-3 col-lg-4 col-md-6 col-8 mx-auto p-4 border-0 card-shadow">
         <Card.Title className="text-center pb-2"> { t('authentication.create_an_account') } </Card.Title>
         <SignupForm />
         <span className="text-center text-muted small"> { t('authentication.already_have_account') }

@@ -34,7 +34,7 @@ export default function RecordingsList({
               <NoSearchResults text={t('recording.search_not_found')} searchInput={searchInput} />
             </div>
           ) : (
-            <Card className="border-0 shadow-sm p-0 mt-4 mb-5">
+            <Card className="border-0 card-shadow p-0 mt-4 mb-5">
               <Table id="recordings-table" className="table-bordered border border-2 mb-0 recordings-list" hover responsive>
                 <thead>
                   <tr className="text-muted small">

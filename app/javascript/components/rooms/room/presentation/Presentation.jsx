@@ -30,7 +30,7 @@ export default function Presentation() {
           '.rtf', '.odt', '.ods', '.odp', '.odg', '.odc', '.odi', '.jpg', '.jpeg', '.png']}
       >
         <div className="pt-3">
-          <Card className="border-0 shadow-sm text-center">
+          <Card className="border-0 card-shadow text-center">
             <label htmlFor="file" className="presentation-upload">
               <Card.Body className="py-5 text-secondary cursor-pointer">
                 <div className="icon-circle rounded-circle d-block mx-auto mb-3">
@@ -61,7 +61,7 @@ export default function Presentation() {
   }
   return (
     <div className="pt-3">
-      <Card className="border-0 shadow-sm mt-3 text-center">
+      <Card className="border-0 card-shadow mt-3 text-center">
         <Card.Body className="py-5">
           <Row className="align-middle align-items-center justify-content-center">
             <Col>

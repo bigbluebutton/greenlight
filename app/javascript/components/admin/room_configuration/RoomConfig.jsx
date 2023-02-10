@@ -23,7 +23,7 @@ export default function RoomConfig() {
   return (
     <div id="admin-panel" className="pb-3">
       <h3 className="py-5"> { t('admin.admin_panel') } </h3>
-      <Card className="border-0 shadow-sm">
+      <Card className="border-0 card-shadow">
         <Tab.Container activeKey="room_configuration">
           <Row>
             <Col className="pe-0" sm={3}>
