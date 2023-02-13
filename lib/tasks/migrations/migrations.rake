@@ -4,7 +4,7 @@
 namespace :migrations do
   DEFAULT_ROLES_MAP = { "admin" => "Administrator", "user" => "User" }.freeze
   COMMON = {
-    headers: { "Content-Type" => "application/json" },
+    headers: { "Content-Type" => "application/json", "Accept" => "application/json" },
     batch_size: 500,
     filtered_roles: %w[super_admin admin pending denied user],
     filtered_user_roles: %w[super_admin pending denied]
