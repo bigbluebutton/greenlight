@@ -17,7 +17,7 @@ export default function CantCreateRoom() {
 
   // Parse the 12 keys friendly id from the input
   const regex = /(\w{3}-\w{3}-\w{3}-\w{3})/;
-  const parsedUrl = regex.exec(meetingUrl);
+  const parsedUrl = meetingUrl.match(regex);
 
   return (
     <div className="vertical-buffer">
