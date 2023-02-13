@@ -101,6 +101,10 @@ body {
   box-shadow: none;
 }
 
+.start-meeting-btn {
+  min-height: 41px;
+}
+
 // Smoothen bootstrap transition
 .fade {
   transition: opacity 0.3s ease !important;

@@ -75,7 +75,7 @@ export default function Room() {
               }
           </Col>
           <Col>
-            <Button variant="brand" className="mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
+            <Button variant="brand" className="start-meeting-btn mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
               {startMeeting.isLoading && <Spinner className="me-2" />}
               { room?.online ? (
                 t('room.meeting.join_meeting')
