@@ -65,7 +65,10 @@ export default function BannedPendingUsersTable({ users, pendingTable, isLoading
 
 BannedPendingUsersTable.defaultProps = {
   users: [],
-  pagination: {},
+  pagination: {
+    page: 1,
+    pages: 1,
+  },
 };
 
 BannedPendingUsersTable.propTypes = {

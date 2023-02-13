@@ -8,7 +8,9 @@ import ManageUsersRowPlaceHolder from './ManageUsersRowPlaceHolder';
 import Pagination from '../../shared_components/Pagination';
 import EmptyUsersList from './EmptyUsersList';
 
-export default function ManageUsersTable({ users, isLoading, pagination, setPage }) {
+export default function ManageUsersTable({
+  users, isLoading, pagination, setPage,
+}) {
   const { t } = useTranslation();
 
   if (!isLoading && users?.length === 0) {
@@ -60,7 +62,10 @@ export default function ManageUsersTable({ users, isLoading, pagination, setPage
 
 ManageUsersTable.defaultProps = {
   users: [],
-  pagination: {},
+  pagination: {
+    page: 1,
+    pages: 1,
+  },
 };
 
 ManageUsersTable.propTypes = {
