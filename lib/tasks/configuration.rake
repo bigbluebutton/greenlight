@@ -3,7 +3,7 @@
 require_relative 'task_helpers'
 
 namespace :configuration do
-  desc 'Create an administrator account'
+  desc 'Checks that the application was configured correctly'
   task check: :environment do
     required_env_vars = %w[SECRET_KEY_BASE BIGBLUEBUTTON_ENDPOINT BIGBLUEBUTTON_SECRET DATABASE_URL REDIS_URL].freeze
 
@@ -18,9 +18,9 @@ namespace :configuration do
     begin
       ActiveRecord::Base.establish_connection # Establishes connection
       ActiveRecord::Base.connection # Calls connection object
-      failed('Failed to connect to Database') unless ActiveRecord::Base.connected?
+      failed('Unable to connect to Database') unless ActiveRecord::Base.connected?
     rescue StandardError => e
-      failed("Failed to connect to Database - #{e}")
+      failed("Unable to connect to Database - #{e}")
     end
     passed
 
@@ -28,7 +28,7 @@ namespace :configuration do
     begin
       Redis.new.ping
     rescue StandardError => e
-      failed("Failed to connect to Redis - #{e}")
+      failed("Unable to connect to Redis - #{e}")
     end
     passed
 
@@ -43,7 +43,7 @@ namespace :configuration do
       begin
         UserMailer.with(to: ENV.fetch('SMTP_SENDER_EMAIL', nil), subject: ENV.fetch('SMTP_SENDER_EMAIL', nil)).test_email.deliver_now
       rescue StandardError => e
-        failed("Failed to connect to SMTP Server - #{e}")
+        failed("Unable to connect to SMTP Server - #{e}")
       end
       passed
     end
@@ -69,5 +69,4 @@ end
 
 def failed(msg)
   err "Failed - #{msg}"
-  exit
 end
