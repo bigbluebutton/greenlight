@@ -60,15 +60,21 @@ export default function RecordingsList({
                     )))
                   }
                 </tbody>
+                { (recordings?.meta?.pages > 1)
+                  && (
+                    <tfoot>
+                      <tr>
+                        <td colSpan={12}>
+                          <Pagination
+                            page={recordings?.meta?.page}
+                            totalPages={recordings?.meta?.pages}
+                            setPage={setPage}
+                          />
+                        </td>
+                      </tr>
+                    </tfoot>
+                  )}
               </Table>
-              {!isLoading
-                && (
-                  <Pagination
-                    page={recordings?.meta?.page}
-                    totalPages={recordings?.meta?.pages}
-                    setPage={setPage}
-                  />
-                )}
             </Card>
           )
       }
