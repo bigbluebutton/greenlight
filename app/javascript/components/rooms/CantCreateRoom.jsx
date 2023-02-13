@@ -15,6 +15,10 @@ export default function CantCreateRoom() {
     setMeetingUrl(event.target.value);
   };
 
+  // Parse the 12 keys friendly id from the input
+  const regex = /(\w{3}-\w{3}-\w{3}-\w{3})/;
+  const parsedUrl = regex.exec(meetingUrl);
+
   return (
     <div className="vertical-buffer">
       <Card className="col-md-8 mx-auto border-0 card-shadow">
@@ -27,7 +31,7 @@ export default function CantCreateRoom() {
             <Stack direction="horizontal" gap={3}>
               <input name="meetingUrl" className="form-control" id="joinUrl" onChange={handleChange} />
               <Button
-                onClick={() => navigate(`/${meetingUrl.toString().split('/').slice(-3).join('/')}`, { replace: true })}
+                onClick={() => navigate(`/rooms/${parsedUrl[1]}/join`, { replace: true })}
                 variant="brand"
               >
                 { t('join') }
