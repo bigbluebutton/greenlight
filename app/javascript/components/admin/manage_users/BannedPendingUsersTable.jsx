@@ -8,7 +8,9 @@ import ManageUsersPendingBannedRowPlaceHolder from './ManageUsersPendingBannedRo
 import Pagination from '../../shared_components/Pagination';
 
 // pendingTable prop is true when table is being used for pending data, false when table is being used for banned data
-export default function BannedPendingUsersTable({ users, pendingTable, isLoading, pagination, setPage }) {
+export default function BannedPendingUsersTable({
+  users, pendingTable, isLoading, pagination, setPage,
+}) {
   const { t } = useTranslation();
 
   if (!isLoading && users.length === 0) {
