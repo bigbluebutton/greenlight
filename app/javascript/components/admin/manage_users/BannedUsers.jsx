@@ -20,17 +20,7 @@ export default function BannedUsers({ searchInput }) {
             <NoSearchResults text={t('user.search_not_found')} searchInput={searchInput} />
           </div>
         ) : (
-          <div>
-            <BannedPendingUsersTable users={bannedUsers?.data} pendingTable={false} isLoading={isLoading} />
-            {!isLoading
-        && (
-          <Pagination
-            page={bannedUsers.meta.page}
-            totalPages={bannedUsers.meta.pages}
-            setPage={setPage}
-          />
-        )}
-          </div>
+          <BannedPendingUsersTable users={bannedUsers?.data} pendingTable={false} isLoading={isLoading} pagination={bannedUsers?.meta} setPage={setPage} />
         )
       }
     </div>

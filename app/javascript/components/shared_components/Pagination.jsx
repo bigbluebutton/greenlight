@@ -14,7 +14,7 @@ export default function Pagination({
 
   if (totalPages > 1) {
     return (
-      <div className="semantic-ui-pagination pagination-wrapper">
+      <div className="semantic-ui-pagination">
         <PaginationSemanticUi
           secondary
           defaultActivePage={page}

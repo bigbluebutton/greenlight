@@ -12,7 +12,7 @@ import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import ManageUsersInvitedRowPlaceHolder from './ManageUsersInvitedRowPlaceHolder';
 
-export default function InvitedUsers({ searchInput }) {
+export default function InvitedUsersTable({ searchInput }) {
   const { t } = useTranslation();
   const [page, setPage] = useState();
   const { isLoading, data: invitations } = useInvitations(searchInput, page);
@@ -63,28 +63,25 @@ export default function InvitedUsers({ searchInput }) {
                   )
 }
               </tbody>
-            </Table>
-            <div className="pagination-wrapper">
               { invitations?.meta && (
-              <Pagination
-                page={invitations?.meta?.page}
-                totalPages={invitations?.meta?.pages}
-                setPage={setPage}
-              />
+                <Pagination
+                  page={invitations?.meta?.page}
+                  totalPages={invitations?.meta?.pages}
+                  setPage={setPage}
+                />
               ) }
-            </div>
+            </Table>
           </div>
-
         )
         }
     </div>
   );
 }
 
-InvitedUsers.propTypes = {
+InvitedUsersTable.propTypes = {
   searchInput: PropTypes.string,
 };
 
-InvitedUsers.defaultProps = {
+InvitedUsersTable.defaultProps = {
   searchInput: '',
 };

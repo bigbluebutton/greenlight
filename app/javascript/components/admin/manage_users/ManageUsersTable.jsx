@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next';
 import ManageUserRow from './ManageUserRow';
 import SortBy from '../../shared_components/search/SortBy';
 import ManageUsersRowPlaceHolder from './ManageUsersRowPlaceHolder';
-
+import Pagination from '../../shared_components/Pagination';
 import EmptyUsersList from './EmptyUsersList';
 
-export default function ManageUsersTable({ users, isLoading }) {
+export default function ManageUsersTable({ users, isLoading, pagination, setPage }) {
   const { t } = useTranslation();
 
-  if (!isLoading && users.length === 0) {
+  if (!isLoading && users?.length === 0) {
     return <EmptyUsersList text={t('admin.manage_users.empty_active_users')} subtext={t('admin.manage_users.empty_active_users_subtext')} />;
   }
 
@@ -40,12 +40,27 @@ export default function ManageUsersTable({ users, isLoading }) {
             )
         }
       </tbody>
+      { (pagination?.pages > 1)
+        && (
+          <tfoot>
+            <tr>
+              <td colSpan={12}>
+                <Pagination
+                  page={pagination?.page}
+                  totalPages={pagination?.pages}
+                  setPage={setPage}
+                />
+              </td>
+            </tr>
+          </tfoot>
+        )}
     </Table>
   );
 }
 
 ManageUsersTable.defaultProps = {
   users: [],
+  pagination: {},
 };
 
 ManageUsersTable.propTypes = {
@@ -61,4 +76,9 @@ ManageUsersTable.propTypes = {
     }).isRequired,
   })),
   isLoading: PropTypes.bool.isRequired,
+  pagination: PropTypes.shape({
+    page: PropTypes.number.isRequired,
+    pages: PropTypes.number.isRequired,
+  }),
+  setPage: PropTypes.func.isRequired,
 };
