@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
                             'greenlight'
                           end
   end
+  helper_method :current_provider
 
   # Returns the default role
   def default_role
