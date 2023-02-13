@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Card,
+  Card, Stack,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Logo from '../shared_components/Logo';
@@ -19,10 +19,13 @@ export default function NotFoundPage() {
       <div className="text-center pb-4">
         <Logo />
       </div>
-      <Card className="col-md-3 mx-auto p-4 border-0 card-shadow text-center">
-        <Card.Title className="pb-2 fs-1 text-danger">{ t('not_found_error_page.title') }</Card.Title>
+      <Card className="col-md-3 mx-auto p-4 border-0 card-shadow">
+        <Stack direction="vertical" className="py-3">
+          <h1><strong>404</strong></h1>
+          <h3>{t('not_found_error_page.title')}</h3>
+        </Stack>
         <span className="mb-3">{ t('not_found_error_page.message') }</span>
-        <ButtonLink to="/" variant="brand" className="btn btn-lg m-2">
+        <ButtonLink to="/" variant="brand" className="btn btn-lg mt-2">
           {t('return_home')}
         </ButtonLink>
       </Card>

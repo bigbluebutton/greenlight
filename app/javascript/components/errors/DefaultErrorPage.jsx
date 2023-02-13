@@ -19,10 +19,10 @@ export default function DefaultErrorPage() {
       <div className="text-center pb-4">
         <Logo />
       </div>
-      <Card className="col-md-3 mx-auto p-4 border-0 card-shadow text-center">
-        <Card.Title className="pb-2 fs-1 text-danger">{ t('global_error_page.title') }</Card.Title>
+      <Card className="col-md-3 mx-auto p-4 border-0 card-shadow">
+        <h1 className="py-3">{t('global_error_page.title')}</h1>
         <span className="mb-3">{ t('global_error_page.message') }</span>
-        <ButtonLink to="/" variant="brand" className="btn btn-lg m-2">
+        <ButtonLink to="/" variant="brand" className="btn btn-lg mt-2">
           {t('return_home')}
         </ButtonLink>
       </Card>
