@@ -35,7 +35,7 @@ RUN amazon-linux-extras list | grep ruby
 
 COPY . ./
 RUN bundle install -j4 \
-    && yarn install \
+    && yarn install
 
 ARG RAILS_ENV
 ENV RAILS_ENV=${RAILS_ENV:-production}
