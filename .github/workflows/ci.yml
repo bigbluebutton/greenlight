@@ -77,7 +77,7 @@ jobs:
       - name: Apply Header
         uses: EndBug/add-and-commit@v9
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
         with:
           default_author: github_actions
           add: '*.rb'
