@@ -21,18 +21,18 @@ header:
        with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
   paths-ignore:
-    - '/bin/**'
-    - '/config/**'
-    - '/db/**'
-    - '/dockerfiles/**'
-    - '/lib/**'
-    - '/log/**'
-    - '/node_modules/**'
-    - '/public/**'
-    - '/storage/**'
-    - '/tests/**'
-    - '/vendor/**'
-    - '/tmp/**'
+    - 'bin/**'
+    - 'config/**'
+    - 'db/**'
+    - 'dockerfiles/**'
+    - 'lib/**'
+    - 'log/**'
+    - 'node_modules/**'
+    - 'public/**'
+    - 'storage/**'
+    - 'tests/**'
+    - 'vendor/**'
+    - 'tmp/**'
 
   comment: on-failure
 
