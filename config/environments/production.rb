@@ -58,9 +58,9 @@ Rails.application.configure do
       user_name: ENV.fetch('SMTP_USERNAME'),
       password: ENV.fetch('SMTP_PASSWORD'),
       authentication: ENV.fetch('SMTP_AUTH'),
-      enable_starttls_auto: ENV.fetch('SMTP_STARTTLS_AUTO', true),
-      enable_starttls: ENV.fetch('SMTP_STARTTLS', false),
-      tls: ENV.fetch('SMTP_TLS', 'false') != 'false',
+      enable_starttls_auto: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS_AUTO', 'true')),
+      enable_starttls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS', 'false')),
+      tls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_TLS', 'false')),
       openssl_verify_mode: ENV.fetch('SMTP_SSL_VERIFY', 'true') == 'false' ? OpenSSL::SSL::VERIFY_NONE : OpenSSL::SSL::VERIFY_PEER
     }
     config.action_mailer.default_options = {
@@ -70,7 +70,7 @@ Rails.application.configure do
     config.action_mailer.perform_deliveries = false
   end
 
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = false
   config.action_mailer.deliver_later_queue_name = 'mailing'
 
