@@ -23,9 +23,9 @@ header:
   paths:
     - 'app/controllers/**/*'
     - 'app/javascript/**/*'
-    - 'spec/**'
 
   paths-ignore:
+    - 'app/controllers/concerns/.keep'
     - 'bin/**'
     - 'config/**'
     - 'db/**'
