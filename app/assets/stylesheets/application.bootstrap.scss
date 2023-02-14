@@ -101,6 +101,11 @@ body {
   box-shadow: none;
 }
 
+// aligns the "Copy Join" btn with the "Start Meeting" btn
+.start-meeting-btn {
+  min-height: 2.56rem;
+}
+
 // Smoothen bootstrap transition
 .fade {
   transition: opacity 0.3s ease !important;
