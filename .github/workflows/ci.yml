@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    name: Rubocop + RSpec + ESLint
+    name: Rubocop + RSpec + ESLint + License Eye Header
     runs-on: ubuntu-20.04
 
     services:
@@ -66,3 +66,6 @@ jobs:
 
       - name: Run ESLint
         run: npx eslint app/javascript/* --ext .js,.jsx
+
+      - name: License Eye Header
+        uses: apache/skywalking-eyes@v0.4.0
