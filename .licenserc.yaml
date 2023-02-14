@@ -21,11 +21,10 @@ header:
        with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
   paths:
-    - 'app/controllers/**/*'
-    - 'app/javascript/**/*'
+    - 'app/controllers/api/**'
+    - 'app/javascript/components/**'
 
   paths-ignore:
-    - 'app/controllers/concerns/.keep'
     - 'bin/**'
     - 'config/**'
     - 'db/**'
@@ -37,6 +36,7 @@ header:
     - 'storage/**'
     - 'tests/**'
     - 'vendor/**'
+    - 'vendor/bundle/**'
     - 'tmp/**'
 
   comment: on-failure
