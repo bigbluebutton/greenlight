@@ -45,14 +45,14 @@ header:
     Ruby:
       extensions:
         - ".rb"
-      comment_style_id: Pound
+      comment_style_id: Hashtag
     Javascript:
       extensions:
         - ".js"
         - ".jsx"
       comment_style_id: DoubleSlash
-    yaml:
+    YAML:
       extensions:
         - ".yml"
         - ".yaml"
-      comment_style_id: Pound
+      comment_style_id: Hashtag
