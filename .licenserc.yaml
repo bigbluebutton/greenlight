@@ -22,7 +22,6 @@ header:
 
   paths:
     - 'app/controllers/api/**'
-    - 'app/javascript/components/**'
 
   paths-ignore:
     - 'bin/**'

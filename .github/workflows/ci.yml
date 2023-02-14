@@ -29,8 +29,17 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
 
       - name: Install Ruby ${{ env.RUBY_VERSION }}
         uses: ruby/setup-ruby@v1
@@ -69,13 +78,10 @@ jobs:
 
       - name: Fix License Header
         uses: apache/skywalking-eyes/header@main
-#        with:
-#          mode: fix
-#      - name: Apply Changes
-#        uses: EndBug/add-and-commit@v4
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          author_name: License Bot
-#          author_email: license_bot@github.com
-#          message: 'Automatic application of license header'
+        with:
+          mode: fix
+      - name: Apply Header
+        uses: EndBug/add-and-commit@v9
+        with:
+          default_author: github_actions
+          add: '*.rb'
