@@ -67,5 +67,15 @@ jobs:
       - name: Run ESLint
         run: npx eslint app/javascript/* --ext .js,.jsx
 
-      - name: License Eye Header
-        uses: apache/skywalking-eyes@v0.4.0
+      - name: Fix License Header
+        uses: apache/skywalking-eyes/header@main
+        with:
+          mode: fix
+      - name: Apply Changes
+        uses: EndBug/add-and-commit@v4
+        env:
+          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
+        with:
+          author_name: License Bot
+          author_email: license_bot@github.com
+          message: 'Automatic application of license header'
