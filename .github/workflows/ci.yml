@@ -29,17 +29,11 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     steps:
-      - name: Generate token
-        id: generate_token
-        uses: tibdex/github-app-token@v1
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          token: ${{ steps.generate_token.outputs.token }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Install Ruby ${{ env.RUBY_VERSION }}
         uses: ruby/setup-ruby@v1
