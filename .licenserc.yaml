@@ -21,7 +21,8 @@ header:
        with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
   paths:
-    - 'app/**'
+    - 'app/controllers/**/*'
+    - 'app/javascript/**/*'
     - 'spec/**'
 
   paths-ignore:
