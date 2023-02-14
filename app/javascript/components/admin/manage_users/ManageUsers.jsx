@@ -13,7 +13,7 @@ import UserSignupForm from './forms/UserSignupForm';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
 import SearchBar from '../../shared_components/search/SearchBar';
 import InviteUserForm from './forms/InviteUserForm';
-import InvitedUsers from './InvitedUsers';
+import InvitedUsersTable from './InvitedUsersTable';
 import PendingUsers from './PendingUsers';
 import BannedUsers from './BannedUsers';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
@@ -88,7 +88,7 @@ export default function ManageUsers() {
                       { registrationMethod === 'invite'
                         && (
                         <Tab eventKey="invited" title={t('admin.manage_users.invited_tab')}>
-                          <InvitedUsers input={searchInput} />
+                          <InvitedUsersTable input={searchInput} />
                         </Tab>
                         )}
                     </Tabs>

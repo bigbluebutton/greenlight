@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import useVerifiedUsers from '../../../hooks/queries/admin/manage_users/useVerifiedUsers';
 import ManageUsersTable from './ManageUsersTable';
-import Pagination from '../../shared_components/Pagination';
 import NoSearchResults from '../../shared_components/search/NoSearchResults';
 
 export default function VerifiedUsers({ searchInput }) {
@@ -20,18 +19,7 @@ export default function VerifiedUsers({ searchInput }) {
             <NoSearchResults text={t('user.search_not_found')} searchInput={searchInput} />
           </div>
         ) : (
-          <div>
-            <ManageUsersTable users={verifiedUsers?.data} isLoading={isLoading} />
-            {!isLoading
-        && (
-          <Pagination
-            page={verifiedUsers.meta.page}
-            totalPages={verifiedUsers.meta.pages}
-            setPage={setPage}
-          />
-        )}
-
-          </div>
+          <ManageUsersTable users={verifiedUsers?.data} isLoading={isLoading} pagination={verifiedUsers?.meta} setPage={setPage} />
         )
     }
     </div>

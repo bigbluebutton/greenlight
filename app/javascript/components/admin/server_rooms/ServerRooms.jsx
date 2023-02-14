@@ -89,15 +89,21 @@ export default function ServerRooms() {
                                       )
                                   }
                                   </tbody>
+                                  { (serverRooms?.meta?.pages > 1)
+                                    && (
+                                      <tfoot>
+                                        <tr>
+                                          <td colSpan={12}>
+                                            <Pagination
+                                              page={serverRooms?.meta?.page}
+                                              totalPages={serverRooms?.meta?.pages}
+                                              setPage={setPage}
+                                            />
+                                          </td>
+                                        </tr>
+                                      </tfoot>
+                                    )}
                                 </Table>
-                                {!isLoading
-                                && (
-                                <Pagination
-                                  page={serverRooms.meta.page}
-                                  totalPages={serverRooms.meta.pages}
-                                  setPage={setPage}
-                                />
-                                )}
                               </div>
                             )
                         )

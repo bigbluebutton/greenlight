@@ -5,9 +5,12 @@ import PropTypes from 'prop-types';
 import BannedPendingRow from './BannedPendingRow';
 import EmptyUsersList from './EmptyUsersList';
 import ManageUsersPendingBannedRowPlaceHolder from './ManageUsersPendingBannedRowPlaceHolder';
+import Pagination from '../../shared_components/Pagination';
 
 // pendingTable prop is true when table is being used for pending data, false when table is being used for banned data
-export default function BannedPendingUsersTable({ users, pendingTable, isLoading }) {
+export default function BannedPendingUsersTable({
+  users, pendingTable, isLoading, pagination, setPage,
+}) {
   const { t } = useTranslation();
 
   if (!isLoading && users.length === 0) {
@@ -43,6 +46,20 @@ export default function BannedPendingUsersTable({ users, pendingTable, isLoading
               )
           }
         </tbody>
+        { (pagination?.pages > 1)
+          && (
+            <tfoot>
+              <tr>
+                <td colSpan={12}>
+                  <Pagination
+                    page={pagination?.page}
+                    totalPages={pagination?.pages}
+                    setPage={setPage}
+                  />
+                </td>
+              </tr>
+            </tfoot>
+          )}
       </Table>
     </div>
   );
@@ -50,6 +67,10 @@ export default function BannedPendingUsersTable({ users, pendingTable, isLoading
 
 BannedPendingUsersTable.defaultProps = {
   users: [],
+  pagination: {
+    page: 1,
+    pages: 1,
+  },
 };
 
 BannedPendingUsersTable.propTypes = {
@@ -60,4 +81,9 @@ BannedPendingUsersTable.propTypes = {
   })),
   pendingTable: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  pagination: PropTypes.shape({
+    page: PropTypes.number.isRequired,
+    pages: PropTypes.number.isRequired,
+  }),
+  setPage: PropTypes.func.isRequired,
 };
