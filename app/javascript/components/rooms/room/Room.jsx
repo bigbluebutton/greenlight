@@ -66,7 +66,7 @@ export default function Room() {
                         </Stack>
                       </Stack>
                       { room?.last_session ? (
-                        <span className="text-muted"> { localizedTime}  </span>
+                        <span className="text-muted"> { t('room.last_session', {localizedTime}) }  </span>
                       ) : (
                         <span className="text-muted"> { t('room.no_last_session') } </span>
                       )}

@@ -44,7 +44,7 @@ export default function RoomCard({ room }) {
             <span className="text-muted">{ t('room.shared_by') } <strong>{ room.shared_owner }</strong></span>
           )}
           { room.last_session ? (
-            <span className="text-muted"> { localizedTime} </span>
+            <span className="text-muted"> { t('room.last_session', { localizedTime }) } </span>
           ) : (
             <span className="text-muted mt-2"> { t('room.no_last_session') } </span>
           )}

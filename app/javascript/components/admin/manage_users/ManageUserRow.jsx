@@ -36,7 +36,7 @@ export default function ManageUserRow({ user }) {
           </div>
           <Stack>
             <span className="text-dark fw-bold"> {user.name} </span>
-            <span className="small"> { localizedTime }</span>
+            <span className="small"> { t('admin.manage_users.user_created_at', { localizedTime }) }</span>
           </Stack>
         </Stack>
       </td>
