@@ -28,7 +28,7 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
 gem 'pagy', '~> 5.10', '>= 5.10.1'
 gem 'pg'
 gem 'puma', '~> 5.0'
-gem 'rails', '~> 7.0.2', '>= 7.0.2.2'
+gem 'rails', '~> 7.0.4', '>= 7.0.4.2'
 gem 'redis', '~> 4.0'
 gem 'sprockets-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
@@ -40,7 +40,7 @@ end
 group :development do
   gem 'rubocop', '~> 1.26', require: false
   gem 'rubocop-performance', '~> 1.13', require: false
-  gem 'rubocop-rails', '~> 2.13', require: false
+  gem 'rubocop-rails', '~> 2.17', '>= 2.17.4', require: false
   gem 'rubocop-rspec', '~> 2.9.0', require: false
   gem 'web-console'
 end
