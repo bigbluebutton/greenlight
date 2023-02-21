@@ -76,8 +76,6 @@ jobs:
           mode: fix
       - name: Apply Header
         uses: EndBug/add-and-commit@v9
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         with:
           default_author: github_actions
           add: '*.rb'
