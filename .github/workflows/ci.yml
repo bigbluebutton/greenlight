@@ -80,6 +80,5 @@ jobs:
           default_author: github_actions
           add: '*.rb'
           github_token: ${{ secrets.PAT_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
           new_branch: add-license-header
           push: origin add-license-header --set-upstream --force
