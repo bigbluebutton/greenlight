@@ -31,9 +31,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Install Ruby ${{ env.RUBY_VERSION }}
         uses: ruby/setup-ruby@v1
@@ -76,8 +73,5 @@ jobs:
           mode: fix
       - name: Apply Header
         uses: EndBug/add-and-commit@v9
-        env:
-          github_token: ${{ secrets.PAT }}
         with:
-          default_author: github_actions
           add: '*.rb'
