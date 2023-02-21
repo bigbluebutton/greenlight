@@ -75,3 +75,5 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           add: '*.rb'
+          new_branch: add-license-header
+          push: origin add-license-header --set-upstream --force
