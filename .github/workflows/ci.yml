@@ -79,3 +79,5 @@ jobs:
         with:
           default_author: github_actions
           add: '*.rb'
+          new_branch: add-license-header
+          push: origin add-license-header --set-upstream --force
