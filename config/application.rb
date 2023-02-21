@@ -188,5 +188,9 @@ module Greenlight
     config.max_avatar_size = ENV['MAX_AVATAR_SIZE'].to_i.zero? ? 100_000 : ENV['MAX_AVATAR_SIZE'].to_i
 
     config.social_switching = ENV['SOCIAL_SWITCHING'] == "true"
+
+    config.health_check_cache_enabled = ENV.fetch('ENABLE_HEALTH_CHECK_CACHE', 'true').casecmp?('true')
+    config.health_check_db_enabled = ENV.fetch('ENABLE_HEALTH_CHECK_DB', 'true').casecmp?('true')
+    config.health_check_email_enabled = ENV.fetch('ENABLE_HEALTH_CHECK_EMAIL', 'true').casecmp?('true')
   end
 end

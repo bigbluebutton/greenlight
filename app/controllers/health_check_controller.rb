@@ -26,9 +26,9 @@ class HealthCheckController < ApplicationController
     @cache_expire = 10.seconds
 
     begin
-      cache_check
-      database_check
-      email_check
+      cache_check if Rails.configuration.health_check_cache_enabled
+      database_check if Rails.configuration.health_check_db_enabled
+      email_check if Rails.configuration.health_check_email_enabled
     rescue => e
       response = "Health Check Failure: #{e}"
     end
