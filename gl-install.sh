@@ -26,7 +26,7 @@
 #  Install a standaolne Greenlight 3.x.x with a publicly trusted SSL certificate issued by Let's Encrypt using a FQDN of www.example.com
 #  and an email address of info@example.com.
 #
-#    wget -qO- https://raw.githubusercontent.com/bigbluebutton/greenlight/v3/gl-install.sh | bash -s -- -s www.example.com -e info@example.com 
+#    wget -qO- https://raw.githubusercontent.com/bigbluebutton/greenlight/master/gl-install.sh | bash -s -- -s www.example.com -e info@example.com 
 #
 
 
@@ -37,7 +37,7 @@ usage() {
 Script for installing a Greenlight 3.x standalone server in under 15 minutes. It also supports upgrading an existing installation of Greenlight 3.x on replay.
 
 USAGE:
-    wget -qO- https://raw.githubusercontent.com/bigbluebutton/greenlight/v3/gl-install.sh | bash -s -- [OPTIONS]
+    wget -qO- https://raw.githubusercontent.com/bigbluebutton/greenlight/master/gl-install.sh | bash -s -- [OPTIONS]
 
 OPTIONS (install Greenlight):
 
@@ -89,7 +89,7 @@ main() {
 
   # Eager checks and assertions.
   check_root
-  check_ubuntu 20.04
+  check_ubuntu_lts
   need_x64
 
   while builtin getopts "s:e:b:hdk" opt "${@}"; do
@@ -219,9 +219,10 @@ check_root() {
   if [ $EUID != 0 ]; then err "You must run this command as root."; fi
 }
 
-check_ubuntu() {
+check_ubuntu_lts() {
+  lsb_release -i | grep -iq ubuntu || err "You must run this command on Ubuntu server."
   RELEASE=$(lsb_release -r | sed 's/^[^0-9]*//g')
-  if [ "$RELEASE" != "$1" ]; then err "You must run this command on Ubuntu $1 server."; fi
+  [ "$RELEASE" == "20.04" ] || [ "$RELEASE" == "22.04" ]  || err "You must run this command on Ubuntu version 20.04 or 22.04 LTS."
 }
 
 need_x64() {
@@ -692,28 +693,29 @@ disable_nginx_site() {
 }
 
 install_docker() {
-  need_pkg apt-transport-https ca-certificates curl gnupg-agent software-properties-common openssl
+  apt-get remove --purge -y docker docker-engine docker.io containerd runc
+  need_pkg ca-certificates curl gnupg lsb-release
 
   # Install Docker
-  if ! apt-key list | grep -q Docker; then
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+  if ! apt-key list | grep -iq docker; then
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/docker.gpg || err "Something went wrong adding docker gpg key - exiting"
   fi
 
-  if ! dpkg -l | grep -q docker-ce; then
-    echo "deb [ arch=amd64 ] https://download.docker.com/linux/ubuntu \
-     $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
-    
-    add-apt-repository --remove\
-     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-     $(lsb_release -cs) \
-     stable"
+  if ! dpkg -l | grep -iq docker-ce; then
+    echo \
+      "deb [ arch=amd64 ] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+    chmod a+r /etc/apt/trusted.gpg.d/docker.gpg
 
     apt-get update
-    need_pkg docker-ce docker-ce-cli containerd.io
+    need_pkg docker-ce docker-ce-cli containerd.io docker-compose-plugin
   fi
+
   if ! which docker; then err "Docker did not install"; fi
 
   # Purge older docker compose if exists.
+  # DEPRECATED
   if dpkg -l | grep -q docker-compose; then
     apt-get purge -y docker-compose
   fi
@@ -722,6 +724,17 @@ install_docker() {
     curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
   fi
+
+  if ! docker version > /dev/null ; then
+    warn "Docker is failing, restarting it..."
+    systemctl restart docker.socket docker.service
+    sleep 5
+
+    docker version > /dev/null || err "docker is failing to restart, something is wrong retry to resolve - exiting"
+  fi
+
+  say "docker is running!"
+  return 0;
 }
 
 main "$@" || exit 1
