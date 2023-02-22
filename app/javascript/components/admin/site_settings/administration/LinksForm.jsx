@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
@@ -21,7 +21,7 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
         type="text"
         noLabel
       />
-      <Button id={`${id}-submit-btn`} variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading} className="mb-2 float-end">
+      <Button id={`${id}-submit-btn`} className="mb-2 float-end" variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
         {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
         { t('admin.site_settings.administration.change_url') }
       </Button>
