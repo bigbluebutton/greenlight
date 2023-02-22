@@ -7,7 +7,7 @@ class User < ApplicationRecord
   RESET_TOKEN_VALIDITY_PERIOD = 1.hour
   # Account activation token max validity period.
   # It's advised to not increase this to more than 1 hour.
-  ACTIVATION_TOKEN_VALIDITY_PERIOD = 1.hour
+  ACTIVATION_TOKEN_VALIDITY_PERIOD = 24.hours
 
   has_secure_password validations: false
 
