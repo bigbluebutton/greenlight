@@ -22,8 +22,9 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
           field={fields.value}
           aria-describedby={`${id}-submit-btn`}
           type="text"
+          noLabel
         />
-        <Button id={`${id}-submit-btn`} variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
+        <Button id={`${id}-submit-btn`} variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading} className="mb-2">
           {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
           { t('admin.site_settings.administration.change_url') }
         </Button>
