@@ -19,6 +19,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import SelectContext from '../contexts/SelectContext';
 import { ACTIONS } from '../constants/SelectConstants';
 import Option from './Option';
@@ -91,6 +92,7 @@ export default function Select({
           variant={isValid ? variant : 'delete'}
         >
           {selected.title}
+          <ChevronDownIcon className="hi-s text-muted float-end" />
         </Dropdown.Toggle>
 
         <Dropdown.Menu className="container-fluid">
