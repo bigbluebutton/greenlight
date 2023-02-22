@@ -11,7 +11,6 @@ class UserMailer < ApplicationMailer
   def reset_password_email
     @user = params[:user]
     @reset_url = params[:reset_url]
-    @expires_in = params[:expires_in]
 
     mail(to: email_address_with_name(@user.email, @user.name), subject: t('email.reset.password_reset'))
   end
@@ -19,7 +18,6 @@ class UserMailer < ApplicationMailer
   def activate_account_email
     @user = params[:user]
     @activation_url = params[:activation_url]
-    @expires_in = params[:expires_in]
 
     mail(to: email_address_with_name(@user.email, @user.name), subject: t('email.activation.account_activation'))
   end
