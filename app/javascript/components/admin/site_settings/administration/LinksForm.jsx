@@ -17,18 +17,16 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
 
   return (
     <Form id={id} methods={methods} onSubmit={updateSiteSettingsAPI.mutate} >
-      <Stack direction="horizontal" gap={2}>
         <FormControl
           field={fields.value}
           aria-describedby={`${id}-submit-btn`}
           type="text"
           noLabel
         />
-        <Button id={`${id}-submit-btn`} variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading} className="mb-2">
+        <Button id={`${id}-submit-btn`} variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading} className="mb-2 float-end">
           {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
           { t('admin.site_settings.administration.change_url') }
         </Button>
-      </Stack>
     </Form>
   );
 }
