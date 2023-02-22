@@ -1,0 +1,55 @@
+header:
+  license:
+    copyright-owner: BigBlueButton Inc.
+    copyright-year: '2023'
+    software-name: greenlight-v3
+    content: |
+      BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+      
+      Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+      
+      This program is free software; you can redistribute it and/or modify it under the
+      terms of the GNU Lesser General Public License as published by the Free Software
+      Foundation; either version 3.0 of the License, or (at your option) any later
+      version.
+      
+      Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+      WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+      PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+      
+      You should have received a copy of the GNU Lesser General Public License along
+      with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+  paths:
+    - 'app/**'
+    - 'config/**'
+    - 'spec/**'
+
+  paths-ignore:
+    - '**/.keep'
+
+  comment: on-failure
+
+  language:
+    Ruby:
+      extensions:
+        - ".rb"
+      comment_style_id: Hashtag
+    Javascript:
+      extensions:
+        - ".js"
+        - ".jsx"
+      comment_style_id: DoubleSlash
+    YAML:
+      extensions:
+        - ".yml"
+        - ".yaml"
+      comment_style_id: Hashtag
+    JSON:
+      extensions:
+        - ".json"
+      comment_style_id: DoubleSlash
+    SCSS:
+      extensions:
+        - ".scss"
+      comment_style_id: DoubleSlash
