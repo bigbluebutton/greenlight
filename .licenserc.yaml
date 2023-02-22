@@ -21,9 +21,9 @@ header:
       with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
   paths:
-    - 'app/**'
-    - 'config/**'
-    - 'spec/**'
+    - 'app'
+    - 'config'
+    - 'spec'
 
   paths-ignore:
     - '**/.keep'
