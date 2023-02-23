@@ -30,6 +30,11 @@ export default function ProcessingRecordingRow() {
             <VideoCameraIcon className="hi-s text-brand" />
           </div>
           { t('recording.processing_recording') }
+          <div id="pulse-loading" className="snippet" data-title="dot-pulse">
+            <div className="stage">
+              <div className="dot-pulse" />
+            </div>
+          </div>
         </Stack>
       </td>
       <td className="border-0" />
