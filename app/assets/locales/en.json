@@ -20,7 +20,6 @@
   "or": "Or",
   "online": "Online",
   "help_center": "Help Center",
-  "invalid_url": "Invalid URL",
   "are_you_sure": "Are you sure?",
   "return_home": "Return Home",
   "created_at": "Created at",
@@ -489,6 +488,9 @@
           "required": "Please enter the room name.",
           "min": "Name must be at least 2 characters long"
         }
+      }, 
+      "url": {
+        "invalid": "Invalid URL"
       }
     },
     "room": {

@@ -6,7 +6,7 @@ import { useCallback, useMemo } from 'react';
 
 export function useLinksFormValidation() {
   return useMemo(() => (yup.object({
-    value: yup.string().url('invalid_url'),
+    value: yup.string().url('forms.validations.url.invalid'),
   })), []);
 }
 
