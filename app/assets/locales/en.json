@@ -20,12 +20,12 @@
   "or": "Or",
   "online": "Online",
   "help_center": "Help Center",
+  "invalid_url": "Invalid URL",
   "are_you_sure": "Are you sure?",
   "return_home": "Return Home",
   "created_at": "Created at",
   "no_result_search_input": "Could not find any results for \"{{ searchInput }}\"",
   "action_permanent": "This action cannot be undone.",
-  "invalid_url": "Invalid URL",
   "homepage": {
     "welcome_bbb": "Welcome to BigBlueButton.",
     "bigbluebutton_description": "BigBlueButton is an open source web conferencing system for online classes. The platform maximizes time for applied learning by enabling students to collaborate and receive feedback in real-time.",
