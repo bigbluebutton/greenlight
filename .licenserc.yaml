@@ -26,7 +26,9 @@ header:
     - 'spec'
 
   paths-ignore:
+    - 'app/assets/locales/*.json'
     - '**/.keep'
+    - 'config/credentials.yml.enc'
 
   comment: on-failure
 
@@ -53,3 +55,8 @@ header:
       extensions:
         - ".scss"
       comment_style_id: DoubleSlash
+    ERB:
+      extensions:
+        - ".erb"
+        - ".html.erb"
+      comment_style_id: AngleBrackets
