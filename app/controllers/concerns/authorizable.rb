@@ -15,6 +15,7 @@
 # with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 # frozen_string_literal: true
+
 module Authorizable
   extend ActiveSupport::Concern
 
