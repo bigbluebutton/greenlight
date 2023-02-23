@@ -87,6 +87,7 @@ export default function Select({
     <SelectContext.Provider value={current}>
       <Dropdown id={id} className={`select d-grid mt-1 border-0 p-0 ${!isValid ? 'is-invalid' : ''}`}>
         <Dropdown.Toggle
+          id="edit-user-dropdown"
           onBlur={handleBlur}
           className="text-start text-black border-1 form-control"
           variant={isValid ? variant : 'delete'}
