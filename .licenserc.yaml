@@ -57,5 +57,5 @@ header:
       comment_style_id: DoubleSlash
     HTML.ERB:
       extensions:
-        - ".html.erb"
+        - ".erb"
       comment_style_id: AngleBracket
