@@ -59,4 +59,4 @@ header:
       extensions:
         - ".erb"
         - ".html.erb"
-      comment_style_id: AngleBrackets
+      comment_style_id: AngleBracket
