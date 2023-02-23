@@ -29,6 +29,7 @@ header:
     - 'app/assets/locales/*.json'
     - '**/.keep'
     - 'config/credentials.yml.enc'
+    - 'app/views'
 
   comment: on-failure
 
@@ -55,7 +56,3 @@ header:
       extensions:
         - ".scss"
       comment_style_id: DoubleSlash
-    HTML.ERB:
-      extensions:
-        - ".erb"
-      comment_style_id: AngleBracket
