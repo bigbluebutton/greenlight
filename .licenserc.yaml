@@ -55,7 +55,7 @@ header:
       extensions:
         - ".scss"
       comment_style_id: DoubleSlash
-    HTML:
+    ERB:
       extensions:
         - ".erb"
         - ".html.erb"
