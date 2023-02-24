@@ -39,7 +39,8 @@
     "settings_description": "Paramétrez vos salles et chaque réunion pour une salle de classe optimale",
     "and_more_title": "Et plus encore!",
     "and_more_description": "BigBlueButton propose de outils intégrés pour la formation et est conçu pour vous faire gagner du temps pendant le cours",
-    "enter_meeting_url": "Veuillez saisir l'URL de votre réunion sur BigBlueButton dans le champ ci-dessous"
+    "enter_meeting_url": "Veuillez saisir l'URL de votre réunion sur BigBlueButton dans le champ ci-dessous",
+    "enter_meeting_url_instruction": "Veuillez saisir l'URL de votre réunion BigBlueButton dans le champ ci-dessous."
   },
   "authentication": {
     "sign_in": "S'identifier",
@@ -133,7 +134,9 @@
       "add_share_access": "+ Partager l'accès",
       "share_room_access": "Partager l'accès à la salle",
       "add_some_users": "Il est temps d'ajouter quelques utilisateurs !",
-      "add_some_users_description": "Pour partager cette salle avec de nouveaux utilisateurs, cliquez sur le bouton ci-dessous pour les rechercher ou les sélectionner."
+      "add_some_users_description": "Pour partager cette salle avec de nouveaux utilisateurs, cliquez sur le bouton ci-dessous pour les rechercher ou les sélectionner.",
+      "delete_shared_access": "Supprimer l'accès partagé",
+      "are_you_sure_delete_shared_access": "Êtes-vous sûr de vouloir supprimer cet accès partagé ?"
     },
     "settings": {
       "settings": "Paramètres",
@@ -170,7 +173,6 @@
     "protected": "Protégée",
     "length_in_minutes": "{{enregistrement.durée}} min.",
     "processing_recording": "Traitement de l'enregistrement...",
-    "copied_urls": "Url(s) des enregistrements copiés",
     "copy_recording_urls": "Copier l'URL de l'enregistrement",
     "recordings_list_empty": "Vous n'avez pas encore d'enregistrements!",
     "recordings_list_empty_description": "Les enregistrements apparaîtront ici dès que vous aurez réalisé la captation d'une réunion",
@@ -353,8 +355,7 @@
         "password_updated": "Le mot de passe a été changé.",
         "account_activated": "Le compte a été activé avec succès. Veuillez vous connecter à votre compte.",
         "activation_email_sent": "Un courriel d'activation a été envoyé.",
-        "reset_pwd_email_sent": "Un courriel a été envoyé pour une réinitialisation du mot de passe, vérifiez votre boîte de réception.",
-        "challenge_passed": "Défi reussi."
+        "reset_pwd_email_sent": "Un courriel a été envoyé pour une réinitialisation du mot de passe, vérifiez votre boîte de réception."
       },
       "session": {
         "signed_out": "Vous vous êtes déconnecté avec succès."
@@ -366,7 +367,6 @@
         "room_shared": "La salle a été partagée",
         "room_unshared": "La salle n'est plus partagée",
         "recordings_synced": "Les enregistrements de la salle sont désormais synchronisés",
-        "server_room_deleted": "La salle a été supprimée.",
         "room_configuration_updated": "La configuration de la salle a été mise à jour.",
         "room_setting_updated": "La configuration de la salle a été mise à jour.",
         "presentation_updated": "La présentation a été mise à jour.",
@@ -375,15 +375,22 @@
         "meeting_started": "La conférence a été démarrée.",
         "access_code_copied": "Le code d'accès a été copié.",
         "access_code_generated": "Le code d'accès a été créé.",
-        "access_code_removed": "Le code d'accès a été supprimé."
+        "access_code_deleted": "Le code d'accès a été supprimé.",
+        "copied_meeting_url": "L'URL de la réunion a été copiée. Le lien peut être utilisé pour rejoindre la réunion."
       },
       "site_settings": {
-        "site_setting_updated": "La configuration du site a été mise à jour."
+        "site_setting_updated": "La configuration du site a été mise à jour.",
+        "brand_color_updated": "La couleur de la marque a été mise à jour.",
+        "brand_image_updated": "L'image de marque a été actualisée.",
+        "brand_image_deleted": "L'image de marque a été supprimée.",
+        "privacy_policy_updated": "La politique de confidentialité a été mise à jour.",
+        "terms_of_service_updated": "Les conditions de service ont été mises à jour."
       },
       "recording": {
         "recording_visibility_updated": "La visibilité de l'enregistrement a été mise à jour.",
         "recording_name_updated": "Le nom de l'enregistrement a été mis à jour.",
-        "recording_deleted": "L'enregistrement a été supprimé."
+        "recording_deleted": "L'enregistrement a été supprimé.",
+        "copied_urls": "Les URL d'enregistrement ont été copiés."
       },
       "role": {
         "role_created": "Le rôle a été créé",
@@ -480,6 +487,9 @@
           "required": "Veuillez saisir le nom de la salle",
           "min": "Le nom doit comporter 2 caractères au minimum "
         }
+      }, 
+      "url": {
+        "invalid": "URL non valide"
       }
     },
     "room": {
