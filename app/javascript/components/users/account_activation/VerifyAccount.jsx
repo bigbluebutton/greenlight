@@ -16,7 +16,7 @@
 
 import React from 'react';
 import {
-  Button, Card,
+  Button, Card, Stack,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
@@ -36,9 +36,11 @@ export default function VerifyAccount() {
       <div className="text-center pb-4">
         <Logo />
       </div>
-      <Card className="col-md-4 mx-auto p-4 border-0 card-shadow text-center">
-        <Card.Title className="pb-2 fs-1 text-danger">{ t('account_activation_page.title') }</Card.Title>
-        <strong className="mb-3">{ t('account_activation_page.account_unverified') }</strong>
+      <Card className="col-md-4 mx-auto p-4 border-0 card-shadow">
+        <Stack direction="vertical" className="py-3">
+          <h3><strong>{ t('account_activation_page.title') }</strong></h3>
+          <h5 className="mb-3">{ t('account_activation_page.account_unverified') }</h5>
+        </Stack>
         <span className="mb-3">{ t('account_activation_page.message') }</span>
         <span className="mb-4">{ t('account_activation_page.resend_activation_link') }</span>
         <Button
