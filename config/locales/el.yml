@@ -1,3 +1,19 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
 # Files in the config/locales directory are used for internationalization
 # and are automatically loaded by Rails. If you want to use locales other
 # than English, add the necessary files in this directory.
@@ -30,26 +46,29 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 el:
+  opengraph:
+    description: "Μάθετε να χρησιμοποιείτε το BigBlueButton, την αξιόπιστη λύση διαδικτυακής διάσκεψης ανοιχτού κώδικα, που επιτρέπει την απρόσκοπτη εικονική συνεργασία και τη διαδικτυακή εμπειρία μάθησης."
   meeting:
     moderator_message: "Για αποστολή πρόσκλησης στη διάσκεψη, χρησιμοποιήστε τον σύνδεσμο:"
     access_code: "Κωδικός πρόσβασης: %{code}"
   email:
-    link_expires: "Ο σύνδεσμος θα λήξη σε %{time}."
     activation:
       account_activation: Ενεργοποίηση λογαριασμού
-      welcome_to_bbb: Καλώς ήρθατε στο BigBlueButton.
+      welcome_to_bbb: Καλώς ήρθατε στο BigBlueButton!
       get_started: "Για να ξεκινήσετε, παρακαλούμε ενεργοποιήστε τον λογαριασμό σας κάνοντας κλικ στο παρακάτω κουμπί."
-      activate_account: Ενεργοποίηση Λογαριασμού
+      activate_account: Ενεργοποίηση λογαριασμού
+      link_expires: Ο σύνδεσμος θα λήξη σε 24 ώρες.
       if_link_expires: "Εάν ο σύνδεσμος λήξει, συνδεθείτε και ζητήστε νέο email ενεργοποίησης."
     invitation:
-      invitation_to_join: Πρόσκληση εγγραφής στο BigBlueButton
+      invitation_to_join: Πρόσκληση στο BigBlueButton
       you_have_been_invited: "Έχετε προσκληθεί να δημιουργήσετε λογαριασμό στο BigBlueButton από τον/την %{name}."
       get_started: "Για εγγραφή, παρακαλούμε κάντε κλικ στο παρακάτω κουμπί και ακολουθήστε τα βήματα."
-      valid_invitation: Η πρόσκληση ισχύει για 48 ώρες.
+      valid_invitation: Η πρόσκληση ισχύει για 24 ώρες.
       sign_up: Εγγραφή
     reset:
       password_reset: Αίτημα επαναφοράς κωδικού πρόσβασης
-      password_reset_requested: "Ένα αίτημα επαναφοράς κωδικού πρόσβασης στάλθηκε για %{email} "
-      password_reset_confirmation: "Για επαναφορά του κωδικού πρόσβασης σας, παρακαλούμε κάντε κλικ στο παρακάτω κουμπί"
+      password_reset_requested: "Ένα αίτημα επαναφοράς κωδικού πρόσβασης στάλθηκε για %{email}."
+      password_reset_confirmation: "Για επαναφορά του κωδικού πρόσβασης σας, παρακαλούμε κάντε κλικ στο παρακάτω κουμπί."
       reset_password: Επαναφορά κωδικού πρόσβασης
+      link_expires: Ο σύνδεσμος θα λήξη σε 1 ώρα.
       ignore_request: "Εάν δε ζητήσατε εσείς την αλλαγή του κωδικού πρόσβασης σας, παρακαλούμε αγνοείστε αυτό το email."

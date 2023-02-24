@@ -44,3 +44,9 @@
     }
   }
 }
+
+#edit-user-dropdown {
+  &::after {
+    display: none;
+  }
+}

@@ -1,3 +1,19 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
 # frozen_string_literal: true
 
 class User < ApplicationRecord
@@ -7,7 +23,7 @@ class User < ApplicationRecord
   RESET_TOKEN_VALIDITY_PERIOD = 1.hour
   # Account activation token max validity period.
   # It's advised to not increase this to more than 1 hour.
-  ACTIVATION_TOKEN_VALIDITY_PERIOD = 1.hour
+  ACTIVATION_TOKEN_VALIDITY_PERIOD = 24.hours
 
   has_secure_password validations: false
 
