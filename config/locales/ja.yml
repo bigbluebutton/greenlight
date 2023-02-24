@@ -52,12 +52,12 @@ ja:
     moderator_message: "誰かを会議に招待したい時はこのリンクを送付してください:"
     access_code: "接続コード: %{code}"
   email:
-    link_expires: "リンクが無効になるまで %{time}."
     activation:
       account_activation: アカウントの有効化
       welcome_to_bbb: BigBlueButtonへようこそ！
       get_started: まず初めに、下のボタンをクリックしてアカウントを有効化してください。
       activate_account: アカウント有効化
+      link_expires: リンクは24時間で無効となります。
       if_link_expires: もしリンクの期限が切れていたら、ログインして新しい有効化メールを要求してください。
     invitation:
       invitation_to_join: BigBlueButtonへの招待
@@ -70,4 +70,5 @@ ja:
       password_reset_requested: "%{email}に対してパスワードの再設定が要請されました。"
       password_reset_confirmation: パスワードを再設定するには下のボタンを押してください。
       reset_password: パスワード再設定
+      link_expires: リンクは１時間で無効となります。
       ignore_request: もしパスワード再設定の要請をした覚えがないようでしたら、このメールは読み捨ててください。
