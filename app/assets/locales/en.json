@@ -488,6 +488,9 @@
           "required": "Please enter the room name.",
           "min": "Name must be at least 2 characters long"
         }
+      }, 
+      "url": {
+        "invalid": "Invalid URL"
       }
     },
     "room": {

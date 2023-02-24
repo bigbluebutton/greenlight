@@ -16,13 +16,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Button, InputGroup,
-} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
-import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
+import FormControl from '../../../shared_components/forms/FormControl';
 import useLinksForm from '../../../../hooks/forms/admin/site_settings/useLinksForm';
 
 export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAPI }) {
@@ -33,17 +31,16 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
 
   return (
     <Form id={id} methods={methods} onSubmit={updateSiteSettingsAPI.mutate}>
-      <InputGroup>
-        <FormControlGeneric
-          field={fields.value}
-          aria-describedby={`${id}-submit-btn`}
-          type="text"
-        />
-        <Button id={`${id}-submit-btn`} variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
-          {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
-          { t('admin.site_settings.administration.change_url') }
-        </Button>
-      </InputGroup>
+      <FormControl
+        field={fields.value}
+        aria-describedby={`${id}-submit-btn`}
+        type="text"
+        noLabel
+      />
+      <Button id={`${id}-submit-btn`} className="mb-2 float-end" variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
+        {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
+        { t('admin.site_settings.administration.change_url') }
+      </Button>
     </Form>
   );
 }
