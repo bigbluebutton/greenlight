@@ -46,16 +46,18 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 fr:
+  opengraph:
+    description: "Apprenez à utiliser BigBlueButton, la solution de conférence Web à code source ouvert en qui on peut avoir confiance et qui permet une collaboration virtuelle transparente ainsi que des expériences d'apprentissage en ligne."
   meeting:
     moderator_message: "Pour inviter quelqu'un à la réunion, envoyez ce lien:"
     access_code: "Code d'accès: 1%{code}"
   email:
-    link_expires: "Le lien expire dans 1%{time}"
     activation:
       account_activation: Activation du compte
       welcome_to_bbb: Bienvenue dans BigBlueButton!
       get_started: "Pour commencer, veuillez activer votre compte en cliquant sur le lien ci-dessous."
       activate_account: Activer le compte
+      link_expires: Le lien expirera dans 24 heures.
       if_link_expires: "Si le lien a expiré, veuillez vous connecter et demander un nouveau courriel d'activation"
     invitation:
       invitation_to_join: Invitation à rejoindre BigBlueButton
@@ -68,4 +70,5 @@ fr:
       password_reset_requested: "Une demande de réinitialisation de mot de passe est demandée par 1%{email}"
       password_reset_confirmation: "Pour réinitialiser votre mot de passe, veuillez cliquer sur la bouton ci-dessous\""
       reset_password: Réinitialisation du mot de passe
+      link_expires: Le lien expirera dans une heure.
       ignore_request: "Si vous n'avez pas demandé à changer de mot de passe, ignorez ce message."
