@@ -346,7 +346,6 @@
     }
   },
   "toast": {
-    "success": "Success",
     "success": {
       "user": {
         "user_created": "A new user has been created.",
