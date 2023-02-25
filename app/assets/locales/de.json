@@ -23,9 +23,24 @@
   "are_you_sure": "Wirklich sicher?",
   "return_home": "Zurück zur Startseite",
   "created_at": "Erstellt am",
+  "no_result_search_input": "Es konnten keine Ergebnisse für \"{{ searchInput }}\" gefunden werden",
+  "action_permanent": "Diese Aktion kann nicht rückgängig gemacht werden.",
   "homepage": {
     "welcome_bbb": "Willkommen in BigBlueButton.",
-    "greenlight_description": "Greenlight ist eine einfache Verwaltungsoberfläche für BigBlueButton - dem freien Web-Konferenz-System. Hierüber können Räume erstellt werden, um Konferenzen abzuhalten - oder bestehenden Konferenzen über einen kurzen und knackigen Link beigetreten werden."
+    "bigbluebutton_description": "BigBlueButton ist ein Open-Source-Webkonferenzsystem für Online-Klassen. Die Plattform maximiert die Zeit für angewandtes Lernen, indem sie es Studenten ermöglicht, zusammenzuarbeiten und Feedback in Echtzeit zu erhalten.",
+    "greenlight_description": "Erstellen Sie Ihre eigenen Räume, um Konferenzen abzuhalten, oder schließen Sie sich über einen kurzen und bequemen Link anderen an.",
+    "learn_more": "Mehr über BigBlueButton erfahren",
+    "explore_features": "Entdecken Sie unsere Features",
+    "meeting_title": "Konferenzen starten",
+    "meeting_description": "Starten Sie eine virtuelle Klasse mit Video, Audio, Bildschirmfreigabe, Chat und allen Tools, die für angewandtes Lernen erforderlich sind.",
+    "recording_title": "Konferenzen aufzeichnen",
+    "recording_description": "Zeichnen Sie die BigBlueButton-Konferenzen auf und geben Sie sie an die Schüler weiter, um den Inhalt zu besprechen und zu reflektieren.",
+    "settings_title": "Räume verwalten",
+    "settings_description": "Konfigurieren Sie Ihre Räume und Konferenzeinstellungen, um ein effektives Klassenzimmer einzurichten.",
+    "and_more_title": "Und mehr!",
+    "and_more_description": "BigBlueButton bietet integrierte Tools für angewandtes Lernen und ist so konzipiert, dass Sie im Unterricht Zeit sparen.",
+    "enter_meeting_url": "Konferenz-URL eingeben",
+    "enter_meeting_url_instruction": "Bitte geben Sie die URL Ihres BigBlueButton-Meetings in das unten stehende Feld ein."
   },
   "authentication": {
     "sign_in": "Anmelden",
@@ -40,27 +55,28 @@
     "forgot_password": "Passwort zurücksetzen",
     "dont_have_account": "Noch kein Konto?",
     "create_account": "Konto erstellen",
-    "create_an_account": "Erstelle eine Konto",
+    "create_an_account": "Ein Konto erstellen",
     "already_have_account": "Konto bereits vorhanden?"
   },
   "user": {
     "user": "Nutzer:in",
     "users": "Nutzer:innen",
     "name": "Name",
-    "email_address": "Email-Adresse",
+    "email_address": "E-Mail-Adresse",
     "authenticator": "Authentifizierungsanbieter",
     "full_name": "Vollständiger Name",
     "no_user_found": "Keine Nutzer:innen gefunden",
     "type_three_characters": "Bitte gib mindestens drei (3) Zeichen ein, um andere Nutzer:innen anzuzeigen.",
+    "search_not_found": "Keine Nutzer:innen gefunden",
     "profile": {
       "profile": "Profil",
       "language": "Sprache",
       "role": "Rolle",
-      "administrator": "Administrator:in",
+      "administrator": "Administrator",
       "guest": "Gast"
     },
     "account": {
-      "account_info": "Konto-Informationen",
+      "account_info": "Kontoinformation",
       "delete_account": "Konto löschen",
       "change_password": "Passwort ändern",
       "reset_password": "Passwort zurücksetzen",
@@ -77,6 +93,10 @@
       "upload_avatar": "Avatar hochladen",
       "delete_avatar": "Avatar löschen",
       "crop_avatar": "Avatar zurechtschneiden"
+    },
+    "pending": {
+      "title": "Ausstehende Registrierung",
+      "message": "Vielen Dank für Ihre Registrierung! Ihr Konto muss derzeit noch von einem Administrator genehmigt werden."
     }
   },
   "room": {
@@ -89,9 +109,11 @@
     "create_new_room": "Neuen Raum erstellen",
     "enter_room_name": "Raumname eingeben",
     "shared_by": "geteilt von",
-    "last_session": "Letzte Sitzung: {{ room.last_session }}",
+    "last_session": "Letzte Sitzung: {{localizedTime}}",
     "no_last_session": "Es existiert keine vorhergehende Sitzung",
-    "no_rooms_found": "Keine Räume gefunden",
+    "search_not_found": "Keine Räume gefunden",
+    "rooms_list_is_empty": "Du hast noch keine Räume!",
+    "rooms_list_empty_create_room": "Erstelle deinen ersten Raum, indem du auf die Schaltfläche unten klickst und einen Raumnamen eingibst.",
     "meeting": {
       "start_meeting": "Konferenz starten",
       "join_meeting": "Konferenz beitreten",
@@ -112,7 +134,9 @@
       "add_share_access": "+ Zugriff teilen",
       "share_room_access": "Teile Raumzugriff",
       "add_some_users": "Füge jetzt ein paar Nutzer:innen hinzu!",
-      "add_some_users_description": "Um jemanden hinzuzufügen, klicke den Knopf unten und suche bzw. wähle aus mit wem Du den Raum teilen möchtest."
+      "add_some_users_description": "Um jemanden hinzuzufügen, klicke den Knopf unten und suche bzw. wähle aus mit wem Du den Raum teilen möchtest.",
+      "delete_shared_access": "Freigegebenen Raumzugriff löschen",
+      "are_you_sure_delete_shared_access": "Freigegebenen Raumzugriff wirklich löschen?"
     },
     "settings": {
       "settings": "Einstellungen",
@@ -126,13 +150,14 @@
       "all_users_join_as_mods": "Jede:r nimmt als Moderation teil",
       "mute_users_on_join": "Nutzer:innen anfangs stummschalten",
       "generate": "Generieren",
-      "access_code": "Zutrittscode",
-      "mod_access_code": "Zutrittscode für Moderation",
-      "mod_access_code_optional": "Zutrittscode für Moderation (optional)",
+      "access_code": "Zugangscode",
+      "mod_access_code": "Zugangscode für Moderation",
+      "mod_access_code_optional": "Zugangscode für Moderation (optional)",
       "access_code_required": "Bitte den Zugangscode eingeben",
       "wrong_access_code": "Falscher Zugangscode",
       "generate_viewers_access_code": "Generiere Zugangscode für Zuhörer:innen",
-      "generate_mods_access_code": "Generiere Zugangscode für die Moderation"
+      "generate_mods_access_code": "Generiere Zugangscode für die Moderation",
+      "are_you_sure_delete_room": "Diesen Raum wirklich löschen?"
     }
   },
   "recording": {
@@ -149,8 +174,11 @@
     "length_in_minutes": "{{recording.length}} Minuten",
     "processing_recording": "Aufzeichnung wird verarbeitet…",
     "copy_recording_urls": "Kopiere die URL(s) der Aufzeichnungen",
-    "no_recording_found": "Keine Aufzeichnung gefunden",
-    "are_you_sure_delete_recording": "Diese Aufzeichnung wirklich löschen?"
+    "recordings_list_empty": "Keine Aufzeichnung gefunden!",
+    "recordings_list_empty_description": "Aufzeichnungen werden hier angezeigt, nachdem du eine Besprechung gestartet und aufgezeichnet hast.",
+    "delete_recording": "Aufzeichnung löschen",
+    "are_you_sure_delete_recording": "Diese Aufzeichnung wirklich löschen?",
+    "search_not_found": "Keine Aufzeichnungen gefunden"
   },
   "admin": {
     "admin_panel": "Administration",
@@ -167,6 +195,7 @@
       "invited_tab": "Eingeladen",
       "invite_user": "Nutzer:in einladen",
       "send_invitation": "Einladung senden",
+      "enter_user_email": "E-Mail eingeben",
       "new_user": "Neue Nutzer:in",
       "add_new_user": "Neue Nutzer:in",
       "create_new_user": "Neue Nutzer:in erstellen",
@@ -176,11 +205,17 @@
       "create_account": "Konto erstellen",
       "create_room": "Raum erstellen",
       "create_new_room": "Neuen Raum erstellen",
-      "user_created_at": "Erstellt am: {{user.created_at}}",
-      "enter_user_email": "Email eingeben",
-      "enter_user_name": "Name eingeben",
+      "user_created_at": "Erstellt am: {{localizedTime}}",
       "are_you_sure_delete_account": "Wirklich das Konto von {{user.name}} löschen?",
       "delete_account_warning": "Wenn dieses Konto gelöscht wird, kann es NICHT wiederhergestellt werden.",
+      "empty_active_users": "Es gibt noch keine aktiven Nutzer:innen auf diesem Server!",
+      "empty_active_users_subtext": "Wenn der Status eines Nutzers/einer Nutzerin auf \"aktiv\" geändert wird, wird er hier angezeigt.",
+      "empty_pending_users": "Es sind noch keine freizugebenden Nutzer:innen auf diesem Server!",
+      "empty_pending_users_subtext": "Wenn der Status eines Nutzers/einer Nutzerin auf \"ausstehend\" geändert wird, erscheint er hier.",
+      "empty_banned_users": "Es gibt noch keine gesperrten Nutzer:innen auf diesem Server!",
+      "empty_banned_users_subtext": "Wenn der Status eines Nutzers/einer Nutzerin auf \"gesperrt\" geändert wird, erscheint er hier.",
+      "empty_invited_users": "Es sind noch keine eingeladenen Nutzer:innen auf diesem Server!",
+      "empty_invited_users_subtext": "Wenn der Status eines Nutzers/einer Nutzerin auf \"eingeladen\" geändert wird, erscheint er hier.",
       "invited": {
         "time_sent": "Sendezeitpunkt",
         "valid": "Gültig"
@@ -197,10 +232,12 @@
       "not_running": "Nicht laufend",
       "active": "Aktiv",
       "current_session": "Aktuelle Sitzung: {{lastSession}}",
-      "last_session": "Letzte Sitzung: {{lastSession}}",
+      "last_session": "Letzte Sitzung: {{localizedTime}}",
       "no_meeting_yet": "Bisher keine Konferenz.",
       "delete_server_rooms": "Serverraum löschen",
-      "resync_recordings": "Aufzeichnungen resynchronisieren"
+      "resync_recordings": "Aufzeichnungen resynchronisieren",
+      "empty_room_list": "Es gibt noch keine Serverräume!",
+      "empty_room_list_subtext": "Die Räume erscheinen hier, nachdem du deinen ersten Raum erstellt hast."
     },
     "server_recordings": {
       "server_recordings": "Server-Aufzeichnungen",
@@ -218,7 +255,8 @@
         "brand_image": "Logo",
         "click_to_upload": "Klicken zum Hochladen",
         "drag_and_drop": " oder per Drag & Drop",
-        "upload_brand_image_description": "Eine PNG, JPG oder SVG-Datei hochladen. Abhängig von der Größe könnte das eine gewisse Zeit dauern."
+        "upload_brand_image_description": "Eine PNG, JPG oder SVG-Datei hochladen. Abhängig von der Größe könnte das eine gewisse Zeit dauern.",
+        "remove_branding_image": "Markenbild/Logo entfernen"
       },
       "administration": {
         "administration": "Administration",
@@ -231,6 +269,7 @@
         "enter_link": "Link eingeben"
       },
       "settings": {
+        "settings": "Einstellungen",
         "allow_users_to_share_rooms": "Räume können geteilt werden",
         "allow_users_to_share_rooms_description": "Wenn dies deaktiviert ist, dann wird der Knopf zum Teilen eines Raums von den Raumeinstellungen entfernt.",
         "allow_users_to_preupload_presentation": "Präsentationen können hochgeladen werden",
@@ -256,7 +295,8 @@
     },
     "room_configuration": {
       "room_configuration": "Raum-Konfiguration",
-      "optional": "Optional",
+      "default": "Optional (Standard: Aktiviert)",
+      "optional": "Optional (Standard: Deaktiviert)",
       "enabled": "Aktiviert",
       "disabled": "Deaktiviert",
       "configurations": {
@@ -268,13 +308,13 @@
         "require_mod_approval_description": "Fragt die Moderation der Konferenz an, wenn eine Nutzer:in teilnehmen möchte. Wenn die Moderation das erlaubt, kann die Nutzer:in teilnehmen.",
         "allow_any_user_to_start_meeting": "Jede:r kann die Konferenz starten",
         "allow_any_user_to_start_meeting_description": "Erlaubt Nutzer:innen die Konferenz jederzeit zu starten. Standardmäßig kann nur die Raumbesitzer:in die Konferenz starten.",
-        "allow_users_to_join_as_mods": "Jede:r ist Moderation",
+        "allow_users_to_join_as_mods": "Jede:r mann moderieren",
         "allow_users_to_join_as_mods_description": "Gibt allen Moderationsrechte, wenn sie der Konferenz beitreten.",
         "mute_users_on_join": "Nutzer:innen anfangs stummschalten",
         "mute_users_on_join_description": "Automatisch stummenschalten, wenn man die Konferenz betritt.",
         "viewer_access_code": "Zugriffscode für Zuhörer:innen",
         "viewer_access_code_description": "Erlaubt Raumbesitzer:innen einen zufälligen alphanumerischen Zugriffscode zu generieren, der mit Nutzer:innen geteilt werden kann. Falls ein solcher Zugriffscode generiert wird, ist dieser notwendig damit Nutzer:innen an der Konferenz teilnehmen können.",
-        "mod_access_code": "Zugriffcode für Moderation",
+        "mod_access_code": "Zugangscode für Moderation",
         "mod_access_code_description": "Erlaubt Raumbesitzer:innen einen zufälligen alphanumerischen Zugriffscode zu generieren, der mit Nutzer:innen geteilt werden kann. Falls ein solcher Zugriffscode generiert wird, ist dieser nicht notwendig damit Nutzer:innen an der Konferenz teilnehmen können - wird er benutzt, wird die Nutzer:in zur Moderation."
       }
     },
@@ -290,7 +330,19 @@
       "add_role": "+ Rolle erstellen",
       "create_role": "Rolle erstellen",
       "create_new_role": "Eine neue Rolle erstellen",
-      "no_role_found": "Keine Rolle gefunden."
+      "no_role_found": "Keine Rolle gefunden.",
+      "search_not_found": "Keine Rollen gefunden",
+      "edit": {
+        "create_room": "Nutzer:innen mit dieser Rolle das Anlegen von Räumen gestatten",
+        "record": "Nutzer:innen mit dieser Rolle die Aufzeichnung ihrer Konferenzen ermöglichen",
+        "manage_users": "Nutzer:innen mit dieser Rolle erlauben, Benutzer zu verwalten",
+        "manage_rooms": "Nutzer:innen mit dieser Rolle erlauben, Serverräumen zu verwalten",
+        "manage_recordings": "Nutzer:innen mit dieser Rolle erlauben, Aufzeichnungen zu verwalten",
+        "manage_site_settings": "Nutzer:innen mit dieser Rolle erlauben, die Webseiteneinstellungen zu verwalten",
+        "manage_roles": "Nutzer:innen mit dieser Rolle erlauben, andere Rollen zu bearbeiten",
+        "shared_list": "Nutzer:innen mit dieser Rolle in die Auswahlliste für die gemeinsame Nutzung von Räumen aufnehmen",
+        "room_limit": "Raumlimit"
+      }
     }
   },
   "toast": {
@@ -301,11 +353,12 @@
         "user_deleted": "Nutzer:in gelöscht.",
         "avatar_updated": "Avatar aktualisiert.",
         "password_updated": "Passwort aktualisiert.",
-        "account_activated": "Konto aktiviert.",
-        "activation_email_sent": "Bestätigungsemail wurde gesendet"
+        "account_activated": "Konto erfolgreich aktiviert. Bitte melden Sie sich in Ihrem Konto an.",
+        "activation_email_sent": "E-Mail zur Aktivierung wurde gesendet",
+        "reset_pwd_email_sent": "E-Mail zum Zurücksetzen des Passworts sollte verschickt worden sein, überprüfen Sie bitte Ihren Posteingang"
       },
       "session": {
-        "signed_out": "Erfolgreich ausgeloggt! 🙂"
+        "signed_out": "Sie haben sich erfolgreich abgemeldet."
       },
       "room": {
         "room_created": "Raum erstellt.",
@@ -314,24 +367,30 @@
         "room_shared": "Raum geteilt",
         "room_unshared": "Raum nicht mehr geteilt",
         "recordings_synced": "Raumaufzeichnungen sind nun synchronisiert.",
-        "server_room_deleted": "Serverraum gelöscht.",
         "room_configuration_updated": "Raumkonfiguration aktualisiert.",
         "room_setting_updated": "Raumeinstellungen aktualisiert.",
         "presentation_updated": "Präsentation aktualisiert.",
         "presentation_deleted": "Präsentation gelöscht.",
         "joining_meeting": "Trete der Konferenz bei...",
         "meeting_started": "Konferenz gestartet.",
-        "access_code_copied": "Zugriffcode kopiert.",
-        "access_code_generated": "Zugriffcode generiert.",
-        "access_code_removed": "Zugriffcode gelöscht."
+        "access_code_copied": "Zugangscode kopiert.",
+        "access_code_generated": "Zugangscode generiert.",
+        "access_code_deleted": "Zugriffcode wurde gelöscht.",
+        "copied_meeting_url": "Die URL der Konferenz wurde kopiert. Der Link kann verwendet werden, um an der Konferenz teilzunehmen."
       },
       "site_settings": {
-        "site_setting_updated": "Grundeinstellungen aktualisiert."
+        "site_setting_updated": "Grundeinstellungen aktualisiert.",
+        "brand_color_updated": "Die Markenfarbe wurde aktualisiert.",
+        "brand_image_updated": "Das Markenbild wurde aktualisiert.",
+        "brand_image_deleted": "Das Markenbild wurde entfernt.",
+        "privacy_policy_updated": "Die Datenschutzrichtlinie wurde aktualisiert.",
+        "terms_of_service_updated": "Die Nutzungsbedingungen wurden aktualisiert."
       },
       "recording": {
         "recording_visibility_updated": "Aufzeichnungssichtbarkeit aktualisiert.",
         "recording_name_updated": "Aufzeichnungsname aktualisiert.",
-        "recording_deleted": "Aufzeichnung gelöscht."
+        "recording_deleted": "Aufzeichnung gelöscht.",
+        "copied_urls": "Die Aufzeichnungs-URLs wurden kopiert."
       },
       "role": {
         "role_created": "Rolle erstellt.",
@@ -344,18 +403,26 @@
       }
     },
     "error": {
-      "problem_completing_action": "Hier hat etwas nicht funktioniert. 😕\nBitte nochmal probieren.",
-      "file_type_not_supported": "Dateityp nicht unterstützt.",
+      "problem_completing_action": "Hier hat etwas nicht funktioniert.\nBitte nochmal probieren.",
+      "file_type_not_supported": "Dateityp wird nicht unterstützt.",
       "file_size_too_large": "Datei ist zu groß.",
       "signin_required": "Bitte einloggen um diese Seite anzuzeigen.",
       "roles": {
         "role_assigned": "Diese Rolle kann nicht gelöscht werden, da sie mindestens einer Person zugeordnet ist."
       },
       "users": {
-        "invalid_invite": "Das Einladungs-Token ist ungültig. Bitte die Administration kontaktieren um einen neuen zu erhalten."
+        "signup_error": "Du kannst nicht authentifiziert werden. Bitte kontaktiere den Administrator.",
+        "invalid_invite": "Das Einladungs-Token ist ungültig. Bitte die Administration kontaktieren um einen neuen zu erhalten.",
+        "email_exists": "Ein Konto mit dieser E-Mail-Adresse existiert bereits.",
+        "old_password": "Das eingegebene Passwort ist falsch.",
+        "pending": "Deine Anmeldung muss noch vom Administrator genehmigt werden. Bitte versuche es später noch einmal.",
+        "banned": "Du hast keinen Zugriff auf diese Anwendung. Bitte wende dich sich an den Administrator, wenn du glaubst, dass dies ein Fehler ist."
       },
       "rooms": {
         "room_limit": "Raum kann nicht erstellt werden, da das Raumlimit erreicht ist."
+      },
+      "session": {
+        "invalid_credentials": "Der Benutzername oder das Passwort ist ungültig. Bitte überprüfe deine Anmeldedaten und versuche es erneut."
       }
     }
   },
@@ -368,10 +435,213 @@
     "message": "Oh je! Diese Seite existiert nicht."
   },
   "account_activation_page": {
-    "title": "Konto-Aktivierung",
+    "title": "Kontoaktivierung",
     "account_unverified": "Konto wurde noch nicht verifiziert.",
     "message": "Um Greenlight zu benutzen, bitte das Konto anhand der Anleitung, die per Aktivierungs-Email geschickt wurde, verifizieren",
     "resend_activation_link": "Wenn noch keine Aktivierungs-Email angekommen ist, oder es Probleme damit gibt, bitte unten eine neue Aktivierungs-Email anfordern.",
     "resend_btn_lbl": "Bestätigungsmail erneut senden"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Bitte gib einen vollständigen Namen ein",
+        "min": "Der Name muss mindestens 2 Zeichen lang sein",
+        "max": "Der Name darf maximal 255 Zeichen lang sein "
+      },
+      "email": {
+        "required": "Bitte eine E-Mail-Adresse ein",
+        "email": "Eingegebener Wert stimmt nicht mit E-Mail-Format überein",
+        "min": "Die E-Mail muss mindestens 6 Zeichen lang sein",
+        "max": "Die E-Mail darf maximal 255 Zeichen lang sein"
+      },
+      "password": {
+        "required": "Bitte gib ein Passwort ein",
+        "match": "Passwort muss mindestens haben:",
+        "min": "- Acht Zeichen",
+        "lower": "- Ein Kleinbuchstaben",
+        "upper": "- Ein Großbuchstaben",
+        "digit": "- Eine Zahl",
+        "symbol": "- Ein Sonderzeichen",
+        "max": "Passwort darf maximal 255 Zeichen lang sein"
+      },
+      "password_confirmation": {
+        "required": "Bitte Passwort bestätigen",
+        "match": "Passwörter stimmen nicht überein"
+      },
+      "emails": {
+        "required": "Bitte gib mindestens eine gültige E-Mail-Adresse ein",
+        "list": "Bitte gib eine durch Kommata getrennte Liste gültiger E-Mails an (user@users.com,user1@users.com,user2@users.com)"
+      },
+      "role_name": {
+        "required": "Bitte den Rollennamen eingeben"
+      },
+      "role": {
+        "limit": {
+          "required": "Bitte die Höchstzahl der Räume angeben",
+          "min": "Zulässiger Mindestwert ist 0",
+          "max": "Zulässiger Höchstwert ist 100"
+        }
+      },
+      "room": {
+        "name": {
+          "required": "Bitte den Raumnamen eingeben.",
+          "min": "Der Name muss mindestens 2 Zeichen lang sein"
+        }
+      }, 
+      "url": {
+        "invalid": "Ungültige URL"
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Raumname",
+          "placeholder": "Raumname eingeben..."
+        }
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Vollständiger Name",
+            "placeholder": "Vollständigen Namen eingeben"
+          },
+          "email": {
+            "label": "E-Mail",
+            "placeholder": "Mail eingeben"
+          },
+          "password": {
+            "label": "Passwort",
+            "placeholder": "Passwort erstellen"
+          },
+          "password_confirmation": {
+            "label": "Passwort bestätigen",
+            "placeholder": "Passwort bestätigen"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "E-Mail",
+            "placeholder": "E-Mail"
+          },
+          "password": {
+            "label": "Passwort",
+            "placeholder": "Passwort"
+          },
+          "remember_me": {
+            "label": "Eingeloggt bleiben"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Aktuelles Passwort",
+            "placeholder": "Aktuelles Passwort eingeben"
+          },
+          "new_password": {
+            "label": "Neues Passwort",
+            "placeholder": "Neues Passwort eingeben"
+          },
+          "password_confirmation": {
+            "label": "Passwort bestätigen",
+            "placeholder": "Neues Passwort bestätigen"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Bitte das aktuelle Passwort eingeben"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "E-Mail",
+            "placeholder": "E-Mail-Adresse des Benutzerkontos eingeben"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Bitte die E-Mail-Adresse des Benutzerkontos eingeben"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Neues Passwort",
+            "placeholder": "Neues Passwort eingeben"
+          },
+          "password_confirmation": {
+            "label": "Passwort bestätigen",
+            "placeholder": "Neues Passwort bestätigen"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Vollständiger Name"
+          },
+          "email": {
+            "label": "E-Mail"
+          },
+          "language": {
+            "label": "Sprache"
+          },
+          "role": {
+            "label": "Rolle"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Vollständiger Name",
+            "placeholder": "Vollständigen Namen eingeben"
+          },
+          "email": {
+            "label": "E-Mail",
+            "placeholder": "E-Mail-Adresse eingeben"
+          },
+          "password": {
+            "label": "Passwort",
+            "placeholder": "Passwort eingeben"
+          },
+          "password_confirmation": {
+            "label": "Passwort bestätigen",
+            "placeholder": "Passwort bestätigen"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "E-Mails"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "Link eingeben..."
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "Rollenname",
+            "placeholder": "Rollenname eingeben..."
+          }
+        }
+      }
+    }
   }
 }
