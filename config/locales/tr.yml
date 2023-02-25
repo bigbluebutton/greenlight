@@ -46,29 +46,29 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 tr:
+  opengraph:
+    description: "Sorunsuz sanal işbirliği ve çevrimiçi öğrenme deneyimleri sağlayan, güvenilir ve açık kaynaklı web üzerinden görüşme çözümü BigBlueButton uygulamasını kullanarak öğrenin."
   meeting:
     moderator_message: "Toplantıya katılmasını istediğiniz kişilere bu bağlantıyı gönderin: "
     access_code: "Erişim kodu: %{code}"
   email:
     activation:
-      line0: "Hoş geldiniz %{name}!"
-      line1: Greenlight ve BigBlueButton uygulamalarını kullanmaya ve bunlardan yararlanmaya başlamak için yalnızca bir adım kaldı!
-      line2: Hesabınızı etkinleştirmek için aşağıdaki bağlantıyı açarak kimliğinizi doğrulamaya çağrıldınız.
-      line3: "Hesabınızı etkinleştirdiğinizde, tüm Greenlight ve BigBlueButton özelliklerinden yararlanabileceksiniz!"
-      line4: "Odalar oluşturabilir, oturumlar düzenleyebilir, kayıtları paylaşabilir ve başkalarıyla işbirliği yapabilirsiniz!"
-      line5: Hesabımı etkinleştir
-      line6: "Bağlantı %{time} sonra geçersiz olacak"
-      line7: Bu e-postadaki bağlantının süresi geçse bile hesabınızda oturum açarak yeni bir etkinleştirme bağlantısı isteğinde bulunabilirsiniz.
+      account_activation: Hesap etkinleştirme
+      welcome_to_bbb: BigBlueButton uygulamasına hoş geldiniz!
+      get_started: "Başlamak için, lütfen aşağıdaki düğmeye tıklayarak hesabınızı etkinleştirin."
+      activate_account: Hesabı etkinleştir
+      link_expires: Bağlantı 24 saat sonra geçersiz olacak.
+      if_link_expires: Bağlantının süresi geçerse oturum açarak yeni bir etkinleştirme e-postası alın.
     invitation:
-      line0: BigBlueButton toplantısına katılma çağrısı
-      line1: "%{name} tarafından kendi kişisel alanınıza çağrıldınız."
-      line2: E-posta adresinizi kullanarak hesap açmak için aşağıdaki düğmeye tıklayın ve yönergeleri izleyin.
-      line3: Bu çağrı 48 saat süreyle geçerlidir.
-      line4: Hesap aç
+      invitation_to_join: BigBlueButton çağrısı
+      you_have_been_invited: "%{name} tarafından bir BigBlueButton hesabı açmaya çağrıldınız."
+      get_started: Hesap açmak için aşağıdaki düğmeye tıklayın ve yönergeleri izleyin.
+      valid_invitation: Bu çağrı 24 saat süreyle geçerlidir.
+      sign_up: Hesap aç
     reset:
-      line0: Parolayı sıfırla
-      line1: "%{email} adresi için bir parola sıfırlama isteğinde bulunuldu"
-      line2: "Bu işlemi siz yaptıysanız, parolanızı sıfırlamak için aşağıdaki bağlantıya tıklayın:\""
-      line3: Parolayı sıfırla
-      line4: Bu işlemi siz yapmadıysanız bu e-postayı yok sayabilirsiniz.
-      line5: "Bu bağlantı %{time} sonra geçersiz olacak."
+      password_reset: Parolayı sıfırla
+      password_reset_requested: "%{email} için bir parola sıfırlama isteğinde bulunuldu."
+      password_reset_confirmation: Parolanızı sıfırlamak için aşağıdaki düğmeye tıklayın.
+      reset_password: Parolayı sıfırla
+      link_expires: Bağlantı 1 saat sonra geçersiz olacak.
+      ignore_request: Parola değiştirme isteğinde bulunmadıysanız bu e-postayı yok sayabilirsiniz.
