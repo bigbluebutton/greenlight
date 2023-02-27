@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-desc 'Sync recordings with BBB server'
+desc 'Recordings sync with BBB server'
 
-task sync_recordings: :environment do
+task recordings_sync: :environment do
   Recording.destroy_all
 
   Room.select(:id, :meeting_id).in_batches(of: 25) do |rooms|
