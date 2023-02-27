@@ -23,6 +23,8 @@
   "are_you_sure": "Emin misiniz?",
   "return_home": "Girişe dön",
   "created_at": "Oluşturulma",
+  "no_result_search_input": "\"{{ searchInput }}\" için herhangi bir sonuç bulunamadı",
+  "action_permanent": "Bu işlem geri alınamaz.",
   "homepage": {
     "welcome_bbb": "BigBlueButton uygulamasına hoş geldiniz.",
     "bigbluebutton_description": "BigBlueButton, çevrimiçi sınıflar için açık kaynaklı bir web konferans sistemidir. Platform, öğrencilerin gerçek zamanlı olarak işbirliği yapmalarını ve geri bildirim almalarını sağlayarak uygulamalı öğrenme zamanının en iyi şekilde kullanılmasını sağlar.",
@@ -36,7 +38,9 @@
     "settings_title": "Odalarınızı yönetin",
     "settings_description": "Etkili bir sınıfın sorumluluğunu almak için odalarınızı ve toplantı ayarlarınızı yapılandırın.",
     "and_more_title": "Ve diğer özellikler!",
-    "and_more_description": "BigBlueButton, ders sırasında size zaman kazandırmak için yerleşik uygulamalı öğrenim araçları sağlar."
+    "and_more_description": "BigBlueButton, ders sırasında size zaman kazandırmak için yerleşik uygulamalı öğrenim araçları sağlar.",
+    "enter_meeting_url": "Lütfen aşağıdaki alana BigBlueButton toplantınızın adresini yazın.",
+    "enter_meeting_url_instruction": "Lütfen aşağıdaki alana BigBlueButton toplantınızın adresini yazın."
   },
   "authentication": {
     "sign_in": "Oturum aç",
@@ -63,6 +67,7 @@
     "full_name": "Tam ad",
     "no_user_found": "Herhangi bir kullanıcı bulunamadı.",
     "type_three_characters": "Diğer kullanıcıları görebilmek için lütfen en az üç (3) karakter yazın.",
+    "search_not_found": "Herhangi bir kullanıcı bulunamadı",
     "profile": {
       "profile": "Profil",
       "language": "Dil",
@@ -88,6 +93,10 @@
       "upload_avatar": "Avatar yükle",
       "delete_avatar": "Avatarı sil",
       "crop_avatar": "Avatarınızı kırpın"
+    },
+    "pending": {
+      "title": "Açılan hesabın onaylanması bekleniyor",
+      "message": "Hesap açtığınız için teşekkürler. Hesabınız bir yönetici tarafından onaylanmayı bekliyor"
     }
   },
   "room": {
@@ -102,7 +111,7 @@
     "shared_by": "şununla paylaşılmış",
     "last_session": "Son oturum: {{ room.last_session }}",
     "no_last_session": "Daha önce bir oturum yapılmamış",
-    "no_rooms_found": "Herhangi bir oda bulunamadı",
+    "search_not_found": "Herhangi bir kullanıcı bulunamadı.",
     "rooms_list_is_empty": "Henüz bir oda oluşturmamışsınız!",
     "rooms_list_empty_create_room": "Aşağıdaki düğmeye tıklayıp bir oda adı yazarak ilk odanızı oluşturabilirsiniz.",
     "meeting": {
@@ -125,7 +134,9 @@
       "add_share_access": "+ Erişimi paylaş",
       "share_room_access": "Oda erişimini paylaş",
       "add_some_users": "Şimdi bazı kullanıcılar ekleyin!",
-      "add_some_users_description": "Yeni kullanıcılar eklemek için aşağıdaki düğmeye tıklayın ve bu odayı paylaşmak istediğiniz kullanıcıları arayın ya da seçin."
+      "add_some_users_description": "Yeni kullanıcılar eklemek için aşağıdaki düğmeye tıklayın ve bu odayı paylaşmak istediğiniz kullanıcıları arayın ya da seçin.",
+      "delete_shared_access": "Paylaşılmış erişimi sil",
+      "are_you_sure_delete_shared_access": "Bu paylaşılmış erişimi silmek istediğinize emin misiniz?"
     },
     "settings": {
       "settings": "Ayarlar",
@@ -145,7 +156,8 @@
       "access_code_required": "Lütfen erişim kodunu yazın",
       "wrong_access_code": "Erişim kodu yanlış",
       "generate_viewers_access_code": "İzleyiciler için erişim kodu oluştur",
-      "generate_mods_access_code": "Sorumlular için erişim kodu oluştur"
+      "generate_mods_access_code": "Sorumlular için erişim kodu oluştur",
+      "are_you_sure_delete_room": "Bu odayı silmek istediğinize emin misiniz?"
     }
   },
   "recording": {
@@ -162,8 +174,11 @@
     "length_in_minutes": "{{recording.length}} dakika",
     "processing_recording": "Kayıt işleniyor...",
     "copy_recording_urls": "Kayıt adreslerini kopyala",
-    "no_recording_found": "Herhangi bir kayıt bulunamadı",
-    "are_you_sure_delete_recording": "Bu kaydı silmek istediğinize emin misiniz?"
+    "recordings_list_empty": "Henüz bir kaydınız yok!",
+    "recordings_list_empty_description": "Toplantıları başlatıp kayıt ettikten sonra kayıtlarınız burada görüntülenecek.",
+    "delete_recording": "Kaydı sil",
+    "are_you_sure_delete_recording": "Bu kaydı silmek istediğinize emin misiniz?",
+    "search_not_found": "Herhangi bir kayıt bulunamadı"
   },
   "admin": {
     "admin_panel": "Yönetim panosu",
@@ -193,6 +208,14 @@
       "user_created_at": "Oluşturulma: {{user.created_at}}",
       "are_you_sure_delete_account": "{{user.name}} kullanıcısının hesabını silmek istediğinize emin misiniz?",
       "delete_account_warning": "Bu hesabı silmeyi seçerseniz, bu işlem geri alınamaz.",
+      "empty_active_users": "Bu sunucuda henüz etkin bir kullanıcı yok!",
+      "empty_active_users_subtext": "Durumu etkin olarak değiştirilen kullanıcılar burada görüntülenir.",
+      "empty_pending_users": "Bu sunucuda henüz bekleyen bir kullanıcı yok!",
+      "empty_pending_users_subtext": "Durumu bekliyor olarak değiştirilen kullanıcılar burada görüntülenir.",
+      "empty_banned_users": "Bu sunucuda henüz yasaklanmış bir kullanıcı yok!",
+      "empty_banned_users_subtext": "Durumu yasaklanmış olarak değiştirilen kullanıcılar burada görüntülenir.",
+      "empty_invited_users": "Bu sunucuda henüz çağrılmış bir kullanıcı yok!",
+      "empty_invited_users_subtext": "Durumu çağrılmış olarak değiştirilen kullanıcılar burada görüntülenir.",
       "invited": {
         "time_sent": "Gönderilme zamanı",
         "valid": "Geçerli"
@@ -212,7 +235,9 @@
       "last_session": "Son oturum: {{lastSession}}",
       "no_meeting_yet": "Henüz bir toplantı yok.",
       "delete_server_rooms": "Sunucu odasını sil",
-      "resync_recordings": "Kayıtları yeniden eşitle"
+      "resync_recordings": "Kayıtları yeniden eşitle",
+      "empty_room_list": "Henüz bir sunucu odası yok!",
+      "empty_room_list_subtext": "Oluşturulan odalar burada görüntülenir. "
     },
     "server_recordings": {
       "server_recordings": "Sunucu kayıtları",
@@ -230,12 +255,13 @@
         "brand_image": "Marka görseli",
         "click_to_upload": "Yüklemek için tıklayın",
         "drag_and_drop": "ya da sürükleyip bırakın",
-        "upload_brand_image_description": "Herhangi PNG, JGP ya da SVG dosyası yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir."
+        "upload_brand_image_description": "Herhangi PNG, JGP ya da SVG dosyası yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
+        "remove_branding_image": "Marka görselini kaldır"
       },
       "administration": {
         "administration": "Yönetim",
         "terms": "Hüküm ve koşullar",
-        "privacy": "Gizlilik",
+        "privacy": "Gizlilik ilkesi",
         "privacy_policy": "Gizlilik ilkesi",
         "change_term_links": "Sayfanın altında görüntülenecek koşullar bağlantısını değiştir",
         "change_privacy_link": "Sayfanın altında görüntülenecek gizlilik bağlantısını değiştir",
@@ -269,8 +295,9 @@
     },
     "room_configuration": {
       "room_configuration": "Oda yapılandırması",
-      "optional": "İsteğe bağlı",
-      "enabled": "Etkin",
+      "default": "İsteğe bağlı (varsayılan olarak etkin)",
+      "optional": "İsteğe bağlı (varsayılan olarak devre dışı)",
+      "enabled": "Zorla etkinleştirilsin",
       "disabled": "Devre dışı",
       "configurations": {
         "allow_room_to_be_recorded": "Odanın kaydı alınabilsin",
@@ -303,7 +330,19 @@
       "add_role": "+ Rol ekle",
       "create_role": "+ Rol ekle",
       "create_new_role": "Yeni rol ekle",
-      "no_role_found": "Herhangi bir rol bulunamadı"
+      "no_role_found": "Herhangi bir rol bulunamadı",
+      "search_not_found": "Herhangi bir rol bulunamadı.",
+      "edit": {
+        "create_room": "Bu roldeki kullanıcılar oda oluşturabilsin",
+        "record": "Bu roldeki kullanıcılar toplantılarını kaydedebilsin",
+        "manage_users": "Bu roldeki kullanıcılar kullanıcıları yönetebilsin",
+        "manage_rooms": "Bu roldeki kullanıcılar sunucu odalarını yönetebilsin",
+        "manage_recordings": "Bu roldeki kullanıcılar sunucu kayıtlarını yönetebilsin",
+        "manage_site_settings": "Bu roldeki kullanıcılar site ayarlarını yönetebilsin",
+        "manage_roles": "Bu roldeki kullanıcılar diğer kullanıcı rollerini düzenleyebilsin",
+        "shared_list": "Bu roldeki kullanıcılar oda paylaşma açılan kutularında görüntülensin",
+        "room_limit": "Oda sayısı sınırı"
+      }
     }
   },
   "toast": {
@@ -314,9 +353,9 @@
         "user_deleted": "Kullanıcı silindi.",
         "avatar_updated": "Avatar güncellendi.",
         "password_updated": "Parola güncellendi.",
-        "account_activated": "Hesap etkinleştirildi.",
+        "account_activated": "Hesap etkinleştirildi. Lütfen hesabınızla oturum açın.",
         "activation_email_sent": "Etkinleştirme e-postası gönderildi.",
-        "challenge_passed": "Güvenlik doğrulamasından geçtiniz"
+        "reset_pwd_email_sent": "Parola sıfırlama e-postası gönderildi. Lütfen gelen kutunuza bakın"
       },
       "session": {
         "signed_out": "Oturumunuz kapatıldı."
@@ -328,7 +367,6 @@
         "room_shared": "Oda paylaşıldı",
         "room_unshared": "Oda paylaşımdan kaldırıldı",
         "recordings_synced": "Oda kayıtları eşitlendi",
-        "server_room_deleted": "Sunucu odası silindi.",
         "room_configuration_updated": "Oda yapılandırması güncellendi.",
         "room_setting_updated": "Oda ayarları güncellendi.",
         "presentation_updated": "Sunum güncellendi.",
@@ -337,15 +375,22 @@
         "meeting_started": "Toplantı başladı.",
         "access_code_copied": "Erişim kodu kopyalandı.",
         "access_code_generated": "Erişim kodu oluşturuldu.",
-        "access_code_removed": "Erişim kodu silindi."
+        "access_code_deleted": "Erişim kodu silindi.",
+        "copied_meeting_url": "Toplantı adresi kopyalandı. Bu adres toplantıya katılmak için kullanılabilir."
       },
       "site_settings": {
-        "site_setting_updated": "Site ayarları güncellendi."
+        "site_setting_updated": "Site ayarları güncellendi.",
+        "brand_color_updated": "Marka rengi güncellendi.",
+        "brand_image_updated": "Marka görseli güncellendi.",
+        "brand_image_deleted": "Marka görseli silindi.",
+        "privacy_policy_updated": "Gizlilik ilkesi güncellendi.",
+        "terms_of_service_updated": "Hizmet koşulları güncellendi."
       },
       "recording": {
         "recording_visibility_updated": "Kayıt görünürlüğü güncellendi.",
         "recording_name_updated": "Kayıt adı güncellendi.",
-        "recording_deleted": "Kayıt silindi."
+        "recording_deleted": "Kayıt silindi.",
+        "copied_urls": "Kayıt adresi kopyalandı."
       },
       "role": {
         "role_created": "Rol eklendi.",
@@ -366,8 +411,12 @@
         "role_assigned": "Bu rol, en az bir kullanıcıya atanmış olduğundan silinemez."
       },
       "users": {
+        "signup_error": "Oturumunuz açılırken bir sorun çıktı. Lütfen yöneticiniz ile görüşün. ",
         "invalid_invite": "Çağrı kodunuz geçersiz ya da yanlış. Yeni bir tane almak için yöneticinizle görüşün",
-        "email_exists": "Bu e-posta adresi ile açılmış bir hesap zaten vafr. Lütfen başka bir e-posta adresi ile yeniden deneyin"
+        "email_exists": "Bu e-posta adresi ile açılmış bir hesap zaten vafr. Lütfen başka bir e-posta adresi ile yeniden deneyin",
+        "old_password": "Yazdığınız geçerli parola doğru değil",
+        "pending": "Hesabınız yöneticiniz tarafından onaylanmayı bekliyor",
+        "banned": "Bu uygulamaya erişme izniniz yok. Bir yanlışlık olduğunu düşünüyorsanız yöneticiniz ile görüşün."
       },
       "rooms": {
         "room_limit": "Oda sayısı sınırına ulaşıldığından oda eklenemedi"
@@ -418,6 +467,37 @@
       "password_confirmation": {
         "required": "Lütfen parolayı onaylamak için yeniden yazın",
         "match": "Parola ile onayı aynı değil"
+      },
+      "emails": {
+        "required": "Lütfen en az bir geçerli e-posta adresi yazın",
+        "list": "Lütfen virgül ile ayırarak e-posta adresleri listesini yazın (kullanici@websitesi.com,kullanici1@websitesi.com,kullanici2@websitesi.com)"
+      },
+      "role_name": {
+        "required": "Lütfen rolün adını yazın"
+      },
+      "role": {
+        "limit": {
+          "required": "Lütfen bir oda sayısı sınırı yazın",
+          "min": "En az 0 olabilir",
+          "max": "En fazla 100 olabilir"
+        }
+      },
+      "room": {
+        "name": {
+          "required": "Lütfen bir oda adı yazın.",
+          "min": "Ad en az 2 karakter uzunluğunda olabilir"
+        }
+      }, 
+      "url": {
+        "invalid": "Adres geçersiz"
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Oda adı",
+          "placeholder": "Bir oda adı yazın..."
+        }
       }
     },
     "user": {
@@ -537,6 +617,28 @@
           "password_confirmation": {
             "label": "Parola onayı",
             "placeholder": "Kullanıcının parolasını yeniden yazın"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "E-posta adresleri"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "Bağlantıyı buraya yazın..."
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "Rol adı",
+            "placeholder": "Bir rol adı yazın..."
           }
         }
       }
