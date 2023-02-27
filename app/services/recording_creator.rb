@@ -30,8 +30,13 @@ class RecordingCreator
 
     new_name = @recording[:metadata][:name] || @recording[:name]
 
-    new_recording = Recording.find_or_create_by(room_id:, name: new_name, record_id: @recording[:recordID], visibility:,
-                                                participants: @recording[:participants], length:, protectable: @recording[:protected].present?)
+    new_recording = Recording.find_or_create_by(room_id:,
+                                                name: new_name,
+                                                record_id: @recording[:recordID],
+                                                visibility:,
+                                                participants: @recording[:participants],
+                                                length:, protectable: @recording[:protected].present?,
+                                                meeting_date: @recording[:startTime])
 
     # Create format(s)
     create_formats(recording: @recording, new_recording:)

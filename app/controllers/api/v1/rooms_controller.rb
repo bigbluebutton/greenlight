@@ -132,7 +132,7 @@ module Api
       def recordings
         sort_config = config_sorting(allowed_columns: %w[name length visibility])
 
-        pagy, room_recordings = pagy(@room.recordings&.order(sort_config, created_at: :desc)&.search(params[:q]))
+        pagy, room_recordings = pagy(@room.recordings&.order(sort_config, meeting_date: :desc)&.search(params[:q]))
         render_data data: room_recordings, meta: pagy_metadata(pagy), status: :ok
       end
 

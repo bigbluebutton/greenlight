@@ -48,7 +48,7 @@ export default function RecordingRow({
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const currentUser = useAuth();
-  const localizedTime = localizeDateTimeString(recording?.created_at, currentUser?.language);
+  const localizedTime = localizeDateTimeString(recording?.meeting_date, currentUser?.language);
   const formats = recording.formats.sort(
     (a, b) => (a.recording_type.toLowerCase() > b.recording_type.toLowerCase() ? 1 : -1),
   );
@@ -186,7 +186,7 @@ RecordingRow.propTypes = {
     })),
     visibility: PropTypes.string.isRequired,
     protectable: PropTypes.bool,
-    created_at: PropTypes.string.isRequired,
+    meeting_date: PropTypes.string.isRequired,
     map: PropTypes.func,
   }).isRequired,
   visibilityMutation: PropTypes.func.isRequired,
