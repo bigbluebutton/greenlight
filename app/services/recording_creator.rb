@@ -30,8 +30,19 @@ class RecordingCreator
 
     new_name = @recording[:metadata][:name] || @recording[:name]
 
-    new_recording = Recording.find_or_create_by(room_id:, name: new_name, record_id: @recording[:recordID], visibility:,
-                                                participants: @recording[:participants], length:, protectable: @recording[:protected].present?)
+    # Disable timestamps so the created_at and updated_at are fetched from the BBB response
+    Recording.record_timestamps = false
+    new_recording = Recording.find_or_create_by(room_id:,
+                                                name: new_name,
+                                                record_id: @recording[:recordID],
+                                                visibility:,
+                                                participants: @recording[:participants],
+                                                length:,
+                                                protectable: @recording[:protected].present?,
+                                                # updated_at is set to the date of the re-sync if the recordings are re-synced
+                                                updated_at: Time.zone.now,
+                                                # created_at is hardcoded with the response from BBB
+                                                created_at: @recording[:startTime])
 
     # Create format(s)
     create_formats(recording: @recording, new_recording:)
