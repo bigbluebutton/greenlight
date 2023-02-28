@@ -88,7 +88,7 @@ module Api
 
           user_hash[:password] = generate_secure_pwd if user_hash[:external_id].blank?
 
-          user = User.new(user_hash.merge(provider: 'greenlight', role:))
+          user = User.new(user_hash.merge(verified: true, provider: 'greenlight', role:))
 
           return render_error(status: :bad_request, errors: user&.errors&.to_a) unless user.save
 
