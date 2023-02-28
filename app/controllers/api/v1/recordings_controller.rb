@@ -35,7 +35,7 @@ module Api
       def index
         sort_config = config_sorting(allowed_columns: %w[name length visibility])
 
-        pagy, recordings = pagy(current_user.recordings&.order(sort_config, meeting_date: :desc)&.search(params[:search]))
+        pagy, recordings = pagy(current_user.recordings&.order(sort_config, recorded_at: :desc)&.search(params[:search]))
         render_data data: recordings, meta: pagy_metadata(pagy), status: :ok
       end
 

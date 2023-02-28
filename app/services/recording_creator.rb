@@ -36,7 +36,7 @@ class RecordingCreator
                                                 visibility:,
                                                 participants: @recording[:participants],
                                                 length:, protectable: @recording[:protected].present?,
-                                                meeting_date: @recording[:startTime])
+                                                recorded_at: @recording[:startTime])
 
     # Create format(s)
     create_formats(recording: @recording, new_recording:)

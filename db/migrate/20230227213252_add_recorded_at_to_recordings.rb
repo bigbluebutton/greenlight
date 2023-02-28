@@ -16,8 +16,9 @@
 
 # frozen_string_literal: true
 
-class AddMeetingDateToRecordings < ActiveRecord::Migration[7.0]
+class AddRecordedAtToRecordings < ActiveRecord::Migration[7.0]
   def change
-    add_column :recordings, :meeting_date, :datetime
+    # rubocop:disable Rails/NotNullColumn
+    add_column :recordings, :recorded_at, :datetime, null: false
   end
 end

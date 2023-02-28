@@ -89,7 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_213252) do
     t.integer "length", null: false
     t.integer "participants", null: false
     t.boolean "protectable"
-    t.datetime "meeting_date"
+    t.datetime "recorded_at", null: false
     t.index ["room_id"], name: "index_recordings_on_room_id"
   end
 
