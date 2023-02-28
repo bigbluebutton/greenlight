@@ -235,6 +235,17 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
             expect(user.authenticate('Password1!')).to be_falsy
           end
         end
+
+        it 'sets user to verified' do
+          encrypted_params = encrypt_params({ user: valid_user_params }, expires_in: 10.seconds)
+
+          expect_any_instance_of(described_class).to receive(:generate_secure_pwd).and_call_original
+          expect { post :create_user, params: { v2: { encrypted_params: } } }.to change(User, :count).from(0).to(1)
+          expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+
+          user = User.take
+          expect(user.verified?).to be true
+        end
       end
 
       describe 'when decrypted params encapsulation is not conform' do
