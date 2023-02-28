@@ -18,7 +18,6 @@
 
 class AddRecordedAtToRecordings < ActiveRecord::Migration[7.0]
   def change
-    # rubocop:disable Rails/NotNullColumn
-    add_column :recordings, :recorded_at, :datetime, null: false
+    add_column :recordings, :recorded_at, :datetime
   end
 end
