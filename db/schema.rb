@@ -1,19 +1,3 @@
-# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
-#
-# Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
-#
-# This program is free software; you can redistribute it and/or modify it under the
-# terms of the GNU Lesser General Public License as published by the Free Software
-# Foundation; either version 3.0 of the License, or (at your option) any later
-# version.
-#
-# Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
-# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
-#
-# You should have received a copy of the GNU Lesser General Public License along
-# with Greenlight; if not, see <http://www.gnu.org/licenses/>.
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -26,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_25_184305) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_27_213252) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -105,6 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_25_184305) do
     t.integer "length", null: false
     t.integer "participants", null: false
     t.boolean "protectable"
+    t.datetime "recorded_at"
     t.index ["room_id"], name: "index_recordings_on_room_id"
   end
 
