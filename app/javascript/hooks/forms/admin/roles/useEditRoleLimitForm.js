@@ -23,6 +23,7 @@ import { useCallback, useMemo } from 'react';
 export function useEditRoleLimitFormValidation() {
   return useMemo(() => (yup.object({
     value: yup.number().required('forms.validations.role.limit.required')
+      .typeError('forms.validations.role.type.error')
       .min(0, 'forms.validations.role.limit.min')
       .max(100, 'forms.validations.role.limit.max'),
   })), []);
