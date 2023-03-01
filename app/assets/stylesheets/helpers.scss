@@ -39,6 +39,10 @@
 
 .regular-height {
   min-height: calc(100vh - $header-height - $footer-height - $footer-buffer-height);
+
+  .vertical-center {
+    min-height: calc(100vh - $header-height - $header-height - $footer-height - $footer-buffer-height);
+  }
 }
 
 .cursor-pointer {
