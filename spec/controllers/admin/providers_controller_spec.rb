@@ -18,7 +18,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::Admin::AdminsController, type: :controller do
+RSpec.describe Api::V1::Admin::ProvidersController, type: :controller do
   let(:user) { create(:user) }
   let(:provider) { 'bigbluebutton' }
 
@@ -28,9 +28,9 @@ RSpec.describe Api::V1::Admin::AdminsController, type: :controller do
     create_settings_permissions_meetingoptions
   end
 
-  describe 'provider' do
+  describe 'creates' do
     it 'creates the default roles for the provider' do
-      post :provider, params: { provider: }
+      post :create, params: { provider: }
 
       expect(Role.exists?(name: 'Administrator', provider:)).to be true
       expect(Role.exists?(name: 'User', provider:)).to be true
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::Admin::AdminsController, type: :controller do
     end
 
     it 'creates the default SiteSettings for the provider' do
-      post :provider, params: { provider: }
+      post :create, params: { provider: }
 
       settings = Setting.all
       settings.each do |setting|
@@ -47,7 +47,7 @@ RSpec.describe Api::V1::Admin::AdminsController, type: :controller do
     end
 
     it 'creates the default RoomsConfiguration for the provider' do
-      post :provider, params: { provider: }
+      post :create, params: { provider: }
 
       options = MeetingOption.all
       options.each do |option|
@@ -56,7 +56,7 @@ RSpec.describe Api::V1::Admin::AdminsController, type: :controller do
     end
 
     it 'creates the default RolePermissions for the provider' do
-      post :provider, params: { provider: }
+      post :create, params: { provider: }
 
       roles = Role.where(provider:)
       permissions = Permission.all
