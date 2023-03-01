@@ -57,10 +57,11 @@ Rails.application.configure do
   if ENV['SMTP_SERVER'].present?
     config.action_mailer.perform_deliveries = true
     config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = {
-      address: ENV.fetch('SMTP_SERVER', nil),
-      port: ENV.fetch('SMTP_PORT', nil),
-      domain: ENV.fetch('SMTP_DOMAIN', nil),
+
+    smtp_settings = {
+      address: ENV.fetch('SMTP_SERVER'),
+      port: ENV.fetch('SMTP_PORT'),
+      domain: ENV.fetch('SMTP_DOMAIN'),
       user_name: ENV.fetch('SMTP_USERNAME', nil),
       password: ENV.fetch('SMTP_PASSWORD', nil),
       authentication: ENV.fetch('SMTP_AUTH', nil),
@@ -68,7 +69,9 @@ Rails.application.configure do
       enable_starttls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS', 'false')),
       tls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_TLS', 'false')),
       openssl_verify_mode: ENV.fetch('SMTP_SSL_VERIFY', 'true') == 'false' ? OpenSSL::SSL::VERIFY_NONE : OpenSSL::SSL::VERIFY_PEER
-    }
+    }.compact
+
+    config.action_mailer.smtp_settings = smtp_settings
     config.action_mailer.default_options = {
       from: ActionMailer::Base.email_address_with_name(ENV.fetch('SMTP_SENDER_EMAIL'), ENV.fetch('SMTP_SENDER_NAME', nil))
     }
