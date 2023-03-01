@@ -11,10 +11,11 @@ namespace :migrations do
   }.freeze
 
   desc "Migrates v2 resources to v3"
-  task :roles, [] => :environment do |_task, _args|
+  task :roles, [:provider] => :environment do |_task, args|
     has_encountred_issue = 0
 
     Role.unscoped
+        .where(provider: args[:provider])
         .select(:id, :name)
         .includes(:role_permissions)
         .where.not(name: COMMON[:filtered_roles])
@@ -58,11 +59,12 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task :users, [:start, :stop] => :environment do |_task, args|
+  task :users, [:provider, :start, :stop] => :environment do |_task, args|
     start, stop = range(args)
     has_encountred_issue = 0
 
     User.unscoped
+        .where(provider: args[:provider])
         .select(:id, :uid, :name, :email, :social_uid, :language, :role_id)
         .includes(:role)
         .where.not(roles: { name: COMMON[:filtered_user_roles] }, deleted: true)
@@ -97,17 +99,20 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task :rooms, [:start, :stop] => :environment do |_task, args|
+  task :rooms, [:provider, :start, :stop] => :environment do |_task, args|
     start, stop = range(args)
     has_encountred_issue = 0
 
     filtered_roles_ids = Role.unscoped
+                             .where(provider: args[:provider])
                              .select(:id, :name)
                              .where(name: COMMON[:filtered_user_roles])
                              .pluck(:id)
 
-    Room.unscoped.select(:id, :uid, :name, :bbb_id, :last_session, :user_id, :room_settings)
+    Room.unscoped
+        .select(:id, :uid, :name, :bbb_id, :last_session, :user_id, :room_settings)
         .includes(:owner)
+        .where(users: { provider: args[:provider] })
         .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
       # RoomSettings
@@ -162,10 +167,10 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task settings: :environment do |_task|
+  task :settings, [:provider] => :environment do |_task|
     has_encountred_issue = 0
 
-    setting = Setting.includes(:features).find_by(provider: 'greenlight')
+    setting = Setting.where(provider: args[:provider]).includes(:features).find_by(provider: 'greenlight')
 
     # SiteSettings
     site_settings = {
@@ -278,6 +283,6 @@ namespace :migrations do
         "false"
       else
         "optional"
-      end 
+      end
   end
 end
