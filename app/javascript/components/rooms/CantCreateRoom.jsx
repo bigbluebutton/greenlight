@@ -36,7 +36,7 @@ export default function CantCreateRoom() {
   const parsedUrl = meetingUrl.match(regex);
 
   return (
-    <div className="vertical-buffer">
+    <div className="vertical-center">
       <Card className="col-md-8 mx-auto border-0 card-shadow">
         <div className="p-5 pb-4">
           <h2><strong>{t('homepage.enter_meeting_url')}</strong></h2>

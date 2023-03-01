@@ -162,7 +162,7 @@ export default function RoomJoin() {
   );
 
   return (
-    <div className="vertical-buffer">
+    <div className="vertical-center">
       <div className="text-center pb-4">
         <Logo />
       </div>
