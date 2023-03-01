@@ -26,7 +26,6 @@ class Recording < ApplicationRecord
   validates :visibility, presence: true
   validates :length, presence: true
   validates :participants, presence: true
-  validates :recorded_at, presence: true
 
   scope :with_provider, ->(current_provider) { where(user: { provider: current_provider }) }
 
