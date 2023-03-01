@@ -28,7 +28,7 @@ export default function RoomJoinPlaceholder() {
   const { t } = useTranslation();
 
   return (
-    <div className="vertical-buffer">
+    <div className="vertical-center">
       <div className="text-center pb-4">
         <Logo />
       </div>
