@@ -20,6 +20,7 @@ class PopulateRecordedAtRecording < ActiveRecord::Migration[7.0]
   def up
     # rubocop:disable Rails/SkipsModelValidations
     Recording.update_all('recorded_at = created_at')
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def down
