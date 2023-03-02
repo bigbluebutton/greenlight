@@ -28,7 +28,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
     context 'when decryption passes' do
       describe 'when decrypted params encapsulation is conform and data is valid' do
         it 'returns :created and creates a role' do
-          encrypted_params = encrypt_params({ role: { name: 'CrazyRole', role_permissions: {} } }, expires_in: 10.seconds)
+          encrypted_params = encrypt_params({ role: { name: 'CrazyRole', provider: 'greenlight', role_permissions: {} } }, expires_in: 10.seconds)
           expect { post :create_role, params: { v2: { encrypted_params: } } }.to change(Role, :count).from(0).to(1)
           role = Role.take
           expect(role.name).to eq('CrazyRole')
@@ -57,7 +57,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
         let(:role) { create(:role, provider: 'greenlight', name: 'OnlyOne') }
 
         it 'returns :created without creating a role' do
-          encrypted_params = encrypt_params({ role: { name: role.name, role_permissions: {} } }, expires_in: 10.seconds)
+          encrypted_params = encrypt_params({ role: { name: role.name, provider: 'greenlight', role_permissions: {} } }, expires_in: 10.seconds)
           expect { post :create_role, params: { v2: { encrypted_params: } } }.not_to change(Role, :count)
           expect(response).to have_http_status(:created)
         end
@@ -115,6 +115,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
       {
         name: 'user',
         email: 'user@users.com',
+        provider: 'greenlight',
         language: 'language',
         role: valid_user_role.name
       }
@@ -218,7 +219,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
         end
 
         context 'when providing a :provider or a :password' do
-          before { valid_user_params.merge!(provider: 'lightgreen', password: 'Password1!') }
+          before { valid_user_params.merge!(password: 'Password1!') }
 
           it 'returns :created and creates a user while ignoring the extra values' do
             encrypted_params = encrypt_params({ user: valid_user_params }, expires_in: 10.seconds)
@@ -230,7 +231,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
             expect(user.language).to eq(valid_user_params[:language])
             expect(user.role).to eq(valid_user_role)
             expect(user.session_token).to be_present
-            expect(user.provider).to eq('greenlight')
+            expect(user.provider).to eq(valid_user_params[:provider])
             expect(response).to have_http_status(:created)
             expect(user.authenticate('Password1!')).to be_falsy
           end
@@ -393,6 +394,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
         meeting_id: 'kzukaw3xk7ql5kefbfpsruud61pztf00jzltgafs',
         last_session: Time.zone.now.to_datetime,
         owner_email: user.email,
+        provider: 'greenlight',
         room_settings: {},
         shared_users_emails: []
       }
@@ -410,6 +412,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
           expect(room.friendly_id).to eq(valid_room_params[:friendly_id])
           expect(room.meeting_id).to eq(valid_room_params[:meeting_id])
           expect(room.last_session).to eq(valid_room_params[:last_session])
+          expect(room.user.provider).to eq(valid_room_params[:provider])
           expect(room.user).to eq(user)
           expect(response).to have_http_status(:created)
         end
