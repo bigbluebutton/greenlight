@@ -19,12 +19,12 @@
 module Api
   module V1
     module Admin
-      class AdminsController < ApiController
+      class TenantsController < ApiController
         before_action do
           # TODO: - ahmad: Add role check
         end
 
-        def provider
+        def create
           provider = params[:provider]
           create_roles(provider:)
           create_site_settings(provider:)
