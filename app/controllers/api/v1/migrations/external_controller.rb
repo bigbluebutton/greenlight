@@ -47,9 +47,9 @@ module Api
         def create_role
           role_hash = role_params.to_h
 
-          return render_data status: :created if Role.exists? name: role_hash[:name], provider: 'greenlight'
+          return render_data status: :created if Role.exists? name: role_hash[:name], provider: role_hash[:provider]
 
-          role = Role.new(name: role_hash[:name], provider: 'greenlight')
+          role = Role.new(name: role_hash[:name], provider: role_hash[:provider])
 
           return render_error(status: :bad_request, errors: role&.errors&.to_a) unless role.save
 
@@ -78,17 +78,17 @@ module Api
         def create_user
           user_hash = user_params.to_h
 
-          return render_data status: :created if User.exists? email: user_hash[:email], provider: 'greenlight'
+          return render_data status: :created if User.exists? email: user_hash[:email], provider: user_hash[:provider]
 
           user_hash[:language] = I18n.default_locale if user_hash[:language].blank? || user_hash[:language] == 'default'
 
-          role = Role.find_by(name: user_hash[:role], provider: 'greenlight')
+          role = Role.find_by(name: user_hash[:role], provider: user_hash[:provider])
 
           return render_error(status: :bad_request, errors: 'The user role does not exist.') unless role
 
           user_hash[:password] = generate_secure_pwd if user_hash[:external_id].blank?
 
-          user = User.new(user_hash.merge(verified: true, provider: 'greenlight', role:))
+          user = User.new(user_hash.merge(verified: true, role:))
 
           return render_error(status: :bad_request, errors: user&.errors&.to_a) unless user.save
 
@@ -106,11 +106,11 @@ module Api
 
           return render_data status: :created if Room.exists? friendly_id: room_hash[:friendly_id]
 
-          user = User.find_by(email: room_hash[:owner_email], provider: 'greenlight')
+          user = User.find_by(email: room_hash[:owner_email], provider: room_hash[:provider])
 
           return render_error(status: :bad_request, errors: 'The room owner does not exist.') unless user
 
-          room = Room.new(room_hash.except(:owner_email, :room_settings, :shared_users_emails).merge({ user: }))
+          room = Room.new(room_hash.except(:owner_email, :provider, :room_settings, :shared_users_emails).merge({ user: }))
 
           # Redefines the validations method to do nothing
           # rubocop:disable Lint/EmptyBlock
@@ -137,7 +137,7 @@ module Api
           return render_data status: :created unless room_hash[:shared_users_emails].any?
 
           # Finds all the users that have a SharedAccess to the Room
-          shared_with_users = User.where(email: room_hash[:shared_users_emails])
+          shared_with_users = User.where(email: room_hash[:shared_users_emails], provider: room_hash[:provider])
 
           okay = true
           shared_with_users.each do |shared_with_user|
@@ -163,7 +163,7 @@ module Api
 
           # Finds all the SiteSettings that need to be updated
           site_settings_joined = SiteSetting.joins(:setting)
-                                            .where('settings.name': settings_hash[:site_settings].keys, provider: 'greenlight')
+                                            .where('settings.name': settings_hash[:site_settings].keys, provider: settings_hash[:provider])
 
           okay = true
           site_settings_joined.each do |site_setting|
@@ -176,7 +176,7 @@ module Api
           # Finds all the RoomsConfiguration that need to be updated
           room_configurations_joined = RoomsConfiguration.joins(:meeting_option)
                                                          .where('meeting_options.name': settings_hash[:room_configurations].keys,
-                                                                provider: 'greenlight')
+                                                                provider: settings_hash[:provider])
 
           okay = true
           room_configurations_joined.each do |room_configuration|
@@ -193,23 +193,25 @@ module Api
 
         def role_params
           decrypted_params.require(:role).permit(:name,
+                                                 :provider,
                                                  role_permissions: %w[CreateRoom CanRecord ManageUsers ManageRoles ManageRooms ManageRecordings
                                                                       ManageSiteSettings])
         end
 
         def user_params
-          decrypted_params.require(:user).permit(:name, :email, :external_id, :language, :role)
+          decrypted_params.require(:user).permit(:name, :email, :provider, :external_id, :language, :role)
         end
 
         def room_params
-          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email,
+          decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, :provider,
                                                  shared_users_emails: [],
                                                  room_settings: %w[record muteOnStart guestPolicy glAnyoneCanStart glAnyoneJoinAsModerator])
         end
 
         def settings_params
-          decrypted_params.require(:settings).permit(site_settings: %w[PrimaryColor PrimaryColorLight Terms PrivacyPolicy RegistrationMethod
-                                                                       ShareRooms PreuploadPresentation],
+          decrypted_params.require(:settings).permit(:provider,
+                                                     site_settings: %w[PrimaryColor PrimaryColorLight Terms PrivacyPolicy RegistrationMethod
+                                                                       ShareRooms PreloadPresentation],
                                                      room_configurations: %w[record muteOnStart guestPolicy glAnyoneCanStart glAnyoneJoinAsModerator
                                                                              glRequireAuthentication])
         end
