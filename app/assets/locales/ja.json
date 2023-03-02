@@ -37,7 +37,7 @@
     "recording_description": "BigBlueButtonの会議を録画し、それを生徒や学生と共有することで、教材を効果的に復習させることができます。",
     "settings_title": "会議室を管理する",
     "settings_description": "自分の会議室や会議方法の設定を変更し、効果的な学びの場を作り上げることができます。",
-    "and_more_title": "もちろんそれだけではありません。",
+    "and_more_title": "もちろんそれだけではありません！",
     "and_more_description": "BigBlueButtonには実践的な学びのためのさまざまなツールが用意されており、授業を効率的に行うことができるようデザインされています。",
     "enter_meeting_url": "下にBigBlueButtonの会議URLを入力してください。",
     "enter_meeting_url_instruction": "下の欄にBigBlueButtonの会議のURLを記入してください。"
@@ -480,6 +480,9 @@
           "required": "作成可能な会議室数を入力してください",
           "min": "最小は0です",
           "max": "最大は100です"
+        }, 
+        "type": {
+          "error": "半角数字で指定してください" 
         }
       },
       "room": {
