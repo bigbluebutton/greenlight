@@ -109,7 +109,7 @@
     "create_new_room": "新しい会議室を作成する",
     "enter_room_name": "会議室名を入力してください",
     "shared_by": "共有者",
-    "last_session": "最後のセッション: {{ room.last_session }}",
+    "last_session": "最後のセッション: {{ localizedTime }}",
     "no_last_session": "会議はまだ開かれていません",
     "search_not_found": "会議室が見つかりません",
     "rooms_list_is_empty": "まだ会議室はありません！",
