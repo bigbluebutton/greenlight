@@ -19,7 +19,7 @@
 module Api
   module V1
     module Admin
-      class ProvidersController < ApiController
+      class TenantsController < ApiController
         before_action do
           # TODO: - ahmad: Add role check
         end

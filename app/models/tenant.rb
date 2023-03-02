@@ -16,7 +16,7 @@
 
 # frozen_string_literal: true
 
-class Provider < ApplicationRecord
+class Tenant < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :client_secret, presence: true
 end

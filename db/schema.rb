@@ -79,14 +79,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_203522) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "providers", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "client_secret", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_providers_on_name", unique: true
-  end
-
   create_table "recordings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "room_id"
     t.string "name", null: false
@@ -179,6 +171,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_01_203522) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["setting_id"], name: "index_site_settings_on_setting_id"
+  end
+
+  create_table "tenants", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "client_secret", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tenants_on_name", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

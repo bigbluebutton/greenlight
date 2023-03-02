@@ -18,7 +18,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::Admin::ProvidersController, type: :controller do
+RSpec.describe Api::V1::Admin::TenantsController, type: :controller do
   let(:user) { create(:user) }
   let(:provider) { 'bigbluebutton' }
 
