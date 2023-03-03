@@ -423,6 +423,12 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
           encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
           expect { post :create_room, params: { v2: { encrypted_params: } } }.not_to change(Room, :count)
         end
+
+        it 'does not create a new room if the room owner does not have same provider has the room data' do
+          valid_room_params[:provider] = 'random_provider'
+          encrypted_params = encrypt_params({ room: valid_room_params }, expires_in: 10.seconds)
+          expect { post :create_room, params: { v2: { encrypted_params: } } }.not_to change(Room, :count)
+        end
       end
 
       describe 'when decrypted params data are invalid' do
