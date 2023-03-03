@@ -20,7 +20,7 @@ require 'rails_helper'
 require 'bigbluebutton_api'
 
 describe BigBlueButtonApi, type: :service do
-  let(:bbb_service) { described_class.new }
+  let(:bbb_service) { described_class.new(provider: 'greenlight') }
 
   before do
     Rails.configuration.bigbluebutton_endpoint = 'http://test.com/bigbluebutton/api'

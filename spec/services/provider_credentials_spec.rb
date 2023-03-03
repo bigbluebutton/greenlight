@@ -18,13 +18,13 @@
 
 require 'rails_helper'
 
-describe ProviderValidator, type: :service do
+describe ProviderCredentials, type: :service do
   # Enable caching for this test
   let(:memory_store) { ActiveSupport::Cache.lookup_store(:memory_store) }
   let(:cache) { Rails.cache }
 
-  let(:service) { described_class.new(provider: 'greenlight') }
-  let(:request_url) { 'http://test.com/api2/getUserGreenlightCredentials?name=greenlight&checksum=b36706f149f97a535da7144b851be87cf0d4c045' }
+  let(:service) { described_class.new(provider: 'bbb') }
+  let(:request_url) { 'http://test.com/api/getUser?checksum=14727e995e790f61f6f0be878d52efb248b00e92&name=bbb' }
 
   before do
     ENV['LOADBALANCER_ENDPOINT'] = 'http://test.com/'
@@ -37,10 +37,10 @@ describe ProviderValidator, type: :service do
 
   describe '#call' do
     context 'no caching' do
-      it 'returns true if a success returncode is returned' do
+      it 'returns credentials if a success returncode is returned' do
         stub_request(:get, request_url).to_return(body: success_response)
 
-        expect(service.call).to be true
+        expect(service.call).to eq(['https://test.com', 'secret'])
       end
 
       it 'returns false if an error returncode is returned' do
@@ -60,8 +60,8 @@ describe ProviderValidator, type: :service do
         service.call
         service.call
 
-        expect(service.call).to be true
-        expect(Rails.cache.read('greenlight/getUserGreenlightCredentials')).to be(true)
+        expect(service.call).to eq(['https://test.com', 'secret'])
+        expect(Rails.cache.read('bbb/getUser')).to eq(['https://test.com', 'secret'])
       end
     end
   end
@@ -69,7 +69,13 @@ describe ProviderValidator, type: :service do
   private
 
   def success_response
-    "<response>\n<returncode>SUCCESS</returncode>\n</response>\n"
+    "<response>\n
+      <returncode>SUCCESS</returncode>\n
+      <user>\n
+        <apiURL>https://test.com</apiURL>\n
+        <secret>secret</secret>\n
+      </user>\n
+    </response>\n"
   end
 
   def error_response

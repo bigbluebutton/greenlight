@@ -32,7 +32,7 @@ module Api
       # POST /api/v1/sessions
       # Signs a user in and updates the session cookie
       def create
-        user = User.find_by(email: session_params[:email])
+        user = User.find_by(email: session_params[:email], provider: current_provider)
 
         # TODO: Add proper error logging for non-verified token hcaptcha
         return render_error if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])

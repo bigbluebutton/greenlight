@@ -29,12 +29,12 @@ module Api
       # Starts a BigBlueButton meetings and joins in the meeting starter
       def start
         begin
-          MeetingStarter.new(room: @room, base_url: root_url, current_user:).call
+          MeetingStarter.new(room: @room, base_url: root_url, current_user:, provider: current_provider).call
         rescue BigBlueButton::BigBlueButtonException => e
           return render_error status: :bad_request unless e.key == 'idNotUnique'
         end
 
-        render_data data: BigBlueButtonApi.new.join_meeting(
+        render_data data: BigBlueButtonApi.new(provider: current_provider).join_meeting(
           room: @room,
           name: current_user.name,
           avatar_url: current_user.avatar.attached? ? url_for(current_user.avatar) : nil,
@@ -63,12 +63,12 @@ module Api
         return render_error status: :forbidden if bbb_role.nil?
 
         data = {
-          status: BigBlueButtonApi.new.meeting_running?(room: @room)
+          status: BigBlueButtonApi.new(provider: current_provider).meeting_running?(room: @room)
         }
 
         if !data[:status] && settings['glAnyoneCanStart'] == 'true' # Meeting isnt running and anyoneCanStart setting is enabled
           begin
-            MeetingStarter.new(room: @room, base_url: root_url, current_user:).call
+            MeetingStarter.new(room: @room, base_url: root_url, current_user:, provider: current_provider).call
           rescue BigBlueButton::BigBlueButtonException => e
             return render_error status: :bad_request unless e.key == 'idNotUnique'
           end
@@ -77,7 +77,7 @@ module Api
         end
 
         if data[:status]
-          data[:joinUrl] = BigBlueButtonApi.new.join_meeting(
+          data[:joinUrl] = BigBlueButtonApi.new(provider: current_provider).join_meeting(
             room: @room,
             name: current_user ? current_user.name : params[:name],
             avatar_url: current_user&.avatar&.attached? ? url_for(current_user.avatar) : nil,
@@ -91,7 +91,7 @@ module Api
       # GET /api/v1/meetings/:friendly_id/running.json
       # Returns whether the meeting is running in BigBlueButton or not
       def running
-        render_data data: BigBlueButtonApi.new.meeting_running?(room: @room), status: :ok
+        render_data data: BigBlueButtonApi.new(provider: current_provider).meeting_running?(room: @room), status: :ok
       end
 
       private
