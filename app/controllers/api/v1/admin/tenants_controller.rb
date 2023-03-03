@@ -141,8 +141,6 @@ module Api
           ]
         end
 
-        private
-
         def tenant_params
           params.require(:tenant).permit(:name, :client_secret)
         end
