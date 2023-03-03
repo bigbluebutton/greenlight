@@ -85,6 +85,14 @@ export default function AdminNavSideBar() {
           </Nav.Link>
         </Nav.Item>
       )}
+      {(currentUser.isSuperAdmin) && (
+        <Nav.Item>
+          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/super_admin" eventKey="super_admin">
+            <IdentificationIcon className="hi-s me-3" />
+            { t('admin.tenants.manage_tenants') }
+          </Nav.Link>
+        </Nav.Item>
+      )}
     </Nav>
   );
 }
