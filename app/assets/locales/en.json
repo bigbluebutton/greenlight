@@ -343,6 +343,12 @@
         "shared_list": "Include users with this role in the dropdown for sharing rooms",
         "room_limit": "Room Limit"
       }
+    },
+    "tenants": {
+      "manage_tenants": "Manage Tenants",
+      "add_new_tenant": "+ New Tenant",
+      "create_tenant": "Create Tenant",
+      "create_new_tenant": "Create a new tenant"
     }
   },
   "toast": {
@@ -493,6 +499,11 @@
       },
       "url": {
         "invalid": "Invalid URL"
+      },
+      "tenant": {
+        "name": {
+          "required": "Please enter the tenant name"
+        }
       }
     },
     "room": {
@@ -642,6 +653,18 @@
           "name": {
             "label": "Role Name",
             "placeholder": "Enter a role name..."
+          }
+        }
+      },
+      "tenants": {
+        "fields": {
+          "name": {
+            "label": "Tenant Name",
+            "placeholder": "Enter a tenant name..."
+          },
+          "client_secret": {
+            "label": "Keycloak Client Secret",
+            "placeholder": "Enter a client secret..."
           }
         }
       }
