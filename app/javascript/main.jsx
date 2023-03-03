@@ -49,7 +49,7 @@ import UnauthenticatedOnly from './routes/UnauthenticatedOnly';
 import AuthenticatedOnly from './routes/AuthenticatedOnly';
 import PendingRegistration from './components/users/registration/PendingRegistration';
 import RootBoundary from './RootBoundary';
-import SuperAdmin from './components/admin/./tenants/SuperAdmin';
+import SuperAdmin from './components/admin/tenants/SuperAdmin';
 
 const queryClientConfig = {
   defaultOptions: {
