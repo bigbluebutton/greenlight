@@ -12,6 +12,7 @@ namespace :migrations do
 
   desc "Migrates v2 resources to v3"
   task :roles, [:provider] => :environment do |_task, args|
+    args.with_defaults(provider: "greenlight")
     has_encountred_issue = 0
 
     Role.unscoped
@@ -63,6 +64,7 @@ namespace :migrations do
   end
 
   task :users, [:provider, :start, :stop] => :environment do |_task, args|
+    args.with_defaults(provider: "greenlight")
     start, stop = range(args)
     has_encountred_issue = 0
 
@@ -111,6 +113,7 @@ namespace :migrations do
   end
 
   task :rooms, [:provider, :start, :stop] => :environment do |_task, args|
+    args.with_defaults(provider: "greenlight")
     start, stop = range(args)
     has_encountred_issue = 0
 
@@ -182,6 +185,7 @@ namespace :migrations do
   end
 
   task :settings, [:provider] => :environment do |_task, args|
+    args.with_defaults(provider: "greenlight")
     has_encountred_issue = 0
 
     setting = Setting.includes(:features).find_by(provider: args[:provider])
