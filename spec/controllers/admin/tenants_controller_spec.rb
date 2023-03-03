@@ -20,7 +20,12 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::TenantsController, type: :controller do
   let(:user) { create(:user) }
-  let(:provider) { 'bigbluebutton' }
+  let(:valid_tenant_params) do
+    {
+      name: 'new_provider',
+      client_secret: 'abcdefg123456789'
+    }
+  end
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -30,35 +35,35 @@ RSpec.describe Api::V1::Admin::TenantsController, type: :controller do
 
   describe 'creates' do
     it 'creates the default roles for the provider' do
-      post :create, params: { provider: }
+      post :create, params: { tenant: valid_tenant_params }
 
-      expect(Role.exists?(name: 'Administrator', provider:)).to be true
-      expect(Role.exists?(name: 'User', provider:)).to be true
-      expect(Role.exists?(name: 'Guest', provider:)).to be true
+      expect(Role.exists?(name: 'Administrator', provider: valid_tenant_params[:name])).to be true
+      expect(Role.exists?(name: 'User', provider: valid_tenant_params[:name])).to be true
+      expect(Role.exists?(name: 'Guest', provider: valid_tenant_params[:name])).to be true
     end
 
     it 'creates the default SiteSettings for the provider' do
-      post :create, params: { provider: }
+      post :create, params: { tenant: valid_tenant_params }
 
       settings = Setting.all
       settings.each do |setting|
-        expect(SiteSetting.exists?(setting:, provider:)).to be true
+        expect(SiteSetting.exists?(setting:, provider: valid_tenant_params[:name])).to be true
       end
     end
 
     it 'creates the default RoomsConfiguration for the provider' do
-      post :create, params: { provider: }
+      post :create, params: { tenant: valid_tenant_params }
 
       options = MeetingOption.all
       options.each do |option|
-        expect(RoomsConfiguration.exists?(meeting_option: option, provider:)).to be true
+        expect(RoomsConfiguration.exists?(meeting_option: option, provider: valid_tenant_params[:name])).to be true
       end
     end
 
     it 'creates the default RolePermissions for the provider' do
-      post :create, params: { provider: }
+      post :create, params: { tenant: valid_tenant_params }
 
-      roles = Role.where(provider:)
+      roles = Role.where(provider: valid_tenant_params[:name])
       permissions = Permission.all
 
       permissions.each do |permission|
