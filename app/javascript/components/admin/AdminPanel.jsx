@@ -48,7 +48,7 @@ export default function AdminPanel() {
     }
 
     if (currentUser?.isSuperAdmin) {
-      return '/admin/super_admin';
+      return '/admin/tenants';
     }
 
     return '/';
