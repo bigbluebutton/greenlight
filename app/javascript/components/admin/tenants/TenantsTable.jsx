@@ -63,6 +63,7 @@ export default function TenantsTable({
   );
 }
 
+
 TenantsTable.defaultProps = {
   tenants: [],
   pagination: {

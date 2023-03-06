@@ -15,6 +15,7 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import { useQuery } from 'react-query';
+<<<<<<< HEAD
 import { useSearchParams } from 'react-router-dom';
 import axios from '../../../../helpers/Axios';
 
@@ -35,5 +36,13 @@ export default function useTenants({ search = '', enabled = true, page } = {}) {
       enabled,
       keepPreviousData: true,
     },
+=======
+import axios from '../../../../helpers/Axios';
+
+export default function useTenants() {
+  return useQuery(
+    ['tenants'],
+    () => axios.get('/admin/tenants.json').then((resp) => resp.data.data),
+>>>>>>> 2af6b511... Fix layout
   );
 }
