@@ -24,6 +24,11 @@ module Api
           # TODO: - ahmad: Add role check
         end
 
+        def index
+          tenants = Tenant.select(:id, :name, :client_secret).order(created_at: :desc)
+          render_data data: tenants, status: :created
+        end
+
         # POST /api/v1/admin/tenants
         def create
           tenant_params[:name] = tenant_params[:name].downcase.gsub(/[-\s]/, '_')

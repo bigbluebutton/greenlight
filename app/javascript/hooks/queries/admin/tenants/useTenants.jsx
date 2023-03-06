@@ -14,26 +14,12 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
+import axios from '../../../../helpers/Axios';
 
-export default function TenantRow({ tenant }) {
-  return (
-    <tr className="align-middle border border-2">
-      <td className="py-4 border-0">
-        <strong> {tenant?.name} </strong>
-      </td>
-      <td className="py-4 border-start-0">
-        {tenant?.client_secret}
-      </td>
-    </tr>
+export default function useTenants() {
+  return useQuery(
+    ['tenants'],
+    () => axios.get('/admin/tenants.json').then((resp) => resp.data.data),
   );
 }
-
-TenantRow.propTypes = {
-  tenant: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-    client_secret: PropTypes.string,
-  }).isRequired,
-};

@@ -51,7 +51,6 @@ import PendingRegistration from './components/users/registration/PendingRegistra
 import RootBoundary from './RootBoundary';
 import Tenants from './components/admin/tenants/Tenants';
 
-
 const queryClientConfig = {
   defaultOptions: {
     queries: {
