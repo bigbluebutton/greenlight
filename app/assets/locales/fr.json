@@ -480,6 +480,9 @@
           "required": "Veuillez saisir le nombre limite pour la salle",
           "min": "Le minimum autorisé est 0",
           "max": "Le maximum autorisé est 100"
+        }, 
+        "type": {
+          "error": "Vous devez stipuler un nombre" 
         }
       },
       "room": {
