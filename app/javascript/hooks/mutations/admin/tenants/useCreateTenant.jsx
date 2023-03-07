@@ -27,8 +27,8 @@ export default function useCreateTenant({ onSettled }) {
     (tenant) => axios.post('/admin/tenants.json', { tenant }),
     {
       onSuccess: () => {
-        toast.success(t('toast.success.role.role_created'));
-        queryClient.invalidateQueries('getRoles');
+        toast.success('A new tenant has been created.');
+        queryClient.invalidateQueries('tenants');
       },
       onError: () => { toast.error(t('toast.error.problem_completing_action')); },
       onSettled,

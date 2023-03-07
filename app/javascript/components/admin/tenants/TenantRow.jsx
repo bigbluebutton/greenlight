@@ -15,19 +15,25 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import CreateTenantForm from './forms/CreateTenantForm';
-import Modal from '../../shared_components/modals/Modal';
+import PropTypes from 'prop-types';
 
-export default function CreateTenantModal() {
-  const { t } = useTranslation();
-
+export default function TenantRow({ tenant }) {
   return (
-    <Modal
-      modalButton={<Button variant="brand" className="ms-auto">{ t('admin.tenants.add_new_tenant') }</Button>}
-      title={t('admin.tenants.create_new_tenant')}
-      body={<CreateTenantForm />}
-    />
+    <tr className="align-middle border border-2">
+      <td className="py-4 border-0">
+        <strong> {tenant?.name} </strong>
+      </td>
+      <td className="py-4 border-0">
+        {tenant?.client_secret}
+      </td>
+    </tr>
   );
 }
+
+TenantRow.propTypes = {
+  tenant: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    client_secret: PropTypes.string,
+  }).isRequired,
+};

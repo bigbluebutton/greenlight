@@ -41,7 +41,7 @@ export default function CreateRoleForm({ handleClose }) {
         </Button>
         <Button variant="brand" type="submit" disabled={createTenant.isLoading}>
           {createTenant.isLoading && <Spinner className="me-2" />}
-          {t('admin.tenants.create_tenant')}
+          Create Tenant
         </Button>
       </Stack>
     </Form>

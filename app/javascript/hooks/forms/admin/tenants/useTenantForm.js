@@ -27,20 +27,20 @@ export function useTenantFormValidation() {
 }
 
 export default function useTenantForm({ defaultValues: _defaultValues, ..._config } = {}) {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   const fields = useMemo(() => ({
     name: {
-      label: t('forms.admin.tenants.fields.name.label'),
-      placeHolder: t('forms.admin.tenants.fields.name.placeholder'),
+      label: 'Name',
+      placeHolder: 'Enter a name...',
       controlId: 'createTenantFormName',
       hookForm: {
         id: 'name',
       },
     },
     client_secret: {
-      label: t('forms.admin.tenants.fields.client_secret.label'),
-      placeHolder: t('forms.admin.tenants.fields.client_secret.placeholder'),
+      label: 'Keycloak Client Secret',
+      placeHolder: 'Keycloak Client Secret',
       controlId: 'createTenantFormClientSecret',
       hookForm: {
         id: 'client_secret',
