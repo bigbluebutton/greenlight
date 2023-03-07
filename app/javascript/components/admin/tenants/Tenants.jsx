@@ -37,6 +37,7 @@ export default function Tenants() {
   const [searchInput, setSearchInput] = useState();
   const { data: tenants, isLoading } = useTenants({ search: searchInput, page });
 
+  console.log('im in tenants.jsx', tenants)
   return (
     <div id="admin-panel" className="pb-3">
       <h3 className="py-5">{ t('admin.admin_panel') }</h3>

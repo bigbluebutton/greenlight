@@ -30,7 +30,7 @@ export default function useDeleteTenant({ tenantId, onSettled }) {
         toast.error(t('toast.error.problem_completing_action'));
       },
       onSuccess: () => {
-        queryClient.invalidateQueries('getTenants');
+        queryClient.invalidateQueries('tenants');
         toast.success('Tenant was successfully deleted.');
       },
       onSettled,
