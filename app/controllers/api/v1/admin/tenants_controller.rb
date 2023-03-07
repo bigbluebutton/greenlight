@@ -24,6 +24,7 @@ module Api
           # TODO: - ahmad: Add role check
         end
 
+        # GET /api/v1/admin/tenants
         def index
           sort_config = config_sorting(allowed_columns: %w[name])
 
@@ -45,6 +46,17 @@ module Api
             create_meeting_options(tenant.name)
             create_role_permissions(tenant.name)
             render_data status: :created
+          else
+            render_error errors: tenant.errors.to_a, status: :bad_request
+          end
+        end
+
+        # DELETE /api/v1/admin/tenants/:id
+        def destroy
+          tenant = Tenant.find(params[:id])
+
+          if tenant.destroy
+            render_data status: :ok
           else
             render_error errors: tenant.errors.to_a, status: :bad_request
           end
