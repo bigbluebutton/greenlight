@@ -35,6 +35,6 @@ class CurrentUserSerializer < UserSerializer
   end
 
   def super_admin
-    object.role.name == 'SuperAdmin' || object.role.provider == 'bn'
+    object.role.name == 'SuperAdmin' && object.role.provider == 'bn'
   end
 end
