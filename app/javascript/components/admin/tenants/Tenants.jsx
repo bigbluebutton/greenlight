@@ -70,7 +70,7 @@ export default function Tenants() {
                       </div>
                     </Stack>
                     {
-                      (searchInput && tenants?.length === 0)
+                      (searchInput && tenants?.data.length === 0)
                         ? (
                           <div className="mt-5">
                             <NoSearchResults text="No Tenants Found" searchInput={searchInput} />
