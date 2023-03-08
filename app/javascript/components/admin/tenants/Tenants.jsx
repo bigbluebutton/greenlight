@@ -73,7 +73,7 @@ export default function Tenants() {
                       (searchInput && tenants?.data.length === 0)
                         ? (
                           <div className="mt-5">
-                            <NoSearchResults text="No Tenants Found" searchInput={searchInput} />
+                            <NoSearchResults text="No Tenant Found" searchInput={searchInput} />
                           </div>
                         ) : (
                           <TenantsTable isLoading={isLoading} tenants={tenants?.data} pagination={tenants?.meta} setPage={setPage} />

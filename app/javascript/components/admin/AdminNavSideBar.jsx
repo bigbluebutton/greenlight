@@ -15,7 +15,7 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import {
-  AdjustmentsVerticalIcon, Cog8ToothIcon, IdentificationIcon, ServerStackIcon, UsersIcon, VideoCameraIcon,
+  AdjustmentsVerticalIcon, Cog8ToothIcon, IdentificationIcon, ServerStackIcon, UsersIcon, VideoCameraIcon, Square3Stack3DIcon,
 } from '@heroicons/react/24/outline';
 import React from 'react';
 import { Nav } from 'react-bootstrap';
