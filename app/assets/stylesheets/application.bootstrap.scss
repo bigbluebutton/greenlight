@@ -704,3 +704,9 @@ input[type="range"]:focus::-moz-range-thumb {
     width: 25px;
   }
 }
+
+#rooms-list-empty, #recordings-list-empty {
+  .card-body {
+    min-height: 20rem;
+  }
+}
