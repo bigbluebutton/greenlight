@@ -21,6 +21,7 @@ import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Square3Stack3DIcon } from '@heroicons/react/20/solid';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function AdminNavSideBar() {
@@ -82,6 +83,14 @@ export default function AdminNavSideBar() {
           <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/roles" eventKey="roles">
             <IdentificationIcon className="hi-s me-3" />
             { t('admin.roles.roles') }
+          </Nav.Link>
+        </Nav.Item>
+      )}
+      {(currentUser.isSuperAdmin) && (
+        <Nav.Item>
+          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/tenants" eventKey="tenants">
+            <Square3Stack3DIcon className="hi-s me-3" />
+            Manage Tenants
           </Nav.Link>
         </Nav.Item>
       )}

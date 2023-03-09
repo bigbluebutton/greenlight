@@ -17,7 +17,7 @@
 # frozen_string_literal: true
 
 class CurrentUserSerializer < UserSerializer
-  attributes :signed_in, :permissions, :status, :external_account
+  attributes :signed_in, :permissions, :status, :external_account, :super_admin
 
   def signed_in
     true
@@ -32,5 +32,9 @@ class CurrentUserSerializer < UserSerializer
                   .where(role_id: object.role_id)
                   .pluck(:name, :value)
                   .to_h
+  end
+
+  def super_admin
+    object.role.name == 'SuperAdmin' && object.role.provider == 'bn'
   end
 end

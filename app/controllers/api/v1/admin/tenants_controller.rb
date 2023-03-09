@@ -24,19 +24,27 @@ module Api
           # TODO: - ahmad: Add role check
         end
 
+        # POST /api/v1/admin/tenants
         def create
-          provider = params[:provider]
-          create_roles(provider:)
-          create_site_settings(provider:)
-          create_meeting_options(provider:)
-          create_role_permissions(provider:)
+          tenant_params[:name] = tenant_params[:name].downcase.gsub(/[-\s]/, '_')
+          tenant = Tenant.new(tenant_params)
+
+          if tenant.save
+            create_roles(tenant.name)
+            create_site_settings(tenant.name)
+            create_meeting_options(tenant.name)
+            create_role_permissions(tenant.name)
+            render_data status: :created
+          else
+            render_error errors: tenant.errors.to_a, status: :bad_request
+          end
         end
 
         def cache; end
 
         private
 
-        def create_roles(provider:)
+        def create_roles(provider)
           Role.create! [
             { name: 'Administrator', provider: },
             { name: 'User', provider: },
@@ -44,7 +52,7 @@ module Api
           ]
         end
 
-        def create_site_settings(provider:)
+        def create_site_settings(provider)
           SiteSetting.create! [
             { setting: Setting.find_by(name: 'PrimaryColor'), value: '#467fcf', provider: },
             { setting: Setting.find_by(name: 'PrimaryColorLight'), value: '#e8eff9', provider: },
@@ -62,7 +70,7 @@ module Api
           ]
         end
 
-        def create_meeting_options(provider:)
+        def create_meeting_options(provider)
           RoomsConfiguration.create! [
             { meeting_option: MeetingOption.find_by(name: 'record'), value: 'default_enabled', provider: },
             { meeting_option: MeetingOption.find_by(name: 'muteOnStart'), value: 'optional', provider: },
@@ -75,7 +83,7 @@ module Api
           ]
         end
 
-        def create_role_permissions(provider:)
+        def create_role_permissions(provider)
           admin = Role.find_by(name: 'Administrator', provider:)
           user = Role.find_by(name: 'User', provider:)
           guest = Role.find_by(name: 'Guest', provider:)
@@ -121,6 +129,10 @@ module Api
             { role: guest, permission: can_record, value: 'true' },
             { role: guest, permission: room_limit, value: '100' }
           ]
+        end
+
+        def tenant_params
+          params.require(:tenant).permit(:name, :client_secret)
         end
       end
     end
