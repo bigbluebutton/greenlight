@@ -201,6 +201,7 @@ GEM
     method_source (1.0.0)
     mini_magick (4.12.0)
     mini_mime (1.1.2)
+    mini_portile2 (2.8.1)
     minitest (5.17.0)
     msgpack (1.6.0)
     net-imap (0.3.4)
@@ -213,6 +214,9 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
+    nokogiri (1.14.1)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     nokogiri (1.14.1-x86_64-linux)
       racc (~> 1.4)
     omniauth (2.1.1)
@@ -246,7 +250,7 @@ GEM
     puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.6.2)
-    rack (2.2.6.2)
+    rack (2.2.6.3)
     rack-oauth2 (1.21.3)
       activesupport
       attr_required
@@ -388,6 +392,7 @@ GEM
     zeitwerk (2.6.6)
 
 PLATFORMS
+  ruby
   x86_64-linux
 
 DEPENDENCIES
