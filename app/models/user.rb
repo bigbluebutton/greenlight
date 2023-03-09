@@ -207,7 +207,7 @@ class User < ApplicationRecord
   end
 
   def super_admin?
-    role.name == 'SuperAdmin' && provider == 'bn'
+    role.name == 'SuperAdmin' && role.provider == 'bn'
   end
 
   def check_user_role_provider
