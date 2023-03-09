@@ -27,7 +27,7 @@ module Api
         def index
           sort_config = config_sorting(allowed_columns: %w[name])
 
-          tenants = Tenant.select(:id, :name, :client_secret)&.order(sort_config)&.search(params[:search])
+          tenants = Tenant.select(:id, :name, :client_secret)&.order(sort_config, created_at: :desc)&.search(params[:search])
 
           pagy, tenants = pagy(tenants)
 
