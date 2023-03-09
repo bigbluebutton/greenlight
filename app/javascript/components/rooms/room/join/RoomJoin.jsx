@@ -141,7 +141,7 @@ export default function RoomJoin() {
   fields.name.label = t('user.name');
   fields.name.placeHolder = t('authentication.enter_name');
   fields.accessCode.placeHolder = t('room.settings.access_code_required');
-  fields.recordingConsent.label=t('room.meeting.recording_consent');
+  fields.recordingConsent.label = t('room.meeting.recording_consent');
   
   const hasAccessCode = publicRoom.data?.viewer_access_code || publicRoom.data?.moderator_access_code;
 
