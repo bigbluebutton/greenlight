@@ -137,7 +137,12 @@ export default function RoomJoin() {
   if (publicRoom.data.owner_id === currentUser?.id || publicRoom.data.shared_user_ids.includes(currentUser?.id)) {
     return <Navigate to={`/rooms/${publicRoom.data.friendly_id}`} />;
   }
-
+  
+  fields.name.label = t('user.name');
+  fields.name.placeHolder = t('authentication.enter_name');
+  fields.accessCode.placeHolder = t('room.settings.access_code_required');
+  fields.recordingConsent.label=t('room.meeting.recording_consent');
+  
   const hasAccessCode = publicRoom.data?.viewer_access_code || publicRoom.data?.moderator_access_code;
 
   if (publicRoom.data?.viewer_access_code || !publicRoom.data?.moderator_access_code) {
