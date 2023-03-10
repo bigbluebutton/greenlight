@@ -15,7 +15,7 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import React, { useEffect } from 'react';
-import { Button, Stack } from 'react-bootstrap';
+import { Button, Stack, Form as BootstrapForm, Form as BootStrapForm } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Form from '../../../shared_components/forms/Form';
@@ -51,6 +51,9 @@ export default function UpdateUserForm({ user }) {
     return 'en';
   }
 
+  // Hardcode the role input to Super Admin if the user is a super admin
+  const superAdminField = user === currentUser && currentUser.isSuperAdmin;
+
   const { methods, fields, reset } = useUpdateUserForm({
     defaultValues: {
       name: user?.name,
@@ -73,12 +76,22 @@ export default function UpdateUserForm({ user }) {
           Object.keys(locales || {}).map((code) => <Option key={code} value={code}>{locales[code]}</Option>)
         }
       </FormSelect>
-      {(canUpdateRole && roles) && (
+      {(canUpdateRole && roles && !superAdminField) && (
         <FormSelect field={fields.role_id} variant="dropdown">
           {
             roles.map((role) => <Option key={role.id} value={role.id}>{role.name}</Option>)
           }
         </FormSelect>
+      )}
+      {(superAdminField) && (
+        <BootStrapForm.Group className="mb-2">
+          <BootStrapForm.Label className="small mb-0">
+            Role
+          </BootStrapForm.Label>
+          <BootstrapForm.Select variant="dropdown" disabled>
+            <option> Super Admin </option>
+          </BootstrapForm.Select>
+        </BootStrapForm.Group>
       )}
       <Stack direction="horizontal" gap={2} className="float-end">
         <Button variant="neutral" onClick={reset}> { t('cancel') } </Button>
