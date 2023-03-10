@@ -6,7 +6,7 @@ namespace :migrations do
   COMMON = {
     headers: { "Content-Type" => "application/json", "Accept" => "application/json" },
     batch_size: 500,
-    filtered_roles: %w[super_admin admin pending denied user],
+    filtered_roles: %w[super_admin pending denied],
     filtered_user_roles: %w[super_admin pending denied]
   }.freeze
 
@@ -15,12 +15,19 @@ namespace :migrations do
     args.with_defaults(provider: "greenlight")
     has_encountred_issue = 0
 
+    byebug
+
     Role.unscoped
         .where(provider: args[:provider])
-        .select(:id, :name)
+        .select(:id, :name, :provider)
         .includes(:role_permissions)
         .where.not(name: COMMON[:filtered_roles])
+
+        # trying to remove admin and user roles for greenlight
+        # .where("provider != 'greenlight' AND (name != 'admin' OR name != 'user')") # Rails 5.x doesn't support AND in where.not
+
         .find_each(batch_size: COMMON[:batch_size]) do |r|
+
       # RolePermissions
       role_permissions_hash = r.role_permissions.pluck(:name, :value).to_h
 
@@ -36,7 +43,7 @@ namespace :migrations do
       }
 
       params = { role: { name: r.name.capitalize,
-                         provider: args[:provider],
+                         provider: r.provider,
                          role_permissions: role_permissions } }
 
       response = Net::HTTP.post(uri('roles'), payload(params), COMMON[:headers])
@@ -79,7 +86,7 @@ namespace :migrations do
                    { name: u.name,
                      email: u.email,
                      external_id: u.social_uid,
-                     provider: args[:provider],
+                     provider: u.provider,
                      language: u.language,
                      role: role_name } }
 
@@ -162,12 +169,12 @@ namespace :migrations do
         puts green "Successfully migrated Room:"
         puts cyan "UID: #{r.uid}"
         puts cyan "Name: #{r.name}"
-        puts cyan "Provider: #{args[:provider]}"
+        puts cyan "Provider: #{r.provider}"
       else
         puts red "Unable to migrate Room:"
         puts yellow "UID: #{r.uid}"
         puts yellow "Name: #{r.name}"
-        puts yellow "Provider: #{args[:provider]}"
+        puts yellow "Provider: #{r.provider}"
         puts red "Errors: #{JSON.parse(response.body.to_s)['errors']}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
