@@ -53,6 +53,14 @@ module Api
 
           return render_error(status: :bad_request, errors: role&.errors&.to_a) unless role.save
 
+          # if role_hash[:provider] != 'greenlight'
+          #   tenant = Tenant.find_or_initialize_by(name: role_hash[:provider])
+          #   return render_error(status: :bad_request, errors: tenant&.errors&.to_a) unless tenant.save
+          #
+          #   guest_role = Role.find_or_initialize_by(name: 'Guest', provider: role_hash[:provider])
+          #   return render_error(status: :bad_request, errors: guest_role&.errors&.to_a) unless guest_role.save
+          # end
+
           # Returns unless the Role has a RolePermission that differs from V3 default RolePermissions values
           return render_data status: :created unless role_hash[:role_permissions].any?
 
