@@ -15,7 +15,9 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import React, { useEffect } from 'react';
-import { Button, Stack, Form as BootstrapForm, Form as BootStrapForm } from 'react-bootstrap';
+import {
+  Button, Stack, Form as BootstrapForm, Form as BootStrapForm,
+} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Form from '../../../shared_components/forms/Form';
