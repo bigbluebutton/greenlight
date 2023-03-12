@@ -413,7 +413,7 @@
       "users": {
         "signup_error": "A hitelesítésed nem sikerült. Kérem, keresd az üzemeltetőt.",
         "invalid_invite": "A meghívási token érvénytelen vagy helytelen. Lépjen kapcsolatba a rendszergazdával, hogy újat kapjon.",
-        "email_exists": "Evvel ez e-mail címmel már létezik felhasználói fiók. Kérem, másikat adj meg.",
+        "email_exists": "Már létezik fiók ezzel ez e-mail-címmel. Próbálja újra másik címmel.",
         "old_password": "A megadott jelszó nem megfelelő.",
         "pending": "A fiókja adminisztrátori jóváhagyásra vár. Próbálja újra később.",
         "banned": "Nincs hozzáférési jogosultságod ehhez az alkalmazáshoz. Evvel kapcsolatban az üzemeltetőt keresd."
@@ -480,9 +480,9 @@
           "required": "Add meg a szoba korlátját",
           "min": "A megengedett legkisebb érték 0",
           "max": "A megengedett legnagyobb érték 100"
-        }, 
+        },
         "type": {
-          "error": "Adj meg egy számot" 
+          "error": "Adj meg egy számot"
         }
       },
       "room": {
@@ -490,7 +490,7 @@
           "required": "Add meg a szoba nevét.",
           "min": "A névnek legalább 2 karakter hosszúnak kell lennie"
         }
-      }, 
+      },
       "url": {
         "invalid": "Érvénytelen URL"
       }
