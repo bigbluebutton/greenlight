@@ -47,17 +47,17 @@
 
 hu:
   opengraph:
-    description: "Tanulj a BigBlueButton, a megbízható nyílt forráskódú webkonferencia-megoldás használatával, ami zökkenőmentes virtuális együttműködést és online tanulási élményt tesz lehetővé."
+    description: "Tanuljon a BigBlueButton, a megbízható nyílt forráskódú webkonferencia-megoldás használatával, amely zökkenőmentes virtuális együttműködést és online tanulási élményt tesz lehetővé."
   meeting:
-    moderator_message: "Meghíváshoz küldd el ezt a linket:"
+    moderator_message: "Meghíváshoz küldje el ezt a hivatkozást:"
     access_code: "Hozzáférési kód: %{code}"
   email:
     activation:
-      account_activation: Fiókhitelesítés
-      welcome_to_bbb: Üdvözöl a BigBlueButton!
-      get_started: A kezdéshez aktiváld fiókod az alábbi gombra kattintással.
-      activate_account: Fiók hitelesítése
-      link_expires: A link 24 órán belül lejár.
+      account_activation: Fiók aktiválása
+      welcome_to_bbb: Üdvözli a BigBlueButton!
+      get_started: A kezdéshez aktiválja a fiókját az alábbi gombra kattintással.
+      activate_account: Fiók aktiválása
+      link_expires: A hivatkozás 24 órán belül lejár.
       if_link_expires: "A link lejárta után jelentkezz be és kérj új meghívó levelet. "
     invitation:
       invitation_to_join: BigBlueButton meghívás
