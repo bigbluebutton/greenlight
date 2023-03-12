@@ -384,7 +384,7 @@
         "brand_image_updated": "Márkakép frissítve.",
         "brand_image_deleted": "Márkakép törölve.",
         "privacy_policy_updated": "Adatvédelmi nyilatkozat frissítve.",
-        "terms_of_service_updated": "A Szolgáltatási feltételeket módosítottuk."
+        "terms_of_service_updated": "A szolgáltatási feltételek frissítésre kerültek."
       },
       "recording": {
         "recording_visibility_updated": "Felvétel láthatósága frissítve.",
@@ -411,18 +411,18 @@
         "role_assigned": "Ez a szerepkör nem törölhető, mert legalább egy felhasználóhoz hozzá van rendelve."
       },
       "users": {
-        "signup_error": "A hitelesítésed nem sikerült. Kérem, keresd az üzemeltetőt.",
+        "signup_error": "Nem hitelesíthető. Lépjen kapcsolatba a rendszergazdával.",
         "invalid_invite": "A meghívási token érvénytelen vagy helytelen. Lépjen kapcsolatba a rendszergazdával, hogy újat kapjon.",
-        "email_exists": "Evvel ez e-mail címmel már létezik felhasználói fiók. Kérem, másikat adj meg.",
-        "old_password": "A megadott jelszó nem megfelelő.",
+        "email_exists": "Már létezik fiók ezzel ez e-mail-címmel. Próbálja újra másik címmel.",
+        "old_password": "A megadott jelszó helytelen.",
         "pending": "A fiókja adminisztrátori jóváhagyásra vár. Próbálja újra később.",
-        "banned": "Nincs hozzáférési jogosultságod ehhez az alkalmazáshoz. Evvel kapcsolatban az üzemeltetőt keresd."
+        "banned": "Nincs hozzáférési jogosultsága ehhez az alkalmazáshoz. Ha úgy gondolja, hogy ez hiba, akkor lépjen kapcsolatba a rendszergazdával."
       },
       "rooms": {
         "room_limit": "A szobakorlát miatt a szoba nem hozható létre"
       },
       "session": {
-        "invalid_credentials": "A felhasználónév és a jelszó nem megfelelő. Kérem, ellenőrizd a hitelesítési adataidat."
+        "invalid_credentials": "A felhasználónév és a jelszó helytelen. Ellenőrizze a hitelesítési adatait és próbálja újra."
       }
     }
   },
@@ -444,14 +444,14 @@
   "forms": {
     "validations": {
       "full_name": {
-        "required": "Add meg a teljes neved",
-        "min": "A névnek legalább 2 karakter hosszúnak kell lennie",
+        "required": "Adja meg a teljes nevét",
+        "min": "A névnek legalább 2 karakteresnek kell lennie",
         "max": "A névnek 255 karakternél rövidebbnek kell lennie"
       },
       "email": {
-        "required": "Add meg az e-mail címed",
-        "email": "A megadott adat nem e-mail formátumú",
-        "min": "Az e-mail címnek legalább 6 karakter hosszúnak kell lennie",
+        "required": "Adja meg az e-mail-címét",
+        "email": "A megadott érték nem e-mail formátumú",
+        "min": "Az e-mail-címnek legalább 6 karakteresnek kell lennie",
         "max": "Az e-mail címnek 255 karakternél rövidebbnek kell lennie"
       },
       "password": {
@@ -480,9 +480,9 @@
           "required": "Add meg a szoba korlátját",
           "min": "A megengedett legkisebb érték 0",
           "max": "A megengedett legnagyobb érték 100"
-        }, 
+        },
         "type": {
-          "error": "Adj meg egy számot" 
+          "error": "Adj meg egy számot"
         }
       },
       "room": {
@@ -490,7 +490,7 @@
           "required": "Add meg a szoba nevét.",
           "min": "A névnek legalább 2 karakter hosszúnak kell lennie"
         }
-      }, 
+      },
       "url": {
         "invalid": "Érvénytelen URL"
       }
