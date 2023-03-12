@@ -384,7 +384,7 @@
         "brand_image_updated": "Márkakép frissítve.",
         "brand_image_deleted": "Márkakép törölve.",
         "privacy_policy_updated": "Adatvédelmi nyilatkozat frissítve.",
-        "terms_of_service_updated": "A Szolgáltatási feltételeket módosítottuk."
+        "terms_of_service_updated": "A szolgáltatási feltételek frissítésre kerültek."
       },
       "recording": {
         "recording_visibility_updated": "Felvétel láthatósága frissítve.",
@@ -411,18 +411,18 @@
         "role_assigned": "Ez a szerepkör nem törölhető, mert legalább egy felhasználóhoz hozzá van rendelve."
       },
       "users": {
-        "signup_error": "A hitelesítésed nem sikerült. Kérem, keresd az üzemeltetőt.",
+        "signup_error": "Nem hitelesíthető. Lépjen kapcsolatba a rendszergazdával.",
         "invalid_invite": "A meghívási token érvénytelen vagy helytelen. Lépjen kapcsolatba a rendszergazdával, hogy újat kapjon.",
-        "email_exists": "Evvel ez e-mail címmel már létezik felhasználói fiók. Kérem, másikat adj meg.",
-        "old_password": "A megadott jelszó nem megfelelő.",
+        "email_exists": "Már létezik fiók ezzel ez e-mail-címmel. Próbálja újra másik címmel.",
+        "old_password": "A megadott jelszó helytelen.",
         "pending": "A fiókja adminisztrátori jóváhagyásra vár. Próbálja újra később.",
-        "banned": "Nincs hozzáférési jogosultságod ehhez az alkalmazáshoz. Evvel kapcsolatban az üzemeltetőt keresd."
+        "banned": "Nincs hozzáférési jogosultsága ehhez az alkalmazáshoz. Ha úgy gondolja, hogy ez hiba, akkor lépjen kapcsolatba a rendszergazdával."
       },
       "rooms": {
         "room_limit": "A szobakorlát miatt a szoba nem hozható létre"
       },
       "session": {
-        "invalid_credentials": "A felhasználónév és a jelszó nem megfelelő. Kérem, ellenőrizd a hitelesítési adataidat."
+        "invalid_credentials": "A felhasználónév és a jelszó helytelen. Ellenőrizze a hitelesítési adatait és próbálja újra."
       }
     }
   },
@@ -444,62 +444,62 @@
   "forms": {
     "validations": {
       "full_name": {
-        "required": "Add meg a teljes neved",
-        "min": "A névnek legalább 2 karakter hosszúnak kell lennie",
-        "max": "A névnek 255 karakternél rövidebbnek kell lennie"
+        "required": "Adja meg a teljes nevét",
+        "min": "A névnek legalább 2 karakteresnek kell lennie",
+        "max": "A név legfeljebb 255 karakteres lehet"
       },
       "email": {
-        "required": "Add meg az e-mail címed",
-        "email": "A megadott adat nem e-mail formátumú",
-        "min": "Az e-mail címnek legalább 6 karakter hosszúnak kell lennie",
-        "max": "Az e-mail címnek 255 karakternél rövidebbnek kell lennie"
+        "required": "Adja meg az e-mail-címét",
+        "email": "A megadott érték nem e-mail formátumú",
+        "min": "Az e-mail-címnek legalább 6 karakteresnek kell lennie",
+        "max": "Az e-mail-cím legfeljebb 255 karakteres lehet"
       },
       "password": {
-        "required": "Add meg a jelszavad",
+        "required": "Adja meg a jelszavát",
         "match": "A jelszónak legalább az alábbi feltételeknek kell megfelelnie:",
         "min": "- Nyolc karakter",
         "lower": "- Egy kisbetű",
         "upper": "- Egy nagybetű",
-        "digit": " - Egy számjegy",
+        "digit": "- Egy számjegy",
         "symbol": "- Egy szimbólum",
-        "max": "A jelszónak 255 karakternél rövidebbnek kell lennie"
+        "max": "A jelszó legfeljebb 255 karakteres lehet"
       },
       "password_confirmation": {
-        "required": "Add meg a jelszó megerősítését",
+        "required": "Adja meg a jelszó megerősítését",
         "match": "A jelszavak nem egyeznek"
       },
       "emails": {
-        "required": "Legalább egy érvényes e-mail címet adj meg",
-        "list": "Az e-mail címeket vesszővel elválasztva add meg (user@users.com,user1@users.com,user2@users.com)"
+        "required": "Adjon meg legalább egy érvényes e-mail-címet",
+        "list": "Az e-mail-címeket vesszővel elválasztva adja meg (user@users.com,user1@users.com,user2@users.com)"
       },
       "role_name": {
-        "required": "Add meg a szerepkör nevét"
+        "required": "Adja meg a szerepkör nevét"
       },
       "role": {
         "limit": {
-          "required": "Add meg a szoba korlátját",
+          "required": "Adja meg a szobakorlátot",
           "min": "A megengedett legkisebb érték 0",
           "max": "A megengedett legnagyobb érték 100"
-        }, 
+        },
         "type": {
-          "error": "Adj meg egy számot" 
+          "error": "Meg kell adnia egy számot"
         }
       },
       "room": {
         "name": {
-          "required": "Add meg a szoba nevét.",
-          "min": "A névnek legalább 2 karakter hosszúnak kell lennie"
+          "required": "Adja meg a szoba nevét.",
+          "min": "A névnek legalább 2 karakteresnek kell lennie"
         }
-      }, 
+      },
       "url": {
-        "invalid": "Érvénytelen URL"
+        "invalid": "Érvénytelen webcím"
       }
     },
     "room": {
       "fields": {
         "name": {
           "label": "Szoba neve",
-          "placeholder": "Add meg a szoba nevét..."
+          "placeholder": "Adja meg a szoba nevét…"
         }
       }
     },
@@ -508,11 +508,11 @@
         "fields": {
           "full_name": {
             "label": "Teljes név",
-            "placeholder": "Add meg a teljes nevedet"
+            "placeholder": "Adja meg a teljes nevét"
           },
           "email": {
             "label": "E-mail cím",
-            "placeholder": "Add meg az e-mail címedet"
+            "placeholder": "Adja meg az e-mail-címét"
           },
           "password": {
             "label": "Jelszó",
@@ -527,8 +527,8 @@
       "signin": {
         "fields": {
           "email": {
-            "label": "E-mail cím",
-            "placeholder": "E-mail cím"
+            "label": "E-mail-cím",
+            "placeholder": "E-mail-cím"
           },
           "password": {
             "label": "Jelszó",
@@ -543,33 +543,33 @@
         "fields": {
           "old_password": {
             "label": "Jelenlegi jelszó",
-            "placeholder": "Add meg a jelszavad"
+            "placeholder": "Adja meg a jelszavát"
           },
           "new_password": {
             "label": "Új jelszó",
-            "placeholder": "Add meg az új jelszavad"
+            "placeholder": "Adja meg az új jelszavát"
           },
           "password_confirmation": {
             "label": "Jelszó megerősítése",
-            "placeholder": "Új jelszavad megerősítése"
+            "placeholder": "Az új jelszava megerősítése"
           }
         },
         "validations": {
           "old_password": {
-            "required": "Add meg az új jelszavad"
+            "required": "Adja meg az új jelszavát"
           }
         }
       },
       "forget_password": {
         "fields": {
           "email": {
-            "label": "E-mail cím",
-            "placeholder": "Add meg a fiók e-mail címét"
+            "label": "E-mail-cím",
+            "placeholder": "Adja meg a fiók e-mail-címét"
           }
         },
         "validations": {
           "email": {
-            "required": "Add meg a fiók e-mail címét"
+            "required": "Adja meg a fiók e-mail-címét"
           }
         }
       },
@@ -577,11 +577,11 @@
         "fields": {
           "new_password": {
             "label": "Új jelszó",
-            "placeholder": "Add meg az új jelszót"
+            "placeholder": "Adja meg az új jelszót"
           },
           "password_confirmation": {
             "label": "Jelszó megerősítése",
-            "placeholder": "Új jelszavad megerősítése"
+            "placeholder": "Erősítse meg az új jelszavát"
           }
         }
       },
@@ -591,7 +591,7 @@
             "label": "Teljes név"
           },
           "email": {
-            "label": "E-mail cím"
+            "label": "E-mail-cím"
           },
           "language": {
             "label": "Nyelv"
@@ -607,15 +607,15 @@
         "fields": {
           "full_name": {
             "label": "Teljes név",
-            "placeholder": "Add meg a felhasználó teljes nevét"
+            "placeholder": "Adja meg a felhasználó teljes nevét"
           },
           "email": {
-            "label": "E-mail cím",
-            "placeholder": "Add meg a felhasználó e-mail címét "
+            "label": "E-mail-cím",
+            "placeholder": "Adja meg a felhasználó e-mail-címét "
           },
           "password": {
             "label": "Jelszó",
-            "placeholder": "Add meg a felhasználó jelszavát"
+            "placeholder": "Adja meg a felhasználó jelszavát"
           },
           "password_confirmation": {
             "label": "Jelszó megerősítése",
@@ -633,7 +633,7 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "Add meg a linket..."
+            "placeholder": "Adja meg a hivatkozást itt…"
           }
         }
       },
@@ -641,7 +641,7 @@
         "fields": {
           "name": {
             "label": "Szerepkör neve",
-            "placeholder": "Add meg a szerepkör nevét..."
+            "placeholder": "Adja meg a szerepkör nevét…"
           }
         }
       }
