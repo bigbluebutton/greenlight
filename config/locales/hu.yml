@@ -47,28 +47,28 @@
 
 hu:
   opengraph:
-    description: "Tanulj a BigBlueButton, a megbízható nyílt forráskódú webkonferencia-megoldás használatával, ami zökkenőmentes virtuális együttműködést és online tanulási élményt tesz lehetővé."
+    description: "Tanuljon a BigBlueButton, a megbízható nyílt forráskódú webkonferencia-megoldás használatával, amely zökkenőmentes virtuális együttműködést és online tanulási élményt tesz lehetővé."
   meeting:
-    moderator_message: "Meghíváshoz küldd el ezt a linket:"
+    moderator_message: "Meghíváshoz küldje el ezt a hivatkozást:"
     access_code: "Hozzáférési kód: %{code}"
   email:
     activation:
-      account_activation: Fiókhitelesítés
-      welcome_to_bbb: Üdvözöl a BigBlueButton!
-      get_started: A kezdéshez aktiváld fiókod az alábbi gombra kattintással.
-      activate_account: Fiók hitelesítése
-      link_expires: A link 24 órán belül lejár.
-      if_link_expires: "A link lejárta után jelentkezz be és kérj új meghívó levelet. "
+      account_activation: Fiók aktiválása
+      welcome_to_bbb: Üdvözli a BigBlueButton!
+      get_started: A kezdéshez aktiválja a fiókját az alábbi gombra kattintással.
+      activate_account: Fiók aktiválása
+      link_expires: A hivatkozás 24 órán belül lejár.
+      if_link_expires: "Ha a hivatkozás lejár, akkor jelentkezzen be, és kérjen új aktiválási levelet. "
     invitation:
       invitation_to_join: BigBlueButton meghívás
-      you_have_been_invited: "%{name} meghívott a BigBlueButton használatára."
-      get_started: A regisztrációhoz kattints az alábbi gombra és kövesd a lépéseket.
+      you_have_been_invited: "%{name} meghívta a BigBlueButton használatára."
+      get_started: A regisztrációhoz kattintson az alábbi gombra és kövesse a lépéseket.
       valid_invitation: A meghívó 24 óráig érvényes.
       sign_up: Regisztráció
     reset:
-      password_reset: Jelszó cseréje
-      password_reset_requested: "%{email} címre jelszómódosítási levelet küldtünk."
-      password_reset_confirmation: Jelszavad cseréjéhez kattints az alábbi linkre.
-      reset_password: Jelszó cseréje
-      link_expires: A link 1 órán belül lejár.
-      ignore_request: "Ha nem Te kérted jelszavad megváltoztatását, kérjük, hagyd figyelmen kívül ezt az e-mailt."
+      password_reset: Jelszó visszaállítása
+      password_reset_requested: "Jelszó-visszaállítás lett kérve a következő címhez: %{email}."
+      password_reset_confirmation: A jelszó visszaállításához kattintson az alábbi gombra.
+      reset_password: Jelszó visszaállítása
+      link_expires: A hivatkozás 1 órán belül lejár.
+      ignore_request: "Ha nem Ön kérte a jelszava megváltoztatását, akkor hagyja figyelmen kívül ezt a levelet."
