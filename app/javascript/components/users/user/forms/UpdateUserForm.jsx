@@ -53,7 +53,7 @@ export default function UpdateUserForm({ user }) {
     return 'en';
   }
 
-  // Hardcode the role input to Super Admin if the user is a super admin
+  // Remove the role input field if the user is a super admin
   const superAdminField = user === currentUser && currentUser.isSuperAdmin;
 
   const { methods, fields, reset } = useUpdateUserForm({
@@ -84,16 +84,6 @@ export default function UpdateUserForm({ user }) {
             roles.map((role) => <Option key={role.id} value={role.id}>{role.name}</Option>)
           }
         </FormSelect>
-      )}
-      {(superAdminField) && (
-        <BootStrapForm.Group className="mb-2">
-          <BootStrapForm.Label className="small mb-0">
-            Role
-          </BootStrapForm.Label>
-          <BootstrapForm.Select variant="dropdown" disabled>
-            <option> Super Admin </option>
-          </BootstrapForm.Select>
-        </BootStrapForm.Group>
       )}
       <Stack direction="horizontal" gap={2} className="float-end">
         <Button variant="neutral" onClick={reset}> { t('cancel') } </Button>
