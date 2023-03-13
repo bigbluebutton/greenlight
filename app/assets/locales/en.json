@@ -172,7 +172,7 @@
     "unpublished": "Unpublished",
     "protected": "Protected",
     "length_in_minutes": "{{recording.length}} min.",
-    "processing_recording": "Processing recording...",
+    "processing_recording": "Processing recording, this may take several minutes...",
     "copy_recording_urls": "Copy Recording Url(s)",
     "recordings_list_empty": "You don't have any recordings yet!",
     "recordings_list_empty_description": "Recordings will appear here after you start a meeting and record it.",
