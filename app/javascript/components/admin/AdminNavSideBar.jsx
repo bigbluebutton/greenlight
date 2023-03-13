@@ -15,13 +15,12 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import {
-  AdjustmentsVerticalIcon, Cog8ToothIcon, IdentificationIcon, ServerStackIcon, UsersIcon, VideoCameraIcon,
+  AdjustmentsVerticalIcon, Cog8ToothIcon, IdentificationIcon, ServerStackIcon, UsersIcon, VideoCameraIcon, Square3Stack3DIcon,
 } from '@heroicons/react/24/outline';
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Square3Stack3DIcon } from '@heroicons/react/20/solid';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function AdminNavSideBar() {

@@ -24,10 +24,20 @@ module Api
           # TODO: - ahmad: Add role check
         end
 
+        def index
+          sort_config = config_sorting(allowed_columns: %w[name])
+
+          tenants = Tenant.select(:id, :name, :client_secret)&.order(sort_config, created_at: :desc)&.search(params[:search])
+
+          pagy, tenants = pagy(tenants)
+
+          render_data data: tenants, meta: pagy_metadata(pagy), status: :ok
+        end
+
         # POST /api/v1/admin/tenants
         def create
-          tenant_params[:name] = tenant_params[:name].downcase.gsub(/[-\s]/, '_')
-          tenant = Tenant.new(tenant_params)
+          name = tenant_params[:name].downcase.gsub(/[-\s]/, '_')
+          tenant = Tenant.new(name:, client_secret: tenant_params[:client_secret])
 
           if tenant.save
             create_roles(tenant.name)

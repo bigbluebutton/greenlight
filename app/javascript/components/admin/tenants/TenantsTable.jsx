@@ -20,9 +20,10 @@ import PropTypes from 'prop-types';
 import SortBy from '../../shared_components/search/SortBy';
 import RoleRowPlaceHolder from '../roles/RoleRowPlaceHolder';
 import TenantRow from './TenantRow';
+import Pagination from '../../shared_components/Pagination';
 
 export default function TenantsTable({
-  tenants, isLoading,
+  tenants, isLoading, pagination, setPage,
 }) {
   return (
     <Table className="table-bordered border border-2 mb-0" hover responsive>
@@ -44,12 +45,30 @@ export default function TenantsTable({
           )
       }
       </tbody>
+      { (pagination?.pages > 1)
+        && (
+          <tfoot>
+            <tr>
+              <td colSpan={12}>
+                <Pagination
+                  page={pagination?.page}
+                  totalPages={pagination?.pages}
+                  setPage={setPage}
+                />
+              </td>
+            </tr>
+          </tfoot>
+        )}
     </Table>
   );
 }
 
 TenantsTable.defaultProps = {
   tenants: [],
+  pagination: {
+    page: 1,
+    pages: 1,
+  },
 };
 
 TenantsTable.propTypes = {
@@ -58,4 +77,9 @@ TenantsTable.propTypes = {
     client_secret: PropTypes.string,
   })),
   isLoading: PropTypes.bool.isRequired,
+  pagination: PropTypes.shape({
+    page: PropTypes.number.isRequired,
+    pages: PropTypes.number.isRequired,
+  }),
+  setPage: PropTypes.func.isRequired,
 };

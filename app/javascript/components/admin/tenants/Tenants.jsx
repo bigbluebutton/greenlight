@@ -24,13 +24,18 @@ import { useTranslation } from 'react-i18next';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import AdminNavSideBar from '../AdminNavSideBar';
 import SearchBar from '../../shared_components/search/SearchBar';
+import useTenants from '../../../hooks/queries/admin/tenants/useTenants';
+import NoSearchResults from '../../shared_components/search/NoSearchResults';
+import TenantsTable from './TenantsTable';
 import Modal from '../../shared_components/modals/Modal';
 import CreateTenantForm from './forms/CreateTenantForm';
 
 export default function Tenants() {
   const { t } = useTranslation();
+  const [page, setPage] = useState();
 
   const [searchInput, setSearchInput] = useState();
+  const { data: tenants, isLoading } = useTenants({ search: searchInput, page });
 
   return (
     <div id="admin-panel" className="pb-3">
@@ -64,6 +69,16 @@ export default function Tenants() {
                         />
                       </div>
                     </Stack>
+                    {
+                      (searchInput && tenants?.data.length === 0)
+                        ? (
+                          <div className="mt-5">
+                            <NoSearchResults text="No Tenant Found" searchInput={searchInput} />
+                          </div>
+                        ) : (
+                          <TenantsTable isLoading={isLoading} tenants={tenants?.data} pagination={tenants?.meta} setPage={setPage} />
+                        )
+                    }
                   </div>
                 </Container>
               </Tab.Content>

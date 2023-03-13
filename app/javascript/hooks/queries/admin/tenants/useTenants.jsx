@@ -14,26 +14,26 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import { useQuery } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
+import axios from '../../../../helpers/Axios';
 
-export default function TenantRow({ tenant }) {
-  return (
-    <tr className="align-middle border border-2">
-      <td className="py-4 border-0">
-        <strong> {tenant?.name} </strong>
-      </td>
-      <td className="py-4 border-start-0">
-        {tenant?.client_secret}
-      </td>
-    </tr>
+export default function useTenants({ search = '', enabled = true, page } = {}) {
+  const [searchParams] = useSearchParams();
+
+  const params = {
+    'sort[column]': searchParams.get('sort[column]'),
+    'sort[direction]': searchParams.get('sort[direction]'),
+    search,
+    page,
+  };
+
+  return useQuery(
+    ['tenants', { ...params }],
+    () => axios.get('/admin/tenants.json', { params }).then((resp) => resp.data),
+    {
+      enabled,
+      keepPreviousData: true,
+    },
   );
 }
-
-TenantRow.propTypes = {
-  tenant: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-    client_secret: PropTypes.string,
-  }).isRequired,
-};

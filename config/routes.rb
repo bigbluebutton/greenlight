@@ -107,7 +107,7 @@ Rails.application.routes.draw do
             post '/', to: 'role_permissions#update'
           end
         end
-        resources :tenants, only: :create
+        resources :tenants, only: %i[index create]
       end
 
       namespace :migrations do

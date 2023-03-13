@@ -16,13 +16,6 @@
 
 # frozen_string_literal: true
 
-class Tenant < ApplicationRecord
-  validates :name, presence: true, uniqueness: true
-  validates :client_secret, presence: true
-
-  def self.search(input)
-    return where('name ILIKE ?', "%#{input}%") if input
-
-    all
-  end
+class TenantSerializer < ApplicationSerializer
+  attributes :name, :client_secret
 end
