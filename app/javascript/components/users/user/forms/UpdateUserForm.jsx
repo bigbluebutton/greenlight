@@ -16,7 +16,7 @@
 
 import React, { useEffect } from 'react';
 import {
-  Button, Stack, Form as BootstrapForm, Form as BootStrapForm,
+  Button, Stack,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -55,8 +55,6 @@ export default function UpdateUserForm({ user }) {
     }
     return 'en';
   }
-
-
 
   const { methods, fields, reset } = useUpdateUserForm({
     defaultValues: {
