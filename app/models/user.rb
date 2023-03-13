@@ -42,7 +42,7 @@ class User < ApplicationRecord
                    length: { minimum: 2, maximum: 255 } # TODO: amir - Change into full_name or seperate first and last name.
 
   validates :email,
-            format: /\A[\w\-.]+@[\w\-.]+\.[a-z]+\z/i,
+            format: /\A[\w\-.+]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i,
             presence: true,
             uniqueness: { case_sensitive: false, scope: :provider },
             length: { minimum: 5, maximum: 255 }
