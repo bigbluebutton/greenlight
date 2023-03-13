@@ -29,7 +29,7 @@ export default function EmptyRoomsList() {
   const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
 
   return (
-    <div id="rooms-list-empty" className="pt-5">
+    <div id="rooms-list-empty" className="pt-3">
       <Card className="border-0 card-shadow text-center">
         <Card.Body className="py-5">
           <div className="icon-circle rounded-circle d-block mx-auto mb-3">
