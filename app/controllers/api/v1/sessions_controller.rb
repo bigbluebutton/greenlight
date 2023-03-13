@@ -35,11 +35,11 @@ module Api
         # TODO: Add proper error logging for non-verified token hcaptcha
         return render_error if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
-        user = User.find_by(email: session_params[:email])
+        user = User.find_by(email: session_params[:email], provider: [current_provider, 'bn'])
 
         return render_error if user.blank?
 
-        # Checks if the user is from the current provider or if the user is a super admin
+        # Will return an error if the user is NOT from the current provider and if the user is NOT a super admin
         return render_error if user.provider != current_provider && !user.super_admin?
 
         # TODO: Add proper error logging for non-verified token hcaptcha
