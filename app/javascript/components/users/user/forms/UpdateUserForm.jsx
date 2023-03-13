@@ -36,7 +36,10 @@ export default function UpdateUserForm({ user }) {
   const { t } = useTranslation();
   const currentUser = useAuth();
 
-  const canUpdateRole = PermissionChecker.hasManageUsers(currentUser);
+  // Remove the display of role input field if the user is a super admin trying to update their own role
+  const isSuperAdminEditOwnRole = user === currentUser && currentUser.isSuperAdmin;
+  const canUpdateRole = PermissionChecker.hasManageUsers(currentUser) && !isSuperAdminEditOwnRole;
+
   const { data: roles } = useRoles({ enabled: canUpdateRole });
   const { data: locales } = useLocales();
   const updateUserAPI = useUpdateUser(user?.id);
@@ -53,8 +56,7 @@ export default function UpdateUserForm({ user }) {
     return 'en';
   }
 
-  // Remove the role input field if the user is a super admin
-  const superAdminField = user === currentUser && currentUser.isSuperAdmin;
+
 
   const { methods, fields, reset } = useUpdateUserForm({
     defaultValues: {
@@ -78,7 +80,7 @@ export default function UpdateUserForm({ user }) {
           Object.keys(locales || {}).map((code) => <Option key={code} value={code}>{locales[code]}</Option>)
         }
       </FormSelect>
-      {(canUpdateRole && roles && !superAdminField) && (
+      {(canUpdateRole && roles) && (
         <FormSelect field={fields.role_id} variant="dropdown">
           {
             roles.map((role) => <Option key={role.id} value={role.id}>{role.name}</Option>)
