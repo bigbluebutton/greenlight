@@ -22,17 +22,19 @@ namespace :migration do
   include ActionView::Helpers::AssetUrlHelper
 
   desc 'Send a reset password email to users'
-  task :reset_password_email, %i[provider start stop root_url] => :environment do |_task, args|
+  task :reset_password_email, %i[provider start stop base_url] => :environment do |_task, args|
     args.with_defaults(provider: 'greenlight')
     start, stop = range(args)
+
+    root_url = "#{args[:base_url]}/"
 
     User.where(external_id: nil, provider: args[:provider])
         .find_each do |user|
       token = user.generate_reset_token!
 
       UserMailer.with(user:,
-                      reset_url: reset_password_url(args[:root_url], token),
-                      base_url: args[:root_url],
+                      reset_url: reset_password_url(root_url, token),
+                      base_url: args[:base_url],
                       provider: args[:provider]).reset_password_email.deliver_later
 
       success "Sent reset password email to #{user.email}"
