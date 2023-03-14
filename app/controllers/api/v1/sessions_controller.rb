@@ -35,8 +35,10 @@ module Api
         # TODO: Add proper error logging for non-verified token hcaptcha
         return render_error if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
-        user = User.find_by(email: session_params[:email], provider: [current_provider, 'bn'])
+        # Search for a user within the current provider and, if not found, search for a super admin within bn provider
+        user = find_user(session_params[:email], current_provider)
 
+        # Return an error if the user is not found
         return render_error if user.blank?
 
         # Will return an error if the user is NOT from the current provider and if the user is NOT a super admin
@@ -68,6 +70,13 @@ module Api
         params.require(:session).permit(:email, :password, :extend_session)
       end
 
+      def find_user(email, provider)
+        user = User.find_by(email:, provider:)
+        # If the user is not found in the current provider, search for a super admin with bn provider
+        user = User.find_by(email:, provider: 'bn') if user.blank?
+        user
+      end
+
       def sign_in(user)
         user.generate_session_token!(extended_session: session_params[:extend_session])
 
@@ -94,3 +103,4 @@ module Api
     end
   end
 end
+
