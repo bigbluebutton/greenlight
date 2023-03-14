@@ -36,7 +36,7 @@ module Api
         return render_error if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         # Search for a user within the current provider and, if not found, search for a super admin within bn provider
-        user = find_user(session_params[:email], current_provider)
+        user = User.find_by(email: session_params[:email], provider: current_provider) || User.find_by(email: session_params[:email], provider: 'bn')
 
         # Return an error if the user is not found
         return render_error if user.blank?
@@ -68,13 +68,6 @@ module Api
 
       def session_params
         params.require(:session).permit(:email, :password, :extend_session)
-      end
-
-      def find_user(email, provider)
-        user = User.find_by(email:, provider:)
-        # If the user is not found in the current provider, search for a super admin with bn provider
-        user = User.find_by(email:, provider: 'bn') if user.blank?
-        user
       end
 
       def sign_in(user)
