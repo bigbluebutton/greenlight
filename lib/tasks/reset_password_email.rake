@@ -19,17 +19,17 @@
 require_relative 'task_helpers'
 
 namespace :migration do
-  include ActionView::Helpers::AssetUrlHelper
+  BATCH_SIZE = 500
 
   desc 'Send a reset password email to users'
-  task :reset_password_email, %i[provider start stop base_url] => :environment do |_task, args|
+  task :reset_password_email, %i[base_url provider] => :environment do |_task, args|
     args.with_defaults(provider: 'greenlight')
-    start, stop = range(args)
 
     root_url = "#{args[:base_url]}/"
 
+    # After the migration, all the users except those with an external_id will need to reset their password
     User.where(external_id: nil, provider: args[:provider])
-        .find_each do |user|
+        .find_each(batch_size: BATCH_SIZE) do |user|
       token = user.generate_reset_token!
 
       UserMailer.with(user:,
@@ -39,22 +39,9 @@ namespace :migration do
 
       success "Sent reset password email to #{user.email}"
     end
-
   end
 
   private
-
-  def range(args)
-    start = args[:start].to_i
-    start = 1 unless start.positive?
-
-    stop = args[:stop].to_i
-    stop = nil unless stop.positive?
-
-    raise red "Unable to migrate: Invalid provided range [start: #{start}, stop: #{stop}]" if stop && start > stop
-
-    [start, stop]
-  end
 
   def reset_password_url(root_url, token)
     "#{root_url}reset_password/#{token}"
