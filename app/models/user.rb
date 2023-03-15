@@ -206,6 +206,10 @@ class User < ApplicationRecord
     update! verified: false
   end
 
+  def super_admin?
+    role.name == 'SuperAdmin' && role.provider == 'bn'
+  end
+
   def check_user_role_provider
     return unless role
 

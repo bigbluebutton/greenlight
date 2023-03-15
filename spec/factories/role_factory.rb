@@ -29,5 +29,10 @@ FactoryBot.define do
       RolePermission.find_or_create_by(permission: perm2, role:, value: '100')
       RolePermission.find_or_create_by(permission: perm3, role:, value: 'true')
     end
+
+    trait :with_super_admin do
+      name { 'SuperAdmin' }
+      provider { 'bn' }
+    end
   end
 end
