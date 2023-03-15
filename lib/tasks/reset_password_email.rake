@@ -37,7 +37,9 @@ namespace :migration do
                       base_url: args[:base_url],
                       provider: args[:provider]).reset_password_email.deliver_later
 
-      success "Sent reset password email to #{user.email}"
+      success 'Successfully sent reset password email to:'
+      info    "  name: #{user.name}"
+      info    "  email: #{user.email}"
     end
   end
 
