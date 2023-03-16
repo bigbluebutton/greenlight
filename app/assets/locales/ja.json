@@ -172,7 +172,7 @@
     "unpublished": "非公開",
     "protected": "秘匿",
     "length_in_minutes": "{{recording.length}}分",
-    "processing_recording": "録画処理中...",
+    "processing_recording": "録画を処理中。数分かかることがあります...",
     "copy_recording_urls": "録画のURLをコピー",
     "recordings_list_empty": "まだ録画がありません！",
     "recordings_list_empty_description": "会議を開始し録画すれば、録画データが現れます。",
@@ -480,9 +480,9 @@
           "required": "作成可能な会議室数を入力してください",
           "min": "最小は0です",
           "max": "最大は100です"
-        }, 
+        },
         "type": {
-          "error": "半角数字で指定してください" 
+          "error": "半角数字で指定してください"
         }
       },
       "room": {
@@ -490,7 +490,7 @@
           "required": "会議室名を入力してください",
           "min": "名前は２文字以上必要です"
         }
-      }, 
+      },
       "url": {
         "invalid": "無効なURL"
       }
