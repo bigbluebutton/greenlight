@@ -16,6 +16,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
+import { TrashIcon } from '@heroicons/react/24/outline';
+import Modal from '../../shared_components/modals/Modal';
+import DeleteTenantForm from './forms/DeleteTenantForm';
 
 export default function TenantRow({ tenant }) {
   return (
@@ -23,8 +27,18 @@ export default function TenantRow({ tenant }) {
       <td className="py-4 border-0">
         <strong> {tenant?.name} </strong>
       </td>
-      <td className="py-4 border-start-0">
+      <td className="py-4 border-0">
         {tenant?.client_secret}
+      </td>
+      <td className="border-start-0 text-end tenants-icons">
+        <Modal
+          modalButton={<Button variant="icon"><TrashIcon className="hi-s" /></Button>}
+          body={(
+            <DeleteTenantForm
+              tenantId={tenant?.id}
+            />
+          )}
+        />
       </td>
     </tr>
   );
