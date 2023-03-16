@@ -172,7 +172,7 @@
     "unpublished": "Nincs közzétéve",
     "protected": "Védett",
     "length_in_minutes": "{{recording.length}} perc",
-    "processing_recording": "Felvétel feldolgozása…",
+    "processing_recording": "A felvétel feldolgozása néhány percig eltarthat...",
     "copy_recording_urls": "Felvételek webcímének másolása",
     "recordings_list_empty": "Még nincs egy felvétele sem.",
     "recordings_list_empty_description": "A felvételek itt fognak megjelenni, ha indít és felvesz egy találkozót.",
