@@ -48,9 +48,9 @@ class RecordingCreator
 
   # Returns the visibility of the recording (published, unpublished or protected)
   def get_recording_visibility(recording:)
-    return 'Protected' if recording[:protected] == 'true'
+    return 'Protected' if recording[:protected].to_s == 'true'
 
-    return 'Published' if recording[:published] == 'true'
+    return 'Published' if recording[:published].to_s == 'true'
 
     'Unpublished'
   end
