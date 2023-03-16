@@ -27,19 +27,29 @@ namespace :migration do
 
     root_url = "#{args[:base_url]}/"
 
-    # After the migration, all the users except those with an external_id will need to reset their password
-    User.where(external_id: nil, provider: args[:provider])
-        .find_each(batch_size: BATCH_SIZE) do |user|
-      token = user.generate_reset_token!
+    if ENV['SMTP_SERVER'].present?
+      info 'Checking connection to SMTP Server...'
+      begin
+        # After the migration, all the users except those with an external_id will need to reset their password
+        User.where(external_id: nil, provider: args[:provider])
+            .find_each(batch_size: BATCH_SIZE) do |user|
+          token = user.generate_reset_token!
 
-      UserMailer.with(user:,
-                      reset_url: reset_password_url(root_url, token),
-                      base_url: args[:base_url],
-                      provider: args[:provider]).reset_password_email.deliver_later
+          UserMailer.with(user:,
+                          reset_url: reset_password_url(root_url, token),
+                          base_url: args[:base_url],
+                          provider: args[:provider]).reset_password_email.deliver_now
 
-      success 'Successfully sent reset password email to:'
-      info    "  name: #{user.name}"
-      info    "  email: #{user.email}"
+          success 'Successfully sent reset password email to:'
+          info    "  name: #{user.name}"
+          info    "  email: #{user.email}"
+        end
+      rescue StandardError => e
+        err "Unable to send reset password email - #{e}"
+      end
+    else
+      err 'SMTP Server not set. Skipping sending reset password emails.'
+      exit 0
     end
   end
 
