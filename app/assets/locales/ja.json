@@ -406,6 +406,7 @@
       "problem_completing_action": "操作をうまく完了できませんでした。\nもう一度やってみてください。",
       "file_type_not_supported": "ファイルの形式がサポートされていません。",
       "file_size_too_large": "ファイルが大きすぎます。",
+      "file_upload_error": "ファイルがアップロードできません。",
       "signin_required": "このページに接続するにはサインインが必要です",
       "roles": {
         "role_assigned": "この役割はすでにユーザーに割り当てられているため、削除できません。"
