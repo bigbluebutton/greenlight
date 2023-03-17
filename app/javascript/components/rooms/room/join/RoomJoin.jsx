@@ -39,7 +39,7 @@ import FormControl from '../../../shared_components/forms/FormControl';
 import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
 import RoomJoinPlaceholder from './RoomJoinPlaceholder';
 import {
-  useLocationCookie, useDefaultJoinName, useRoomChannelSubscription, useMeetingStarted, useFailedJoinAttempt, useHandleJoin,
+  useLocationCookie, useDefaultJoinName, useMeetingSubscription, useJoinMeeting, useFailedJoinAttempt, useHandleJoin,
 } from './RoomJoinHooks';
 
 export default function RoomJoin() {
@@ -60,6 +60,7 @@ export default function RoomJoin() {
 
   const reset = () => { setHasStarted(false); };// Reset pipeline;
 
+  // Checks for the access code requirements
   const handleJoin = useHandleJoin({
     publicRoom, methods, t, roomStatusAPI,
   });
@@ -71,10 +72,10 @@ export default function RoomJoin() {
   useDefaultJoinName({ currentUser, methods });
 
   // Subscribe to the room channel to know when the meeting has started
-  useRoomChannelSubscription({ roomStatusAPI, friendlyId, setHasStarted });
+  useMeetingSubscription({ roomStatusAPI, friendlyId, setHasStarted });
 
-  // Joins the meeting when it has started
-  useMeetingStarted({
+  // If subscribed to the room channel, will the meeting when it has started
+  useJoinMeeting({
     hasStarted, friendlyId, t, methods, handleJoin, reset,
   });
 

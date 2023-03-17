@@ -52,7 +52,7 @@ export const useDefaultJoinName = ({ currentUser, methods }) => {
   }, [currentUser?.name]);
 };
 
-export const useRoomChannelSubscription = ({ roomStatusAPI, friendlyId, setHasStarted }) => {
+export const useMeetingSubscription = ({ roomStatusAPI, friendlyId, setHasStarted }) => {
   useEffect(() => {
     if (roomStatusAPI.isSuccess) {
       const channel = subscribeToRoom(friendlyId, { onReceived: () => { setHasStarted(true); } });
@@ -66,7 +66,7 @@ export const useRoomChannelSubscription = ({ roomStatusAPI, friendlyId, setHasSt
   }, [roomStatusAPI.isSuccess]);
 };
 
-export const useMeetingStarted = ({
+export const useJoinMeeting = ({
   hasStarted, friendlyId, t, methods, handleJoin, reset,
 }) => {
   useEffect(() => {
