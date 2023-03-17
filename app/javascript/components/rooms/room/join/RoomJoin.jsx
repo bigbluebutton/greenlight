@@ -15,7 +15,7 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 /* eslint-disable consistent-return */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import {
   Navigate, Link, useLocation, useParams,
@@ -23,7 +23,6 @@ import {
 import {
   Button, Col, Row, Spinner, Stack, Form as RegularForm,
 } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import usePublicRoom from '../../../../hooks/queries/rooms/usePublicRoom';
@@ -31,7 +30,6 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import useRoomStatus from '../../../../hooks/mutations/rooms/useRoomStatus';
 import useEnv from '../../../../hooks/queries/env/useEnv';
 import { joinFormConfig, joinFormFields as fields } from '../../../../helpers/forms/JoinFormHelpers';
-import subscribeToRoom from '../../../../channels/rooms_channel';
 import RequireAuthentication from './RequireAuthentication';
 import GGSpinner from '../../../shared_components/utilities/GGSpinner';
 import Logo from '../../../shared_components/Logo';
@@ -40,6 +38,9 @@ import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
 import RoomJoinPlaceholder from './RoomJoinPlaceholder';
+import {
+  useLocationCookie, useDefaultJoinName, useRoomChannelSubscription, useMeetingStarted, useFailedJoinAttempt, useHandleJoin,
+} from './RoomJoinHooks';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -57,76 +58,30 @@ export default function RoomJoin() {
   const location = useLocation();
   const path = encodeURIComponent(location.pathname);
 
-  useEffect(() => { // set cookie to return to if needed
-    const date = new Date();
-    date.setTime(date.getTime() + (60 * 1000)); // expire the cookie in 1min
-    document.cookie = `location=${path};path=/;expires=${date.toGMTString()}`;
-
-    return () => { // delete redirect location when unmounting
-      document.cookie = `location=${path};path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
-    };
-  }, []);
-
-  const handleJoin = (data) => {
-    document.cookie = 'location=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT'; // delete redirect location
-
-    if (publicRoom?.data.viewer_access_code && !methods.getValues('access_code')) {
-      return methods.setError('access_code', { type: 'required', message: t('room.settings.access_code_required') }, { shouldFocus: true });
-    }
-
-    roomStatusAPI.mutate(data);
-  };
   const reset = () => { setHasStarted(false); };// Reset pipeline;
 
-  useEffect(() => {
-    // Default Join name to authenticated user full name.
-    if (currentUser?.name) {
-      methods.setValue('name', currentUser.name);
-    }
-  }, [currentUser?.name]);
+  const handleJoin = useHandleJoin({
+    publicRoom, methods, t, roomStatusAPI,
+  });
 
-  useEffect(() => {
-    // Room channel subscription:
-    if (roomStatusAPI.isSuccess) {
-      //  When the user provides valid input (name, codes) the UI will subscribe to the room channel.
-      const channel = subscribeToRoom(friendlyId, { onReceived: () => { setHasStarted(true); } });
+  // Set/unset the location cookie if user uses the back functionality
+  useLocationCookie(path);
 
-      //  Cleanup: On component unmounting any opened channel subscriptions will be closed.
-      return () => {
-        channel.unsubscribe();
-        console.info(`WS: unsubscribed from room(friendly_id): ${friendlyId} channel.`);
-      };
-    }
-  }, [roomStatusAPI.isSuccess]);
+  // Set the default join name if the user is authenticated
+  useDefaultJoinName({ currentUser, methods });
 
-  useEffect(() => {
-    // Meeting started:
-    //  When meeting starts this logic will be fired, indicating the event to waiting users (through a toast) for UX matter.
-    //  Logging the event for debugging purposes and refetching the join logic with the user's given input (name & codes).
-    //  With a delay of 7s to give reasonable time for the meeting to fully start on the BBB server.
-    if (hasStarted) {
-      toast.success(t('toast.success.room.meeting_started'));
-      console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting in 7s.`);
-      setTimeout(methods.handleSubmit(handleJoin), 7000); // TODO: Amir - Improve this race condition handling by the backend.
-      reset();// Resetting the Join component.
-    }
-  }, [hasStarted]);
+  // Subscribe to the room channel
+  useRoomChannelSubscription({ roomStatusAPI, friendlyId, setHasStarted });
 
-  useEffect(() => {
-    // UI synchronization on failing join attempt:
-    //  When the room status API returns an error indicating a failed join attempt it's highly due to stale credentials.
-    //  In such case, users from a UX perspective will appreciate having the UI updated informing them about the case.
-    //  i.e: Indicating the lack of providing access code value for cases where access code was generated while the user was waiting.
-    if (roomStatusAPI.isError) {
-      // Invalid Access Code SSE (Server Side Error):
-      if (roomStatusAPI.error.response.status === 403) {
-        methods.setError('access_code', { type: 'SSE', message: t('room.settings.wrong_access_code') }, { shouldFocus: true });
-      }
+  // Check if the meeting has started
+  useMeetingStarted({
+    hasStarted, friendlyId, t, methods, handleJoin, reset,
+  });
 
-      publicRoom.refetch();// Refetching room public information.
-      reset();// Resetting the Join component.
-    }
-  }, [roomStatusAPI.isError]);
+  // Check if the user has failed to join the meeting
+  useFailedJoinAttempt({
+    roomStatusAPI, methods, t, publicRoom, reset,
+  });
 
   if (publicRoom.isLoading) return <RoomJoinPlaceholder />;
 
@@ -142,7 +97,7 @@ export default function RoomJoin() {
 
   if (publicRoom.data?.viewer_access_code || !publicRoom.data?.moderator_access_code) {
     fields.accessCode.label = t('room.settings.access_code');
-  // for the case where anyone_join_as_moderator is true and only the moderator access code is required
+    // for the case where anyone_join_as_moderator is true and only the moderator access code is required
   } else if (publicRoom.data?.anyone_join_as_moderator === 'true') {
     fields.accessCode.label = t('room.settings.mod_access_code');
   } else {
