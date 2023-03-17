@@ -18,5 +18,7 @@ export const useMeetingStatusPolling = (handleCheckStatus, delay) => {
       const id = setInterval(tick, delay);
       return () => clearInterval(id);
     }
+
+    return null;
   }, [delay]);
 };

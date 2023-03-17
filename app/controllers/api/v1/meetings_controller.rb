@@ -46,6 +46,7 @@ module Api
       # Checks if the meeting is running and either returns that value, or starts the meeting (if glAnyoneCanStart)
       # then joins the meeting starter into the BigBlueButton meeting
       def status
+        # Retrieves the BBB and GL settings for a given room
         settings = RoomSettingsGetter.new(
           room_id: @room.id,
           provider: current_provider,
@@ -56,17 +57,20 @@ module Api
 
         return render_error status: :unauthorized if !current_user && settings['glRequireAuthentication'] == 'true'
 
+        # Determines the role of the user joining the meeting as either a moderator or a viewer
         bbb_role = infer_bbb_role(mod_code: settings['glModeratorAccessCode'],
                                   viewer_code: settings['glViewerAccessCode'],
                                   anyone_join_as_mod: settings['glAnyoneJoinAsModerator'] == 'true')
 
         return render_error status: :forbidden if bbb_role.nil?
 
+        bbb_api = BigBlueButtonApi.new(provider: current_provider)
         data = {
-          status: BigBlueButtonApi.new(provider: current_provider).meeting_running?(room: @room)
+          status: bbb_api.meeting_running?(room: @room)
         }
 
-        if !data[:status] && settings['glAnyoneCanStart'] == 'true' # Meeting isnt running and anyoneCanStart setting is enabled
+        # Starts the meeting if it is not started and the glAnyoneCanStart setting is enabled
+        if !data[:status] && settings['glAnyoneCanStart'] == 'true'
           begin
             MeetingStarter.new(room: @room, base_url: root_url, current_user:, provider: current_provider).call
           rescue BigBlueButton::BigBlueButtonException => e
@@ -76,8 +80,9 @@ module Api
           data[:status] = true
         end
 
+        # Joins the user into the meeting if the meeting is running
         if data[:status]
-          data[:joinUrl] = BigBlueButtonApi.new(provider: current_provider).join_meeting(
+          data[:joinUrl] = bbb_api.join_meeting(
             room: @room,
             name: current_user ? current_user.name : params[:name],
             avatar_url: current_user&.avatar&.attached? ? url_for(current_user.avatar) : nil,

@@ -64,21 +64,21 @@ export default function RoomJoin() {
     publicRoom, methods, t, roomStatusAPI,
   });
 
-  // Set/unset the location cookie if user uses the back functionality
+  // Set the location cookie and unsets it when unmounted
   useLocationCookie(path);
 
-  // Set the default join name if the user is authenticated
+  // Set the default join name if the user is already authenticated
   useDefaultJoinName({ currentUser, methods });
 
-  // Subscribe to the room channel
+  // Subscribe to the room channel to know when the meeting has started
   useRoomChannelSubscription({ roomStatusAPI, friendlyId, setHasStarted });
 
-  // Check if the meeting has started
+  // Joins the meeting when it has started
   useMeetingStarted({
     hasStarted, friendlyId, t, methods, handleJoin, reset,
   });
 
-  // Check if the user has failed to join the meeting
+  // Sends feedback if the user has failed to join the meeting
   useFailedJoinAttempt({
     roomStatusAPI, methods, t, publicRoom, reset,
   });

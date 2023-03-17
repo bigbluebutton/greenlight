@@ -24,6 +24,8 @@ export const useHandleJoin = ({
   }
 
   roomStatusAPI.mutate(data);
+
+  return null;
 };
 
 export const useDefaultJoinName = ({ currentUser, methods }) => {
@@ -44,21 +46,22 @@ export const useRoomChannelSubscription = ({ roomStatusAPI, friendlyId, setHasSt
         console.info(`WS: unsubscribed from room(friendly_id): ${friendlyId} channel.`);
       };
     }
+    return null;
   }, [roomStatusAPI.isSuccess]);
 };
 
-export const useMeetingStarted = ({ hasStarted, friendlyId, t, methods, handleJoin, reset }) => {
+export const useMeetingStarted = ({
+  hasStarted, friendlyId, t, methods, handleJoin, reset,
+}) => {
   useEffect(() => {
     if (hasStarted) {
       toast.success(t('toast.success.room.meeting_started'));
-      toast.success('IM HERE')
       console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting in 7s.`);
       setTimeout(methods.handleSubmit(handleJoin), 7000);
       reset();
     }
   }, [hasStarted]);
 };
-
 
 export const useFailedJoinAttempt = ({
   roomStatusAPI, methods, t, publicRoom, reset,
