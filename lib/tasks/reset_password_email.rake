@@ -19,7 +19,7 @@
 require_relative 'task_helpers'
 
 namespace :migration do
-  BATCH_SIZE = 500
+  batch_size = 500
 
   desc 'Send a reset password email to users'
   task :reset_password_email, %i[base_url provider] => :environment do |_task, args|
@@ -32,7 +32,7 @@ namespace :migration do
       begin
         # After the migration, all the users except those with an external_id will need to reset their password
         User.where(external_id: nil, provider: args[:provider])
-            .find_each(batch_size: BATCH_SIZE) do |user|
+            .find_each(batch_size:) do |user|
           token = user.generate_reset_token!
 
           UserMailer.with(user:,
