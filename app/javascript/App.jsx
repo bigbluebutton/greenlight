@@ -14,51 +14,81 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React, { useEffect } from 'react';
-import { Container } from 'react-bootstrap';
-import { Outlet, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { ToastContainer } from 'react-toastify';
-import Header from './components/shared_components/Header';
-import { useAuth } from './contexts/auth/AuthProvider';
-import Footer from './components/shared_components/Footer';
-import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
+import React from 'react';
+import {
+  createBrowserRouter, createRoutesFromElements, Route, RouterProvider,
+} from 'react-router-dom';
+import Layout from './Layout';
+import RootBoundary from './RootBoundary';
+import HomePage from './components/home/HomePage';
+import UnauthenticatedOnly from './routes/UnauthenticatedOnly';
+import Signup from './components/users/authentication/Signup';
+import SignIn from './components/users/authentication/SignIn';
+import ForgetPassword from './components/users/password_management/ForgetPassword';
+import PendingRegistration from './components/users/registration/PendingRegistration';
+import VerifyAccount from './components/users/account_activation/VerifyAccount';
+import ResetPassword from './components/users/password_management/ResetPassword';
+import ActivateAccount from './components/users/account_activation/ActivateAccount';
+import AuthenticatedOnly from './routes/AuthenticatedOnly';
+import Profile from './components/users/user/Profile';
+import Rooms from './components/rooms/Rooms';
+import Room from './components/rooms/room/Room';
+import CantCreateRoom from './components/rooms/CantCreateRoom';
+import AdminPanel from './components/admin/AdminPanel';
+import ManageUsers from './components/admin/manage_users/ManageUsers';
+import EditUser from './components/admin/manage_users/EditUser';
+import ServerRecordings from './components/admin/server_recordings/ServerRecordings';
+import ServerRooms from './components/admin/server_rooms/ServerRooms';
+import RoomConfig from './components/admin/room_configuration/RoomConfig';
+import SiteSettings from './components/admin/site_settings/SiteSettings';
+import Roles from './components/admin/roles/Roles';
+import EditRole from './components/admin/roles/EditRole';
+import Tenants from './components/admin/tenants/Tenants';
+import RoomJoin from './components/rooms/room/join/RoomJoin';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route
+      path="/"
+      element={<Layout />}
+      errorElement={<RootBoundary />}
+    >
+      <Route index element={<HomePage />} />
+
+      <Route element={<UnauthenticatedOnly />}>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/forget_password" element={<ForgetPassword />} />
+        <Route path="/pending" element={<PendingRegistration />} />
+        <Route path="/verify" element={<VerifyAccount />} />
+        <Route path="/reset_password/:token" element={<ResetPassword />} />
+        <Route path="/activate_account/:token" element={<ActivateAccount />} />
+      </Route>
+
+      <Route element={<AuthenticatedOnly />}>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/rooms" element={<Rooms />} />
+        <Route path="/rooms/:friendlyId" element={<Room />} />
+        <Route path="/home" element={<CantCreateRoom />} />
+        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/admin/users" element={<ManageUsers />} />
+        <Route path="/admin/users/edit/:userId" element={<EditUser />} />
+        <Route path="/admin/server_recordings" element={<ServerRecordings />} />
+        <Route path="/admin/server_rooms" element={<ServerRooms />} />
+        <Route path="/admin/room_configuration" element={<RoomConfig />} />
+        <Route path="/admin/site_settings" element={<SiteSettings />} />
+        <Route path="/admin/roles" element={<Roles />} />
+        <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
+        <Route path="/admin/tenants" element={<Tenants />} />
+      </Route>
+
+      <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
+    </Route>,
+  ),
+);
 
 export default function App() {
-  const currentUser = useAuth();
-  const location = useLocation();
-
-  // Pages that do not need a header: SignIn, SignUp and JoinMeeting (if the user is not signed in)
-  const homePage = location.pathname === '/';
-  const pageHeight = (homePage || currentUser.signed_in) ? 'regular-height' : 'no-header-height';
-
-  // i18n
-  const { i18n } = useTranslation();
-  useEffect(() => {
-    i18n.changeLanguage(currentUser?.language);
-  }, [currentUser?.language]);
-
-  // Greenlight V3 brand-color theming
-  const { isLoading, data: brandColors } = useSiteSetting(['PrimaryColor', 'PrimaryColorLight']);
-
-  if (isLoading) return null;
-
-  document.documentElement.style.setProperty('--brand-color', brandColors.PrimaryColor);
-  document.documentElement.style.setProperty('--brand-color-light', brandColors.PrimaryColorLight);
-  document.documentElement.style.setProperty('--toastify-color-success', brandColors.PrimaryColor);
-
   return (
-    <>
-      {(homePage || currentUser.signed_in) && <Header /> }
-      <Container className={pageHeight}>
-        <Outlet />
-      </Container>
-      <ToastContainer
-        position="bottom-right"
-        newestOnTop
-        autoClose={3000}
-      />
-      <Footer />
-    </>
+    <RouterProvider router={router} />
   );
 }
