@@ -18,7 +18,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import './i18n';
+import './hooks/useI18n';
 import AuthProvider from './contexts/auth/AuthProvider';
 import App from './App';
 

@@ -15,24 +15,38 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import i18next from 'i18next';
-import { initReactI18next } from 'react-i18next';
 import HttpApi from 'i18next-http-backend';
+import { useMemo } from 'react';
+import useEnv from './queries/env/useEnv';
 
-i18next
-  .use(initReactI18next)
-  .use(HttpApi)
-  .init({
-    backend: {
-      loadPath: '/api/v1/locales/{{lng}}.json',
-    },
-    load: 'currentOnly',
-    fallbackLng: (locale) => {
-      const fallbacks = [];
-      if (locale?.indexOf('-') > -1) {
-        fallbacks.push(locale.split('-')[0]);
-      }
-      fallbacks.push('en');
-      return fallbacks;
-    },
-  });
-export default i18next;
+const inferFallbackLangs = (locale) => {
+  const fallbacks = [];
+
+  if (locale?.indexOf('-') > -1) {
+    fallbacks.push(locale.split('-')[0]);
+  }
+
+  fallbacks.push('en');
+  return fallbacks;
+};
+
+export default function useI18n() {
+  const envAPI = useEnv();
+
+  const relativeUrlRoot = envAPI.data?.RELATIVE_URL_ROOT || '';
+
+  return useMemo(() => {
+    const i18n = i18next.createInstance();
+
+    i18n.use(HttpApi)
+      .init({
+        backend: {
+          loadPath: `${relativeUrlRoot}/api/v1/locales/{{lng}}.json`,
+        },
+        load: 'currentOnly',
+        fallbackLng: inferFallbackLangs,
+      });
+
+    return i18n;
+  }, [relativeUrlRoot]);
+}

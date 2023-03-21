@@ -36,7 +36,7 @@ export default function Layout() {
   const { i18n } = useTranslation();
   useEffect(() => {
     i18n.changeLanguage(currentUser?.language);
-  }, [currentUser?.language]);
+  }, [i18n, currentUser?.language]);
 
   // Greenlight V3 brand-color theming
   const { isLoading, data: brandColors } = useSiteSetting(['PrimaryColor', 'PrimaryColorLight']);

@@ -18,6 +18,7 @@ import React from 'react';
 import {
   createBrowserRouter, createRoutesFromElements, Route, RouterProvider,
 } from 'react-router-dom';
+import { I18nextProvider } from 'react-i18next';
 import Layout from './Layout';
 import RootBoundary from './RootBoundary';
 import HomePage from './components/home/HomePage';
@@ -46,9 +47,11 @@ import EditRole from './components/admin/roles/EditRole';
 import Tenants from './components/admin/tenants/Tenants';
 import RoomJoin from './components/rooms/room/join/RoomJoin';
 import useEnv from './hooks/queries/env/useEnv';
+import useI18n from './hooks/useI18n';
 
 export default function App() {
   const envAPI = useEnv();
+  const i18n = useI18n();
 
   if (envAPI.isLoading) {
     return null;
@@ -97,6 +100,8 @@ export default function App() {
   );
 
   return (
-    <RouterProvider router={router} />
+    <I18nextProvider i18n={i18n}>
+      <RouterProvider router={router} />
+    </I18nextProvider>
   );
 }
