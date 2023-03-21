@@ -32,16 +32,6 @@ namespace :migration do
       exit 0
     end
 
-    info 'Checking connection to SMTP Server...'
-    if ENV['SMTP_SERVER'].present?
-      begin
-        UserMailer.with(to: ENV.fetch('SMTP_SENDER_EMAIL', nil), subject: ENV.fetch('SMTP_SENDER_EMAIL', nil)).test_email.deliver_now
-      rescue StandardError => e
-        failed("Unable to connect to SMTP Server - #{e}")
-        exit 0
-      end
-    end
-
     info 'Sending reset password emails...'
     User.where(external_id: nil, provider: args[:provider])
         .find_each(batch_size:) do |user|
