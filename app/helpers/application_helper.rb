@@ -20,5 +20,6 @@ module ApplicationHelper
   def branding_image
     asset_path = SettingGetter.new(setting_name: 'BrandingImage', provider: current_provider).call
     asset_url(asset_path)
+    #"https://jobs.secunet.com/templates/secunet/images/secunet_logo.png"
   end
 end
