@@ -27,29 +27,36 @@ namespace :migration do
 
     root_url = "#{args[:base_url]}/"
 
-    if ENV['SMTP_SERVER'].present?
-      info 'Checking connection to SMTP Server...'
-      begin
-        # After the migration, all the users except those with an external_id will need to reset their password
-        User.where(external_id: nil, provider: args[:provider])
-            .find_each(batch_size:) do |user|
-          token = user.generate_reset_token!
-
-          UserMailer.with(user:,
-                          reset_url: reset_password_url(root_url, token),
-                          base_url: args[:base_url],
-                          provider: args[:provider]).reset_password_email.deliver_now
-
-          success 'Successfully sent reset password email to:'
-          info    "  name: #{user.name}"
-          info    "  email: #{user.email}"
-        end
-      rescue StandardError => e
-        err "Unable to send reset password email - #{e}"
-      end
-    else
+    if ENV['SMTP_SERVER'].blank?
       err 'SMTP Server not set. Skipping sending reset password emails.'
       exit 0
+    end
+
+    info 'Checking connection to SMTP Server...'
+    if ENV['SMTP_SERVER'].present?
+      begin
+        UserMailer.with(to: ENV.fetch('SMTP_SENDER_EMAIL', nil), subject: ENV.fetch('SMTP_SENDER_EMAIL', nil)).test_email.deliver_now
+      rescue StandardError => e
+        failed("Unable to connect to SMTP Server - #{e}")
+        exit 0
+      end
+    end
+
+    info 'Sending reset password emails...'
+    User.where(external_id: nil, provider: args[:provider])
+        .find_each(batch_size:) do |user|
+      token = user.generate_reset_token!
+
+      UserMailer.with(user:,
+                      reset_url: reset_password_url(root_url, token),
+                      base_url: args[:base_url],
+                      provider: args[:provider]).reset_password_email.deliver_now
+
+      success 'Successfully sent reset password email to:'
+      info    "  name: #{user.name}"
+      info    "  email: #{user.email}"
+    rescue StandardError => e
+      err "Unable to send reset password email to:\n  name: #{user.name} \n  email: #{user.email} \n  error: #{e}"
     end
   end
 
