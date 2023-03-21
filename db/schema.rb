@@ -43,9 +43,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_07_05_183747) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
-  end
-
   create_table "formats", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "recording_id"
     t.string "recording_type", null: false
