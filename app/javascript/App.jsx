@@ -45,49 +45,57 @@ import Roles from './components/admin/roles/Roles';
 import EditRole from './components/admin/roles/EditRole';
 import Tenants from './components/admin/tenants/Tenants';
 import RoomJoin from './components/rooms/room/join/RoomJoin';
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route
-      path="/"
-      element={<Layout />}
-      errorElement={<RootBoundary />}
-    >
-      <Route index element={<HomePage />} />
-
-      <Route element={<UnauthenticatedOnly />}>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/forget_password" element={<ForgetPassword />} />
-        <Route path="/pending" element={<PendingRegistration />} />
-        <Route path="/verify" element={<VerifyAccount />} />
-        <Route path="/reset_password/:token" element={<ResetPassword />} />
-        <Route path="/activate_account/:token" element={<ActivateAccount />} />
-      </Route>
-
-      <Route element={<AuthenticatedOnly />}>
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/rooms" element={<Rooms />} />
-        <Route path="/rooms/:friendlyId" element={<Room />} />
-        <Route path="/home" element={<CantCreateRoom />} />
-        <Route path="/admin" element={<AdminPanel />} />
-        <Route path="/admin/users" element={<ManageUsers />} />
-        <Route path="/admin/users/edit/:userId" element={<EditUser />} />
-        <Route path="/admin/server_recordings" element={<ServerRecordings />} />
-        <Route path="/admin/server_rooms" element={<ServerRooms />} />
-        <Route path="/admin/room_configuration" element={<RoomConfig />} />
-        <Route path="/admin/site_settings" element={<SiteSettings />} />
-        <Route path="/admin/roles" element={<Roles />} />
-        <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
-        <Route path="/admin/tenants" element={<Tenants />} />
-      </Route>
-
-      <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
-    </Route>,
-  ),
-);
+import useEnv from './hooks/queries/env/useEnv';
 
 export default function App() {
+  const envAPI = useEnv();
+
+  if (envAPI.isLoading) {
+    return null;
+  }
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route
+        path="/"
+        element={<Layout />}
+        errorElement={<RootBoundary />}
+      >
+        <Route index element={<HomePage />} />
+
+        <Route element={<UnauthenticatedOnly />}>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/forget_password" element={<ForgetPassword />} />
+          <Route path="/pending" element={<PendingRegistration />} />
+          <Route path="/verify" element={<VerifyAccount />} />
+          <Route path="/reset_password/:token" element={<ResetPassword />} />
+          <Route path="/activate_account/:token" element={<ActivateAccount />} />
+        </Route>
+
+        <Route element={<AuthenticatedOnly />}>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/rooms" element={<Rooms />} />
+          <Route path="/rooms/:friendlyId" element={<Room />} />
+          <Route path="/home" element={<CantCreateRoom />} />
+          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/admin/users" element={<ManageUsers />} />
+          <Route path="/admin/users/edit/:userId" element={<EditUser />} />
+          <Route path="/admin/server_recordings" element={<ServerRecordings />} />
+          <Route path="/admin/server_rooms" element={<ServerRooms />} />
+          <Route path="/admin/room_configuration" element={<RoomConfig />} />
+          <Route path="/admin/site_settings" element={<SiteSettings />} />
+          <Route path="/admin/roles" element={<Roles />} />
+          <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
+          <Route path="/admin/tenants" element={<Tenants />} />
+        </Route>
+
+        <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
+      </Route>,
+    ),
+    { basename: envAPI.data.RELATIVE_URL_ROOT },
+  );
+
   return (
     <RouterProvider router={router} />
   );
