@@ -22,7 +22,8 @@ class RecordingCreator
   end
 
   def call
-    room_id = Room.find_by(meeting_id: @recording[:meetingID]).id
+    meeting_id = @recording[:metadata][:meetingId] || @recording[:meetingID]
+    room_id = Room.find_by(meeting_id:).id
     visibility = get_recording_visibility(recording: @recording)
 
     # Get length of presentation format(s)
