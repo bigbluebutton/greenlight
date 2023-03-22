@@ -406,6 +406,7 @@
       "problem_completing_action": "Probléma lépett fel a művelet befejezése során. \n Próbálja újra.",
       "file_type_not_supported": "A fájltípus nem támogatott.",
       "file_size_too_large": "A fájl túl nagy.",
+      "file_upload_error": "A fájlt nem sikerült feltölteni.",
       "signin_required": "Be kell jelentkeznie, hogy elérje ezt az oldalt",
       "roles": {
         "role_assigned": "Ez a szerepkör nem törölhető, mert legalább egy felhasználóhoz hozzá van rendelve."
