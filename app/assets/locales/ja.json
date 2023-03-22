@@ -37,7 +37,7 @@
     "recording_description": "BigBlueButtonの会議を録画し、それを生徒や学生と共有することで、教材を効果的に復習させることができます。",
     "settings_title": "会議室を管理する",
     "settings_description": "自分の会議室や会議方法の設定を変更し、効果的な学びの場を作り上げることができます。",
-    "and_more_title": "もちろんそれだけではありません",
+    "and_more_title": "それだけではありません",
     "and_more_description": "BigBlueButtonには実践的な学びのためのさまざまなツールが用意されており、授業を効率的に行うことができるようデザインされています。",
     "enter_meeting_url": "会議URLを入力",
     "enter_meeting_url_instruction": "下の欄にBigBlueButtonの会議のURLを記入してください。"
@@ -406,6 +406,7 @@
       "problem_completing_action": "操作をうまく完了できませんでした。\nもう一度やってみてください。",
       "file_type_not_supported": "ファイルの形式がサポートされていません。",
       "file_size_too_large": "ファイルが大きすぎます。",
+      "file_upload_error": "ファイルがアップロードできません。",
       "signin_required": "このページに接続するにはサインインが必要です",
       "roles": {
         "role_assigned": "この役割はすでにユーザーに割り当てられているため、削除できません。"
