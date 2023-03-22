@@ -24,7 +24,7 @@ export default function ButtonLink(props) {
   const {
     to, className, variant, children,
   } = props;
-  const handleClick = useCallback(() => { navigate(to); }, [to]);
+  const handleClick = useCallback(() => { navigate(to); }, [navigate, to]);
 
   return (
     <Button

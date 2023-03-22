@@ -33,9 +33,13 @@ const inferFallbackLangs = (locale) => {
 export default function useI18n() {
   const envAPI = useEnv();
 
-  const relativeUrlRoot = envAPI.data?.RELATIVE_URL_ROOT || '';
+  const relativeUrlRoot = envAPI.data?.RELATIVE_URL_ROOT;
 
   return useMemo(() => {
+    if (!relativeUrlRoot) {
+      return null;
+    }
+
     const i18n = i18next.createInstance();
 
     i18n.use(HttpApi)

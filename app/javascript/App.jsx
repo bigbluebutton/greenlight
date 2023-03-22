@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   createBrowserRouter, createRoutesFromElements, Route, RouterProvider,
 } from 'react-router-dom';
@@ -52,52 +52,59 @@ import useI18n from './hooks/useI18n';
 export default function App() {
   const envAPI = useEnv();
   const i18n = useI18n();
+  const relativeUrlRoot = envAPI.data?.RELATIVE_URL_ROOT;
 
-  if (envAPI.isLoading) {
+  const router = useMemo(() => {
+    if (!relativeUrlRoot) {
+      return null;
+    }
+
+    return createBrowserRouter(
+      createRoutesFromElements(
+        <Route
+          path="/"
+          element={<Layout />}
+          errorElement={<RootBoundary />}
+        >
+          <Route index element={<HomePage />} />
+
+          <Route element={<UnauthenticatedOnly />}>
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/forget_password" element={<ForgetPassword />} />
+            <Route path="/pending" element={<PendingRegistration />} />
+            <Route path="/verify" element={<VerifyAccount />} />
+            <Route path="/reset_password/:token" element={<ResetPassword />} />
+            <Route path="/activate_account/:token" element={<ActivateAccount />} />
+          </Route>
+
+          <Route element={<AuthenticatedOnly />}>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/rooms" element={<Rooms />} />
+            <Route path="/rooms/:friendlyId" element={<Room />} />
+            <Route path="/home" element={<CantCreateRoom />} />
+            <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/admin/users" element={<ManageUsers />} />
+            <Route path="/admin/users/edit/:userId" element={<EditUser />} />
+            <Route path="/admin/server_recordings" element={<ServerRecordings />} />
+            <Route path="/admin/server_rooms" element={<ServerRooms />} />
+            <Route path="/admin/room_configuration" element={<RoomConfig />} />
+            <Route path="/admin/site_settings" element={<SiteSettings />} />
+            <Route path="/admin/roles" element={<Roles />} />
+            <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
+            <Route path="/admin/tenants" element={<Tenants />} />
+          </Route>
+
+          <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
+        </Route>,
+      ),
+      { basename: relativeUrlRoot },
+    );
+  }, [relativeUrlRoot]);
+
+  if (!router) {
     return null;
   }
-
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route
-        path="/"
-        element={<Layout />}
-        errorElement={<RootBoundary />}
-      >
-        <Route index element={<HomePage />} />
-
-        <Route element={<UnauthenticatedOnly />}>
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/forget_password" element={<ForgetPassword />} />
-          <Route path="/pending" element={<PendingRegistration />} />
-          <Route path="/verify" element={<VerifyAccount />} />
-          <Route path="/reset_password/:token" element={<ResetPassword />} />
-          <Route path="/activate_account/:token" element={<ActivateAccount />} />
-        </Route>
-
-        <Route element={<AuthenticatedOnly />}>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/rooms" element={<Rooms />} />
-          <Route path="/rooms/:friendlyId" element={<Room />} />
-          <Route path="/home" element={<CantCreateRoom />} />
-          <Route path="/admin" element={<AdminPanel />} />
-          <Route path="/admin/users" element={<ManageUsers />} />
-          <Route path="/admin/users/edit/:userId" element={<EditUser />} />
-          <Route path="/admin/server_recordings" element={<ServerRecordings />} />
-          <Route path="/admin/server_rooms" element={<ServerRooms />} />
-          <Route path="/admin/room_configuration" element={<RoomConfig />} />
-          <Route path="/admin/site_settings" element={<SiteSettings />} />
-          <Route path="/admin/roles" element={<Roles />} />
-          <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
-          <Route path="/admin/tenants" element={<Tenants />} />
-        </Route>
-
-        <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
-      </Route>,
-    ),
-    { basename: envAPI.data.RELATIVE_URL_ROOT },
-  );
 
   return (
     <I18nextProvider i18n={i18n}>

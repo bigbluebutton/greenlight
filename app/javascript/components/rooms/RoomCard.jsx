@@ -31,7 +31,7 @@ import UserBoardIcon from './UserBoardIcon';
 export default function RoomCard({ room }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const handleClick = useCallback(() => { navigate(room.friendly_id); }, [room.friendly_id]);
+  const handleClick = useCallback(() => { navigate(room.friendly_id); }, [navigate, room.friendly_id]);
   const startMeeting = useStartMeeting(room.friendly_id);
   const currentUser = useAuth();
   const localizedTime = localizeDateTimeString(room?.last_session, currentUser?.language);

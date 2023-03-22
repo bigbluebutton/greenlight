@@ -23,7 +23,7 @@ import { LockClosedIcon } from '@heroicons/react/24/outline';
 
 export default function RoleRow({ role }) {
   const navigate = useNavigate();
-  const handleClick = useCallback(() => { navigate(`edit/${role.id}`); }, [role.id]);
+  const handleClick = useCallback(() => { navigate(`edit/${role.id}`); }, [navigate, role.id]);
 
   return (
     <tr className="align-middle border border-2 cursor-pointer" onClick={handleClick}>
