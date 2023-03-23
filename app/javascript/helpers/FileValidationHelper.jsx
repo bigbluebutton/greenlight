@@ -16,7 +16,7 @@
 
 export const fileValidation = (file, type) => {
   const IMAGE_MAX_FILE_SIZE = 3_000_000;
-  const IMAGE_SUPPORTED_FORMATS = ['image/jpeg', 'image/png', 'image/svg'];
+  const IMAGE_SUPPORTED_FORMATS = ['image/jpeg', 'image/png', 'image/svg+xml'];
 
   const PRESENTATION_MAX_FILE_SIZE = 10_000_000;
   const PRESENTATION_SUPPORTED_FORMATS = [
