@@ -87,5 +87,7 @@ module Greenlight
     config.relative_url_root = '/' if config.relative_url_root.blank?
 
     I18n.load_path += Dir[Rails.root.join('config/locales/*.{rb,yml}').to_s]
+
+    config.voice_bridge_phone_number = ENV.fetch('VOICE_BRIDGE_PHONE_NUMBER', nil)
   end
 end
