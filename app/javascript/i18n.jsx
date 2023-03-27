@@ -23,7 +23,7 @@ i18next
   .use(HttpApi)
   .init({
     backend: {
-      loadPath: '/api/v1/locales/{{lng}}.json',
+      loadPath: `${process.env.RELATIVE_URL_ROOT}/api/v1/locales/{{lng}}.json`,
     },
     load: 'currentOnly',
     fallbackLng: (locale) => {

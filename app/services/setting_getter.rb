@@ -31,8 +31,12 @@ class SettingGetter
                            setting: { name: @setting_name }
                          )
 
-    value = if @setting_name == 'BrandingImage' && setting.image.attached?
-              rails_blob_path setting.image, only_path: true
+    value = if @setting_name == 'BrandingImage'
+              if setting.image.attached?
+                rails_blob_path setting.image, only_path: true
+              else
+                ActionController::Base.helpers.image_path('bbb_logo.png')
+              end
             else
               setting&.value
             end
