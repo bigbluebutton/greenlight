@@ -10,6 +10,7 @@ await esbuild.build({
   loader: {
     '.png': 'dataurl',
     '.svg': 'text',
+    '.mp3': 'base64',
   },
   watch: {
     onRebuild: (error, result) => {

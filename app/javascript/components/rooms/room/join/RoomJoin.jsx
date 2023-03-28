@@ -41,6 +41,7 @@ import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
 import RoomJoinPlaceholder from './RoomJoinPlaceholder';
+import JoinSound from '../../../../../assets/audio/pop-sound.mp3';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -150,6 +151,19 @@ export default function RoomJoin() {
     fields.accessCode.label = t('room.settings.mod_access_code_optional');
   }
 
+  function play() {
+    const audio = new Audio(`data:audio/mpeg;base64,${JoinSound}`);
+    console.log('audio is', audio);
+    audio.load();
+    audio.play()
+      .then(() => {
+        console.log('audio is playing');
+      })
+      .catch((err) => {
+        console.log('audio is not playing', err);
+      });
+  }
+
   const WaitingPage = (
     <Stack direction="horizontal" className="py-4">
       <div>
@@ -166,6 +180,7 @@ export default function RoomJoin() {
     <div className="vertical-center">
       <div className="text-center pb-4">
         <Logo />
+        <button onClick={play} />
       </div>
       <Card className="col-md-6 mx-auto p-0 border-0 card-shadow">
         <Card.Body className="pt-4 px-5">
