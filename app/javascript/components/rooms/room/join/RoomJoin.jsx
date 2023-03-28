@@ -114,7 +114,7 @@ export default function RoomJoin() {
   const waitingQueueDelay = () => {
     const min = 2000;
     const max = 5000;
-    const step = 500;
+    const step = 250;
 
     // Calculate the number of possible steps within the given range
     const numSteps = (max - min) / step;
