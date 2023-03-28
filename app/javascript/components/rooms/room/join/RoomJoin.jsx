@@ -101,6 +101,31 @@ export default function RoomJoin() {
     }
   }, [roomStatusAPI.isSuccess]);
 
+  // Plays a popping sound when GL detects that the meeting has started from the waiting queue.
+  const playSound = () => {
+    const audio = new Audio(`data:audio/mpeg;base64,${JoinSound}`);
+    audio.play()
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  // Returns a random delay between 3500 and 7000 ms, in increments of 500 ms
+  const waitingQueueDelay = () => {
+    const min = 2000;
+    const max = 5000;
+    const step = 500;
+
+    // Calculate the number of possible steps within the given range
+    const numSteps = (max - min) / step;
+
+    // Generate a random integer from 0 to numSteps (inclusive)
+    const randomStep = Math.floor(Math.random() * (numSteps + 1));
+
+    // Calculate and return the random delay
+    return min + (randomStep * step);
+  };
+
   useEffect(() => {
     // Meeting started:
     //  When meeting starts this logic will be fired, indicating the event to waiting users (through a toast) for UX matter.
@@ -108,8 +133,9 @@ export default function RoomJoin() {
     //  With a delay of 7s to give reasonable time for the meeting to fully start on the BBB server.
     if (hasStarted) {
       toast.success(t('toast.success.room.meeting_started'));
-      console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting in 7s.`);
-      setTimeout(methods.handleSubmit(handleJoin), 7000); // TODO: Amir - Improve this race condition handling by the backend.
+      playSound();
+      console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting in 3s.`);
+      setTimeout(methods.handleSubmit(handleJoin), waitingQueueDelay()); // TODO: Amir - Improve this race condition handling by the backend.
       reset();// Resetting the Join component.
     }
   }, [hasStarted]);
@@ -151,19 +177,6 @@ export default function RoomJoin() {
     fields.accessCode.label = t('room.settings.mod_access_code_optional');
   }
 
-  function play() {
-    const audio = new Audio(`data:audio/mpeg;base64,${JoinSound}`);
-    console.log('audio is', audio);
-    audio.load();
-    audio.play()
-      .then(() => {
-        console.log('audio is playing');
-      })
-      .catch((err) => {
-        console.log('audio is not playing', err);
-      });
-  }
-
   const WaitingPage = (
     <Stack direction="horizontal" className="py-4">
       <div>
@@ -180,7 +193,6 @@ export default function RoomJoin() {
     <div className="vertical-center">
       <div className="text-center pb-4">
         <Logo />
-        <button onClick={play} />
       </div>
       <Card className="col-md-6 mx-auto p-0 border-0 card-shadow">
         <Card.Body className="pt-4 px-5">
