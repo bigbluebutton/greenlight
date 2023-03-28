@@ -24,18 +24,16 @@ export const createICSContent = (name, url, voice_bridge, voice_bridge_phone_num
   }
 
 
-  description = `\n\n${t('room.meeting.invite_to_meeting', {name})}\n\n${t('room.meeting.join_by_url')}:\n${url}`;
+  description = `\n\n${t('room.meeting.invite_to_meeting', {name})}\n\n${t('room.meeting.join_by_url')}:\n${url}\n`;
 
   if (typeof voice_bridge !== 'undefined' && typeof voice_bridge_phone_number !== 'undefined') {
-    description += `\n${t('or')} ${('room.meeting.phone')}:\n${voice_bridge_phone_number}, ${voice_bridge}`;
+    description += `\n${t('or')} ${t('room.meeting.join_by_phone')}:\n${voice_bridge_phone_number},,${voice_bridge}`;
   }
 
   const date = new Date();
 
   return eventContent = {
     start: [date.getFullYear(), date.getMonth(), date.getDay(), 12, 0],
-    title: t('room.meeting.join_meeting'),
-    location: 'BBB: ' + url,
     url: url,
     description: description,
   };
@@ -45,8 +43,8 @@ const createICSWithHtml = (name, url, voice_bridge, voice_bridge_phone_number) =
   phone_data = "";
 
   if (typeof voice_bridge !== 'undefined' && typeof voice_bridge_phone_number !== 'undefined') {
-    phone_data = `<h6 style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 16px; line-height: 19.2px; margin: 0;" align="left">${t('or')} ${t('room.meeting.phone')}:</h6>
-        <p style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">${voice_bridge_phone_number},,,,${voice_bridge}</p>`;
+    phone_data = `<h6 style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 16px; line-height: 19.2px; margin: 0;" align="left">${t('or')} ${t('room.meeting.join_by_phone')}:</h6>
+        <p style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">${voice_bridge_phone_number},,${voice_bridge}</p>`;
   }
 
   const HTML = `<head>
@@ -128,8 +126,6 @@ const createICSWithHtml = (name, url, voice_bridge, voice_bridge_phone_number) =
 
   return eventContent = {
     start: [date.getFullYear(), date.getMonth(), date.getDay(), 12, 0],
-    title: t('room.meeting.join_meeting'),
-    location: 'BBB: ' + url,
     url: url,
     htmlContent: HTML
   };

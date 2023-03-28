@@ -87,6 +87,12 @@ export default function Room() {
             }
           </Col>
           <Col>
+          {
+                isRoomLoading
+                  ? (
+                    <RoomNamePlaceHolder />
+                  ) : (
+                    <>
             <Button variant="brand" className="start-meeting-btn mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
               {startMeeting.isLoading && <Spinner className="me-2" />}
               {room?.online ? (
@@ -109,6 +115,8 @@ export default function Room() {
               title={t('room.meeting.share_meeting')}
               body={<ShareRoomForm room={room} />}
             />
+            </>
+            )}
           </Col>
         </Row>
       </div>

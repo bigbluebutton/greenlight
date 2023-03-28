@@ -35,9 +35,13 @@ export default function ShareRoomForm({ room, handleClose }) {
 
 
   function copyInvite() {
-    console.log(roomJoinUrl());
     navigator.clipboard.writeText(roomJoinUrl());
     toast.success(t('toast.success.room.copied_meeting_url'));
+  }
+
+  function copyPhoneNumber() {
+    navigator.clipboard.writeText(`${room.voice_bridge_phone_number},,${room.voice_bridge}`);
+    toast.success(t('toast.success.room.copied_voice_bridge'));
   }
 
   function downloadICSFile(){
@@ -67,18 +71,18 @@ export default function ShareRoomForm({ room, handleClose }) {
       </Form.Group>
 
       {typeof room.voice_bridge_phone_number !== 'undefined' && typeof room.voice_bridge !== 'undefined' && <Form.Group className="mb-3">
-        <Form.Label>{t('copy_number')}</Form.Label>
+        <Form.Label>{t('copy_voice_bridge')}</Form.Label>
         <InputGroup>
           <Form.Control
-            placeholder={`${room.voice_bridge_phone_number},,,,${room.voice_bridge}`}
-            defaultValue={`${room.voice_bridge_phone_number},,,,${room.voice_bridge}`}
+            placeholder={`${room.voice_bridge_phone_number},,${room.voice_bridge}`}
+            defaultValue={`${room.voice_bridge_phone_number},,${room.voice_bridge}`}
             aria-label="phone"
             aria-describedby="basic-addon2"
             readOnly
           />
           <Button
             variant="brand-outline"
-            onClick={() => copyInvite(room.friendly_id)}
+            onClick={() => copyPhoneNumber()}
           >
             <DocumentDuplicateIcon className="hi-s mt-0 text-muted" />
           </Button>

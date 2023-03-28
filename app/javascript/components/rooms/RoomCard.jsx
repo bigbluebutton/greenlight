@@ -18,8 +18,7 @@ import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { DocumentDuplicateIcon, LinkIcon, ShareIcon } from '@heroicons/react/24/outline';
-import { toast } from 'react-toastify';
+import { ShareIcon, LinkIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import { localizeDateTimeString } from '../../helpers/DateTimeHelper';
@@ -27,7 +26,6 @@ import Spinner from '../shared_components/utilities/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from './MeetingBadges';
 import UserBoardIcon from './UserBoardIcon';
-import { downloadICS } from '../../helpers/ICSDownloadHelper';
 import Modal from '../shared_components/modals/Modal';
 import ShareRoomForm from './room/forms/ShareRoomForm';
 
@@ -78,7 +76,6 @@ export default function RoomCard({ room }) {
           body={<ShareRoomForm room={room} />}
         />
 
-
         <Button variant="brand-outline" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
           {startMeeting.isLoading && <Spinner className="me-2" />}
           {room.online ? (
@@ -107,5 +104,7 @@ RoomCard.propTypes = {
     shared_owner: PropTypes.string,
     online: PropTypes.bool,
     participants: PropTypes.number,
+    voice_bridge: PropTypes.string,
+    voice_bridge_phone_number: PropTypes.string,
   }).isRequired,
 };
