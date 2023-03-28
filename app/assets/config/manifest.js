@@ -17,4 +17,4 @@
 //= link_tree ../images
 //= link_tree ../builds
 //= link_tree ../locales
-//= link_tree ../audio
+//= link_tree ../audios

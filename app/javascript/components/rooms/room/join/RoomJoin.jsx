@@ -41,7 +41,7 @@ import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
 import RoomJoinPlaceholder from './RoomJoinPlaceholder';
-import NotifySound from '../../../../../assets/audio/notify.mp3';
+import NotifySound from '../../../../../assets/audios/notify.mp3';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -102,7 +102,7 @@ export default function RoomJoin() {
   }, [roomStatusAPI.isSuccess]);
 
   // Plays a popping sound when GL detects that the meeting has started from the waiting queue.
-  const playSound = () => {
+  const playNotifySound = () => {
     const audio = new Audio(`data:audio/mpeg;base64,${NotifySound}`);
     audio.play()
       .catch((err) => {
@@ -133,7 +133,7 @@ export default function RoomJoin() {
     //  With a delay of 7s to give reasonable time for the meeting to fully start on the BBB server.
     if (hasStarted) {
       toast.success(t('toast.success.room.meeting_started'));
-      playSound();
+      playNotifySound();
       console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting in 3s.`);
       setTimeout(methods.handleSubmit(handleJoin), waitingQueueDelay()); // TODO: Amir - Improve this race condition handling by the backend.
       reset();// Resetting the Join component.
