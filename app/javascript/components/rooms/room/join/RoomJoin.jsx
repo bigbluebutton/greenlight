@@ -41,7 +41,7 @@ import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
 import RoomJoinPlaceholder from './RoomJoinPlaceholder';
-import JoinSound from '../../../../../assets/audio/pop-sound.mp3';
+import NotifySound from '../../../../../assets/audio/notify.mp3';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -103,7 +103,7 @@ export default function RoomJoin() {
 
   // Plays a popping sound when GL detects that the meeting has started from the waiting queue.
   const playSound = () => {
-    const audio = new Audio(`data:audio/mpeg;base64,${JoinSound}`);
+    const audio = new Audio(`data:audio/mpeg;base64,${NotifySound}`);
     audio.play()
       .catch((err) => {
         console.error(err);
