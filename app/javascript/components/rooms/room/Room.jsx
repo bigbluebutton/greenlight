@@ -98,7 +98,7 @@ export default function Room() {
                     <>
             <Button variant="brand" className="start-meeting-btn mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
               {startMeeting.isLoading && <Spinner className="me-2" />}
-              { room?.online ? (
+              {room?.online ? (
                 t('room.meeting.join_meeting')
               ) : (
                 t('room.meeting.start_meeting')

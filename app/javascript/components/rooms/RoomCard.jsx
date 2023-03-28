@@ -27,6 +27,9 @@ import Spinner from '../shared_components/utilities/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from './MeetingBadges';
 import UserBoardIcon from './UserBoardIcon';
+import { downloadICS } from '../../helpers/ICSDownloadHelper';
+import Modal from '../shared_components/modals/Modal';
+import ShareRoomForm from './room/forms/ShareRoomForm';
 
 export default function RoomCard({ room }) {
   const { t } = useTranslation();
@@ -51,11 +54,11 @@ export default function RoomCard({ room }) {
       <Card.Body className="pb-0" onClick={handleClick}>
         <Stack direction="horizontal">
           <div className="room-icon rounded">
-            { room?.shared_owner
+            {room?.shared_owner
               ? <LinkIcon className="hi-m text-brand pt-4 d-block mx-auto" />
               : <UserBoardIcon className="hi-m text-brand pt-4 d-block mx-auto" />}
           </div>
-          { room?.online
+          {room?.online
             && <MeetingBadges count={room?.participants} />}
         </Stack>
 
@@ -64,10 +67,10 @@ export default function RoomCard({ room }) {
           {room.shared_owner && (
             <span className="text-muted">{ t('room.shared_by') } {' '} <strong>{ room.shared_owner }</strong></span>
           )}
-          { room.last_session ? (
-            <span className="text-muted"> { t('room.last_session', { localizedTime }) } </span>
+          {room.last_session ? (
+            <span className="text-muted"> {t('room.last_session', { localizedTime })} </span>
           ) : (
-            <span className="text-muted mt-2"> { t('room.no_last_session') } </span>
+            <span className="text-muted mt-2"> {t('room.no_last_session')} </span>
           )}
         </Stack>
       </Card.Body>
@@ -86,7 +89,7 @@ export default function RoomCard({ room }) {
         </Button>}
         <Button variant="brand-outline" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
           {startMeeting.isLoading && <Spinner className="me-2" />}
-          { room.online ? (
+          {room.online ? (
             t('join')
           ) : (
             t('start')

@@ -3497,6 +3497,7 @@ yocto-queue@^0.1.0:
 yup@^0.32.11, yup@^0.32.9:
   version "0.32.11"
   resolved "https://registry.npmjs.org/yup/-/yup-0.32.11.tgz"
+  integrity sha512-Z2Fe1bn+eLstG8DRR6FTavGD+MeAwyfmouhHsIUgaADz8jvFKbO/fXc2trJKZg+5EBjh4gGm3iU/t3onKlXHIg==
   dependencies:
     "@babel/runtime" "^7.15.4"
     "@types/lodash" "^4.14.175"
