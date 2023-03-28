@@ -101,7 +101,7 @@ export default function RoomJoin() {
     }
   }, [roomStatusAPI.isSuccess]);
 
-  // Plays a popping sound when GL detects that the meeting has started from the waiting queue.
+  // Plays a notify sound when the meeting starts if the user was in a waiting queue
   const playNotifySound = () => {
     const audio = new Audio(`data:audio/mpeg;base64,${NotifySound}`);
     audio.play()
@@ -110,8 +110,10 @@ export default function RoomJoin() {
       });
   };
 
-  // Returns a random delay between 3500 and 7000 ms, in increments of 500 ms
-  const waitingQueueDelay = () => {
+  // Returns a random delay between 2 and 5 seconds, in increments of 250 ms
+  // The delay is to let the BBB server settle before attempting to join the meeting
+  // The randomness is to prevent multiple users from joining the meeting at the same time
+  const joinDelay = () => {
     const min = 2000;
     const max = 5000;
     const step = 250;
@@ -130,12 +132,11 @@ export default function RoomJoin() {
     // Meeting started:
     //  When meeting starts this logic will be fired, indicating the event to waiting users (through a toast) for UX matter.
     //  Logging the event for debugging purposes and refetching the join logic with the user's given input (name & codes).
-    //  With a delay of 7s to give reasonable time for the meeting to fully start on the BBB server.
     if (hasStarted) {
       toast.success(t('toast.success.room.meeting_started'));
       playNotifySound();
       console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting in 3s.`);
-      setTimeout(methods.handleSubmit(handleJoin), waitingQueueDelay()); // TODO: Amir - Improve this race condition handling by the backend.
+      setTimeout(methods.handleSubmit(handleJoin), joinDelay()); // TODO: Amir - Improve this race condition handling by the backend.
       reset();// Resetting the Join component.
     }
   }, [hasStarted]);
