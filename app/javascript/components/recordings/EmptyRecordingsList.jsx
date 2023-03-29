@@ -23,7 +23,7 @@ export default function EmptyRecordingsList() {
   const { t } = useTranslation();
 
   return (
-    <div className="pt-3">
+    <div id="recordings-list-empty" className="pt-3">
       <Card className="border-0 card-shadow text-center">
         <Card.Body className="py-5">
           <div className="icon-circle rounded-circle d-block mx-auto mb-3">

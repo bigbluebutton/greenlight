@@ -19,10 +19,11 @@
 class MeetingStarter
   include Rails.application.routes.url_helpers
 
-  def initialize(room:, base_url:, current_user:)
+  def initialize(room:, base_url:, current_user:, provider:)
     @room = room
     @current_user = current_user
     @base_url = base_url
+    @provider = provider
   end
 
   def call
@@ -40,7 +41,7 @@ class MeetingStarter
 
     retries = 0
     begin
-      meeting = BigBlueButtonApi.new.start_meeting(room: @room, options:, presentation_url:)
+      meeting = BigBlueButtonApi.new(provider: @provider).start_meeting(room: @room, options:, presentation_url:)
 
       @room.update!(online: true, last_session: DateTime.strptime(meeting[:createTime].to_s, '%Q'))
 

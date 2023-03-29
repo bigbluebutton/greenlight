@@ -179,7 +179,7 @@
     "unpublished": "Unpublished",
     "protected": "Protected",
     "length_in_minutes": "{{recording.length}} min.",
-    "processing_recording": "Processing recording...",
+    "processing_recording": "Processing recording, this may take several minutes...",
     "copy_recording_urls": "Copy Recording Url(s)",
     "recordings_list_empty": "You don't have any recordings yet!",
     "recordings_list_empty_description": "Recordings will appear here after you start a meeting and record it.",
@@ -415,6 +415,7 @@
       "problem_completing_action": "The action can't be completed. \n Please try again.",
       "file_type_not_supported": "The file type is not supported.",
       "file_size_too_large": "The file size is too large.",
+      "file_upload_error": "The file can't be uploaded.",
       "signin_required": "You must be signed in to access this page.",
       "roles": {
         "role_assigned": "This role can't be deleted because it is assigned to at least one user."
@@ -489,9 +490,9 @@
           "required": "Please enter the room count limit",
           "min": "Allowed minimum is 0",
           "max": "Allowed maximum is 100"
-        }, 
+        },
         "type": {
-          "error": "You must specify a number" 
+          "error": "You must specify a number"
         }
       },
       "room": {
@@ -499,7 +500,7 @@
           "required": "Please enter the room name.",
           "min": "Name must be at least 2 characters long"
         }
-      }, 
+      },
       "url": {
         "invalid": "Invalid URL"
       }

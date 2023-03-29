@@ -29,7 +29,8 @@ describe MeetingStarter, type: :service do
     described_class.new(
       room:,
       base_url:,
-      current_user: user
+      current_user: user,
+      provider: 'greenlight'
     )
   end
 

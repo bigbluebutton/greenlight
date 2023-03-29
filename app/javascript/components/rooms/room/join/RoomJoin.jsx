@@ -21,7 +21,7 @@ import {
   Navigate, Link, useLocation, useParams,
 } from 'react-router-dom';
 import {
-  Button, Col, Row, Spinner, Stack, Form as RegularForm,
+  Button, Col, Row, Stack, Form as RegularForm,
 } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -34,6 +34,7 @@ import { joinFormConfig, joinFormFields as fields } from '../../../../helpers/fo
 import subscribeToRoom from '../../../../channels/rooms_channel';
 import RequireAuthentication from './RequireAuthentication';
 import GGSpinner from '../../../shared_components/utilities/GGSpinner';
+import Spinner from '../../../shared_components/utilities/Spinner';
 import Logo from '../../../shared_components/Logo';
 import Avatar from '../../../users/user/Avatar';
 import Form from '../../../shared_components/forms/Form';
