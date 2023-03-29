@@ -102,6 +102,7 @@ const router = createBrowserRouter(
       <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
     </Route>,
   ),
+  { basename: process.env.RELATIVE_URL_ROOT },
 );
 
 const rootElement = document.getElementById('root');

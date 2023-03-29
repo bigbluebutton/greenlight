@@ -39,9 +39,9 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds --loader:.png=dataurl --minify",
+    "build": "node esbuild.mjs",
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules --style compressed",
-    "build:development": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --loader:.png=dataurl",
+    "build:development": "node esbuild.dev.mjs",
     "build:development:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "devDependencies": {
