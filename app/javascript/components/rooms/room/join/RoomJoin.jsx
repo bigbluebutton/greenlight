@@ -102,7 +102,7 @@ export default function RoomJoin() {
 
   // Play a sound and displays a toast when the meeting starts if the user was in a waiting queue
   const notifyMeetingStarted = () => {
-    const audio = new Audio('/notify.mp3');
+    const audio = new Audio(`${process.env.RELATIVE_URL_ROOT}/audios/notify.mp3`);
     audio.play()
       .catch((err) => {
         console.error(err);
