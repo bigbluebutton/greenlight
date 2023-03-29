@@ -37,9 +37,9 @@
     "recording_description": "BigBlueButtonの会議を録画し、それを生徒や学生と共有することで、教材を効果的に復習させることができます。",
     "settings_title": "会議室を管理する",
     "settings_description": "自分の会議室や会議方法の設定を変更し、効果的な学びの場を作り上げることができます。",
-    "and_more_title": "もちろんそれだけではありません。",
+    "and_more_title": "それだけではありません",
     "and_more_description": "BigBlueButtonには実践的な学びのためのさまざまなツールが用意されており、授業を効率的に行うことができるようデザインされています。",
-    "enter_meeting_url": "下にBigBlueButtonの会議URLを入力してください。",
+    "enter_meeting_url": "会議URLを入力",
     "enter_meeting_url_instruction": "下の欄にBigBlueButtonの会議のURLを記入してください。"
   },
   "authentication": {
@@ -109,7 +109,7 @@
     "create_new_room": "新しい会議室を作成する",
     "enter_room_name": "会議室名を入力してください",
     "shared_by": "共有者",
-    "last_session": "最後のセッション: {{ room.last_session }}",
+    "last_session": "最後のセッション: {{ localizedTime }}",
     "no_last_session": "会議はまだ開かれていません",
     "search_not_found": "会議室が見つかりません",
     "rooms_list_is_empty": "まだ会議室はありません！",
@@ -172,7 +172,7 @@
     "unpublished": "非公開",
     "protected": "秘匿",
     "length_in_minutes": "{{recording.length}}分",
-    "processing_recording": "録画処理中...",
+    "processing_recording": "録画を処理中。数分かかることがあります...",
     "copy_recording_urls": "録画のURLをコピー",
     "recordings_list_empty": "まだ録画がありません！",
     "recordings_list_empty_description": "会議を開始し録画すれば、録画データが現れます。",
@@ -205,7 +205,7 @@
       "create_account": "アカウント作成",
       "create_room": "会議室作成",
       "create_new_room": "新しい会議室を作成",
-      "user_created_at": "作成日時: {{user.created_at}}",
+      "user_created_at": "作成日時: {{localizedTime}}",
       "are_you_sure_delete_account": "本当に{{user.name}}のアカウントを削除しますか？",
       "delete_account_warning": "このアカウントを削除すると、二度と元にもどすことはできません。",
       "empty_active_users": "このサーバーでは、活動中のユーザーはまだいません！",
@@ -232,7 +232,7 @@
       "not_running": "使われていません",
       "active": "アクティブ",
       "current_session": "現在のセッション: {{lastSession}}",
-      "last_session": "最後のセッション: {{lastSession}}",
+      "last_session": "最後のセッション: {{localizedTime}}",
       "no_meeting_yet": "会議は一度も行われていません。",
       "delete_server_rooms": "全ての会議室を削除",
       "resync_recordings": "録画の再同期",
@@ -254,7 +254,7 @@
         "lighten": "明色",
         "brand_image": "ブランド画像",
         "click_to_upload": "クリックしてアップロード",
-        "drag_and_drop": "、あるいはドラッグ＆ドロップ",
+        "drag_and_drop": "あるいはドラッグ＆ドロップ",
         "upload_brand_image_description": "PNG、JPG、またはSVGファイルをアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。",
         "remove_branding_image": "ブランド画像の削除"
       },
@@ -406,6 +406,7 @@
       "problem_completing_action": "操作をうまく完了できませんでした。\nもう一度やってみてください。",
       "file_type_not_supported": "ファイルの形式がサポートされていません。",
       "file_size_too_large": "ファイルが大きすぎます。",
+      "file_upload_error": "ファイルがアップロードできません。",
       "signin_required": "このページに接続するにはサインインが必要です",
       "roles": {
         "role_assigned": "この役割はすでにユーザーに割り当てられているため、削除できません。"
@@ -431,7 +432,7 @@
     "message": "問題が発生したようです！同じことが起きるようでしたら、管理者に連絡してください。"
   },
   "not_found_error_page": {
-    "title": "404",
+    "title": "ページが見つかりません",
     "message": "接続しようとしているページが見つかりません！"
   },
   "account_activation_page": {
@@ -480,6 +481,9 @@
           "required": "作成可能な会議室数を入力してください",
           "min": "最小は0です",
           "max": "最大は100です"
+        },
+        "type": {
+          "error": "半角数字で指定してください"
         }
       },
       "room": {
@@ -487,7 +491,7 @@
           "required": "会議室名を入力してください",
           "min": "名前は２文字以上必要です"
         }
-      }, 
+      },
       "url": {
         "invalid": "無効なURL"
       }

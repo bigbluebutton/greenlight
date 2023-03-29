@@ -50,7 +50,7 @@ module Api
           room.shared = true if room.user_id != current_user.id
         end
 
-        RunningMeetingChecker.new(rooms:).call
+        RunningMeetingChecker.new(rooms:, provider: current_provider).call
 
         render_data data: rooms, status: :ok
       end
@@ -58,7 +58,7 @@ module Api
       # GET /api/v1/rooms/:friendly_id.json
       # Returns the info on a specific room
       def show
-        RunningMeetingChecker.new(rooms: @room).call if @room.online
+        RunningMeetingChecker.new(rooms: @room, provider: current_provider).call if @room.online
 
         @room.shared = current_user.shared_rooms.include?(@room)
 

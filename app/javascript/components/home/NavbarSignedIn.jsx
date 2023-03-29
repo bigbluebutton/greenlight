@@ -41,7 +41,8 @@ export default function NavbarSignedIn({ currentUser }) {
       || ManageRooms === 'true'
       || ManageRecordings === 'true'
       || ManageSiteSettings === 'true'
-      || ManageRoles === 'true') {
+      || ManageRoles === 'true'
+      || currentUser?.isSuperAdmin) {
       return true;
     }
 
@@ -129,6 +130,7 @@ NavbarSignedIn.propTypes = {
   currentUser: PropTypes.shape({
     avatar: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    isSuperAdmin: PropTypes.bool.isRequired,
     permissions: PropTypes.shape({
       ManageUsers: PropTypes.string.isRequired,
       ManageRooms: PropTypes.string.isRequired,

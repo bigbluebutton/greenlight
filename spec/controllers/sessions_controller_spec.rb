@@ -20,6 +20,8 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::SessionsController, type: :controller do
   let!(:user) { create(:user, email: 'email@email.com', password: 'Password1!', password_confirmation: 'Password1!') }
+  let!(:super_admin_role) { create(:role, :with_super_admin) }
+  let!(:super_admin) { create(:user, role: super_admin_role, email: 'email@email.com', provider: 'bn') }
 
   before do
     request.headers['ACCEPT'] = 'application/json'
@@ -90,6 +92,20 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       }
 
       expect(JSON.parse(response.body)['errors']).to eq('PendingUser')
+    end
+
+    it 'logs in with greenlight account before bn account' do
+      post :create, params: { session: { email: user.email, password: 'Password1!' } }
+      expect(response).to have_http_status(:ok)
+      expect(session[:session_token]).to eq(user.reload.session_token)
+    end
+
+    it 'logs in with bn account if greenlight account does not exist' do
+      user.provider = 'random_provider'
+      user.save
+      post :create, params: { session: { email: user.email, password: 'Password1!' } }
+      expect(response).to have_http_status(:ok)
+      expect(session[:session_token]).to eq(super_admin.reload.session_token)
     end
   end
 

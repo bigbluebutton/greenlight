@@ -78,9 +78,9 @@ class ExternalController < ApplicationController
   # POST /recording_ready
   # Creates the recording in Greenlight using information received from BigBlueButton
   def recording_ready
-    response = BigBlueButtonApi.new.decode_jwt(params[:signed_parameters])
+    response = BigBlueButtonApi.new(provider: current_provider).decode_jwt(params[:signed_parameters])
     record_id = response[0]['record_id']
-    recording = BigBlueButtonApi.new.get_recording(record_id:)
+    recording = BigBlueButtonApi.new(provider: current_provider).get_recording(record_id:)
 
     # Only decrement if the recording doesn't already exist
     # This is needed to handle duplicate requests

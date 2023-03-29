@@ -21,7 +21,7 @@ require 'rails_helper'
 describe RecordingsSync, type: :service do
   let(:user) { create(:user) }
   let(:room) { create(:room, user:, recordings_processing: 5) }
-  let(:service) { described_class.new(room:) }
+  let(:service) { described_class.new(room:, provider: 'greenlight') }
 
   describe '#call' do
     let(:fake_recording_creator) { instance_double(RecordingCreator) }

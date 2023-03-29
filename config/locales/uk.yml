@@ -46,16 +46,18 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 uk:
+  opengraph:
+    description: "Навчайтеся за допомогою BigBlueButton, перевіреного рішення з відкритим кодом для веб-конференцій, яке забезпечує безперебійну віртуальну співпрацю та онлайн-навчання."
   meeting:
     moderator_message: "Щоб запросити когось на зустріч, надайте це посилання:"
     access_code: "Код доступу: %{code}"
   email:
-    link_expires: "Посилання буде дійсне %{time}."
     activation:
       account_activation: Активація облікового запису
       welcome_to_bbb: Вітаємо в BigBlueButton!
       get_started: "Щоб розпочати, будь ласка, активуйте обліковий запис натиснувши кнопку внизу."
       activate_account: Активуйте обліковий запис
+      link_expires: Посилання буде дійсним протягом 24 годин.
       if_link_expires: "Якщо посилання втратить дійсність, виконайте вхід та зробіть запит на новий лист."
     invitation:
       invitation_to_join: Запрошення доєднатись до BigBlueButton
@@ -68,4 +70,5 @@ uk:
       password_reset_requested: "Повідомлення на зміну паролю надіслане на пошту %{email}"
       password_reset_confirmation: "Щоб змінити пароль, будь ласка, натисніть кнопку внизу."
       reset_password: Скидування паролю
+      link_expires: Посилання залишатиметься дійсним протягом 1 години.
       ignore_request: "Якщо ви не робили запит на зміну паролю, проігноруйте цей лист."

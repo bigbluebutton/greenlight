@@ -44,7 +44,7 @@ module Api
         # GET /api/v1/admin/server_rooms/:friendly_id/resync.json
         # Re-syncs a room recordings.
         def resync
-          RecordingsSync.new(room: @room).call
+          RecordingsSync.new(room: @room, provider: current_provider).call
 
           render_data status: :ok
         end
@@ -56,7 +56,7 @@ module Api
         end
 
         def online_server_rooms(rooms)
-          online_rooms = BigBlueButtonApi.new.active_meetings
+          online_rooms = BigBlueButtonApi.new(provider: current_provider).active_meetings
           online_rooms_hash = {}
 
           online_rooms.each do |online_room|

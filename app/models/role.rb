@@ -39,7 +39,7 @@ class Role < ApplicationRecord
   # Populate the Role Permissions with default values on Role creation.
   # The created Role has the same permissions as the 'User' role
   def create_role_permissions
-    return if %w[Administrator User Guest].include? name # skip creation for default roles
+    return if %w[Administrator User Guest SuperAdmin].include? name # skip creation for default roles
 
     Permission.all.find_each do |permission|
       value = case permission.name

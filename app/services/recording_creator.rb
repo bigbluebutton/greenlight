@@ -22,7 +22,8 @@ class RecordingCreator
   end
 
   def call
-    room_id = Room.find_by(meeting_id: @recording[:meetingID]).id
+    meeting_id = @recording[:metadata][:meetingId] || @recording[:meetingID]
+    room_id = Room.find_by(meeting_id:).id
     visibility = get_recording_visibility(recording: @recording)
 
     # Get length of presentation format(s)
@@ -30,13 +31,15 @@ class RecordingCreator
 
     new_name = @recording[:metadata][:name] || @recording[:name]
 
-    new_recording = Recording.find_or_create_by(room_id:,
-                                                name: new_name,
-                                                record_id: @recording[:recordID],
-                                                visibility:,
-                                                participants: @recording[:participants],
-                                                length:, protectable: @recording[:protected].present?,
-                                                recorded_at: @recording[:startTime])
+    new_recording = Recording.find_or_initialize_by(record_id: @recording[:recordID])
+    new_recording.room_id = room_id
+    new_recording.name = new_name
+    new_recording.visibility = visibility
+    new_recording.participants = @recording[:participants]
+    new_recording.length = length
+    new_recording.protectable = @recording[:protected].present?
+    new_recording.recorded_at = @recording[:startTime]
+    new_recording.save!
 
     # Create format(s)
     create_formats(recording: @recording, new_recording:)
@@ -46,9 +49,9 @@ class RecordingCreator
 
   # Returns the visibility of the recording (published, unpublished or protected)
   def get_recording_visibility(recording:)
-    return 'Protected' if recording[:protected] == 'true'
+    return 'Protected' if recording[:protected].to_s == 'true'
 
-    return 'Published' if recording[:published] == 'true'
+    return 'Published' if recording[:published].to_s == 'true'
 
     'Unpublished'
   end

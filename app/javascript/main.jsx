@@ -49,6 +49,7 @@ import UnauthenticatedOnly from './routes/UnauthenticatedOnly';
 import AuthenticatedOnly from './routes/AuthenticatedOnly';
 import PendingRegistration from './components/users/registration/PendingRegistration';
 import RootBoundary from './RootBoundary';
+import Tenants from './components/admin/tenants/Tenants';
 
 const queryClientConfig = {
   defaultOptions: {
@@ -95,11 +96,13 @@ const router = createBrowserRouter(
         <Route path="/admin/site_settings" element={<SiteSettings />} />
         <Route path="/admin/roles" element={<Roles />} />
         <Route path="/admin/roles/edit/:roleId" element={<EditRole />} />
+        <Route path="/admin/tenants" element={<Tenants />} />
       </Route>
 
       <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
     </Route>,
   ),
+  { basename: process.env.RELATIVE_URL_ROOT },
 );
 
 const rootElement = document.getElementById('root');
