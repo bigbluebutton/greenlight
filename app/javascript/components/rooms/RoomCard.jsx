@@ -73,7 +73,7 @@ export default function RoomCard({ room }) {
             </Button>
           )}
           title={t('room.meeting.share_meeting')}
-          body={<ShareRoomForm room={room} />}
+          body={<ShareRoomForm room={room} friendly_id={room.friendly_id} />}
         />
 
         <Button variant="brand-outline" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>

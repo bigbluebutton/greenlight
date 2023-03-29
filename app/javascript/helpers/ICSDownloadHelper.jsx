@@ -18,9 +18,9 @@ import { createEvent } from "ics";
 import { saveAs } from "file-saver";
 
 
-export const createICSContent = (name, url, voice_bridge, voice_bridge_phone_number, t, use_html=false) => {
+export const createICSContent = (name, room_name, url, voice_bridge, voice_bridge_phone_number, t, use_html=false) => {
   if (use_html) {
-    return createICSWithHtml(name,url,voice_bridge,voice_bridge_phone_number, t);
+    return createICSWithHtml(name, room_name, url,voice_bridge,voice_bridge_phone_number, t);
   }
 
 
@@ -36,6 +36,7 @@ export const createICSContent = (name, url, voice_bridge, voice_bridge_phone_num
     start: [date.getFullYear(), date.getMonth(), date.getDay(), 12, 0],
     url: url,
     description: description,
+    title: room_name,
   };
 }
 
@@ -127,12 +128,13 @@ const createICSWithHtml = (name, url, voice_bridge, voice_bridge_phone_number) =
   return eventContent = {
     start: [date.getFullYear(), date.getMonth(), date.getDay(), 12, 0],
     url: url,
-    htmlContent: HTML
+    htmlContent: HTML,
+    title: room_name
   };
 }
 
 export const downloadICS = (name, room, url, voice_bridge, voice_bridge_phone_number, t) => {
-  createEvent(createICSContent(name, url, voice_bridge, voice_bridge_phone_number, t), (error, value) => {
+  createEvent(createICSContent(name, room, url, voice_bridge, voice_bridge_phone_number, t), (error, value) => {
     console.log(error);
     const blob = new Blob([value], { type: "text/plain;charset=utf-8" });
     saveAs(blob, `bbb-meeting-${room.replace(/[/\\?%*:|"<>]/g, '')}.ics`);
