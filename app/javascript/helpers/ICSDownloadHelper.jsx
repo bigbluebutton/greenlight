@@ -40,7 +40,7 @@ export const createICSContent = (name, room_name, url, voice_bridge, voice_bridg
   };
 }
 
-const createICSWithHtml = (name, url, voice_bridge, voice_bridge_phone_number) => {
+const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phone_number,t) => {
   phone_data = "";
 
   if (typeof voice_bridge !== 'undefined' && typeof voice_bridge_phone_number !== 'undefined') {
