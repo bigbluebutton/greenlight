@@ -10,6 +10,7 @@ await esbuild.build({
   loader: {
     '.png': 'dataurl',
     '.svg': 'text',
+    '.mp3': 'base64',
   },
   define: {
     'process.env.RELATIVE_URL_ROOT': `"${relativeUrlRoot}"`,
