@@ -41,7 +41,6 @@ import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
 import RoomJoinPlaceholder from './RoomJoinPlaceholder';
-import NotifySound from '../../../../../assets/audios/notify.mp3';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -103,7 +102,7 @@ export default function RoomJoin() {
 
   // Play a sound and displays a toast when the meeting starts if the user was in a waiting queue
   const notifyMeetingStarted = () => {
-    const audio = new Audio(`data:audio/mpeg;base64,${NotifySound}`);
+    const audio = new Audio('/notify.mp3');
     audio.play()
       .catch((err) => {
         console.error(err);
