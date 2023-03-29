@@ -101,21 +101,22 @@ export default function RoomJoin() {
     }
   }, [roomStatusAPI.isSuccess]);
 
-  // Plays a notify sound when the meeting starts if the user was in a waiting queue
-  const playNotifySound = () => {
+  // Play a sound and displays a toast when the meeting starts if the user was in a waiting queue
+  const notifyMeetingStarted = () => {
     const audio = new Audio(`data:audio/mpeg;base64,${NotifySound}`);
     audio.play()
       .catch((err) => {
         console.error(err);
       });
+    toast.success(t('toast.success.room.meeting_started'));
   };
 
   // Returns a random delay between 2 and 5 seconds, in increments of 250 ms
   // The delay is to let the BBB server settle before attempting to join the meeting
   // The randomness is to prevent multiple users from joining the meeting at the same time
   const joinDelay = () => {
-    const min = 2000;
-    const max = 5000;
+    const min = 4000;
+    const max = 7000;
     const step = 250;
 
     // Calculate the number of possible steps within the given range
@@ -133,10 +134,10 @@ export default function RoomJoin() {
     //  When meeting starts this logic will be fired, indicating the event to waiting users (through a toast) for UX matter.
     //  Logging the event for debugging purposes and refetching the join logic with the user's given input (name & codes).
     if (hasStarted) {
-      toast.success(t('toast.success.room.meeting_started'));
-      playNotifySound();
-      console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting in 3s.`);
-      setTimeout(methods.handleSubmit(handleJoin), joinDelay()); // TODO: Amir - Improve this race condition handling by the backend.
+      console.info(`Attempting to join the room(friendly_id): ${friendlyId} meeting.`);
+      const delay = joinDelay();
+      setTimeout(notifyMeetingStarted, delay - 1000);
+      setTimeout(methods.handleSubmit(handleJoin), delay); // TODO: Amir - Improve this race condition handling by the backend.
       reset();// Resetting the Join component.
     }
   }, [hasStarted]);
