@@ -21,7 +21,7 @@ import NotFoundPage from './components/errors/NotFoundPage';
 
 export default function RootBoundary() {
   const error = useRouteError();
-  const status = error?.response?.status || error?.status
+  const status = error?.response?.status || error?.status;
 
   switch (status) {
     case 404:

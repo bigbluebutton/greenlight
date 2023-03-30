@@ -50,7 +50,7 @@ import AuthenticatedOnly from './routes/AuthenticatedOnly';
 import PendingRegistration from './components/users/registration/PendingRegistration';
 import RootBoundary from './RootBoundary';
 import Tenants from './components/admin/tenants/Tenants';
-import RoomIdRouter from "./routes/RoomIdRouter";
+import RoomIdRouter from './routes/RoomIdRouter';
 
 const queryClientConfig = {
   defaultOptions: {

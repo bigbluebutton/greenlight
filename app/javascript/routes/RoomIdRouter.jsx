@@ -26,5 +26,5 @@ export default function RoomIdRouter() {
     return <Navigate to={`/rooms/${roomId}/join`} />;
   }
 
-  throw new Response("Not Found", { status: 404 });
+  throw new Response('Not Found', { status: 404 });
 }
