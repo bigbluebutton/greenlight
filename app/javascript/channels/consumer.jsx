@@ -19,4 +19,4 @@
 
 import { createConsumer } from '@rails/actioncable';
 
-export default createConsumer();
+export default createConsumer(`${process.env.RELATIVE_URL_ROOT}/cable`);
