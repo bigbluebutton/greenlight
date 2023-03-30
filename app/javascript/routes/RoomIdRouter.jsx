@@ -15,18 +15,16 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import React from 'react';
-import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
-import DefaultErrorPage from './components/errors/DefaultErrorPage';
-import NotFoundPage from './components/errors/NotFoundPage';
+import { Navigate, useParams } from 'react-router-dom';
 
-export default function RootBoundary() {
-  const error = useRouteError();
-  const status = error?.response?.status || error?.status
+export default function RoomIdRouter() {
+  const { roomId } = useParams();
+  const regex = /(\w{3}-\w{3}-\w{3})(-\w{3})?/;
+  const match = roomId.match(regex);
 
-  switch (status) {
-    case 404:
-      return <NotFoundPage />;
-    default:
-      return <DefaultErrorPage />;
+  if (match) {
+    return <Navigate to={`/rooms/${roomId}/join`} />;
   }
+
+  throw new Response("Not Found", { status: 404 });
 }
