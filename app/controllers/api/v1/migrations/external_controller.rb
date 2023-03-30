@@ -47,19 +47,16 @@ module Api
         def create_role
           role_hash = role_params.to_h
 
+          # Returns an error if the provider does not exist
+          unless role_hash[:provider] == 'greenlight' || Tenant.exists?(name: role_hash[:provider])
+            return render_error(status: :bad_request, errors: 'Provider does not exist')
+          end
+
           return render_data status: :created if Role.exists? name: role_hash[:name], provider: role_hash[:provider]
 
           role = Role.new(name: role_hash[:name], provider: role_hash[:provider])
 
           return render_error(status: :bad_request, errors: role&.errors&.to_a) unless role.save
-
-          # if role_hash[:provider] != 'greenlight'
-          #   tenant = Tenant.find_or_initialize_by(name: role_hash[:provider])
-          #   return render_error(status: :bad_request, errors: tenant&.errors&.to_a) unless tenant.save
-          #
-          #   guest_role = Role.find_or_initialize_by(name: 'Guest', provider: role_hash[:provider])
-          #   return render_error(status: :bad_request, errors: guest_role&.errors&.to_a) unless guest_role.save
-          # end
 
           # Returns unless the Role has a RolePermission that differs from V3 default RolePermissions values
           return render_data status: :created unless role_hash[:role_permissions].any?
@@ -86,6 +83,11 @@ module Api
         def create_user
           user_hash = user_params.to_h
 
+          # Returns an error if the provider does not exist
+          unless user_hash[:provider] == 'greenlight' || Tenant.exists?(name: user_hash[:provider])
+            return render_error(status: :bad_request, errors: 'Provider does not exist')
+          end
+
           return render_data status: :created if User.exists? email: user_hash[:email], provider: user_hash[:provider]
 
           user_hash[:language] = I18n.default_locale if user_hash[:language].blank? || user_hash[:language] == 'default'
@@ -111,6 +113,10 @@ module Api
         # Does: Creates a Room and its RoomMeetingOptions.
         def create_room
           room_hash = room_params.to_h
+
+          unless room_hash[:provider] == 'greenlight' || Tenant.exists?(name: room_hash[:provider])
+            return render_error(status: :bad_request, errors: 'Provider does not exist')
+          end
 
           return render_data status: :created if Room.exists? friendly_id: room_hash[:friendly_id]
 
@@ -166,6 +172,10 @@ module Api
         # Does: Creates a SiteSettings or a RoomsConfiguration.
         def create_settings
           settings_hash = settings_params.to_h
+
+          unless settings_hash[:provider] == 'greenlight' || Tenant.exists?(name: settings_hash[:provider])
+            return render_error(status: :bad_request, errors: 'Provider does not exist')
+          end
 
           render_data status: :created unless settings_hash.any?
 
