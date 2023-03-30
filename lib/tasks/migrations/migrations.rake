@@ -6,7 +6,7 @@ namespace :migrations do
   COMMON = {
     headers: { "Content-Type" => "application/json", "Accept" => "application/json" },
     batch_size: 500,
-    filtered_roles: %w[super_admin pending denied],
+    filtered_roles: %w[admin user super_admin pending denied],
     filtered_user_roles: %w[super_admin pending denied]
   }.freeze
 
@@ -15,17 +15,11 @@ namespace :migrations do
     args.with_defaults(provider: "greenlight")
     has_encountred_issue = 0
 
-    byebug
-
     Role.unscoped
         .where(provider: args[:provider])
         .select(:id, :name, :provider)
         .includes(:role_permissions)
         .where.not(name: COMMON[:filtered_roles])
-
-        # trying to remove admin and user roles for greenlight
-        # .where("provider != 'greenlight' AND (name != 'admin' OR name != 'user')") # Rails 5.x doesn't support AND in where.not
-
         .find_each(batch_size: COMMON[:batch_size]) do |r|
 
       # RolePermissions
