@@ -38,15 +38,13 @@ RSpec.describe Api::V1::SiteSettingsController, type: :controller do
     end
 
     it 'calls SettingGetter and returns multiple values' do
-      expect(SettingGetter).to receive(:new).with(setting_name: 'SettingName', provider: 'greenlight').and_call_original
-      expect(SettingGetter).to receive(:new).with(setting_name: 'SettingName2', provider: 'greenlight').and_call_original
-      allow_any_instance_of(SettingGetter).to receive(:call).and_return('false')
+      expect(SettingGetter).to receive(:new).with(setting_name: %w[Uno Dos Tres], provider: 'greenlight').and_call_original
+      allow_any_instance_of(SettingGetter).to receive(:call).and_return({ 'Uno' => 1, 'Dos' => 2, 'Tres' => 3 })
 
-      get :index, params: { names: %w[SettingName SettingName2] }
+      get :index, params: { names: %w[Uno Dos Tres] }
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']['SettingName']).to eq('false')
-      expect(JSON.parse(response.body)['data']['SettingName2']).to eq('false')
+      expect(JSON.parse(response.body)['data']).to eq({ 'Uno' => 1, 'Dos' => 2, 'Tres' => 3 })
     end
 
     it 'returns forbidden if trying to access a forbidden setting' do
