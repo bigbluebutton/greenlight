@@ -41,7 +41,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
   describe '#start' do
     it 'makes a call to the MeetingStarter service with the right values and returns the join url' do
-      expect(MeetingStarter).to receive(:new).with(room:, base_url: root_url, current_user: user, provider: 'greenlight').and_call_original
+      expect(MeetingStarter).to receive(:new).with(room:, base_url: request.base_url, current_user: user, provider: 'greenlight').and_call_original
       expect_any_instance_of(MeetingStarter).to receive(:call)
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Moderator')
 
@@ -343,7 +343,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(false)
 
-        expect(MeetingStarter).to receive(:new).with(room:, base_url: root_url, current_user: user, provider: 'greenlight').and_call_original
+        expect(MeetingStarter).to receive(:new).with(room:, base_url: request.base_url, current_user: user, provider: 'greenlight').and_call_original
         expect_any_instance_of(MeetingStarter).to receive(:call)
 
         post :status, params: { friendly_id: room.friendly_id, name: user.name }
