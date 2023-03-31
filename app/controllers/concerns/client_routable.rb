@@ -18,14 +18,31 @@
 
 module ClientRoutable
   extend ActiveSupport::Concern
+  include Rails.application.routes.url_helpers
 
-  # Generates a client side activate account url.
-  def activate_account_url(token)
-    "#{root_url}activate_account/#{token}"
+  # Generates a client side activate account URL.
+  def client_activate_account_url(token:, **opts)
+    client_url_for(path: "activate_account/#{token}", **opts)
   end
 
-  # Generates a client side reset password url.
-  def reset_password_url(token)
-    "#{root_url}reset_password/#{token}"
+  # Generates a client side reset password URL.
+  def client_reset_password_url(token:, **opts)
+    client_url_for(path: "reset_password/#{token}", **opts)
+  end
+
+  # Generates a client side room join URL.
+  def client_room_join_url(friendly_id:, **opts)
+    client_url_for(path: "rooms/#{friendly_id}/join", **opts)
+  end
+
+  # Generates a client side invite URL.
+  def client_invitation_url(**opts)
+    client_url_for(**opts)
+  end
+
+  private
+
+  def client_url_for(path: nil, **opts)
+    "#{root_url(**opts.compact)}#{path}"
   end
 end

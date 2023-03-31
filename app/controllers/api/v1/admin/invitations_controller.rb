@@ -20,6 +20,8 @@ module Api
   module V1
     module Admin
       class InvitationsController < ApiController
+        include ClientRoutable
+
         before_action do
           ensure_authorized('ManageUsers')
         end
@@ -47,7 +49,7 @@ module Api
             UserMailer.with(
               email:,
               name: current_user.name,
-              signup_url: root_url(inviteToken: invitation.token),
+              signup_url: client_invitation_url(inviteToken: invitation.token),
               base_url: request.base_url,
               provider: current_provider
             ).invitation_email.deliver_later

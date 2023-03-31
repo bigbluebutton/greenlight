@@ -18,6 +18,7 @@
 
 class MeetingStarter
   include Rails.application.routes.url_helpers
+  include ClientRoutable
 
   def initialize(room:, base_url:, current_user:, provider:)
     @room = room
@@ -56,7 +57,7 @@ class MeetingStarter
   private
 
   def computed_options(access_code:)
-    room_url = "#{root_url(host: @base_url)}rooms/#{@room.friendly_id}/join"
+    room_url = client_room_join_url(friendly_id: @room.friendly_id, host: @base_url)
     moderator_message = "#{I18n.t('meeting.moderator_message')}<br>#{room_url}"
     moderator_message += "<br>#{I18n.t('meeting.access_code', code: access_code)}" if access_code.present?
     {

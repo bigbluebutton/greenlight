@@ -30,7 +30,7 @@ module Api
         token = @user.generate_activation_token!
 
         UserMailer.with(user: @user,
-                        activation_url: activate_account_url(token), base_url: request.base_url,
+                        activation_url: client_activate_account_url(token:), base_url: request.base_url,
                         provider: current_provider).activate_account_email.deliver_later
 
         render_data status: :ok

@@ -38,7 +38,7 @@ module Api
         token = user.generate_reset_token!
 
         UserMailer.with(user:,
-                        reset_url: reset_password_url(token), base_url: request.base_url,
+                        reset_url: client_reset_password_url(token:), base_url: request.base_url,
                         provider: current_provider).reset_password_email.deliver_later
 
         render_data status: :ok

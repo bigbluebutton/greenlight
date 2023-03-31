@@ -68,7 +68,7 @@ module Api
           if smtp_enabled
             token = user.generate_activation_token!
             UserMailer.with(user:,
-                            activation_url: activate_account_url(token), base_url: request.base_url,
+                            activation_url: client_activate_account_url(token:), base_url: request.base_url,
                             provider: current_provider).activate_account_email.deliver_later
           end
 

@@ -22,7 +22,6 @@ module Api
   module V1
     module Migrations
       class ExternalController < ApiController
-        include ClientRoutable
         CHARS = {
           degits: [*'0'..'9'],
           lower_letters: [*'a'..'z'],
