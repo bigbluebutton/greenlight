@@ -15,11 +15,11 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import { useQuery } from 'react-query';
-import axios from 'axios';
+import axios from '../../../helpers/Axios';
 
 export default function useUser(userId) {
   return useQuery(
     ['getUser', userId],
-    () => axios.get(`/api/v1/users/${userId}.json`).then((resp) => resp.data.data),
+    () => axios.get(`/users/${userId}.json`).then((resp) => resp.data.data),
   );
 }
