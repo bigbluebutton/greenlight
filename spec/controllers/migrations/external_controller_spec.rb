@@ -500,6 +500,50 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
     end
   end
 
+  describe '#create_settings' do
+    let!(:site_setting_a) { create(:site_setting, setting: create(:setting, name: 'settingA'), value: 'valueA') }
+    let!(:site_setting_b) { create(:site_setting, setting: create(:setting, name: 'settingB'), value: 'valueB') }
+    let!(:site_setting_c) { create(:site_setting, setting: create(:setting, name: 'settingC'), value: 'valueC') }
+
+    let!(:rooms_config_a) { create(:rooms_configuration, meeting_option: create(:meeting_option, name: 'optionA'), default_value: 'valueA') }
+    let!(:rooms_config_b) { create(:rooms_configuration, meeting_option: create(:meeting_option, name: 'optionB'), default_value: 'valueB') }
+    let!(:rooms_config_c) { create(:rooms_configuration, meeting_option: create(:meeting_option, name: 'optionC'), default_value: 'valueC') }
+
+    let(:valid_settings_params) do
+      {
+        provider: 'greenlight',
+        site_settings: {
+          settingA: 'new_valueA',
+          settingB: 'new_valueB',
+          settingC: 'new_valueC'
+        },
+        room_configurations: {
+          optionA: 'new_valueA',
+          optionB: 'new_valueB',
+          optionC: 'new_valueC'
+        }
+      }
+    end
+
+    before { clear_enqueued_jobs }
+
+    it 'creates a new setting' do
+      encrypted_params = encrypt_params({ room: valid_settings_params }, expires_in: 10.seconds)
+      post :create_settings, params: { v2: { encrypted_params: } }
+      expect(site_setting_a.value).to eq(valid_settings_params[:site_settings][:settingA])
+      expect(site_setting_b.value).to eq(valid_settings_params[:site_settings][:settingB])
+      expect(site_setting_c.value).to eq(valid_settings_params[:site_settings][:settingC])
+    end
+
+    it 'creates a new room configs' do
+      encrypted_params = encrypt_params({ room: valid_settings_params }, expires_in: 10.seconds)
+      post :create_settings, params: { v2: { encrypted_params: } }
+      expect(rooms_config_a.value).to eq(valid_settings_params[:room_configurations][:optionA])
+      expect(rooms_config_b.value).to eq(valid_settings_params[:room_configurations][:optionB])
+      expect(rooms_config_c.value).to eq(valid_settings_params[:room_configurations][:optionC])
+    end
+  end
+
   private
 
   def encrypt_params(params, key: nil, expires_at: nil, expires_in: nil, purpose: nil)
