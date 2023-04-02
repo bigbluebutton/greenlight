@@ -52,12 +52,12 @@ de:
     moderator_message: "Um jemanden zur Konferenz einzuladen, schicken Sie ihm diesen Link:"
     access_code: "Zugangscode: %{code}"
   email:
-    link_expires: "Der Link läuft in %{time} ab."
     activation:
       account_activation: Kontoaktivierung
       welcome_to_bbb: Willkommen in BigBlueButton!
       get_started: "Um loszulegen, aktivieren Sie bitte Ihr Konto, indem Sie auf die Schaltfläche unten klicken."
       activate_account: Konto aktivieren
+      link_expires: Der Link wird in 24 Stunden ungültig.
       if_link_expires: "Wenn der Link abläuft, melden Sie sich bitte an und fordern Sie eine neue E-Mail zur Aktivierung an."
     invitation:
       invitation_to_join: BigBlueButton-Einladung
@@ -70,4 +70,5 @@ de:
       password_reset_requested: "Eine Passwortrücksetzung wurde für %{email} beantragt."
       password_reset_confirmation: "Um Ihr Passwort zurückzusetzen, klicken Sie bitte auf die Schaltfläche unten."
       reset_password: Passwort zurücksetzen
+      link_expires: Der Link wird in 1 Stunde ungültig.
       ignore_request: "Wenn Sie keinen Antrag zur Änderung Ihres Passworts gestellt haben, ignorieren Sie bitte diese E-Mail."
