@@ -172,7 +172,7 @@
     "unpublished": "Unveröffentlicht",
     "protected": "Geschützt",
     "length_in_minutes": "{{recording.length}} Minuten",
-    "processing_recording": "Aufzeichnung wird verarbeitet…",
+    "processing_recording": "Aufzeichnung wird erstellt, dies kann einige Minuten dauern...",
     "copy_recording_urls": "Kopiere die URL(s) der Aufzeichnungen",
     "recordings_list_empty": "Keine Aufzeichnung gefunden!",
     "recordings_list_empty_description": "Aufzeichnungen werden hier angezeigt, nachdem du eine Besprechung gestartet und aufgezeichnet hast.",
@@ -406,6 +406,7 @@
       "problem_completing_action": "Hier hat etwas nicht funktioniert.\nBitte nochmal probieren.",
       "file_type_not_supported": "Dateityp wird nicht unterstützt.",
       "file_size_too_large": "Datei ist zu groß.",
+      "file_upload_error": "Die Datei kann nicht hochgeladen werden.",
       "signin_required": "Bitte einloggen um diese Seite anzuzeigen.",
       "roles": {
         "role_assigned": "Diese Rolle kann nicht gelöscht werden, da sie mindestens einer Person zugeordnet ist."
@@ -480,6 +481,9 @@
           "required": "Bitte die Höchstzahl der Räume angeben",
           "min": "Zulässiger Mindestwert ist 0",
           "max": "Zulässiger Höchstwert ist 100"
+        },
+        "type": {
+          "error": "Bitte eine Zahl angeben"
         }
       },
       "room": {
@@ -487,7 +491,7 @@
           "required": "Bitte den Raumnamen eingeben.",
           "min": "Der Name muss mindestens 2 Zeichen lang sein"
         }
-      }, 
+      },
       "url": {
         "invalid": "Ungültige URL"
       }
