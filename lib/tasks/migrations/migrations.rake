@@ -152,7 +152,7 @@ namespace :migrations do
                          meeting_id: r.bbb_id,
                          last_session: r.last_session&.to_datetime,
                          owner_email: r.owner.email,
-                         provider: args[:provider],
+                         provider: r.owner.provider,
                          room_settings: room_settings,
                          shared_users_emails: shared_users_emails } }
 
@@ -162,13 +162,13 @@ namespace :migrations do
       when Net::HTTPCreated
         puts green "Successfully migrated Room:"
         puts cyan "UID: #{r.uid}"
-        puts cyan "Name: #{r.name}"
-        puts cyan "Provider: #{r.provider}"
+        puts cyan "Name: #{params[:room][:name]}"
+        puts cyan "Provider: #{params[:room][:provider]}"
       else
         puts red "Unable to migrate Room:"
         puts yellow "UID: #{r.uid}"
-        puts yellow "Name: #{r.name}"
-        puts yellow "Provider: #{r.provider}"
+        puts yellow "Name: #{params[:room][:name]}"
+        puts yellow "Provider: #{params[:room][:provider]}}"
         puts red "Errors: #{JSON.parse(response.body.to_s)['errors']}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
@@ -203,7 +203,7 @@ namespace :migrations do
     }.compact
 
     # RoomConfigurations
-    room_configurations = {
+    rooms_configurations = {
       record: infer_room_config_value(setting.get_value('Room Configuration Recording')),
       muteOnStart: infer_room_config_value(setting.get_value('Room Configuration Mute On Join')),
       guestPolicy: infer_room_config_value(setting.get_value('Room Configuration Require Moderator')),
@@ -212,14 +212,21 @@ namespace :migrations do
       glRequireAuthentication: infer_room_config_value(setting.get_value('Room Authentication'))
     }.compact
 
-    params = { settings: { provider: args[:provider], site_settings: site_settings, room_configurations: room_configurations } }
+    params = { settings: { provider: args[:provider], site_settings: site_settings, rooms_configurations: rooms_configurations } }
 
     response = Net::HTTP.post(uri('settings'), payload(params), COMMON[:headers])
 
     case response
     when Net::HTTPCreated
-      puts green "Successfully migrated Settings"
-      puts green "Provider: #{args[:provider]}"
+      puts green "Successfully migrated Site Settings"
+      puts cyan "Provider: #{args[:provider]}"
+      site_settings.each do |setting|
+        puts cyan "#{setting[0]}: #{setting[1]}"
+      end
+      puts green "Successfully migrated Rooms Configurations"
+      rooms_configurations.each do |rooms_config|
+        puts cyan "#{rooms_config[0]}: #{rooms_config[1]}"
+      end
     else
       puts red "Unable to migrate Settings"
       puts red "Provider: #{args[:provider]}"
