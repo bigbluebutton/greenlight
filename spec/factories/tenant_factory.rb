@@ -16,6 +16,9 @@
 
 # frozen_string_literal: true
 
-class TenantSerializer < ApplicationSerializer
-  attributes :id, :name, :client_secret
+FactoryBot.define do
+  factory :tenant do
+    name { Faker::Company.unique.name }
+    client_secret { Faker::Lorem.characters(number: 10) }
+  end
 end

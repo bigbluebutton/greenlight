@@ -24,6 +24,7 @@ module Api
           # TODO: - ahmad: Add role check
         end
 
+        # GET /api/v1/admin/tenants
         def index
           sort_config = config_sorting(allowed_columns: %w[name])
 
@@ -42,9 +43,23 @@ module Api
           if tenant.save
             create_roles(tenant.name)
             create_site_settings(tenant.name)
-            create_meeting_options(tenant.name)
+            create_rooms_configs_options(tenant.name)
             create_role_permissions(tenant.name)
             render_data status: :created
+          else
+            render_error errors: tenant.errors.to_a, status: :bad_request
+          end
+        end
+
+        # DELETE /api/v1/admin/tenants/:id
+        def destroy
+          tenant = Tenant.find(params[:id])
+
+          if tenant.destroy
+            delete_roles(tenant.name)
+            delete_site_settings(tenant.name)
+            delete_rooms_configs_options(tenant.name)
+            render_data status: :ok
           else
             render_error errors: tenant.errors.to_a, status: :bad_request
           end
@@ -80,7 +95,7 @@ module Api
           ]
         end
 
-        def create_meeting_options(provider)
+        def create_rooms_configs_options(provider)
           RoomsConfiguration.create! [
             { meeting_option: MeetingOption.find_by(name: 'record'), value: 'default_enabled', provider: },
             { meeting_option: MeetingOption.find_by(name: 'muteOnStart'), value: 'optional', provider: },
@@ -139,6 +154,18 @@ module Api
             { role: guest, permission: can_record, value: 'true' },
             { role: guest, permission: room_limit, value: '100' }
           ]
+        end
+
+        def delete_roles(provider)
+          Role.where(provider:).destroy_all
+        end
+
+        def delete_site_settings(provider)
+          SiteSetting.where(provider:).destroy_all
+        end
+
+        def delete_rooms_configs_options(provider)
+          RoomsConfiguration.where(provider:).destroy_all
         end
 
         def tenant_params

@@ -50,6 +50,7 @@ import AuthenticatedOnly from './routes/AuthenticatedOnly';
 import PendingRegistration from './components/users/registration/PendingRegistration';
 import RootBoundary from './RootBoundary';
 import Tenants from './components/admin/tenants/Tenants';
+import RoomIdRouter from './routes/RoomIdRouter';
 
 const queryClientConfig = {
   defaultOptions: {
@@ -100,8 +101,10 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path="/rooms/:friendlyId/join" element={<RoomJoin />} />
+      <Route path="/:roomId" element={<RoomIdRouter />} />
     </Route>,
   ),
+  { basename: process.env.RELATIVE_URL_ROOT },
 );
 
 const rootElement = document.getElementById('root');

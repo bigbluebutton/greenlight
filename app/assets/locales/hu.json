@@ -172,7 +172,7 @@
     "unpublished": "Nincs közzétéve",
     "protected": "Védett",
     "length_in_minutes": "{{recording.length}} perc",
-    "processing_recording": "Felvétel feldolgozása…",
+    "processing_recording": "A felvétel feldolgozása néhány percig eltarthat...",
     "copy_recording_urls": "Felvételek webcímének másolása",
     "recordings_list_empty": "Még nincs egy felvétele sem.",
     "recordings_list_empty_description": "A felvételek itt fognak megjelenni, ha indít és felvesz egy találkozót.",
@@ -406,6 +406,7 @@
       "problem_completing_action": "Probléma lépett fel a művelet befejezése során. \n Próbálja újra.",
       "file_type_not_supported": "A fájltípus nem támogatott.",
       "file_size_too_large": "A fájl túl nagy.",
+      "file_upload_error": "A fájlt nem sikerült feltölteni.",
       "signin_required": "Be kell jelentkeznie, hogy elérje ezt az oldalt",
       "roles": {
         "role_assigned": "Ez a szerepkör nem törölhető, mert legalább egy felhasználóhoz hozzá van rendelve."

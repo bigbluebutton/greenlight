@@ -57,10 +57,15 @@ module Greenlight
 
     config.active_storage.variant_processor = :mini_magick
 
+    # SVGs are served as binary by default, which causes the browser to download the file instead of displaying it
+    config.active_storage.content_types_to_serve_as_binary -= ['image/svg+xml']
+
     config.bigbluebutton_endpoint = ENV.fetch('BIGBLUEBUTTON_ENDPOINT', 'https://test-install.blindsidenetworks.com/bigbluebutton/api')
     config.bigbluebutton_endpoint = File.join(config.bigbluebutton_endpoint, '') unless config.bigbluebutton_endpoint.end_with?('/')
     config.bigbluebutton_endpoint = File.join(config.bigbluebutton_endpoint, '/api/') unless config.bigbluebutton_endpoint.end_with?('api', 'api/')
 
     config.bigbluebutton_secret = ENV.fetch('BIGBLUEBUTTON_SECRET', '8cd8ef52e8e101574e400365b55e11a6')
+
+    config.relative_url_root = ENV.fetch('RELATIVE_URL_ROOT', '/')
   end
 end
