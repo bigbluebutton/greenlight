@@ -98,7 +98,7 @@ GEM
     aws-sigv4 (1.5.2)
       aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.18)
-    bigbluebutton-api-ruby (1.8.0)
+    bigbluebutton-api-ruby (1.9.1)
       childprocess (>= 1.0.1)
       ffi (>= 1.9.24)
       json (>= 1.8.6)
@@ -400,7 +400,7 @@ DEPENDENCIES
   active_storage_validations
   aws-sdk-s3
   bcrypt (~> 3.1.7)
-  bigbluebutton-api-ruby (= 1.8)
+  bigbluebutton-api-ruby (= 1.9.1)
   bootsnap
   capybara
   cssbundling-rails
