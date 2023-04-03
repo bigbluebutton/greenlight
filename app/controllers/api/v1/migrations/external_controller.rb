@@ -231,7 +231,7 @@ module Api
                                                      site_settings: %w[PrimaryColor PrimaryColorLight Terms PrivacyPolicy RegistrationMethod
                                                                        ShareRooms PreloadPresentation],
                                                      rooms_configurations: %w[record muteOnStart guestPolicy glAnyoneCanStart glAnyoneJoinAsModerator
-                                                                             glRequireAuthentication])
+                                                                              glRequireAuthentication])
         end
 
         def decrypted_params
