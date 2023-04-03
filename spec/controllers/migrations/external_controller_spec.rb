@@ -539,10 +539,6 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
     let(:terms_setting) { create(:setting, name: 'Terms') }
     let(:registration_method_setting) { create(:setting, name: 'RegistrationMethod') }
 
-    let(:record_meeting_option) { create(:meeting_option, name: 'record') }
-    let(:mute_on_start_meeting_option) { create(:meeting_option, name: 'muteOnStart') }
-    let(:guest_policy_meeting_option) { create(:meeting_option, name: 'guestPolicy') }
-
     let!(:site_setting_a) { create(:site_setting, setting: primary_color_setting, value: 'valueA') }
     let!(:site_setting_b) { create(:site_setting, setting: terms_setting, value: 'valueB') }
     let!(:site_setting_c) { create(:site_setting, setting: registration_method_setting, value: 'valueC') }
@@ -556,6 +552,10 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
     let!(:site_setting_f) do
       create(:site_setting, setting: registration_method_setting, value: 'valueC', provider: 'not_greenlight')
     end
+
+    let(:record_meeting_option) { create(:meeting_option, name: 'record') }
+    let(:mute_on_start_meeting_option) { create(:meeting_option, name: 'muteOnStart') }
+    let(:guest_policy_meeting_option) { create(:meeting_option, name: 'guestPolicy') }
 
     let!(:rooms_config_a) { create(:rooms_configuration, meeting_option: record_meeting_option, value: 'true') }
     let!(:rooms_config_b) { create(:rooms_configuration, meeting_option: mute_on_start_meeting_option, value: 'true') }
@@ -579,7 +579,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
           Terms: 'new_valueB',
           RegistrationMethod: 'new_valueC'
         },
-        room_configurations: {
+        rooms_configurations: {
           record: 'false',
           muteOnStart: 'false',
           guestPolicy: 'false'
@@ -607,7 +607,9 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
 
     it 'updates the room configs' do
       encrypted_params = encrypt_params({ settings: valid_settings_params }, expires_in: 10.seconds)
+      binding.break
       post :create_settings, params: { v2: { encrypted_params: } }
+      binding.break
       expect(rooms_config_a.reload.value).to eq(valid_settings_params[:room_configurations][:record])
       expect(rooms_config_b.reload.value).to eq(valid_settings_params[:room_configurations][:muteOnStart])
       expect(rooms_config_c.reload.value).to eq(valid_settings_params[:room_configurations][:guestPolicy])
