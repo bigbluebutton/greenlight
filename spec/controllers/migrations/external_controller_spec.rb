@@ -62,6 +62,40 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
           expect(response).to have_http_status(:created)
         end
       end
+
+      describe 'when role already exists and role permissions are not default values' do
+        let!(:role) { create(:role) }
+        let!(:not_greenlight_role) { create(:role, provider: 'not_greenlight') }
+        let!(:create_room_role_permission) { create(:role_permission, role:, permission: create(:permission, name: 'ManageUsers'), value: 'true') }
+        let!(:not_greenlight_create_room_role_permission) do
+          create(:role_permission,
+                 role: not_greenlight_role,
+                 permission: create(:permission, name: 'ManageUsers'),
+                 value: 'true')
+        end
+
+        it 'creates role role_permissions with the given value' do
+          role_permissions = {
+            ManageUsers: 'false'
+          }
+
+          encrypted_params = encrypt_params({ role: { name: role.name, provider: role.provider, role_permissions: } }, expires_in: 10.seconds)
+          post :create_role, params: { v2: { encrypted_params: } }
+          expect(create_room_role_permission.reload.value).to eq(role_permissions[:ManageUsers])
+          expect(response).to have_http_status(:created)
+        end
+
+        it 'does not create other providers role role_permissions' do
+          role_permissions = {
+            ManageUsers: 'false'
+          }
+
+          encrypted_params = encrypt_params({ role: { name: role.name, provider: role.provider, role_permissions: } }, expires_in: 10.seconds)
+          post :create_role, params: { v2: { encrypted_params: } }
+          expect(not_greenlight_create_room_role_permission.reload.value).not_to eq(role_permissions[:ManageUsers])
+          expect(response).to have_http_status(:created)
+        end
+      end
     end
 
     context 'when decryption failes' do
@@ -501,46 +535,90 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
   end
 
   describe '#create_settings' do
-    let!(:site_setting_a) { create(:site_setting, setting: create(:setting, name: 'settingA'), value: 'valueA') }
-    let!(:site_setting_b) { create(:site_setting, setting: create(:setting, name: 'settingB'), value: 'valueB') }
-    let!(:site_setting_c) { create(:site_setting, setting: create(:setting, name: 'settingC'), value: 'valueC') }
+    let(:primary_color_setting) { create(:setting, name: 'PrimaryColor') }
+    let(:terms_setting) { create(:setting, name: 'Terms') }
+    let(:registration_method_setting) { create(:setting, name: 'RegistrationMethod') }
 
-    let!(:rooms_config_a) { create(:rooms_configuration, meeting_option: create(:meeting_option, name: 'optionA'), default_value: 'valueA') }
-    let!(:rooms_config_b) { create(:rooms_configuration, meeting_option: create(:meeting_option, name: 'optionB'), default_value: 'valueB') }
-    let!(:rooms_config_c) { create(:rooms_configuration, meeting_option: create(:meeting_option, name: 'optionC'), default_value: 'valueC') }
+    let(:record_meeting_option) { create(:meeting_option, name: 'record') }
+    let(:mute_on_start_meeting_option) { create(:meeting_option, name: 'muteOnStart') }
+    let(:guest_policy_meeting_option) { create(:meeting_option, name: 'guestPolicy') }
+
+    let!(:site_setting_a) { create(:site_setting, setting: primary_color_setting, value: 'valueA') }
+    let!(:site_setting_b) { create(:site_setting, setting: terms_setting, value: 'valueB') }
+    let!(:site_setting_c) { create(:site_setting, setting: registration_method_setting, value: 'valueC') }
+
+    let!(:site_setting_d) do
+      create(:site_setting, setting: primary_color_setting, value: 'valueA', provider: 'not_greenlight')
+    end
+    let!(:site_setting_e) do
+      create(:site_setting, setting: terms_setting, value: 'valueB', provider: 'not_greenlight')
+    end
+    let!(:site_setting_f) do
+      create(:site_setting, setting: registration_method_setting, value: 'valueC', provider: 'not_greenlight')
+    end
+
+    let!(:rooms_config_a) { create(:rooms_configuration, meeting_option: record_meeting_option, value: 'true') }
+    let!(:rooms_config_b) { create(:rooms_configuration, meeting_option: mute_on_start_meeting_option, value: 'true') }
+    let!(:rooms_config_c) { create(:rooms_configuration, meeting_option: guest_policy_meeting_option, value: 'true') }
+
+    let!(:rooms_config_d) do
+      create(:rooms_configuration, meeting_option: record_meeting_option, value: 'true', provider: 'not_greenlight')
+    end
+    let!(:rooms_config_e) do
+      create(:rooms_configuration, meeting_option: mute_on_start_meeting_option, value: 'true', provider: 'not_greenlight')
+    end
+    let!(:rooms_config_f) do
+      create(:rooms_configuration, meeting_option: guest_policy_meeting_option, value: 'true', provider: 'not_greenlight')
+    end
 
     let(:valid_settings_params) do
       {
         provider: 'greenlight',
         site_settings: {
-          settingA: 'new_valueA',
-          settingB: 'new_valueB',
-          settingC: 'new_valueC'
+          PrimaryColor: 'new_valueA',
+          Terms: 'new_valueB',
+          RegistrationMethod: 'new_valueC'
         },
         room_configurations: {
-          optionA: 'new_valueA',
-          optionB: 'new_valueB',
-          optionC: 'new_valueC'
+          record: 'false',
+          muteOnStart: 'false',
+          guestPolicy: 'false'
         }
       }
     end
 
     before { clear_enqueued_jobs }
 
-    it 'creates a new setting' do
-      encrypted_params = encrypt_params({ room: valid_settings_params }, expires_in: 10.seconds)
+    it 'updates the site settings' do
+      encrypted_params = encrypt_params({ settings: valid_settings_params }, expires_in: 10.seconds)
       post :create_settings, params: { v2: { encrypted_params: } }
-      expect(site_setting_a.value).to eq(valid_settings_params[:site_settings][:settingA])
-      expect(site_setting_b.value).to eq(valid_settings_params[:site_settings][:settingB])
-      expect(site_setting_c.value).to eq(valid_settings_params[:site_settings][:settingC])
+      expect(site_setting_a.reload.value).to eq(valid_settings_params[:site_settings][:PrimaryColor])
+      expect(site_setting_b.reload.value).to eq(valid_settings_params[:site_settings][:Terms])
+      expect(site_setting_c.reload.value).to eq(valid_settings_params[:site_settings][:RegistrationMethod])
     end
 
-    it 'creates a new room configs' do
-      encrypted_params = encrypt_params({ room: valid_settings_params }, expires_in: 10.seconds)
+    it 'does not update the site settings for other providers' do
+      encrypted_params = encrypt_params({ settings: valid_settings_params }, expires_in: 10.seconds)
       post :create_settings, params: { v2: { encrypted_params: } }
-      expect(rooms_config_a.value).to eq(valid_settings_params[:room_configurations][:optionA])
-      expect(rooms_config_b.value).to eq(valid_settings_params[:room_configurations][:optionB])
-      expect(rooms_config_c.value).to eq(valid_settings_params[:room_configurations][:optionC])
+      expect(site_setting_d.reload.value).to eq('valueA')
+      expect(site_setting_e.reload.value).to eq('valueB')
+      expect(site_setting_f.reload.value).to eq('valueC')
+    end
+
+    it 'updates the room configs' do
+      encrypted_params = encrypt_params({ settings: valid_settings_params }, expires_in: 10.seconds)
+      post :create_settings, params: { v2: { encrypted_params: } }
+      expect(rooms_config_a.reload.value).to eq(valid_settings_params[:room_configurations][:record])
+      expect(rooms_config_b.reload.value).to eq(valid_settings_params[:room_configurations][:muteOnStart])
+      expect(rooms_config_c.reload.value).to eq(valid_settings_params[:room_configurations][:guestPolicy])
+    end
+
+    it 'does not update the room configs for other providers' do
+      encrypted_params = encrypt_params({ settings: valid_settings_params }, expires_in: 10.seconds)
+      post :create_settings, params: { v2: { encrypted_params: } }
+      expect(rooms_config_d.reload.value).to eq('true')
+      expect(rooms_config_e.reload.value).to eq('true')
+      expect(rooms_config_f.reload.value).to eq('true')
     end
   end
 

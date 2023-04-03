@@ -48,18 +48,18 @@ module Api
           role_hash = role_params.to_h
 
           # Returns an error if the provider does not exist
-          unless role_hash[:provider] == 'greenlight' || Tenant.exists?(name: role_hash[:provider])
+          if role_hash[:provider] != 'greenlight' && Tenant.find_by(provider: role_hash[:provider]).nil?
             return render_error(status: :bad_request, errors: 'Provider does not exist')
           end
 
-          return render_data status: :created if Role.exists? name: role_hash[:name], provider: role_hash[:provider]
+          # Returns created if the Role exists and the RolePermissions have default values
+          if Role.exists?(name: role_hash[:name], provider: role_hash[:provider]) && role_hash[:role_permissions].empty?
+            return render_data status: :created
+          end
 
-          role = Role.new(name: role_hash[:name], provider: role_hash[:provider])
+          role = Role.find_or_initialize_by(name: role_hash[:name], provider: role_hash[:provider])
 
           return render_error(status: :bad_request, errors: role&.errors&.to_a) unless role.save
-
-          # Returns unless the Role has a RolePermission that differs from V3 default RolePermissions values
-          return render_data status: :created unless role_hash[:role_permissions].any?
 
           # Finds all the RolePermissions that need to be updated
           role_permissions_joined = RolePermission.includes(:permission)
@@ -166,7 +166,7 @@ module Api
         # POST /api/v1/migrations/site_settings.json
         # Expects: { settings: { site_settings: { :PrimaryColor, :PrimaryColorLight, :PrimaryColorDark,
         #                          :Terms, :PrivacyPolicy, :RegistrationMethod, :ShareRooms, :PreuploadPresentation },
-        #                        room_configurations: { :record, :muteOnStart, :guestPolicy, :glAnyoneCanStart,
+        #                        rooms_configurations: { :record, :muteOnStart, :guestPolicy, :glAnyoneCanStart,
         #                          :glAnyoneJoinAsModerator, :glRequireAuthentication } } }
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Creates a SiteSettings or a RoomsConfiguration.
@@ -192,14 +192,14 @@ module Api
           return render_error status: :bad_request, errors: 'Something went wrong when migrating site settings.' unless okay
 
           # Finds all the RoomsConfiguration that need to be updated
-          room_configurations_joined = RoomsConfiguration.joins(:meeting_option)
-                                                         .where('meeting_options.name': settings_hash[:room_configurations].keys,
-                                                                provider: settings_hash[:provider])
+          rooms_configurations_joined = RoomsConfiguration.joins(:meeting_option)
+                                                          .where('meeting_options.name': settings_hash[:rooms_configurations].keys,
+                                                                 provider: settings_hash[:provider])
 
           okay = true
-          room_configurations_joined.each do |room_configuration|
-            room_configuration_name = room_configuration.meeting_option.name
-            okay = false unless room_configuration.update(value: settings_hash[:room_configurations][room_configuration_name])
+          rooms_configurations_joined.each do |rooms_configuration|
+            rooms_configuration_name = rooms_configuration.meeting_option.name
+            okay = false unless rooms_configuration.update(value: settings_hash[:rooms_configurations][rooms_configuration_name])
           end
 
           return render_error status: :bad_request, errors: 'Something went wrong when migrating room configurations.' unless okay
@@ -230,7 +230,7 @@ module Api
           decrypted_params.require(:settings).permit(:provider,
                                                      site_settings: %w[PrimaryColor PrimaryColorLight Terms PrivacyPolicy RegistrationMethod
                                                                        ShareRooms PreloadPresentation],
-                                                     room_configurations: %w[record muteOnStart guestPolicy glAnyoneCanStart glAnyoneJoinAsModerator
+                                                     rooms_configurations: %w[record muteOnStart guestPolicy glAnyoneCanStart glAnyoneJoinAsModerator
                                                                              glRequireAuthentication])
         end
 
