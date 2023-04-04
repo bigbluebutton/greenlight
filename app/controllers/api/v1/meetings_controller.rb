@@ -29,7 +29,7 @@ module Api
       # Starts a BigBlueButton meetings and joins in the meeting starter
       def start
         begin
-          MeetingStarter.new(room: @room, base_url: root_url, current_user:, provider: current_provider).call
+          MeetingStarter.new(room: @room, base_url: request.base_url, current_user:, provider: current_provider).call
         rescue BigBlueButton::BigBlueButtonException => e
           return render_error status: :bad_request unless e.key == 'idNotUnique'
         end
@@ -68,7 +68,7 @@ module Api
 
         if !data[:status] && settings['glAnyoneCanStart'] == 'true' # Meeting isnt running and anyoneCanStart setting is enabled
           begin
-            MeetingStarter.new(room: @room, base_url: root_url, current_user:, provider: current_provider).call
+            MeetingStarter.new(room: @room, base_url: request.base_url, current_user:, provider: current_provider).call
           rescue BigBlueButton::BigBlueButtonException => e
             return render_error status: :bad_request unless e.key == 'idNotUnique'
           end

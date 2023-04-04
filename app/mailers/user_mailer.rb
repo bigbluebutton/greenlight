@@ -55,8 +55,7 @@ class UserMailer < ApplicationMailer
   end
 
   def branding
-    branding_hash = SiteSetting.includes(:setting).where(provider: @provider, settings: { name: %w[PrimaryColor BrandingImage] })
-                               .pluck(:name, :value).to_h
+    branding_hash = SettingGetter.new(setting_name: %w[PrimaryColor BrandingImage], provider: @provider).call
     @brand_image = ActionController::Base.helpers.image_url(branding_hash['BrandingImage'], host: @base_url)
     @brand_color = branding_hash['PrimaryColor']
   end
