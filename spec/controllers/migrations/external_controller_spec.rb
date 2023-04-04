@@ -39,7 +39,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
 
       describe 'when decrypted params data are invalid' do
         it 'returns :bad_request without creating a role' do
-          encrypted_params = encrypt_params({ role: { name: '', role_permissions: {} } }, expires_in: 10.seconds)
+          encrypted_params = encrypt_params({ role: { name: '', provider: 'greenlight', role_permissions: {} } }, expires_in: 10.seconds)
           expect { post :create_role, params: { v2: { encrypted_params: } } }.not_to change(Role, :count)
           expect(response).to have_http_status(:bad_request)
         end
@@ -607,12 +607,10 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
 
     it 'updates the room configs' do
       encrypted_params = encrypt_params({ settings: valid_settings_params }, expires_in: 10.seconds)
-      binding.break
       post :create_settings, params: { v2: { encrypted_params: } }
-      binding.break
-      expect(rooms_config_a.reload.value).to eq(valid_settings_params[:room_configurations][:record])
-      expect(rooms_config_b.reload.value).to eq(valid_settings_params[:room_configurations][:muteOnStart])
-      expect(rooms_config_c.reload.value).to eq(valid_settings_params[:room_configurations][:guestPolicy])
+      expect(rooms_config_a.reload.value).to eq(valid_settings_params[:rooms_configurations][:record])
+      expect(rooms_config_b.reload.value).to eq(valid_settings_params[:rooms_configurations][:muteOnStart])
+      expect(rooms_config_c.reload.value).to eq(valid_settings_params[:rooms_configurations][:guestPolicy])
     end
 
     it 'does not update the room configs for other providers' do
