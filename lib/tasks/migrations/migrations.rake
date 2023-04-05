@@ -305,14 +305,14 @@ namespace :migrations do
     case config_val
       when "enabled"
         "true"
-      when "true"
-        "true"
       when "disabled"
-        "false"
+        "optional"
       when "optional"
         "default_enabled"
+      when "true"
+        "true"
       else
-        "optional"
+        "false"
       end
   end
 end
