@@ -309,6 +309,8 @@ namespace :migrations do
         "true"
       when "disabled"
         "false"
+      when "optional"
+        "default_enabled"
       else
         "optional"
       end
