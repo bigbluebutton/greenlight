@@ -58,6 +58,10 @@ OPTIONS (install Greenlight):
   
   -h                     Print help
 
+VARIABLES (configure Greenlight):
+  GL_PATH                Configure Greenlight relative URL root path (Optional)
+                          * Use this when deploying Greenlight behind a reverse proxy on a path other than the default '/' e.g. '/gl'.
+
 EXAMPLES:
 
 Sample options for setup a Greenlight 3.x server with a publicly signed (by Let's encrypt) SSL certificate for a FQDN of www.example.com and an email
@@ -139,6 +143,13 @@ main() {
         ;;
     esac
   done
+
+  GL_DEFAULT_PATH=/
+  if [ -n "$GL_PATH"  ] && [ "$GL_PATH" != "$GL_DEFAULT_PATH" ]; then
+    if [[ ! $GL_PATH =~ ^/.*[^/]$ ]]; then
+      err "\$GL_PATH ENV is set to '$GL_PATH' which is invalid, Greenlight relative URL root path must start but not end with '/'."
+    fi
+  fi
 
   check_env # Meeting requirements.
 
@@ -416,7 +427,8 @@ install_greenlight_v3(){
   #   A simple change can impact that property and therefore render the upgrading functionnality unoperationnal or impact the running system.
 
   # Configuring Greenlight v3 .env file (if already configured this will only update the BBB endpoint and secret).
-  
+  cp -v $GL3_DIR/.env $GL3_DIR/.env.old && say "old .env file can be retrieved at $GL3_DIR/.env.old" #Backup
+
   if [ -n "$BIGBLUEBUTTON" ]; then
     # BigBlueButton server configuration.
     local BIGBLUEBUTTON_ENDPOINT="https://${BIGBLUEBUTTON[0]}/bigbluebutton/api"
@@ -483,6 +495,26 @@ install_greenlight_v3(){
     docker run --rm --entrypoint sh $GL_IMG_REPO -c 'cat keycloak.nginx' > $NGINX_FILES_DEST/keycloak.nginx && say "added Keycloak nginx file"
   fi
 
+  # Update .env file catching new configurations:
+  if ! grep -q 'RELATIVE_URL_ROOT=' $GL3_DIR/.env; then
+      cat <<HERE >> $GL3_DIR/.env
+#RELATIVE_URL_ROOT=/gl
+
+HERE
+  fi
+
+  if [ -n "$GL_PATH" ]; then
+    sed -i "s|^[# \t]*RELATIVE_URL_ROOT=.*|RELATIVE_URL_ROOT=$GL_PATH|" $GL3_DIR/.env
+  fi
+
+  local GL_RELATIVE_URL_ROOT=$(sed -ne "s/^\([ \t]*RELATIVE_URL_ROOT=\)\(.*\)$/\2/p" $GL3_DIR/.env) # Extract relative URL root path.
+  say "Deploying Greenlight on the '${GL_RELATIVE_URL_ROOT:-$GL_DEFAULT_PATH}' path..."
+
+  if [ -n "$GL_RELATIVE_URL_ROOT" ] && [ "$GL_RELATIVE_URL_ROOT" != "$GL_DEFAULT_PATH" ]; then
+    sed -i "s|^\([ \t]*location\)[ \t]*\(.*/cable\)[ \t]*\({\)$|\1 $GL_RELATIVE_URL_ROOT/cable \3|" $NGINX_FILES_DEST/greenlight-v3.nginx
+    sed -i "s|^\([ \t]*location\)[ \t]*\(@bbb-fe\)[ \t]*\({\)$|\1 $GL_RELATIVE_URL_ROOT \3|" $NGINX_FILES_DEST/greenlight-v3.nginx
+  fi
+
   nginx -qt || err 'greenlight-v3 failed to install/update due to nginx tests failing to pass - if using the official image then please contact the maintainers.'
   nginx -qs reload && say 'greenlight-v3 was successfully configured'
 
@@ -500,8 +532,8 @@ install_greenlight_v3(){
   say "starting greenlight-v3..."
   docker-compose -f $GL3_DIR/docker-compose.yml up -d
   sleep 5
-  say "greenlight-v3 is installed, up to date and accessible on: https://$HOST/"
-  say "To create Greenlight administrator account, see: https://docs.bigbluebutton.org/greenlight_v3/gl3-install.html#creating-an-admin-account-1"
+  say "greenlight-v3 is now installed and accessible on: https://$HOST${GL_RELATIVE_URL_ROOT:-$GL_DEFAULT_PATH}"
+  say "To create Greenlight administrator account, see: https://docs.bigbluebutton.org/greenlight/v3/install#creating-an-admin-account"
 
 
   if grep -q 'keycloak:' $GL3_DIR/docker-compose.yml; then
@@ -512,7 +544,7 @@ install_greenlight_v3(){
       say "   $KCPASSWORD"
     fi
 
-    say "To complete the configuration of Keycloak, see: https://docs.bigbluebutton.org/greenlight_v3/gl3-external-authentication.html#configuring-keycloak"
+    say "To complete the configuration of Keycloak, see: https://docs.bigbluebutton.org/greenlight/v3/external-authentication#configuring-keycloak"
   fi
 
   return 0;
