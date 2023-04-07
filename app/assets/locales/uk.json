@@ -172,7 +172,7 @@
     "unpublished": "Знято з публікації",
     "protected": "Захищено",
     "length_in_minutes": "{{recording.length}} хв.",
-    "processing_recording": "Обробка запису...",
+    "processing_recording": "Обробка запису, це може зайняти декілька хвилин...",
     "copy_recording_urls": "Скопіювати посилання запису",
     "recordings_list_empty": "У вас наразі немає записів!",
     "recordings_list_empty_description": "Записи зявляться тут після того як ви запишете зустріч.",
@@ -287,7 +287,7 @@
         "registration_method": "Метод реєстрації",
         "registration_method_description": "Змінити спосіб реєстрації користувачів на сайті",
         "registration_methods" : {
-          "open": "Відкрита раєстрація",
+          "open": "Відкрита реєстрація",
           "invite": "Приєднання за запрошенням",
           "approval": "Прийняти/Відхилити"
         }
@@ -406,6 +406,7 @@
       "problem_completing_action": "Дію не вдалось виконати\nБудь ласка, спробуйте ще раз.",
       "file_type_not_supported": "Цей тип файлу не підтримується.",
       "file_size_too_large": "Файл надто великий.",
+      "file_upload_error": "Файл не може бути завантажено.",
       "signin_required": "Для доступу до цієї сторінки слід увійти в систему.",
       "roles": {
         "role_assigned": "Цю роль неможливо видалити, бо її надано принаймні одному користувачу."
