@@ -18,7 +18,7 @@
 #    https://www.bigbluebutton.org/.
 #
 # This gl-install.sh script automates many of the installation and configuration
-# steps at https://docs.bigbluebutton.org/greenlight_v3/gl3-install.html
+# steps at https://docs.bigbluebutton.org/greenlight/v3/install
 #
 #
 #  Examples
@@ -76,7 +76,7 @@ Sample options for setup a Greenlight 3.x server with pre-owned SSL certificates
 SUPPORT:
          Community: https://groups.google.com/g/bigbluebutton-greenlight
          Source: https://github.com/bigbluebutton/greenlight-run
-         Docs: https://docs.bigbluebutton.org/greenlight_v3/gl3-install.html
+         Docs: https://docs.bigbluebutton.org/greenlight/v3/install
 
 HERE
 }
@@ -359,7 +359,7 @@ check_host() {
 
 # This function will install the latest official version of greenlight-v3 and set it as the hosting Bigbluebutton default frontend or update greenlight-v3 if installed.
 # Greenlight is a simple to use Bigbluebutton room manager that offers a set of features useful to online workloads especially virtual schooling.
-# https://docs.bigbluebutton.org/greenlight/gl-overview.html
+# https://docs.bigbluebutton.org/greenlight/v3/install
 install_greenlight_v3(){
   check_root
   install_docker
