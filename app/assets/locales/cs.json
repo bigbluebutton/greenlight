@@ -246,7 +246,7 @@
         "default_role_description": "Výchozí role je přidělena nově vytvořeným uživatelům",
         "registration_method": "Metoda registrace",
         "registration_method_description": "Nastavit způsob registrace uživatelů",
-        "registration_methods" : {
+        "registration_methods": {
           "open": "Otevřená registrace",
           "invite": "Registrace na pozvánku",
           "approval": "Schvalování registrace"

@@ -286,7 +286,7 @@
         "default_role_description": "Yeni eklenen kullanıcılara atanacak varsayılan rol",
         "registration_method": "Hesap açma yöntemi",
         "registration_method_description": "Kullanıcıların web sitesinde hesap açma yöntemini değiştirin",
-        "registration_methods" : {
+        "registration_methods": {
           "open": "Serbest hesap açma",
           "invite": "Çağrı ile katılma",
           "approval": "Onayla/Reddet"
@@ -487,7 +487,7 @@
           "required": "Lütfen bir oda adı yazın.",
           "min": "Ad en az 2 karakter uzunluğunda olabilir"
         }
-      }, 
+      },
       "url": {
         "invalid": "Adres geçersiz"
       }

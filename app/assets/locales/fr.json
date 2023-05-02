@@ -286,7 +286,7 @@
         "default_role_description": "Le rôle par défaut a été attribué aux nouveaux utilisateurs",
         "registration_method": "Mode d'inscription",
         "registration_method_description": "Modifier la façon dont les utilisateurs s'inscrivent  sur le site web",
-        "registration_methods" : {
+        "registration_methods": {
           "open": "Inscription libre",
           "invite": "Rejoindre sur invitation",
           "approval": "Approuver/Refuser"
@@ -423,7 +423,8 @@
       },
       "session": {
         "invalid_credentials": "Le nom d'utilisateur·rice ou le mot de passe sont incorrects. Veuillez vérifier vos identifiants et essayer à nouveau."
-      }
+      },
+      "file_upload_error": "Le fichier ne peut pas être téléchargé."
     }
   },
   "global_error_page": {
@@ -480,9 +481,9 @@
           "required": "Veuillez saisir le nombre limite pour la salle",
           "min": "Le minimum autorisé est 0",
           "max": "Le maximum autorisé est 100"
-        }, 
+        },
         "type": {
-          "error": "Vous devez stipuler un nombre" 
+          "error": "Vous devez stipuler un nombre"
         }
       },
       "room": {
@@ -490,7 +491,7 @@
           "required": "Veuillez saisir le nom de la salle",
           "min": "Le nom doit comporter 2 caractères au minimum "
         }
-      }, 
+      },
       "url": {
         "invalid": "URL non valide"
       }

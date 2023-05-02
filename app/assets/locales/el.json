@@ -286,7 +286,7 @@
         "default_role_description": "Ο προεπιλεγμένος ρόλος που αποδίδεται σε νέους χρήστες",
         "registration_method": "Μέθοδος εγγραφής",
         "registration_method_description": "Αλλαγή του τρόπου εγγραφής των χρηστών στον ιστότοπο",
-        "registration_methods" : {
+        "registration_methods": {
           "open": "Ενεργοποίηση εγγραφών",
           "invite": "Συμμετοχή με πρόσκληση",
           "approval": "Έγκριση/Απόρριψη"

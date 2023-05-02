@@ -286,7 +286,7 @@
         "default_role_description": "The default role to be assigned to newly created users",
         "registration_method": "Registration Method",
         "registration_method_description": "Change the way that users register to the website",
-        "registration_methods" : {
+        "registration_methods": {
           "open": "Open Registration",
           "invite": "Join by Invitation",
           "approval": "Approve/Decline"

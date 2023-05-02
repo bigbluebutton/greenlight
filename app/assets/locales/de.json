@@ -286,7 +286,7 @@
         "default_role_description": "Standard-Rolle, die neuen Nutzer:innen zugeteilt wird",
         "registration_method": "Registrierungs-Methode",
         "registration_method_description": "Registrierungs-Methoden ändern",
-        "registration_methods" : {
+        "registration_methods": {
           "open": "Offene Registrierung",
           "invite": "Per Einladung teilnehmen",
           "approval": "Zulassen/Ablehnen"

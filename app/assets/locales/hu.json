@@ -286,7 +286,7 @@
         "default_role_description": "A frissen létrehozott felhasználókhoz rendelt alapértelmezett szerepkör",
         "registration_method": "Regisztrációs mód",
         "registration_method_description": "A felhasználók regisztrációs módjának módosítása",
-        "registration_methods" : {
+        "registration_methods": {
           "open": "Nyílt regisztráció",
           "invite": "Csatlakozás meghívással",
           "approval": "Engedélyezés/elutasítás"

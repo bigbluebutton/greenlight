@@ -286,7 +286,7 @@
         "default_role_description": "Роль, що автоматично буде надаватись новоствореним користувачам",
         "registration_method": "Метод реєстрації",
         "registration_method_description": "Змінити спосіб реєстрації користувачів на сайті",
-        "registration_methods" : {
+        "registration_methods": {
           "open": "Відкрита раєстрація",
           "invite": "Приєднання за запрошенням",
           "approval": "Прийняти/Відхилити"

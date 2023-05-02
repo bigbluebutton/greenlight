@@ -286,7 +286,7 @@
         "default_role_description": "Роль, по умолчанию назначаемая новым пользователям",
         "registration_method": "Метод регистрации",
         "registration_method_description": "Изменение способа регистрации пользователей на сайте",
-        "registration_methods" : {
+        "registration_methods": {
           "open": "Открытая регистрация",
           "invite": "Вход по приглашению",
           "approval": "Одобрить/отклонить"

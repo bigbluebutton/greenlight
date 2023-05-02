@@ -248,7 +248,7 @@
         "default_role_description": "نقش پیش‌فرضی که به کاربران تازه ایجاد شده اختصاص داده می‌شود",
         "registration_method": "روش ثبت نام",
         "registration_method_description": "نحوه ثبت نام کاربران در وب‌سایت را تغییر دهید",
-        "registration_methods" : {
+        "registration_methods": {
           "open": "باز کردن ثبت نام",
           "invite": "پیوستن با دعوتنامه",
           "approval": "تایید/رد کردن"

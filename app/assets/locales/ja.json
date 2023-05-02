@@ -286,7 +286,7 @@
         "default_role_description": "新しく作成されたユーザーに自動的に割り当てられる役割です",
         "registration_method": "登録方法",
         "registration_method_description": "ユーザーがこのサイトに登録する方法を変更します",
-        "registration_methods" : {
+        "registration_methods": {
           "open": "誰でも自由に登録",
           "invite": "招待制",
           "approval": "承認制"
