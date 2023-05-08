@@ -109,7 +109,7 @@
     "create_new_room": "Créer une nouvelle salle",
     "enter_room_name": "Saisissez le nom de la salle",
     "shared_by": "Partagé par",
-    "last_session": "Dernière session : {{ room.last_session }}",
+    "last_session": "Dernière session : {{ localizedTime }}",
     "no_last_session": "Il n'y a aucune session précédente",
     "search_not_found": "Aucune salle trouvée",
     "rooms_list_is_empty": "Vous n'avez pas encore de salles!",
