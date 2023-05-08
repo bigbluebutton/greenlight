@@ -171,7 +171,7 @@
     "published": "Publiée",
     "unpublished": "Non publiée",
     "protected": "Protégée",
-    "length_in_minutes": "{{enregistrement.durée}} min.",
+    "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "L'enregistrement est en cours de traitement, cela peu prendre quelques minutes...",
     "copy_recording_urls": "Copier l'URL de l'enregistrement",
     "recordings_list_empty": "Vous n'avez pas encore d'enregistrements!",
