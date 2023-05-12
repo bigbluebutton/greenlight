@@ -1,0 +1,650 @@
+{
+  "start": "Start",
+  "search": "Szukaj",
+  "home": "Strona główna",
+  "previous": "Poprzedni",
+  "back": "Powrót",
+  "next": "Następny",
+  "view": "Wyświetl",
+  "join": "Dołącz",
+  "edit": "Edytuj",
+  "save": "Zapisz",
+  "save_changes": "Zapisz zmiany",
+  "update": "Aktualizuj",
+  "report": "Zgłoś",
+  "share": "Udostępnij",
+  "cancel": "Anuluj",
+  "close": "Zamknij",
+  "delete": "Usuń",
+  "copy": "Skopiuj łącze do dołączenia",
+  "or": "Lub",
+  "online": "Online",
+  "help_center": "Centrum Pomocy",
+  "are_you_sure": "Czy na pewno?",
+  "return_home": "Powrót do strony głównej",
+  "created_at": "Utworzono",
+  "no_result_search_input": "Nie znaleziono wyników dla \"{{ searchInput }}\"",
+"action_permanent": "Tej czynności nie można cofnąć.",
+"homepage": {
+"welcome_bbb": "Witamy w NaukaNet.",
+"bigbluebutton_description": "NaukaNet to system wideokonferencji dla zajęć online. Platforma maksymalizuje czas na naukę praktyczną, umożliwiając studentom współpracę i otrzymywanie informacji zwrotnej w czasie rzeczywistym.",
+"greenlight_description": "Twórz własne pokoje, aby prowadzić sesje lub dołączaj do innych za pomocą krótkiego i wygodnego łącza.",
+"learn_more": "Dowiedz się więcej o NaukaNet",
+"explore_features": "Odkryj nasze funkcje",
+"meeting_title": "Rozpocznij spotkanie",
+"meeting_description": "Rozpocznij wirtualne zajęcia z wideo, audio, udostępnianiem ekranu, czatem i wszystkimi narzędziami potrzebnymi do nauki praktycznej.",
+"recording_title": "Nagrywaj swoje spotkania",
+"recording_description": "Nagrywaj spotkania w NaukaNet i udostępniaj je studentom do przeglądania i analizowania materiału.",
+"settings_title": "Zarządzaj swoimi pokojami",
+"settings_description": "Konfiguruj pokoje i ustawienia spotkań, aby efektywnie zarządzać klasą.",
+"and_more_title": "I wiele więcej!",
+"and_more_description": "NaukaNet oferuje wbudowane narzędzia do nauki praktycznej i został zaprojektowana, aby oszczędzić Ci czas podczas zajęć.",
+"enter_meeting_url": "Wprowadź adres URL spotkania",
+"enter_meeting_url_instruction": "Proszę wprowadzić adres URL spotkania NaukaNet w pole poniżej"
+},
+  "authentication": {
+    "sign_in": "Zaloguj się",
+    "sign_up": "Zarejestruj się",
+    "sign_out": "Wyloguj się",
+    "email": "Email",
+    "password": "Hasło",
+    "confirm_password": "Potwierdź hasło",
+    "enter_email": "Wprowadź swój adres email",
+    "enter_name": "Wprowadź swoje imię",
+    "remember_me": "Zapamiętaj mnie",
+    "forgot_password": "Zapomniałeś hasła?",
+    "dont_have_account": "Nie masz konta?",
+    "create_account": "Utwórz konto",
+    "create_an_account": "Utwórz konto",
+    "already_have_account": "Masz już konto?"
+  },
+  "user": {
+    "user": "Użytkownik",
+    "users": "Użytkownicy",
+    "name": "Imię",
+    "email_address": "Adres email",
+    "authenticator": "Autoryzator",
+    "full_name": "Pełne imię",
+    "no_user_found": "Nie znaleziono użytkownika",
+    "type_three_characters": "Wprowadź co najmniej trzy znaki, aby wyświetlić innych użytkowników.",
+    "search_not_found": "Nie znaleziono użytkowników",
+    "profile": {
+      "profile": "Profil",
+      "language": "Język",
+      "role": "Rola",
+      "administrator": "Administrator",
+      "guest": "Gość"
+    },
+    "account": {
+      "account_info": "Informacje o koncie",
+      "delete_account": "Usuń konto",
+      "change_password": "Zmień hasło",
+      "reset_password": "Zresetuj hasło",
+      "update_account_info": "Zaktualizuj informacje o koncie",
+      "current_password": "Obecne hasło",
+      "new_password": "Nowe hasło",
+      "confirm_password": "Potwierdź hasło",
+      "permanently_delete_account": "Trwale usunięcie konta",
+      "delete_account_description": "Jeśli zdecydujesz się usunąć swoje konto, nie będzie możliwości jego odzyskania. \n Wszystkie informacje dotyczące Twojego konta, w tym ustawienia, pokoje i nagrania, zostaną usunięte.",
+      "delete_account_confirmation": "Tak, chcę usunąć moje konto",
+      "are_you_sure_delete_account": "Czy na pewno chcesz usunąć swoje konto?"
+    },
+    "avatar": {
+      "upload_avatar": "Prześlij avatar",
+      "delete_avatar": "Usuń avatar",
+      "crop_avatar": "Przytnij swój avatar"
+    },
+    "pending": {
+      "title": "Oczekująca rejestracja",
+      "message": "Dziękujemy za rejestrację! Twoje konto oczekuje na zatwierdzenie przez administratora."
+    }
+  },
+  "room": {
+    "room": "Pokój",
+    "rooms": "Pokoje",
+    "room_name": "Nazwa pokoju",
+    "add_new_room": "+ Nowy pokój",
+    "create_room": "Utwórz pokój",
+    "delete_room": "Usuń pokój",
+    "create_new_room": "Utwórz nowy pokój",
+    "enter_room_name": "Wprowadź nazwę pokoju",
+    "shared_by": "udostępnione przez ",
+    "last_session": "Ostatnia sesja: {{ localizedTime }}",
+    "no_last_session": "Brak poprzedniej sesji",
+    "search_not_found": "Nie znaleziono pokoi",
+    "rooms_list_is_empty": "Nie masz jeszcze żadnych pokoi!",
+    "rooms_list_empty_create_room": "Utwórz swój pierwszy pokój, klikając poniższy przycisk i wprowadzając nazwę pokoju.",
+    "meeting": {
+      "start_meeting": "Rozpocznij spotkanie",
+      "join_meeting": "Dołącz do spotkania",
+      "meeting_invitation": "Zostałeś zaproszony do dołączenia do",
+      "meeting_not_started": "Spotkanie jeszcze się nie rozpoczęło",
+      "join_meeting_automatically": "Dołączysz automatycznie, gdy spotkanie się rozpocznie",
+      "recording_consent": "Potwierdzam, że ta sesja może być nagrywana. Może obejmować mój głos i wideo, jeśli jest włączone."
+    },
+    "presentation": {
+      "presentation": "Prezentacja",
+      "click_to_upload": "Kliknij, aby przesłać",
+      "drag_and_drop": " lub przeciągnij i upuść",
+      "upload_description": "Prześlij dowolny dokument biurowy lub plik PDF. W zależności od rozmiaru pliku, może być wymagane dodatkowe czas na przesłanie przed jego użyciem.",
+      "are_you_sure_delete_presentation": "Czy na pewno chcesz usunąć tę prezentację?"
+    },
+    "shared_access": {
+      "access": "Dostęp",
+      "add_share_access": "+ Udostępnij dostęp",
+      "share_room_access": "Udostępnij dostęp do pokoju",
+      "add_some_users": "Czas dodać kilku użytkowników!",
+      "add_some_users_description": "Aby dodać nowych użytkowników, kliknij poniższy przycisk, wyszukaj lub wybierz użytkowników, z którymi chcesz udostępnić ten pokój.",
+      "delete_shared_access": "Usuń udostępniony dostęp",
+      "are_you_sure_delete_shared_access": "Czy na pewno chcesz usunąć ten udostępniony dostęp?"
+    },
+    "settings": {
+      "settings": "Ustawienia",
+      "room_name": "Nazwa pokoju",
+      "user_settings": "Ustawienia użytkownika",
+      "allow_room_to_be_recorded": "Zezwól na nagrywanie pokoju",
+      "require_signed_in": "Wymagaj zalogowania użytkowników przed dołączeniem",
+      "require_signed_in_message": "Musisz być zalogowany, aby dołączyć do tego pokoju.",
+      "require_mod_approval": "Wymagaj zatwierdzenia moderatora przed dołączeniem",
+      "allow_any_user_to_start": "Zezwalaj wszystkim użytkownikom na rozpoczęcie tego spotkania",
+      "all_users_join_as_mods": "Wszyscy użytkownicy dołączają jako moderatorzy",
+      "mute_users_on_join": "Wyciszaj użytkowników po dołączeniu",
+      "generate": "Generuj",
+      "access_code": "Kod dostępu",
+      "mod_access_code": "Kod dostępu moderatora",
+      "mod_access_code_optional": "Kod dostępu moderatora (opcjonalny)",
+      "access_code_required": "Wprowadź kod dostępu",
+      "wrong_access_code": "Niewłaściwy kod dostępu",
+      "generate_viewers_access_code": "Generuj kod dostępu dla widzów",
+      "generate_mods_access_code": "Generuj kod dostępu dla moderatorów",
+      "are_you_sure_delete_room": "Czy na pewno chcesz usunąć ten pokój?"
+    }
+  },
+  "recording": {
+    "recording": "Nagrywanie",
+    "recordings": "Nagrania",
+    "name": "Nazwa",
+    "length": "Długość",
+    "users": "Użytkownicy",
+    "visibility": "Widoczność",
+    "formats": "Formaty",
+    "published": "Opublikowane",
+    "unpublished": "Nieopublikowane",
+    "protected": "Chronione",
+    "length_in_minutes": "{{recording.length}} min.",
+    "processing_recording": "Przetwarzanie nagrania...",
+    "copy_recording_urls": "Kopiuj adres(y) nagrania",
+    "recordings_list_empty": "Nie masz jeszcze żadnych nagrań!",
+    "recordings_list_empty_description": "Nagrania pojawią się tutaj po rozpoczęciu spotkania i nagraniu go.",
+    "delete_recording": "Usuń nagranie",
+    "are_you_sure_delete_recording": "Czy na pewno chcesz usunąć to nagranie?",
+    "search_not_found": "Nie znaleziono nagrań"
+  },
+  "admin": {
+    "admin_panel": "Panel administratora",
+    "manage_users": {
+      "manage_users": "Zarządzanie użytkownikami",
+      "active": "Aktywni",
+      "approve": "Zatwierdź",
+      "decline": "Odrzuć",
+      "pending": "Oczekujący",
+      "banned": "Zablokowani",
+      "ban": "Zablokuj",
+      "unban": "Odblokuj",
+      "deleted": "Usunięci",
+      "invited_tab": "Zaproszeni",
+      "invite_user": "Zaproś użytkownika",
+      "send_invitation": "Wyślij zaproszenie",
+      "enter_user_email": "Wprowadź adres e-mail użytkownika",
+      "new_user": "Nowy użytkownik",
+      "add_new_user": "Nowy użytkownik",
+      "create_new_user": "Utwórz nowego użytkownika",
+      "edit_user": "Edytuj użytkownika",
+      "delete_user": "Usuń użytkownika",
+      "users_edit_path": "Użytkownicy/Edytuj",
+      "create_account": "Utwórz konto",
+      "create_room": "Utwórz pokój",
+      "create_new_room": "Utwórz nowy pokój",
+      "user_created_at": "Utworzono: {{localizedTime}}",
+      "are_you_sure_delete_account": "Czy na pewno chcesz usunąć konto użytkownika {{user.name}}?",
+      "delete_account_warning": "Jeśli zdecydujesz się usunąć to konto, nie będzie możliwości odzyskania danych.",
+      "empty_active_users": "Na tym serwerze nie ma jeszcze aktywnych użytkowników!",
+      "empty_active_users_subtext": "Po zmianie statusu użytkownika na aktywny pojawią się tutaj.",
+      "empty_pending_users": "Na tym serwerze nie ma jeszcze użytkowników oczekujących!",
+      "empty_pending_users_subtext": "Po zmianie statusu użytkownika na oczekujący pojawią się tutaj.",
+      "empty_banned_users": "Na tym serwerze nie ma jeszcze zablokowanych użytkowników!",
+      "empty_banned_users_subtext": "Po zmianie statusu użytkownika na zablokowany pojawią się tutaj.",
+      "empty_invited_users": "Na tym serwerze nie ma jeszcze zaproszonych użytkowników!",
+      "empty_invited_users_subtext": "Po zmianie statusu użytkownika na zaproszony pojawią się tutaj.",
+      "invited": {
+        "time_sent": "Czas wysłania",
+        "valid": "Ważne"
+      }
+    },
+  "server_rooms": {
+      "server_rooms": "Server Rooms",
+      "name": "Name",
+      "owner": "Owner",
+      "room_id": "Room ID",
+      "participants": "Participants",
+      "status": "Status",
+      "running": "Running",
+      "not_running": "Not Running",
+      "active": "Active",
+      "current_session": "Current Session: {{lastSession}}",
+      "last_session": "Last Session: {{localizedTime}}",
+      "no_meeting_yet": "No meeting yet.",
+      "delete_server_rooms": "Delete Server Room",
+      "resync_recordings": "Re-Sync Recordings",
+      "empty_room_list": "There are no server rooms yet!",
+      "empty_room_list_subtext": "Rooms will appear here after creating your first room."
+    },
+    "server_recordings": {
+      "server_recordings": "Server Recordings",
+      "latest_recordings": "Latest Recordings",
+      "no_recordings_found": "No recordings found."
+    },
+    "site_settings": {
+      "site_settings": "Site Settings",
+      "customize_greenlight": "Customize NaukaNet",
+      "appearance": {
+        "appearance": "Appearance",
+        "brand_color": "Brand Color",
+        "regular": "Regular",
+        "lighten": "Lighten",
+        "brand_image": "Brand Image",
+        "click_to_upload": "Click to Upload",
+        "drag_and_drop": " or drag and drop",
+        "upload_brand_image_description": "Upload any PNG, JPG, or SVG file. Depending on the size of the file, it may require additional time to upload before it can be used",
+        "remove_branding_image": "Remove Branding Image"
+      },
+      "administration": {
+        "administration": "Administration",
+        "terms": "Terms & Conditions",
+        "privacy": "Privacy Policy",
+        "privacy_policy": "Privacy Policy",
+        "change_term_links": "Change the terms links that appears at the bottom of the page",
+        "change_privacy_link": "Change the privacy link that appears at the bottom of the page",
+        "change_url": "Change URL",
+        "enter_link": "Enter link here"
+      },
+      "settings": {
+        "settings": "Settings",
+        "allow_users_to_share_rooms": "Allow Users to Share Rooms",
+        "allow_users_to_share_rooms_description": "Setting to disabled will remove the button from the room options dropdown, preventing users from sharing rooms",
+        "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",
+        "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room"
+      },
+      "registration": {
+        "registration": "Registration",
+        "role_mapping_by_email": "Role Mapping By Email",
+        "role_mapping_by_email_description": "Map the user to a role using their email. Must be in the format: role1=email1, role2=email2",
+        "enter_role_mapping_rule": "Enter a role mapping rule",
+        "resync_on_login": "Resync User Data On Every Sign In",
+        "resync_on_login_description": "Resync a user's information every time they sign in, making the external authentication provider always match the information in NaukaNet",
+        "default_role": "Default Role",
+        "default_role_description": "The default role to be assigned to newly created users",
+        "registration_method": "Registration Method",
+        "registration_method_description": "Change the way that users register to the website",
+        "registration_methods" : {
+          "open": "Open Registration",
+          "invite": "Join by Invitation",
+          "approval": "Approve/Decline"
+        }
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "Konfiguracja Pokoju",
+      "default": "Opcjonalne (domyślnie: włączone)",
+      "optional": "Opcjonalne (domyślnie: wyłączone)",
+      "enabled": "Wymuszone włączenie",
+      "disabled": "Wyłączone",
+      "configurations": {
+        "allow_room_to_be_recorded": "Zezwól na nagrywanie pokoju",
+        "allow_room_to_be_recorded_description": "Pozwala właścicielom pokoju określić, czy chcą mieć możliwość nagrywania pokoju. Jeśli jest włączone, moderator musi kliknąć przycisk „Nagrywaj” po rozpoczęciu spotkania.",
+        "require_user_signed_in": "Wymagaj zalogowania użytkownika przed dołączeniem",
+        "require_user_signed_in_description": "Zezwala tylko zalogowanym użytkownikom NaukaNet na dołączanie do spotkania. Jeśli nie są zalogowani, zostaną przekierowani do strony logowania podczas próby dołączenia do pokoju.",
+        "require_mod_approval": "Wymagaj zgody moderatora przed dołączeniem",
+        "require_mod_approval_description": "Wymaga od moderatora spotkania NaukaNet zatwierdzenia użytkownika, który próbuje dołączyć. Jeśli użytkownik zostanie zatwierdzony, będzie mógł dołączyć do spotkania.",
+        "allow_any_user_to_start_meeting": "Zezwalaj każdemu użytkownikowi na rozpoczęcie spotkania",
+        "allow_any_user_to_start_meeting_description": "Zezwól każdemu użytkownikowi na dowolne rozpoczęcie spotkania w dowolnym momencie. Domyślnie tylko właściciel pokoju może rozpocząć spotkanie.",
+        "allow_users_to_join_as_mods": "Wszyscy użytkownicy dołączają jako moderatorzy",
+        "allow_users_to_join_as_mods_description": "Przyznaje wszystkim użytkownikom uprawnienia moderatora w NaukaNet po dołączeniu do spotkania",
+        "mute_users_on_join": "Wycisz użytkowników po dołączeniu",
+        "mute_users_on_join_description": "Automatycznie wycisza użytkownika po dołączeniu do spotkania w NaukaNet",
+        "viewer_access_code": "Kod dostępu dla widzów",
+        "viewer_access_code_description": "Pozwala właścicielom pokoju na wygenerowanie losowego alfanumerycznego kodu, który można udostępnić użytkownikom. Kod, jeśli zostanie wygenerowany, będzie wymagany od użytkowników do dołączenia do spotkań w pokoju.",
+        "mod_access_code": "Kod dostępu dla moderatorów",
+        "mod_access_code_description": "Pozwala właścicielom pokoju na wygenerowanie losowego alfanumerycznego kodu, który można udostępnić użytkownikom. Kod, jeśli zostanie wygenerowany,nie będzie wymagany i gdy zostanie użyty w dowolnym spotkaniu w pokoju, użytkownik dołączy jako moderator."
+      }
+    },
+    "roles": {
+      "role": "Role",
+      "roles": "Roles",
+      "administrator": "Administrator",
+      "guest": "Guest",
+      "manage_roles": "Manage Roles",
+      "delete_role": "Delete Role",
+      "are_you_sure_delete_role": "Are you sure you want to delete this role?",
+      "enter_role_name": "Enter a role name",
+      "add_role": "+ Create Role",
+      "create_role": "Create Role",
+      "create_new_role": "Create a new role",
+      "no_role_found": "No role found.",
+      "search_not_found": "No Roles Found",
+      "edit": {
+        "create_room": "Allow users with this role to create rooms",
+        "record": "Allow users with this role to record their meetings",
+        "manage_users": "Allow users with this role to manage users",
+        "manage_rooms": "Allow users with this role to manage server rooms",
+        "manage_recordings": "Allow users with this role to manage server recordings",
+        "manage_site_settings": "Allow users with this role to manage site settings",
+        "manage_roles": "Allow users with this role to edit other roles",
+        "shared_list": "Include users with this role in the dropdown for sharing rooms",
+        "room_limit": "Room Limit"
+      }
+    }
+  },
+  "toast": {
+    "success": {
+      "user": {
+        "user_created": "Utworzono nowego użytkownika.",
+        "user_updated": "Użytkownik został zaktualizowany.",
+        "user_deleted": "Użytkownik został usunięty.",
+        "avatar_updated": "Awatar został zaktualizowany.",
+        "password_updated": "Hasło zostało zaktualizowane.",
+        "account_activated": "Twoje konto zostało aktywowane.",
+        "activation_email_sent": "E-mail z instrukcjami dotyczącymi aktywacji konta został wysłany.",
+        "reset_pwd_email_sent": "E-mail z instrukcjami resetowania hasła został wysłany."
+      },
+      "session": {
+        "signed_out": "Zostałeś wylogowany."
+      },
+      "room": {
+        "room_created": "Utworzono nowy pokój.",
+        "room_updated": "Pokój został zaktualizowany.",
+        "room_deleted": "Pokój został usunięty.",
+        "room_shared": "Pokój został udostępniony.",
+        "room_unshared": "Pokój przestał być udostępniony.",
+        "recordings_synced": "Nagrania z pokoju zostały zsynchronizowane.",
+        "room_configuration_updated": "Konfiguracja pokoju została zaktualizowana.",
+        "room_setting_updated": "Ustawienia pokoju zostały zaktualizowane.",
+        "presentation_updated": "Prezentacja została zaktualizowana.",
+        "presentation_deleted": "Prezentacja została usunięta.",
+        "joining_meeting": "Dołączanie do spotkania...",
+        "meeting_started": "Spotkanie rozpoczęte.",
+        "access_code_copied": "Kod dostępu został skopiowany.",
+        "access_code_generated": "Wygenerowano nowy kod dostępu.",
+        "access_code_deleted": "Kod dostępu został usunięty.",
+        "copied_meeting_url": "URL spotkania został skopiowany. Link można użyć do dołączenia do spotkania."
+      },
+      "site_settings": {
+        "site_setting_updated": "Ustawienie witryny zostało zaktualizowane.",
+        "brand_color_updated": "Kolor marki został zaktualizowany.",
+        "brand_image_updated": "Obraz marki został zaktualizowany.",
+        "brand_image_deleted": "Obraz marki został usunięty.",
+        "privacy_policy_updated": "Polityka prywatności została zaktualizowana.",
+        "terms_of_service_updated": "Warunki korzystania zostały zaktualizowane."
+      },
+      "recording": {
+        "recording_visibility_updated": "Widoczność nagrania została zaktualizowana.",
+        "recording_name_updated": "Nazwa nagrania została zaktualizowana.",
+        "recording_deleted": "Nagranie zostało usunięte.",
+        "copied_urls": "Adresy URL nagrania zostały skopiowane."
+      },
+      "role": {
+        "role_created": "Utworzono nową rolę.",
+        "role_updated": "Rola została zaktualizowana.",
+        "role_deleted": "Rola została usunięta.",
+        "role_permission_updated": "Uprawnienia roli zostały zaktualizowane."
+      },
+      "invitations": {
+        "invitation_sent": "Zostało wysłane zaproszenie."
+      }
+    },
+    "error": {
+      "problem_completing_action": "Nie można zakończyć akcji. \n Proszę spróbować ponownie.",
+      "file_type_not_supported": "Nieobsługiwany typ pliku.",
+      "file_size_too_large": "Rozmiar pliku jest zbyt duży.",
+      "signin_required": "Musisz być zalogowany, aby uzyskać dostęp do tej strony.",
+      "roles": {
+        "role_assigned": "Nie można usunąć tej roli, ponieważ jest przypisana do co najmniej jednego użytkownika."
+      },
+      "users": {
+        "signup_error": "Nie można uwierzytelnić użytkownika. Skontaktuj się z administratorem.",
+        "invalid_invite": "Twój token zaproszenia jest nieprawidłowy lub niepoprawny. Skontaktuj się z administratorem, aby otrzymać nowy token.",
+        "email_exists": "Konto o tym adresie e-mail już istnieje. Spróbuj ponownie z innym adresem e-mail.",
+        "old_password": "Wprowadzone hasło jest nieprawidłowe.",
+        "pending": "Twoja rejestracja oczekuje na zatwierdzenie przez administratora. Spróbuj ponownie później.",
+        "banned": "Nie masz dostępu do tej aplikacji. Skontaktuj się z administratorem, jeśli uważasz, że to jest błąd."
+      },
+      "rooms": {
+        "room_limit": "Nie można utworzyć pokoju z powodu przekroczenia limitu pokoi."
+      },
+      "session": {
+        "invalid_credentials": "Nazwa użytkownika lub hasło jest nieprawidłowe. Sprawdź swoje dane uwierzytelniające i spróbuj ponownie."
+      }
+    }
+  },
+  "global_error_page": {
+    "title": "Błąd",
+    "message": "Przepraszamy, coś poszło nie tak. Jeśli incydent będzie się powtarzał, skontaktuj się z administratorem."
+  },
+  "not_found_error_page": {
+    "title": "Nie znaleziono strony",
+    "message": "Przepraszamy, nie można odnaleźć strony, do której próbujesz uzyskać dostęp."
+  },
+  "account_activation_page": {
+    "title": "Aktywacja konta",
+    "account_unverified": "Twoje konto nie zostało jeszcze zweryfikowane.",
+    "message": "Aby korzystać z NaukaNet, zweryfikuj swoje konto, postępując zgodnie z instrukcjami w wiadomości e-mail z aktywacją, która została do Ciebie wysłana.",
+    "resend_activation_link": "Jeśli nie otrzymałeś wiadomości e-mail z aktywacją lub masz problem z jej użyciem, kliknij poniższy przycisk, aby poprosić o ponowne wysłanie wiadomości z aktywacją.",
+    "resend_btn_lbl": "Wyślij ponownie"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Proszę wprowadzić imię i nazwisko.",
+        "min": "Imię musi mieć co najmniej 2 znaki.",
+        "max": "Imię może mieć maksymalnie 255 znaków."
+      },
+      "email": {
+        "required": "Proszę wprowadzić adres e-mail.",
+        "email": "Wprowadzony adres nie jest poprawny.",
+        "min": "Adres e-mail musi mieć co najmniej 6 znaków.",
+        "max": "Adres e-mail może mieć maksymalnie 255 znaków."
+      },
+      "password": {
+        "required": "Proszę wprowadzić hasło.",
+        "match": "Hasło musi zawierać co najmniej:",
+        "min": "- Osiem znaków",
+        "lower": "- Jedną małą literę",
+        "upper": "- Jedną wielką literę",
+        "digit": "- Jedną cyfrę",
+        "symbol": "- Jeden symbol",
+        "max": "Hasło może mieć maksymalnie 255 znaków."
+      },
+      "password_confirmation": {
+        "required": "Proszę potwierdzić hasło.",
+        "match": "Hasła nie pasują do siebie."
+      },
+      "emails": {
+        "required": "Proszę wprowadzić co najmniej jeden poprawny adres e-mail.",
+        "list": "Proszę wprowadzić listę poprawnych adresów e-mail, oddzielonych przecinkami (użytkownik@uzytkownicy.com,uzytkownik1@uzytkownicy.com,uzytkownik2@uzytkownicy.com)"
+      },
+      "role_name": {
+        "required": "Proszę wprowadzić nazwę roli."
+      },
+      "role": {
+        "limit": {
+          "required": "Proszę wprowadzić limit liczby pokoi.",
+          "min": "Dozwolony minimum to 0.",
+          "max": "Dozwolony maksimum to 100."
+        },
+        "type": {
+          "error": "Musisz podać liczbę."
+        }
+      },
+      "room": {
+        "name": {
+          "required": "Proszę wprowadzić nazwę pokoju.",
+          "min": "Nazwa musi mieć co najmniej 2 znaki."
+        }
+      },
+      "url": {
+        "invalid": "Nieprawidłowy adres URL."
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Nazwa pokoju",
+          "placeholder": "Wprowadź nazwę pokoju..."
+        }
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Imię i nazwisko",
+            "placeholder": "Wprowadź imię i nazwisko"
+          },
+          "email": {
+            "label": "Adres e-mail",
+            "placeholder": "Wprowadź adres e-mail"
+          },
+          "password": {
+            "label": "Hasło",
+            "placeholder": "Utwórz hasło"
+          },
+          "password_confirmation": {
+            "label": "Potwierdź hasło",
+            "placeholder": "Potwierdź hasło"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "Adres e-mail",
+            "placeholder": "Adres e-mail"
+          },
+          "password": {
+            "label": "Hasło",
+            "placeholder": "Hasło"
+          },
+          "remember_me": {
+            "label": "Zapamiętaj mnie"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Obecne hasło",
+            "placeholder": "Wprowadź obecne hasło"
+          },
+          "new_password": {
+            "label": "Nowe hasło",
+            "placeholder": "Wprowadź nowe hasło"
+          },
+          "password_confirmation": {
+            "label": "Potwierdź hasło",
+            "placeholder": "Potwierdź nowe hasło"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Proszę wprowadzić obecne hasło."
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "Adres e-mail",
+            "placeholder": "Wprowadź adres e-mail konta"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Proszę wprowadzić adres e-mail konta."
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Nowe hasło",
+            "placeholder": "Wprowadź nowe hasło"
+          },
+          "password_confirmation": {
+            "label": "Potwierdź hasło",
+            "placeholder": "Potwierdź nowe hasło"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Imię i nazwisko"
+          },
+          "email": {
+            "label": "Adres e-mail"
+          },
+          "language": {
+            "label": "Język"
+          },
+          "role": {
+            "label": "Rola"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Imię i nazwisko",
+            "placeholder": "Wprowadź imię i nazwisko użytkownika"
+          },
+          "email": {
+            "label": "Adres e-mail",
+            "placeholder": "Wprowadź adres e-mail użytkownika"
+          },
+          "password": {
+            "label": "Hasło",
+            "placeholder": "Wprowadź hasło użytkownika"
+          },
+          "password_confirmation": {
+            "label": "Potwierdź hasło",
+            "placeholder": "Potwierdź hasło"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "Adresy e-mail"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "Wprowadź tutaj link..."
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "Nazwa roli",
+            "placeholder": "Wprowadź nazwę roli..."
+          }
+        }
+      }
+    }
+  }
+}
