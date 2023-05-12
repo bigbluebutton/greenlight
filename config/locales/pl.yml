@@ -47,21 +47,21 @@
 
 pl:
   opengraph:
-    description: "Ucz się przy użyciu BigBlueButton, zaufanego open sourcowego rozwiązania w zakresie konferencji internetowych, które umożliwia bezproblemową wirtualną współpracę i edukację online."
+    description: "Ucz się przy użyciu Naukanet, zaufanego open sourcowego rozwiązania w zakresie konferencji internetowych, które umożliwia bezproblemową wirtualną współpracę i edukację online."
   meeting:
     moderator_message: "By zaprosić kogoś na spotkanie, wyślij ten link:"
     access_code: "Kod dostępu: %{code}"
   email:
     activation:
       account_activation: Aktywacja konta
-      welcome_to_bbb: Witamy w BigBlueButton!
+      welcome_to_bbb: Witamy w NaukaNet!
       get_started: "Aby rozpocząć, aktywuj swoje konto, klikając przycisk poniżej."
       activate_account: Aktywuj Konto
       link_expires: Link wygaśnie w ciągu 24 godzin.
       if_link_expires: "Jeśli link wygasł, zaloguj się i poproś o nowy e-mail aktywacyjny."
     invitation:
       invitation_to_join: Zaproszenie do BigBlueButton
-      you_have_been_invited: "Użytkownik %{name} wysłał Ci zaproszenie do utworzenia konta BigBlueButton."
+      you_have_been_invited: "Użytkownik %{name} wysłał Ci zaproszenie do utworzenia konta NaukaNet."
       get_started: "Aby się zarejestrować, kliknij przycisk poniżej i wykonaj kolejne kroki."
       valid_invitation: Zaproszenie jest ważne przez 7 dni.
       sign_up: Zarejestruj się
