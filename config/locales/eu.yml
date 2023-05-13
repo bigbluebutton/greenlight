@@ -47,7 +47,7 @@
 
 eu:
   opengraph:
-    description: "BigBlueButton, kode irekiko web-konferentzien irtenbide fidagarria, paregabeko lankidetza birtual eta lineako ikaskuntza esperientziak ahalbidetzen dituena."
+    description: "BigBlueButton, paregabeko lankidetza birtual eta lineako ikaskuntza esperientziak ahalbidetzen dituen kode irekiko web-konferentzien irtenbide fidagarria."
   meeting:
     moderator_message: "Bilerara norbait gonbidatzeko, bidali esteka hau:"
     access_code: "Sarbide-kodea: %{code}"
