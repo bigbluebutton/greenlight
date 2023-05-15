@@ -28,15 +28,10 @@ import NavbarNotSignedIn from '../home/NavbarNotSignedIn';
 export default function Header() {
   const currentUser = useAuth();
 
-  let homePath = '/';
-  if (currentUser?.permissions?.CreateRoom === 'false') {
-    homePath = '/home';
-  }
-
   return (
     <Navbar collapseOnSelect id="navbar" expand="sm">
       <Container className="ps-0">
-        <Navbar.Brand as={Link} to={homePath} className="ps-2">
+        <Navbar.Brand as={Link} to="/" className="ps-2">
           <Logo size="small" />
         </Navbar.Brand>
         {

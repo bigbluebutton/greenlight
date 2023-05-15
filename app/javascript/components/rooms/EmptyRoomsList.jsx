@@ -36,14 +36,21 @@ export default function EmptyRoomsList() {
             <UserBoardIcon className="hi-l text-brand d-block mx-auto" />
           </div>
           <Card.Title className="text-brand"> { t('room.rooms_list_is_empty') }</Card.Title>
-          <Card.Text>
-            { t('room.rooms_list_empty_create_room') }
-          </Card.Text>
-          <Modal
-            modalButton={<Button variant="brand" className="ms-auto me-xxl-1">{ t('room.add_new_room') }</Button>}
-            title={t('room.create_new_room')}
-            body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
-          />
+
+          {
+            currentUser.permissions.CreateRoom === 'true' && (
+              <>
+                <Card.Text>
+                  { t('room.rooms_list_empty_create_room') }
+                </Card.Text>
+                <Modal
+                  modalButton={<Button variant="brand" className="ms-auto me-xxl-1">{ t('room.add_new_room') }</Button>}
+                  title={t('room.create_new_room')}
+                  body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
+                />
+              </>
+            )
+          }
         </Card.Body>
       </Card>
     </div>
