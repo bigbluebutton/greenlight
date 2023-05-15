@@ -34,18 +34,30 @@ export default function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const error = searchParams.get('error');
 
-  // Redirects the user to the proper page based on signed in status and CreateRoom permission
-  useEffect(
-    () => {
-      // Todo: Use PermissionChecker.
-      if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'true') {
-        navigate('/rooms');
-      } else if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'false') {
-        navigate('/home');
-      }
-    },
-    [currentUser.signed_in],
-  );
+  // Hook to redirect users based on their sign-in status and CreateRoom permission.
+  useEffect(() => {
+    // Ensure the user's state is not changing before proceeding.
+    if (currentUser.stateChanging) {
+      return;
+    }
+
+    // If the user is signed in and has CreateRoom permission, navigate to '/rooms'.
+    if (currentUser.signed_in && currentUser.permissions.CreateRoom === 'true') {
+      navigate('/rooms');
+      return;
+    }
+
+    // If the user is signed in, lacks CreateRoom permission, but has shared rooms, navigate to '/rooms'.
+    if (currentUser.signed_in && currentUser.permissions.CreateRoom === 'false' && currentUser.sharedRooms) {
+      navigate('/rooms');
+      return;
+    }
+
+    // If the user is signed in and lacks both CreateRoom permission and shared rooms, navigate to '/home'.
+    if (currentUser.signed_in && currentUser.permissions.CreateRoom === 'false') {
+      navigate('/home');
+    }
+  }, [currentUser.signed_in]);
 
   useEffect(() => {
     switch (error) {

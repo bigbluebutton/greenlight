@@ -17,7 +17,7 @@
 # frozen_string_literal: true
 
 class CurrentUserSerializer < UserSerializer
-  attributes :signed_in, :permissions, :status, :external_account, :super_admin
+  attributes :signed_in, :permissions, :status, :external_account, :super_admin, :shared_rooms
 
   def signed_in
     true
@@ -36,5 +36,10 @@ class CurrentUserSerializer < UserSerializer
 
   def super_admin
     object.super_admin?
+  end
+
+  # Returns true if the user has any shared rooms
+  def shared_rooms
+    SharedAccess.where(user_id: object.id).any?
   end
 end

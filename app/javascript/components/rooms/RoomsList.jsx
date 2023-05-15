@@ -47,17 +47,22 @@ export default function RoomsList() {
         <div>
           <SearchBar searchInput={searchInput} id="rooms-search" setSearchInput={setSearchInput} />
         </div>
-        <Modal
-          modalButton={(
-            <Button
-              variant="brand"
-              className="ms-auto me-xxl-1"
-            >{t('room.add_new_room')}
-            </Button>
-          )}
-          title={t('room.create_new_room')}
-          body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
-        />
+        {
+          currentUser.permissions.CreateRoom === 'true'
+          && (
+          <Modal
+            modalButton={(
+              <Button
+                variant="brand"
+                className="ms-auto me-xxl-1"
+              >{t('room.add_new_room')}
+              </Button>
+            )}
+            title={t('room.create_new_room')}
+            body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
+          />
+          )
+        }
       </Stack>
       <Row className="g-4 mt-4">
         {
