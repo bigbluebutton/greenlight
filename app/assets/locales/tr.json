@@ -172,7 +172,7 @@
     "unpublished": "Yayınlanmamış",
     "protected": "Korunmuş",
     "length_in_minutes": "{{recording.length}} dakika",
-    "processing_recording": "Kayıt işleniyor...",
+    "processing_recording": "Kayıt işleniyor. Bu işlem birkaç dakika sürebilir...",
     "copy_recording_urls": "Kayıt adreslerini kopyala",
     "recordings_list_empty": "Henüz bir kaydınız yok!",
     "recordings_list_empty_description": "Toplantıları başlatıp kayıt ettikten sonra kayıtlarınız burada görüntülenecek.",
@@ -406,6 +406,7 @@
       "problem_completing_action": "Bu işlem yapılırken bir sorun çıktı.\nLütfen yeniden deneyin.",
       "file_type_not_supported": "Dosya türü desteklenmiyor.",
       "file_size_too_large": "Dosya boyutu çok büyük.",
+      "file_upload_error": "Dosya yüklenemedi.",
       "signin_required": "Bu sayfaya erişebilmek için oturum açmalısınız",
       "roles": {
         "role_assigned": "Bu rol, en az bir kullanıcıya atanmış olduğundan silinemez."
@@ -480,6 +481,9 @@
           "required": "Lütfen bir oda sayısı sınırı yazın",
           "min": "En az 0 olabilir",
           "max": "En fazla 100 olabilir"
+        },
+        "type": {
+          "error": "Bir sayı belirtmelisiniz"
         }
       },
       "room": {
@@ -487,7 +491,7 @@
           "required": "Lütfen bir oda adı yazın.",
           "min": "Ad en az 2 karakter uzunluğunda olabilir"
         }
-      }, 
+      },
       "url": {
         "invalid": "Adres geçersiz"
       }
