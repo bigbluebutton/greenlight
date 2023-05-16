@@ -28,9 +28,11 @@ import NavbarNotSignedIn from '../home/NavbarNotSignedIn';
 export default function Header() {
   const currentUser = useAuth();
 
-  let homePath = '/';
-  if (currentUser?.permissions?.CreateRoom === 'false') {
-    homePath = '/home';
+  let homePath = '';
+  if (currentUser?.permissions?.CreateRoom === 'true' || currentUser?.sharedRooms) {
+    homePath = '/rooms';
+  } else {
+    homePath = 'home';
   }
 
   return (

@@ -41,14 +41,8 @@ export default function HomePage() {
       return;
     }
 
-    // If the user is signed in and has CreateRoom permission, navigate to '/rooms'.
-    if (currentUser.signed_in && currentUser.permissions.CreateRoom === 'true') {
-      navigate('/rooms');
-      return;
-    }
-
-    // If the user is signed in, lacks CreateRoom permission, but has shared rooms, navigate to '/rooms'.
-    if (currentUser.signed_in && currentUser.permissions.CreateRoom === 'false' && currentUser.sharedRooms) {
+    // If the user is signed in and has CreateRoom permission or shared rooms, navigate to '/rooms'.
+    if (currentUser.signed_in && (currentUser.permissions.CreateRoom === 'true' || currentUser.sharedRooms)) {
       navigate('/rooms');
       return;
     }

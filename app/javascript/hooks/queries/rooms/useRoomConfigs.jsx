@@ -17,9 +17,12 @@
 import { useQuery } from 'react-query';
 import axios from '../../../helpers/Axios';
 
-export default function useRoomConfigs() {
+export default function useRoomConfigs(friendlyId = null) {
   return useQuery(
-    'getRoomsConfigs',
-    () => axios.get('/rooms_configurations.json').then((resp) => resp.data.data),
+    ['getRoomsConfigs', friendlyId],
+    () => {
+      console.log('firing query');
+      return axios.get('/rooms_configurations.json', { params: { friendly_id: friendlyId } }).then((resp) => resp.data.data);
+    },
   );
 }
