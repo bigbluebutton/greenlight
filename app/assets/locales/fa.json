@@ -512,7 +512,7 @@
             "placeholder": "نام کامل خود را وارد کنید"
           },
           "email": {
-            "label": "ایمیل",
+            "label": "رایانامه",
             "placeholder": "ایمیل خود را وارد کنید"
           },
           "password": {
