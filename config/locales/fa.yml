@@ -66,7 +66,7 @@ fa:
       valid_invitation: دعوت‌نامه فقط ۴۸ ساعت اعتبار دارد.
       sign_up: ثبت‌نام
     reset:
-      password_reset: بازنشانی رمز عبور
+      password_reset: بازنشانی گذرواژه
       password_reset_requested: "بازنشانی رمز عبور برای %{email} درخواست شده است."
       password_reset_confirmation: برای بازنشانی رمز عبور، لطفا روی دکمه زیر کلیک کنید.
       reset_password: بازنشانی رمز عبور
