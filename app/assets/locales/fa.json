@@ -564,7 +564,7 @@
       "forget_password": {
         "fields": {
           "email": {
-            "label": "ایمیل",
+            "label": "رایانامه",
             "placeholder": "ایمیل حساب کاربری را وارد کنید"
           }
         },
