@@ -60,7 +60,7 @@ fa:
       link_expires: این پیوند ۲۴ ساعت دیگر منقضی خواهد شد.
       if_link_expires: در صورت منقضی‌شدن پیوند، لطفا وارد شوید و درخواست یک رایانامه فعال‌سازی جدید کنید.
     invitation:
-      invitation_to_join: دعوت به پیوستن به BigBlueButton
+      invitation_to_join: دعوت‌نامه BigBlueButton
       you_have_been_invited: "شما توسط %{name} برای ایجاد حساب کاربری در BigBlueButton دعوت شده‌اید."
       get_started: برای ثبت نام لطفا روی دکمه زیر کلیک کنید و مراحل را دنبال کنید.
       valid_invitation: دعوتنامه فقط ۴۸ ساعت اعتبار دارد.
