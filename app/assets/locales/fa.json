@@ -528,8 +528,8 @@
       "signin": {
         "fields": {
           "email": {
-            "label": "ایمیل",
-            "placeholder": "ایمیل"
+            "label": "رایانامه",
+            "placeholder": "رایانامه"
           },
           "password": {
             "label": "گذرواژه",
