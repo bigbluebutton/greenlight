@@ -56,7 +56,7 @@ fa:
       account_activation: فعال‌سازی حساب کاربری
       welcome_to_bbb: به BigBlueButton خوش آمدید.
       get_started: برای شروع، لطفا با کلیک بر روی دکمه زیر حساب کاربری خود را فعال کنید.
-      activate_account: فعال کردن حساب کاربری
+      activate_account: فعال‌کردن حساب کاربری
       link_expires: این پیوند ۲۴ ساعت دیگر منقضی خواهد شد.
       if_link_expires: در صورت منقضی شدن پیوند، لطفا در سیستم وارد شوید و درخواست فعال سازی ایمیل، جدید کنید.
     invitation:
