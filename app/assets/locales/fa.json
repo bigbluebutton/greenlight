@@ -627,7 +627,7 @@
       "invite_user": {
         "fields": {
           "emails": {
-            "label": "ایمیل‌ها"
+            "label": "رایانامه‌ها"
           }
         }
       },
