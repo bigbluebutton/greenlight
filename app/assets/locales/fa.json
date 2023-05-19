@@ -608,10 +608,10 @@
         "fields": {
           "full_name": {
             "label": "نام کامل",
-            "placeholder": "نام کامل خود را وارد کنید"
+            "placeholder": "نام کامل کاربر را وارد کنید"
           },
           "email": {
-            "label": "ایمیل",
+            "label": "رایانامه",
             "placeholder": "ایمیل خود را وارد کنید"
           },
           "password": {
