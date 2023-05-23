@@ -31,7 +31,7 @@ export default function Header() {
   return (
     <Navbar collapseOnSelect id="navbar" expand="sm">
       <Container className="ps-0">
-        <Navbar.Brand as={Link} to="/rooms" className="ps-2">
+        <Navbar.Brand as={Link} to="/" className="ps-2">
           <Logo size="small" />
         </Navbar.Brand>
         {
