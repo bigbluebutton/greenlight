@@ -40,6 +40,6 @@ class CurrentUserSerializer < UserSerializer
 
   # Returns true if the user has any shared rooms
   def shared_rooms
-    SharedAccess.where(user_id: object.id).any?
+    object.shared_rooms.any?
   end
 end
