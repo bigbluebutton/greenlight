@@ -20,7 +20,6 @@ import Button from 'react-bootstrap/Button';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-// This page is shown if the user does NOT have the CreateRoom permission
 export default function CantCreateRoom() {
   const { t } = useTranslation();
   const navigate = useNavigate();

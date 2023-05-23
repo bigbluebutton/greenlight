@@ -23,10 +23,19 @@ import RoomsList from './RoomsList';
 import UserRecordings from '../recordings/UserRecordings';
 import RecordingsCountTab from '../recordings/RecordingsCountTab';
 import useRecordingsCount from '../../hooks/queries/recordings/useRecordingsCount';
+import CantCreateRoom from './CantCreateRoom';
+import { useAuth } from '../../contexts/auth/AuthProvider';
 
 export default function Rooms() {
   const { data: recordingsCount } = useRecordingsCount();
   const { t } = useTranslation();
+  const currentUser = useAuth();
+
+  // This CantCreateRoom is rendered if the user does NOT have the CreateRoom permission AND does not have any shared room
+  if (currentUser?.permissions?.CreateRoom === 'false' && !currentUser?.sharedRooms) {
+    return <CantCreateRoom />;
+  }
+
   return (
     <Tabs className="wide-white pt-5" defaultActiveKey="rooms" unmountOnExit>
       <Tab className="background-whitesmoke" eventKey="rooms" title={t('room.rooms')}>

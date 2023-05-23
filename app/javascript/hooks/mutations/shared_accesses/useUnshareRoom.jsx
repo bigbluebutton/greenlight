@@ -32,7 +32,7 @@ export default function useUnshareRoom(friendlyId) {
       onSuccess: () => {
         queryClient.invalidateQueries('getSharedUsers');
         queryClient.invalidateQueries(['getRoom', { friendlyId }]);
-        navigate('/rooms');
+        navigate('/');
         toast.success(t('toast.success.room.room_unshared'));
       },
       onError: () => {

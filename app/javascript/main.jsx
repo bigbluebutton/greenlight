@@ -86,7 +86,6 @@ const router = createBrowserRouter(
 
         <Route path="/rooms" element={<Rooms />} />
         <Route path="/rooms/:friendlyId" element={<Room />} />
-        <Route path="/home" element={<CantCreateRoom />} />
 
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/admin/users" element={<ManageUsers />} />
