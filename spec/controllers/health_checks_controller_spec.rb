@@ -82,9 +82,6 @@ RSpec.describe HealthChecksController, type: :controller do
         allow(ENV).to receive(:fetch).with('SMTP_HEALTH_CHECK_DISABLED', false).and_return(false)
       end
 
-      xit 'returns success' do
-      end
-
       it 'returns failure message' do
         allow(Net::SMTP).to receive(:new).and_raise(StandardError.new('SMTP error'))
         get :check
@@ -96,9 +93,6 @@ RSpec.describe HealthChecksController, type: :controller do
     context 'when big_blue_button check is enabled' do
       before do
         allow(ENV).to receive(:fetch).with('BBB_HEALTH_CHECK_DISABLED', false).and_return(false)
-      end
-
-      xit 'returns success' do
       end
 
       it 'returns failure message' do
