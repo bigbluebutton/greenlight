@@ -28,7 +28,7 @@ RSpec.describe HealthChecksController, type: :controller do
       allow(ENV).to receive(:fetch).with('BBB_HEALTH_CHECK_DISABLED', false).and_return('true')
     end
 
-    context 'when all services are running' do
+    context 'when all services are disabled' do
       it 'returns success' do
         get :check
         expect(response.body).to eq('success')
@@ -36,53 +36,73 @@ RSpec.describe HealthChecksController, type: :controller do
       end
     end
 
-    context 'when database connection fails' do
+    context 'when database check is enabled' do
       before do
-        allow(ActiveRecord::Base).to receive(:connected?).and_return(false)
         allow(ENV).to receive(:fetch).with('DATABASE_HEALTH_CHECK_DISABLED', false).and_return(false)
       end
 
+      it 'returns success' do
+        allow(ActiveRecord::Base).to receive(:connected?).and_return(true)
+        get :check
+        expect(response.body).to eq('success')
+        expect(response).to have_http_status(:ok)
+      end
+
       it 'returns failure message' do
+        allow(ActiveRecord::Base).to receive(:connected?).and_return(false)
         get :check
         expect(response.body).to include('Unable to connect to Database')
         expect(response).to have_http_status(:internal_server_error)
       end
     end
 
-    context 'when redis connection fails' do
+    context 'when redis check is enabled' do
       before do
-        allow(Redis).to receive(:new).and_raise(StandardError.new('Redis connection error'))
         allow(ENV).to receive(:fetch).with('REDIS_HEALTH_CHECK_DISABLED', false).and_return(false)
       end
 
+      it 'returns success' do
+        allow_any_instance_of(Redis).to receive(:ping)
+        get :check
+        expect(response.body).to eq('success')
+        expect(response).to have_http_status(:ok)
+      end
+
       it 'returns failure message' do
+        allow(Redis).to receive(:new).and_raise(StandardError.new('Redis connection error'))
         get :check
         expect(response.body).to include('Unable to connect to Redis')
         expect(response).to have_http_status(:internal_server_error)
       end
     end
 
-    context 'when smtp check fails' do
+    context 'when smtp check is enabled' do
       before do
-        allow(Net::SMTP).to receive(:new).and_raise(StandardError.new('SMTP error'))
         allow(ENV).to receive(:fetch).with('SMTP_SENDER_EMAIL', nil).and_return('test@test.test')
         allow(ENV).to receive(:fetch).with('SMTP_HEALTH_CHECK_DISABLED', false).and_return(false)
       end
 
+      xit 'returns success' do
+      end
+
       it 'returns failure message' do
+        allow(Net::SMTP).to receive(:new).and_raise(StandardError.new('SMTP error'))
         get :check
         expect(response.body).to include('Unable to connect to SMTP Server')
         expect(response).to have_http_status(:internal_server_error)
       end
     end
 
-    context 'when big_blue_button check fails' do
+    context 'when big_blue_button check is enabled' do
       before do
-        allow(Net::HTTP).to receive(:get).and_raise(StandardError.new('BBB error'))
         allow(ENV).to receive(:fetch).with('BBB_HEALTH_CHECK_DISABLED', false).and_return(false)
       end
 
+      xit 'returns success' do
+      end
+
       it 'returns failure message' do
+        allow(Net::HTTP).to receive(:get).and_raise(StandardError.new('BBB error'))
         get :check
         expect(response.body).to include('Unable to connect to BigBlueButton')
         expect(response).to have_http_status(:internal_server_error)
