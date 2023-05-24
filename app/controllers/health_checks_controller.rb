@@ -30,7 +30,6 @@ class HealthChecksController < ApplicationController
     end
 
     render plain: response, status: :ok
-
   rescue StandardError => e
     render plain: e, status: :internal_server_error
   end
@@ -49,7 +48,6 @@ class HealthChecksController < ApplicationController
 
   def check_redis
     Redis.new.ping
-
   rescue StandardError => e
     raise "Unable to connect to Redis - #{e}"
   end
@@ -68,7 +66,6 @@ class HealthChecksController < ApplicationController
       smtp.start(settings[:domain])
     end
     smtp.finish
-
   rescue StandardError => e
     raise "Unable to connect to SMTP Server - #{e}"
   end

@@ -25,9 +25,8 @@ Rails.application.routes.draw do
   get '/meeting_ended', to: 'external#meeting_ended'
   post '/recording_ready', to: 'external#recording_ready'
 
-  # Health check
+  # Health checks
   get '/health_checks', to: 'health_checks#check'
-
 
   # All the Api endpoints must be under /api/v1 and must have an extension .json.
   namespace :api do
