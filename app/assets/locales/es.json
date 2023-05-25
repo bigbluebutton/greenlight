@@ -403,138 +403,138 @@
         "invitation_sent:": "Se ha enviado una invitación."
       }
     },
-    "error:": {
-      "problem_completing_action:": "No se ha podido completar la acción. \n Por favor intenta nuevamente.",
-      "file_type_not_supported:": "El tipo de archivo no está soportado.",
-      "file_size_too_large:": "El tamaño del archivo es demasiado grande.",
-      "file_upload_error:": "El archivo no puede ser subido.",
-      "signin_required:": "Debes iniciar sesión para acceder a esta página.",
-      "roles:": {
-        "role_assigned:": "Este rol no se puede eliminar, se ha asignado a al menos un usuario."
+    "error": {
+      "problem_completing_action": "No se ha podido completar la acción. \n Por favor intenta nuevamente.",
+      "file_type_not_supported": "El tipo de archivo no está soportado.",
+      "file_size_too_large": "El tamaño del archivo es demasiado grande.",
+      "file_upload_error": "El archivo no puede ser subido.",
+      "signin_required": "Debes iniciar sesión para acceder a esta página.",
+      "roles": {
+        "role_assigned": "Este rol no se puede eliminar, se ha asignado a al menos un usuario."
       },
-      "users:": {
-        "signup_error:": "No has podido ser autenticado. Por favor contacta con el administrador.",
-        "invalid_invite:": "Tu token de invitación es incorrecto. Por favor contacta con el administrador para recibir un nuevo token.",
-        "email_exists:": "Ya existe una cuenta con este correo electrónico. Por favor inténtalo con otro correo electrónico.",
-        "old_password:": "La contraseña introducida es incorrecta.",
-        "pending:": "Tu registro está pendiente de aprobación por un administrador. Por favor inténtalo más tarde.",
-        "banned:": "No tienes acceso a esta aplicación. Por favor contacta a el administrador si crees que esto es un error."
+      "users": {
+        "signup_error": "No has podido ser autenticado. Por favor contacta con el administrador.",
+        "invalid_invite": "Tu token de invitación es incorrecto. Por favor contacta con el administrador para recibir un nuevo token.",
+        "email_exists": "Ya existe una cuenta con este correo electrónico. Por favor inténtalo con otro correo electrónico.",
+        "old_password": "La contraseña introducida es incorrecta.",
+        "pending": "Tu registro está pendiente de aprobación por un administrador. Por favor inténtalo más tarde.",
+        "banned": "No tienes acceso a esta aplicación. Por favor contacta a el administrador si crees que esto es un error."
       },
-      "rooms:": {
-        "room_limit:": "La sala no puede ser creada porque se alcanzó el límite."
+      "rooms": {
+        "room_limit": "La sala no puede ser creada porque se alcanzó el límite."
       },
-      "session:": {
-        "invalid_credentials:": "El usuario o la contraseña son incorrectos. Por favor verifica tus credenciales e intenta nuevamente."
+      "session": {
+        "invalid_credentials": "El usuario o la contraseña son incorrectos. Por favor verifica tus credenciales e intenta nuevamente."
       }
     }
   },
-  "global_error_page:": {
-    "title:": "Error",
-    "message:": "Opps, algo ha salido mal. Si el incidente persiste, por favor contacta con el administrador."
+  "global_error_page": {
+    "title": "Error",
+    "message": "Opps, algo ha salido mal. Si el incidente persiste, por favor contacta con el administrador."
   },
-  "not_found_error_page:": {
-    "title:": "Página no encontrada",
-    "message:": "Lo sentimos, la página que intentas acceder no se encuentra."
+  "not_found_error_page": {
+    "title": "Página no encontrada",
+    "message": "Lo sentimos, la página que intentas acceder no se encuentra."
   },
-  "account_activation_page:": {
-    "title:": "Activación de cuenta",
-    "account_unverified:": "Tu cuenta no ha sido verificada aún.",
-    "message:": "Para utilizar Lessons 8.0 Auditorium, verifica tu cuenta siguiendo las instrucciones del correo electrónico de activación que te enviamos.",
-    "resend_activation_link:": "Si no has recibido un correo electrónico de activación o si tienes problemas para utilizarlo, has clic en el botón de abajo para solicitar un nuevo correo electrónico de activación.",
-    "resend_btn_lbl:": "Re-enviar verificación"
+  "account_activation_page": {
+    "title": "Activación de cuenta",
+    "account_unverified": "Tu cuenta no ha sido verificada aún.",
+    "message": "Para utilizar Lessons 8.0 Auditorium, verifica tu cuenta siguiendo las instrucciones del correo electrónico de activación que te enviamos.",
+    "resend_activation_link": "Si no has recibido un correo electrónico de activación o si tienes problemas para utilizarlo, has clic en el botón de abajo para solicitar un nuevo correo electrónico de activación.",
+    "resend_btn_lbl": "Re-enviar verificación"
   },
-  "forms:": {
-    "validations:": {
-      "full_name:": {
-        "required:": "Por favor introduce el nombre completo",
-        "min:": "El nombre debe contener al menos 2 caracteres",
-        "max:": "El nombre debe contener 255 caracteres máximo"
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Por favor introduce el nombre completo",
+        "min": "El nombre debe contener al menos 2 caracteres",
+        "max": "El nombre debe contener 255 caracteres máximo"
       },
-      "email:": {
-        "required:": "Por favor introduce un correo electrónico",
-        "email:": "El correo introducido no es válido",
-        "min:": "El correo debe tener al menos 6 caracteres",
-        "max:": "El correo debe contener 255 caracteres máximo"
+      "email": {
+        "required": "Por favor introduce un correo electrónico",
+        "email": "El correo introducido no es válido",
+        "min": "El correo debe tener al menos 6 caracteres",
+        "max": "El correo debe contener 255 caracteres máximo"
       },
-      "password:": {
-        "required:": "Por favor introduce una contraseña",
-        "match:": "La contrasena debe contener al menos:",
-        "min:": "- Ocho caracteres",
-        "lower:": "- Una letra minúscula",
-        "upper:": "- Una letra mayúscula",
-        "digit:": "- Un dígito",
-        "symbol:": "- Un símbolo",
-        "max:": "La contraseña debe contener 255 caracteres máximo"
+      "password": {
+        "required": "Por favor introduce una contraseña",
+        "match": "La contrasena debe contener al menos",
+        "min": "- Ocho caracteres",
+        "lower": "- Una letra minúscula",
+        "upper": "- Una letra mayúscula",
+        "digit": "- Un dígito",
+        "symbol": "- Un símbolo",
+        "max": "La contraseña debe contener 255 caracteres máximo"
       },
-      "password_confirmation:": {
-        "required:": "Por favor introduce la confirmación de contraseña",
-        "match:": "Las contraseñas no coinciden"
+      "password_confirmation": {
+        "required": "Por favor introduce la confirmación de contraseña",
+        "match": "Las contraseñas no coinciden"
       },
-      "emails:": {
-        "required:": "Por favor introduce al menos un correo electrónico válido",
-        "list:": "Por favor introduce una lista de correos válidos separados por coma (usuario@ejemplo.com,usuario1@ejemplo.com,usuario2@ejemplo.com)"
+      "emails": {
+        "required": "Por favor introduce al menos un correo electrónico válido",
+        "list": "Por favor introduce una lista de correos válidos separados por coma (usuario@ejemplo.com,usuario1@ejemplo.com,usuario2@ejemplo.com)"
       },
-      "role_name:": {
-        "required:": "Por favor escribe el nombre del rol"
+      "role_name": {
+        "required": "Por favor escribe el nombre del rol"
       },
-      "role:": {
-        "limit:": {
-          "required:": "Por favor introduce el límite de salas",
-          "min:": "Mínimo permitido es 0",
-          "max:": "Máximo permitido es 100"
+      "role": {
+        "limit": {
+          "required": "Por favor introduce el límite de salas",
+          "min": "Mínimo permitido es 0",
+          "max": "Máximo permitido es 100"
         },
         "type:": {
           "error:": "Debes especificar un número"
         }
       },
-      "room:": {
-        "name:": {
-          "required:": "Por favor introduce el nombre de la sala.",
-          "min:": "El nombre debe tener al menos 2 caracteres"
+      "room": {
+        "name": {
+          "required": "Por favor introduce el nombre de la sala.",
+          "min": "El nombre debe tener al menos 2 caracteres"
         }
       },
-      "url:": {
-        "invalid:": "URL incorrecta"
+      "url": {
+        "invalid": "URL incorrecta"
       }
     },
-    "room:": {
-      "fields:": {
-        "name:": {
-          "label:": "Nombre de sala",
-          "placeholder:": "Introduce un nombre de sala..."
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Nombre de sala",
+          "placeholder": "Introduce un nombre de sala..."
         }
       }
     },
-    "user:": {
-      "signup:": {
-        "fields:": {
-          "full_name:": {
-            "label:": "Nombre completo",
-            "placeholder:": "Introduce tu nombre completo"
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Nombre completo",
+            "placeholder": "Introduce tu nombre completo"
           },
-          "email:": {
-            "label:": "Email",
-            "placeholder:": "Introduce tu correo electrónico"
+          "email": {
+            "label": "Email",
+            "placeholder": "Introduce tu correo electrónico"
           },
-          "password:": {
-            "label:": "Password",
-            "placeholder:": "Crea una contraseña"
+          "password": {
+            "label": "Password",
+            "placeholder": "Crea una contraseña"
           },
-          "password_confirmation:": {
-            "label:": "Confirm Password",
-            "placeholder:": "Confirma la contraseña"
+          "password_confirmation": {
+            "label": "Confirm Password",
+            "placeholder": "Confirma la contraseña"
           }
         }
       },
-      "signin:": {
-        "fields:": {
-          "email:": {
-            "label:": "Correo electrónico",
-            "placeholder:": "usuario@ejemplo.com"
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "Correo electrónico",
+            "placeholder": "usuario@ejemplo.com"
           },
-          "password:": {
-            "label:": "Contraseña",
-            "placeholder:": "********"
+          "password": {
+            "label": "Contraseña",
+            "placeholder": "********"
           },
           "remember_me:": {
             "label:": "Recordarme"

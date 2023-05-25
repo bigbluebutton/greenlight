@@ -27,6 +27,9 @@ module Api
         ensure_authorized(%w[CreateRoom ApiCreateRoom])
       end
       before_action only: %i[create] do
+        ensure_authorized('ApiCreateRoom')
+      end
+      before_action only: %i[create] do
         ensure_authorized('ManageUsers', user_id: room_params[:user_id])
       end
       before_action only: %i[show update recordings recordings_processing purge_presentation] do
