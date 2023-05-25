@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_07_184209) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_12_134707) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -122,6 +122,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_184209) do
     t.index ["room_id"], name: "index_room_meeting_options_on_room_id"
   end
 
+  create_table "room_users", id: false, force: :cascade do |t|
+    t.uuid "room_id"
+    t.uuid "user_id"
+    t.uuid "event_id"
+    t.index ["room_id", "user_id", "event_id"], name: "index_room_users_on_room_id_and_user_id_and_event_id", unique: true
+    t.index ["room_id"], name: "index_room_users_on_room_id"
+    t.index ["user_id"], name: "index_room_users_on_user_id"
+  end
+
   create_table "rooms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.string "name", null: false
@@ -215,6 +224,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_184209) do
   add_foreign_key "role_permissions", "roles"
   add_foreign_key "room_meeting_options", "meeting_options"
   add_foreign_key "room_meeting_options", "rooms"
+  add_foreign_key "room_users", "rooms", on_delete: :cascade
+  add_foreign_key "room_users", "users", on_delete: :cascade
   add_foreign_key "rooms", "users"
   add_foreign_key "rooms_configurations", "meeting_options"
   add_foreign_key "shared_accesses", "rooms"

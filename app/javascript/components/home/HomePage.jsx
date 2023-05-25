@@ -26,6 +26,7 @@ import {
 import { toast } from 'react-toastify';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import HomepageFeatureCard from './HomepageFeatureCard';
+import PermissionChecker from '../../helpers/PermissionChecker';
 
 export default function HomePage() {
   const { t } = useTranslation();
@@ -38,9 +39,12 @@ export default function HomePage() {
   useEffect(
     () => {
       // Todo: Use PermissionChecker.
-      if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'true') {
+      const canCreateRooms = PermissionChecker.hasCreateRoom(currentUser);
+      // if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'true') {
+      if (!currentUser.stateChanging && currentUser.signed_in && canCreateRooms) {
         navigate('/rooms');
-      } else if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'false') {
+      // } else if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'false') {
+      } else if (!currentUser.stateChanging && currentUser.signed_in && !canCreateRooms) {
         navigate('/home');
       }
     },
@@ -72,7 +76,7 @@ export default function HomePage() {
             <p className="text-muted fs-5">
               {t('homepage.greenlight_description')}
             </p>
-            <a href="https://bigbluebutton.org/" className="fs-5 text-link fw-bolder">
+            <a href="https://www.lessons80.com/" className="fs-5 text-link fw-bolder">
               {t('homepage.learn_more')}
               <ArrowRightIcon className="hi-s ms-2" />
             </a>

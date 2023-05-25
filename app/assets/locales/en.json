@@ -42,7 +42,8 @@
     "and_more_title": "And more!",
     "and_more_description": "BigBlueButton offers built-in tools for applied learning and is designed to save you time during class.",
     "enter_meeting_url": "Enter Meeting URL",
-    "enter_meeting_url_instruction": "Please enter the URL of your BigBlueButton meeting in the field below."
+    "enter_meeting_url_instruction": "Please enter the URL of your BigBlueButton meeting in the field below.",
+    "footer_copyright": ""
   },
   "authentication": {
     "sign_in": "Sign In",

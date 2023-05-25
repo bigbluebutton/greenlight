@@ -55,12 +55,13 @@ export default function Profile() {
                       </Nav.Link>
                     </Nav.Item>
                     )}
-                  <Nav.Item>
+                  { !currentUser.external_account
+                    && (<Nav.Item>
                     <Nav.Link className="cursor-pointer text-muted" eventKey="second">
                       <TrashIcon className="hi-s text-muted me-3 pb-1" />
                       { t('user.account.delete_account') }
                     </Nav.Link>
-                  </Nav.Item>
+                  </Nav.Item>)}
                 </Nav>
               </div>
             </Col>

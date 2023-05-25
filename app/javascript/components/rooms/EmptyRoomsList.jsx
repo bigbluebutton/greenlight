@@ -28,6 +28,25 @@ export default function EmptyRoomsList() {
   const currentUser = useAuth();
   const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
 
+  const adminAccess = () => {
+    const { permissions } = currentUser;
+    const {
+      ManageUsers, ManageRooms, ManageRecordings, ManageSiteSettings, ManageRoles,
+    } = permissions;
+
+    // Todo: Use PermissionChecker.
+    if (ManageUsers === 'true'
+      || ManageRooms === 'true'
+      || ManageRecordings === 'true'
+      || ManageSiteSettings === 'true'
+      || ManageRoles === 'true'
+      || currentUser?.isSuperAdmin) {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <div id="rooms-list-empty" className="pt-3">
       <Card className="border-0 card-shadow text-center">
@@ -36,14 +55,20 @@ export default function EmptyRoomsList() {
             <UserBoardIcon className="hi-l text-brand d-block mx-auto" />
           </div>
           <Card.Title className="text-brand"> { t('room.rooms_list_is_empty') }</Card.Title>
-          <Card.Text>
-            { t('room.rooms_list_empty_create_room') }
-          </Card.Text>
-          <Modal
-            modalButton={<Button variant="brand" className="ms-auto me-xxl-1">{ t('room.add_new_room') }</Button>}
-            title={t('room.create_new_room')}
-            body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
-          />
+          {
+            adminAccess() &&
+            <Card.Text>
+              { t('room.rooms_list_empty_create_room') }
+            </Card.Text>
+          }
+          {
+            adminAccess() &&
+            <Modal
+              modalButton={<Button variant="brand" className="ms-auto me-xxl-1">{ t('room.add_new_room') }</Button>}
+              title={t('room.create_new_room')}
+              body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
+            />
+          }
         </Card.Body>
       </Card>
     </div>

@@ -29,6 +29,17 @@ module Api
       # Starts a BigBlueButton meetings and joins in the meeting starter
       def start
         begin
+          restrictions = RoomUser.where(room_id: @room.id)
+          
+          if restrictions.length > 0
+            if params[:event_id]
+              restriction = restrictions.find { |r| r.event_id == params[:event_id] && r.user_id == current_user.id }
+              return render_error status: :not_found unless restriction
+            else
+              return render_error status: :forbidden
+            end
+          end
+
           MeetingStarter.new(room: @room, base_url: request.base_url, current_user:, provider: current_provider).call
         rescue BigBlueButton::BigBlueButtonException => e
           return render_error status: :bad_request unless e.key == 'idNotUnique'

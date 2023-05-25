@@ -18,7 +18,7 @@ import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { DocumentDuplicateIcon, LinkIcon } from '@heroicons/react/24/outline';
+import { DocumentDuplicateIcon, LinkIcon, Cog8ToothIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/auth/AuthProvider';
@@ -67,6 +67,12 @@ export default function RoomCard({ room }) {
         </Stack>
       </Card.Body>
       <Card.Footer className="bg-white">
+        <Button
+          variant="icon"
+          onClick={handleClick}
+        >
+          <Cog8ToothIcon className="hi-m mt-1 text-muted" />
+        </Button>
         <Button
           variant="icon"
           onClick={() => copyInvite(room.friendly_id)}

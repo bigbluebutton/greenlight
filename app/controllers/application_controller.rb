@@ -15,9 +15,14 @@
 # with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 # frozen_string_literal: true
+require 'json'
+require 'digest/sha1'
 
 class ApplicationController < ActionController::Base
   include Pagy::Backend
+
+  # protect_from_forgery with: :null_session, if: Proc.new { |c| x_authenticity_token_match }
+  protect_from_forgery with: :exception, if: Proc.new { |c| c.request.format == 'application/json' && !c.request.get? && !x_authenticity_token }
 
   # Returns the current signed in User (if any)
   def current_user
@@ -28,7 +33,20 @@ class ApplicationController < ActionController::Base
 
     user = User.find_by(session_token: session[:session_token])
 
-    if user && invalid_session?(user)
+    # Process token from request
+    token = bearer_token
+    if !user && token
+      uri = URI.parse(ENV.fetch('OPENID_CONNECT_ISSUER') + '/oidc/me')
+      
+      response = Net::HTTP.post(uri, data = nil, initheader = { 'Authorization' => 'Bearer ' + token })
+
+      if response.is_a?(Net::HTTPSuccess)
+        result = JSON.parse(response.body)
+        user = User.find_by(email: result['email'])
+      end
+    end
+
+    if user && !token && invalid_session?(user)
       session[:session_token] = nil
       cookies.delete :_extended_session
       return nil
@@ -73,6 +91,49 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  # Get bearer token if exists
+  def bearer_token
+    pattern = /^Bearer /
+    header  = request.headers['Authorization']
+
+    if header && header.match(pattern)
+      token = header.gsub(pattern, '')
+    else
+      token = false
+    end
+
+    token
+  end
+
+  # Check authenticity token if exists
+  def x_authenticity_token
+    csrf_token = request.headers['X-CSRF-TOKEN']
+    
+    if csrf_token.present?
+      return true
+    end
+    
+    pattern = /^Secret /
+    header  = request.headers['X-Authenticity-Secret']
+
+    if header && header.match(pattern)
+      token = header.gsub(pattern, '')
+    else
+      # return render_error status: :forbidden
+      return false
+    end
+
+    secret = ENV.fetch('SECRET_KEY_BASE')
+    parsed = JSON.parse(request.body.string)
+    str_to_hash = "#{parsed}-#{secret}"
+    body_hash = Digest::SHA1.hexdigest(str_to_hash)
+
+    # return render_error status: :forbidden if token != body_hash
+    return false if token != body_hash
+
+    return true
+  end  
 
   # Checks if the user's session_token matches the session and that it is not expired
   def invalid_session?(user)

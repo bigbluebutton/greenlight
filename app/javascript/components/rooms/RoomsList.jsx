@@ -37,6 +37,25 @@ export default function RoomsList() {
   const currentUser = useAuth();
   const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
 
+  const adminAccess = () => {
+    const { permissions } = currentUser;
+    const {
+      ManageUsers, ManageRooms, ManageRecordings, ManageSiteSettings, ManageRoles,
+    } = permissions;
+
+    // Todo: Use PermissionChecker.
+    if (ManageUsers === 'true'
+      || ManageRooms === 'true'
+      || ManageRecordings === 'true'
+      || ManageSiteSettings === 'true'
+      || ManageRoles === 'true'
+      || currentUser?.isSuperAdmin) {
+      return true;
+    }
+
+    return false;
+  };
+
   if (!isLoading && rooms?.length === 0 && !searchInput) {
     return <EmptyRoomsList />;
   }
@@ -47,17 +66,19 @@ export default function RoomsList() {
         <div>
           <SearchBar searchInput={searchInput} id="rooms-search" setSearchInput={setSearchInput} />
         </div>
-        <Modal
-          modalButton={(
-            <Button
-              variant="brand"
-              className="ms-auto me-xxl-1"
-            >{t('room.add_new_room')}
-            </Button>
-          )}
-          title={t('room.create_new_room')}
-          body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
-        />
+        { adminAccess() &&
+          (<Modal
+            modalButton={(
+              <Button
+                variant="brand"
+                className="ms-auto me-xxl-1"
+              >{t('room.add_new_room')}
+              </Button>
+            )}
+            title={t('room.create_new_room')}
+            body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
+          />)
+        }
       </Stack>
       <Row className="g-4 mt-4">
         {

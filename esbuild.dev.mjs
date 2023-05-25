@@ -12,12 +12,12 @@ await esbuild.build({
     '.png': 'dataurl',
     '.svg': 'text',
   },
-  watch: {
-    onRebuild: (error, result) => {
-      if (error) console.error('watch build failed:', error);
-      else console.log('watch build succeeded:', result);
-    },
-  },
+  // watch: {
+  //   onRebuild: (error, result) => {
+  //     if (error) console.error('watch build failed:', error);
+  //     else console.log('watch build succeeded:', result);
+  //   },
+  // },
   define: {
     'process.env.RELATIVE_URL_ROOT': `"${relativeUrlRoot}"`,
     'process.env.OMNIAUTH_PATH': `"${relativeUrlRoot}/auth/openid_connect"`,

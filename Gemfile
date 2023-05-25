@@ -43,6 +43,9 @@ group :development do
   gem 'rubocop-rails', '~> 2.17', '>= 2.17.4', require: false
   gem 'rubocop-rspec', '~> 2.9.0', require: false
   gem 'web-console'
+
+  gem 'debase', '~> 0.2.5.beta2'
+  gem 'ruby-debug-ide'
 end
 
 group :test do

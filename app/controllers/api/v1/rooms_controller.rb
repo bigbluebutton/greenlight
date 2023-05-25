@@ -27,6 +27,9 @@ module Api
         ensure_authorized('CreateRoom')
       end
       before_action only: %i[create] do
+        ensure_authorized('ApiCreateRoom')
+      end
+      before_action only: %i[create] do
         ensure_authorized('ManageUsers', user_id: room_params[:user_id])
       end
       before_action only: %i[show update recordings recordings_processing purge_presentation] do
@@ -91,9 +94,15 @@ module Api
         # The created room will be the current user's unless a user_id param is provided with the request.
         room = Room.new(name: room_params[:name], user_id: room_params[:user_id])
 
+        if params[:id]
+          room.assign_attributes({ id: params[:id] })
+        end
+
         if room.save
           logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
-          render_data status: :created
+
+          data = { "friendly_id" => room.friendly_id, "user_id": room.user_id };
+          render_data data: data, status: :created
         else
           render_error errors: room.errors.to_a, status: :bad_request
         end

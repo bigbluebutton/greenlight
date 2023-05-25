@@ -190,6 +190,8 @@ export default function JoinCard() {
     </Stack>
   );
 
+  const meta = document.querySelector('meta[name="csrf-token"]')?.content;
+
   return (
     <Card className="col-md-6 mx-auto p-0 border-0 card-shadow">
       <Title>{publicRoom?.data.name}</Title>
@@ -250,7 +252,7 @@ export default function JoinCard() {
             env?.OPENID_CONNECT ? (
               <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> {t('authentication.already_have_account')}
                 <RegularForm action={process.env.OMNIAUTH_PATH} method="POST" data-turbo="false">
-                  <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
+                  { meta && <input type="hidden" name="authenticity_token" value={meta} /> }
                   <Button variant="link" className="btn-sm fs-6 cursor-pointer ms-2 ps-0" type="submit">{t('authentication.sign_in')}</Button>
                 </RegularForm>
               </Stack>

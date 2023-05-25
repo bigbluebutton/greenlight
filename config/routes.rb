@@ -85,6 +85,8 @@ Rails.application.routes.draw do
       resources :site_settings, only: :index
       resources :rooms_configurations, only: %i[index show], param: :name
       resources :locales, only: %i[index show], param: :name
+      # Custom route
+      resources :room_users, only: %i[index show create destroy], params: [:friendly_id, :event_id]
 
       namespace :admin do
         resources :users, only: %i[update] do

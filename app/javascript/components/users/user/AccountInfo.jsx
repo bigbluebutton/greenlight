@@ -27,11 +27,11 @@ export default function AccountInfo({ user }) {
   return (
     <Row>
       <Col>
-        <h3 className="mb-4"> { t('user.account.update_account_info') } </h3>
-        <UpdateUserForm user={user} />
+        <SetAvatar user={user} />
       </Col>
       <Col>
-        <SetAvatar user={user} />
+        <h3 className="mb-4"> { t('user.account.update_account_info') } </h3>
+        <UpdateUserForm user={user} />
       </Col>
     </Row>
   );

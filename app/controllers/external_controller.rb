@@ -30,6 +30,11 @@ class ExternalController < ApplicationController
 
     user_info = build_user_info(credentials)
 
+    # @Custom Check if user has an avatar already
+    if credentials['info']['picture']
+      user_info.avatar = credentials['info']['picture']
+    end
+
     user = User.find_by(external_id: credentials['uid'], provider:)
     new_user = user.blank?
 
@@ -43,6 +48,7 @@ class ExternalController < ApplicationController
     # Create the user if they dont exist
     if new_user
       user = UserCreator.new(user_params: user_info, provider: current_provider, role: default_role).call
+      user.assign_attributes({ id: credentials['uid'], language: user_info.language })
       user.save!
       create_default_room(user)
     end

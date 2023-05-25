@@ -82,6 +82,12 @@ export default function EditRoleForm({ role }) {
                 roleId={role?.id}
                 defaultValue={rolePermissions?.CreateRoom === 'true'}
               />
+              <RolePermissionRow
+                permissionName="ApiCreateRoom"
+                description={t('admin.roles.edit.api_create_room')}
+                roleId={role?.id}
+                defaultValue={rolePermissions?.ApiCreateRoom === 'true'}
+              />
               {['optional', 'default_enabled'].includes(roomConfigs?.record) && (
               <RolePermissionRow
                 permissionName="CanRecord"

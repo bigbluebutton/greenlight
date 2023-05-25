@@ -133,6 +133,9 @@ GEM
       activerecord (>= 5.0)
       railties (>= 5.0)
     date (3.3.3)
+    debase (0.2.5.beta2)
+      debase-ruby_core_source (>= 0.10.12)
+    debase-ruby_core_source (3.2.0)
     debug (1.7.1)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
@@ -342,6 +345,8 @@ GEM
       rubocop (>= 1.33.0, < 2.0)
     rubocop-rspec (2.9.0)
       rubocop (~> 1.19)
+    ruby-debug-ide (0.7.3)
+      rake (>= 0.8.1)
     ruby-progressbar (1.11.0)
     ruby-vips (2.1.4)
       ffi (~> 1.12)
@@ -403,7 +408,6 @@ GEM
     zeitwerk (2.6.8)
 
 PLATFORMS
-  ruby
   x86_64-linux
 
 DEPENDENCIES
@@ -416,6 +420,7 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   data_migrate
+  debase (~> 0.2.5.beta2)
   debug
   dotenv-rails
   factory_bot_rails
@@ -443,6 +448,7 @@ DEPENDENCIES
   rubocop-performance (~> 1.13)
   rubocop-rails (~> 2.17, >= 2.17.4)
   rubocop-rspec (~> 2.9.0)
+  ruby-debug-ide
   selenium-webdriver
   shoulda-matchers (~> 5.0)
   sprockets-rails
@@ -450,3 +456,9 @@ DEPENDENCIES
   web-console
   webdrivers
   webmock
+
+RUBY VERSION
+   ruby 3.2.2p53
+
+BUNDLED WITH
+   2.4.10

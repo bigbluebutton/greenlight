@@ -24,11 +24,12 @@ export default function Footer() {
   const { t } = useTranslation();
   const { data: env } = useEnv();
   const { data: links } = useSiteSetting(['Terms', 'PrivacyPolicy']);
+  const year = (new Date).getFullYear();
 
   return (
     <footer id="footer" className="footer background-whitesmoke text-center">
       <Container id="footer-container" className="py-3">
-        <a href="https://docs.bigbluebutton.org/greenlight/v3/install" target="_blank" rel="noreferrer">Greenlight</a>
+        <a href="https://www.lessons80.com" target="_blank" rel="noreferrer">&copy; {year} <b>Lessons 8.0</b>. { t('homepage.footer_copyright') }</a>
         <span className="text-muted"> {env?.VERSION_TAG} </span>
         { links?.Terms
           && (

@@ -16,6 +16,16 @@
 
 import axios from 'axios';
 
+const headers = {
+  'Content-Type': 'application/json',
+  Accept: 'application/json',
+};
+
+let token = null;
+if (token = document.querySelector('[name=csrf-token]')) {
+  headers['X-CSRF-TOKEN'] = token.getAttribute('content');
+}
+
 const axiosInstance = axios.create(
   {
     // `baseURL` will be prepended to `url` unless `url` is absolute.
@@ -24,11 +34,7 @@ const axiosInstance = axios.create(
     baseURL: `${process.env.RELATIVE_URL_ROOT}/api/v1`,
 
     // `headers` are custom headers to be sent
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      'X-CSRF-TOKEN': document.querySelector('[name=csrf-token]').getAttribute('content'),
-    },
+    headers,
 
     // `timeout` specifies the number of milliseconds before the request times out.
     // If the request takes longer than `timeout`, the request will be aborted.
