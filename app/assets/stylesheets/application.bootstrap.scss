@@ -699,8 +699,20 @@ input[type="range"]:focus::-moz-range-thumb {
   }
 }
 
+.tenants-icons {
+  svg:hover {
+    color: var(--brand-color) !important;
+  }
+}
+
 .Toastify {
   .Toastify__toast-icon {
     width: 25px;
+  }
+}
+
+#rooms-list-empty, #recordings-list-empty {
+  .card-body {
+    min-height: 20rem;
   }
 }

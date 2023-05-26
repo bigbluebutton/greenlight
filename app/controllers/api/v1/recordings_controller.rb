@@ -45,7 +45,7 @@ module Api
         new_name = recording_params[:name]
         return render_error errors: [Rails.configuration.custom_error_msgs[:missing_params]] if new_name.blank?
 
-        BigBlueButtonApi.new.update_recordings record_id: @recording.record_id, meta_hash: { meta_name: new_name }
+        BigBlueButtonApi.new(provider: current_provider).update_recordings record_id: @recording.record_id, meta_hash: { meta_name: new_name }
         @recording.update! name: new_name
 
         render_data data: @recording, status: :ok
@@ -55,7 +55,7 @@ module Api
       # Deletes a recording in both BigBlueButton and Greenlight
       def destroy
         # TODO: Hadi - Need to change this to work preferably with after_destroy in recordings model
-        BigBlueButtonApi.new.delete_recordings(record_ids: params[:id])
+        BigBlueButtonApi.new(provider: current_provider).delete_recordings(record_ids: params[:id])
 
         Recording.destroy_by(record_id: params[:id])
 
@@ -67,7 +67,7 @@ module Api
       def update_visibility
         new_visibility = params[:visibility]
         old_visibility = @recording.visibility
-        bbb_api = BigBlueButtonApi.new
+        bbb_api = BigBlueButtonApi.new(provider: current_provider)
 
         bbb_api.publish_recordings(record_ids: @recording.record_id, publish: true) if old_visibility == 'Unpublished'
 

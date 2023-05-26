@@ -19,12 +19,18 @@
 require 'bigbluebutton_api'
 
 class BigBlueButtonApi
-  def initialize; end
+  def initialize(provider:)
+    @provider = provider
+    @endpoint, @secret = retrieve_credentials
+  end
 
   # Sets a BigBlueButtonApi object for interacting with the API.
   def bbb_server
-    # TODO: Amir - Protect the BBB secret.
-    @bbb_server ||= BigBlueButton::BigBlueButtonApi.new(Rails.configuration.bigbluebutton_endpoint, Rails.configuration.bigbluebutton_secret, '1.8')
+    @bbb_server ||= BigBlueButton::BigBlueButtonApi.new(
+      @endpoint,
+      @secret,
+      '1.8'
+    )
   end
 
   # Start a meeting for a specific room and returns the join URL.
@@ -90,5 +96,15 @@ class BigBlueButtonApi
   # Decodes the JWT using the BBB secret as key (Used in Recording Ready Callback)
   def decode_jwt(token)
     JWT.decode token, Rails.configuration.bigbluebutton_secret, true, { algorithm: 'HS256' }
+  end
+
+  private
+
+  def retrieve_credentials
+    if @provider == 'greenlight'
+      [Rails.configuration.bigbluebutton_endpoint, Rails.configuration.bigbluebutton_secret]
+    else
+      ProviderCredentials.new(provider: @provider).call
+    end
   end
 end

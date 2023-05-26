@@ -26,21 +26,21 @@
   "no_result_search_input": "Could not find any results for \"{{ searchInput }}\"",
   "action_permanent": "This action cannot be undone.",
   "homepage": {
-    "welcome_bbb": "Welcome to BigBlueButton.",
-    "bigbluebutton_description": "BigBlueButton is an open source web conferencing system for online classes. The platform maximizes time for applied learning by enabling students to collaborate and receive feedback in real-time.",
-    "greenlight_description": "Create your own rooms to host sessions, or join others using a short and convenient link.",
-    "learn_more": "Learn more about BigBlueButton",
+    "welcome_bbb": "Welcome to Courthearings.kz.",
+    "bigbluebutton_description": "Courthearings.kz is an web conferencing system.",
+    "greenlight_description": "Courthearings.kz is a simple front-end for your web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link.",
+    "learn_more": "Learn more about Courthearings.kz",
     "explore_features": "Explore our features",
     "meeting_title": "Launch a meeting",
     "meeting_description": "Launch a virtual class with video, audio, screen sharing, chat, and all the tools required for applied learning.",
     "recording_title": "Record your meetings",
-    "recording_description": "Record the BigBlueButton meetings and share them with the students to review and reflect on the material.",
-    "settings_title": "Manage your rooms",
-    "settings_description": "Configure your rooms and meeting settings to be in charge of an effective classroom.",
+    "recording_description": "Courthearings.kz is a simple front-end for your web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link.",
+    "settings_title": "Manage your sessions",
+    "settings_description": "Courthearings.kz is a simple front-end for your web conferencing server. You can create your own rooms to host sessions, or join others using a short and convenient link.",
     "and_more_title": "And more!",
-    "and_more_description": "BigBlueButton offers built-in tools for applied learning and is designed to save you time during class.",
+    "and_more_description": "Courthearings.kz offers built-in tools for applied learning and is designed to save you time during class.",
     "enter_meeting_url": "Enter Meeting URL",
-    "enter_meeting_url_instruction": "Please enter the URL of your BigBlueButton meeting in the field below."
+    "enter_meeting_url_instruction": "Please enter the URL of your Courthearings.kz meeting in the field below."
   },
   "authentication": {
     "sign_in": "Sign In",
@@ -246,7 +246,7 @@
     },
     "site_settings": {
       "site_settings": "Site Settings",
-      "customize_greenlight": "Customize Greenlight",
+      "customize_greenlight": "Customize Courthearings.kz",
       "appearance": {
         "appearance": "Appearance",
         "brand_color": "Brand Color",
@@ -281,7 +281,7 @@
         "role_mapping_by_email_description": "Map the user to a role using their email. Must be in the format: role1=email1, role2=email2",
         "enter_role_mapping_rule": "Enter a role mapping rule",
         "resync_on_login": "Resync User Data On Every Sign In",
-        "resync_on_login_description": "Resync a user's information every time they sign in, making the external authentication provider always match the information in Greenlight",
+        "resync_on_login_description": "Resync a user's information every time they sign in, making the external authentication provider always match the information in Courthearings.kz",
         "default_role": "Default Role",
         "default_role_description": "The default role to be assigned to newly created users",
         "registration_method": "Registration Method",
@@ -303,15 +303,15 @@
         "allow_room_to_be_recorded": "Allow Room to be recorded",
         "allow_room_to_be_recorded_description": "Allows room owners to specify whether they want the option to record a room or not. If enabled, the moderator must still click the 'Record' button once the meeting has started.",
         "require_user_signed_in": "Require users to be signed in before joining",
-        "require_user_signed_in_description": "Only allows users with a Greenlight account to join the meeting. If they are not signed in, they will be redirected to the login page when attempting to join a room.",
+        "require_user_signed_in_description": "Only allows users with a Courthearings.kz account to join the meeting. If they are not signed in, they will be redirected to the login page when attempting to join a room.",
         "require_mod_approval": "Require moderator approval before joining",
-        "require_mod_approval_description": "Prompts the moderator of the BigBlueButton meeting when a user tries to join. If the user is approved, they will be able to join the meeting.",
+        "require_mod_approval_description": "Prompts the moderator of the Courthearings.kz meeting when a user tries to join. If the user is approved, they will be able to join the meeting.",
         "allow_any_user_to_start_meeting": "Allow any user to start a meeting",
         "allow_any_user_to_start_meeting_description": "Allow any user to start the meeting at any time. By default, only the room owner can start the meeting.",
         "allow_users_to_join_as_mods": "All users join as moderators",
-        "allow_users_to_join_as_mods_description": "Gives all users the moderator privileges in BigBlueButton when they join the meeting",
+        "allow_users_to_join_as_mods_description": "Gives all users the moderator privileges in Courthearings.kz when they join the meeting",
         "mute_users_on_join": "Mute users when they join",
-        "mute_users_on_join_description": "Automatically mutes the user when they join the BigBlueButton meeting",
+        "mute_users_on_join_description": "Automatically mutes the user when they join the Courthearings.kz meeting",
         "viewer_access_code": "Viewer Access Code",
         "viewer_access_code_description": "Allows room owners to have a random alphanumeric code that can be shared with users. The code, if generated, will be required for users to join the room meetings.",
         "mod_access_code": "Moderator Access Code",
@@ -437,7 +437,7 @@
   "account_activation_page": {
     "title": "Account Activation",
     "account_unverified": "Your account has not been verified yet.",
-    "message": "In order to use Greenlight, please verify your account by following the instructions in the activation email that has been sent to you.",
+    "message": "In order to use Courthearings.kz, please verify your account by following the instructions in the activation email that has been sent to you.",
     "resend_activation_link": "If you haven't received an activation email or if you are having a problem using it, click on the button below to request a new activation email.",
     "resend_btn_lbl": "Resend Verification"
   },
@@ -480,9 +480,9 @@
           "required": "Please enter the room count limit",
           "min": "Allowed minimum is 0",
           "max": "Allowed maximum is 100"
-        }, 
+        },
         "type": {
-          "error": "You must specify a number" 
+          "error": "You must specify a number"
         }
       },
       "room": {
@@ -490,7 +490,7 @@
           "required": "Please enter the room name.",
           "min": "Name must be at least 2 characters long"
         }
-      }, 
+      },
       "url": {
         "invalid": "Invalid URL"
       }

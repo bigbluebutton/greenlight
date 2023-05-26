@@ -32,13 +32,20 @@ module Api
       # POST /api/v1/sessions
       # Signs a user in and updates the session cookie
       def create
-        user = User.find_by(email: session_params[:email])
-
         # TODO: Add proper error logging for non-verified token hcaptcha
         return render_error if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
+        # Search for a user within the current provider and, if not found, search for a super admin within bn provider
+        user = User.find_by(email: session_params[:email], provider: current_provider) || User.find_by(email: session_params[:email], provider: 'bn')
+
+        # Return an error if the user is not found
+        return render_error if user.blank?
+
+        # Will return an error if the user is NOT from the current provider and if the user is NOT a super admin
+        return render_error if user.provider != current_provider && !user.super_admin?
+
         # TODO: Add proper error logging for non-verified token hcaptcha
-        if user.present? && user.authenticate(session_params[:password])
+        if user.authenticate(session_params[:password])
           return render_error data: user.id, errors: Rails.configuration.custom_error_msgs[:unverified_user] unless user.verified?
           return render_error errors: Rails.configuration.custom_error_msgs[:pending_user] if user.pending?
           return render_error errors: Rails.configuration.custom_error_msgs[:banned_user] if user.banned?

@@ -14,26 +14,24 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import axios from 'axios';
+import { useMutation, useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+import axios from '../../../../helpers/Axios';
 
-const axiosInstance = axios.create(
-  {
-    // `baseURL` will be prepended to `url` unless `url` is absolute.
-    // It can be convenient to set `baseURL` for an instance of axios to pass relative URLs
-    // to methods of that instance.
-    baseURL: `${process.env.RELATIVE_URL_ROOT}/api/v1`,
+export default function useCreateTenant({ onSettled }) {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
-    // `headers` are custom headers to be sent
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      'X-CSRF-TOKEN': document.querySelector('[name=csrf-token]').getAttribute('content'),
+  return useMutation(
+    (tenant) => axios.post('/admin/tenants.json', { tenant }),
+    {
+      onSuccess: () => {
+        toast.success('A new tenant has been created.');
+        queryClient.invalidateQueries('tenants');
+      },
+      onError: () => { toast.error(t('toast.error.problem_completing_action')); },
+      onSettled,
     },
-
-    // `timeout` specifies the number of milliseconds before the request times out.
-    // If the request takes longer than `timeout`, the request will be aborted.
-    timeout: 30_000, // default is `0` (no timeout)
-  },
-);
-
-export default axiosInstance;
+  );
+}

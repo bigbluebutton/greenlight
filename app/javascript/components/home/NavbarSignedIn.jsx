@@ -41,7 +41,8 @@ export default function NavbarSignedIn({ currentUser }) {
       || ManageRooms === 'true'
       || ManageRecordings === 'true'
       || ManageSiteSettings === 'true'
-      || ManageRoles === 'true') {
+      || ManageRoles === 'true'
+      || currentUser?.isSuperAdmin) {
       return true;
     }
 
@@ -60,7 +61,7 @@ export default function NavbarSignedIn({ currentUser }) {
             <IdentificationIcon className="hi-s me-3" />
             {t('user.profile.profile')}
           </Nav.Link>
-          <Nav.Link eventKey={2} href="https://docs.bigbluebutton.org/greenlight/gl-overview.html">
+          <Nav.Link eventKey={2} href="https://docs.bigbluebutton.org/greenlight/v3/install">
             <QuestionMarkCircleIcon className="hi-s me-3" />
             {t('help_center')}
           </Nav.Link>
@@ -102,7 +103,7 @@ export default function NavbarSignedIn({ currentUser }) {
             <IdentificationIcon className="hi-s me-3" />
             { t('user.profile.profile') }
           </NavDropdown.Item>
-          <NavDropdown.Item href="https://docs.bigbluebutton.org/greenlight/gl-overview.html">
+          <NavDropdown.Item href="https://docs.bigbluebutton.org/greenlight/v3/install">
             <QuestionMarkCircleIcon className="hi-s me-3" />
             {t('help_center')}
           </NavDropdown.Item>
@@ -129,6 +130,7 @@ NavbarSignedIn.propTypes = {
   currentUser: PropTypes.shape({
     avatar: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    isSuperAdmin: PropTypes.bool.isRequired,
     permissions: PropTypes.shape({
       ManageUsers: PropTypes.string.isRequired,
       ManageRooms: PropTypes.string.isRequired,

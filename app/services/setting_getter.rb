@@ -20,36 +20,51 @@ class SettingGetter
   include Rails.application.routes.url_helpers
 
   def initialize(setting_name:, provider:)
-    @setting_name = setting_name
+    @setting_name = Array(setting_name)
     @provider = provider
   end
 
   def call
-    setting = SiteSetting.joins(:setting)
-                         .find_by(
-                           provider: @provider,
-                           setting: { name: @setting_name }
-                         )
+    # Fetch the site settings records while eager loading their respective settings ↓
+    site_settings = SiteSetting.includes(:setting)
+                               .where(
+                                 provider: @provider,
+                                 setting: { name: @setting_name }
+                               )
 
-    value = if @setting_name == 'BrandingImage' && setting.image.attached?
-              rails_blob_path setting.image, only_path: true
-            else
-              setting&.value
-            end
+    # Pessimist check: Pass only if all provided names were found ↓
+    return nil unless @setting_name.size == site_settings.size
 
-    transform_value(value)
+    site_settings_hash = {}
+
+    # In memory prepare the result hash ↓
+    site_settings.map do |site_setting|
+      site_settings_hash[site_setting.setting.name] = transform_value(site_setting)
+    end
+
+    # If there's only one setting is being fetched no need for a hash ↓
+    return site_settings_hash.values.first if site_settings_hash.size == 1
+
+    # A Hash<setting_name => parsed_value> is returned otherwise ↓
+    site_settings_hash
   end
 
   private
 
-  def transform_value(value)
-    case value
+  def transform_value(site_setting)
+    if site_setting.setting.name == 'BrandingImage'
+      return rails_blob_path site_setting.image, only_path: true if site_setting.image.attached?
+
+      return ActionController::Base.helpers.image_path('bbb_logo.png')
+    end
+
+    case site_setting.value
     when 'true'
       true
     when 'false'
       false
     else
-      value
+      site_setting.value
     end
   end
 end

@@ -19,10 +19,11 @@
 class MeetingStarter
   include Rails.application.routes.url_helpers
 
-  def initialize(room:, base_url:, current_user:)
+  def initialize(room:, base_url:, current_user:, provider:)
     @room = room
     @current_user = current_user
     @base_url = base_url
+    @provider = provider
   end
 
   def call
@@ -40,7 +41,7 @@ class MeetingStarter
 
     retries = 0
     begin
-      meeting = BigBlueButtonApi.new.start_meeting(room: @room, options:, presentation_url:)
+      meeting = BigBlueButtonApi.new(provider: @provider).start_meeting(room: @room, options:, presentation_url:)
 
       @room.update!(online: true, last_session: DateTime.strptime(meeting[:createTime].to_s, '%Q'))
 
@@ -55,7 +56,7 @@ class MeetingStarter
   private
 
   def computed_options(access_code:)
-    room_url = File.join(@base_url, '/rooms/', @room.friendly_id, '/join')
+    room_url = "#{root_url(host: @base_url)}rooms/#{@room.friendly_id}/join"
     moderator_message = "#{I18n.t('meeting.moderator_message')}<br>#{room_url}"
     moderator_message += "<br>#{I18n.t('meeting.access_code', code: access_code)}" if access_code.present?
     {

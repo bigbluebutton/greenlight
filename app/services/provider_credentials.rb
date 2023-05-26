@@ -13,15 +13,15 @@
 #
 # You should have received a copy of the GNU Lesser General Public License along
 # with Greenlight; if not, see <http://www.gnu.org/licenses/>.
-
+#
 # frozen_string_literal: true
 
-class ProviderValidator
+class ProviderCredentials
   def initialize(provider:)
     @provider = provider
-    @endpoint = File.join(ENV.fetch('LOADBALANCER_ENDPOINT'), '/api2/')
+    @endpoint = File.join(ENV.fetch('LOADBALANCER_ENDPOINT'), '/api/')
     @secret = ENV.fetch('LOADBALANCER_SECRET')
-    @route = 'getUserGreenlightCredentials'
+    @route = 'getUser'
   end
 
   def call
@@ -38,7 +38,9 @@ class ProviderValidator
 
       response = Hash.from_xml(res.body)['response']
 
-      response['returncode'] == 'SUCCESS'
+      return false unless response['returncode'] == 'SUCCESS'
+
+      [response['user']['apiURL'], response['user']['secret']]
     end
   end
 end
