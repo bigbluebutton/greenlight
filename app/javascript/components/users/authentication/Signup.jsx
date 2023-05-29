@@ -22,16 +22,27 @@ import { toast } from 'react-toastify';
 import SignupForm from './forms/SignupForm';
 import Logo from '../../shared_components/Logo';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
+import useEnv from '../../../hooks/queries/env/useEnv';
 
 export default function Signup() {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const inviteToken = searchParams.get('inviteToken');
-  const { data: registrationMethod } = useSiteSetting('RegistrationMethod');
+  const registrationMethodSettingAPI = useSiteSetting('RegistrationMethod');
+  const envAPI = useEnv();
+  const isLoading = envAPI.isLoading || registrationMethodSettingAPI.isLoading;
 
-  if (registrationMethod === 'invite' && !inviteToken) {
+  if (envAPI.data?.OPENID_CONNECT) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (registrationMethodSettingAPI.data === 'invite' && !inviteToken) {
     toast.error(t('toast.error.users.invalid_invite'));
     return <Navigate to="/" replace />;
+  }
+
+  if (isLoading) {
+    return null;
   }
 
   return (
