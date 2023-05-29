@@ -40,6 +40,9 @@ module Api
       # Creates and saves a new user record in the database with the provided parameters
       def create
         smtp_enabled = ENV['SMTP_SERVER'].present?
+
+        return render_error status: :forbidden if external_authn_enabled?
+
         # Check if this is an admin creating a user
         admin_create = current_user && PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call
 
@@ -79,7 +82,7 @@ module Api
           user.generate_session_token!
           session[:session_token] = user.session_token unless current_user # if this is NOT an admin creating a user
 
-          render_data data: current_user, serializer: CurrentUserSerializer, status: :created
+          render_data data: user, serializer: CurrentUserSerializer, status: :created
         elsif user.errors.size == 1 && user.errors.of_kind?(:email, :taken)
           render_error errors: Rails.configuration.custom_error_msgs[:email_exists], status: :bad_request
         else
