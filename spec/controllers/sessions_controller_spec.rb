@@ -24,6 +24,8 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
   let!(:super_admin) { create(:user, role: super_admin_role, email: 'email@email.com', provider: 'bn') }
 
   before do
+    allow(controller).to receive(:external_authn_enabled?).and_return(false)
+
     request.headers['ACCEPT'] = 'application/json'
   end
 
@@ -106,6 +108,38 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       post :create, params: { session: { email: user.email, password: 'Password1!' } }
       expect(response).to have_http_status(:ok)
       expect(session[:session_token]).to eq(super_admin.reload.session_token)
+    end
+
+    context 'External AuthN enabled' do
+      before do
+        allow(controller).to receive(:external_authn_enabled?).and_return(true)
+      end
+
+      describe 'greenlight account signin' do
+        it 'returns :forbidden without signin the user' do
+          post :create, params: { session: { email: user.email, password: 'Password1!' } }
+
+          expect(response).to have_http_status(:forbidden)
+          expect(JSON.parse(response.body)['data']).to be_blank
+          expect(JSON.parse(response.body)['errors']).not_to be_nil
+        end
+      end
+
+      describe 'bn account signin' do
+        before do
+          user.provider = 'random_provider'
+          user.save
+        end
+
+        it 'returns :ok while signin the user if bn account' do
+          post :create, params: { session: { email: super_admin.email, password: 'Password1!' } }
+
+          expect(response).to have_http_status(:ok)
+          expect(session[:session_token]).to eq(super_admin.reload.session_token)
+          expect(JSON.parse(response.body)['data']).not_to be_blank
+          expect(JSON.parse(response.body)['errors']).to be_blank
+        end
+      end
     end
   end
 

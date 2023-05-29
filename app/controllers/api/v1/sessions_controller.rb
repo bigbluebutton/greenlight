@@ -42,7 +42,10 @@ module Api
         return render_error if user.blank?
 
         # Will return an error if the user is NOT from the current provider and if the user is NOT a super admin
-        return render_error if user.provider != current_provider && !user.super_admin?
+        unless user.super_admin?
+          return render_error if user.provider != current_provider
+          return render_error status: :forbidden if external_authn_enabled?
+        end
 
         # TODO: Add proper error logging for non-verified token hcaptcha
         if user.authenticate(session_params[:password])
