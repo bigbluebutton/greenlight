@@ -69,7 +69,7 @@ class ExternalController < ApplicationController
     cookies.delete(:location)
     return redirect_to redirect_location if redirect_location&.match?('\A\/rooms\/\w{3}-\w{3}-\w{3}-\w{3}\/join\z')
 
-    redirect_to '/rooms'
+    redirect_to '/'
   rescue StandardError => e
     Rails.logger.error("Error during authentication: #{e}")
     redirect_to '/?error=SignupError'

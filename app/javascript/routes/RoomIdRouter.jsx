@@ -14,12 +14,17 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import { useQuery } from 'react-query';
-import axios from '../../../helpers/Axios';
+import React from 'react';
+import { Navigate, useParams } from 'react-router-dom';
 
-export default function useUser(userId) {
-  return useQuery(
-    ['getUser', userId],
-    () => axios.get(`/users/${userId}.json`).then((resp) => resp.data.data),
-  );
+export default function RoomIdRouter() {
+  const { roomId } = useParams();
+  const regex = /(\w{3}-\w{3}-\w{3})(-\w{3})?/;
+  const match = roomId.match(regex);
+
+  if (match) {
+    return <Navigate to={`/rooms/${roomId}/join`} />;
+  }
+
+  throw new Response('Not Found', { status: 404 });
 }

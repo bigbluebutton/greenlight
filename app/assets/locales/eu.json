@@ -1,0 +1,651 @@
+{
+  "start": "Hasi",
+  "search": "Bilatu",
+  "home": "Hasiera",
+  "previous": "Aurrekoa",
+  "back": "Atzera",
+  "next": "Hurrengoa",
+  "view": "Ikusi",
+  "join": "Batu",
+  "edit": "Editatu",
+  "save": "Gorde",
+  "save_changes": "Gorde Aldaketak",
+  "update": "Eguneratu",
+  "report": "Jakinarazi",
+  "share": "Elkarbanatu",
+  "cancel": "Utzi",
+  "close": "Itxi",
+  "delete": "Ezabatu",
+  "copy": "Kopiatu bileraren esteka",
+  "or": "Edo",
+  "online": "Linean",
+  "help_center": "Laguntza-gunea",
+  "are_you_sure": "Ziur?",
+  "return_home": "Itzuli Hasierara",
+  "created_at": "Noiz sortua:",
+  "no_result_search_input": "Ez da emaitzarik aurkitu \"{{ searchInput }}\"(e)rentzat",
+  "action_permanent": "Ezin da ekintza hau desegin.",
+  "homepage": {
+    "welcome_bbb": "BigBlueButtonera ongietorria ematen dizugu.",
+    "bigbluebutton_description": "BigBlueButton, partehartzaileek denbora errealean elkarlagundu eta atzeraelikadura jasotzea ahalbidetuz eraginkortasuna maximizatzen duen lineako ikasketetarako eta bilera birtualetarako kode irekiko web-konferentzia sistema bat da.",
+    "greenlight_description": "Sortu zure aretoak saioak antolatu ahal izateko, edo batu beste batzuetara esteka labur eta egokia erabiliz.",
+    "learn_more": "Ikasi gehiago BigBlueButtoni buruz",
+    "explore_features": "Aztertu gure ezaugarriak",
+    "meeting_title": "Abiarazi bilera bat",
+    "meeting_description": "Abiarazi bilera edo ikasgela birtual bat bideoarekin, audioarekin, pantaila partekatuarekin, txatarekin eta ikaskuntza aplikaturako beharrezko tresna guztiekin.",
+    "recording_title": "Grabatu zure bilerak",
+    "recording_description": "Grabatu  BigBlueButton bilerak eta partekatu partehartzaileekin materiala berrikusteko aukera izan dezaten.",
+    "settings_title": "Kudeatu zure aretoak",
+    "settings_description": "Konfiguratu zure aretoa eta bileren ezarpenak eraginkorki kudeatu ahal izateko.",
+    "and_more_title": "Eta gehiago!",
+    "and_more_description": "BigBlueButtonek ikaskuntza aplikaturako tresnak eskaintzen ditu, eta saioan zehar denbora aurrezteko diseinatuta dago.",
+    "enter_meeting_url": "Sartu bileraren esteka",
+    "enter_meeting_url_instruction": "Sartu zure BigBlueButtoneko bileraren esteka beheko eramuan."
+  },
+  "authentication": {
+    "sign_in": "Hasi Saioa",
+    "sign_up": "Eman Izena",
+    "sign_out": "Itxi Saioa",
+    "email": "Eposta",
+    "password": "Pasahitza",
+    "confirm_password": "Berretsi Pasahitza",
+    "enter_email": "Idatzi zure eposta",
+    "enter_name": "Idatzi zure izena",
+    "remember_me": "Hartu Gogoan",
+    "forgot_password": "Pasahitza ahaztu zaizu?",
+    "dont_have_account": "Ez duzu konturik?",
+    "create_account": "Sortu Kontua",
+    "create_an_account": "Sortu kontu bat",
+    "already_have_account": "Baduzu kontua jada?"
+  },
+  "user": {
+    "user": "Erabiltzailea",
+    "users": "Erabiltzaileak",
+    "name": "Izena",
+    "email_address": "Eposta helbidea",
+    "authenticator": "Egiaztatzailea",
+    "full_name": "Izen osoa",
+    "no_user_found": "Ez da erabiltzailerik aurkitu",
+    "type_three_characters": "Sartu hiru (3) karaktere edo gehiago beste erabiltzaileak erakusteko.",
+    "search_not_found": "Ez da erabiltzailerik aurkitu",
+    "profile": {
+      "profile": "Profila",
+      "language": "Hizkuntza",
+      "role": "Rolea",
+      "administrator": "Kudeatzailea",
+      "guest": "Gonbidatua"
+    },
+    "account": {
+      "account_info": "Kontuaren infomrazioa",
+      "delete_account": "Ezabatu kontua",
+      "change_password": "Aldatu pasahitza",
+      "reset_password": "Berrezarri pasahitza",
+      "update_account_info": "Eguneratu kontuaren informazioa",
+      "current_password": "Egungo pasahitza",
+      "new_password": "Pasahitz berria",
+      "confirm_password": "Berretsi pasahitza",
+      "permanently_delete_account": "Ezabatu kontua behin betiko",
+      "delete_account_description": "Kontua ezabatzea aukeratuz gero, EZIN IZANGO DA berreskuratu.\nZure kontuari buruzko informazio guztia ezabatuko da, ezarpenak, aretoak eta grabazioak barne.",
+      "delete_account_confirmation": "Bai, nere kontua ezabatu nahi dut",
+      "are_you_sure_delete_account": "Ziur zaude zure kontua ezabatu nahi duzula?"
+    },
+    "avatar": {
+      "upload_avatar": "Kargatu profil-irudia",
+      "delete_avatar": "Ezabatu profil-irudia",
+      "crop_avatar": "Moztu zure profil-irudia"
+    },
+    "pending": {
+      "title": "Izena emateko zain",
+      "message": "Eskerrik asko izena emateagatik. Zure kontua kudeatzaile batek onartzeko zain dago."
+    }
+  },
+  "room": {
+    "room": "Aretoa",
+    "rooms": "Aretoak",
+    "room_name": "Aretoaren izena",
+    "add_new_room": "+ Areto Berria",
+    "create_room": "Sortu Aretoa",
+    "delete_room": "Ezabatu Aretoa",
+    "create_new_room": "Sortu Areto Berria",
+    "enter_room_name": "Sartu aretoaren izena",
+    "shared_by": "Honek partekatua:",
+    "last_session": "Azken saioa: {{ localizedTime }}",
+    "no_last_session": "Ez da aurreko saiorik sortu",
+    "search_not_found": "Ez da Aretorik Aurkitu",
+    "rooms_list_is_empty": "Oraindik ez duzu aretorik!",
+    "rooms_list_empty_create_room": "Sortu zure lehenengo aretoa beheko botoian klik eginez eta aretoaren izena sartuz.",
+    "meeting": {
+      "start_meeting": "Hasi bilera",
+      "join_meeting": "Batu bilerara",
+      "meeting_invitation": "Honek gonbidatu zaitu batzera: ",
+      "meeting_not_started": "Bilera ez da oraindik hasi",
+      "join_meeting_automatically": "Bilera hasterakoan automatikoki batuko zara",
+      "recording_consent": "Onartzen dut bilera hau grabatua izan daitekeela. Honek nere ahotsa eta bideoa barne hartu ditzake hauek gaituta egonez gero."
+    },
+    "presentation": {
+      "presentation": "Aurkezpena",
+      "click_to_upload": "Egin klik Kargatzeko",
+      "drag_and_drop": "edo arrastatu eta jaregin",
+      "upload_description": "Kargatu bulegoko edozein dokumentu edo PDF fitxategi. Fitxategiaren tamainaren arabera, baliteke kargatzeko denbora gehiago behar izatea erabili aurretik",
+      "are_you_sure_delete_presentation": "Ziur aurkezpen hau ezabatu nahi duzula?"
+    },
+    "shared_access": {
+      "access": "Sarbidea",
+      "add_share_access": "+ Elkarbanatu Sarbidea",
+      "share_room_access": "Elkarbanatu Aretorako Sarbidea",
+      "add_some_users": "Zenbait erabiltzaile gehitzeko ordua da!",
+      "add_some_users_description": "Erabiltzaile berriak gehitzeko, egin klik ondorengo botoian eta bilatu edo aukeratu areto hau beraiekin elkarbanatu nahi dituzun erabiltzaileak",
+      "delete_shared_access": "Ezabatu Partekatutako Sarbidea",
+      "are_you_sure_delete_shared_access": "Ziur zaude Partekatutako Sarbide hau ezabatu nahi duzula?"
+    },
+    "settings": {
+      "settings": "Ezarpenak",
+      "room_name": "Aretoaren Izena",
+      "user_settings": "Erabiltzaileen Ezarpenak",
+      "allow_room_to_be_recorded": "Ahalbidetu aretoa grabatu ahal izatea",
+      "require_signed_in": "Batu aurretik erabiltzaileek saioa hasi dezatela eskatu",
+      "require_signed_in_message": "Saioa hasi behar duzu areto honetara batzeko.",
+      "require_mod_approval": "Batu aurretik moderatzailearen onarpena eskatu",
+      "allow_any_user_to_start": "Ahalbidetu edozein erabiltzailek bilera hau hasteko aukera izatea",
+      "all_users_join_as_mods": "Erabiltzaile guztiak moderatzaile gisa batzen dira",
+      "mute_users_on_join": "Isildu erabiltzaileak batzen direnean",
+      "generate": "Sortu",
+      "access_code": "Sarbide-kodea",
+      "mod_access_code": "Moderatzailearen Sarbide-kodea",
+      "mod_access_code_optional": "Moderatzailearen Sarbide-kodea (hautazkoa)",
+      "access_code_required": "Sartu sarbide-kodea mesedez",
+      "wrong_access_code": "Sarbide-kode okerra",
+      "generate_viewers_access_code": "Sortu sarbide-kodea ikusleentzat",
+      "generate_mods_access_code": "Sortu sarbide-kodea moderatzaileentzat",
+      "are_you_sure_delete_room": "Ziur areto hau ezabatu nahi duzula?"
+    }
+  },
+  "recording": {
+    "recording": "Grabaketa",
+    "recordings": "Grabaketak",
+    "name": "Izena",
+    "length": "Iraupena",
+    "users": "Erabiltzaileak",
+    "visibility": "Ikuspena",
+    "formats": "Formatuak",
+    "published": "Argitaratua",
+    "unpublished": "Argitaratu gabea",
+    "protected": "Babestua",
+    "length_in_minutes": "{{recording.length}} min.",
+    "processing_recording": "Grabaketa prozesatzen...",
+    "copy_recording_urls": "Kopiatu grabaketa esteka(k)",
+    "recordings_list_empty": "Oraindik ez duzu grabaketarik!",
+    "recordings_list_empty_description": "Grabaketak hemen agertuko dira bilera bat hasi eta grabatu ondoren.",
+    "delete_recording": "Ezabatu grabaketa",
+    "are_you_sure_delete_recording": "Ziur grabaketa ezabatu nahi duzula?",
+    "search_not_found": "Ez da grabaketarik aurkitu"
+  },
+  "admin": {
+    "admin_panel": "Kudeaketa-panela",
+    "manage_users": {
+      "manage_users": "Kudeatu erabiltzaileak",
+      "active": "Gaitua",
+      "approve": "Onartu",
+      "decline": "Baztertu",
+      "pending": "Zain",
+      "banned": "Galerazia",
+      "ban": "Galerazi",
+      "unban": "Desgalerazi",
+      "deleted": "Ezabatua",
+      "invited_tab": "Gonbidatua",
+      "invite_user": "Gonbidatu erabiltzailea",
+      "send_invitation": "Bidali gonbidapena",
+      "enter_user_email": "Sartu erabiltzailearen gonbidapena",
+      "new_user": "Erabiltzaile berria",
+      "add_new_user": "Erabiltzaile Berria",
+      "create_new_user": "Sortu Erabiltzaile Berria",
+      "edit_user": "Editatu erabiltzailea",
+      "delete_user": "Ezabatu erabiltzailea",
+      "users_edit_path": "Erabiltzaileak/Editatu",
+      "create_account": "Sortu Kontua",
+      "create_room": "Sortu Aretoa",
+      "create_new_room": "Sortu Areto Berria",
+      "user_created_at": "Sortua: {{localizedTime}}",
+      "are_you_sure_delete_account": "Ziur zaude {{user.name}} erabiltzailearen kontua ezabatu nahi duzula?",
+      "delete_account_warning": "Kontu hau ezabatzea aukeratzen baduzu, EZIN IZANGO DA berreskuratu.",
+      "empty_active_users": "Oraindik ez dago gaitutuako erabiltzailerik zerbitzari honetan!",
+      "empty_active_users_subtext": "Erabiltzaile bat gaitua egoerara pasatzen denean, hemen agertuko da.",
+      "empty_pending_users": "Oraindik ez dago zain dagoen erabiltzailerik zerbitzari honetan!",
+      "empty_pending_users_subtext": "Erabiltzaile bat zain egoerara pasatzen denean hemen agertuko da.",
+      "empty_banned_users": "Oraindiok ez dago galerazitako erabiltzailerik zerbitzari honetan!",
+      "empty_banned_users_subtext": "Erabiltzaile bat galerazia egoerara pasatzen denean hemen agertuko da.",
+      "empty_invited_users": "Oraindik ez dago gonbidatutako erabiltzailerik zerbitzari honetan!",
+      "empty_invited_users_subtext": "Erabiltzaile bat gonbidatua egoerara pasatzen denean hemen agertuko da.",
+      "invited": {
+        "time_sent": "Bidalketa-ordua",
+        "valid": "Baliagarria"
+      }
+    },
+    "server_rooms": {
+      "server_rooms": "Zerbitzariko Aretoak",
+      "name": "Izena",
+      "owner": "Jabea",
+      "room_id": "Aretoaren IDa",
+      "participants": "Partehartzaileak",
+      "status": "Egoera",
+      "running": "Abian",
+      "not_running": "Abiatu Gabe",
+      "active": "Gaitua",
+      "current_session": "Egungo Saioa: {{lastSession}}",
+      "last_session": "Azken Saioa: {{localizedTime}}",
+      "no_meeting_yet": "Oraindik ez dago bilerarik",
+      "delete_server_rooms": "Ezabatu Aretoa Zerbitzaritik",
+      "resync_recordings": "Grabaketak Bersinkronizatu",
+      "empty_room_list": "Oraindik ez dago zerbitzariko gelarik!",
+      "empty_room_list_subtext": "Aretoak hemen agertuko dira zure lehenengo aretoa sortu ondoren."
+    },
+    "server_recordings": {
+      "server_recordings": "Zerbitzariko Grabaketak",
+      "latest_recordings": "Azken Grabaketak",
+      "no_recordings_found": "Ez da grabaketarik aurkitu."
+    },
+    "site_settings": {
+      "site_settings": "Guneraren konfigurazioa",
+      "customize_greenlight": "Pertsonalizatu Greenlight",
+      "appearance": {
+        "appearance": "Itxura",
+        "brand_color": "Markaren Kolorea",
+        "regular": "Erregularra",
+        "lighten": "Argitsua",
+        "brand_image": "Markaren Irudia",
+        "click_to_upload": "Egin klik Kargatzeko",
+        "drag_and_drop": "edo arrastatu eta jaregin",
+        "upload_brand_image_description": "Kargatu edozein PNG, JPG edo SVG fitxategi. Fitxategiaren tamainaren arabera, baliteke kargatzeko denbora gehiago behar izatea erabili aurretik",
+        "remove_branding_image": "Ezabatu Markaren Irudia"
+      },
+      "administration": {
+        "administration": "Kudeaketa",
+        "terms": "Baldintzak",
+        "privacy": " Pribatutasun Politika",
+        "privacy_policy": " Pribatutasun Politika",
+        "change_term_links": "Aldatu orrialdearen amaieran agertzen diren baldintzen estekak",
+        "change_privacy_link": " Aldatu orrialdearen amaieran agertzen diren pribatutasun esteka",
+        "change_url": "Aldatu Esteka",
+        "enter_link": "Sartu esteka hemen"
+      },
+      "settings": {
+        "settings": "Ezarpenak",
+        "allow_users_to_share_rooms": "Ahalbidetu Erabiltzaileak Aretoak Elkarbanatzera",
+        "allow_users_to_share_rooms_description": "Desgaitu gisa konfiguratzean botoia kenduko da goitibeherako menutik, erabiltzaileak aretoak elkarbanatzea sahiestuz",
+        "allow_users_to_preupload_presentation": "Ahalbidetu erabiltzaileak aurkezpenak aurrekargatzea",
+        "allow_users_to_preupload_presentation_description": "Erabiltzaileek aurkezpenak aurrekargatu ditzakete areto zehatz horretako lehenetsitako aurkezpen gisa erabiltzeko"
+      },
+      "registration": {
+        "registration": "Erregistratzea",
+        "role_mapping_by_email": "Roleen mapatzea Eposta bidez",
+        "role_mapping_by_email_description": "Erabiltzaile bat role bat egokitu bere eposta erabiliz. Role1=eposta1, role2=eposta2, role3=eposta3 formatua izan behar du.",
+        "enter_role_mapping_rule": "Sartu roleen mapatze arau bat",
+        "resync_on_login": "Saio hasiera bakoitzean erabiltzailearen datuan bersinkronizatu",
+        "resync_on_login_description": "Bersinkronizatu erabiltzaile baten informazioa izena ematen duen bakoitzean, kanpo-egiaztatze hornitzailea beti bat etorriz Greenlight-en informazioarekin.",
+        "default_role": "Role Lehenetsia",
+        "default_role_description": "Erabiltzaile sortu berriei egokituko zaien role lehenetsia",
+        "registration_method": "Erregistratze Modua",
+        "registration_method_description": "Aldatu erabiltzaileak webgunean izena ematen duten modua",
+        "registration_methods" : {
+          "open": "Erregistratze irekia",
+          "invite": "Batu gonbidapen bidez",
+          "approval": "Onartu/Baztertu"
+        }
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "Aretoen Konfigurazioa",
+      "default": "Hautazkoa (lehenetsia: gaitua)",
+      "optional": "Hautazkoa (lehenetsia: desgaitua)",
+      "enabled": "Behartu gaitzea",
+      "disabled": "Desgaitua",
+      "configurations": {
+        "allow_room_to_be_recorded": "Ahalbidetu aretoa grabatzeko aukera izatea",
+        "allow_room_to_be_recorded_description": "Aretoaren jabeek areto bat grabatzeko aukera nahi duten edo ez zehaztea ahalbidetzea. Gaituz gero, moderatzaileak \"Grabatu\" botoian klik egin behar du bilera hasi ondoren.",
+        "require_user_signed_in": "Batu aurretik erabiltzaileak saioa hasi behar izatea eskatu",
+        "require_user_signed_in_description": "Greelight kontua duten erabiltzaileei uzten zaie soilik bilerara batzen. Saioa hasi ez badute, saio hasierako orrira berbideratuko dira aretora batzen saiatzerakoan.",
+        "require_mod_approval": "Moderatzailearen onarpena behar da batu aurretik",
+        "require_mod_approval_description": "BigBlueButtoneko bileraren moderatzailea ohartarazten du erabiltzaile bat batzen saiatzen denean. Erabiltzailea onartuz gero, bilerara batzeko aukera izango du.",
+        "allow_any_user_to_start_meeting": "Edozein erabiltzailek bilera bat hasi ahal izatea ahalbidetu",
+        "allow_any_user_to_start_meeting_description": "Edozein erabiltzailek noiznahi bilera hasi ahal izatea ahalbidetu. Besterik adierazi ezean, soilik aretoaren jabeak has dezake bilera.",
+        "allow_users_to_join_as_mods": "Erabiltzaile guztiak moderatzaile gisa batzea ahalbidetu",
+        "allow_users_to_join_as_mods_description": "Erabiltzaile guztiei BigBlueButtonen moderatzaile pribilegioak ematen zaizkie bilerara batzerakoan.",
+        "mute_users_on_join": "Isildu erabiltzaileak batzen direnean",
+        "mute_users_on_join_description": "Erabiltzailea automatikoki isiltzen du BigBlueButtoneko bilerara batzen denean",
+        "viewer_access_code": "Ikuslearen Sarbide-kodea",
+        "viewer_access_code_description": "Aretoaren jabeek erabiltzaileekin partekatu dezaketen ausazko kode alfanumeriko bat izan dezakete. Kodea, sortuz gero, erabiltzaileek beharrezkoa izango dute aretoko bileretara batu ahal izateko.",
+        "mod_access_code": "Moderatzailearen sarbide-kodea",
+        "mod_access_code_description": "Aretoaren jabeek erabiltzaileekin partekatu dezaketen ausazko kode alfanumeriko bat izan dezakete. Kodea, sortuz gero, ez da beharrezkoa izango eta aretoko edozein bileretan erabiltzean erabiltzailea moderatzaile gisa batuko da."
+      }
+    },
+    "roles": {
+      "role": "Rolea",
+      "roles": "Roleak",
+      "administrator": "Kudeatzailea",
+      "guest": "Gonbidatua",
+      "manage_roles": "Kudeatu Roleak",
+      "delete_role": "Ezabatu Rolea",
+      "are_you_sure_delete_role": "Ziur role hau ezabatu nahi duzula?",
+      "enter_role_name": "Sartu rolearen izen bat",
+      "add_role": "+ Sortu Rolea",
+      "create_role": "Sortu Rolea",
+      "create_new_role": "Sortu role berri bat",
+      "no_role_found": "Ez da rolerik aurkitu",
+      "search_not_found": "Ez dire rolerik aurkitu",
+      "edit": {
+        "create_room": "Role hau duten erabiltzaileek aretoak sortzea ahalbidetu",
+        "record": "Role hau duten erabiltzaileek beraien bilerak grabatzea ahalbidetu",
+        "manage_users": "Role hau duten erabiltzaileek erabiltzaileak kudeatzea ahalbidetu",
+        "manage_rooms": "Role hau duten erabiltzaileek zerbitzariko aretoak kudeatzea ahalbidetu",
+        "manage_recordings": "Role hau duten erabiltzaileek zerbitzariko grabaketak kudeatzea ahalbidetu",
+        "manage_site_settings": "Role hau duten erabiltzaileek guneraren ezarpenak kudeatzea ahalbidetu",
+        "manage_roles": "Role hau duten erabiltzaileek beste roleak editatzea ahalbidetu",
+        "shared_list": "Role hau duten erabiltzaileak aretoak partekatzeko goitibeherako zerrendan sartu",
+        "room_limit": "Aretoen Muga"
+      }
+    }
+  },
+  "toast": {
+    "success": {
+      "user": {
+        "user_created": "Erabiltzaile berria sortu da.",
+        "user_updated": "Erabiltzailea eguneratu da.",
+        "user_deleted": "Erabiltzailea ezabatu da.",
+        "avatar_updated": "Profil-irudia eguneratu da.",
+        "password_updated": "Pasahitza eguneratu da.",
+        "account_activated": "Zure kontua gaitu da.",
+        "activation_email_sent": "Eposta mezu bat bidali da zure kontua gaitzeko argibideekin.",
+        "reset_pwd_email_sent": "Eposta mezu bat bidali da zure pasahitza berrezartzeko argibideekin."
+      },
+      "session": {
+        "signed_out": "Saioa amaitu duzu."
+      },
+      "room": {
+        "room_created": "Areto berri bat sortu da.",
+        "room_updated": "Aretoa eguneratu da.",
+        "room_deleted": "Aretoa ezabatu da.",
+        "room_shared": "Aretoa elkarbanatu da.",
+        "room_unshared": "Aretoa elkarbanatzeari utzi zaio.",
+        "recordings_synced": "Aretako grabaketak sinkronizatu dira.",
+        "room_configuration_updated": "Aretoaren konfigurazioa eguneratu da.",
+        "room_setting_updated": "Aretoaren konfigurazioa eguneratu da.",
+        "presentation_updated": "Aurkezpena eguneratu da.",
+        "presentation_deleted": "Aurkezpena ezabatu da.",
+        "joining_meeting": "Bilerara batzen...",
+        "meeting_started": "Bilera hasi da.",
+        "access_code_copied": "Sarbide-kodea kopiatu da.",
+        "access_code_generated": "Sarbide-kode berri bat sortu da.",
+        "access_code_deleted": "Sarbide-kodea ezabatu da.",
+        "copied_meeting_url": "Bilearen URLa kopiatu da. Esteka bilerara batzeko erabili daiteke."
+      },
+      "site_settings": {
+        "site_setting_updated": "Gunearen ezarpenak eguneratu dira.",
+        "brand_color_updated": "Markaren kolorea eguneratu da.",
+        "brand_image_updated": "Markaren irudia eguneratu da.",
+        "brand_image_deleted": "Markaren irudia ezabatu da.",
+        "privacy_policy_updated": "Pribatutasun politika eguneratu da.",
+        "terms_of_service_updated": "Zerbitzuaren baldintzak eguneratu dira."
+      },
+      "recording": {
+        "recording_visibility_updated": "Grabaketaren ikuspena eguneratu da.",
+        "recording_name_updated": "Grabaketaren izena eguneratu da.",
+        "recording_deleted": "Grabaketa ezabatu da.",
+        "copied_urls": "Grabaketen URLak kopiatu dira."
+      },
+      "role": {
+        "role_created": "Role berri bat sortu da.",
+        "role_updated": "Rolea eguneratu da.",
+        "role_deleted": "Rolea ezabatu da.",
+        "role_permission_updated": "Rolearen baimenak eguneratu dira."
+      },
+      "invitations": {
+        "invitation_sent": "Gonbidapen bat bidali da."
+      }
+    },
+    "error": {
+      "problem_completing_action": "Ezin da ekintza burutu. \nSaiatu berriro mesedez.",
+      "file_type_not_supported": "Fitxategi mota ez da bateragarria.",
+      "file_size_too_large": "Fitxategiaren tamaina handiegia da.",
+      "file_upload_error": "Fitxategia ezin da kargatu.",
+      "signin_required": "Saioa hasi behar duzu orri honetara sartzeko.",
+      "roles": {
+        "role_assigned": "Role hau ezin da ezabatu gutxienez erabiltzaile bati egokitu bait zaio."
+      },
+      "users": {
+        "signup_error": "Ezin zara egizatatua izan. Jarri harremanetan zure kudeatzailearekin.",
+        "invalid_invite": "Zure gonbidapen-fitxa baliogabea edo okerra da. Jarri harremanetan zure kudeatzailearekin fitxa berri bat jasotzeko.",
+        "email_exists": "Badago jada kontu bat eposta honekin. Saiatu berriro mesedez beste eposta batekin.",
+        "old_password": "Sartutako pasahitza okerra da.",
+        "pending": "Zure erregistroa kudeatzaileak onartzeko zain dago. Saiatu beranduago, mesedez.",
+        "banned": "Ez duzu aplikazio honetarako sarbiderik. Jarri kudeatzailearekin harremanetan akats bat dela uste izanez gero."
+      },
+      "rooms": {
+        "room_limit": "Ezin da aretoa sortu aretoak sortzeko mugara iritsi bait da."
+      },
+      "session": {
+        "invalid_credentials": "Erabiltzaile-izena edo pasahitza okerra da, Egiaztatu zure kredentzialak eta saiatu berriro."
+      }
+    }
+  },
+  "global_error_page": {
+    "title": "Errorea",
+    "message": "Zerbait gaizki aatera da. Gertakaria errepikatuz gero, jarri kudeatzailearekin harremanetan."
+  },
+  "not_found_error_page": {
+    "title": "Orria ez da aurkitu",
+    "message": "Sartzen saiatzen ari zaren orria ezin da aurkitu."
+  },
+  "account_activation_page": {
+    "title": "Kontuaren gaitzea",
+    "account_unverified": "Zure kontua ez da oraindik egiaztatu.",
+    "message": "Greenlight erabiltzeko, egiaztatu zure kontua bidali zaizun gaitze-epostaren jarraibideei jarraituz.",
+    "resend_activation_link": "Ez baduzu gaitze-epostarik jaso edo erabiltzeko arazorik izanez gero, egin klik beheko botoian gaitze-eposta berri bat eskatzeko.",
+    "resend_btn_lbl": "Berbidali Egiaztatzea"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Zure izen osoa sartu, mesedez.",
+        "min": "Izenak gutxienez 2 karaktere izen behar ditu",
+        "max": "Izenak gehienez 255 karaktere izan behar ditu"
+      },
+      "email": {
+        "required": "Sartu eposta helbide bat, mesedez",
+        "email": "Sartutako balioa ez dator bat epostaren formatuarekin",
+        "min": "Eposta helbideak gutxienez 6 karaktere izen behar ditu",
+        "max": "Eposta helbideak gehienez 255 karaktere izan behar ditu"
+      },
+      "password": {
+        "required": "Sartu mesedez pasahitza",
+        "match": "Pasahitzak gutxienez izan behar ditu:",
+        "min": "- Zortzi karaktere",
+        "lower": "- Letra xehe bat",
+        "upper": "- Letra larri bat",
+        "digit": "- Zenbaki bat",
+        "symbol": "- Ikur bat",
+        "max": "Pasahitzak gehienez 255 karaktere izan behar ditu"
+      },
+      "password_confirmation": {
+        "required": "Egiaztatu pasahitza, mesedez",
+        "match": "Pasahitzak ez datoz bat"
+      },
+      "emails": {
+        "required": "Sartu gutxienez eposta baliagarri bat, mesedez",
+        "list": "Eman komaz bereizitako baliozko eposta zerrenda bat, mesedez (erabiltzailea@erabiltzaileak.com,erabiltzailea1@erabiltzaileak.com,erabiltzailea2@erabiltzaileak.com)"
+      },
+      "role_name": {
+        "required": "Sartu rolearen izena, mesedez."
+      },
+      "role": {
+        "limit": {
+          "required": "Sartu aretoen muga, mesedez",
+          "min": "Baimendutako gutxienekoa 0 da",
+          "max": "Baimendutako gehienezkoa 100 da"
+        },
+        "type": {
+          "error": "Zenbaki bat zehaztu behar duzu"
+        }
+      },
+      "room": {
+        "name": {
+          "required": "Sartu aretoaren izena, mesedez.",
+          "min": "Izenak gutxienez 2 karaktere izen behar ditu"
+        }
+      },
+      "url": {
+        "invalid": "Esteka baliogabea"
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Aretoaren izena",
+          "placeholder": "Sartu aretoaren izena..."
+        }
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Izen Osoa",
+            "placeholder": "Sartu zure izen osoa"
+          },
+          "email": {
+            "label": "Eposta",
+            "placeholder": "Sartu zure eposta helbidea"
+          },
+          "password": {
+            "label": "Pasahitza",
+            "placeholder": "Sortu pasahitza"
+          },
+          "password_confirmation": {
+            "label": "Berretsi pasahitza",
+            "placeholder": "Berretsi zure pasahitza"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "Eposta",
+            "placeholder": "Eposta"
+          },
+          "password": {
+            "label": "Pasahitza",
+            "placeholder": "Sortu pasahitza"
+          },
+          "remember_me": {
+            "label": "Gogoratu nazazu"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Egungo Pasahitza",
+            "placeholder": "Sartu zure pasahitza"
+          },
+          "new_password": {
+            "label": "Pasahitz Berria",
+            "placeholder": "Sartu zure pasahitz berria"
+          },
+          "password_confirmation": {
+            "label": "Berretsi Pasahitza",
+            "placeholder": "Berretsi zure pasahitz berria"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Sartu zure egingo pasahitza, mesedez."
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "Eposta",
+            "placeholder": "Sartu zure kontuaren eposta"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Sartu zure kontuaren eposta, mesedez"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Pasahitz Berria",
+            "placeholder": "Sartu zure pasahitz berria"
+          },
+          "password_confirmation": {
+            "label": "Berretsi Pasahitza",
+            "placeholder": "Berretsi zure pasahitz berria"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Izen Osoa"
+          },
+          "email": {
+            "label": "Eposta"
+          },
+          "language": {
+            "label": "Hizkuntza"
+          },
+          "role": {
+            "label": "Rolea"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Izen Osoa",
+            "placeholder": "Sartu erabiltzailearen izen osoa"
+          },
+          "email": {
+            "label": "Eposta",
+            "placeholder": "Sartu erabiltzailearen eposta"
+          },
+          "password": {
+            "label": "Pasahitza",
+            "placeholder": "Sartu erabiltzailearen pasahitza"
+          },
+          "password_confirmation": {
+            "label": "Berretsi Pasahitza",
+            "placeholder": "Berretsi Pasahitza"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "Epostak"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "Sartu hemen esteka..."
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "Rolearen izena",
+            "placeholder": "Sartu rolearentzat izen bat..."
+          }
+        }
+      }
+    }
+  }
+}
