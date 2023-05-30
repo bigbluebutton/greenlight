@@ -30,84 +30,144 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
   end
 
   describe '#create' do
-    it 'creates a regular session if the remember me checkbox is not selected' do
-      post :create, params: {
-        session: {
-          email: 'email@email.com',
-          password: 'Password1!',
-          extend_session: false
+    context 'Valid credentials' do
+      it 'creates a regular session if the remember me checkbox is not selected' do
+        post :create, params: {
+          session: {
+            email: 'email@email.com',
+            password: 'Password1!',
+            extend_session: false
+          }
+        }, as: :json
+
+        expect(cookies.encrypted[:_extended_session]).to be_nil
+        expect(session[:session_token]).to eq(user.reload.session_token)
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['errors']).to be_blank
+        expect(JSON.parse(response.body)['data']).not_to be_blank
+      end
+
+      it 'creates an extended session if the remember me checkbox is selected' do
+        post :create, params: {
+          session: {
+            email: 'email@email.com',
+            password: 'Password1!',
+            extend_session: true
+          }
+        }, as: :json
+
+        expect(cookies.encrypted[:_extended_session]['session_token']).to eq(user.reload.session_token)
+        expect(session[:session_token]).to eq(user.session_token)
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['errors']).to be_blank
+        expect(JSON.parse(response.body)['data']).not_to be_blank
+      end
+
+      it 'returns UnverifiedUser error if the user is not verified' do
+        unverified_user = create(:user, password: 'Password1!', verified: false)
+
+        post :create, params: {
+          session: {
+            email: unverified_user.email,
+            password: 'Password1!'
+          }
         }
-      }, as: :json
 
-      expect(cookies.encrypted[:_extended_session]).to be_nil
-      expect(session[:session_token]).to eq(user.reload.session_token)
-    end
+        expect(response).to have_http_status(:forbidden)
+        expect(JSON.parse(response.body)['data']).to be_blank
+        expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:unverified_user])
+      end
 
-    it 'creates an extended session if the remember me checkbox is selected' do
-      post :create, params: {
-        session: {
-          email: 'email@email.com',
-          password: 'Password1!',
-          extend_session: true
+      it 'returns BannedUser error if the user is banned' do
+        banned_user = create(:user, password: 'Password1!', status: :banned)
+
+        post :create, params: {
+          session: {
+            email: banned_user.email,
+            password: 'Password1!'
+          }
         }
-      }, as: :json
 
-      expect(cookies.encrypted[:_extended_session]['session_token']).to eq(user.reload.session_token)
-      expect(session[:session_token]).to eq(user.session_token)
-    end
+        expect(response).to have_http_status(:forbidden)
+        expect(JSON.parse(response.body)['data']).to be_blank
+        expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:banned_user])
+      end
 
-    it 'returns UnverifiedUser error if the user is not verified' do
-      unverified_user = create(:user, password: 'Password1!', verified: false)
+      it 'returns Pending error if the user is banned' do
+        banned_user = create(:user, password: 'Password1!', status: :pending)
 
-      post :create, params: {
-        session: {
-          email: unverified_user.email,
-          password: 'Password1!'
+        post :create, params: {
+          session: {
+            email: banned_user.email,
+            password: 'Password1!'
+          }
         }
-      }
 
-      expect(JSON.parse(response.body)['data']).to eq(unverified_user.id)
-      expect(JSON.parse(response.body)['errors']).to eq('UnverifiedUser')
+        expect(response).to have_http_status(:forbidden)
+        expect(JSON.parse(response.body)['data']).to be_blank
+        expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:pending_user])
+      end
+
+      context 'Provider' do
+        it 'logs in with greenlight account before bn account' do
+          post :create, params: { session: { email: user.email, password: 'Password1!' } }
+          expect(response).to have_http_status(:ok)
+          expect(JSON.parse(response.body)['data']).not_to be_blank
+          expect(JSON.parse(response.body)['errors']).to be_blank
+          expect(session[:session_token]).to eq(user.reload.session_token)
+        end
+
+        describe 'bn account' do
+          before do
+            user.provider = 'random_provider'
+            user.save
+          end
+
+          it 'logs in with bn account if greenlight account does not exist' do
+            post :create, params: { session: { email: user.email, password: 'Password1!' } }
+            expect(response).to have_http_status(:ok)
+            expect(JSON.parse(response.body)['data']).not_to be_blank
+            expect(JSON.parse(response.body)['errors']).to be_blank
+            expect(session[:session_token]).to eq(super_admin.reload.session_token)
+          end
+        end
+      end
     end
 
-    it 'returns BannedUser error if the user is banned' do
-      banned_user = create(:user, password: 'Password1!', status: :banned)
+    context 'Invalid credentials' do
+      it 'returns :bad_request and RecordInvalid error without creating a session' do
+        post :create, params: {
+          session: {
+            email: 'email@email.com',
+            password: 'WrongPassword1!',
+            extend_session: false
+          }
+        }, as: :json
 
-      post :create, params: {
-        session: {
-          email: banned_user.email,
-          password: 'Password1!'
-        }
-      }
-
-      expect(JSON.parse(response.body)['errors']).to eq('BannedUser')
+        expect(response).to have_http_status(:bad_request)
+        expect(cookies.encrypted[:_extended_session]).to be_nil
+        expect(session[:session_token]).to be_nil
+        expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:record_invalid])
+        expect(JSON.parse(response.body)['data']).to be_blank
+      end
     end
 
-    it 'returns Pending error if the user is banned' do
-      banned_user = create(:user, password: 'Password1!', status: :pending)
+    context 'Inexistent account' do
+      it 'returns :bad_request and RecordInvalid error without creating a session' do
+        post :create, params: {
+          session: {
+            email: 'null@ghosts.void',
+            password: 'Password1!',
+            extend_session: false
+          }
+        }, as: :json
 
-      post :create, params: {
-        session: {
-          email: banned_user.email,
-          password: 'Password1!'
-        }
-      }
-
-      expect(JSON.parse(response.body)['errors']).to eq('PendingUser')
-    end
-
-    it 'logs in with greenlight account before bn account' do
-      post :create, params: { session: { email: user.email, password: 'Password1!' } }
-      expect(response).to have_http_status(:ok)
-      expect(session[:session_token]).to eq(user.reload.session_token)
-    end
-
-    it 'logs in with bn account if greenlight account does not exist' do
-      user.provider = 'random_provider'
-      user.save
-      post :create, params: { session: { email: user.email, password: 'Password1!' } }
-      expect(response).to have_http_status(:ok)
-      expect(session[:session_token]).to eq(super_admin.reload.session_token)
+        expect(cookies.encrypted[:_extended_session]).to be_nil
+        expect(session[:session_token]).to be_nil
+        expect(response).to have_http_status(:bad_request)
+        expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:record_invalid])
+        expect(JSON.parse(response.body)['data']).to be_blank
+      end
     end
 
     context 'External AuthN enabled' do

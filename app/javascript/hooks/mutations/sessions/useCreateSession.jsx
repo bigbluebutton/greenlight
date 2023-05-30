@@ -49,8 +49,10 @@ export default function useCreateSession() {
           toast.error(t('toast.error.users.banned'));
         } else if (err.response.data.errors === 'UnverifiedUser') {
           navigate(`/verify?id=${err.response.data.data}`);
-        } else {
+        } else if (err.response.data.errors === 'RecordInvalid') {
           toast.error(t('toast.error.session.invalid_credentials'));
+        } else {
+          toast.error(t('toast.error.problem_completing_action'));
         }
       },
     },
