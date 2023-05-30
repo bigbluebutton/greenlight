@@ -21,6 +21,8 @@ class ExternalController < ApplicationController
 
   skip_before_action :verify_authenticity_token
 
+  before_action :ensure_unauthenticated, only: :create_user
+
   # GET 'auth/:provider/callback'
   # Creates the user using the information received through the external auth method
   def create_user
@@ -136,5 +138,9 @@ class ExternalController < ApplicationController
       external_id: credentials['uid'],
       verified: true
     }
+  end
+
+  def ensure_unauthenticated
+    redirect_to root_path(error: 'SignupError') if current_user
   end
 end

@@ -201,6 +201,31 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
         end
       end
     end
+
+    context 'Already logged in' do
+      let(:signed_in_user) { create(:user) }
+
+      before do
+        sign_in_user signed_in_user
+      end
+
+      it 'returns :unauthorized and does not sign in the user' do
+        expect(session[:session_token]).to eq(signed_in_user.reload.session_token)
+
+        post :create, params: {
+          session: {
+            email: 'email@email.com',
+            password: 'Password1!',
+            extend_session: false
+          }
+        }, as: :json
+
+        expect(session[:session_token]).not_to eq(user.reload.session_token)
+        expect(response).to have_http_status(:unauthorized)
+        expect(JSON.parse(response.body)['errors']).not_to be_nil
+        expect(JSON.parse(response.body)['data']).to be_blank
+      end
+    end
   end
 
   describe '#destroy' do

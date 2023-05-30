@@ -311,6 +311,29 @@ RSpec.describe ExternalController, type: :controller do
         expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).role).to eq(role1)
       end
     end
+
+    context 'Already logged in' do
+      let(:signed_in_user) { create(:user) }
+
+      before do
+        sign_in_user signed_in_user
+
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+      end
+
+      it 'redirects to root_path and does not sign in or create the user' do
+        expect(session[:session_token]).to eq(signed_in_user.reload.session_token)
+
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+        expect do
+          get :create_user, params: { provider: 'openid_connect' }
+        end.not_to change(User, :count)
+
+        expect(session[:session_token]).to eq(signed_in_user.reload.session_token)
+        expect(response).to redirect_to(root_path(error: 'SignupError'))
+      end
+    end
   end
 
   describe '#recording_ready' do

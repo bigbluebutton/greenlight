@@ -20,6 +20,7 @@ module Api
   module V1
     class SessionsController < ApiController
       skip_before_action :ensure_authenticated, only: %i[index create]
+      before_action :ensure_unauthenticated, only: :create
 
       # GET /api/v1/sessions
       # Returns the current_user
