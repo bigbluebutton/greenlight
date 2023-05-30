@@ -17,10 +17,12 @@
 # frozen_string_literal: true
 
 class UserCreator
+  BLACKLIST = %w[SuperAdmin].freeze
+
   def initialize(user_params:, provider:, role:)
     @user_params = user_params
     @provider = provider
-    @role = role
+    @role = role if role&.provider == provider
     @roles_mappers = SettingGetter.new(setting_name: 'RoleMapping', provider:).call
   end
 
@@ -41,6 +43,8 @@ class UserCreator
 
                      rules.find { |rule| email.ends_with? rule.second if rule.second }
                    end
+
+    return nil if BLACKLIST.include? matched_rule&.first&.strip
 
     Role.find_by(name: matched_rule&.first, provider: @provider)
   end
