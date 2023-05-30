@@ -118,24 +118,44 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
       end
 
-      context 'Admin creation' do
-        before { sign_in_user(user) }
+      context 'Authenticated request' do
+        context 'Not admin creation' do
+          let(:signed_in_user) { user }
 
-        it 'sends activation email to but does NOT signin the created user' do
-          expect { post :create, params: user_params }.to change(User, :count).by(1)
-          expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
-                                                                                                       'deliver_now', Hash)
-          expect(response).to have_http_status(:created)
-          expect(session[:session_token]).to eql(user.session_token)
+          before { sign_in_user(signed_in_user) }
+
+          it 'returns :forbidden and does NOT create the user' do
+            expect { post :create, params: user_params }.not_to change(User, :count)
+            expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+
+            expect(response).to have_http_status(:forbidden)
+            expect(session[:session_token]).to eql(signed_in_user.session_token)
+          end
         end
 
-        context 'User language' do
-          it 'defaults user language to admin language if the language isn\'t specified' do
-            user.update! language: 'language'
+        context 'Admin creation' do
+          let(:signed_in_user) { user_with_manage_users_permission }
 
-            user_params[:user][:language] = nil
-            post :create, params: user_params
-            expect(User.find_by(email: user_params[:user][:email]).language).to eq('language')
+          before { sign_in_user(signed_in_user) }
+
+          it 'sends activation email to but does NOT signin the created user' do
+            expect { post :create, params: user_params }.to change(User, :count).by(1)
+            expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
+                                                                                                         'deliver_now', Hash)
+            expect(response).to have_http_status(:created)
+            expect(session[:session_token]).to eql(signed_in_user.session_token)
+          end
+
+          context 'User language' do
+            it 'defaults user language to admin language if the language isn\'t specified' do
+              signed_in_user.update! language: 'language'
+
+              user_params[:user][:language] = nil
+              post :create, params: user_params
+              expect(User.find_by(email: user_params[:user][:email]).language).to eq('language')
+              expect(response).to have_http_status(:created)
+              expect(session[:session_token]).to eql(signed_in_user.session_token)
+            end
           end
         end
       end
