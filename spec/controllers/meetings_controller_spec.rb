@@ -41,7 +41,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
   describe '#start' do
     it 'makes a call to the MeetingStarter service with the right values and returns the join url' do
-      expect(MeetingStarter).to receive(:new).with(room:, base_url: root_url, current_user: user, provider: 'greenlight').and_call_original
+      expect(MeetingStarter).to receive(:new).with(room:, base_url: request.base_url, current_user: user, provider: 'greenlight').and_call_original
       expect_any_instance_of(MeetingStarter).to receive(:call)
       expect_any_instance_of(BigBlueButtonApi).to receive(:join_meeting).with(room:, name: user.name, avatar_url: nil, role: 'Moderator')
 
@@ -149,11 +149,12 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       expect(JSON.parse(response.body)['data']).to eq({ 'joinUrl' => 'JOIN_URL', 'status' => true })
     end
 
-    it 'returns status false if the meeting is NOT running' do
+    it 'returns status false if the meeting is NOT running and the user is NOT authorized to start the meeting' do
       allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(false)
       expect_any_instance_of(BigBlueButtonApi).not_to receive(:join_meeting)
 
-      post :status, params: { friendly_id: room.friendly_id, name: user.name }
+      post :status, params: { friendly_id: test_room.friendly_id, name: user.name }
+
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)['data']).to eq({ 'status' => false })
     end
@@ -182,6 +183,16 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         .with(room: test_room, name: user.name, avatar_url:, role: 'Viewer')
 
       post :status, params: { friendly_id: test_room.friendly_id, name: user.name }
+    end
+
+    it 'starts the meeting if the user is a moderator' do
+      allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(false)
+      expect_any_instance_of(MeetingStarter).to receive(:call)
+
+      post :status, params: { friendly_id: room.friendly_id, name: user.name }
+
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)['data']).to eq({ 'joinUrl' => 'JOIN_URL', 'status' => true })
     end
 
     context 'user is joining a shared room' do
@@ -343,7 +354,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
         allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(false)
 
-        expect(MeetingStarter).to receive(:new).with(room:, base_url: root_url, current_user: user, provider: 'greenlight').and_call_original
+        expect(MeetingStarter).to receive(:new).with(room:, base_url: request.base_url, current_user: user, provider: 'greenlight').and_call_original
         expect_any_instance_of(MeetingStarter).to receive(:call)
 
         post :status, params: { friendly_id: room.friendly_id, name: user.name }

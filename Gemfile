@@ -9,7 +9,7 @@ gem 'active_model_serializers'
 gem 'active_storage_validations'
 gem 'aws-sdk-s3', require: false
 gem 'bcrypt', '~> 3.1.7'
-gem 'bigbluebutton-api-ruby', '1.8'
+gem 'bigbluebutton-api-ruby', '1.9.1'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'data_migrate'
@@ -28,7 +28,7 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
 gem 'pagy', '~> 5.10', '>= 5.10.1'
 gem 'pg'
 gem 'puma', '~> 5.0'
-gem 'rails', '~> 7.0.4', '>= 7.0.4.2'
+gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 gem 'redis', '~> 4.0'
 gem 'sprockets-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
