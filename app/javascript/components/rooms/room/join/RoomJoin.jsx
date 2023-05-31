@@ -25,12 +25,10 @@ import {
 } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { useForm } from 'react-hook-form';
 import usePublicRoom from '../../../../hooks/queries/rooms/usePublicRoom';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import useRoomStatus from '../../../../hooks/mutations/rooms/useRoomStatus';
 import useEnv from '../../../../hooks/queries/env/useEnv';
-import { joinFormConfig, joinFormFields as fields } from '../../../../helpers/forms/JoinFormHelpers';
 import subscribeToRoom from '../../../../channels/rooms_channel';
 import RequireAuthentication from './RequireAuthentication';
 import GGSpinner from '../../../shared_components/utilities/GGSpinner';
@@ -41,6 +39,7 @@ import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
 import RoomJoinPlaceholder from './RoomJoinPlaceholder';
+import useRoomJoinForm from '../../../../hooks/forms/rooms/useRoomJoinForm';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -53,7 +52,7 @@ export default function RoomJoin() {
 
   const { data: env } = useEnv();
 
-  const methods = useForm(joinFormConfig);
+  const { methods, fields } = useRoomJoinForm();
 
   const location = useLocation();
   const path = encodeURIComponent(location.pathname);

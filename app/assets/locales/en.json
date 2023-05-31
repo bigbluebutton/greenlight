@@ -492,6 +492,11 @@
           "min": "Name must be at least 2 characters long"
         }
       },
+      "room_join": {
+        "name": {
+          "required": "Please enter your name."
+        }
+      },
       "url": {
         "invalid": "Invalid URL"
       }
@@ -501,6 +506,21 @@
         "name": {
           "label": "Room Name",
           "placeholder": "Enter a room name..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Name",
+            "placeholder": "Enter your name"
+        },
+        "access_code": {
+          "label": "Access Code",
+          "placeholder": "Enter the access code"
+        },
+        "recording_consent": {
+          "label": "I acknowledge that this session may be recorded. This may include my voice and video if enabled."
         }
       }
     },
