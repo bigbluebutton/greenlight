@@ -54,7 +54,7 @@ RSpec.describe ExternalController, type: :controller do
       get :create_user, params: { provider: 'openid_connect' }
 
       expect(session[:session_token]).to eq(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).session_token)
-      expect(response).to redirect_to('/')
+      expect(response).to redirect_to(root_path)
     end
 
     it 'assigns the User role to the user' do
@@ -95,7 +95,7 @@ RSpec.describe ExternalController, type: :controller do
         }
         get :create_user, params: { provider: 'openid_connect' }
 
-        expect(response).to redirect_to('/')
+        expect(response).to redirect_to(root_path)
       end
 
       it 'doesnt redirect if it doesnt match a room joins format check 2' do
@@ -107,7 +107,7 @@ RSpec.describe ExternalController, type: :controller do
         }
         get :create_user, params: { provider: 'openid_connect' }
 
-        expect(response).to redirect_to('/')
+        expect(response).to redirect_to(root_path)
       end
 
       it 'doesnt redirect if it doesnt match a room joins format check 3' do
@@ -119,7 +119,7 @@ RSpec.describe ExternalController, type: :controller do
         }
         get :create_user, params: { provider: 'openid_connect' }
 
-        expect(response).to redirect_to('/')
+        expect(response).to redirect_to(root_path)
       end
 
       it 'deletes the cookie after reading' do
@@ -215,7 +215,7 @@ RSpec.describe ExternalController, type: :controller do
           create(:user, external_id: OmniAuth.config.mock_auth[:openid_connect][:uid])
 
           expect { get :create_user, params: { provider: 'openid_connect' } }.not_to raise_error
-          expect(response).to redirect_to('/')
+          expect(response).to redirect_to(root_path)
         end
 
         it 'returns an InviteInvalid error if no invite is passed' do
@@ -223,7 +223,7 @@ RSpec.describe ExternalController, type: :controller do
 
           get :create_user, params: { provider: 'openid_connect' }
 
-          expect(response).to redirect_to('/?error=InviteInvalid')
+          expect(response).to redirect_to(root_path(error: Rails.configuration.custom_error_msgs[:invite_token_invalid]))
         end
 
         it 'returns an InviteInvalid error if the token is wrong' do
@@ -235,7 +235,7 @@ RSpec.describe ExternalController, type: :controller do
 
           get :create_user, params: { provider: 'openid_connect' }
 
-          expect(response).to redirect_to('/?error=InviteInvalid')
+          expect(response).to redirect_to(root_path(error: Rails.configuration.custom_error_msgs[:invite_token_invalid]))
         end
       end
 
@@ -252,6 +252,7 @@ RSpec.describe ExternalController, type: :controller do
           expect { get :create_user, params: { provider: 'openid_connect' } }.to change(User, :count).by(1)
 
           expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email])).to be_pending
+          expect(response).to redirect_to(controller.pending_path)
         end
       end
     end

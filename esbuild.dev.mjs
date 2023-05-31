@@ -20,6 +20,7 @@ await esbuild.build({
   },
   define: {
     'process.env.RELATIVE_URL_ROOT': `"${relativeUrlRoot}"`,
+    'process.env.OMNIAUTH_PATH': `"${relativeUrlRoot}/auth/openid_connect"`,
   },
 });
 

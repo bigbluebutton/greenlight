@@ -17,6 +17,8 @@
 # frozen_string_literal: true
 
 class ExternalController < ApplicationController
+  include ClientRoutable
+
   skip_before_action :verify_authenticity_token
 
   # GET 'auth/:provider/callback'
@@ -40,7 +42,7 @@ class ExternalController < ApplicationController
 
     # Check if they have a valid token only if a new sign up
     if new_user && registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token(email: user_info[:email])
-      return redirect_to "/?error=#{Rails.configuration.custom_error_msgs[:invite_token_invalid]}"
+      return redirect_to root_path(error: Rails.configuration.custom_error_msgs[:invite_token_invalid])
     end
 
     # Create the user if they dont exist
@@ -58,7 +60,7 @@ class ExternalController < ApplicationController
     # Set to pending if registration method is approval
     if registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
       user.pending! if new_user
-      return redirect_to '/pending' if user.pending?
+      return redirect_to pending_path if user.pending?
     end
 
     user.generate_session_token!
@@ -69,10 +71,10 @@ class ExternalController < ApplicationController
     cookies.delete(:location)
     return redirect_to redirect_location if redirect_location&.match?('\A\/rooms\/\w{3}-\w{3}-\w{3}-\w{3}\/join\z')
 
-    redirect_to '/'
+    redirect_to root_path
   rescue StandardError => e
     Rails.logger.error("Error during authentication: #{e}")
-    redirect_to '/?error=SignupError'
+    redirect_to root_path(error: Rails.configuration.custom_error_msgs[:external_signup_error])
   end
 
   # POST /recording_ready

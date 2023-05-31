@@ -50,7 +50,8 @@ module Greenlight
       room_limit: 'RoomLimitError',
       pending_user: 'PendingUser',
       banned_user: 'BannedUser',
-      unverified_user: 'UnverifiedUser'
+      unverified_user: 'UnverifiedUser',
+      external_signup_error: 'SignupError'
     }
 
     config.uploads = {
