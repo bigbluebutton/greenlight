@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 import FilesDragAndDrop from '../../../shared_components/utilities/FilesDragAndDrop';
 import useDeleteBrandingImage from '../../../../hooks/mutations/admin/site_settings/useDeleteBrandingImage';
+import { IMAGE_MAX_FILE_COEFF, IMAGE_SUPPORTED_EXTENSIONS } from '../../../../helpers/FileValidationHelper';
 
 export default function BrandingImage() {
   const { t } = useTranslation();
@@ -33,7 +34,7 @@ export default function BrandingImage() {
       <FilesDragAndDrop
         numOfFiles={1}
         onDrop={(files) => updateSiteSetting.mutate(files[0])}
-        formats={['.jpg', '.png', '.svg']}
+        formats={IMAGE_SUPPORTED_EXTENSIONS}
       >
         <Card className="border border-2 border-whitesmoke mt-3 text-center">
           <label htmlFor="file" className="presentation-upload">
@@ -55,7 +56,7 @@ export default function BrandingImage() {
                 </span>
               </Card.Title>
               <span className="text-muted">
-                { t('admin.site_settings.appearance.upload_brand_image_description') }
+                { t('admin.site_settings.appearance.upload_brand_image_description', { size: `${IMAGE_MAX_FILE_COEFF} MB` }) }
               </span>
             </Card.Body>
           </label>
