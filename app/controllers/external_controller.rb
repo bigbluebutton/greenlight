@@ -48,7 +48,8 @@ class ExternalController < ApplicationController
     # Create the user if they dont exist
     if new_user
       user = UserCreator.new(user_params: user_info, provider: current_provider, role: default_role).call
-      user.assign_attributes({ id: credentials['uid'], language: user_info.language })
+      lang = extract_language_code(credentials['info']['locale']);
+      user.assign_attributes({ id: credentials['uid'], language: lang })
       user.save!
       create_default_room(user)
     end
