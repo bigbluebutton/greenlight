@@ -126,7 +126,7 @@
       "presentation": "プレゼンファイル",
       "click_to_upload": "クリックしてアップロード",
       "drag_and_drop": "またはドラッグ＆ドロップ",
-      "upload_description": "OfficeドキュメントかPDFファイルをアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。",
+      "upload_description": "OfficeドキュメントかPDFファイル（サイズ{{size}}以下）をアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。",
       "are_you_sure_delete_presentation": "本当にこのプレゼンファイルを削除しますか？"
     },
     "shared_access": {
@@ -255,7 +255,7 @@
         "brand_image": "ブランド画像",
         "click_to_upload": "クリックしてアップロード",
         "drag_and_drop": "あるいはドラッグ＆ドロップ",
-        "upload_brand_image_description": "PNG、JPG、またはSVGファイルをアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。",
+        "upload_brand_image_description": "PNG、JPG、SVGファイル（サイズ{{size}}以下）をアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。",
         "remove_branding_image": "ブランド画像の削除"
       },
       "administration": {
@@ -492,6 +492,11 @@
           "min": "名前は２文字以上必要です"
         }
       },
+      "room_join": {
+        "name": {
+          "required": "名前を入力してください。"
+        }
+      },
       "url": {
         "invalid": "無効なURL"
       }
@@ -501,6 +506,21 @@
         "name": {
           "label": "会議室名",
           "placeholder": "会議室名を入力..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "名前",
+            "placeholder": "名前を入力してください"
+        },
+        "access_code": {
+          "label": "アクセスコード",
+          "placeholder": "アクセスコードを入力してください"
+        },
+        "recording_consent": {
+          "label": "私はこの会議が録画される可能性があること、また自分の音声とビデオもそれに含まれうることを理解しています。"
         }
       }
     },
