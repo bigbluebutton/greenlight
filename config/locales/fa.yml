@@ -62,7 +62,7 @@ fa:
     invitation:
       invitation_to_join: دعوت‌نامهٔ BigBlueButton
       you_have_been_invited: "شما توسط %{name} برای ایجاد حساب کاربری در BigBlueButton دعوت شده‌اید."
-      get_started: برای ثبت‌نام، لطفا روی دکمه زیر کلیک کنید و گام‌ها را دنبال کنید.
+      get_started: برای ثبت‌نام، لطفا روی دکمهٔ زیر کلیک کنید و گام‌ها را دنبال کنید.
       valid_invitation: دعوت‌نامه فقط ۴۸ ساعت اعتبار دارد.
       sign_up: ثبت‌نام
     reset:
