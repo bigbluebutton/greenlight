@@ -40,7 +40,7 @@ export default function RecordingRow({
 
   function copyUrls() {
     const formatUrls = recording.formats.map((format) => format.url);
-    navigator.clipboard.writeText(formatUrls);
+    navigator.clipboard.writeText(formatUrls.join('\n'));
     toast.success(t('toast.success.recording.copied_urls'));
   }
 
