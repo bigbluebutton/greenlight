@@ -32,4 +32,28 @@ namespace :admin do
 
     exit 0
   end
+
+  desc 'Create an super admin account'
+  task :super_admin, %i[name email password] => :environment do |_task, args|
+    super_admin_email = "superadmin-#{args[:email]}"
+
+    user = User.create(
+      name: args[:name],
+      email: super_admin_email,
+      password: args[:password],
+      role: Role.find_by(name: 'SuperAdmin'),
+      provider: 'bn',
+      verified: true,
+      status: :active,
+      language: I18n.default_locale
+    )
+
+    success 'User account was created successfully!'
+    info "  Name: #{user.name}"
+    info "  Email: #{user.email}"
+    info "  Password: #{user.password}"
+    info "  Role: #{user.role.name}"
+
+    exit 0
+  end
 end

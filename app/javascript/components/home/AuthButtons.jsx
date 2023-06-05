@@ -44,6 +44,7 @@ export default function AuthButtons({ direction }) {
     return (
       <Form action="/auth/openid_connect" method="POST" data-turbo="false">
         <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
+        <input type="hidden" name="current_provider" value={env?.CURRENT_PROVIDER} />
         <Stack direction={direction} gap={2}>
           <Button variant="brand-outline-color" className="btn" type="submit">{t('authentication.sign_up')}</Button>
           <Button variant="brand" className="btn" type="submit">{t('authentication.sign_in')}</Button>
