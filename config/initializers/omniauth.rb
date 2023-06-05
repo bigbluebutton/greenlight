@@ -26,9 +26,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       current_provider = request.params['current_provider']
       secret = Tenant.find_by(name: current_provider)&.client_secret
 
-      Rails.logger.debug current_provider
-      Rails.logger.debug '?????'
-
       env['omniauth.strategy'].options[:issuer] = File.join issuer.to_s, "/#{current_provider}"
       env['omniauth.strategy'].options[:scope] = %i[openid email profile]
       env['omniauth.strategy'].options[:uid_field] = ENV.fetch('OPENID_CONNECT_UID_FIELD', 'preferred_username')
