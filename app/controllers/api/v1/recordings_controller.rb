@@ -89,6 +89,22 @@ module Api
         render_data data: count, status: :ok
       end
 
+      # POST /api/v1/recordings/recording_url.json
+      def recording_url
+        record_id = params[:data][:id]
+        recording = Recording.find_by(record_id: record_id)
+
+        url = if recording.visibility == 'Protected'
+          recording = BigBlueButtonApi.new(provider: current_provider).get_recording(record_id: record_id)
+
+          recording[:playback][:format].filter { |x| x[:type] == params[:data][:recording_format] }[0][:url]
+        else
+          recording.formats.find_by(recording_type: params[:data][:recording_format]).url
+        end
+
+        render_data data: url, status: :ok
+      end
+
       private
 
       def recording_params
