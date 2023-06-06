@@ -268,6 +268,52 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       expect(JSON.parse(response.body)['data']).to be(5)
     end
   end
+
+  describe '#recording_url' do
+    before do
+      allow_any_instance_of(BigBlueButtonApi).to receive(:get_recording).and_return(
+        playback: { format: [{ type: 'screenshare', url: 'https://test.com/screenshare' }, { type: 'video', url: 'https://test.com/video' }] }
+      )
+    end
+
+    context 'get' do
+      it 'makes a call to BBB and returns the url returned if the recording is protected' do
+        recording = create(:recording, visibility: 'Protected')
+
+        get :recording_url, params: { record_id: recording.record_id }
+
+        expect(JSON.parse(response.body)).to match_array ['https://test.com/screenshare', 'https://test.com/video']
+      end
+
+      it 'returns the formats url' do
+        recording = create(:recording, visibility: 'Published')
+        create(:format, recording:)
+
+        get :recording_url, params: { record_id: recording.record_id }
+
+        expect(JSON.parse(response.body)).to match_array recording.formats.pluck(:url)
+      end
+    end
+
+    context 'post' do
+      it 'makes a call to BBB and returns the url returned if the recording is protected' do
+        recording = create(:recording, visibility: 'Protected')
+
+        post :recording_url, params: { record_id: recording.record_id, recording_format: 'screenshare' }
+
+        expect(JSON.parse(response.body)['data']).to eq 'https://test.com/screenshare'
+      end
+
+      it 'returns the formats url' do
+        recording = create(:recording, visibility: 'Published')
+        format = create(:format, recording:, recording_type: 'podcast')
+
+        post :recording_url, params: { record_id: recording.record_id, recording_format: format.recording_type }
+
+        expect(JSON.parse(response.body)['data']).to eq format.url
+      end
+    end
+  end
 end
 
 def http_ok_response

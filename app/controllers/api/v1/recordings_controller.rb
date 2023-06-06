@@ -89,7 +89,7 @@ module Api
         render_data data: count, status: :ok
       end
 
-      # POST /api/v1/recordings/recording_url.json
+      # GET/POST /api/v1/recordings/recording_url.json
       def recording_url
         record_id = params[:record_id]
         record_format = params[:recording_format]
