@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_07_184209) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_06_133204) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -90,6 +90,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_184209) do
     t.integer "participants", null: false
     t.boolean "protectable"
     t.datetime "recorded_at"
+    t.boolean "listed", default: false, null: false
     t.index ["room_id"], name: "index_recordings_on_room_id"
   end
 
