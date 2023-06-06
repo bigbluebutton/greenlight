@@ -27,6 +27,8 @@ class Recording < ApplicationRecord
   validates :length, presence: true
   validates :participants, presence: true
 
+  validate :check_listed_and_visibility
+
   scope :with_provider, ->(current_provider) { where(user: { provider: current_provider }) }
 
   def self.search(input)
@@ -36,5 +38,14 @@ class Recording < ApplicationRecord
     end
 
     all.includes(:formats)
+  end
+
+  private
+
+  def check_listed_and_visibility
+    return unless listed && visibility == 'Unpublished'
+
+    message = 'An unpublished recording cannot be listed, only published/protected recordings can.'
+    errors.add(:listed, :invalid_visibility, message:)
   end
 end
