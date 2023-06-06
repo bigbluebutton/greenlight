@@ -103,7 +103,7 @@ Rails.application.configure do
 
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).
-  config.log_level = :info
+  config.log_level = ENV['LOG_LEVEL'] || :info
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
@@ -138,6 +138,25 @@ Rails.application.configure do
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
+
+  if ENV['RAILS_LOG_REMOTE_NAME'] && ENV['RAILS_LOG_REMOTE_PORT']
+    require 'remote_syslog_logger'
+    logger_program = ENV['RAILS_LOG_REMOTE_TAG'] || "greenlight-v3-#{ENV.fetch('RAILS_ENV', nil)}"
+    logger = RemoteSyslogLogger.new(ENV['RAILS_LOG_REMOTE_NAME'], ENV['RAILS_LOG_REMOTE_PORT'], program: logger_program)
+  end
+
+  logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
+
+  # Use Lograge for logging
+  config.lograge.enabled = true
+  config.lograge.custom_options = lambda do |event|
+    { time: Time.zone.now, host: event.payload[:host] }
+  end
+
+  config.lograge.ignore_actions = ['HealthCheckController#all',
+                                   'ApplicationCable::Connection#connect', 'RoomsChannel#subscribe',
+                                   'ApplicationCable::Connection#disconnect', 'RoomsChannel#unsubscribe']
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
