@@ -201,59 +201,107 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
     it 'changes the recording from Published to Unpublished on the bbb server' do
       expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: published_recording.record_id, publish: false)
       expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
-      post :update_visibility, params: { visibility: 'Unpublished', id: published_recording.record_id }
+      post :update_visibility, params: { listed: false, visibility: 'Unpublished', id: published_recording.record_id }
+
+      expect(published_recording.reload.visibility).to eq('Unpublished')
+      expect(response).to have_http_status(:ok)
     end
 
     it 'changes the recording from Published to Protected on the bbb server' do
       expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: published_recording.record_id,
                                                                                    meta_hash: { protect: true })
       expect_any_instance_of(BigBlueButtonApi).not_to receive(:publish_recordings)
-      post :update_visibility, params: { visibility: 'Protected', id: published_recording.record_id }
+      post :update_visibility, params: { listed: false, visibility: 'Protected', id: published_recording.record_id }
+
+      expect(published_recording.reload.visibility).to eq('Protected')
+      expect(response).to have_http_status(:ok)
     end
 
     it 'changes the recording from Unpublished to Protected on the bbb server' do
       expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: unpublished_recording.record_id, publish: true)
       expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: unpublished_recording.record_id,
                                                                                    meta_hash: { protect: true })
-      post :update_visibility, params: { visibility: 'Protected', id: unpublished_recording.record_id }
+      post :update_visibility, params: { listed: false, visibility: 'Protected', id: unpublished_recording.record_id }
+
+      expect(unpublished_recording.reload.visibility).to eq('Protected')
+      expect(response).to have_http_status(:ok)
     end
 
     it 'changes the recording from Unpublished to Published on the bbb server' do
       expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: unpublished_recording.record_id, publish: true)
       expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
-      post :update_visibility, params: { visibility: 'Published', id: unpublished_recording.record_id }
+
+      post :update_visibility, params: { listed: false, visibility: 'Published', id: unpublished_recording.record_id }
+
+      expect(unpublished_recording.reload.visibility).to eq('Published')
+      expect(response).to have_http_status(:ok)
     end
 
     it 'changes the recording from Protected to Published on the bbb server' do
       expect_any_instance_of(BigBlueButtonApi).not_to receive(:publish_recordings)
       expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: protected_recording.record_id,
                                                                                    meta_hash: { protect: false })
-      post :update_visibility, params: { visibility: 'Published', id: protected_recording.record_id }
+
+      post :update_visibility, params: { listed: false, visibility: 'Published', id: protected_recording.record_id }
+
+      expect(protected_recording.reload.visibility).to eq('Published')
+      expect(response).to have_http_status(:ok)
     end
 
     it 'changes the recording from Protected to Unpublished on the bbb server' do
       expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: protected_recording.record_id, publish: false)
       expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: protected_recording.record_id,
                                                                                    meta_hash: { protect: false })
-      post :update_visibility, params: { visibility: 'Unpublished', id: protected_recording.record_id }
+
+      post :update_visibility, params: { listed: false, visibility: 'Unpublished', id: protected_recording.record_id }
+
+      expect(protected_recording.reload.visibility).to eq('Unpublished')
+      expect(response).to have_http_status(:ok)
     end
 
-    it 'changes the local recording visibility' do
-      allow_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings)
-      post :update_visibility, params: { visibility: 'Unpublished', id: unpublished_recording.record_id }
-      expect(unpublished_recording.reload.visibility).to eq('Unpublished')
+    context 'Listed recordings' do
+      it 'does not change the recording to Unpublished on the bbb server' do
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:publish_recordings)
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+
+        expect do
+          post :update_visibility, params: { listed: true, visibility: 'Unpublished', id: published_recording.record_id }
+        end.not_to(change { published_recording.reload.visibility })
+
+        expect(response).to have_http_status(:bad_request)
+      end
     end
 
-    it 'allows a shared user to update a recording visibility' do
-      shared_user = create(:user)
-      create(:shared_access, user_id: shared_user.id, room_id: room.id)
-      sign_in_user(shared_user)
+    context 'shared access' do
+      let(:signed_in_user) { create(:user) }
 
-      expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: published_recording.record_id, publish: false)
-      expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
-      expect do
-        post :update_visibility, params: { visibility: 'Unpublished', id: published_recording.record_id }
-      end.to(change { published_recording.reload.visibility })
+      before do
+        sign_in_user(signed_in_user)
+      end
+
+      it 'allows a shared user to update a recording visibility' do
+        create(:shared_access, user_id: signed_in_user.id, room_id: room.id)
+
+        expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: published_recording.record_id, publish: false)
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+
+        expect do
+          post :update_visibility, params: { listed: false, visibility: 'Unpublished', id: published_recording.record_id }
+        end.to(change { published_recording.reload.visibility })
+
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'disallows a none shared user to update a recording visibility' do
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:publish_recordings)
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+
+        expect do
+          post :update_visibility, params: { listed: false, visibility: 'Unpublished', id: published_recording.record_id }
+        end.not_to(change { published_recording.reload.visibility })
+
+        expect(response).to have_http_status(:forbidden)
+      end
     end
 
     # TODO: samuel - add tests for user_with_manage_recordings_permission
