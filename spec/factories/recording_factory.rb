@@ -25,6 +25,7 @@ FactoryBot.define do
     length { Faker::Number.within(range: 1..60) }
     participants { Faker::Number.within(range: 1..100) }
     recorded_at { Faker::Time.between(from: 2.days.ago, to: Time.zone.now) }
+    listed { false }
 
     after(:create) do |recording|
       create(:format, recording:)

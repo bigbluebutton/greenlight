@@ -62,4 +62,25 @@ RSpec.describe Recording, type: :model do
       expect(described_class.all.search('').pluck(:id)).to match_array(described_class.all.pluck(:id))
     end
   end
+
+  context 'Listed recording' do
+    it 'passes if the recording is listed but have a Published visiblity' do
+      recording = build(:recording, listed: true, visibility: 'Published')
+
+      expect(recording).to be_valid
+    end
+
+    it 'passes if the recording is listed but have a Protected visiblity' do
+      recording = build(:recording, listed: true, visibility: 'Protected')
+
+      expect(recording).to be_valid
+    end
+
+    it 'fails if the recording is listed but have an Unpublished visiblity' do
+      recording = build(:recording, listed: true, visibility: 'Unpublished')
+
+      expect(recording).to be_invalid
+      expect(recording.errors).to be_of_kind(:listed, :invalid_visibility)
+    end
+  end
 end
