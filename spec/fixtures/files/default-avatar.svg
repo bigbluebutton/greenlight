@@ -1,0 +1,36 @@
+<!--BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.-->
+
+<!--Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).-->
+
+<!--This program is free software; you can redistribute it and/or modify it under the-->
+<!--terms of the GNU Lesser General Public License as published by the Free Software-->
+<!--Foundation; either version 3.0 of the License, or (at your option) any later-->
+<!--version.-->
+
+<!--Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY-->
+<!--WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A-->
+<!--PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.-->
+
+<!--You should have received a copy of the GNU Lesser General Public License along-->
+<!--with Greenlight; if not, see <http://www.gnu.org/licenses/>.-->
+
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="300.000000pt" height="300.000000pt" viewBox="0 0 300.000000 300.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,300.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M1368 2520 c-229 -42 -385 -175 -450 -384 -24 -78 -22 -163 7 -300
+15 -74 15 -80 -2 -115 -13 -27 -18 -59 -18 -126 0 -103 19 -155 77 -221 26
+-29 45 -69 73 -154 20 -63 51 -145 67 -182 l31 -68 -17 -67 c-19 -78 -69 -158
+-131 -208 -23 -19 -221 -127 -441 -241 -219 -113 -409 -213 -422 -220 -21 -14
+-22 -21 -22 -124 l0 -110 1380 0 1380 0 0 113 0 112 -128 66 c-70 36 -260 134
+-423 217 -265 136 -303 159 -356 212 -67 67 -111 148 -120 218 -4 40 0 58 25
+107 16 33 46 114 67 180 29 93 45 129 72 159 56 61 76 118 77 211 1 61 -4 89
+-20 121 -14 30 -18 49 -12 70 4 16 15 77 24 136 19 128 11 182 -42 287 -67
+135 -199 246 -344 292 -73 23 -254 34 -332 19z"/>
+</g>
+</svg>

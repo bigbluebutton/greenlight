@@ -30,6 +30,7 @@ header:
     - '**/.keep'
     - 'config/credentials.yml.enc'
     - 'app/views'
+    - 'spec/fixtures'
 
   comment: on-failure
 
