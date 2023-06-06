@@ -41,7 +41,7 @@ namespace :admin do
       name: args[:name],
       email: super_admin_email,
       password: args[:password],
-      role: Role.find_by(name: 'SuperAdmin'),
+      role: Role.find_by(name: 'SuperAdmin', provider: 'bn'),
       provider: 'bn',
       verified: true,
       status: :active,
