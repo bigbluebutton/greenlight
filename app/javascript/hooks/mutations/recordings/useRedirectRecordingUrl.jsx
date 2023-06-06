@@ -23,7 +23,7 @@ export default function useRedirectRecordingUrl() {
   const { t } = useTranslation();
 
   return useMutation(
-    (data) => axios.post(`/recordings/recording_url.json`, { data }).then((resp) => resp.data.data),
+    (data) => axios.post(`/recordings/recording_url.json`, { record_id: data.record_id, recording_format: data.format }).then((resp) => resp.data.data),
     {
       onSuccess: (url) => {
         window.open(url, '_blank')

@@ -31,8 +31,8 @@ import UpdateRecordingForm from './forms/UpdateRecordingForm';
 import DeleteRecordingForm from './forms/DeleteRecordingForm';
 import Modal from '../shared_components/modals/Modal';
 import { localizeDateTimeString } from '../../helpers/DateTimeHelper';
-import useGenerateRecordingUrl from "../../hooks/mutations/recordings/useGenerateRecordingUrl";
 import useRedirectRecordingUrl from "../../hooks/mutations/recordings/useRedirectRecordingUrl";
+import useRecordingUrl from "../../hooks/queries/recordings/useRecordingUrl";
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
@@ -41,14 +41,10 @@ export default function RecordingRow({
   const { t } = useTranslation();
 
   function copyUrls() {
-    const presentationUrl = generateRecordingUrl.mutate({id: recording.record_id, recording_format: 'presentation'})
-    const statisticsUrl = generateRecordingUrl.mutate({id: recording.record_id, recording_format: 'statistics'})
-    const videoUrl = generateRecordingUrl.mutate({id: recording.record_id, recording_format: 'video'})
-
-    const formatUrls = [presentationUrl, statisticsUrl, videoUrl];
-    console.log(formatUrls)
-    navigator.clipboard.writeText(formatUrls);
-    toast.success(t('toast.success.recording.copied_urls'));
+    refetch().then(urls => {
+      navigator.clipboard.writeText(urls?.data);
+      toast.success(t('toast.success.recording.copied_urls'));
+    });
   }
 
   const visibilityAPI = useVisibilityAPI();
@@ -56,7 +52,7 @@ export default function RecordingRow({
   const [isUpdating, setIsUpdating] = useState(false);
 
   const currentUser = useAuth();
-  const generateRecordingUrl = useGenerateRecordingUrl();
+  const { refetch } = useRecordingUrl(recording.record_id);
   const redirectRecordingUrl = useRedirectRecordingUrl();
 
   const localizedTime = localizeDateTimeString(recording?.recorded_at, currentUser?.language);
@@ -125,7 +121,7 @@ export default function RecordingRow({
       <td className="border-0">
         {formats.map((format) => (
           <Button
-            onClick={() => redirectRecordingUrl.mutate({id: recording.record_id, recording_format: format.recording_type})}
+            onClick={() => redirectRecordingUrl.mutate({record_id: recording.record_id, format: format.recording_type})}
             className={`btn-sm rounded-pill me-1 mt-1 border-0 btn-format-${format.recording_type.toLowerCase()}`}
             key={`${format.recording_type}-${format.url}`}
           >
