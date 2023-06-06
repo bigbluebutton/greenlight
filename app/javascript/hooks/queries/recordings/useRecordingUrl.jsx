@@ -15,7 +15,6 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import { useQuery } from 'react-query';
-import { useSearchParams } from 'react-router-dom';
 import axios from '../../../helpers/Axios';
 
 export default function useRecordingUrl(recordId) {
@@ -27,4 +26,3 @@ export default function useRecordingUrl(recordId) {
     },
   );
 }
-

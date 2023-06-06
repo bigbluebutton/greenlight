@@ -31,21 +31,14 @@ import UpdateRecordingForm from './forms/UpdateRecordingForm';
 import DeleteRecordingForm from './forms/DeleteRecordingForm';
 import Modal from '../shared_components/modals/Modal';
 import { localizeDateTimeString } from '../../helpers/DateTimeHelper';
-import useRedirectRecordingUrl from "../../hooks/mutations/recordings/useRedirectRecordingUrl";
-import useRecordingUrl from "../../hooks/queries/recordings/useRecordingUrl";
+import useRedirectRecordingUrl from '../../hooks/mutations/recordings/useRedirectRecordingUrl';
+import useRecordingUrl from '../../hooks/queries/recordings/useRecordingUrl';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
   recording, visibilityMutation: useVisibilityAPI, deleteMutation: useDeleteAPI, adminTable,
 }) {
   const { t } = useTranslation();
-
-  function copyUrls() {
-    refetch().then(urls => {
-      navigator.clipboard.writeText(urls?.data);
-      toast.success(t('toast.success.recording.copied_urls'));
-    });
-  }
 
   const visibilityAPI = useVisibilityAPI();
   const [isEditing, setIsEditing] = useState(false);
@@ -59,6 +52,13 @@ export default function RecordingRow({
   const formats = recording.formats.sort(
     (a, b) => (a.recording_type.toLowerCase() > b.recording_type.toLowerCase() ? 1 : -1),
   );
+
+  function copyUrls() {
+    refetch().then((urls) => {
+      navigator.clipboard.writeText(urls?.data?.join('\n'));
+      toast.success(t('toast.success.recording.copied_urls'));
+    });
+  }
 
   return (
     <tr key={recording.id} className="align-middle text-muted border border-2">
@@ -121,7 +121,7 @@ export default function RecordingRow({
       <td className="border-0">
         {formats.map((format) => (
           <Button
-            onClick={() => redirectRecordingUrl.mutate({record_id: recording.record_id, format: format.recording_type})}
+            onClick={() => redirectRecordingUrl.mutate({ record_id: recording.record_id, format: format.recording_type })}
             className={`btn-sm rounded-pill me-1 mt-1 border-0 btn-format-${format.recording_type.toLowerCase()}`}
             key={`${format.recording_type}-${format.url}`}
           >

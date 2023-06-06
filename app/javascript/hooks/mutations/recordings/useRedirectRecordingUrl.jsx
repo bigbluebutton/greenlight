@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
@@ -23,10 +23,11 @@ export default function useRedirectRecordingUrl() {
   const { t } = useTranslation();
 
   return useMutation(
-    (data) => axios.post(`/recordings/recording_url.json`, { record_id: data.record_id, recording_format: data.format }).then((resp) => resp.data.data),
+    (data) => axios.post('/recordings/recording_url.json', { record_id: data.record_id, recording_format: data.format })
+      .then((resp) => resp.data.data),
     {
       onSuccess: (url) => {
-        window.open(url, '_blank')
+        window.open(url, '_blank');
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));
