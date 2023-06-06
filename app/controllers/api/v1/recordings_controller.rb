@@ -66,6 +66,9 @@ module Api
       # Update's a recordings visibility by setting publish/unpublish and protected/unprotected
       def update_visibility
         new_visibility = params[:visibility]
+
+        return render_error status: :bad_request if params[:listed].to_s != 'false' && new_visibility == 'Unpublished'
+
         old_visibility = @recording.visibility
         bbb_api = BigBlueButtonApi.new(provider: current_provider)
 
@@ -77,7 +80,7 @@ module Api
 
         bbb_api.update_recordings(record_id: @recording.record_id, meta_hash: { protect: false }) if old_visibility == 'Protected'
 
-        @recording.update!(visibility: new_visibility)
+        @recording.update!(visibility: new_visibility, listed: params[:listed])
 
         render_data status: :ok
       end
