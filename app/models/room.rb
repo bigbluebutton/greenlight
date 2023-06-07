@@ -31,8 +31,8 @@ class Room < ApplicationRecord
   validates :friendly_id, presence: true, uniqueness: true
   validates :meeting_id, presence: true, uniqueness: true
   validates :presentation,
-            content_type: %i[.doc .docx .ppt .pptx .pdf .xls .xlsx .txt .rtf .odt .ods .odp .odg .odc .odi .jpg .jpeg .png],
-            size: { less_than: 30.megabytes }
+            content_type: Rails.configuration.uploads[:presentations][:formats],
+            size: { less_than: Rails.configuration.uploads[:presentations][:max_size] }
 
   validates :name, length: { minimum: 2, maximum: 255 }
   validates :recordings_processing, numericality: { only_integer: true, greater_than_or_equal_to: 0 }

@@ -53,6 +53,17 @@ module Greenlight
       unverified_user: 'UnverifiedUser'
     }
 
+    config.uploads = {
+      images: {
+        max_size: 3.megabytes,
+        formats: %i[png jpg jpeg svg]
+      },
+      presentations: {
+        max_size: 30.megabytes,
+        formats: %i[.doc .docx .ppt .pptx .pdf .xls .xlsx .txt .rtf .odt .ods .odp .odg .odc .odi .jpg .jpeg .png]
+      }
+    }
+
     ActiveModelSerializers.config.adapter = :json
 
     config.active_storage.variant_processor = :mini_magick
