@@ -23,7 +23,7 @@ export default function useCopyRecordingUrl() {
   const { t } = useTranslation();
 
   return useMutation(
-    (data) => axios.post('/recordings/recording_url.json', { record_id: data.record_id })
+    (data) => axios.post('/recordings/recording_url.json', { id: data.record_id })
       .then((resp) => resp.data),
     {
       onSuccess: (url) => {
