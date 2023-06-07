@@ -74,7 +74,7 @@ RSpec.describe ExternalController, type: :controller do
     end
 
     context 'redirect' do
-      it 'redirects to the location cookie if the format is valid' do
+      it 'redirects to the location cookie if a relative redirection 1' do
         request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
 
         cookies[:location] = {
@@ -86,11 +86,23 @@ RSpec.describe ExternalController, type: :controller do
         expect(response).to redirect_to('/rooms/o5g-hvb-s44-p5t/join')
       end
 
-      it 'doesnt redirect if it doesnt match a room joins format' do
+      it 'redirects to the location cookie if a relative redirection 2' do
         request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
 
         cookies[:location] = {
-          value: 'https://google.com',
+          value: '/a/b/c/d/rooms/o5g-hvb-s44-p5t/join',
+          path: '/'
+        }
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(response).to redirect_to('/a/b/c/d/rooms/o5g-hvb-s44-p5t/join')
+      end
+
+      it 'doesnt redirect if NOT a relative redirection check 1' do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+        cookies[:location] = {
+          value: Faker::Internet.url,
           path: '/'
         }
         get :create_user, params: { provider: 'openid_connect' }
@@ -98,7 +110,7 @@ RSpec.describe ExternalController, type: :controller do
         expect(response).to redirect_to(root_path)
       end
 
-      it 'doesnt redirect if it doesnt match a room joins format check 2' do
+      it 'doesnt redirect if it NOT a relative redirection format check 2' do
         request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
 
         cookies[:location] = {
@@ -110,11 +122,35 @@ RSpec.describe ExternalController, type: :controller do
         expect(response).to redirect_to(root_path)
       end
 
-      it 'doesnt redirect if it doesnt match a room joins format check 3' do
+      it 'doesnt redirect if it NOT a relative redirection format check 3' do
         request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
 
         cookies[:location] = {
           value: "http://example.com/?ignore=\n/rooms/abc-def-ghi-jkl/join",
+          path: '/'
+        }
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'doesnt redirect if NOT a relative redirection check 4' do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+        cookies[:location] = {
+          value: Faker::Internet.url(path: '/rooms/o5g-hvb-s44-p5t/join'),
+          path: '/'
+        }
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'doesnt redirect if NOT a valid room join link check 5' do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+        cookies[:location] = {
+          value: '/romios/o5g-hvb-s44-p5t/join',
           path: '/'
         }
         get :create_user, params: { provider: 'openid_connect' }

@@ -27,13 +27,8 @@ class ExternalController < ApplicationController
     provider = current_provider
 
     credentials = request.env['omniauth.auth']
-    user_info = {
-      name: credentials['info']['name'],
-      email: credentials['info']['email'],
-      language: extract_language_code(credentials['info']['locale']),
-      external_id: credentials['uid'],
-      verified: true
-    }
+
+    user_info = build_user_info(credentials)
 
     user = User.find_by(external_id: credentials['uid'], provider:)
     new_user = user.blank?
@@ -67,10 +62,14 @@ class ExternalController < ApplicationController
     session[:session_token] = user.session_token
 
     # TODO: - Ahmad: deal with errors
-    redirect_location = cookies[:location]
-    cookies.delete(:location)
-    return redirect_to redirect_location if redirect_location&.match?('\A\/rooms\/\w{3}-\w{3}-\w{3}-\w{3}\/join\z')
 
+    redirect_location = cookies.delete(:location)
+
+    return redirect_to redirect_location, allow_other_host: false if redirect_location&.match?('\/rooms\/\w{3}-\w{3}-\w{3}-\w{3}\/join\z')
+
+    redirect_to root_path
+  rescue ActionController::Redirecting::UnsafeRedirectError => e
+    Rails.logger.error("Unsafe redirection attempt: #{e}")
     redirect_to root_path
   rescue StandardError => e
     Rails.logger.error("Error during authentication: #{e}")
@@ -127,5 +126,15 @@ class ExternalController < ApplicationController
 
     # Try to delete the invitation and return true if it succeeds
     Invitation.destroy_by(email:, provider: current_provider, token:).present?
+  end
+
+  def build_user_info(credentials)
+    {
+      name: credentials['info']['name'],
+      email: credentials['info']['email'],
+      language: extract_language_code(credentials['info']['locale']),
+      external_id: credentials['uid'],
+      verified: true
+    }
   end
 end
