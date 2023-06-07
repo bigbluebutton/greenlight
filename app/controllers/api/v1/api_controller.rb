@@ -88,6 +88,11 @@ module Api
 
         { sort_column => sort_direction }
       end
+
+      # Checks if external authentication is enabled
+      def external_authn_enabled?
+        ENV['OPENID_CONNECT_ISSUER'].present?
+      end
     end
   end
 end

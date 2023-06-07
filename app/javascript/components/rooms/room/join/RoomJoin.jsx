@@ -18,7 +18,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import {
-  Navigate, Link, useLocation, useParams,
+  Navigate, Link, useParams,
 } from 'react-router-dom';
 import {
   Button, Col, Row, Stack, Form as RegularForm,
@@ -54,8 +54,7 @@ export default function RoomJoin() {
 
   const { methods, fields } = useRoomJoinForm();
 
-  const location = useLocation();
-  const path = encodeURIComponent(location.pathname);
+  const path = encodeURIComponent(document.location.pathname);
 
   useEffect(() => { // set cookie to return to if needed
     const date = new Date();
@@ -243,7 +242,7 @@ export default function RoomJoin() {
       {!currentUser?.signed_in && (
         env?.OPENID_CONNECT ? (
           <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> {t('authentication.already_have_account')}
-            <RegularForm action="/auth/openid_connect" method="POST" data-turbo="false">
+            <RegularForm action={process.env.OMNIAUTH_PATH} method="POST" data-turbo="false">
               <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
               <Button variant="link" className="btn-sm fs-6 cursor-pointer ms-2 ps-0" type="submit">{t('authentication.sign_in')}</Button>
             </RegularForm>

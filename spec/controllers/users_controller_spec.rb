@@ -25,6 +25,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   before do
     ENV['SMTP_SERVER'] = 'test.com'
+    allow(controller).to receive(:external_authn_enabled?).and_return(false)
     request.headers['ACCEPT'] = 'application/json'
   end
 
@@ -112,28 +113,49 @@ RSpec.describe Api::V1::UsersController, type: :controller do
             user = User.find_by email: user_params[:user][:email]
             expect(user).to be_verified
             expect(session[:session_token]).to eq(user.session_token)
+            expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
           end
         end
       end
 
-      context 'Admin creation' do
-        before { sign_in_user(user) }
+      context 'Authenticated request' do
+        context 'Not admin creation' do
+          let(:signed_in_user) { user }
 
-        it 'sends activation email to but does NOT signin the created user' do
-          expect { post :create, params: user_params }.to change(User, :count).by(1)
-          expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
-                                                                                                       'deliver_now', Hash)
-          expect(response).to have_http_status(:created)
-          expect(session[:session_token]).to eql(user.session_token)
+          before { sign_in_user(signed_in_user) }
+
+          it 'returns :forbidden and does NOT create the user' do
+            expect { post :create, params: user_params }.not_to change(User, :count)
+            expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+
+            expect(response).to have_http_status(:forbidden)
+            expect(session[:session_token]).to eql(signed_in_user.session_token)
+          end
         end
 
-        context 'User language' do
-          it 'defaults user language to admin language if the language isn\'t specified' do
-            user.update! language: 'language'
+        context 'Admin creation' do
+          let(:signed_in_user) { user_with_manage_users_permission }
 
-            user_params[:user][:language] = nil
-            post :create, params: user_params
-            expect(User.find_by(email: user_params[:user][:email]).language).to eq('language')
+          before { sign_in_user(signed_in_user) }
+
+          it 'sends activation email to but does NOT signin the created user' do
+            expect { post :create, params: user_params }.to change(User, :count).by(1)
+            expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
+                                                                                                         'deliver_now', Hash)
+            expect(response).to have_http_status(:created)
+            expect(session[:session_token]).to eql(signed_in_user.session_token)
+          end
+
+          context 'User language' do
+            it 'defaults user language to admin language if the language isn\'t specified' do
+              signed_in_user.update! language: 'language'
+
+              user_params[:user][:language] = nil
+              post :create, params: user_params
+              expect(User.find_by(email: user_params[:user][:email]).language).to eq('language')
+              expect(response).to have_http_status(:created)
+              expect(session[:session_token]).to eql(signed_in_user.session_token)
+            end
           end
         end
       end
@@ -253,6 +275,20 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
           expect(User.find_by(email: user_params[:user][:email])).to be_pending
         end
+      end
+    end
+
+    context 'External AuthN enabled' do
+      before do
+        allow(controller).to receive(:external_authn_enabled?).and_return(true)
+      end
+
+      it 'returns :forbidden without creating the user account' do
+        expect { post :create, params: user_params }.not_to change(User, :count)
+
+        expect(response).to have_http_status(:forbidden)
+        expect(JSON.parse(response.body)['data']).to be_blank
+        expect(JSON.parse(response.body)['errors']).not_to be_nil
       end
     end
   end
@@ -415,6 +451,34 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       sign_in_user(external_user)
       post :change_password, params: {}
       expect(response).to have_http_status(:forbidden)
+    end
+  end
+
+  context 'private methods' do
+    describe '#external_authn_enabled?' do
+      before do
+        allow(controller).to receive(:external_authn_enabled?).and_call_original
+      end
+
+      context 'OPENID_CONNECT_ISSUER is present?' do
+        before do
+          ENV['OPENID_CONNECT_ISSUER'] = 'issuer'
+        end
+
+        it 'returns true' do
+          expect(controller).to be_external_authn_enabled
+        end
+      end
+
+      context 'OPENID_CONNECT_ISSUER is NOT present?' do
+        before do
+          ENV['OPENID_CONNECT_ISSUER'] = ''
+        end
+
+        it 'returns false' do
+          expect(controller).not_to be_external_authn_enabled
+        end
+      end
     end
   end
 end

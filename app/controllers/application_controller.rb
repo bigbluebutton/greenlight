@@ -66,6 +66,12 @@ class ApplicationController < ActionController::Base
     Room.create(name: "#{user.name}'s Room", user_id: user.id)
   end
 
+  # Include user domain in lograge logs
+  def append_info_to_payload(payload)
+    super
+    payload[:host] = @current_provider
+  end
+
   private
 
   # Checks if the user's session_token matches the session and that it is not expired
@@ -79,7 +85,6 @@ class ApplicationController < ActionController::Base
   # Parses the url for the user domain
   def parse_user_domain(hostname)
     tenant = hostname&.split('.')&.first
-
     raise 'Invalid domain' unless Tenant.exists?(name: tenant)
 
     tenant
