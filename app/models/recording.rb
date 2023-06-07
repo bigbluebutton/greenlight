@@ -26,6 +26,7 @@ class Recording < ApplicationRecord
   validates :visibility, presence: true
   validates :length, presence: true
   validates :participants, presence: true
+  validates :visibility, inclusion: %w[Published Unpublished Protected Public Public/Protected]
 
   scope :with_provider, ->(current_provider) { where(user: { provider: current_provider }) }
 

@@ -29,6 +29,7 @@ RSpec.describe Recording, type: :model do
     it { is_expected.to validate_presence_of(:visibility) }
     it { is_expected.to validate_presence_of(:length) }
     it { is_expected.to validate_presence_of(:participants) }
+    it { is_expected.to validate_inclusion_of(:visibility).in_array(%w[Published Unpublished Protected Public Public/Protected]) }
   end
 
   describe 'scopes' do
