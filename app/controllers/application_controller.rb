@@ -85,7 +85,6 @@ class ApplicationController < ActionController::Base
   # Parses the url for the user domain
   def parse_user_domain(hostname)
     tenant = hostname&.split('.')&.first
-
     raise 'Invalid domain' unless Tenant.exists?(name: tenant)
 
     tenant

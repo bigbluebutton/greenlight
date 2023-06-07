@@ -37,7 +37,7 @@ module Api
 
         # POST /api/v1/admin/tenants
         def create
-          name = tenant_params[:name].downcase.gsub(/[-\s]/, '_')
+          name = tenant_params[:name]
           tenant = Tenant.new(name:, client_secret: tenant_params[:client_secret])
 
           if tenant.save
