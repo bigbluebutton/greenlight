@@ -23,7 +23,7 @@ module Api
       before_action only: %i[destroy] do
         ensure_authorized('ManageRecordings', record_id: params[:id])
       end
-      before_action only: %i[update update_visibility] do
+      before_action only: %i[update update_visibility recording_url] do
         ensure_authorized(%w[ManageRecordings SharedRoom], record_id: params[:id])
       end
       before_action only: %i[index recordings_count] do
