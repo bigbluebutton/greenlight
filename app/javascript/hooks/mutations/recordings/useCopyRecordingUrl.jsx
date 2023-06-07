@@ -14,15 +14,24 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import { useQuery } from 'react-query';
+import { useMutation } from 'react-query';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
 
-export default function useRecordingUrl(recordId) {
-  return useQuery(
-    ['getRecordingUrl', { record_id: recordId }],
-    () => axios.get('/recordings/recording_url.json', { params: { record_id: recordId } }).then((resp) => resp.data),
+export default function useCopyRecordingUrl() {
+  const { t } = useTranslation();
+
+  return useMutation(
+    (data) => axios.post('/recordings/recording_url.json', { record_id: data.record_id })
+      .then((resp) => resp.data),
     {
-      enabled: false,
+      onSuccess: (url) => {
+        navigator.clipboard.writeText(url?.join('\n')).then(() => toast.success(t('toast.success.recording.copied_urls')));
+      },
+      onError: () => {
+        toast.error(t('toast.error.problem_completing_action'));
+      },
     },
   );
 }

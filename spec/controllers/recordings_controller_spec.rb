@@ -276,7 +276,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       )
     end
 
-    context 'get' do
+    context 'format not passed' do
       it 'makes a call to BBB and returns the url returned if the recording is protected' do
         recording = create(:recording, visibility: 'Protected')
 
@@ -295,7 +295,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       end
     end
 
-    context 'post' do
+    context 'format is passed' do
       it 'makes a call to BBB and returns the url returned if the recording is protected' do
         recording = create(:recording, visibility: 'Protected')
 

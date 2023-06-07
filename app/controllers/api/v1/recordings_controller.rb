@@ -89,7 +89,7 @@ module Api
         render_data data: count, status: :ok
       end
 
-      # GET/POST /api/v1/recordings/recording_url.json
+      # POST /api/v1/recordings/recording_url.json
       def recording_url
         record_id = params[:record_id]
         record_format = params[:recording_format]
@@ -99,7 +99,7 @@ module Api
                 recording = BigBlueButtonApi.new(provider: current_provider).get_recording(record_id:)
                 formats = recording[:playback][:format]
 
-                record_format.present? ? formats.find { |x| x[:type] == record_format }[:url] : formats.pluck(:url)
+                record_format.present? ? formats.find { |format| format[:type] == record_format }[:url] : formats.pluck(:url)
               else
                 record_format.present? ? recording.formats.find_by(recording_type: record_format).url : recording.formats.pluck(:url)
               end

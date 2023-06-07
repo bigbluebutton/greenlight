@@ -62,7 +62,7 @@ Rails.application.routes.draw do
         collection do
           post '/update_visibility', to: 'recordings#update_visibility'
           get '/recordings_count', to: 'recordings#recordings_count'
-          match '/recording_url', to: 'recordings#recording_url', via: [:get, :post]
+          post '/recording_url', to: 'recordings#recording_url'
         end
       end
       resources :shared_accesses, only: %i[create show destroy], param: :friendly_id do

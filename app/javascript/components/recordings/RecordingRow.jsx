@@ -23,7 +23,6 @@ import PropTypes from 'prop-types';
 import {
   Button, Stack, Dropdown,
 } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import Spinner from '../shared_components/utilities/Spinner';
@@ -32,7 +31,7 @@ import DeleteRecordingForm from './forms/DeleteRecordingForm';
 import Modal from '../shared_components/modals/Modal';
 import { localizeDateTimeString } from '../../helpers/DateTimeHelper';
 import useRedirectRecordingUrl from '../../hooks/mutations/recordings/useRedirectRecordingUrl';
-import useRecordingUrl from '../../hooks/queries/recordings/useRecordingUrl';
+import useCopyRecordingUrl from '../../hooks/mutations/recordings/useCopyRecordingUrl';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
@@ -45,20 +44,13 @@ export default function RecordingRow({
   const [isUpdating, setIsUpdating] = useState(false);
 
   const currentUser = useAuth();
-  const { refetch } = useRecordingUrl(recording.record_id);
   const redirectRecordingUrl = useRedirectRecordingUrl();
+  const copyRecordingUrl = useCopyRecordingUrl();
 
   const localizedTime = localizeDateTimeString(recording?.recorded_at, currentUser?.language);
   const formats = recording.formats.sort(
     (a, b) => (a.recording_type.toLowerCase() > b.recording_type.toLowerCase() ? 1 : -1),
   );
-
-  function copyUrls() {
-    refetch().then((urls) => {
-      navigator.clipboard.writeText(urls?.data?.join('\n'));
-      toast.success(t('toast.success.recording.copied_urls'));
-    });
-  }
 
   return (
     <tr key={recording.id} className="align-middle text-muted border border-2">
@@ -135,7 +127,7 @@ export default function RecordingRow({
             <Dropdown className="float-end cursor-pointer">
               <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
               <Dropdown.Menu>
-                <Dropdown.Item onClick={() => copyUrls()}>
+                <Dropdown.Item onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}>
                   <ClipboardDocumentIcon className="hi-s me-2" />
                   { t('recording.copy_recording_urls') }
                 </Dropdown.Item>
@@ -156,7 +148,7 @@ export default function RecordingRow({
               <Button
                 variant="icon"
                 className="mt-1 me-3"
-                onClick={() => copyUrls()}
+                onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}
               >
                 <ClipboardDocumentIcon className="hi-s text-muted" />
               </Button>
