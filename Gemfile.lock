@@ -188,6 +188,11 @@ GEM
       faraday-follow_redirects
     jsonapi-renderer (0.2.2)
     jwt (2.7.0)
+    lograge (0.12.0)
+      actionpack (>= 4)
+      activesupport (>= 4)
+      railties (>= 4)
+      request_store (~> 1.0)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -201,7 +206,6 @@ GEM
     method_source (1.0.0)
     mini_magick (4.12.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.1)
     minitest (5.18.0)
     msgpack (1.6.0)
     net-imap (0.3.4)
@@ -214,9 +218,6 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
-    nokogiri (1.14.3)
-      mini_portile2 (~> 2.8.0)
-      racc (~> 1.4)
     nokogiri (1.14.3-x86_64-linux)
       racc (~> 1.4)
     omniauth (2.1.1)
@@ -293,6 +294,10 @@ GEM
     regexp_parser (2.7.0)
     reline (0.3.2)
       io-console (~> 0.5)
+    remote_syslog_logger (1.0.4)
+      syslog_protocol
+    request_store (1.5.1)
+      rack (>= 1.4)
     rexml (3.2.5)
     rspec-core (3.12.1)
       rspec-support (~> 3.12.0)
@@ -354,6 +359,7 @@ GEM
       activesupport (>= 3)
       attr_required (>= 0.0.5)
       httpclient (>= 2.4)
+    syslog_protocol (0.9.2)
     thor (1.2.1)
     timeout (0.3.2)
     tzinfo (2.0.6)
@@ -416,6 +422,7 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   jwt
+  lograge (~> 0.12.0)
   mini_magick (>= 4.9.5)
   omniauth (~> 2.1.0)
   omniauth-rails_csrf_protection (~> 1.0.1)
@@ -425,6 +432,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.3)
   redis (~> 4.0)
+  remote_syslog_logger
   rspec-rails
   rubocop (~> 1.26)
   rubocop-performance (~> 1.13)
