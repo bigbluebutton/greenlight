@@ -109,7 +109,7 @@
     "create_new_room": "Créer une nouvelle salle",
     "enter_room_name": "Saisissez le nom de la salle",
     "shared_by": "Partagé par",
-    "last_session": "Dernière session : {{ salle.dernière_session }}",
+    "last_session": "Dernière session : {{ localizedTime }}",
     "no_last_session": "Il n'y a aucune session précédente",
     "search_not_found": "Aucune salle trouvée",
     "rooms_list_is_empty": "Vous n'avez pas encore de salles!",
@@ -123,7 +123,7 @@
       "recording_consent": "J'admets être informé que cette session pourrait être enregistrée. Le cas échéant ma voix et mon image vidéo feront partie de la captation."
     },
     "presentation": {
-      "presentation": "Captation",
+      "presentation": "Documents",
       "click_to_upload": "Cliquez pour téléverser",
       "drag_and_drop": "ou glissez-déposez",
       "upload_description": "Téléversez n'importe quel document Office ou fichier pdf. Le temps nécessaire au téléversement dépend du volume du fichier.",
@@ -171,8 +171,8 @@
     "published": "Publiée",
     "unpublished": "Non publiée",
     "protected": "Protégée",
-    "length_in_minutes": "{{enregistrement.durée}} min.",
-    "processing_recording": "Traitement de l'enregistrement...",
+    "length_in_minutes": "{{recording.length}} min.",
+    "processing_recording": "L'enregistrement est en cours de traitement, cela peu prendre quelques minutes...",
     "copy_recording_urls": "Copier l'URL de l'enregistrement",
     "recordings_list_empty": "Vous n'avez pas encore d'enregistrements!",
     "recordings_list_empty_description": "Les enregistrements apparaîtront ici dès que vous aurez réalisé la captation d'une réunion",
@@ -205,8 +205,8 @@
       "create_account": "Créer un compte",
       "create_room": "Créer une salle",
       "create_new_room": "Créer une nouvelle salle",
-      "user_created_at": "Créé: {{utilisateur_at}}",
-      "are_you_sure_delete_account": "Etes vous sûr de vouloir supprimer le compte de {{nom.utilisateur}} ?",
+      "user_created_at": "Créé: {{localizedTime}}",
+      "are_you_sure_delete_account": "Etes vous sûr de vouloir supprimer le compte de {{user.name}} ?",
       "delete_account_warning": "Une fois ce compte supprimé il NE pourra PAS être rétabli",
       "empty_active_users": "Il n'y pas encore d'utilisateur actif sur ce serveur!",
       "empty_active_users_subtext": "Lorsque le statut d'un utilisateur passe à actif, il apparaîtra ici.",
@@ -231,8 +231,8 @@
       "running": "En activité",
       "not_running": "Inactif",
       "active": "Actif",
-      "current_session": "Session en cours: {{dernièreSession}}",
-      "last_session": "Dernière Session: {{dernièreSession}}",
+      "current_session": "Session en cours: {{lastSession}}",
+      "last_session": "Dernière Session: {{localizedTime}}",
       "no_meeting_yet": "Pas de réunion pour l'instant",
       "delete_server_rooms": "Supprimer la salle du serveur",
       "resync_recordings": "Resynchronisation des enregistrements",
@@ -406,6 +406,7 @@
       "problem_completing_action": "L'action que vous voulez réaliser n'aboutit pas. Veuillez réessayer",
       "file_type_not_supported": "Ce type de fichier n'est pas pris en charge",
       "file_size_too_large": "La taille du fichier est trop importante",
+      "file_upload_error": "Le fichier ne peut pas être téléversé",
       "signin_required": "Vous devez vous identifier pour avoir accès à cette page.",
       "roles": {
         "role_assigned": "Ce rôle ne peut être supprimé car il est assigné à au moins un utilisateur."
@@ -480,9 +481,9 @@
           "required": "Veuillez saisir le nombre limite pour la salle",
           "min": "Le minimum autorisé est 0",
           "max": "Le maximum autorisé est 100"
-        }, 
+        },
         "type": {
-          "error": "Vous devez stipuler un nombre" 
+          "error": "Vous devez stipuler un nombre"
         }
       },
       "room": {
@@ -490,7 +491,7 @@
           "required": "Veuillez saisir le nom de la salle",
           "min": "Le nom doit comporter 2 caractères au minimum "
         }
-      }, 
+      },
       "url": {
         "invalid": "URL non valide"
       }

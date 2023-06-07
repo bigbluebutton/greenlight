@@ -54,7 +54,7 @@ RSpec.describe ExternalController, type: :controller do
       get :create_user, params: { provider: 'openid_connect' }
 
       expect(session[:session_token]).to eq(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).session_token)
-      expect(response).to redirect_to('/rooms')
+      expect(response).to redirect_to('/')
     end
 
     it 'assigns the User role to the user' do
@@ -95,7 +95,7 @@ RSpec.describe ExternalController, type: :controller do
         }
         get :create_user, params: { provider: 'openid_connect' }
 
-        expect(response).to redirect_to('/rooms')
+        expect(response).to redirect_to('/')
       end
 
       it 'doesnt redirect if it doesnt match a room joins format check 2' do
@@ -107,7 +107,7 @@ RSpec.describe ExternalController, type: :controller do
         }
         get :create_user, params: { provider: 'openid_connect' }
 
-        expect(response).to redirect_to('/rooms')
+        expect(response).to redirect_to('/')
       end
 
       it 'doesnt redirect if it doesnt match a room joins format check 3' do
@@ -119,7 +119,7 @@ RSpec.describe ExternalController, type: :controller do
         }
         get :create_user, params: { provider: 'openid_connect' }
 
-        expect(response).to redirect_to('/rooms')
+        expect(response).to redirect_to('/')
       end
 
       it 'deletes the cookie after reading' do
@@ -215,7 +215,7 @@ RSpec.describe ExternalController, type: :controller do
           create(:user, external_id: OmniAuth.config.mock_auth[:openid_connect][:uid])
 
           expect { get :create_user, params: { provider: 'openid_connect' } }.not_to raise_error
-          expect(response).to redirect_to('/rooms')
+          expect(response).to redirect_to('/')
         end
 
         it 'returns an InviteInvalid error if no invite is passed' do
