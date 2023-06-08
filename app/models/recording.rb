@@ -17,6 +17,14 @@
 # frozen_string_literal: true
 
 class Recording < ApplicationRecord
+  VISIBILITIES = {
+    published: 'Published',
+    unpublished: 'Unpublished',
+    protected: 'Protected',
+    public: 'Public',
+    public_protected: 'Public/Protected'
+  }.freeze
+
   belongs_to :room
   has_one :user, through: :room
   has_many :formats, dependent: :destroy
@@ -26,7 +34,7 @@ class Recording < ApplicationRecord
   validates :visibility, presence: true
   validates :length, presence: true
   validates :participants, presence: true
-  validates :visibility, inclusion: %w[Published Unpublished Protected Public Public/Protected]
+  validates :visibility, inclusion: VISIBILITIES.values
 
   scope :with_provider, ->(current_provider) { where(user: { provider: current_provider }) }
 

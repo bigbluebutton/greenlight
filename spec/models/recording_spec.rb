@@ -19,6 +19,20 @@
 require 'rails_helper'
 
 RSpec.describe Recording, type: :model do
+  describe 'Constants' do
+    context 'VISIBILITES' do
+      it 'matches certain map' do
+        expect(Recording::VISIBILITIES).to eq({
+                                                published: 'Published',
+                                                unpublished: 'Unpublished',
+                                                protected: 'Protected',
+                                                public: 'Public',
+                                                public_protected: 'Public/Protected'
+                                              })
+      end
+    end
+  end
+
   describe 'validations' do
     subject { create(:recording) }
 
@@ -29,7 +43,7 @@ RSpec.describe Recording, type: :model do
     it { is_expected.to validate_presence_of(:visibility) }
     it { is_expected.to validate_presence_of(:length) }
     it { is_expected.to validate_presence_of(:participants) }
-    it { is_expected.to validate_inclusion_of(:visibility).in_array(%w[Published Unpublished Protected Public Public/Protected]) }
+    it { is_expected.to validate_inclusion_of(:visibility).in_array(Recording::VISIBILITIES.values) }
   end
 
   describe 'scopes' do
