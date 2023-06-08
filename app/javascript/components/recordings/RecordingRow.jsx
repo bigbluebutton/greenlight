@@ -23,7 +23,6 @@ import PropTypes from 'prop-types';
 import {
   Button, Stack, Dropdown,
 } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import Spinner from '../shared_components/utilities/Spinner';
@@ -31,6 +30,8 @@ import UpdateRecordingForm from './forms/UpdateRecordingForm';
 import DeleteRecordingForm from './forms/DeleteRecordingForm';
 import Modal from '../shared_components/modals/Modal';
 import { localizeDateTimeString } from '../../helpers/DateTimeHelper';
+import useRedirectRecordingUrl from '../../hooks/mutations/recordings/useRedirectRecordingUrl';
+import useCopyRecordingUrl from '../../hooks/mutations/recordings/useCopyRecordingUrl';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
@@ -38,16 +39,14 @@ export default function RecordingRow({
 }) {
   const { t } = useTranslation();
 
-  function copyUrls() {
-    const formatUrls = recording.formats.map((format) => format.url);
-    navigator.clipboard.writeText(formatUrls);
-    toast.success(t('toast.success.recording.copied_urls'));
-  }
-
   const visibilityAPI = useVisibilityAPI();
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+
   const currentUser = useAuth();
+  const redirectRecordingUrl = useRedirectRecordingUrl();
+  const copyRecordingUrl = useCopyRecordingUrl();
+
   const localizedTime = localizeDateTimeString(recording?.recorded_at, currentUser?.language);
   const formats = recording.formats.sort(
     (a, b) => (a.recording_type.toLowerCase() > b.recording_type.toLowerCase() ? 1 : -1),
@@ -114,7 +113,7 @@ export default function RecordingRow({
       <td className="border-0">
         {formats.map((format) => (
           <Button
-            onClick={() => window.open(format.url, '_blank')}
+            onClick={() => redirectRecordingUrl.mutate({ record_id: recording.record_id, format: format.recording_type })}
             className={`btn-sm rounded-pill me-1 mt-1 border-0 btn-format-${format.recording_type.toLowerCase()}`}
             key={`${format.recording_type}-${format.url}`}
           >
@@ -128,7 +127,7 @@ export default function RecordingRow({
             <Dropdown className="float-end cursor-pointer">
               <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
               <Dropdown.Menu>
-                <Dropdown.Item onClick={() => copyUrls()}>
+                <Dropdown.Item onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}>
                   <ClipboardDocumentIcon className="hi-s me-2" />
                   { t('recording.copy_recording_urls') }
                 </Dropdown.Item>
@@ -149,7 +148,7 @@ export default function RecordingRow({
               <Button
                 variant="icon"
                 className="mt-1 me-3"
-                onClick={() => copyUrls()}
+                onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}
               >
                 <ClipboardDocumentIcon className="hi-s text-muted" />
               </Button>
