@@ -65,17 +65,16 @@ module Api
       # POST /api/v1/recordings/update_visibility.json
       # Update's a recordings visibility by setting publish/unpublish and protected/unprotected
       def update_visibility
-        new_visibility = params[:visibility]
-        old_visibility = @recording.visibility
+        new_visibility = params[:visibility].to_s
+
+        new_visibility_params = visibility_params_of(new_visibility)
+
+        return render_error status: :bad_request if new_visibility_params.nil?
+
         bbb_api = BigBlueButtonApi.new(provider: current_provider)
 
-        bbb_api.publish_recordings(record_ids: @recording.record_id, publish: true) if old_visibility == 'Unpublished'
-
-        bbb_api.publish_recordings(record_ids: @recording.record_id, publish: false) if new_visibility == 'Unpublished'
-
-        bbb_api.update_recordings(record_id: @recording.record_id, meta_hash: { protect: true }) if new_visibility == 'Protected'
-
-        bbb_api.update_recordings(record_id: @recording.record_id, meta_hash: { protect: false }) if old_visibility == 'Protected'
+        bbb_api.publish_recordings(record_ids: @recording.record_id, publish: new_visibility_params[:publish])
+        bbb_api.update_recordings(record_id: @recording.record_id, meta_hash: new_visibility_params[:meta_hash])
 
         @recording.update!(visibility: new_visibility)
 
@@ -113,6 +112,18 @@ module Api
 
       def find_recording
         @recording = Recording.find_by! record_id: params[:id]
+      end
+
+      def visibility_params_of(visibility)
+        params_of = {
+          Recording::VISIBILITIES[:unpublished] => { publish: false, meta_hash: { protect: false, 'meta_gl-listed': false } },
+          Recording::VISIBILITIES[:published] => { publish: true, meta_hash: { protect: false, 'meta_gl-listed': false } },
+          Recording::VISIBILITIES[:public] => { publish: true, meta_hash: { protect: false, 'meta_gl-listed': true } },
+          Recording::VISIBILITIES[:protected] => { publish: true, meta_hash: { protect: true, 'meta_gl-listed': false } },
+          Recording::VISIBILITIES[:public_protected] => { publish: true, meta_hash: { protect: true, 'meta_gl-listed': true } }
+        }
+
+        params_of[visibility.to_s]
       end
     end
   end
