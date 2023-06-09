@@ -126,7 +126,7 @@
       "presentation": "Sunum",
       "click_to_upload": "Yüklemek için tıklayın",
       "drag_and_drop": "ya da sürükleyip bırakın",
-      "upload_description": "Herhangi bir ofis belgesi ya da PDF dosyası yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
+      "upload_description": "Herhangi bir Office belgesi ya da PDF dosyası ({{size}} boyutundan büyük olmayan) yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
       "are_you_sure_delete_presentation": "Bu sunumu silmek istediğinize emin misiniz?"
     },
     "shared_access": {
@@ -255,7 +255,7 @@
         "brand_image": "Marka görseli",
         "click_to_upload": "Yüklemek için tıklayın",
         "drag_and_drop": "ya da sürükleyip bırakın",
-        "upload_brand_image_description": "Herhangi PNG, JGP ya da SVG dosyası yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
+        "upload_brand_image_description": "Herhangi bir PNG, JPG ya da SVG dosyası ({{size}} boyutundan büyük olmayan) yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
         "remove_branding_image": "Marka görselini kaldır"
       },
       "administration": {
@@ -492,6 +492,11 @@
           "min": "Ad en az 2 karakter uzunluğunda olabilir"
         }
       },
+      "room_join": {
+        "name": {
+          "required": "Lütfen adınızı yazın."
+        }
+      },
       "url": {
         "invalid": "Adres geçersiz"
       }
@@ -501,6 +506,21 @@
         "name": {
           "label": "Oda adı",
           "placeholder": "Bir oda adı yazın..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Ad",
+            "placeholder": "Adınızı yazın"
+        },
+        "access_code": {
+          "label": "Erişim kodu",
+          "placeholder": "Erişim kodunu yazın"
+        },
+        "recording_consent": {
+          "label": "Bu oturumun kaydedildiğini ve etkinleştirilmiş ise sesim ve görüntümün de kaydedileceğini anladım."
         }
       }
     },
