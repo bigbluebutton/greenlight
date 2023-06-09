@@ -349,18 +349,45 @@ RSpec.describe ExternalController, type: :controller do
   end
 
   describe '#meeting_ended' do
-    let(:room) { create(:room) }
+    let(:room) { create(:room, online: true) }
 
-    it 'increments a rooms recordings processing value if the meeting was recorded' do
-      get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true' }
-      expect(room.reload.recordings_processing).to eq(1)
-      get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true' }
-      expect(room.reload.recordings_processing).to eq(2)
+    context 'Recorded session' do
+      it 'sets online to false' do
+        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true' }
+
+        expect(room.reload.online).to be(false)
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)).to eq({})
+      end
+
+      it 'increments a rooms recordings processing value if the meeting was recorded' do
+        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true' }
+        expect(room.reload.recordings_processing).to eq(1)
+
+        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true' }
+        expect(room.reload.recordings_processing).to eq(2)
+      end
     end
 
-    it 'does not increment a rooms recordings processing value if the meeting was not recorded' do
-      get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'false' }
-      expect(room.reload.recordings_processing).to eq(0)
+    context 'Unrecorded session' do
+      it 'sets online to false without incrementing a rooms recordings processing' do
+        expect do
+          get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'false' }
+        end.not_to(change { room.reload.recordings_processing })
+
+        expect(room.online).to be(false)
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)).to eq({})
+      end
+    end
+
+    context 'Inexistent room' do
+      it 'silently fail' do
+        get :meeting_ended, params: { meetingID: '404', recordingmarks: 'false' }
+
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)).to eq({})
+      end
     end
   end
 
