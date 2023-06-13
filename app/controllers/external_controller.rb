@@ -99,10 +99,14 @@ class ExternalController < ApplicationController
   # Increments a rooms recordings_processing if the meeting was recorded
   def meeting_ended
     # TODO: - ahmad: Add some sort of validation
-    return render json: {} unless params[:recordingmarks] == 'true'
-
     @room = Room.find_by(meeting_id: extract_meeting_id)
-    @room.update(recordings_processing: @room.recordings_processing + 1, online: false)
+    return render json: {}, status: :ok unless @room
+
+    recordings_processing = params[:recordingmarks] == 'true' ? @room.recordings_processing + 1 : @room.recordings_processing
+
+    unless @room.update(recordings_processing:, online: false)
+      Rails.logger.error "Failed to update room(id): #{@room.id}, model errors: #{@room.errors}"
+    end
 
     render json: {}, status: :ok
   end
