@@ -6,19 +6,22 @@ namespace :migrations do
   COMMON = {
     headers: { "Content-Type" => "application/json", "Accept" => "application/json" },
     batch_size: 500,
-    filtered_roles: %w[super_admin admin pending denied user],
+    filtered_roles: %w[admin user super_admin pending denied],
     filtered_user_roles: %w[super_admin pending denied]
   }.freeze
 
   desc "Migrates v2 resources to v3"
-  task :roles, [] => :environment do |_task, _args|
+  task :roles, [:provider] => :environment do |_task, args|
+    args.with_defaults(provider: "greenlight")
     has_encountred_issue = 0
 
     Role.unscoped
-        .select(:id, :name)
+        .where(provider: args[:provider])
+        .select(:id, :name, :provider)
         .includes(:role_permissions)
         .where.not(name: COMMON[:filtered_roles])
         .find_each(batch_size: COMMON[:batch_size]) do |r|
+
       # RolePermissions
       role_permissions_hash = r.role_permissions.pluck(:name, :value).to_h
 
@@ -34,19 +37,22 @@ namespace :migrations do
       }
 
       params = { role: { name: r.name.capitalize,
+                         provider: r.provider,
                          role_permissions: role_permissions } }
 
       response = Net::HTTP.post(uri('roles'), payload(params), COMMON[:headers])
 
       case response
       when Net::HTTPCreated
-        puts green "Succesfully migrated Role:"
+        puts green "Successfully migrated Role:"
         puts cyan "ID: #{r.id}"
         puts cyan "Name: #{params[:role][:name]}"
+        puts cyan "Provider: #{params[:role][:provider]}"
       else
         puts red "Unable to migrate Role:"
         puts yellow "ID: #{r.id}"
         puts yellow "Name: #{params[:role][:name]}"
+        puts yellow "Provider: #{params[:role][:provider]}"
         puts red "Errors: #{JSON.parse(response.body.to_s)['errors']}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
@@ -58,29 +64,39 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task :users, [:start, :stop] => :environment do |_task, args|
+  task :users, [:provider, :start, :stop] => :environment do |_task, args|
+    args.with_defaults(provider: "greenlight")
     start, stop = range(args)
     has_encountred_issue = 0
 
     User.unscoped
+        .where(provider: args[:provider])
         .select(:id, :uid, :name, :email, :social_uid, :language, :role_id)
         .includes(:role)
         .where.not(roles: { name: COMMON[:filtered_user_roles] }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |u|
       role_name = infer_role_name(u.role.name)
-      params = { user: { name: u.name, email: u.email, external_id: u.social_uid, language: u.language, role: role_name } }
+      params = { user:
+                   { name: u.name,
+                     email: u.email,
+                     external_id: u.social_uid,
+                     provider: u.provider,
+                     language: u.language,
+                     role: role_name } }
 
       response = Net::HTTP.post(uri('users'), payload(params), COMMON[:headers])
 
       case response
       when Net::HTTPCreated
-        puts green "Succesfully migrated User:"
+        puts green "Successfully migrated User:"
         puts cyan "  UID: #{u.uid}"
         puts cyan "  Name: #{params[:user][:name]}"
+        puts cyan "  Provider: #{params[:user][:provider]}"
       else
         puts red "Unable to migrate User:"
         puts yellow "UID: #{u.uid}"
         puts yellow "Name: #{params[:user][:name]}"
+        puts yellow "Provider: #{params[:user][:provider]}"
         puts red "Errors: #{JSON.parse(response.body.to_s)['errors']}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
@@ -97,17 +113,21 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task :rooms, [:start, :stop] => :environment do |_task, args|
+  task :rooms, [:provider, :start, :stop] => :environment do |_task, args|
+    args.with_defaults(provider: "greenlight")
     start, stop = range(args)
     has_encountred_issue = 0
 
     filtered_roles_ids = Role.unscoped
+                             .where(provider: args[:provider])
                              .select(:id, :name)
                              .where(name: COMMON[:filtered_user_roles])
                              .pluck(:id)
 
-    Room.unscoped.select(:id, :uid, :name, :bbb_id, :last_session, :user_id, :room_settings)
+    Room.unscoped
+        .select(:id, :uid, :name, :bbb_id, :last_session, :user_id, :room_settings)
         .includes(:owner)
+        .where('users.provider': args[:provider])
         .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
       # RoomSettings
@@ -132,6 +152,7 @@ namespace :migrations do
                          meeting_id: r.bbb_id,
                          last_session: r.last_session&.to_datetime,
                          owner_email: r.owner.email,
+                         provider: r.owner.provider,
                          room_settings: room_settings,
                          shared_users_emails: shared_users_emails } }
 
@@ -139,13 +160,15 @@ namespace :migrations do
 
       case response
       when Net::HTTPCreated
-        puts green "Succesfully migrated Room:"
+        puts green "Successfully migrated Room:"
         puts cyan "UID: #{r.uid}"
-        puts cyan "Name: #{r.name}"
+        puts cyan "Name: #{params[:room][:name]}"
+        puts cyan "Provider: #{params[:room][:provider]}"
       else
         puts red "Unable to migrate Room:"
         puts yellow "UID: #{r.uid}"
-        puts yellow "Name: #{r.name}"
+        puts yellow "Name: #{params[:room][:name]}"
+        puts yellow "Provider: #{params[:room][:provider]}}"
         puts red "Errors: #{JSON.parse(response.body.to_s)['errors']}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
@@ -162,10 +185,11 @@ namespace :migrations do
     exit has_encountred_issue
   end
 
-  task settings: :environment do |_task|
+  task :settings, [:provider] => :environment do |_task, args|
+    args.with_defaults(provider: "greenlight")
     has_encountred_issue = 0
 
-    setting = Setting.includes(:features).find_by(provider: 'greenlight')
+    setting = Setting.includes(:features).find_by(provider: args[:provider])
 
     # SiteSettings
     site_settings = {
@@ -179,7 +203,7 @@ namespace :migrations do
     }.compact
 
     # RoomConfigurations
-    room_configurations = {
+    rooms_configurations = {
       record: infer_room_config_value(setting.get_value('Room Configuration Recording')),
       muteOnStart: infer_room_config_value(setting.get_value('Room Configuration Mute On Join')),
       guestPolicy: infer_room_config_value(setting.get_value('Room Configuration Require Moderator')),
@@ -188,15 +212,24 @@ namespace :migrations do
       glRequireAuthentication: infer_room_config_value(setting.get_value('Room Authentication'))
     }.compact
 
-    params = { settings: { site_settings: site_settings, room_configurations: room_configurations } }
+    params = { settings: { provider: args[:provider], site_settings: site_settings, rooms_configurations: rooms_configurations } }
 
     response = Net::HTTP.post(uri('settings'), payload(params), COMMON[:headers])
 
     case response
     when Net::HTTPCreated
-      puts green "Successfully migrated Settings"
+      puts green "Successfully migrated Site Settings"
+      puts cyan "Provider: #{args[:provider]}"
+      site_settings.each do |setting|
+        puts cyan "#{setting[0]}: #{setting[1]}"
+      end
+      puts green "Successfully migrated Rooms Configurations"
+      rooms_configurations.each do |rooms_config|
+        puts cyan "#{rooms_config[0]}: #{rooms_config[1]}"
+      end
     else
       puts red "Unable to migrate Settings"
+      puts red "Provider: #{args[:provider]}"
       puts red "Errors: #{JSON.parse(response.body.to_s)['errors']}"
       has_encountred_issue = 1 # At least one of the migrations failed.
     end
@@ -217,7 +250,7 @@ namespace :migrations do
     end
 
     unless ENV["V3_SECRET_KEY_BASE"].size >= 32
-      raise red 'Unable to migrate: Provided "V3_SECRET_KEY_BASE" must be at least 32 charchters in length.'
+      raise red 'Unable to migrate: Provided "V3_SECRET_KEY_BASE" must be at least 32 characters in length.'
     end
 
     key = ENV["V3_SECRET_KEY_BASE"][0..31]
@@ -272,12 +305,14 @@ namespace :migrations do
     case config_val
       when "enabled"
         "true"
-      when "true"
-        "true"
       when "disabled"
         "false"
+      when "optional"
+        "default_enabled"
+      when "true"
+        "true"
       else
         "optional"
-      end 
+      end
   end
 end
