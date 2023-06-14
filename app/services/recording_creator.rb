@@ -23,7 +23,10 @@ class RecordingCreator
 
   def call
     meeting_id = @recording[:metadata][:meetingId] || @recording[:meetingID]
-    room_id = Room.find_by(meeting_id:).id
+    room_id = Room.find_by(meeting_id:)&.id
+
+    raise ActiveRecord::RecordNotFound if room_id.nil?
+
     visibility = get_recording_visibility(recording: @recording)
 
     # Get length of presentation format(s)
@@ -49,9 +52,13 @@ class RecordingCreator
 
   # Returns the visibility of the recording (published, unpublished or protected)
   def get_recording_visibility(recording:)
-    return Recording::VISIBILITIES[:protected] if recording[:protected].to_s == 'true'
+    list = recording[:metadata][:'gl-listed'].to_s == 'true'
+    protect = recording[:protected].to_s == 'true'
+    publish = recording[:published].to_s == 'true'
 
-    return Recording::VISIBILITIES[:published] if recording[:published].to_s == 'true'
+    visibility = visibility_for(publish:, protect:, list:)
+
+    return visibility unless visibility.nil?
 
     Recording::VISIBILITIES[:unpublished]
   end
@@ -79,5 +86,18 @@ class RecordingCreator
       Format.find_or_create_by(recording_id: new_recording.id, recording_type: recording[:playback][:format][:type],
                                url: recording[:playback][:format][:url])
     end
+  end
+
+  # Visibilitiy Map
+  def visibility_for(publish:, protect:, list:)
+    params_for = {
+      { publish: false, protect: false, list: false } => Recording::VISIBILITIES[:unpublished],
+      { publish: true, protect: false, list: false } => Recording::VISIBILITIES[:published],
+      { publish: true, protect: false, list: true } => Recording::VISIBILITIES[:public],
+      { publish: true, protect: true, list: false } => Recording::VISIBILITIES[:protected],
+      { publish: true, protect: true, list: true } => Recording::VISIBILITIES[:public_protected]
+    }
+
+    params_for[{ publish:, protect:, list: }]
   end
 end
