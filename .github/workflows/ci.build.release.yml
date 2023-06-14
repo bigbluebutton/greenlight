@@ -72,7 +72,6 @@ jobs:
             "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_version.outputs.tag }}"
             "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_major.outputs.tag }}"
             "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_minor.outputs.tag }}"
-            "${{ steps.ci_docker_repository.outputs.repository }}:latest"
           build-args: "version_code=release-${{ steps.ci_tag_release_version.outputs.tag }}"
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
