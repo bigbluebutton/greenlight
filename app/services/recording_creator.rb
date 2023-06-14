@@ -49,11 +49,11 @@ class RecordingCreator
 
   # Returns the visibility of the recording (published, unpublished or protected)
   def get_recording_visibility(recording:)
-    return 'Protected' if recording[:protected].to_s == 'true'
+    return Recording::VISIBILITIES[:protected] if recording[:protected].to_s == 'true'
 
-    return 'Published' if recording[:published].to_s == 'true'
+    return Recording::VISIBILITIES[:published] if recording[:published].to_s == 'true'
 
-    'Unpublished'
+    Recording::VISIBILITIES[:unpublished]
   end
 
   # Returns the length of presentation recording for the recording given
