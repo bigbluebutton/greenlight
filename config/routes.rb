@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   post '/recording_ready', to: 'external#recording_ready'
 
   # Health checks
-  get '/health_checks', to: 'health_checks#check'
+  get '/health_check', to: 'health_checks#check'
 
   # All the Api endpoints must be under /api/v1 and must have an extension .json.
   namespace :api do
