@@ -40,6 +40,7 @@ import FormControl from '../../../shared_components/forms/FormControl';
 import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
 import RoomJoinPlaceholder from './RoomJoinPlaceholder';
 import useRoomJoinForm from '../../../../hooks/forms/rooms/useRoomJoinForm';
+import {Helmet} from "react-helmet";
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -190,6 +191,10 @@ export default function RoomJoin() {
 
   return (
     <div className="vertical-center">
+      <Helmet>
+        <title>{publicRoom?.data.name}</title>
+        <meta property="og:title" content={publicRoom?.data.name} />
+      </Helmet>
       <div className="text-center pb-4">
         <Logo />
       </div>

@@ -33,6 +33,7 @@ import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from '../MeetingBadges';
 import SharedBadge from './SharedBadge';
 import RoomNamePlaceHolder from './RoomNamePlaceHolder';
+import {Helmet} from "react-helmet";
 
 export default function Room() {
   const { t } = useTranslation();
@@ -58,6 +59,10 @@ export default function Room() {
   return (
     <>
       <div className="wide-white">
+        <Helmet>
+          <title>{room?.name}</title>
+          <meta property="og:title" content={room?.name} />
+        </Helmet>
         <Row className="pt-4">
           <Col>
             <Link to="/rooms">

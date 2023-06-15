@@ -23,6 +23,7 @@ import Header from './components/shared_components/Header';
 import { useAuth } from './contexts/auth/AuthProvider';
 import Footer from './components/shared_components/Footer';
 import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
+import {Helmet} from "react-helmet";
 
 export default function App() {
   const currentUser = useAuth();
@@ -49,6 +50,10 @@ export default function App() {
 
   return (
     <>
+      <Helmet>
+        <title>BigBlueButton</title>
+        <meta property="og:title" content="BigBlueButton" />
+      </Helmet>
       {(homePage || currentUser.signed_in) && <Header /> }
       <Container className={pageHeight}>
         <Outlet />
