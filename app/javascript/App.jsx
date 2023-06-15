@@ -19,11 +19,11 @@ import { Container } from 'react-bootstrap';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
+import { Helmet } from 'react-helmet';
 import Header from './components/shared_components/Header';
 import { useAuth } from './contexts/auth/AuthProvider';
 import Footer from './components/shared_components/Footer';
 import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
-import {Helmet} from "react-helmet";
 
 export default function App() {
   const currentUser = useAuth();

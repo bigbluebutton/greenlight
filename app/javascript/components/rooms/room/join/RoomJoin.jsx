@@ -25,6 +25,7 @@ import {
 } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 import usePublicRoom from '../../../../hooks/queries/rooms/usePublicRoom';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import useRoomStatus from '../../../../hooks/mutations/rooms/useRoomStatus';
@@ -40,7 +41,6 @@ import FormControl from '../../../shared_components/forms/FormControl';
 import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
 import RoomJoinPlaceholder from './RoomJoinPlaceholder';
 import useRoomJoinForm from '../../../../hooks/forms/rooms/useRoomJoinForm';
-import {Helmet} from "react-helmet";
 
 export default function RoomJoin() {
   const { t } = useTranslation();
