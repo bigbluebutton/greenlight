@@ -154,7 +154,7 @@ Rails.application.configure do
     { time: Time.zone.now, host: event.payload[:host] }
   end
 
-  config.lograge.ignore_actions = ['HealthCheckController#all',
+  config.lograge.ignore_actions = ['HealthChecksController#check',
                                    'ApplicationCable::Connection#connect', 'RoomsChannel#subscribe',
                                    'ApplicationCable::Connection#disconnect', 'RoomsChannel#unsubscribe']
 
