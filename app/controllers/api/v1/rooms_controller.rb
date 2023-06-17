@@ -19,9 +19,9 @@
 module Api
   module V1
     class RoomsController < ApiController
-      skip_before_action :ensure_authenticated, only: %i[public_show]
+      skip_before_action :ensure_authenticated, only: %i[public_show public_recordings]
 
-      before_action :find_room, only: %i[show update destroy recordings recordings_processing purge_presentation public_show]
+      before_action :find_room, only: %i[show update destroy recordings recordings_processing purge_presentation public_show public_recordings]
 
       before_action only: %i[create index] do
         ensure_authorized('CreateRoom')
@@ -134,6 +134,16 @@ module Api
 
         pagy, room_recordings = pagy(@room.recordings&.order(sort_config, recorded_at: :desc)&.search(params[:q]))
         render_data data: room_recordings, meta: pagy_metadata(pagy), status: :ok
+      end
+
+      # GET /api/v1/rooms/:friendly_id/public_recordings.json
+      # Returns all of a specific room's PUBLIC recordings
+      def public_recordings
+        sort_config = config_sorting(allowed_columns: %w[name length])
+
+        pagy, recordings = pagy(@room.public_recordings.order(sort_config, recorded_at: :desc).public_search(params[:search]))
+
+        render_data data: recordings, meta: pagy_metadata(pagy), serializer: PublicRecordingSerializer, status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id/recordings_processing.json

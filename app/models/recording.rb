@@ -46,4 +46,13 @@ class Recording < ApplicationRecord
 
     all.includes(:formats)
   end
+
+  def self.public_search(input)
+    if input
+      return joins(:formats).where('recordings.name ILIKE :input OR formats.recording_type ILIKE :input',
+                                   input: "%#{input}%").includes(:formats)
+    end
+
+    all.includes(:formats)
+  end
 end

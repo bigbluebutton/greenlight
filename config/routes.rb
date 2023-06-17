@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       resources :rooms, param: :friendly_id do
         member do
           get '/recordings', to: 'rooms#recordings'
+          get '/public_recordings', to: 'rooms#public_recordings'
           get '/recordings_processing', to: 'rooms#recordings_processing'
           get '/public', to: 'rooms#public_show'
           delete :purge_presentation

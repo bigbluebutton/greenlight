@@ -164,5 +164,24 @@ RSpec.describe Room, type: :model do
         expect(room.get_setting(name: '404')).to be_nil
       end
     end
+
+    describe '#public_recordings' do
+      let(:public_recordings) do
+        [
+          create(:recording, room:, visibility: Recording::VISIBILITIES[:public]),
+          create(:recording, room:, visibility: Recording::VISIBILITIES[:public_protected])
+        ]
+      end
+
+      before do
+        [Recording::VISIBILITIES[:unpublished], Recording::VISIBILITIES[:published], Recording::VISIBILITIES[:protected]].each do |visibility|
+          create(:recording, room:, visibility:)
+        end
+      end
+
+      it 'retuns filters out the room public recordings' do
+        expect(room.public_recordings).to match_array(public_recordings)
+      end
+    end
   end
 end
