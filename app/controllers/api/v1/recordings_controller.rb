@@ -19,12 +19,14 @@
 module Api
   module V1
     class RecordingsController < ApiController
+      skip_before_action :ensure_authenticated, only: :recording_url
+
       before_action :find_recording, only: %i[update update_visibility recording_url]
       before_action only: %i[destroy] do
         ensure_authorized('ManageRecordings', record_id: params[:id])
       end
       before_action only: %i[update update_visibility recording_url] do
-        ensure_authorized(%w[ManageRecordings SharedRoom], record_id: params[:id])
+        ensure_authorized(%w[ManageRecordings SharedRoom PublicRecordings], record_id: params[:id])
       end
       before_action only: %i[index recordings_count] do
         ensure_authorized('CreateRoom')
@@ -92,16 +94,29 @@ module Api
       def recording_url
         record_format = params[:recording_format]
 
-        url = if @recording.visibility == 'Protected'
-                recording = BigBlueButtonApi.new(provider: current_provider).get_recording(record_id: @recording.record_id)
-                formats = recording[:playback][:format]
+        urls = if [Recording::VISIBILITIES[:protected], Recording::VISIBILITIES[:public_protected]].include? @recording.visibility
+                 recording = BigBlueButtonApi.new(provider: current_provider).get_recording(record_id: @recording.record_id)
+                 formats = recording[:playback][:format]
+                 formats = [formats] unless formats.is_a? Array
 
-                record_format.present? ? formats.find { |format| format[:type] == record_format }[:url] : formats.pluck(:url)
-              else
-                record_format.present? ? @recording.formats.find_by(recording_type: record_format).url : @recording.formats.pluck(:url)
-              end
+                 if record_format.present?
+                   found_format = formats.find { |format| format[:type] == record_format }
+                   return render_error status: :not_found unless found_format
 
-        render_data data: url, status: :ok
+                   found_format[:url]
+                 else
+                   formats.pluck(:url)
+                 end
+               elsif record_format.present?
+                 found_format = @recording.formats.find_by(recording_type: record_format)
+                 return render_error status: :not_found unless found_format
+
+                 found_format[:url]
+               else
+                 @recording.formats.pluck(:url)
+               end
+
+        render_data data: urls, status: :ok
       end
 
       private
