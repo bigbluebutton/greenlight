@@ -42,14 +42,14 @@ RSpec.describe HealthChecksController, type: :controller do
       end
 
       it 'returns success' do
-        allow(ActiveRecord::Base.connection).to receive(:active?).and_return(true)
+        allow(ActiveRecord::Base).to receive(:connected?).and_return(true)
         get :check
         expect(response.body).to eq('success')
         expect(response).to have_http_status(:ok)
       end
 
       it 'returns failure message' do
-        allow(ActiveRecord::Base).to receive(:connected?).and_return(false)
+        allow(ActiveRecord::Base.connection).to receive(:active?).and_return(false)
         get :check
         expect(response.body).to include('Unable to connect to Database')
         expect(response).to have_http_status(:internal_server_error)
