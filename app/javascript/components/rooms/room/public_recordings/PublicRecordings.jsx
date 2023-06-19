@@ -17,19 +17,17 @@
 /* eslint-disable consistent-return */
 import React from 'react';
 import { Row } from 'react-bootstrap';
-import JoinCard from './JoinCard';
 import Logo from '../../../shared_components/Logo';
-import Title from '../../../shared_components/utilities/Title';
+import PublicRecordingsCard from './PublicRecordingsCard';
 
 export default function RoomJoin() {
   return (
     <div className="vertical-center">
-      <Title>{publicRoom?.data.name}</Title>
       <Row className="text-center pb-4">
         <Logo />
       </Row>
       <Row>
-        <JoinCard />
+        <PublicRecordingsCard />
       </Row>
     </div>
   );

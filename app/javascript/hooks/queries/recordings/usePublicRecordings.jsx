@@ -14,23 +14,24 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-/* eslint-disable consistent-return */
-import React from 'react';
-import { Row } from 'react-bootstrap';
-import JoinCard from './JoinCard';
-import Logo from '../../../shared_components/Logo';
-import Title from '../../../shared_components/utilities/Title';
+import { useQuery } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
+import axios from '../../../helpers/Axios';
 
-export default function RoomJoin() {
-  return (
-    <div className="vertical-center">
-      <Title>{publicRoom?.data.name}</Title>
-      <Row className="text-center pb-4">
-        <Logo />
-      </Row>
-      <Row>
-        <JoinCard />
-      </Row>
-    </div>
+export default function usePublicRecordings({ friendlyId, search, page }) {
+  const [searchParams] = useSearchParams();
+  const params = {
+    'sort[column]': searchParams.get('sort[column]'),
+    'sort[direction]': searchParams.get('sort[direction]'),
+    search,
+    page,
+  };
+
+  return useQuery(
+    ['getPublicRecordings', { ...params }],
+    () => axios.get(`/rooms/${friendlyId}/public_recordings.json`, { params }).then((resp) => resp.data),
+    {
+      keepPreviousData: true,
+    },
   );
 }

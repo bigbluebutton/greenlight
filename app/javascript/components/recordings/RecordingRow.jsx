@@ -78,16 +78,16 @@ export default function RecordingRow({
               {
                 !isEditing
                 && (
-                <>
-                  { recording.name }
-                  <PencilSquareIcon
-                    role="button"
-                    aria-hidden="true"
-                    onClick={() => !isUpdating && setIsEditing(true)}
-                    onBlur={() => setIsEditing(false)}
-                    className={`hi-s text-muted ms-1 mb-1 ${display}`}
-                  />
-                </>
+                  <>
+                    {recording.name}
+                    <PencilSquareIcon
+                      role="button"
+                      aria-hidden="true"
+                      onClick={() => !isUpdating && setIsEditing(true)}
+                      onBlur={() => setIsEditing(false)}
+                      className="hi-s text-muted ms-1 mb-1"
+                    />
+                  </>
                 )
               }
               {
@@ -99,7 +99,7 @@ export default function RecordingRow({
           </Stack>
         </Stack>
       </td>
-      <td className="border-0"> { t('recording.length_in_minutes', { recording }) } </td>
+      <td className="border-0"> {t('recording.length_in_minutes', { recording })} </td>
       <td className="border-0"> {recording.participants} </td>
       <td className="border-0">
         {/* TODO: Refactor this. */}
@@ -111,10 +111,16 @@ export default function RecordingRow({
           defaultValue={recording.visibility}
           disabled={visibilityAPI.isLoading}
         >
-          <option value="Published">{ t('recording.published') }</option>
-          <option value="Unpublished">{ t('recording.unpublished') }</option>
+          <option value="Published">{t('recording.published')}</option>
+          <option value="Unpublished">{t('recording.unpublished')}</option>
           {recording?.protectable === true
-            && <option value="Protected">{ t('recording.protected') }</option>}
+            && (
+              <>
+                <option value="Protected">{t('recording.protected')}</option>
+                <option value="Public/Protected">{t('recording.public_protected')}</option>
+              </>
+            )}
+          <option value="Public">{t('recording.public')}</option>
         </Form.Select>
       </td>
       <td className="border-0">
@@ -136,16 +142,16 @@ export default function RecordingRow({
               <Dropdown.Menu>
                 <Dropdown.Item onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}>
                   <ClipboardDocumentIcon className="hi-s me-2" />
-                  { t('recording.copy_recording_urls') }
+                  {t('recording.copy_recording_urls')}
                 </Dropdown.Item>
                 <Modal
-                  modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{ t('delete') }</Dropdown.Item>}
+                  modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{t('delete')}</Dropdown.Item>}
                   body={(
                     <DeleteRecordingForm
                       mutation={useDeleteAPI}
                       recordId={recording.record_id}
                     />
-                )}
+                  )}
                 />
               </Dropdown.Menu>
             </Dropdown>
