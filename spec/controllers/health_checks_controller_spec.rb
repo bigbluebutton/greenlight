@@ -42,7 +42,7 @@ RSpec.describe HealthChecksController, type: :controller do
       end
 
       it 'returns success' do
-        allow(ActiveRecord::Base).to receive(:connected?).and_return(true)
+        allow(ActiveRecord::Base.connection).to receive(:active?).and_return(true)
         get :check
         expect(response.body).to eq('success')
         expect(response).to have_http_status(:ok)
