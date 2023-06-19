@@ -202,9 +202,13 @@ namespace :migrations do
       PreuploadPresentation: setting.get_value('Preupload Presentation'),
     }.compact
 
+
+    # Sets Record to default_enabled in V3 if set to optional in V2
+    rooms_config_record_value = infer_room_config_value(setting.get_value('Room Configuration Recording'))
+
     # RoomConfigurations
     rooms_configurations = {
-      record: infer_room_config_value(setting.get_value('Room Configuration Recording')),
+      record: rooms_config_record_value == "optional" ? "default_enabled" : rooms_config_record_value,
       muteOnStart: infer_room_config_value(setting.get_value('Room Configuration Mute On Join')),
       guestPolicy: infer_room_config_value(setting.get_value('Room Configuration Require Moderator')),
       glAnyoneCanStart: infer_room_config_value(setting.get_value('Room Configuration Allow Any Start')),
@@ -307,8 +311,6 @@ namespace :migrations do
         "true"
       when "disabled"
         "false"
-      when "optional"
-        "default_enabled"
       when "true"
         "true"
       else
