@@ -37,10 +37,7 @@ class HealthChecksController < ApplicationController
   private
 
   def check_database
-    ActiveRecord::Base.establish_connection # Establishes connection
-    ActiveRecord::Base.connection # Calls connection object
-
-    raise 'Unable to connect to Database' unless ActiveRecord::Base.connected?
+    raise 'Unable to connect to Database' unless ActiveRecord::Base.connection.active?
     raise 'Unable to connect to Database - pending migrations' unless ActiveRecord::Migration.check_pending!.nil?
   rescue StandardError => e
     raise "Unable to connect to Database - #{e}"
