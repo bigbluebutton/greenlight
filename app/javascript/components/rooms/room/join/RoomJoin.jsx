@@ -40,6 +40,7 @@ import FormControl from '../../../shared_components/forms/FormControl';
 import FormControlGeneric from '../../../shared_components/forms/FormControlGeneric';
 import RoomJoinPlaceholder from './RoomJoinPlaceholder';
 import useRoomJoinForm from '../../../../hooks/forms/rooms/useRoomJoinForm';
+import Title from '../../../shared_components/utilities/Title';
 
 export default function RoomJoin() {
   const { t } = useTranslation();
@@ -190,6 +191,7 @@ export default function RoomJoin() {
 
   return (
     <div className="vertical-center">
+      <Title>{publicRoom?.data.name}</Title>
       <div className="text-center pb-4">
         <Logo />
       </div>
