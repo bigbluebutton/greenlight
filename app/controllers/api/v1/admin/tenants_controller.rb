@@ -41,10 +41,7 @@ module Api
           tenant = Tenant.new(name:, client_secret: tenant_params[:client_secret])
 
           if tenant.save
-            create_roles(tenant.name)
-            create_site_settings(tenant.name)
-            create_rooms_configs_options(tenant.name)
-            create_role_permissions(tenant.name)
+            TenantSetup.new(name).call
             render_data status: :created
           else
             render_error errors: tenant.errors.to_a, status: :bad_request
