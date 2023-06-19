@@ -23,7 +23,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   if lb.present?
     provider :openid_connect, setup: lambda { |env|
       request = Rack::Request.new(env)
-      current_provider = request.params['current_provider'] || request.url&.split('.')&.first
+      current_provider = request.params['current_provider'] || request.host&.split('.')&.first
       secret = Tenant.find_by(name: current_provider)&.client_secret
       issuer_url = File.join issuer.to_s, "/#{current_provider}"
 
