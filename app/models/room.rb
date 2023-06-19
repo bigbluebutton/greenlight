@@ -75,6 +75,10 @@ class Room < ApplicationRecord
     end
   end
 
+  def public_recordings
+    recordings.where(visibility: [Recording::VISIBILITIES[:public], Recording::VISIBILITIES[:public_protected]])
+  end
+
   private
 
   def set_friendly_id
