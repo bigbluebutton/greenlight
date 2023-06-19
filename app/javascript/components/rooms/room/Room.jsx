@@ -24,7 +24,6 @@ import {
 import { HomeIcon, Square2StackIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import { Helmet } from 'react-helmet';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import { localizeDayDateTimeString } from '../../../helpers/DateTimeHelper';
 import FeatureTabs from './FeatureTabs';
@@ -34,6 +33,7 @@ import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from '../MeetingBadges';
 import SharedBadge from './SharedBadge';
 import RoomNamePlaceHolder from './RoomNamePlaceHolder';
+import Title from '../../shared_components/utilities/Title';
 
 export default function Room() {
   const { t } = useTranslation();
@@ -58,11 +58,8 @@ export default function Room() {
 
   return (
     <>
+      <Title>{room?.name}</Title>
       <div className="wide-white">
-        <Helmet>
-          <title>{room?.name}</title>
-          <meta property="og:title" content={room?.name} />
-        </Helmet>
         <Row className="pt-4">
           <Col>
             <Link to="/rooms">

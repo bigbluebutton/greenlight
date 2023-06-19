@@ -19,11 +19,11 @@ import { Container } from 'react-bootstrap';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
-import { Helmet } from 'react-helmet';
 import Header from './components/shared_components/Header';
 import { useAuth } from './contexts/auth/AuthProvider';
 import Footer from './components/shared_components/Footer';
 import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
+import Title from './components/shared_components/utilities/Title';
 
 export default function App() {
   const currentUser = useAuth();
@@ -50,10 +50,7 @@ export default function App() {
 
   return (
     <>
-      <Helmet>
-        <title>BigBlueButton</title>
-        <meta property="og:title" content="BigBlueButton" />
-      </Helmet>
+      <Title>BigBlueButton</Title>
       {(homePage || currentUser.signed_in) && <Header /> }
       <Container className={pageHeight}>
         <Outlet />
