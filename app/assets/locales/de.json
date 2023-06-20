@@ -19,7 +19,7 @@
   "copy": "Einladungslink kopieren",
   "or": "oder",
   "online": "Online",
-  "help_center": "Hilfezentrum",
+  "help_center": "Hilfe",
   "are_you_sure": "Wirklich sicher?",
   "return_home": "Zurück zur Startseite",
   "created_at": "Erstellt am",
@@ -125,8 +125,8 @@
     "presentation": {
       "presentation": "Präsentation",
       "click_to_upload": "Klicken zum Hochladen",
-      "drag_and_drop": " oder Datei per Drag & Drop hier ablegen",
-      "upload_description": "Ein Office-Dokument oder eine PDF-Datei hochladen. Abhängig von der Größe könnte das eine gewisse Zeit dauern.",
+      "drag_and_drop": " oder Datei per Drag & Drop hier ablegen.",
+      "upload_description": "Ein Office-Dokument oder eine PDF-Datei hochladen (nicht größer als {{size}}). Abhängig von der Größe könnte das eine gewisse Zeit dauern.",
       "are_you_sure_delete_presentation": "Diese Präsentation wirklich löschen?"
     },
     "shared_access": {
@@ -255,7 +255,7 @@
         "brand_image": "Logo",
         "click_to_upload": "Klicken zum Hochladen",
         "drag_and_drop": " oder per Drag & Drop",
-        "upload_brand_image_description": "Eine PNG, JPG oder SVG-Datei hochladen. Abhängig von der Größe könnte das eine gewisse Zeit dauern.",
+        "upload_brand_image_description": "Eine PNG, JPG oder SVG-Datei hochladen (nicht größer als {{size}}). Abhängig von der Größe könnte das eine gewisse Zeit dauern.",
         "remove_branding_image": "Markenbild/Logo entfernen"
       },
       "administration": {
@@ -438,8 +438,8 @@
   "account_activation_page": {
     "title": "Kontoaktivierung",
     "account_unverified": "Konto wurde noch nicht verifiziert.",
-    "message": "Um Greenlight zu benutzen, bitte das Konto anhand der Anleitung, die per Aktivierungs-Email geschickt wurde, verifizieren",
-    "resend_activation_link": "Wenn noch keine Aktivierungs-Email angekommen ist, oder es Probleme damit gibt, bitte unten eine neue Aktivierungs-Email anfordern.",
+    "message": "Um Greenlight zu benutzen, verifiziere das Konto bitte anhand der Anleitung, die in der Aktivierungs-Email geschickt wurde.",
+    "resend_activation_link": "Wenn noch keine Aktivierungs-Email angekommen ist, oder es Probleme mit ihr gibt, dann fordere bitte eine neue an.",
     "resend_btn_lbl": "Bestätigungsmail erneut senden"
   },
   "forms": {
@@ -492,6 +492,11 @@
           "min": "Der Name muss mindestens 2 Zeichen lang sein"
         }
       },
+      "room_join": {
+        "name": {
+          "required": "Bitte Namen eingeben."
+        }
+      },
       "url": {
         "invalid": "Ungültige URL"
       }
@@ -501,6 +506,21 @@
         "name": {
           "label": "Raumname",
           "placeholder": "Raumname eingeben..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Name",
+            "placeholder": "Namen eingeben"
+        },
+        "access_code": {
+          "label": "Zugangscode",
+          "placeholder": "Zugangscode eingeben"
+        },
+        "recording_consent": {
+          "label": "Ich nehme zur Kenntnis, dass die Sitzung aufgezeichnet werden kann. Dies wird meine Stimme und mein Bild einschließen, wenn dies aktiviert ist."
         }
       }
     },
