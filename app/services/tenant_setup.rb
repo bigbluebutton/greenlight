@@ -31,41 +31,42 @@ class TenantSetup
 
   def create_roles
     Role.create! [
-                   { name: 'Administrator', provider: @provider },
-                   { name: 'User', provider: @provider },
-                   { name: 'Guest', provider: @provider }
-                 ]
+      { name: 'Administrator', provider: @provider },
+      { name: 'User', provider: @provider },
+      { name: 'Guest', provider: @provider }
+    ]
   end
 
   def create_site_settings
     SiteSetting.create! [
-                          { setting: Setting.find_by(name: 'PrimaryColor'), value: '#467fcf', provider: @provider },
-                          { setting: Setting.find_by(name: 'PrimaryColorLight'), value: '#e8eff9', provider: @provider },
-                          { setting: Setting.find_by(name: 'PrimaryColorDark'), value: '#316cbe', provider: @provider },
-                          { setting: Setting.find_by(name: 'BrandingImage'),
-                            value: ActionController::Base.helpers.image_path('bbb_logo.png'),
-                            provider: @provider },
-                          { setting: Setting.find_by(name: 'Terms'), value: '', provider: @provider },
-                          { setting: Setting.find_by(name: 'PrivacyPolicy'), value: '', provider: @provider },
-                          { setting: Setting.find_by(name: 'RegistrationMethod'), value: SiteSetting::REGISTRATION_METHODS[:open], provider: @provider },
-                          { setting: Setting.find_by(name: 'ShareRooms'), value: 'true', provider: @provider },
-                          { setting: Setting.find_by(name: 'PreuploadPresentation'), value: 'true', provider: @provider },
-                          { setting: Setting.find_by(name: 'RoleMapping'), value: '', provider: @provider },
-                          { setting: Setting.find_by(name: 'DefaultRole'), provider: @provider, value: 'User' }
-                        ]
+      { setting: Setting.find_by(name: 'PrimaryColor'), value: '#467fcf', provider: @provider },
+      { setting: Setting.find_by(name: 'PrimaryColorLight'), value: '#e8eff9', provider: @provider },
+      { setting: Setting.find_by(name: 'PrimaryColorDark'), value: '#316cbe', provider: @provider },
+      { setting: Setting.find_by(name: 'BrandingImage'),
+        value: ActionController::Base.helpers.image_path('bbb_logo.png'),
+        provider: @provider },
+      { setting: Setting.find_by(name: 'Terms'), value: '', provider: @provider },
+      { setting: Setting.find_by(name: 'PrivacyPolicy'), value: '', provider: @provider },
+      { setting: Setting.find_by(name: 'RegistrationMethod'), value: SiteSetting::REGISTRATION_METHODS[:open],
+        provider: @provider },
+      { setting: Setting.find_by(name: 'ShareRooms'), value: 'true', provider: @provider },
+      { setting: Setting.find_by(name: 'PreuploadPresentation'), value: 'true', provider: @provider },
+      { setting: Setting.find_by(name: 'RoleMapping'), value: '', provider: @provider },
+      { setting: Setting.find_by(name: 'DefaultRole'), provider: @provider, value: 'User' }
+    ]
   end
 
   def create_rooms_configs_options
     RoomsConfiguration.create! [
-                                 { meeting_option: MeetingOption.find_by(name: 'record'), value: 'default_enabled', provider: @provider },
-                                 { meeting_option: MeetingOption.find_by(name: 'muteOnStart'), value: 'optional', provider: @provider },
-                                 { meeting_option: MeetingOption.find_by(name: 'guestPolicy'), value: 'optional', provider: @provider },
-                                 { meeting_option: MeetingOption.find_by(name: 'glAnyoneCanStart'), value: 'optional', provider: @provider },
-                                 { meeting_option: MeetingOption.find_by(name: 'glAnyoneJoinAsModerator'), value: 'optional', provider: @provider },
-                                 { meeting_option: MeetingOption.find_by(name: 'glRequireAuthentication'), value: 'optional', provider: @provider },
-                                 { meeting_option: MeetingOption.find_by(name: 'glViewerAccessCode'), value: 'optional', provider: @provider },
-                                 { meeting_option: MeetingOption.find_by(name: 'glModeratorAccessCode'), value: 'optional', provider: @provider }
-                               ]
+      { meeting_option: MeetingOption.find_by(name: 'record'), value: 'default_enabled', provider: @provider },
+      { meeting_option: MeetingOption.find_by(name: 'muteOnStart'), value: 'optional', provider: @provider },
+      { meeting_option: MeetingOption.find_by(name: 'guestPolicy'), value: 'optional', provider: @provider },
+      { meeting_option: MeetingOption.find_by(name: 'glAnyoneCanStart'), value: 'optional', provider: @provider },
+      { meeting_option: MeetingOption.find_by(name: 'glAnyoneJoinAsModerator'), value: 'optional', provider: @provider },
+      { meeting_option: MeetingOption.find_by(name: 'glRequireAuthentication'), value: 'optional', provider: @provider },
+      { meeting_option: MeetingOption.find_by(name: 'glViewerAccessCode'), value: 'optional', provider: @provider },
+      { meeting_option: MeetingOption.find_by(name: 'glModeratorAccessCode'), value: 'optional', provider: @provider }
+    ]
   end
 
   def create_role_permissions
@@ -84,35 +85,35 @@ class TenantSetup
     room_limit = Permission.find_by(name: 'RoomLimit')
 
     RolePermission.create! [
-                             { role: admin, permission: create_room, value: 'true' },
-                             { role: admin, permission: manage_users, value: 'true' },
-                             { role: admin, permission: manage_rooms, value: 'true' },
-                             { role: admin, permission: manage_recordings, value: 'true' },
-                             { role: admin, permission: manage_site_settings, value: 'true' },
-                             { role: admin, permission: manage_roles, value: 'true' },
-                             { role: admin, permission: shared_list, value: 'true' },
-                             { role: admin, permission: can_record, value: 'true' },
-                             { role: admin, permission: room_limit, value: '100' },
+      { role: admin, permission: create_room, value: 'true' },
+      { role: admin, permission: manage_users, value: 'true' },
+      { role: admin, permission: manage_rooms, value: 'true' },
+      { role: admin, permission: manage_recordings, value: 'true' },
+      { role: admin, permission: manage_site_settings, value: 'true' },
+      { role: admin, permission: manage_roles, value: 'true' },
+      { role: admin, permission: shared_list, value: 'true' },
+      { role: admin, permission: can_record, value: 'true' },
+      { role: admin, permission: room_limit, value: '100' },
 
-                             { role: user, permission: create_room, value: 'true' },
-                             { role: user, permission: manage_users, value: 'false' },
-                             { role: user, permission: manage_rooms, value: 'false' },
-                             { role: user, permission: manage_recordings, value: 'false' },
-                             { role: user, permission: manage_site_settings, value: 'false' },
-                             { role: user, permission: manage_roles, value: 'false' },
-                             { role: user, permission: shared_list, value: 'true' },
-                             { role: user, permission: can_record, value: 'true' },
-                             { role: user, permission: room_limit, value: '100' },
+      { role: user, permission: create_room, value: 'true' },
+      { role: user, permission: manage_users, value: 'false' },
+      { role: user, permission: manage_rooms, value: 'false' },
+      { role: user, permission: manage_recordings, value: 'false' },
+      { role: user, permission: manage_site_settings, value: 'false' },
+      { role: user, permission: manage_roles, value: 'false' },
+      { role: user, permission: shared_list, value: 'true' },
+      { role: user, permission: can_record, value: 'true' },
+      { role: user, permission: room_limit, value: '100' },
 
-                             { role: guest, permission: create_room, value: 'false' },
-                             { role: guest, permission: manage_users, value: 'false' },
-                             { role: guest, permission: manage_rooms, value: 'false' },
-                             { role: guest, permission: manage_recordings, value: 'false' },
-                             { role: guest, permission: manage_site_settings, value: 'false' },
-                             { role: guest, permission: manage_roles, value: 'false' },
-                             { role: guest, permission: shared_list, value: 'true' },
-                             { role: guest, permission: can_record, value: 'true' },
-                             { role: guest, permission: room_limit, value: '100' }
-                           ]
+      { role: guest, permission: create_room, value: 'false' },
+      { role: guest, permission: manage_users, value: 'false' },
+      { role: guest, permission: manage_rooms, value: 'false' },
+      { role: guest, permission: manage_recordings, value: 'false' },
+      { role: guest, permission: manage_site_settings, value: 'false' },
+      { role: guest, permission: manage_roles, value: 'false' },
+      { role: guest, permission: shared_list, value: 'true' },
+      { role: guest, permission: can_record, value: 'true' },
+      { role: guest, permission: room_limit, value: '100' }
+    ]
   end
 end

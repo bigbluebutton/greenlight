@@ -19,7 +19,7 @@
 require_relative 'task_helpers'
 
 desc 'Add default tenant'
-task :add_default_tenant, [:secret] => :environment do |t, args|
+task :add_default_tenant, [:secret] => :environment do |_t, args|
   err 'Missing secret' unless args.secret
 
   tenant = Tenant.new(name: 'bn', client_secret: args.secret)
