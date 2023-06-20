@@ -17,8 +17,8 @@
 /* eslint-disable consistent-return */
 import React from 'react';
 import { Row } from 'react-bootstrap';
-import JoinCard from './JoinCard';
 import Logo from '../../../shared_components/Logo';
+import PublicRecordingsCard from './PublicRecordingsCard';
 
 export default function RoomJoin() {
   return (
@@ -27,7 +27,7 @@ export default function RoomJoin() {
         <Logo />
       </Row>
       <Row>
-        <JoinCard />
+        <PublicRecordingsCard />
       </Row>
     </div>
   );
