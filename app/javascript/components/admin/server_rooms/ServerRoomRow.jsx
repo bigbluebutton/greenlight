@@ -51,7 +51,7 @@ export default function ServerRoomRow({ room }) {
       return t('admin.server_rooms.no_meeting_yet');
     }
     if (online) {
-      return t('admin.server_rooms.current_session', { lastSession });
+      return t('admin.server_rooms.current_session', { lastSession: localizedTime });
     }
     return t('admin.server_rooms.last_session', { localizedTime });
   };

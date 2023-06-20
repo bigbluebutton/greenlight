@@ -55,4 +55,17 @@ class Recording < ApplicationRecord
 
     all.includes(:formats)
   end
+
+  def self.server_search(input)
+    if input
+      return joins(:formats)
+             .where('recordings.name ILIKE :input OR ' \
+                    'recordings.visibility ILIKE :input OR ' \
+                    'formats.recording_type ILIKE :input OR ' \
+                    '"user"."name" ILIKE :input', input: "%#{input}%")
+             .includes(:formats)
+    end
+
+    all.includes(:formats)
+  end
 end
