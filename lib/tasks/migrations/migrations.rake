@@ -266,7 +266,7 @@ namespace :migrations do
     raise red 'Unable to migrate: No "V3_ENDPOINT" provided, please check your .env file.' unless ENV["V3_ENDPOINT"].present?
 
     base_uri = URI(ENV["V3_ENDPOINT"])
-    res = URI::join(base_uri, "/api/v1/migrations/#{path}.json")
+    res = URI::join(base_uri, "api/v1/migrations/#{path}.json")
     res
   end
 
