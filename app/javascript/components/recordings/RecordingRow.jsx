@@ -79,13 +79,13 @@ export default function RecordingRow({
                 !isEditing
                 && (
                   <>
-                    {recording.name}
+                    { recording.name }
                     <PencilSquareIcon
                       role="button"
                       aria-hidden="true"
                       onClick={() => !isUpdating && setIsEditing(true)}
                       onBlur={() => setIsEditing(false)}
-                      className="hi-s text-muted ms-1 mb-1"
+                      className={`hi-s text-muted ms-1 mb-1 ${display}`}
                     />
                   </>
                 )
