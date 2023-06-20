@@ -71,7 +71,7 @@ namespace :migrations do
 
     User.unscoped
         .where(provider: args[:provider])
-        .select(:id, :uid, :name, :email, :social_uid, :language, :role_id)
+        .select(:id, :uid, :name, :email, :social_uid, :language, :role_id, :created_at)
         .includes(:role)
         .where.not(roles: { name: COMMON[:filtered_user_roles] }, deleted: true)
         .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |u|
@@ -82,7 +82,8 @@ namespace :migrations do
                      external_id: u.social_uid,
                      provider: u.provider,
                      language: u.language,
-                     role: role_name } }
+                     role: role_name,
+                     created_at: u.created_at } }
 
       response = Net::HTTP.post(uri('users'), payload(params), COMMON[:headers])
 
