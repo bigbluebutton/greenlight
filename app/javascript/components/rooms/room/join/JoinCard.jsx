@@ -41,6 +41,7 @@ import FormControlGeneric from '../../../shared_components/forms/FormControlGene
 import RoomJoinPlaceholder from './RoomJoinPlaceholder';
 import useRoomJoinForm from '../../../../hooks/forms/rooms/useRoomJoinForm';
 import ButtonLink from '../../../shared_components/utilities/ButtonLink';
+import Title from '../../../shared_components/utilities/Title';
 
 export default function JoinCard() {
   const { t } = useTranslation();
@@ -191,6 +192,7 @@ export default function JoinCard() {
 
   return (
     <Card className="col-md-6 mx-auto p-0 border-0 card-shadow">
+      <Title>{publicRoom?.data.name}</Title>
       <Card.Body className="pt-4 px-5">
         <Row>
           <Col className="col-xxl-8">
