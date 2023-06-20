@@ -19,11 +19,11 @@ RDPORT=${TXADDR[1]:-6379}
 
 echo "Greenlight-v3 starting on port: $PORT"
 
-echo $PGHOST
-echo $PGPORT
+echo "Postgres host: $PGHOST"
+echo "Postgres port: $PGPORT"
 
-echo $RDHOST
-echo $RDPORT
+echo "Redis host: $RDHOST"
+echo "Redis port: $RDPORT"
 
 if [ "$RAILS_ENV" = "production" ]; then
   while ! nc -zw3 $PGHOST $PGPORT

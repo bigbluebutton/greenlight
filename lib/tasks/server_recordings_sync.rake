@@ -16,17 +16,21 @@
 
 # frozen_string_literal: true
 
-module ApplicationHelper
-  def branding_image
-    asset_path = SettingGetter.new(setting_name: 'BrandingImage', provider: current_provider).call
-    asset_url(asset_path)
-  end
+desc 'Server Recordings sync with BBB server'
 
-  def page_title
-    match = request&.url&.match('\/rooms\/(\w{3}-\w{3}-\w{3}-\w{3})')
-    return 'BigBlueButton' if match.blank?
+task :server_recordings_sync, %i[provider] => :environment do |_task, args|
+  args.with_defaults(provider: 'greenlight')
 
-    room_name = Room.find_by(friendly_id: match[1])&.name
-    room_name || 'BigBlueButton'
+  Room.includes(:user).select(:id, :meeting_id).with_provider(args[:provider]).in_batches(of: 25) do |rooms|
+    meeting_ids = rooms.pluck(:meeting_id)
+
+    recordings = BigBlueButtonApi.new(provider: args[:provider]).get_recordings(meeting_ids:)
+    recordings[:recordings].each do |recording|
+      RecordingCreator.new(recording:).call
+      success 'Successfully migrated Recording:'
+      info "RecordID: #{recording[:recordID]}"
+    rescue StandardError => e
+      err "Unable to migrate Recording:\nRecordID: #{recording[:recordID]}\nError: #{e}"
+    end
   end
 end

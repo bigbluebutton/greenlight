@@ -16,17 +16,18 @@
 
 # frozen_string_literal: true
 
-module ApplicationHelper
-  def branding_image
-    asset_path = SettingGetter.new(setting_name: 'BrandingImage', provider: current_provider).call
-    asset_url(asset_path)
-  end
+require_relative 'task_helpers'
 
-  def page_title
-    match = request&.url&.match('\/rooms\/(\w{3}-\w{3}-\w{3}-\w{3})')
-    return 'BigBlueButton' if match.blank?
+desc 'Add default tenant'
+task :add_default_tenant, [:secret] => :environment do |_t, args|
+  err 'Missing secret' unless args.secret
 
-    room_name = Room.find_by(friendly_id: match[1])&.name
-    room_name || 'BigBlueButton'
+  tenant = Tenant.new(name: 'bn', client_secret: args.secret)
+
+  if tenant.save
+    TenantSetup.new('bn').call
+    success 'Tenant created successfully.'
+  else
+    err "Tenant not created. Errors: #{tenant.errors.to_a}"
   end
 end

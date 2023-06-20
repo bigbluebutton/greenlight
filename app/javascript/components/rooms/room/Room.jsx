@@ -33,6 +33,7 @@ import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from '../MeetingBadges';
 import SharedBadge from './SharedBadge';
 import RoomNamePlaceHolder from './RoomNamePlaceHolder';
+import Title from '../../shared_components/utilities/Title';
 
 export default function Room() {
   const { t } = useTranslation();
@@ -57,6 +58,7 @@ export default function Room() {
 
   return (
     <>
+      <Title>{room?.name}</Title>
       <div className="wide-white">
         <Row className="pt-4">
           <Col>

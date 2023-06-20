@@ -217,7 +217,7 @@ module Api
         end
 
         def user_params
-          decrypted_params.require(:user).permit(:name, :email, :provider, :external_id, :language, :role)
+          decrypted_params.require(:user).permit(:name, :email, :provider, :external_id, :language, :role, :created_at)
         end
 
         def room_params

@@ -42,6 +42,7 @@ export default function RecordingRow({
   const visibilityAPI = useVisibilityAPI();
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [display, setDisplay] = useState('invisible');
 
   const currentUser = useAuth();
   const redirectRecordingUrl = useRedirectRecordingUrl();
@@ -53,7 +54,12 @@ export default function RecordingRow({
   );
 
   return (
-    <tr key={recording.id} className="align-middle text-muted border border-2">
+    <tr
+      key={recording.id}
+      className="align-middle text-muted border border-2"
+      onMouseEnter={() => setDisplay('visible')}
+      onMouseLeave={() => setDisplay('invisible')}
+    >
       <td className="border-end-0 text-dark">
         <Stack direction="horizontal" className="py-2">
           <div className="recording-icon-circle rounded-circle me-3 d-flex justify-content-center">
@@ -72,16 +78,16 @@ export default function RecordingRow({
               {
                 !isEditing
                 && (
-                  <>
-                    {recording.name}
-                    <PencilSquareIcon
-                      role="button"
-                      aria-hidden="true"
-                      onClick={() => !isUpdating && setIsEditing(true)}
-                      onBlur={() => setIsEditing(false)}
-                      className="hi-s text-muted ms-1 mb-1"
-                    />
-                  </>
+                <>
+                  { recording.name }
+                  <PencilSquareIcon
+                    role="button"
+                    aria-hidden="true"
+                    onClick={() => !isUpdating && setIsEditing(true)}
+                    onBlur={() => setIsEditing(false)}
+                    className={`hi-s text-muted ms-1 mb-1 ${display}`}
+                  />
+                </>
                 )
               }
               {
@@ -89,6 +95,7 @@ export default function RecordingRow({
               }
             </strong>
             <span className="small text-muted"> {localizedTime} </span>
+            {adminTable && <span className="small text-muted fw-bold"> {recording?.user_name} </span>}
           </Stack>
         </Stack>
       </td>
@@ -193,6 +200,7 @@ RecordingRow.propTypes = {
     protectable: PropTypes.bool,
     recorded_at: PropTypes.string.isRequired,
     map: PropTypes.func,
+    user_name: PropTypes.string,
   }).isRequired,
   visibilityMutation: PropTypes.func.isRequired,
   deleteMutation: PropTypes.func.isRequired,

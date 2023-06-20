@@ -31,11 +31,11 @@ module Api
 
           recordings = Recording.includes(:user)
                                 .with_provider(current_provider)
-                                .order(sort_config)
-                                &.search(params[:search])
+                                .order(sort_config, recorded_at: :desc)
+                                &.server_search(params[:search])
           pagy, recordings = pagy(recordings)
 
-          render_data data: recordings, meta: pagy_metadata(pagy), status: :ok
+          render_data data: recordings, serializer: ServerRecordingSerializer, meta: pagy_metadata(pagy), status: :ok
         end
       end
     end
