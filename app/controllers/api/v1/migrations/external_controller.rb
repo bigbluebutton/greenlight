@@ -100,6 +100,8 @@ module Api
 
           user = User.new(user_hash.merge(verified: true, role:))
 
+          user.created_at = user_hash[:created_at]
+
           return render_error(status: :bad_request, errors: user&.errors&.to_a) unless user.save
 
           render_data status: :created
@@ -217,7 +219,7 @@ module Api
         end
 
         def user_params
-          decrypted_params.require(:user).permit(:name, :email, :provider, :external_id, :language, :role)
+          decrypted_params.require(:user).permit(:name, :email, :provider, :external_id, :language, :role, :created_at)
         end
 
         def room_params
