@@ -100,8 +100,6 @@ module Api
 
           user = User.new(user_hash.merge(verified: true, role:))
 
-          user.created_at = user_hash[:created_at]
-
           return render_error(status: :bad_request, errors: user&.errors&.to_a) unless user.save
 
           render_data status: :created
