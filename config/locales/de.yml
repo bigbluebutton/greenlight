@@ -55,10 +55,10 @@ de:
     activation:
       account_activation: Kontoaktivierung
       welcome_to_bbb: Willkommen in BigBlueButton!
-      get_started: "Um loszulegen, aktivieren Sie bitte Ihr Konto, indem Sie auf die Schaltfläche unten klicken."
+      get_started: Klicke auf die Schaltfläche um das Konto zu aktivieren.
       activate_account: Konto aktivieren
       link_expires: Der Link wird in 24 Stunden ungültig.
-      if_link_expires: "Wenn der Link abläuft, melden Sie sich bitte an und fordern Sie eine neue E-Mail zur Aktivierung an."
+      if_link_expires: "Sollte der Link abgelaufen sein, dann melde dich bitte an und fordere eine neue Aktivierungs-EMail an."
     invitation:
       invitation_to_join: BigBlueButton-Einladung
       you_have_been_invited: "Sie wurden von %{name} eingeladen, ein BigBlueButton-Konto zu erstellen."
