@@ -543,7 +543,7 @@
           },
           "password": {
             "label": "Passwort",
-            "placeholder": "Passwort erstellen"
+            "placeholder": "Passwort eingeben"
           },
           "password_confirmation": {
             "label": "Passwort bestätigen",
