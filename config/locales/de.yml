@@ -68,7 +68,7 @@ de:
     reset:
       password_reset: Passwort zurücksetzen
       password_reset_requested: "Eine Passwortrücksetzung wurde für %{email} beantragt."
-      password_reset_confirmation: "Um Ihr Passwort zurückzusetzen, klicken Sie bitte auf die Schaltfläche unten."
+      password_reset_confirmation: "Um das Passwort zurückzusetzen, klicke bitte auf die Schaltfläche unten."
       reset_password: Passwort zurücksetzen
       link_expires: Der Link wird in 1 Stunde ungültig.
       ignore_request: "Wenn Sie keinen Antrag zur Änderung Ihres Passworts gestellt haben, ignorieren Sie bitte diese E-Mail."
