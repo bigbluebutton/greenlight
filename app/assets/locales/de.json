@@ -269,8 +269,8 @@
         "terms": "Nutzungsbedingungen",
         "privacy": "Datenschutz",
         "privacy_policy": "Datenschutzerklärung",
-        "change_term_links": "Ändere den Link zu den Nutzungsbedingungen, der unten auf der Seite erscheint",
-        "change_privacy_link": "Ändere den Link zur Datenschutzerklärung, der unten auf der Seite erscheint",
+        "change_term_links": "Ändere den Link zu den Nutzungsbedingungen, der unten auf der Seite erscheint.",
+        "change_privacy_link": "Ändere den Link zur Datenschutzerklärung, der unten auf der Seite erscheint.",
         "change_url": "URL ändern",
         "enter_link": "Link eingeben"
       },
