@@ -49,7 +49,7 @@ de:
   opengraph:
     description: "Erfahre mehr über BigBlueButton, die bewährte Open-Source-Lösung für Webkonferenzen, die eine nahtlose virtuelle Zusammenarbeit und Online-Lernerfahrungen ermöglicht."
   meeting:
-    moderator_message: "Um jemanden zur Konferenz einzuladen, schicken Sie ihm diesen Link:"
+    moderator_message: "Um jemanden zur Konferenz einzuladen, verschicke diesen Link:"
     access_code: "Zugangscode: %{code}"
   email:
     activation:
