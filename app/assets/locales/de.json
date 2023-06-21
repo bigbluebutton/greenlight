@@ -228,7 +228,7 @@
       }
     },
     "server_rooms": {
-      "server_rooms": "Serverräume",
+      "server_rooms": "alle Räume",
       "name": "Name",
       "owner": "Besitzer:in",
       "room_id": "Raum-ID",
