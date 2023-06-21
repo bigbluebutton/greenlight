@@ -31,14 +31,14 @@ import { PRESENTATION_MAX_FILE_COEFF, PRESENTATION_SUPPORTED_EXTENSIONS } from '
 export default function Presentation() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
-  const { data: room, isLoading } = useRoom(friendlyId);
+  const { data: room } = useRoom(friendlyId);
   const { onSubmit } = useUploadPresentation(friendlyId);
 
   const onDrop = (files) => {
     onSubmit(files[0]);
   };
 
-  if (isLoading || !room.presentation_name) {
+  if (!room?.presentation_name) {
     return (
       <FilesDragAndDrop
         onDrop={onDrop}

@@ -19,7 +19,7 @@
 module Api
   module V1
     class RoomsConfigurationsController < ApiController
-      before_action do
+      before_action only: %i[index show] do
         ensure_authorized(%w[CreateRoom ManageSiteSettings ManageRoles ManageRooms], friendly_id: params[:friendly_id])
       end
 
@@ -44,6 +44,8 @@ module Api
                                          ).value
 
         render_data data: config_value, status: :ok
+      rescue StandardError
+        return render_error status: :not_found unless config_value
       end
     end
   end
