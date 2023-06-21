@@ -555,7 +555,7 @@
         "fields": {
           "email": {
             "label": "E-Mail",
-            "placeholder": "E-Mail"
+            "placeholder": "E-Mail eingeben"
           },
           "password": {
             "label": "Passwort eingeben",
