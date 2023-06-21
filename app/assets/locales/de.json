@@ -128,7 +128,7 @@
       "presentation": "Präsentation",
       "click_to_upload": "Klicken zum Hochladen",
       "drag_and_drop": " oder Datei per Drag & Drop hier ablegen.",
-      "upload_description": "Ein Office-Dokument oder eine PDF-Datei hochladen (nicht größer als {{size}}). Abhängig von der Größe könnte das eine gewisse Zeit dauern.",
+      "upload_description": "Ein Office-Dokument oder eine PDF-Datei hochladen (nicht größer als {{size}}). Abhängig von der Größe kann das eine gewisse Zeit dauern.",
       "are_you_sure_delete_presentation": "Diese Präsentation wirklich löschen?"
     },
     "shared_access": {
