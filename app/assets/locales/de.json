@@ -246,7 +246,7 @@
       "empty_room_list_subtext": "Die Räume erscheinen hier, nachdem du deinen ersten Raum erstellt hast."
     },
     "server_recordings": {
-      "server_recordings": "Server-Aufzeichnungen",
+      "server_recordings": "alle Aufzeichnungen",
       "latest_recordings": "Letzte Aufzeichnungen",
       "no_recordings_found": "Keine Aufzeichnungen gefunden."
     },
