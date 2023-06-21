@@ -247,7 +247,7 @@
     },
     "server_recordings": {
       "server_recordings": "alle Aufzeichnungen",
-      "latest_recordings": "Letzte Aufzeichnungen",
+      "latest_recordings": "alle Aufzeichnungen",
       "no_recordings_found": "Keine Aufzeichnungen gefunden."
     },
     "site_settings": {
