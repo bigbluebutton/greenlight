@@ -47,7 +47,7 @@
 
 de:
   opengraph:
-    description: "Erfahren Sie mehr über BigBlueButton, die bewährte Open-Source-Lösung für Webkonferenzen, die eine nahtlose virtuelle Zusammenarbeit und Online-Lernerfahrungen ermöglicht."
+    description: "Erfahre mehr über BigBlueButton, die bewährte Open-Source-Lösung für Webkonferenzen, die eine nahtlose virtuelle Zusammenarbeit und Online-Lernerfahrungen ermöglicht."
   meeting:
     moderator_message: "Um jemanden zur Konferenz einzuladen, schicken Sie ihm diesen Link:"
     access_code: "Zugangscode: %{code}"
