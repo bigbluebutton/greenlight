@@ -242,7 +242,7 @@
       "no_meeting_yet": "Bisher keine Konferenz.",
       "delete_server_rooms": "Serverraum löschen",
       "resync_recordings": "Aufzeichnungen resynchronisieren",
-      "empty_room_list": "Es gibt noch keine Serverräume!",
+      "empty_room_list": "Es gibt noch keine Räume auf diesem Server!",
       "empty_room_list_subtext": "Die Räume erscheinen hier, nachdem du deinen ersten Raum erstellt hast."
     },
     "server_recordings": {
