@@ -240,7 +240,7 @@
       "current_session": "Aktuelle Sitzung: {{lastSession}}",
       "last_session": "Letzte Sitzung: {{localizedTime}}",
       "no_meeting_yet": "Bisher keine Konferenz.",
-      "delete_server_rooms": "Serverraum löschen",
+      "delete_server_rooms": "Raum löschen",
       "resync_recordings": "Aufzeichnungen resynchronisieren",
       "empty_room_list": "Es gibt noch keine Räume auf diesem Server!",
       "empty_room_list_subtext": "Die Räume erscheinen hier, nachdem du deinen ersten Raum erstellt hast."
