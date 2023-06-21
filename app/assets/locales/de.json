@@ -307,7 +307,7 @@
       "disabled": "Deaktiviert",
       "configurations": {
         "allow_room_to_be_recorded": "Raum kann aufgezeichnet werden",
-        "allow_room_to_be_recorded_description": "Raumaufzeichnungen erlauben. Wenn aktiviert, muss die Moderation immer noch den \"Aufnahme\"-Knopf drücken, nachdem die Konferenz begonnen hat.",
+        "allow_room_to_be_recorded_description": "Aufzeichnungen erlauben. Wenn aktiviert, muss die Moderation immer noch den \"Aufnahme\"-Knopf drücken, nachdem die Konferenz begonnen hat.",
         "require_user_signed_in": "Nutzer:innen müssen eingeloggt sein, um teilzunehmen",
         "require_user_signed_in_description": "Teilnahme an der Konferenz ist nur mit einem Konto in Greenlight möglich. Wer nicht eingeloggt ist, wird auf die Login-Seite weitergeleitet.",
         "require_mod_approval": "Moderation muss der Teilnahme zustimmen",
