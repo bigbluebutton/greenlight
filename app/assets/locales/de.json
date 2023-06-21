@@ -558,8 +558,8 @@
             "placeholder": "E-Mail eingeben"
           },
           "password": {
-            "label": "Passwort eingeben",
-            "placeholder": "Passwort"
+            "label": "Passwort",
+            "placeholder": "Passwort eingeben"
           },
           "remember_me": {
             "label": "Eingeloggt bleiben"
