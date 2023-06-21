@@ -19,7 +19,7 @@
 module Api
   module V1
     class RoomsConfigurationsController < ApiController
-      before_action only: %i[index] do
+      before_action only: %i[index show] do
         ensure_authorized(%w[CreateRoom ManageSiteSettings ManageRoles ManageRooms], friendly_id: params[:friendly_id])
       end
 
@@ -32,6 +32,20 @@ module Api
                                      .to_h
 
         render_data data: rooms_configs, status: :ok
+      end
+
+      # GET /api/v1/rooms_configurations/:name.json
+      # Fetches and returns the value of the passed in configuration
+      def show
+        config_value = RoomsConfiguration.joins(:meeting_option)
+                                         .find_by(
+                                           provider: current_provider,
+                                           meeting_option: { name: params[:name] }
+                                         ).value
+
+        render_data data: config_value, status: :ok
+      rescue StandardError
+        return render_error status: :not_found unless config_value
       end
     end
   end

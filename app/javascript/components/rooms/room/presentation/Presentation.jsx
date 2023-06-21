@@ -38,7 +38,7 @@ export default function Presentation() {
     onSubmit(files[0]);
   };
 
-  if (!room.presentation_name) {
+  if (!room?.presentation_name) {
     return (
       <FilesDragAndDrop
         onDrop={onDrop}
