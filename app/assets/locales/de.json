@@ -261,7 +261,7 @@
         "brand_image": "Logo",
         "click_to_upload": "Klicken zum Hochladen",
         "drag_and_drop": " oder per Drag & Drop",
-        "upload_brand_image_description": "Eine PNG, JPG oder SVG-Datei hochladen (nicht größer als {{size}}). Abhängig von der Größe könnte das eine gewisse Zeit dauern.",
+        "upload_brand_image_description": "Eine PNG-, JPG- oder SVG-Datei hochladen (nicht größer als {{size}}). Abhängig von der Größe kann das eine gewisse Zeit dauern.",
         "remove_branding_image": "Markenbild/Logo entfernen"
       },
       "administration": {
