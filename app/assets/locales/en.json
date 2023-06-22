@@ -179,9 +179,9 @@
     "processing_recording": "Processing recording, this may take several minutes...",
     "copy_recording_urls": "Copy Recording Url(s)",
     "recordings_list_empty": "You don't have any recordings yet!",
-    "public_recordings_list_empty": "There's no shared recordings yet!",
+    "public_recordings_list_empty": "There are no public recordings yet!",
     "recordings_list_empty_description": "Recordings will appear here after you start a meeting and record it.",
-    "public_recordings_list_empty_description": "Recordings will appear here after a mentor share it.",
+    "public_recordings_list_empty_description": "Recordings will appear here when available.",
     "delete_recording": "Delete Recording",
     "are_you_sure_delete_recording": "Are you sure you want to delete this recording?",
     "search_not_found": "No Recordings Found"

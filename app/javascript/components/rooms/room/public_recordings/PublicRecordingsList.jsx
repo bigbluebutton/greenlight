@@ -45,6 +45,13 @@ export default function PublicRecordingsList({ friendlyId }) {
         <p>
           {t('recording.public_recordings_list_empty_description')}
         </p>
+        <ButtonLink
+          variant="brand"
+          className="ms-auto my-0 py-2"
+          to={`/rooms/${friendlyId}/join`}
+        >
+          <span> <UserBoardIcon className="hi-s cursor-pointer" /> {t('join_session')} </span>
+        </ButtonLink>
       </div>
     );
   }
