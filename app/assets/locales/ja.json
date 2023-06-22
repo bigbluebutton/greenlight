@@ -180,7 +180,7 @@
     "copy_recording_urls": "録画のURLをコピー",
     "recordings_list_empty": "まだ録画がありません！",
     "public_recordings_list_empty": "公開された録画はまだありません！",
-    "recordings_list_empty_description": "会議を開始し、それを録画すれば、録画データが表示されます。",
+    "recordings_list_empty_description": "会議を開始し、それを録画すると、ここに録画データが表示されます。",
     "public_recordings_list_empty_description": "視聴が許可されると、ここに録画データが表示されます。",
     "delete_recording": "この録画を削除",
     "are_you_sure_delete_recording": "本当にこの録画を削除しますか？",
