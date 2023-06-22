@@ -58,9 +58,9 @@ export default function ServerRoomRow({ room }) {
 
   const meetingRunning = () => {
     if (online) {
-      return <td className="border-0 text-success"> { t('admin.server_rooms.running') } </td>;
+      return <td className="border-0 text-success"><span className="badge bg-success"> { t('admin.server_rooms.running') } </span></td>;
     }
-    return <td className="border-0"> { t('admin.server_rooms.not_running') } </td>;
+    return <td className="border-0"><span className="badge bg-danger"> { t('admin.server_rooms.not_running') } </span></td>;
   };
 
   return (
