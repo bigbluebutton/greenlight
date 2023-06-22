@@ -122,7 +122,7 @@
       "meeting_invitation": "Vous avez été invité à rejoindre la réunion",
       "meeting_not_started": "La réunion n'a pas encore commencé.",
       "join_meeting_automatically": "Vous rejoindrez automatiquement la réunion quand elle débutera",
-      "recording_consent": "J'admets être informé que cette session pourrait être enregistrée. Le cas échéant ma voix et mon image vidéo feront partie de la captation."
+      "recording_consent": "Je reconnais savoir que cette session peut être enregistrée. Le cas échéant ma voix et mon image vidéo pourront apparaître lors de la captation."
     },
     "presentation": {
       "presentation": "Documents",
