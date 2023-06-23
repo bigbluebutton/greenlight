@@ -171,7 +171,7 @@
     "visibility": "公開度",
     "formats": "フォーマット",
     "published": "限定公開",
-    "unpublished": "非公開",
+    "unpublished": "閲覧不可",
     "protected": "保護",
     "public": "公開",
     "public_protected": "公開 / 保護",
