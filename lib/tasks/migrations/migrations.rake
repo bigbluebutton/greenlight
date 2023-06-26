@@ -12,16 +12,15 @@ namespace :migrations do
 
   desc "Migrates v2 resources to v3"
   task :roles, [:provider] => :environment do |_task, args|
-    args.with_defaults(provider: "greenlight")
     has_encountred_issue = 0
 
-    Role.unscoped
-        .where(provider: args[:provider])
-        .select(:id, :name, :provider)
-        .includes(:role_permissions)
-        .where.not(name: COMMON[:filtered_roles])
-        .find_each(batch_size: COMMON[:batch_size]) do |r|
+    roles = Role.unscoped
+    roles = roles.where(provider: args[:provider]) if args[:provider].present?
+    roles = roles.select(:id, :name, :provider)
+                 .includes(:role_permissions)
+                 .where.not(name: COMMON[:filtered_roles])
 
+    roles.find_each(batch_size: COMMON[:batch_size]) do |r|
       # RolePermissions
       role_permissions_hash = r.role_permissions.pluck(:name, :value).to_h
 
@@ -65,16 +64,16 @@ namespace :migrations do
   end
 
   task :users, [:provider, :start, :stop] => :environment do |_task, args|
-    args.with_defaults(provider: "greenlight")
     start, stop = range(args)
     has_encountred_issue = 0
 
-    User.unscoped
-        .where(provider: args[:provider])
-        .select(:id, :uid, :name, :email, :social_uid, :language, :role_id, :created_at)
-        .includes(:role)
-        .where.not(roles: { name: COMMON[:filtered_user_roles] }, deleted: true)
-        .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |u|
+    user = User.unscoped
+    user = user.where(provider: args[:provider]) if args[:provider].present?
+    user = user.select(:id, :uid, :name, :email, :social_uid, :language, :role_id, :created_at)
+               .includes(:role)
+               .where.not(roles: { name: COMMON[:filtered_user_roles] }, deleted: true)
+
+    user.find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |u|
       role_name = infer_role_name(u.role.name)
       params = { user:
                    { name: u.name,
@@ -115,22 +114,22 @@ namespace :migrations do
   end
 
   task :rooms, [:provider, :start, :stop] => :environment do |_task, args|
-    args.with_defaults(provider: "greenlight")
     start, stop = range(args)
     has_encountred_issue = 0
 
     filtered_roles_ids = Role.unscoped
-                             .where(provider: args[:provider])
-                             .select(:id, :name)
-                             .where(name: COMMON[:filtered_user_roles])
-                             .pluck(:id)
+    filtered_roles_ids = filtered_roles_ids.where(provider: args[:provider]) if args[:provider].present?
+    filtered_roles_ids = filtered_roles_ids.select(:id, :name)
+                                           .where(name: COMMON[:filtered_user_roles])
+                                           .pluck(:id)
 
-    Room.unscoped
-        .select(:id, :uid, :name, :bbb_id, :last_session, :user_id, :room_settings)
-        .includes(:owner)
-        .where('users.provider': args[:provider])
-        .where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
-        .find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
+    rooms = Room.unscoped
+                .select(:id, :uid, :name, :bbb_id, :last_session, :user_id, :room_settings)
+                .includes(:owner)
+    rooms = rooms.where('users.provider': args[:provider]) if args[:provider].present?
+    rooms = rooms.where.not(users: { role_id: filtered_roles_ids, deleted: true }, deleted: true)
+
+    rooms.find_each(start: start, finish: stop, batch_size: COMMON[:batch_size]) do |r|
       # RoomSettings
       parsed_room_settings = JSON.parse(r.room_settings)
       # Returns nil if the RoomSetting value is the same as the corresponding default value in V3
