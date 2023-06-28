@@ -65,7 +65,7 @@ class ExternalController < ApplicationController
 
     redirect_location = cookies.delete(:location)
 
-    return redirect_to redirect_location, allow_other_host: false if redirect_location&.match?('\/rooms\/\w{3}-\w{3}-\w{3}-\w{3}\/join\z')
+    return redirect_to redirect_location, allow_other_host: false if redirect_location&.match?('\/rooms\/\w{3}-\w{3}-\w{3}(-\w{3})?\/join\z')
 
     redirect_to root_path
   rescue ActionController::Redirecting::UnsafeRedirectError => e
