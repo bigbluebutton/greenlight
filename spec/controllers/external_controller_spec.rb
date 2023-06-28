@@ -86,6 +86,18 @@ RSpec.describe ExternalController, type: :controller do
         expect(response).to redirect_to('/rooms/o5g-hvb-s44-p5t/join')
       end
 
+      it 'redirects to the location cookie if its a legacy url (3 sections in uid)' do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+        cookies[:location] = {
+          value: '/rooms/o5g-hvb-s44/join',
+          path: '/'
+        }
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(response).to redirect_to('/rooms/o5g-hvb-s44/join')
+      end
+
       it 'redirects to the location cookie if a relative redirection 2' do
         request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
 
