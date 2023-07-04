@@ -29,7 +29,7 @@ export default function Header() {
   const currentUser = useAuth();
 
   let homePath = '/';
-  if (currentUser?.permissions?.CreateRoom === 'false') {
+  if (currentUser?.permissions?.CreateRoom === 'false' && currentUser?.permissions?.ApiCreateRoom === 'false') {
     homePath = '/home';
   }
 

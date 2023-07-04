@@ -39,7 +39,7 @@ export default function HomePage() {
   useEffect(
     () => {
       // Todo: Use PermissionChecker.
-      const canCreateRooms = PermissionChecker.hasCreateRoom(currentUser);
+      const canCreateRooms = PermissionChecker.hasCreateRoom(currentUser) || PermissionChecker.hasApiCreateRoom(currentUser);
       // if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'true') {
       if (!currentUser.stateChanging && currentUser.signed_in && canCreateRooms) {
         navigate('/rooms');

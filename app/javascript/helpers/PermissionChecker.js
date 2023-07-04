@@ -17,8 +17,13 @@
 function hasManageUsers(user) {
   return user?.permissions?.ManageUsers === 'true';
 }
+
 function hasCreateRoom(user) {
   return user?.permissions?.CreateRoom === 'true';
+}
+
+function hasApiCreateRoom(user) {
+  return user?.permissions?.ApiCreateRoom === 'true';
 }
 
 function hasManageRooms(user) {
@@ -63,5 +68,6 @@ export default {
   hasManageRecordings,
   hasManageRooms,
   hasCreateRoom,
+  hasApiCreateRoom,
   hasManageUsers,
 };

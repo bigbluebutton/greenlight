@@ -31,7 +31,7 @@ module Api
         begin
           restrictions = RoomUser.where(room_id: @room.id)
           
-          if restrictions.length > 0
+          if @room.user_id != current_user.id && !restrictions.blank? && restrictions.length > 0
             if params[:event_id]
               restriction = restrictions.find { |r| r.event_id == params[:event_id] && r.user_id == current_user.id }
               return render_error status: :not_found unless restriction

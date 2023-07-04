@@ -120,16 +120,14 @@ class ApplicationController < ActionController::Base
     if header && header.match(pattern)
       token = header.gsub(pattern, '')
     else
-      # return render_error status: :forbidden
       return false
     end
 
     secret = ENV.fetch('SECRET_KEY_BASE')
-    parsed = JSON.parse(request.body.string)
+    parsed = JSON[request.body.to_json][0]
     str_to_hash = "#{parsed}-#{secret}"
     body_hash = Digest::SHA1.hexdigest(str_to_hash)
 
-    # return render_error status: :forbidden if token != body_hash
     return false if token != body_hash
 
     return true

@@ -33,10 +33,12 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import UpdateRoomNameForm from './forms/UpdateRoomNameForm';
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
 import UnshareRoom from './UnshareRoom';
+import PermissionChecker from '../../../../helpers/PermissionChecker';
 
 export default function RoomSettings() {
   const { t } = useTranslation();
   const currentUser = useAuth();
+  const isAdmin = PermissionChecker.isAdmin(currentUser);
   const { friendlyId } = useParams();
   const roomSetting = useRoomSettings(friendlyId);
   const { data: roomConfigs } = useRoomConfigs();
@@ -96,14 +98,14 @@ export default function RoomSettings() {
                 settingName="glAnyoneCanStart"
                 updateMutation={updateMutationWrapper}
                 value={roomSetting?.data?.glAnyoneCanStart}
-                config={roomConfigs?.glAnyoneCanStart}
+                config={(roomConfigs?.glAnyoneCanStart === 'true') ? roomConfigs?.glAnyoneCanStart : (!isAdmin ? 'true' : 'false')}
                 description={t('room.settings.allow_any_user_to_start')}
               />
               <RoomSettingsRow
                 settingName="glAnyoneJoinAsModerator"
                 updateMutation={updateMutationWrapper}
                 value={roomSetting?.data?.glAnyoneJoinAsModerator}
-                config={roomConfigs?.glAnyoneJoinAsModerator}
+                config={(roomConfigs?.glAnyoneJoinAsModerator === 'true') ? roomConfigs?.glAnyoneJoinAsModerator : (!isAdmin ? 'true' : 'false')}
                 description={t('room.settings.all_users_join_as_mods')}
               />
               <RoomSettingsRow

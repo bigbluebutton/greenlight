@@ -37,7 +37,9 @@ class MeetingStarter
       settings: 'glViewerAccessCode'
     ).call
 
-    options.merge!(computed_options(access_code: viewer_code['glViewerAccessCode']))
+    cp_options = computed_options(access_code: viewer_code['glViewerAccessCode'])
+
+    options.merge!(options["logoutURL"] ? cp_options.except(:logoutURL) : cp_options);
 
     retries = 0
     begin

@@ -5,6 +5,7 @@ class CreateRoomUsers < ActiveRecord::Migration[7.0]
       t.belongs_to :user, foreign_key: { on_delete: :cascade }, type: :uuid
 
       t.uuid :event_id
+      t.datetime "created_at", null: false
     end
 
     add_index :room_users, %i[room_id user_id event_id], unique: true

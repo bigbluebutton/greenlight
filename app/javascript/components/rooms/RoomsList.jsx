@@ -66,8 +66,9 @@ export default function RoomsList() {
         <div>
           <SearchBar searchInput={searchInput} id="rooms-search" setSearchInput={setSearchInput} />
         </div>
-        { adminAccess() &&
-          (<Modal
+        { adminAccess()
+          && (
+          <Modal
             modalButton={(
               <Button
                 variant="brand"
@@ -77,8 +78,8 @@ export default function RoomsList() {
             )}
             title={t('room.create_new_room')}
             body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
-          />)
-        }
+          />
+          )}
       </Stack>
       <Row className="g-4 mt-4">
         {

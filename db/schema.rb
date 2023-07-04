@@ -126,6 +126,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_12_134707) do
     t.uuid "room_id"
     t.uuid "user_id"
     t.uuid "event_id"
+    t.datetime "created_at", precision: nil, default: -> { "now()" }, null: false
     t.index ["room_id", "user_id", "event_id"], name: "index_room_users_on_room_id_and_user_id_and_event_id", unique: true
     t.index ["room_id"], name: "index_room_users_on_room_id"
     t.index ["user_id"], name: "index_room_users_on_user_id"

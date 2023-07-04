@@ -24,10 +24,7 @@ module Api
       before_action :find_room, only: %i[show update destroy recordings recordings_processing purge_presentation public_show public_recordings]
 
       before_action only: %i[create index] do
-        ensure_authorized('CreateRoom')
-      end
-      before_action only: %i[create] do
-        ensure_authorized('ApiCreateRoom')
+        ensure_authorized(%w[CreateRoom ApiCreateRoom])
       end
       before_action only: %i[create] do
         ensure_authorized('ManageUsers', user_id: room_params[:user_id])
@@ -76,7 +73,7 @@ module Api
           provider: current_provider,
           current_user:,
           show_codes: false,
-          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode record glAnyoneJoinAsModerator]
+          settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode record glAnyoneJoinAsModerator logoutURL]
         ).call
 
         render_data data: @room, serializer: PublicRoomSerializer, options: { settings: }, status: :ok
@@ -90,16 +87,56 @@ module Api
           user_id: room_params[:user_id], current_user:, current_provider:
         ).call
 
+        room_id = room_params[:id] || params[:id]
+
+        # Check if the room exists
+        if room_id
+          already_existing_room = Room.find_by(id: room_id, user_id: room_params[:user_id]);
+
+          if !already_existing_room.blank?
+            data = { "friendly_id" => already_existing_room.friendly_id, "user_id": already_existing_room.user_id };
+            return render_data data: data, status: :ok
+          end          
+        end
+
+        # Try to create the user if not exists
+        user = User.find(room_params[:user_id])
+
+        if user.blank?
+          info = params[:user]
+          user_info = {
+            name: info[:name],
+            email: info[:email],
+            external_id: room_params[:user_id],
+            verified: true
+          }
+
+          user = UserCreator.new(user_params: user_info, provider: current_provider, role: default_role).call
+          user.assign_attributes({ id: room_params[:user_id], language: info[:language] })
+          user.save!
+        end
+
+
         # TODO: amir - ensure accessibility for authenticated requests only.
         # The created room will be the current user's unless a user_id param is provided with the request.
         room = Room.new(name: room_params[:name], user_id: room_params[:user_id])
 
-        if params[:id]
-          room.assign_attributes({ id: params[:id] })
+        if room_id
+          room.assign_attributes({ id: room_id })
         end
 
         if room.save
           logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
+
+          # Assigning additional meeting options
+          if params[:room][:logout_url]
+            logout_url = params[:room][:logout_url]
+
+            if logout_url
+              option = room.get_setting(name: 'logoutURL')
+              option&.update(value: logout_url)
+            end
+          end
 
           data = { "friendly_id" => room.friendly_id, "user_id": room.user_id };
           render_data data: data, status: :created
@@ -168,7 +205,7 @@ module Api
       end
 
       def room_params
-        params.require(:room).permit(:name, :user_id, :presentation)
+        params.require(:room).permit(:name, :user_id, :presentation, :id, :logout_url)
       end
     end
   end

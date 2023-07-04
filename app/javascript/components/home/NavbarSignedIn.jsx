@@ -19,7 +19,9 @@ import {
   Button, Nav, Navbar, NavDropdown, Stack,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { IdentificationIcon, QuestionMarkCircleIcon, StarIcon } from '@heroicons/react/24/outline';
+import {
+  IdentificationIcon, QuestionMarkCircleIcon, StarIcon, BuildingLibraryIcon,
+} from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
@@ -57,11 +59,15 @@ export default function NavbarSignedIn({ currentUser }) {
       </Navbar.Toggle>
       <Navbar.Collapse id="navbar-menu" className="bg-white w-100 position-absolute">
         <Nav className="d-block d-sm-none text-black px-2">
+          <NavDropdown.Item href="https://www.lessons80.com">
+            <BuildingLibraryIcon className="hi-s me-3" />
+            {t('dashboard')}
+          </NavDropdown.Item>
           <Nav.Link eventKey={1} as={Link} to="/profile">
             <IdentificationIcon className="hi-s me-3" />
             {t('user.profile.profile')}
           </Nav.Link>
-          <Nav.Link eventKey={2} href="https://docs.bigbluebutton.org/greenlight/v3/install">
+          <Nav.Link eventKey={2} href="https://www.lessons80.com/help">
             <QuestionMarkCircleIcon className="hi-s me-3" />
             {t('help_center')}
           </Nav.Link>
@@ -99,11 +105,15 @@ export default function NavbarSignedIn({ currentUser }) {
           align="end"
         >
 
+          <NavDropdown.Item href="https://www.lessons80.com">
+            <BuildingLibraryIcon className="hi-s me-3" />
+            {t('dashboard')}
+          </NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/profile">
             <IdentificationIcon className="hi-s me-3" />
             { t('user.profile.profile') }
           </NavDropdown.Item>
-          <NavDropdown.Item href="https://docs.bigbluebutton.org/greenlight/v3/install">
+          <NavDropdown.Item href="https://www.lessons80.com/help">
             <QuestionMarkCircleIcon className="hi-s me-3" />
             {t('help_center')}
           </NavDropdown.Item>

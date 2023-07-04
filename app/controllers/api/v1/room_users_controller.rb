@@ -44,7 +44,13 @@ module Api
           user_id = current_user.id
         end
 
-        registration = RoomUser.new(room_id: room.id, user_id: user_id, event_id: room_user_event_params[:event_id])
+        event_id = room_user_event_params[:room_id]
+
+        if !event_id
+          event_id = room.id
+        end
+
+        registration = RoomUser.where(room_id: room.id, user_id: user_id, event_id: event_id).first_or_initialize
 
         if registration.save
           logger.info "association: room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id} on event(id):#{room_user_event_params[:event_id]}"
@@ -70,13 +76,7 @@ module Api
           where_str = where_str + " and event_id = :event_id"
         end
 
-        results = RoomUser.where([where_str, { room_id: @room.id, user_id: params[:user_id], event_id: params[:event_id] }]).delete_all
-
-        # if data.length <= 0
-        #   return render_error status: :not_found
-        # end
-
-        # data.each { |d| d.delete("room_id = '#{d.room_id}' and user_id = '#{d.user_id}' and event_id = '#{d.event_id}'") }
+        results = RoomUser.where([where_str, { room_id: @room.id?, user_id: params[:user_id], event_id: params[:event_id] }]).delete_all
 
         render_data data: results, status: :ok
       end
@@ -88,7 +88,7 @@ module Api
       end
 
       def room_user_event_params
-        params.require(:room_user).permit(:friendly_id, :user_id, :event_id)
+        params.require(:room_user).permit(:friendly_id, :room_id, :user_id, :event_id)
       end
     end
   end
