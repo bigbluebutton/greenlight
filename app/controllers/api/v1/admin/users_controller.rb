@@ -39,20 +39,18 @@ module Api
         # GET /api/v1/admin/users/user_roles.json
         # Returns the list of roles that the current user can assign to other users
         def user_roles
-          # Returns the permissions that the current user role has
-          current_user_permission_ids = current_user.role.role_permissions.where(value: 'true').pluck(:permission_id)
+          # Returns the permissions that the current user role does not have
+          current_user_missing_permission_ids = current_user.role.role_permissions.where(value: 'false').pluck(:permission_id)
 
-          # Returns the roles that have role permissions that the current user role does not have
-          ineligible_role_permission_ids = RolePermission.joins(:role)
-                                                         .where('role.provider': current_provider)
-                                                         .where(role_permissions: { value: 'true' })
-                                                         .where.not(role_permissions: { permission_id: current_user_permission_ids })
-                                                         .select(:role_id)
+          # Returns the roles that have any of the permissions that the current user role does not have
+          ineligible_role_ids = Role.with_provider(current_provider)
+                                    .joins(:role_permissions)
+                                    .where(role_permissions: { value: 'true', permission_id: current_user_missing_permission_ids })
+                                    .select(:id)
 
-          # Returns the roles that DO NOT have role permissions that the current user role DOES NOT have
+          # Returns the roles that DO NOT have any of the permissions that the current user role DOES NOT have
           eligible_roles = Role.with_provider(current_provider)
-                               .includes(:role_permissions)
-                               .where.not(id: ineligible_role_permission_ids)
+                               .where.not(id: ineligible_role_ids)
 
           render_data data: eligible_roles, status: :ok
         end
