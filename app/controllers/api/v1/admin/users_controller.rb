@@ -38,8 +38,8 @@ module Api
 
         # GET /api/v1/admin/users/user_roles.json
         # Returns the list of roles that the current user can assign to other users
-        # A user should not be able to assign a role to another user if the user does not have all the permissions that the role has
         def user_roles
+          # Returns the permissions that the current user role has
           current_user_permission_ids = current_user.role.role_permissions.where(value: 'true').pluck(:permission_id)
 
           # Returns the roles that have role permissions that the current user role does not have
@@ -49,6 +49,7 @@ module Api
                                                          .where.not(role_permissions: { permission_id: current_user_permission_ids })
                                                          .select(:role_id)
 
+          # Returns the roles that DO NOT have role permissions that the current user role DOES NOT have
           eligible_roles = Role.with_provider(current_provider)
                                .includes(:role_permissions)
                                .where.not(id: ineligible_role_permission_ids)
