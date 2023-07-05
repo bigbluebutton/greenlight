@@ -40,9 +40,10 @@ export default function UpdateUserForm({ user }) {
   const { data: locales } = useLocales();
   const updateUserAPI = useUpdateUser(user?.id);
 
-  // User can update someone else role if:
-  // 1. They have the manage users permission
-  // 2. The user they are trying to update has a role that is lower than theirs
+  // User can update someone a user role if:
+  // 1. The user they are trying to update has a role that is not higher or equal to their own
+  // 2. The user has the manage users permission
+  // 3. The user is not trying to update themselves
   const canUpdateRole = roles?.some((role) => role.name === user.role.name)
     && user.role.name !== currentUser.role.name
     && PermissionChecker.hasManageUsers(currentUser)
