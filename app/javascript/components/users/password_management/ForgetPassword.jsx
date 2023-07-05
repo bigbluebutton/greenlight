@@ -16,13 +16,21 @@
 
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ForgetPwdForm from './forms/ForgetPwdForm';
 import Logo from '../../shared_components/Logo';
+import useEnv from '../../../hooks/queries/env/useEnv';
 
 export default function ForgetPassword() {
   const { t } = useTranslation();
+  const { data: env, isLoading } = useEnv();
+
+  if (isLoading) return null;
+
+  if (!env?.SMTP_ENABLED) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="vertical-center">
