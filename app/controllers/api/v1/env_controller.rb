@@ -28,7 +28,8 @@ module Api
           OPENID_CONNECT: ENV['OPENID_CONNECT_ISSUER'].present?,
           HCAPTCHA_KEY: ENV.fetch('HCAPTCHA_SITE_KEY', nil),
           VERSION_TAG: ENV.fetch('VERSION_TAG', ''),
-          CURRENT_PROVIDER: current_provider
+          CURRENT_PROVIDER: current_provider,
+          SMTP_ENABLED: ENV.fetch('SMTP_SERVER', nil)
         }, status: :ok
       end
     end
