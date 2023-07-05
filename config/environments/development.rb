@@ -52,7 +52,15 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = if ENV['S3_ACCESS_KEY_ID'].present? && ENV['S3_ENDPOINT'].present?
+                                    :s3
+                                  elsif ENV['S3_ACCESS_KEY_ID'].present?
+                                    :amazon
+                                  elsif ENV['GCS_PROJECT'].present?
+                                    :google
+                                  else
+                                    :local
+                                  end
 
   if ENV['SMTP_SERVER'].present?
     config.action_mailer.perform_deliveries = true
