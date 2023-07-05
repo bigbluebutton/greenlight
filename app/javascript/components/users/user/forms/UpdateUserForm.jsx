@@ -25,7 +25,7 @@ import FormControl from '../../../shared_components/forms/FormControl';
 import useUpdateUser from '../../../../hooks/mutations/users/useUpdateUser';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
-import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
+import useUserRoles from '../../../../hooks/queries/admin/manage_users/useUserRoles';
 import FormSelect from '../../../shared_components/forms/controls/FormSelect';
 import Option from '../../../shared_components/utilities/Option';
 import useLocales from '../../../../hooks/queries/locales/useLocales';
@@ -36,13 +36,17 @@ export default function UpdateUserForm({ user }) {
   const { t } = useTranslation();
   const currentUser = useAuth();
 
-  // Remove the display of role input field if the user is a super admin trying to update their own role
-  const isSuperAdminEditOwnRole = user === currentUser && currentUser.isSuperAdmin;
-  const canUpdateRole = PermissionChecker.hasManageUsers(currentUser) && !isSuperAdminEditOwnRole;
-
-  const { data: roles } = useRoles({ enabled: canUpdateRole });
+  const { data: roles } = useUserRoles();
   const { data: locales } = useLocales();
   const updateUserAPI = useUpdateUser(user?.id);
+
+  // User can update someone else role if:
+  // 1. They have the manage users permission
+  // 2. The user they are trying to update has a role that is lower than theirs
+  const canUpdateRole = roles?.some((role) => role.name === user.role.name)
+    && user.role.name !== currentUser.role.name
+    && PermissionChecker.hasManageUsers(currentUser)
+    && user !== currentUser;
 
   function currentLanguage() {
     const language = user?.language;

@@ -92,6 +92,7 @@ Rails.application.routes.draw do
             get '/verified', to: 'users#verified'
             get '/pending', to: 'users#pending'
             get '/banned', to: 'users#banned'
+            get '/user_roles', to: 'users#user_roles'
             post '/:user_id/create_server_room', to: 'users#create_server_room'
           end
         end
