@@ -30,7 +30,7 @@ class ExternalController < ApplicationController
 
     user_info = build_user_info(credentials)
 
-    user = User.find_by(external_id: credentials['uid'], provider:)
+    user = User.find_by(external_id: credentials['uid'], provider:) || User.find_by(email: credentials['info']['email'], provider:)
     new_user = user.blank?
 
     registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
