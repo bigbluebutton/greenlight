@@ -21,7 +21,7 @@ module Api
     module Admin
       class TenantsController < ApiController
         before_action do
-          # TODO: - ahmad: Add role check
+          ensure_super_admin
         end
 
         # GET /api/v1/admin/tenants

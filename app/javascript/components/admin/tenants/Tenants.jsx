@@ -16,6 +16,7 @@
 
 import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
+import { Navigate } from 'react-router-dom';
 import {
   Button,
   Col, Container, Row, Stack, Tab,
@@ -29,10 +30,16 @@ import NoSearchResults from '../../shared_components/search/NoSearchResults';
 import TenantsTable from './TenantsTable';
 import Modal from '../../shared_components/modals/Modal';
 import CreateTenantForm from './forms/CreateTenantForm';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function Tenants() {
   const { t } = useTranslation();
   const [page, setPage] = useState();
+  const currentUser = useAuth();
+
+  if (!currentUser.isSuperAdmin) {
+    return <Navigate to="/" />;
+  }
 
   const [searchInput, setSearchInput] = useState();
   const { data: tenants, isLoading } = useTenants({ search: searchInput, page });
