@@ -29,6 +29,14 @@ FactoryBot.define do
     language { %w[en fr es ar].sample }
     verified { true }
 
+    trait :with_super_admin do
+      after(:create) do |user|
+        user.provider = 'bn'
+        user.role = create(:role, :with_super_admin)
+        user.save
+      end
+    end
+
     trait :with_manage_users_permission do
       after(:create) do |user|
         create(:role_permission, role: user.role, permission: create(:permission, name: 'ManageUsers'), value: 'true')
