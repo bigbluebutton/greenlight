@@ -73,6 +73,26 @@ RSpec.describe ExternalController, type: :controller do
       expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).verified?).to be true
     end
 
+    it 'looks the user up based on external id' do
+      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+      create(:user, external_id: request.env['omniauth.auth']['uid'])
+
+      expect do
+        get :create_user, params: { provider: 'openid_connect' }
+      end.to change(User, :count).by(0)
+    end
+
+    it 'looks the user up based on email' do
+      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+      create(:user, email: request.env['omniauth.auth']['info']['email'])
+
+      expect do
+        get :create_user, params: { provider: 'openid_connect' }
+      end.to change(User, :count).by(0)
+    end
+
     context 'redirect' do
       it 'redirects to the location cookie if a relative redirection 1' do
         request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]

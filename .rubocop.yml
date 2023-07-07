@@ -79,7 +79,7 @@ Metrics/CyclomaticComplexity:
   Max: 16
 
 Metrics/PerceivedComplexity:
-  Max: 13
+  Max: 15
 
 Rails/Exit:
   Exclude:
