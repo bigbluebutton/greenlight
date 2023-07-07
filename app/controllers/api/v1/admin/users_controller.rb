@@ -28,6 +28,7 @@ module Api
         # Updates the specified user's status
         def update
           user = User.find(params[:id])
+
           if user.update(user_params)
             render_data status: :ok
           else
