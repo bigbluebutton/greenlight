@@ -99,7 +99,8 @@ module Api
       def update
         user = User.find(params[:id])
 
-        if current_user == user && params[:user][:role_id].present?
+        # User can't change their own role
+        if params[:user][:role_id].present? && current_user == user && params[:user][:role_id] != user.role_id
           return render_error errors: Rails.configuration.custom_error_msgs[:unauthorized], status: :forbidden
         end
 

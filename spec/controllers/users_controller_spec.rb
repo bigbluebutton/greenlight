@@ -353,6 +353,18 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(user.role_id).not_to eq(updated_params[:role_id])
     end
 
+    it 'allows a user to change their own name' do
+      updated_params = {
+        name: 'New Awesome Name'
+      }
+
+      patch :update, params: { id: user.id, user: updated_params }
+
+      user.reload
+
+      expect(user.name).to eq(updated_params[:name])
+    end
+
     it 'doesnt allow a user with ManageUser permissions to edit their own role' do
       sign_in_user(user_with_manage_users_permission)
 
