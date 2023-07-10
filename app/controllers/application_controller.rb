@@ -81,7 +81,7 @@ class ApplicationController < ActionController::Base
     return unless user.rooms.count <= 0
     return unless PermissionsChecker.new(permission_names: 'CreateRoom', user_id: user.id, current_user: user, current_provider:).call
 
-    Room.create(name: "#{user.name}'s Room", user_id: user.id)
+    Room.create(name: t('room.new_room_name', username: user.name, locale: user.language), user_id: user.id)
   end
 
   # Include user domain in lograge logs
