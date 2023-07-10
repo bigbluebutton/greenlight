@@ -51,7 +51,8 @@ module Greenlight
       pending_user: 'PendingUser',
       banned_user: 'BannedUser',
       unverified_user: 'UnverifiedUser',
-      external_signup_error: 'SignupError'
+      external_signup_error: 'SignupError',
+      unauthorized: 'Unauthorized'
     }
 
     config.uploads = {

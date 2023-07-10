@@ -353,15 +353,32 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(user.role_id).not_to eq(updated_params[:role_id])
     end
 
-    it 'allows a user with ManageUser permissions to edit their own role' do
+    it 'allows a user to change their own name' do
+      updated_params = {
+        name: 'New Awesome Name'
+      }
+
+      patch :update, params: { id: user.id, user: updated_params }
+
+      user.reload
+
+      expect(user.name).to eq(updated_params[:name])
+    end
+
+    it 'doesnt allow a user with ManageUser permissions to edit their own role' do
       sign_in_user(user_with_manage_users_permission)
+
+      old_role_id = user_with_manage_users_permission.role_id
       updated_params = {
         role_id: create(:role, name: 'New Role').id
       }
+
       patch :update, params: { id: user_with_manage_users_permission.id, user: updated_params }
 
       user_with_manage_users_permission.reload
-      expect(user_with_manage_users_permission.role_id).to eq(updated_params[:role_id])
+      expect(response).to have_http_status(:forbidden)
+      expect(user_with_manage_users_permission.role_id).to eq(old_role_id)
+      expect(user_with_manage_users_permission.role_id).not_to eq(updated_params[:role_id])
     end
 
     it 'allows a user with ManageUser permissions to edit another users role' do
