@@ -98,9 +98,10 @@ module Api
       # Updates the values of a user
       def update
         user = User.find(params[:id])
-        # user is updating themselves
-        if current_user.id == params[:id] && !PermissionsChecker.new(permission_names: 'ManageUsers', current_user:, current_provider:).call
-          params[:user].delete(:role_id)
+
+        # User can't change their own role
+        if params[:user][:role_id].present? && current_user == user && params[:user][:role_id] != user.role_id
+          return render_error errors: Rails.configuration.custom_error_msgs[:unauthorized], status: :forbidden
         end
 
         if user.update(update_user_params)
