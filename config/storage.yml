@@ -36,6 +36,7 @@ s3:
   secret_access_key: <%= ENV['S3_SECRET_ACCESS_KEY'] %>
   region: <%= ENV['S3_REGION'] %>
   bucket: <%= ENV['S3_BUCKET'] %>
+  force_path_style: <%= ENV.fetch("S3_FORCE_PATH_STYLE", false) %>
 
 # Remember not to checkin your GCS keyfile to a repository
 google:
