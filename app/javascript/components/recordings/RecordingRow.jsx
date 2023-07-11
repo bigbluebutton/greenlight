@@ -124,7 +124,7 @@ export default function RecordingRow({
         </Form.Select>
       </td>
       <td className="border-0">
-        {formats.map((format) => (
+        {recording?.visibility !== 'Unpublished' && formats.map((format) => (
           <Button
             onClick={() => redirectRecordingUrl.mutate({ record_id: recording.record_id, format: format.recording_type })}
             className={`btn-sm rounded-pill me-1 mt-1 border-0 btn-format-${format.recording_type.toLowerCase()}`}
@@ -158,13 +158,15 @@ export default function RecordingRow({
           )
           : (
             <Stack direction="horizontal" className="float-end recordings-icons">
-              <Button
-                variant="icon"
-                className="mt-1 me-3"
-                onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}
-              >
-                <ClipboardDocumentIcon className="hi-s text-muted" />
-              </Button>
+              { recording?.visibility !== 'Unpublished' && (
+                <Button
+                  variant="icon"
+                  className="mt-1 me-3"
+                  onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}
+                >
+                  <ClipboardDocumentIcon className="hi-s text-muted" />
+                </Button>
+              )}
               <Modal
                 modalButton={<Dropdown.Item className="btn btn-icon"><TrashIcon className="hi-s me-2" /></Dropdown.Item>}
                 body={(
