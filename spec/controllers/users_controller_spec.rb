@@ -36,7 +36,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           name: Faker::Name.name,
           email: Faker::Internet.email,
           password: 'Password123+',
-          language: 'language'
+          language: 'en'
         }
       }
     end
@@ -69,7 +69,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       context 'User language' do
         it 'Persists the user language in the user record' do
           post :create, params: user_params
-          expect(User.find_by(email: user_params[:user][:email]).language).to eq('language')
+          expect(User.find_by(email: user_params[:user][:email]).language).to eq('en')
         end
 
         it 'defaults user language to default_locale if the language isn\'t specified' do
@@ -148,11 +148,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
           context 'User language' do
             it 'defaults user language to admin language if the language isn\'t specified' do
-              signed_in_user.update! language: 'language'
+              signed_in_user.update! language: 'en'
 
               user_params[:user][:language] = nil
               post :create, params: user_params
-              expect(User.find_by(email: user_params[:user][:email]).language).to eq('language')
+              expect(User.find_by(email: user_params[:user][:email]).language).to eq('en')
               expect(response).to have_http_status(:created)
               expect(session[:session_token]).to eql(signed_in_user.session_token)
             end
@@ -202,7 +202,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           name: 'Optimus Prime',
           email: 'optimus@autobots.cybertron',
           password: 'Autobots1!',
-          language: 'teletraan'
+          language: 'en'
         }
 
         expect { post :create, params: { user: user_params } }.to change(User, :count).from(0).to(1)
@@ -313,7 +313,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     it 'updates the users attributes' do
       updated_params = {
         name: 'New Name',
-        language: 'gl'
+        language: 'fr'
       }
       patch :update, params: { id: user.id, user: updated_params }
       expect(response).to have_http_status(:ok)
@@ -353,15 +353,32 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(user.role_id).not_to eq(updated_params[:role_id])
     end
 
-    it 'allows a user with ManageUser permissions to edit their own role' do
+    it 'allows a user to change their own name' do
+      updated_params = {
+        name: 'New Awesome Name'
+      }
+
+      patch :update, params: { id: user.id, user: updated_params }
+
+      user.reload
+
+      expect(user.name).to eq(updated_params[:name])
+    end
+
+    it 'doesnt allow a user with ManageUser permissions to edit their own role' do
       sign_in_user(user_with_manage_users_permission)
+
+      old_role_id = user_with_manage_users_permission.role_id
       updated_params = {
         role_id: create(:role, name: 'New Role').id
       }
+
       patch :update, params: { id: user_with_manage_users_permission.id, user: updated_params }
 
       user_with_manage_users_permission.reload
-      expect(user_with_manage_users_permission.role_id).to eq(updated_params[:role_id])
+      expect(response).to have_http_status(:forbidden)
+      expect(user_with_manage_users_permission.role_id).to eq(old_role_id)
+      expect(user_with_manage_users_permission.role_id).not_to eq(updated_params[:role_id])
     end
 
     it 'allows a user with ManageUser permissions to edit another users role' do
