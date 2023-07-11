@@ -17,8 +17,7 @@
 # frozen_string_literal: true
 
 desc 'Server Recordings sync with BBB server'
-
-task :server_recordings_sync, %i[provider] => :environment do |_task, args|
+task :recordings_sync, %i[provider] => :environment do |_task, args|
   args.with_defaults(provider: 'greenlight')
 
   Room.includes(:user).select(:id, :meeting_id).with_provider(args[:provider]).in_batches(of: 25) do |rooms|
@@ -33,4 +32,9 @@ task :server_recordings_sync, %i[provider] => :environment do |_task, args|
       err "Unable to migrate Recording:\nRecordID: #{recording[:recordID]}\nError: #{e}"
     end
   end
+end
+
+task :recordings_check, %i[provider] => :environment do |_task, args|
+  args.with_defaults(provider: 'greenlight')
+  recent_rooms = Room.with_provider(args[:provider]).where(last_session: 1.hour.ago..Time.now)
 end
