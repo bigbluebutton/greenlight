@@ -18,7 +18,7 @@
 
 namespace :poller do
   # Does a check if a meeting set as online is still online
-  task :meeting_poller, %i[provider] => :environment do |_task, args|
+  task :meetings_poller, %i[provider] => :environment do |_task, args|
     args.with_defaults(provider: 'greenlight')
 
     online_meetings = Room.with_provider(args[:provider])
@@ -52,26 +52,32 @@ namespace :poller do
         RecordingCreator.new(recording:).call
 
       rescue StandardError => e
-        err "Unable to create Recording:\nRecordID: #{recording[:recordID]}\nError: #{e}"
+        err "Unable to poll Recording:\nRecordID: #{recording[:recordID]}\nError: #{e}"
         next
       end
     end
   end
 
-  task :run_all, %i[duration] => :environment do |_task, args|
-    args.with_defaults(duration: 3600)
+  task :run_all, %i[provider duration] => :environment do |_task, args|
+    args.with_defaults(provider: 'greenlight', duration: 3600)
 
     loop do
-      Rake::Task['poller:meeting_poller'].invoke
-
-      # Pool recordings only if the provider has record enabled
-      if RoomsConfiguration.joins(:meeting_option).find_by(provider: current_provider, 'meeting_option.name': 'record').value
-        Rake::Task['poller:recordings_poller'].invoke
+      begin
+        Rake::Task['poller:meetings_poller'].execute
+      rescue StandardError => e
+        err "An error occurred in meetings poller: #{e.message}. Continuing..."
       end
 
-    rescue StandardError => e
-      err "An error occurred: #{e.message}. Continuing..."
-    ensure
+      # Pool recordings only if the provider has record enabled
+      record_enabled = RoomsConfiguration.joins(:meeting_option).find_by(provider: args[:greenlight], 'meeting_option.name': 'record').value
+      if record_enabled
+        begin
+          Rake::Task['poller:recordings_poller'].execute
+        rescue StandardError => e
+          err "An error occurred in recordings poller: #{e.message}. Continuing..."
+        end
+      end
+
       sleep args[:duration].to_i
     end
   end
