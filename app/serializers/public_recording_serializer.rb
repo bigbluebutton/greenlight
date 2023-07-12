@@ -20,4 +20,8 @@ class PublicRecordingSerializer < ApplicationSerializer
   attributes :id, :record_id, :name, :length, :recorded_at
 
   has_many :formats
+
+  def formats
+    object.formats.filter { |format| format.recording_type != 'statistics' }
+  end
 end

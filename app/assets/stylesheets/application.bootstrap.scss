@@ -441,6 +441,43 @@ input.search-bar {
   }
 }
 
+.simple-select {
+  button {
+    background: white !important;
+    color: black !important;
+    border-color: gainsboro !important;
+    text-align: left;
+    width: 220px;
+
+    &:hover, &:focus, &:active {
+      background: white !important;
+      color: black !important;
+      border-color: gainsboro !important;
+    }
+    &:focus {
+      box-shadow: 0 0 0 0.25rem var(--brand-color-light) !important;
+    }
+    &::after {
+      display: none;
+    }
+  }
+
+  .dropdown-menu {
+    min-width: 220px;
+  }
+}
+
+@media (max-width: 767px) {
+  .table-responsive .dropdown-menu {
+    position: static !important;
+  }
+}
+@media (min-width: 768px) {
+  .table-responsive {
+    overflow: visible;
+  }
+}
+
 input[type='text']:focus {
   border-color: whitesmoke !important;
   box-shadow: 0 0 0 2px var(--brand-color-light) !important;
