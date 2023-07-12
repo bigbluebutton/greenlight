@@ -15,11 +15,12 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 #user-recordings, #room-recordings {
+  min-height: 400px;
+
   table {
     border-top-right-radius: $border-radius-lg;
     border-top-left-radius: $border-radius-lg;
     border-spacing: 0;
-    overflow: hidden;
   }
 
   tr {

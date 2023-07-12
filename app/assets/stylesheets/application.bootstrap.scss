@@ -467,6 +467,17 @@ input.search-bar {
   }
 }
 
+@media (max-width: 767px) {
+  .table-responsive .dropdown-menu {
+    position: static !important;
+  }
+}
+@media (min-width: 768px) {
+  .table-responsive {
+    overflow: visible;
+  }
+}
+
 input[type='text']:focus {
   border-color: whitesmoke !important;
   box-shadow: 0 0 0 2px var(--brand-color-light) !important;
