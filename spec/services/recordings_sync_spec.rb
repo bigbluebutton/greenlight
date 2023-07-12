@@ -65,7 +65,7 @@ describe RecordingsSync, type: :service do
         expect(RecordingCreator).to receive(:new).with(recording: multiple_recordings_response[:recordings][1]).and_call_original
 
         service.call
-        expect(Recording.where(id: other_recordings.pluck(:id))).to eq(other_recordings)
+        expect(Recording.where(id: other_recordings.pluck(:id))).to match_array(other_recordings)
       end
 
       it 'resets the recordings processing value for the room' do
