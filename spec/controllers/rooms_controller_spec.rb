@@ -152,6 +152,8 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     end
 
     it 'deletes the recordings associated with the room' do
+      allow_any_instance_of(BigBlueButtonApi).to receive(:delete_recordings).and_return(true)
+
       room = create(:room, user:)
       create_list(:recording, 10, room:)
       expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Recording, :count).by(-10)

@@ -23,6 +23,10 @@ describe RecordingsSync, type: :service do
   let(:room) { create(:room, user:, recordings_processing: 5) }
   let(:service) { described_class.new(room:, provider: 'greenlight') }
 
+  before do
+    allow_any_instance_of(BigBlueButtonApi).to receive(:delete_recordings).and_return(true)
+  end
+
   describe '#call' do
     let(:fake_recording_creator) { instance_double(RecordingCreator) }
     let(:other_recordings) { create_list(:recording, 2) }
