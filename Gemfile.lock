@@ -247,8 +247,8 @@ GEM
     mini_portile2 (2.8.2)
     minitest (5.18.1)
     msgpack (1.6.0)
-    net-imap (0.3.6)
     multi_json (1.15.0)
+    net-imap (0.3.6)
       date
       net-protocol
     net-pop (0.1.2)
