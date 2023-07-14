@@ -116,4 +116,12 @@ RSpec.describe Recording, type: :model do
       expect(described_class.all.search('')).to match_array(described_class.all)
     end
   end
+
+  describe 'after_destroy' do
+    it 'makes a call to BBB to delete the recording' do
+      expect_any_instance_of(BigBlueButtonApi).to receive(:delete_recordings).and_return(true)
+
+      create(:recording).destroy
+    end
+  end
 end

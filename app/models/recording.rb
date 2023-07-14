@@ -38,6 +38,8 @@ class Recording < ApplicationRecord
 
   scope :with_provider, ->(current_provider) { where(user: { provider: current_provider }) }
 
+  after_destroy :destroy_bbb_recording
+
   def self.search(input)
     if input
       return joins(:formats).where('recordings.name ILIKE :input OR recordings.visibility ILIKE :input OR formats.recording_type ILIKE :input',
@@ -67,5 +69,11 @@ class Recording < ApplicationRecord
     end
 
     all.includes(:formats)
+  end
+
+  private
+
+  def destroy_bbb_recording
+    BigBlueButtonApi.new(provider: user.provider).delete_recordings(record_ids: record_id)
   end
 end
