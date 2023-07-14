@@ -56,9 +56,6 @@ module Api
       # DELETE /api/v1/recordings/:id.json
       # Deletes a recording in both BigBlueButton and Greenlight
       def destroy
-        # TODO: Hadi - Need to change this to work preferably with after_destroy in recordings model
-        BigBlueButtonApi.new(provider: current_provider).delete_recordings(record_ids: params[:id])
-
         Recording.destroy_by(record_id: params[:id])
 
         render_data status: :ok
