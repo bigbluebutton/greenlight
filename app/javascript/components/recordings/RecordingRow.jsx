@@ -17,7 +17,6 @@
 import {
   VideoCameraIcon, TrashIcon, PencilSquareIcon, ClipboardDocumentIcon, EllipsisVerticalIcon,
 } from '@heroicons/react/24/outline';
-import Form from 'react-bootstrap/Form';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -32,6 +31,7 @@ import Modal from '../shared_components/modals/Modal';
 import { localizeDateTimeString } from '../../helpers/DateTimeHelper';
 import useRedirectRecordingUrl from '../../hooks/mutations/recordings/useRedirectRecordingUrl';
 import useCopyRecordingUrl from '../../hooks/mutations/recordings/useCopyRecordingUrl';
+import SimpleSelect from '../shared_components/utilities/SimpleSelect';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
@@ -102,29 +102,48 @@ export default function RecordingRow({
       <td className="border-0"> {t('recording.length_in_minutes', { recording })} </td>
       <td className="border-0"> {recording.participants} </td>
       <td className="border-0">
-        {/* TODO: Refactor this. */}
-        <Form.Select
-          className="visibility-dropdown"
-          onChange={(event) => {
-            visibilityAPI.mutate({ visibility: event.target.value, id: recording.record_id });
-          }}
+        <SimpleSelect
           defaultValue={recording.visibility}
-          disabled={visibilityAPI.isLoading}
         >
-          <option value="Published">{t('recording.published')}</option>
-          <option value="Unpublished">{t('recording.unpublished')}</option>
-          {recording?.protectable === true
-            && (
-              <>
-                <option value="Protected">{t('recording.protected')}</option>
-                <option value="Public/Protected">{t('recording.public_protected')}</option>
-              </>
-            )}
-          <option value="Public">{t('recording.public')}</option>
-        </Form.Select>
+          <Dropdown.Item
+            key="Public/Protected"
+            value="Public/Protected"
+            onClick={() => visibilityAPI.mutate({ visibility: 'Public/Protected', id: recording.record_id })}
+          >
+            {t('recording.public_protected')}
+          </Dropdown.Item>
+          <Dropdown.Item
+            key="Public"
+            value="Public"
+            onClick={() => visibilityAPI.mutate({ visibility: 'Public', id: recording.record_id })}
+          >
+            {t('recording.public')}
+          </Dropdown.Item>
+          <Dropdown.Item
+            key="Protected"
+            value="Protected"
+            onClick={() => visibilityAPI.mutate({ visibility: 'Protected', id: recording.record_id })}
+          >
+            {t('recording.protected')}
+          </Dropdown.Item>
+          <Dropdown.Item
+            key="Published"
+            value="Published"
+            onClick={() => visibilityAPI.mutate({ visibility: 'Published', id: recording.record_id })}
+          >
+            {t('recording.published')}
+          </Dropdown.Item>
+          <Dropdown.Item
+            key="Unpublished"
+            value="Unpublished"
+            onClick={() => visibilityAPI.mutate({ visibility: 'Unpublished', id: recording.record_id })}
+          >
+            {t('recording.unpublished')}
+          </Dropdown.Item>
+        </SimpleSelect>
       </td>
       <td className="border-0">
-        {formats.map((format) => (
+        {recording?.visibility !== 'Unpublished' && formats.map((format) => (
           <Button
             onClick={() => redirectRecordingUrl.mutate({ record_id: recording.record_id, format: format.recording_type })}
             className={`btn-sm rounded-pill me-1 mt-1 border-0 btn-format-${format.recording_type.toLowerCase()}`}
@@ -158,13 +177,15 @@ export default function RecordingRow({
           )
           : (
             <Stack direction="horizontal" className="float-end recordings-icons">
-              <Button
-                variant="icon"
-                className="mt-1 me-3"
-                onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}
-              >
-                <ClipboardDocumentIcon className="hi-s text-muted" />
-              </Button>
+              { recording?.visibility !== 'Unpublished' && (
+                <Button
+                  variant="icon"
+                  className="mt-1 me-3"
+                  onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}
+                >
+                  <ClipboardDocumentIcon className="hi-s text-muted" />
+                </Button>
+              )}
               <Modal
                 modalButton={<Dropdown.Item className="btn btn-icon"><TrashIcon className="hi-s me-2" /></Dropdown.Item>}
                 body={(

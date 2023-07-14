@@ -83,12 +83,15 @@ module Api
         def create_user
           user_hash = user_params.to_h
 
+          # Re-write LDAP and Google to greenlight
+          user_hash[:provider] = %w[greenlight ldap google].include?(user_hash[:provider]) ? 'greenlight' : user_hash[:provider]
+
           # Returns an error if the provider does not exist
           unless user_hash[:provider] == 'greenlight' || Tenant.exists?(name: user_hash[:provider])
             return render_error(status: :bad_request, errors: 'Provider does not exist')
           end
 
-          return render_data status: :created if User.exists? email: user_hash[:email], provider: user_hash[:provider]
+          return render_data status: :created if User.exists?(email: user_hash[:email], provider: user_hash[:provider])
 
           user_hash[:language] = I18n.default_locale if user_hash[:language].blank? || user_hash[:language] == 'default'
 
@@ -111,8 +114,12 @@ module Api
         #                    shared_users_emails: [ <list of shared users emails> ] }}
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Creates a Room and its RoomMeetingOptions.
+        # rubocop:disable Metrics/CyclomaticComplexity
         def create_room
           room_hash = room_params.to_h
+
+          # Re-write LDAP and Google to greenlight
+          room_hash[:provider] = %w[greenlight ldap google].include?(room_hash[:provider]) ? 'greenlight' : room_hash[:provider]
 
           unless room_hash[:provider] == 'greenlight' || Tenant.exists?(name: room_hash[:provider])
             return render_error(status: :bad_request, errors: 'Provider does not exist')
@@ -162,6 +169,7 @@ module Api
 
           render_data status: :created
         end
+        # rubocop:enable Metrics/CyclomaticComplexity
 
         # POST /api/v1/migrations/site_settings.json
         # Expects: { settings: { site_settings: { :PrimaryColor, :PrimaryColorLight, :PrimaryColorDark,

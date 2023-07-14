@@ -60,6 +60,8 @@ Rails.application.configure do
                                     :s3
                                   elsif ENV['S3_ACCESS_KEY_ID'].present?
                                     :amazon
+                                  elsif ENV['GCS_PROJECT'].present?
+                                    :google
                                   else
                                     :local
                                   end

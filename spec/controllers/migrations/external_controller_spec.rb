@@ -190,6 +190,28 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
           end
         end
 
+        context 'when the provider does not exists' do
+          before { valid_user_params[:provider] = 'not_a_provider' }
+
+          it 'returns :bad_request without creating a user' do
+            encrypted_params = encrypt_params({ user: valid_user_params }, expires_in: 10.seconds)
+            expect { post :create_user, params: { v2: { encrypted_params: } } }.not_to change(User, :count)
+            expect(response).to have_http_status(:bad_request)
+          end
+        end
+
+        context 'when the provider is ldap' do
+          before { valid_user_params[:provider] = 'ldap' }
+
+          it 'creates a user with the greenlight provider' do
+            encrypted_params = encrypt_params({ user: valid_user_params }, expires_in: 10.seconds)
+            expect { post :create_user, params: { v2: { encrypted_params: } } }.to change(User, :count).from(0).to(1)
+            user = User.take
+            expect(user.provider).to eq('greenlight')
+            expect(response).to have_http_status(:created)
+          end
+        end
+
         context 'when external_id is present' do
           before { valid_user_params[:external_id] = 'EXTERNAL' }
 

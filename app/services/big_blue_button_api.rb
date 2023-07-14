@@ -95,7 +95,7 @@ class BigBlueButtonApi
 
   # Decodes the JWT using the BBB secret as key (Used in Recording Ready Callback)
   def decode_jwt(token)
-    JWT.decode token, Rails.configuration.bigbluebutton_secret, true, { algorithm: 'HS256' }
+    JWT.decode token, @secret, true, { algorithm: 'HS256' }
   end
 
   private

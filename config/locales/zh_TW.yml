@@ -45,32 +45,30 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
+zh_TW:
   opengraph:
-    description: Learn using BigBlueButton, the trusted open-source web conferencing solution that enables seamless virtual collaboration and online learning experiences.
+    description: 使用 BigBlueButton 學習，這是一個值得信賴的開源網絡會議解決方案，提供無縫的虛擬協作和線上學習體驗。
   meeting:
-    moderator_message: "To invite someone to the meeting, send them this link:"
-    access_code: "Access Code: %{code}"
+    moderator_message: "若要邀請某人參加會議，請發送此連結："
+    access_code: "連結代碼：%{code}"
   email:
     activation:
-      account_activation: Account Activation
-      welcome_to_bbb: Welcome to BigBlueButton!
-      get_started: To get started, please activate your account by clicking on the button below.
-      activate_account: Activate Account
-      link_expires: The link will expire in 24 hours.
-      if_link_expires: If the link expires, please log in and request a new activation email.
+      account_activation: 啟用帳號
+      welcome_to_bbb: 歡迎使用 BigBlueButton！
+      get_started: 要開始使用，請點擊下方按鈕啟用您的帳號。
+      activate_account: 啟用帳號
+      link_expires: 連結將在 24 小時後失效。
+      if_link_expires: 如果連結已過期，請登入並申請新的啟用郵件。
     invitation:
-      invitation_to_join: BigBlueButton Invitation
-      you_have_been_invited: You have been invited to create a BigBlueButton account by %{name}.
-      get_started: To sign up, please click the button below and follow the steps.
-      valid_invitation: The invitation is valid for 24 hours.
-      sign_up: Sign Up
+      invitation_to_join: BigBlueButton 邀請
+      you_have_been_invited: "您已獲得 %{name} 邀請建立 BigBlueButton 帳號。"
+      get_started: 要註冊，請點擊下方按鈕並按照步驟進行。
+      valid_invitation: 邀請有效期為 24 小時。
+      sign_up: 註冊
     reset:
-      password_reset: Reset Password
-      password_reset_requested: A password reset has been requested for %{email}.
-      password_reset_confirmation: To reset your password, please click on the button below.
-      reset_password: Reset Password
-      link_expires: The link will expire in 1 hour.
-      ignore_request: If you did not make a request to change your password, please ignore this email.
-  room:
-    new_room_name: "%{username}'s Room"
+      password_reset: 重設密碼
+      password_reset_requested: "已對 %{email} 提出重設密碼的請求。"
+      password_reset_confirmation: 要重設密碼，請點擊下方按鈕。
+      reset_password: 重設密碼
+      link_expires: 連結將在 1 小時後失效。
+      ignore_request: 如果您沒有提出更改密碼的請求，請忽略此郵件。
