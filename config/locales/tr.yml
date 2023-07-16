@@ -72,3 +72,5 @@ tr:
       reset_password: Parolayı sıfırla
       link_expires: Bağlantı 1 saat sonra geçersiz olacak.
       ignore_request: Parola değiştirme isteğinde bulunmadıysanız bu e-postayı yok sayabilirsiniz.
+  room:
+    new_room_name: "%{username} kullanıcısının odası"
