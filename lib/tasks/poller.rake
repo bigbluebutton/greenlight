@@ -21,13 +21,13 @@ namespace :poller do
   task :meetings_poller, %i[provider] => :environment do |_task, args|
     args.with_defaults(provider: 'greenlight')
 
-    online_meetings = Room.with_provider(args[:provider])
-                          .where(online: true)
+    online_meetings = Room.joins(:user)
+                          .where(users: { provider: args[:provider] }, online: true)
 
-    RunningMeetingChecker(rooms: online_meetings, provider: args[:provider]).call
+    RunningMeetingChecker.new(rooms: online_meetings, provider: args[:provider]).call
 
   rescue StandardError => e
-    err "Unable to poll meeting:\nMeetingID: #{room.meeting_id}\nError: #{e}"
+    err "Unable to poll meetings. Error: #{e}"
   end
 
   # Does a check if a recording from a recent meeting has not been created in GL
@@ -41,7 +41,6 @@ namespace :poller do
     recent_meetings.each do |meeting|
       recordings = BigBlueButtonApi.new(provider: current_provider).get_recordings(meeting_ids: meeting.meeting_id)
       recordings[:recordings].each do |recording|
-
         # TODO: - samuel: duplication in external_controller, this block belongs in RecordingCreator
         unless Recording.exists?(record_id: recording[:recordID])
           room = Room.find_by(meeting_id: recording[:meetingID])
@@ -58,8 +57,8 @@ namespace :poller do
     end
   end
 
-  task :run_all, %i[provider duration] => :environment do |_task, args|
-    args.with_defaults(provider: 'greenlight', duration: 3600)
+  task :run_all, %i[provider interval] => :environment do |_task, args|
+    args.with_defaults(provider: 'greenlight', interval: 3600)
 
     loop do
       begin
@@ -69,7 +68,7 @@ namespace :poller do
       end
 
       # Pool recordings only if the provider has record enabled
-      record_enabled = RoomsConfiguration.joins(:meeting_option).find_by(provider: args[:greenlight], 'meeting_option.name': 'record').value
+      record_enabled = RoomsConfiguration.joins(:meeting_option).find_by(provider: args[:provider], 'meeting_option.name': 'record').value
       if record_enabled
         begin
           Rake::Task['poller:recordings_poller'].execute
@@ -78,8 +77,7 @@ namespace :poller do
         end
       end
 
-      sleep args[:duration].to_i
+      sleep args[:interval].to_i
     end
   end
 end
-
