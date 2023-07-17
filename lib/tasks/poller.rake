@@ -34,20 +34,21 @@ namespace :poller do
   task :recordings_poller, %i[provider] => :environment do |_task, args|
     args.with_defaults(provider: 'greenlight')
 
-    recent_meetings = Room.with_provider(args[:provider])
-                          .where(last_session: 1.hour.ago..Time.zone.now)
-                          .where(online: false)
+    recent_meetings = Room.joins(:user)
+                          .where(users: { provider: args[:provider] }, last_session: 1.hour.ago..Time.zone.now, online: false)
+
+    # Fetch all rooms associated with the recent meetings in advance.
+    recent_rooms = Room.where(meeting_id: recent_meetings.pluck(:meeting_id))
+                       .index_by(&:meeting_id)
 
     recent_meetings.each do |meeting|
-      recordings = BigBlueButtonApi.new(provider: current_provider).get_recordings(meeting_ids: meeting.meeting_id)
+      recordings = BigBlueButtonApi.new(provider: args[:provider]).get_recordings(meeting_ids: meeting.meeting_id)
       recordings[:recordings].each do |recording|
-        # TODO: - samuel: duplication in external_controller, this block belongs in RecordingCreator
-        unless Recording.exists?(record_id: recording[:recordID])
-          room = Room.find_by(meeting_id: recording[:meetingID])
-          room.update(recordings_processing: room.recordings_processing - 1) unless room.recordings_processing.zero?
-        end
+        next if Recording.exists?(record_id: recording[:recordID])
 
-        # Need to call service even if Recording already exists in case the recording visibility was updated
+        room = recent_rooms[recording[:meetingID]]
+        room.update(recordings_processing: room.recordings_processing - 1) unless room.recordings_processing.zero? # cond. in case both callbacks fail
+
         RecordingCreator.new(recording:).call
 
       rescue StandardError => e
