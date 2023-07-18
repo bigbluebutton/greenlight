@@ -18,36 +18,34 @@
 
 namespace :poller do
   # Does a check if a meeting set as online is still online
-  task :meetings_poller, %i[provider] => :environment do |_task, args|
-    args.with_defaults(provider: 'greenlight')
+  task meetings_poller: :environment do
 
-    online_meetings = Room.joins(:user)
-                          .where(users: { provider: args[:provider] }, online: true)
+    online_meetings = Room.includes(:user).where(online: true)
 
-    RunningMeetingChecker.new(rooms: online_meetings, provider: args[:provider]).call
+    RunningMeetingChecker.new(rooms: online_meetings).call
 
   rescue StandardError => e
     err "Unable to poll meetings. Error: #{e}"
   end
 
   # Does a check if a recording from a recent meeting has not been created in GL
-  task :recordings_poller, %i[provider] => :environment do |_task, args|
-    args.with_defaults(provider: 'greenlight')
+  task :recordings_poller, %i[interval] => :environment do |_task, args|
+    # Returns the providers which have recordings disabled
+    disabled_recordings = RoomsConfiguration.joins(:meeting_option).where('meeting_option.name': 'record', value: 'false').pluck(:provider)
 
-    recent_meetings = Room.joins(:user)
-                          .where(users: { provider: args[:provider] }, last_session: 1.hour.ago..Time.zone.now, online: false)
-
-    # Fetch all rooms associated with the recent meetings in advance.
-    recent_rooms = Room.where(meeting_id: recent_meetings.pluck(:meeting_id))
-                       .index_by(&:meeting_id)
+    # Returns the rooms which have been online in the last hour and have not been recorded yet
+    recent_meetings = Room.includes(:user)
+                          .where(last_session: args[:interval].to_i.minutes.ago..Time.zone.now, online: false)
+                          .where.not(user: { provider: disabled_recordings })
 
     recent_meetings.each do |meeting|
-      recordings = BigBlueButtonApi.new(provider: args[:provider]).get_recordings(meeting_ids: meeting.meeting_id)
+      recordings = BigBlueButtonApi.new(provider: meeting.user.provider).get_recordings(meeting_ids: meeting.meeting_id)
       recordings[:recordings].each do |recording|
         next if Recording.exists?(record_id: recording[:recordID])
 
-        room = recent_rooms[recording[:meetingID]]
-        room.update(recordings_processing: room.recordings_processing - 1) unless room.recordings_processing.zero? # cond. in case both callbacks fail
+        unless meeting.recordings_processing.zero?
+          meeting.update(recordings_processing: meeting.recordings_processing - 1) # cond. in case both callbacks fail
+        end
 
         RecordingCreator.new(recording:).call
 
@@ -58,27 +56,22 @@ namespace :poller do
     end
   end
 
-  task :run_all, %i[provider interval] => :environment do |_task, args|
-    args.with_defaults(provider: 'greenlight', interval: 3600)
+  task :run_all, %i[interval] => :environment do |_task, args|
+    args.with_defaults(interval: 60)
+
+    poller_tasks = %w[poller:meetings_poller poller:recordings_poller]
 
     loop do
-      begin
-        Rake::Task['poller:meetings_poller'].execute
+      poller_tasks.each do |poller_task|
+        info "Running #{poller_task} at #{Time.zone.now}"
+        Rake::Task[poller_task].invoke(args[:interval])
+        Rake::Task[poller_task].reenable
       rescue StandardError => e
-        err "An error occurred in meetings poller: #{e.message}. Continuing..."
+        err "An error occurred in #{poller_task}: #{e.message}. Continuing..."
       end
 
-      # Pool recordings only if the provider has record enabled
-      record_enabled = RoomsConfiguration.joins(:meeting_option).find_by(provider: args[:provider], 'meeting_option.name': 'record').value
-      if record_enabled
-        begin
-          Rake::Task['poller:recordings_poller'].execute
-        rescue StandardError => e
-          err "An error occurred in recordings poller: #{e.message}. Continuing..."
-        end
-      end
-
-      sleep args[:interval].to_i
+      info "Next poller run is scheduled at #{(Time.zone.now + args[:interval].to_i.minutes)}"
+      sleep args[:interval].to_i.minutes
     end
   end
 end

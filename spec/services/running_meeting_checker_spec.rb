@@ -36,7 +36,7 @@ RSpec.describe RunningMeetingChecker, type: :service do
     it 'updates the online status to true' do
       allow(bbb_api).to receive(:get_meeting_info).and_return(bbb_response)
 
-      described_class.new(rooms: Room.all, provider: 'greenlight').call
+      described_class.new(rooms: Room.all).call
 
       expect(online_room.reload.online).to eq(bbb_response[:running])
     end
@@ -46,7 +46,7 @@ RSpec.describe RunningMeetingChecker, type: :service do
     it 'updates the online status to false' do
       allow(bbb_api).to receive(:get_meeting_info).and_raise(BigBlueButton::BigBlueButtonException)
 
-      described_class.new(rooms: Room.all, provider: 'greenlight').call
+      described_class.new(rooms: Room.all).call
 
       expect(online_room.reload.online).to be_falsey
     end
