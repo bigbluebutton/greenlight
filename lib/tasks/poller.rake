@@ -19,7 +19,6 @@
 namespace :poller do
   # Does a check if a meeting set as online is still online
   task meetings_poller: :environment do
-
     online_meetings = Room.includes(:user).where(online: true)
 
     RunningMeetingChecker.new(rooms: online_meetings).call
@@ -70,7 +69,7 @@ namespace :poller do
         err "An error occurred in #{poller_task}: #{e.message}. Continuing..."
       end
 
-      info "Next poller run is scheduled at #{(Time.zone.now + args[:interval].to_i.minutes)}"
+      info "Next poller run is scheduled at #{Time.zone.now + args[:interval].to_i.minutes}"
       sleep args[:interval].to_i.minutes
     end
   end
