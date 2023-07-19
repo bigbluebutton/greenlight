@@ -1,1 +1,29 @@
-bundle exec poller:run_all
+#!/usr/bin/env bash
+
+# Maximum number of attempts to connect to PostgreSQL
+max_attempts=5
+
+# Time in seconds to wait between each attempt
+wait_seconds=15
+
+# Current attempt number
+current_attempt=1
+
+echo "Checking if PostgreSQL is ready..."
+
+while [ $current_attempt -le $max_attempts ]
+do
+    nc -z postgres 5432
+    if [ $? -eq 0 ]; then
+        echo "PostgreSQL is ready, starting the task..."
+        bundle exec rake poller:run_all
+        exit 0
+    fi
+
+    echo "PostgreSQL is not ready, retrying in $wait_seconds seconds..."
+    current_attempt=$(( current_attempt+1 ))
+    sleep $wait_seconds
+done
+
+echo "Failed to connect to PostgreSQL after $max_attempts attempts, exiting."
+exit 1
