@@ -55,6 +55,8 @@ module Api
         if registration.save
           logger.info "association: room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id} on event(id):#{room_user_event_params[:event_id]}"
           data = { "room" => { "friendly_id" => room.friendly_id, "name": room.name, "user" => { "name" => current_user.name }, "external_event_id": registration.event_id } }
+
+          SharedAccess.create(user_id: room.user_id, room_id: room.id)
           render_data data: data, status: :created
         else
           render_error errors: room.errors.to_a, status: :bad_request
