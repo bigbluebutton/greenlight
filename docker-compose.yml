@@ -10,7 +10,7 @@ services:
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=
 
   redis:
     image: redis:6.2-alpine3.17
@@ -21,12 +21,10 @@ services:
 
   greenlight-v3:
     entrypoint: [bin/start]
-    image: gl-job-tasks
+    image: bigbluebutton/greenlight:v3
     container_name: greenlight-v3
     restart: unless-stopped
     env_file: .env
-    environment:
-      - DATABASE_URL=postgres://postgres:password@postgres:5432
     ports:
       - 127.0.0.1:5050:3000
     logging:
@@ -39,7 +37,8 @@ services:
 
   greenlight-v3-poller:
     entrypoint: [bin/poller]
-    image: gl-job-tasks
+    image: bigbluebutton/greenlight:v3
+    container_name: greenlight-v3-poller
     env_file: .env
     depends_on:
       - postgres

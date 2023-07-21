@@ -17,7 +17,31 @@
 # frozen_string_literal: true
 
 namespace :poller do
-  # Does a check if a meeting set as online is still online
+  desc 'Runs all pollers'
+  task :run_all, %i[interval] => :environment do |_task, args|
+    args.with_defaults(interval: 30)
+    interval = args[:interval].to_i.minutes # set the interval in minutes
+
+    poller_tasks = %w[poller:meetings_poller poller:recordings_poller]
+
+    info "Running poller with interval #{interval}"
+    loop do
+      poller_tasks.each do |poller_task|
+        info "Running #{poller_task} at #{Time.zone.now}"
+        Rake::Task[poller_task].invoke(interval)
+      rescue StandardError => e
+        err "An error occurred in #{poller_task}: #{e.message}. Continuing..."
+      end
+
+      sleep interval
+
+      poller_tasks.each do |poller_task|
+        Rake::Task[poller_task].reenable
+      end
+    end
+  end
+
+  desc 'Polls meetings to check if they are still online'
   task meetings_poller: :environment do
     online_meetings = Room.includes(:user).where(online: true)
 
@@ -27,14 +51,15 @@ namespace :poller do
     err "Unable to poll meetings. Error: #{e}"
   end
 
-  # Does a check if a recording from a recent meeting has not been created in GL
+  desc 'Polls recordings to check if they have been created in GL'
   task :recordings_poller, %i[interval] => :environment do |_task, args|
     # Returns the providers which have recordings disabled
-    disabled_recordings = RoomsConfiguration.joins(:meeting_option).where('meeting_option.name': 'record', value: 'false').pluck(:provider)
+    disabled_recordings = RoomsConfiguration.joins(:meeting_option).where(meeting_option: { name: 'record' }, value: 'false').pluck(:provider)
 
-    # Returns the rooms which have been online in the last hour and have not been recorded yet
+    # Returns the rooms which have been online recently and have not been recorded yet
+    recent_meeting_interval = args[:interval] * 2
     recent_meetings = Room.includes(:user)
-                          .where(last_session: args[:interval].to_i.minutes.ago..Time.zone.now, online: false)
+                          .where(last_session: recent_meeting_interval.ago..Time.zone.now, online: false)
                           .where.not(user: { provider: disabled_recordings })
 
     recent_meetings.each do |meeting|
@@ -52,25 +77,6 @@ namespace :poller do
         err "Unable to poll Recording:\nRecordID: #{recording[:recordID]}\nError: #{e}"
         next
       end
-    end
-  end
-
-  task :run_all, %i[interval] => :environment do |_task, args|
-    args.with_defaults(interval: 60)
-
-    poller_tasks = %w[poller:meetings_poller poller:recordings_poller]
-
-    loop do
-      poller_tasks.each do |poller_task|
-        info "Running #{poller_task} at #{Time.zone.now}"
-        Rake::Task[poller_task].invoke(args[:interval])
-        Rake::Task[poller_task].reenable
-      rescue StandardError => e
-        err "An error occurred in #{poller_task}: #{e.message}. Continuing..."
-      end
-
-      info "Next poller run is scheduled at #{Time.zone.now + args[:interval].to_i.minutes}"
-      sleep args[:interval].to_i.minutes
     end
   end
 end
