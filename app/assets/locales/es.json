@@ -1,406 +1,406 @@
 {
-  "start:": "Iniciar",
-  "search:": "Buscar",
-  "home:": "Inicio",
-  "previous:": "Anterior",
-  "back:": "Atrás",
-  "next:": "Siguiente",
-  "view:": "Ver",
-  "join:": "Unirme",
-  "edit:": "Editar",
-  "save:": "Guardar",
-  "save_changes:": "Guardar Cambios",
-  "update:": "Actualizar",
-  "report:": "Reportar",
-  "share:": "Compartir",
-  "cancel:": "Cancelar",
-  "close:": "Cerrar",
-  "delete:": "Borrar",
-  "copy:": "Copiar enlace de acceso",
-  "or:": "O",
-  "online:": "Online",
-  "help_center:": "Centro de Ayuda",
-  "are_you_sure:": "¿Estás seguro?",
-  "return_home:": "Volver al Inicio",
-  "created_at:": "Creado el",
-  "no_result_search_input:": "No se han encontrado resultados para \"{{ searchInput }}\"",
-  "action_permanent:": "Esta acción no se puede revertir.",
+  "start": "Iniciar",
+  "search": "Buscar",
+  "home": "Inicio",
+  "previous": "Anterior",
+  "back": "Atrás",
+  "next": "Siguiente",
+  "view": "Ver",
+  "join": "Unirme",
+  "edit": "Editar",
+  "save": "Guardar",
+  "save_changes": "Guardar Cambios",
+  "update": "Actualizar",
+  "report": "Reportar",
+  "share": "Compartir",
+  "cancel": "Cancelar",
+  "close": "Cerrar",
+  "delete": "Borrar",
+  "copy": "Copiar enlace de acceso",
+  "or": "O",
+  "online": "Online",
+  "help_center": "Centro de Ayuda",
+  "are_you_sure": "¿Estás seguro?",
+  "return_home": "Volver al Inicio",
+  "created_at": "Creado el",
+  "no_result_search_input": "No se han encontrado resultados para \"{{ searchInput }}\"",
+  "action_permanent": "Esta acción no se puede revertir.",
   "homepage": {
-    "welcome_bbb:": "Bienvenido a Lessons 8.0 Auditorium.",
-    "bigbluebutton_description:": "Lessons 8.0 Auditorium es un sistema de conferencias para clases en línea. La plataforma maximiza el tiempo para el aprendizaje aplicado al permitir a los estudiantes colaborar y recibir retroalimentación en tiempo real.",
-    "greenlight_description:": "Crea tus propias salas para albergar sesiones, o únete a otras mediante un breve y cómodo enlace.",
-    "learn_more:": "Aprende más acerca de Lessons 8.0",
-    "explore_features:": "Explora nuestras características",
-    "meeting_title:": "Inicia una sesión de vídeo",
-    "meeting_description:": "Inicia una clase virtual con vídeo, audio, pantalla compartida, chat y todas las herramientas necesarias para el aprendizaje aplicado.",
-    "recording_title:": "Graba tus sesiones de vídeo",
-    "recording_description:": "Graba las sesiones de Lessons 8.0 Auditorium y compártelas con los alumnos para repasar y reflexionar sobre el material.",
-    "settings_title:": "Gestiona tus salas",
-    "settings_description:": "Configura tus salas y ajustes de conferencias para estar al mando de un ambiente eficaz.",
-    "and_more_title:": "¡Y más!",
-    "and_more_description:": "Lessons 8.0 Auditorium ofrece herramientas integradas para el aprendizaje aplicado y está diseñado para ahorrarte tiempo durante la clase.",
-    "enter_meeting_url:": "Escribe el enlace de acceso",
-    "enter_meeting_url_instruction:": "Por favor, introduce la URL de tu clase o reunión en el campo de abajo."
+    "welcome_bbb": "Bienvenido a Lessons 8.0 Auditorium.",
+    "bigbluebutton_description": "Lessons 8.0 Auditorium es un sistema de conferencias para clases en línea. La plataforma maximiza el tiempo para el aprendizaje aplicado al permitir a los estudiantes colaborar y recibir retroalimentación en tiempo real.",
+    "greenlight_description": "Crea tus propias salas para albergar sesiones, o únete a otras mediante un breve y cómodo enlace.",
+    "learn_more": "Aprende más acerca de Lessons 8.0",
+    "explore_features": "Explora nuestras características",
+    "meeting_title": "Inicia una sesión de vídeo",
+    "meeting_description": "Inicia una clase virtual con vídeo, audio, pantalla compartida, chat y todas las herramientas necesarias para el aprendizaje aplicado.",
+    "recording_title": "Graba tus sesiones de vídeo",
+    "recording_description": "Graba las sesiones de Lessons 8.0 Auditorium y compártelas con los alumnos para repasar y reflexionar sobre el material.",
+    "settings_title": "Gestiona tus salas",
+    "settings_description": "Configura tus salas y ajustes de conferencias para estar al mando de un ambiente eficaz.",
+    "and_more_title": "¡Y más!",
+    "and_more_description": "Lessons 8.0 Auditorium ofrece herramientas integradas para el aprendizaje aplicado y está diseñado para ahorrarte tiempo durante la clase.",
+    "enter_meeting_url": "Escribe el enlace de acceso",
+    "enter_meeting_url_instruction": "Por favor, introduce la URL de tu clase o reunión en el campo de abajo."
   },
   "authentication": {
-    "sign_in:": "Iniciar sesión",
-    "sign_up:": "Registrarme",
-    "sign_out:": "Cerrar sesión",
-    "email:": "Correo electrónico",
-    "password:": "Contraseña",
-    "confirm_password:": "Confirmar contraseña",
-    "enter_email:": "Escribe tu correo electrónico",
-    "enter_name:": "Escribe tu nombre",
-    "remember_me:": "Recordarme",
-    "forgot_password:": "Olvidé mi contraseña",
-    "dont_have_account:": "¿No tienes una cuenta?",
-    "create_account:": "Crear cuenta",
-    "create_an_account:": "Crea una cuenta",
-    "already_have_account:": "¿Ya tienes una cuenta?"
+    "sign_in": "Iniciar sesión",
+    "sign_up": "Registrarme",
+    "sign_out": "Cerrar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirm_password": "Confirmar contraseña",
+    "enter_email": "Escribe tu correo electrónico",
+    "enter_name": "Escribe tu nombre",
+    "remember_me": "Recordarme",
+    "forgot_password": "Olvidé mi contraseña",
+    "dont_have_account": "¿No tienes una cuenta?",
+    "create_account": "Crear cuenta",
+    "create_an_account": "Crea una cuenta",
+    "already_have_account": "¿Ya tienes una cuenta?"
   },
-  "user:": {
-    "user:": "Usuario",
-    "users:": "Usuarios",
-    "name:": "Nombre",
-    "email_address:": "Correo electrónico",
-    "authenticator:": "Autenticador",
-    "full_name:": "Nombre completo",
-    "no_user_found:": "Usuario no encontrado",
-    "type_three_characters:": "Por favor escribe tres (3) caracteres o más para mostrar los otros usuarios.",
-    "search_not_found:": "No se encontraron usuarios",
-    "profile:": {
-      "profile:": "Perfil",
-      "language:": "Idioma",
-      "role:": "Rol",
-      "administrator:": "Administrador",
-      "guest:": "Invitado"
+  "user": {
+    "user": "Usuario",
+    "users": "Usuarios",
+    "name": "Nombre",
+    "email_address": "Correo electrónico",
+    "authenticator": "Autenticador",
+    "full_name": "Nombre completo",
+    "no_user_found": "Usuario no encontrado",
+    "type_three_characters": "Por favor escribe tres (3) caracteres o más para mostrar los otros usuarios.",
+    "search_not_found": "No se encontraron usuarios",
+    "profile": {
+      "profile": "Perfil",
+      "language": "Idioma",
+      "role": "Rol",
+      "administrator": "Administrador",
+      "guest": "Invitado"
     },
-    "account:": {
-      "account_info:": "Infrmación de la cuenta",
-      "delete_account:": "Eliminar cuenta",
-      "change_password:": "Cambiar contraseña",
-      "reset_password:": "Restablecer contraseña",
-      "update_account_info:": "Actualizar información de la cuenta",
-      "current_password:": "Contraseña actual",
-      "new_password:": "Nueva contraseña",
-      "confirm_password:": "Confirmar contraseña",
-      "permanently_delete_account:": "Borrar tu cuenta permanentemente",
-      "delete_account_description:": "Si decides eliminar tu cuenta, NO podrás recuperarla. \n Se eliminará toda la información relativa a tu cuenta, incluidos los ajustes, las salas y las grabaciones.",
-      "delete_account_confirmation:": "Sí, quiero eliminar mi cuenta",
-      "are_you_sure_delete_account:": "¿Estás seguro que quieres eliminar tu cuenta?"
+    "account": {
+      "account_info": "Infrmación de la cuenta",
+      "delete_account": "Eliminar cuenta",
+      "change_password": "Cambiar contraseña",
+      "reset_password": "Restablecer contraseña",
+      "update_account_info": "Actualizar información de la cuenta",
+      "current_password": "Contraseña actual",
+      "new_password": "Nueva contraseña",
+      "confirm_password": "Confirmar contraseña",
+      "permanently_delete_account": "Borrar tu cuenta permanentemente",
+      "delete_account_description": "Si decides eliminar tu cuenta, NO podrás recuperarla. \n Se eliminará toda la información relativa a tu cuenta, incluidos los ajustes, las salas y las grabaciones.",
+      "delete_account_confirmation": "Sí, quiero eliminar mi cuenta",
+      "are_you_sure_delete_account": "¿Estás seguro que quieres eliminar tu cuenta?"
     },
-    "avatar:": {
-      "upload_avatar:": "Cargar Avatar",
-      "delete_avatar:": "Borrar Avatar",
-      "crop_avatar:": "Recortar Avatar"
+    "avatar": {
+      "upload_avatar": "Cargar Avatar",
+      "delete_avatar": "Borrar Avatar",
+      "crop_avatar": "Recortar Avatar"
     },
-    "pending:": {
-      "title:": "Registro pendiente",
-      "message:": "Gracias por registrarte. Tu cuenta está pendiente de aprobación por un administrador."
+    "pending": {
+      "title": "Registro pendiente",
+      "message": "Gracias por registrarte. Tu cuenta está pendiente de aprobación por un administrador."
     }
   },
-  "room:": {
-    "room:": "Sala",
-    "rooms:": "Salas",
-    "room_name:": "Nombre de la sala",
-    "add_new_room:": "+ Nueva sala",
-    "create_room:": "Crear sala",
-    "delete_room:": "Borrar sala",
-    "create_new_room:": "Crear nueva sala",
-    "enter_room_name:": "Esribe el nombre de la sala",
-    "shared_by:": "compartido por ",
-    "last_session:": "Última sesión: {{ localizedTime }}",
-    "no_last_session:": "No se han creado sesiones anteriores",
-    "search_not_found:": "No se encontraron salas",
-    "rooms_list_is_empty:": "¡No tienes ninguna sala aún!",
-    "rooms_list_empty_create_room:": "Crea tu primera sala haciendo clic en el botón de abajo e introduciendo un nombre de sala.",
-    "meeting:": {
-      "start_meeting:": "Iniciar sesión de vídeo",
-      "join_meeting:": "Unirme",
-      "meeting_invitation:": "Has sido invitado a unirte",
-      "meeting_not_started:": "La sesión aún no ha empezado",
-      "join_meeting_automatically:": "Te unirás automáticamente cuando la sesión inicie",
-      "recording_consent:": "Reconozco que esta sesión puede ser grabada. Esto puede incluir mi voz y vídeo si está habilitado."
+  "room": {
+    "room": "Sala",
+    "rooms": "Salas",
+    "room_name": "Nombre de la sala",
+    "add_new_room": "+ Nueva sala",
+    "create_room": "Crear sala",
+    "delete_room": "Borrar sala",
+    "create_new_room": "Crear nueva sala",
+    "enter_room_name": "Esribe el nombre de la sala",
+    "shared_by": "compartido por ",
+    "last_session": "Última sesión: {{ localizedTime }}",
+    "no_last_session": "No se han creado sesiones anteriores",
+    "search_not_found": "No se encontraron salas",
+    "rooms_list_is_empty": "¡No tienes ninguna sala aún!",
+    "rooms_list_empty_create_room": "Crea tu primera sala haciendo clic en el botón de abajo e introduciendo un nombre de sala.",
+    "meeting": {
+      "start_meeting": "Iniciar sesión de vídeo",
+      "join_meeting": "Unirme",
+      "meeting_invitation": "Has sido invitado a unirte",
+      "meeting_not_started": "La sesión aún no ha empezado",
+      "join_meeting_automatically": "Te unirás automáticamente cuando la sesión inicie",
+      "recording_consent": "Reconozco que esta sesión puede ser grabada. Esto puede incluir mi voz y vídeo si está habilitado."
     },
-    "presentation:": {
-      "presentation:": "Presentación",
-      "click_to_upload:": "Click para subir",
-      "drag_and_drop:": " o arrastra y suelta",
-      "upload_description:": "Carga cualquier documento ofimático o archivo PDF. Dependiendo del tamaño del archivo, es posible que se necesite más tiempo para cargarlo antes de poder utilizarlo.",
-      "are_you_sure_delete_presentation:": "¿Estás seguro de borrar esta presentación?"
+    "presentation": {
+      "presentation": "Presentación",
+      "click_to_upload": "Click para subir",
+      "drag_and_drop": " o arrastra y suelta",
+      "upload_description": "Carga cualquier documento ofimático o archivo PDF. Dependiendo del tamaño del archivo, es posible que se necesite más tiempo para cargarlo antes de poder utilizarlo.",
+      "are_you_sure_delete_presentation": "¿Estás seguro de borrar esta presentación?"
     },
-    "shared_access:": {
-      "access:": "Acceso",
-      "add_share_access:": "+ Compartir acceso",
-      "share_room_access:": "Compartir acceso a la sala",
-      "add_some_users:": "¡Tiempo de añadir algunos usuarios!",
-      "add_some_users_description:": "Para añadir nuevos usuarios, clic en el botón de abajo y busca o selecciona los usuarios con los que deseas compartir esta sala.",
-      "delete_shared_access:": "Borrar acceso compartido",
-      "are_you_sure_delete_shared_access:": "¿Estás seguro de eliminar este acceso compartido?"
+    "shared_access": {
+      "access": "Acceso",
+      "add_share_access": "+ Compartir acceso",
+      "share_room_access": "Compartir acceso a la sala",
+      "add_some_users": "¡Tiempo de añadir algunos usuarios!",
+      "add_some_users_description": "Para añadir nuevos usuarios, clic en el botón de abajo y busca o selecciona los usuarios con los que deseas compartir esta sala.",
+      "delete_shared_access": "Borrar acceso compartido",
+      "are_you_sure_delete_shared_access": "¿Estás seguro de eliminar este acceso compartido?"
     },
-    "settings:": {
-      "settings:": "Ajustes",
-      "room_name:": "Nombre de la sala",
-      "user_settings:": "Ajustes de usuarios",
-      "allow_room_to_be_recorded:": "Permitir que las salas sean grabadas",
-      "require_signed_in:": "Exigir a los usuarios que inicien sesión antes de unirse",
-      "require_signed_in_message:": "Debes iniciar sesión para unirte a esta sala.",
-      "require_mod_approval:": "Requerir la aprobación del Moderador antes de unirse",
-      "allow_any_user_to_start:": "Permitir a cualquier usuario unirse a esta sala",
-      "all_users_join_as_mods:": "Todos los usuarios se unen como Moderadores",
-      "mute_users_on_join:": "Silenciar a los usuarios cuando se unen",
-      "generate:": "Generar",
-      "access_code:": "Código de acceso",
-      "mod_access_code:": "Código de acceso del Moderador",
-      "mod_access_code_optional:": "Código de acceso del Moderador (optional)",
-      "access_code_required:": "Por favor introduce el código de acceso",
-      "wrong_access_code:": "Código de acceso incorrecto",
-      "generate_viewers_access_code:": "Generar código de acceso para Espectadores",
-      "generate_mods_access_code:": "Generar código de acceso para Moderadores",
-      "are_you_sure_delete_room:": "¿Estás seguro de eliminar esta sala?"
+    "settings": {
+      "settings": "Ajustes",
+      "room_name": "Nombre de la sala",
+      "user_settings": "Ajustes de usuarios",
+      "allow_room_to_be_recorded": "Permitir que las salas sean grabadas",
+      "require_signed_in": "Exigir a los usuarios que inicien sesión antes de unirse",
+      "require_signed_in_message": "Debes iniciar sesión para unirte a esta sala.",
+      "require_mod_approval": "Requerir la aprobación del Moderador antes de unirse",
+      "allow_any_user_to_start": "Permitir a cualquier usuario unirse a esta sala",
+      "all_users_join_as_mods": "Todos los usuarios se unen como Moderadores",
+      "mute_users_on_join": "Silenciar a los usuarios cuando se unen",
+      "generate": "Generar",
+      "access_code": "Código de acceso",
+      "mod_access_code": "Código de acceso del Moderador",
+      "mod_access_code_optional": "Código de acceso del Moderador (optional)",
+      "access_code_required": "Por favor introduce el código de acceso",
+      "wrong_access_code": "Código de acceso incorrecto",
+      "generate_viewers_access_code": "Generar código de acceso para Espectadores",
+      "generate_mods_access_code": "Generar código de acceso para Moderadores",
+      "are_you_sure_delete_room": "¿Estás seguro de eliminar esta sala?"
     }
   },
-  "recording:": {
-    "recording:": "Grabación",
-    "recordings:": "Grabaciones",
-    "name:": "Nombre",
-    "length:": "Longitud",
-    "users:": "Usuarios",
-    "visibility:": "Visibilidad",
-    "formats:": "Formatos",
-    "published:": "Publicado",
-    "unpublished:": "No publicado",
-    "protected:": "Protegido",
-    "length_in_minutes:": "{{recording.length}} min.",
-    "processing_recording:": "Procesando la grabación, esto puede durar varios minutos...",
-    "copy_recording_urls:": "Copiar Url(s) de la grabación",
-    "recordings_list_empty:": "¡No tienes grabaciones aún!",
-    "recordings_list_empty_description:": "Las grabaciones aparecerán aquí después de iniciar una sesión y grabarla.",
-    "delete_recording:": "Borrar grabación",
-    "are_you_sure_delete_recording:": "¿Estás seguro de borrar esta grabación?",
-    "search_not_found:": "No se encontraron grabaciones"
+  "recording": {
+    "recording": "Grabación",
+    "recordings": "Grabaciones",
+    "name": "Nombre",
+    "length": "Longitud",
+    "users": "Usuarios",
+    "visibility": "Visibilidad",
+    "formats": "Formatos",
+    "published": "Publicado",
+    "unpublished": "No publicado",
+    "protected": "Protegido",
+    "length_in_minutes": "{{recording.length}} min.",
+    "processing_recording": "Procesando la grabación, esto puede durar varios minutos...",
+    "copy_recording_urls": "Copiar Url(s) de la grabación",
+    "recordings_list_empty": "¡No tienes grabaciones aún!",
+    "recordings_list_empty_description": "Las grabaciones aparecerán aquí después de iniciar una sesión y grabarla.",
+    "delete_recording": "Borrar grabación",
+    "are_you_sure_delete_recording": "¿Estás seguro de borrar esta grabación?",
+    "search_not_found": "No se encontraron grabaciones"
   },
-  "admin:": {
-    "admin_panel:": "Panel de Administrador",
-    "manage_users:": {
-      "manage_users:": "Gestionar usuarios",
-      "active:": "Activar",
-      "approve:": "Aprobar",
-      "decline:": "Declinar",
-      "pending:": "Pendiente",
-      "banned:": "Baneado",
-      "ban:": "Banear",
-      "unban:": "Desbanear",
-      "deleted:": "Borrar",
-      "invited_tab:": "Invitados",
-      "invite_user:": "Invitar usuario",
-      "send_invitation:": "Enviar invitación",
-      "enter_user_email:": "Introduce el correo electrónico del usuario",
-      "new_user:": "Nuevo usuario",
-      "add_new_user:": "Nuevo usuario",
-      "create_new_user:": "Crear nuevo usuario",
-      "edit_user:": "Editar usuario",
-      "delete_user:": "Borrar usuario",
-      "users_edit_path:": "Usuarios/Editar",
-      "create_account:": "Crear cuenta",
-      "create_room:": "Crear sala",
-      "create_new_room:": "Crear nueva sala",
-      "user_created_at:": "Creado: {{localizedTime}}",
-      "are_you_sure_delete_account:": "¿Estás seguro de eliminar la cuenta de {{user.name}}?",
-      "delete_account_warning:": "Si decides eliminar esta cuenta, NO podrás recuperarla.",
-      "empty_active_users:": "¡Aún no hay usuarios activos en este servidor!",
-      "empty_active_users_subtext:": "Cuando el estado de un usuario cambie a activo, aparecerá aquí.",
-      "empty_pending_users:": "¡Aún no hay usuarios pendientes en este servidor!",
-      "empty_pending_users_subtext:": "¡Cuando el estado de un usuario cambie a pendiente, aparecerá aquí.",
-      "empty_banned_users:": "¡Aún no hay usuarios baneados en este servidor!",
-      "empty_banned_users_subtext:": "Cuando el estado de un usuario cambie a baneado, aparecerá aquí.",
-      "empty_invited_users:": "¡Aún no hay usuarios invitados en este servidor!",
-      "empty_invited_users_subtext:": "Cuando el estado de un usuario cambie a invitado, aparecerá aquí.",
-      "invited:": {
-        "time_sent:": "Tiempo enviado",
-        "valid:": "Válido"
+  "admin": {
+    "admin_panel": "Panel de Administrador",
+    "manage_users": {
+      "manage_users": "Gestionar usuarios",
+      "active": "Activar",
+      "approve": "Aprobar",
+      "decline": "Declinar",
+      "pending": "Pendiente",
+      "banned": "Baneado",
+      "ban": "Banear",
+      "unban": "Desbanear",
+      "deleted": "Borrar",
+      "invited_tab": "Invitados",
+      "invite_user": "Invitar usuario",
+      "send_invitation": "Enviar invitación",
+      "enter_user_email": "Introduce el correo electrónico del usuario",
+      "new_user": "Nuevo usuario",
+      "add_new_user": "Nuevo usuario",
+      "create_new_user": "Crear nuevo usuario",
+      "edit_user": "Editar usuario",
+      "delete_user": "Borrar usuario",
+      "users_edit_path": "Usuarios/Editar",
+      "create_account": "Crear cuenta",
+      "create_room": "Crear sala",
+      "create_new_room": "Crear nueva sala",
+      "user_created_at": "Creado: {{localizedTime}}",
+      "are_you_sure_delete_account": "¿Estás seguro de eliminar la cuenta de {{user.name}}?",
+      "delete_account_warning": "Si decides eliminar esta cuenta, NO podrás recuperarla.",
+      "empty_active_users": "¡Aún no hay usuarios activos en este servidor!",
+      "empty_active_users_subtext": "Cuando el estado de un usuario cambie a activo, aparecerá aquí.",
+      "empty_pending_users": "¡Aún no hay usuarios pendientes en este servidor!",
+      "empty_pending_users_subtext": "¡Cuando el estado de un usuario cambie a pendiente, aparecerá aquí.",
+      "empty_banned_users": "¡Aún no hay usuarios baneados en este servidor!",
+      "empty_banned_users_subtext": "Cuando el estado de un usuario cambie a baneado, aparecerá aquí.",
+      "empty_invited_users": "¡Aún no hay usuarios invitados en este servidor!",
+      "empty_invited_users_subtext": "Cuando el estado de un usuario cambie a invitado, aparecerá aquí.",
+      "invited": {
+        "time_sent": "Tiempo enviado",
+        "valid": "Válido"
       }
     },
-    "server_rooms:": {
-      "server_rooms:": "Salas del servidor",
-      "name:": "Nombre",
-      "owner:": "Propietario",
-      "room_id:": "ID de sala",
-      "participants:": "Participantes",
-      "status:": "Estatus",
-      "running:": "Iniciada",
-      "not_running:": "No iniciada",
-      "active:": "Activa",
-      "current_session:": "Sesión actual: {{lastSession}}",
-      "last_session:": "Última sesión: {{localizedTime}}",
-      "no_meeting_yet:": "No hay salas aún.",
-      "delete_server_rooms:": "Eliminar sala del servidor",
-      "resync_recordings:": "Re-Sincronizar grabaciones",
-      "empty_room_list:": "¡Aún no hay salas en el servidor!",
-      "empty_room_list_subtext:": "Las salas aparecerán aquí luego de inciar tu primera sala."
+    "server_rooms": {
+      "server_rooms": "Salas del servidor",
+      "name": "Nombre",
+      "owner": "Propietario",
+      "room_id": "ID de sala",
+      "participants": "Participantes",
+      "status": "Estatus",
+      "running": "Iniciada",
+      "not_running": "No iniciada",
+      "active": "Activa",
+      "current_session": "Sesión actual: {{lastSession}}",
+      "last_session": "Última sesión: {{localizedTime}}",
+      "no_meeting_yet": "No hay salas aún.",
+      "delete_server_rooms": "Eliminar sala del servidor",
+      "resync_recordings": "Re-Sincronizar grabaciones",
+      "empty_room_list": "¡Aún no hay salas en el servidor!",
+      "empty_room_list_subtext": "Las salas aparecerán aquí luego de inciar tu primera sala."
     },
-    "server_recordings:": {
-      "server_recordings:": "Grabaciones del servidor",
-      "latest_recordings:": "Últimas grabaciones",
-      "no_recordings_found:": "No se encontraron grabaciones."
+    "server_recordings": {
+      "server_recordings": "Grabaciones del servidor",
+      "latest_recordings": "Últimas grabaciones",
+      "no_recordings_found": "No se encontraron grabaciones."
     },
-    "site_settings:": {
-      "site_settings:": "Ajustes del sitio",
-      "customize_greenlight:": "Personalizar Lessons 8.0 Auditorium",
-      "appearance:": {
-        "appearance:": "Apariencia",
-        "brand_color:": "Color de la marca",
-        "regular:": "Regular",
-        "lighten:": "Claro",
-        "brand_image:": "Imagen de la marca",
-        "click_to_upload:": "Click para subir",
-        "drag_and_drop:": " o arrastra y suelta",
-        "upload_brand_image_description:": "Carga cualquier archivo PNG, JPG o SVG. Dependiendo del tamaño del archivo, es posible que se necesite más tiempo para cargarlo antes de poder utilizarlo.",
-        "remove_branding_image:": "Borrar imagen de marca"
+    "site_settings": {
+      "site_settings": "Ajustes del sitio",
+      "customize_greenlight": "Personalizar Lessons 8.0 Auditorium",
+      "appearance": {
+        "appearance": "Apariencia",
+        "brand_color": "Color de la marca",
+        "regular": "Regular",
+        "lighten": "Claro",
+        "brand_image": "Imagen de la marca",
+        "click_to_upload": "Click para subir",
+        "drag_and_drop": " o arrastra y suelta",
+        "upload_brand_image_description": "Carga cualquier archivo PNG, JPG o SVG. Dependiendo del tamaño del archivo, es posible que se necesite más tiempo para cargarlo antes de poder utilizarlo.",
+        "remove_branding_image": "Borrar imagen de marca"
       },
-      "administration:": {
-        "administration:": "Administración",
-        "terms:": "Términos & Condiciones",
-        "privacy:": "Privacidad y Protección de Datos",
-        "privacy_policy:": "Privacidad y Protección de Datos",
-        "change_term_links:": "Cambiar los enlaces de términos que aparecen en la parte inferior de la página",
-        "change_privacy_link:": "Cambiar el enlace de privacidad que aparece en la parte inferior de la página",
-        "change_url:": "Cambiar URL",
-        "enter_link:": "Introduce el enlace aquí"
+      "administration": {
+        "administration": "Administración",
+        "terms": "Términos & Condiciones",
+        "privacy": "Privacidad y Protección de Datos",
+        "privacy_policy": "Privacidad y Protección de Datos",
+        "change_term_links": "Cambiar los enlaces de términos que aparecen en la parte inferior de la página",
+        "change_privacy_link": "Cambiar el enlace de privacidad que aparece en la parte inferior de la página",
+        "change_url": "Cambiar URL",
+        "enter_link": "Introduce el enlace aquí"
       },
-      "settings:": {
-        "settings:": "Ajustes",
-        "allow_users_to_share_rooms:": "Permitir a los usuarios a compartir salas",
-        "allow_users_to_share_rooms_description:": "Si se desactiva, el botón desaparecerá del menú desplegable de opciones de sala, lo que impedirá que los usuarios compartan salas.",
-        "allow_users_to_preupload_presentation:": "Permitir a los usuarios pre-cargar las presentaciones",
-        "allow_users_to_preupload_presentation_description:": "Los usuarios pueden cargar previamente una presentación para utilizarla como presentación predeterminada para esa sala específica"
+      "settings": {
+        "settings": "Ajustes",
+        "allow_users_to_share_rooms": "Permitir a los usuarios a compartir salas",
+        "allow_users_to_share_rooms_description": "Si se desactiva, el botón desaparecerá del menú desplegable de opciones de sala, lo que impedirá que los usuarios compartan salas.",
+        "allow_users_to_preupload_presentation": "Permitir a los usuarios pre-cargar las presentaciones",
+        "allow_users_to_preupload_presentation_description": "Los usuarios pueden cargar previamente una presentación para utilizarla como presentación predeterminada para esa sala específica"
       },
-      "registration:": {
-        "registration:": "Registro",
-        "role_mapping_by_email:": "Mapeo de rol por correo electrónico",
-        "role_mapping_by_email_description:": "Asigna el usuario a un rol utilizando su correo electrónico. Debe tener el formato: rol1=correo1, rol2=correo2",
-        "enter_role_mapping_rule:": "Introduce una regla de mapeo de rol",
-        "resync_on_login:": "Resincronización de datos de usuario en cada inicio de sesión",
-        "resync_on_login_description:": "Resincronizar la información de un usuario cada vez que inicie sesión, haciendo que el proveedor de autenticación externo coincida siempre con la información de Lessons 8.0 Auditorium.",
-        "default_role:": "Rol por defecto",
-        "default_role_description:": "El rol por defecto para asignar a cada nuevo usuario",
-        "registration_method:": "Método de registro",
-        "registration_method_description:": "Cambia la forma en que los usuarios se registran",
-        "registration_methods:": {
-          "open:": "Registro abirtoOpen Registration",
-          "invite:": "Unirse por invitación",
-          "approval:": "Aprobar/Declinar"
+      "registration": {
+        "registration": "Registro",
+        "role_mapping_by_email": "Mapeo de rol por correo electrónico",
+        "role_mapping_by_email_description": "Asigna el usuario a un rol utilizando su correo electrónico. Debe tener el formato: rol1=correo1, rol2=correo2",
+        "enter_role_mapping_rule": "Introduce una regla de mapeo de rol",
+        "resync_on_login": "Resincronización de datos de usuario en cada inicio de sesión",
+        "resync_on_login_description": "Resincronizar la información de un usuario cada vez que inicie sesión, haciendo que el proveedor de autenticación externo coincida siempre con la información de Lessons 8.0 Auditorium.",
+        "default_role": "Rol por defecto",
+        "default_role_description": "El rol por defecto para asignar a cada nuevo usuario",
+        "registration_method": "Método de registro",
+        "registration_method_description": "Cambia la forma en que los usuarios se registran",
+        "registration_methods": {
+          "open": "Registro abirtoOpen Registration",
+          "invite": "Unirse por invitación",
+          "approval": "Aprobar/Declinar"
         }
       }
     },
-    "room_configuration:": {
-      "room_configuration:": "Configuración de sala",
-      "default:": "Opcional (por defecto: habilitado)",
-      "optional:": "Opcional (por defecto: deshabilitado)",
-      "enabled:": "Forzar Habilitado",
-      "disabled:": "Deshabilitado",
-      "configurations:": {
-        "allow_room_to_be_recorded:": "Permitir que las salas sean grabadas",
-        "allow_room_to_be_recorded_description:": "Permite a los propietarios de las salas especificar si desean la opción de grabar una sala o no. Si está activada, el moderador deberá hacer clic en el botón \"Grabar\" una vez iniciada la sesión.",
-        "require_user_signed_in:": "Exigir a los usuarios que inicien sesión antes de unirse",
-        "require_user_signed_in_description:": "Sólo permite a los usuarios con una cuenta Lessons 8.0 Auditorium unirse a la sala. Si no han iniciado sesión, serán redirigidos a la página de inicio de sesión al intentar unirse a una sala.",
-        "require_mod_approval:": "Requerir la aprobación del Moderador antes de unirse",
-        "require_mod_approval_description:": "Avisa al moderador de la sesión cuando un usuario intenta unirse. Si el usuario es aprobado, podrá unirse a la sala.",
-        "allow_any_user_to_start_meeting:": "Permitir a cualquier usuario iniciar una sala",
-        "allow_any_user_to_start_meeting_description:": "Permitir que cualquier usuario inicie la sesión en cualquier momento. Por defecto, sólo el propietario de la sala puede iniciar la sesión.",
-        "allow_users_to_join_as_mods:": "Todos los usuarios se unen como Moderadores",
-        "allow_users_to_join_as_mods_description:": "Dar a todos los usuarios los privilegios de Moderador cuando se unen a la sala.",
-        "mute_users_on_join:": "Silenciar a los usuarios cuando se unen",
-        "mute_users_on_join_description:": "Silencia automáticamente al usuario cuando se une a la sala",
-        "viewer_access_code:": "Código de acceso de Espectador",
-        "viewer_access_code_description:": "Permite a los propietarios de las salas disponer de un código alfanumérico aleatorio que pueden compartir con los usuarios. El código, si se genera, será necesario para que los usuarios se unan a las sesiones de la sala.",
-        "mod_access_code:": "Código de acceso del Moderador",
-        "mod_access_code_description:": "Permite a los propietarios de las salas disponer de un código alfanumérico aleatorio que pueden compartir con los usuarios. El código, si se genera, no será necesario y cuando se utilice en cualquier sesión de sala se unirá al usuario como moderador."
+    "room_configuration": {
+      "room_configuration": "Configuración de sala",
+      "default": "Opcional (por defecto: habilitado)",
+      "optional": "Opcional (por defecto: deshabilitado)",
+      "enabled": "Forzar Habilitado",
+      "disabled": "Deshabilitado",
+      "configurations": {
+        "allow_room_to_be_recorded": "Permitir que las salas sean grabadas",
+        "allow_room_to_be_recorded_description": "Permite a los propietarios de las salas especificar si desean la opción de grabar una sala o no. Si está activada, el moderador deberá hacer clic en el botón \"Grabar\" una vez iniciada la sesión.",
+        "require_user_signed_in": "Exigir a los usuarios que inicien sesión antes de unirse",
+        "require_user_signed_in_description": "Sólo permite a los usuarios con una cuenta Lessons 8.0 Auditorium unirse a la sala. Si no han iniciado sesión, serán redirigidos a la página de inicio de sesión al intentar unirse a una sala.",
+        "require_mod_approval": "Requerir la aprobación del Moderador antes de unirse",
+        "require_mod_approval_description": "Avisa al moderador de la sesión cuando un usuario intenta unirse. Si el usuario es aprobado, podrá unirse a la sala.",
+        "allow_any_user_to_start_meeting": "Permitir a cualquier usuario iniciar una sala",
+        "allow_any_user_to_start_meeting_description": "Permitir que cualquier usuario inicie la sesión en cualquier momento. Por defecto, sólo el propietario de la sala puede iniciar la sesión.",
+        "allow_users_to_join_as_mods": "Todos los usuarios se unen como Moderadores",
+        "allow_users_to_join_as_mods_description": "Dar a todos los usuarios los privilegios de Moderador cuando se unen a la sala.",
+        "mute_users_on_join": "Silenciar a los usuarios cuando se unen",
+        "mute_users_on_join_description": "Silencia automáticamente al usuario cuando se une a la sala",
+        "viewer_access_code": "Código de acceso de Espectador",
+        "viewer_access_code_description": "Permite a los propietarios de las salas disponer de un código alfanumérico aleatorio que pueden compartir con los usuarios. El código, si se genera, será necesario para que los usuarios se unan a las sesiones de la sala.",
+        "mod_access_code": "Código de acceso del Moderador",
+        "mod_access_code_description": "Permite a los propietarios de las salas disponer de un código alfanumérico aleatorio que pueden compartir con los usuarios. El código, si se genera, no será necesario y cuando se utilice en cualquier sesión de sala se unirá al usuario como moderador."
       }
     },
-    "roles:": {
-      "role:": "Rol",
-      "roles:": "Roles",
-      "administrator:": "Administrador",
-      "guest:": "Invitado",
-      "manage_roles:": "Gestionar roles",
-      "delete_role:": "Borrar rol",
-      "are_you_sure_delete_role:": "¿Estás seguro de eliminar este rol?",
-      "enter_role_name:": "Introduce un nombre de rol",
-      "add_role:": "+ Crear rol",
-      "create_role:": "Crear rol",
-      "create_new_role:": "Crea un nuevo rol",
-      "no_role_found:": "No se encontró el rol.",
-      "search_not_found:": "No se encontraron roles",
-      "edit:": {
-        "api_create_room:": "Permite a los usuarios de este rol crear salas a traves del API",
-        "create_room:": "Permite a los usuarios de este rol crear salas",
-        "record:": "Permite a los usuarios de este rol grabar sus sesiones",
-        "manage_users:": "Permite a los usuarios de este rol gestionar usuarios",
-        "manage_rooms:": "Permite a los usuarios de este rol gestionar salas en el servidor",
-        "manage_recordings:": "Permite a los usuarios de este rol gestionar grabaciones en el servidor",
-        "manage_site_settings:": "Permite a los usuarios de este rol a gestionar los ajustes del sistema",
-        "manage_roles:": "Permite a los usuarios de este rol editar otros roles",
-        "shared_list:": "Incluir a los usuarios de este rol en el listado para salas compartidas",
-        "room_limit:": "Límite de sala"
+    "roles": {
+      "role": "Rol",
+      "roles": "Roles",
+      "administrator": "Administrador",
+      "guest": "Invitado",
+      "manage_roles": "Gestionar roles",
+      "delete_role": "Borrar rol",
+      "are_you_sure_delete_role": "¿Estás seguro de eliminar este rol?",
+      "enter_role_name": "Introduce un nombre de rol",
+      "add_role": "+ Crear rol",
+      "create_role": "Crear rol",
+      "create_new_role": "Crea un nuevo rol",
+      "no_role_found": "No se encontró el rol.",
+      "search_not_found": "No se encontraron roles",
+      "edit": {
+        "api_create_room": "Permite a los usuarios de este rol crear salas a traves del API",
+        "create_room": "Permite a los usuarios de este rol crear salas",
+        "record": "Permite a los usuarios de este rol grabar sus sesiones",
+        "manage_users": "Permite a los usuarios de este rol gestionar usuarios",
+        "manage_rooms": "Permite a los usuarios de este rol gestionar salas en el servidor",
+        "manage_recordings": "Permite a los usuarios de este rol gestionar grabaciones en el servidor",
+        "manage_site_settings": "Permite a los usuarios de este rol a gestionar los ajustes del sistema",
+        "manage_roles": "Permite a los usuarios de este rol editar otros roles",
+        "shared_list": "Incluir a los usuarios de este rol en el listado para salas compartidas",
+        "room_limit": "Límite de sala"
       }
     }
   },
-  "toast:": {
-    "success:": {
-      "user:": {
-        "user_created:": "Se ha creado un nuevo usuario.",
-        "user_updated:": "El usuario ha sido actualizado.",
-        "user_deleted:": "El usuario se ha eliminado.",
-        "avatar_updated:": "El avatar se ha actualizado.",
-        "password_updated:": "La contraseña se ha actualizado.",
-        "account_activated:": "Tu cuenta ha sido activada.",
-        "activation_email_sent:": "Se ha enviado un correo electrónico con las instrucciones para activar tu cuenta.",
-        "reset_pwd_email_sent:": "Se ha enviado un correo electrónico con las instructiones para recuperar tu contraseña."
+  "toast": {
+    "success": {
+      "user": {
+        "user_created": "Se ha creado un nuevo usuario.",
+        "user_updated": "El usuario ha sido actualizado.",
+        "user_deleted": "El usuario se ha eliminado.",
+        "avatar_updated": "El avatar se ha actualizado.",
+        "password_updated": "La contraseña se ha actualizado.",
+        "account_activated": "Tu cuenta ha sido activada.",
+        "activation_email_sent": "Se ha enviado un correo electrónico con las instrucciones para activar tu cuenta.",
+        "reset_pwd_email_sent": "Se ha enviado un correo electrónico con las instructiones para recuperar tu contraseña."
       },
-      "session:": {
-        "signed_out:": "has cerrado sesión."
+      "session": {
+        "signed_out": "has cerrado sesión."
       },
-      "room:": {
-        "room_created:": "Se ha creado una nueva sala.",
-        "room_updated:": "La sala se ha actualizado.",
-        "room_deleted:": "Se ha eliminado la sala.",
-        "room_shared:": "Se ha compartido la sala.",
-        "room_unshared:": "La sala ya no es compartida.",
-        "recordings_synced:": "La grabación de la sala se ha sincronizado.",
-        "room_configuration_updated:": "La configuración de la sala se ha actualizado.",
-        "room_setting_updated:": "Se ha actualizado los ajustes de la sala.",
-        "presentation_updated:": "La presentación se ha actualizado.",
-        "presentation_deleted:": "La presentción se ha eliminado.",
-        "joining_meeting:": "Uniéndote a la sala...",
-        "meeting_started:": "Sesión de vídeo iniciada.",
-        "access_code_copied:": "El código de acceso se ha copiado.",
-        "access_code_generated:": "Se ha generado un nuevo código de acceso.",
-        "access_code_deleted:": "El código de acceso se ha eliminado.",
-        "copied_meeting_url:": "Se ha copiado la URL de la sesión. El enlace se puede utilizar para unirse a la sala."
+      "room": {
+        "room_created": "Se ha creado una nueva sala.",
+        "room_updated": "La sala se ha actualizado.",
+        "room_deleted": "Se ha eliminado la sala.",
+        "room_shared": "Se ha compartido la sala.",
+        "room_unshared": "La sala ya no es compartida.",
+        "recordings_synced": "La grabación de la sala se ha sincronizado.",
+        "room_configuration_updated": "La configuración de la sala se ha actualizado.",
+        "room_setting_updated": "Se ha actualizado los ajustes de la sala.",
+        "presentation_updated": "La presentación se ha actualizado.",
+        "presentation_deleted": "La presentción se ha eliminado.",
+        "joining_meeting": "Uniéndote a la sala...",
+        "meeting_started": "Sesión de vídeo iniciada.",
+        "access_code_copied": "El código de acceso se ha copiado.",
+        "access_code_generated": "Se ha generado un nuevo código de acceso.",
+        "access_code_deleted": "El código de acceso se ha eliminado.",
+        "copied_meeting_url": "Se ha copiado la URL de la sesión. El enlace se puede utilizar para unirse a la sala."
       },
-      "site_settings:": {
-        "site_setting_updated:": "Se han actualizado los ajustes del sitio.",
-        "brand_color_updated:": "El color de la marca se ha actualizado.",
-        "brand_image_updated:": "La imagen de la marca se ha actualizado.",
-        "brand_image_deleted:": "La imagen de la marca se ha eliminado.",
-        "privacy_policy_updated:": "La Política de Privacidad se ha actualizado.",
-        "terms_of_service_updated:": "Los Términos del Servicio se han actualizado."
+      "site_settings": {
+        "site_setting_updated": "Se han actualizado los ajustes del sitio.",
+        "brand_color_updated": "El color de la marca se ha actualizado.",
+        "brand_image_updated": "La imagen de la marca se ha actualizado.",
+        "brand_image_deleted": "La imagen de la marca se ha eliminado.",
+        "privacy_policy_updated": "La Política de Privacidad se ha actualizado.",
+        "terms_of_service_updated": "Los Términos del Servicio se han actualizado."
       },
-      "recording:": {
-        "recording_visibility_updated:": "La visibilidad de la grabación se ha actualizado.",
-        "recording_name_updated:": "El nombre de la grabación se ha actualizado.",
-        "recording_deleted:": "La grabación se ha eliminado.",
-        "copied_urls:": "La URL de la grabación se ha copiado."
+      "recording": {
+        "recording_visibility_updated": "La visibilidad de la grabación se ha actualizado.",
+        "recording_name_updated": "El nombre de la grabación se ha actualizado.",
+        "recording_deleted": "La grabación se ha eliminado.",
+        "copied_urls": "La URL de la grabación se ha copiado."
       },
-      "role:": {
-        "role_created:": "Se ha creado un nuevo rol.",
-        "role_updated:": "Se ha actualizado el rol.",
-        "role_deleted:": "Se ha eliminado el rol.",
-        "role_permission_updated:": "El permiso del rol se ha actualizado."
+      "role": {
+        "role_created": "Se ha creado un nuevo rol.",
+        "role_updated": "Se ha actualizado el rol.",
+        "role_deleted": "Se ha eliminado el rol.",
+        "role_permission_updated": "El permiso del rol se ha actualizado."
       },
-      "invitations:": {
-        "invitation_sent:": "Se ha enviado una invitación."
+      "invitations": {
+        "invitation_sent": "Se ha enviado una invitación."
       }
     },
     "error": {
@@ -483,8 +483,8 @@
           "min": "Mínimo permitido es 0",
           "max": "Máximo permitido es 100"
         },
-        "type:": {
-          "error:": "Debes especificar un número"
+        "type": {
+          "error": "Debes especificar un número"
         }
       },
       "room": {
@@ -536,114 +536,114 @@
             "label": "Contraseña",
             "placeholder": "********"
           },
-          "remember_me:": {
-            "label:": "Recordarme"
+          "remember_me": {
+            "label": "Recordarme"
           }
         }
       },
-      "change_password:": {
-        "fields:": {
-          "old_password:": {
-            "label:": "Contraseña actual",
-            "placeholder:": "Introduce tu contraseña"
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Contraseña actual",
+            "placeholder": "Introduce tu contraseña"
           },
-          "new_password:": {
-            "label:": "Nueva contraseña",
-            "placeholder:": "Introduce tu nueva contraseña"
+          "new_password": {
+            "label": "Nueva contraseña",
+            "placeholder": "Introduce tu nueva contraseña"
           },
-          "password_confirmation:": {
-            "label:": "Confirmar contraseña",
-            "placeholder:": "Confirma tu nueva contraseña"
+          "password_confirmation": {
+            "label": "Confirmar contraseña",
+            "placeholder": "Confirma tu nueva contraseña"
           }
         },
-        "validations:": {
-          "old_password:": {
-            "required:": "Introduce tu contraseña actual"
+        "validations": {
+          "old_password": {
+            "required": "Introduce tu contraseña actual"
           }
         }
       },
-      "forget_password:": {
-        "fields:": {
-          "email:": {
-            "label:": "Correo electrónico",
-            "placeholder:": "Introduce tu correo electrónico"
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "Correo electrónico",
+            "placeholder": "Introduce tu correo electrónico"
           }
         },
-        "validations:": {
-          "email:": {
-            "required:": "Por favor introduce tu correo electrónico"
+        "validations": {
+          "email": {
+            "required": "Por favor introduce tu correo electrónico"
           }
         }
       },
-      "reset_password:": {
-        "fields:": {
-          "new_password:": {
-            "label:": "Nueva contraseña",
-            "placeholder:": "Introduce tu nueva contraseña"
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Nueva contraseña",
+            "placeholder": "Introduce tu nueva contraseña"
           },
-          "password_confirmation:": {
-            "label:": "Confirmar contraseña",
-            "placeholder:": "Confirma tu nueva contasena"
+          "password_confirmation": {
+            "label": "Confirmar contraseña",
+            "placeholder": "Confirma tu nueva contasena"
           }
         }
       },
-      "update_user:": {
-        "fields:": {
-          "full_name:": {
-            "label:": "Nombre completo"
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Nombre completo"
           },
-          "email:": {
-            "label:": "Correo electrónico"
+          "email": {
+            "label": "Correo electrónico"
           },
-          "language:": {
-            "label:": "Idioma"
+          "language": {
+            "label": "Idioma"
           },
-          "role:": {
-            "label:": "Rol"
+          "role": {
+            "label": "Rol"
           }
         }
       }
     },
-    "admin:": {
-      "createUser:": {
-        "fields:": {
-          "full_name:": {
-            "label:": "Nombre completo",
-            "placeholder:": "Introduce el nombre completo"
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Nombre completo",
+            "placeholder": "Introduce el nombre completo"
           },
-          "email:": {
-            "label:": "Correo electrónico",
-            "placeholder:": "Introduce el correo electrónico"
+          "email": {
+            "label": "Correo electrónico",
+            "placeholder": "Introduce el correo electrónico"
           },
-          "password:": {
-            "label:": "Contraseña",
-            "placeholder:": "Introduce la contraseña"
+          "password": {
+            "label": "Contraseña",
+            "placeholder": "Introduce la contraseña"
           },
-          "password_confirmation:": {
-            "label:": "Confirmar contraseña",
-            "placeholder:": "Confirma la contraseña"
+          "password_confirmation": {
+            "label": "Confirmar contraseña",
+            "placeholder": "Confirma la contraseña"
           }
         }
       },
-      "invite_user:": {
-        "fields:": {
-          "emails:": {
-            "label:": "Correos electrónicos"
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "Correos electrónicos"
           }
         }
       },
-      "site_settings:": {
-        "fields:": {
-          "value:": {
-            "placeholder:": "Introduce el enlace aquí..."
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "Introduce el enlace aquí..."
           }
         }
       },
-      "roles:": {
-        "fields:": {
-          "name:": {
-            "label:": "Nombre del rol",
-            "placeholder:": "Introduce un nombre de rol..."
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "Nombre del rol",
+            "placeholder": "Introduce un nombre de rol..."
           }
         }
       }
