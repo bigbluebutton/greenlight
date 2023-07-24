@@ -47,21 +47,21 @@
 
 de:
   opengraph:
-    description: "Erfahre mehr über BigBlueButton, die bewährte Open-Source-Lösung für Webkonferenzen, die eine nahtlose virtuelle Zusammenarbeit und Online-Lernerfahrungen ermöglicht."
+    description: "Erfahre mehr über Lessons 8.0 Auditorium, die bewährte Open-Source-Lösung für Webkonferenzen, die eine nahtlose virtuelle Zusammenarbeit und Online-Lernerfahrungen ermöglicht."
   meeting:
     moderator_message: "Um jemanden zur Konferenz einzuladen, verschicke diesen Link:"
     access_code: "Zugangscode: %{code}"
   email:
     activation:
       account_activation: Kontoaktivierung
-      welcome_to_bbb: Willkommen in BigBlueButton!
+      welcome_to_bbb: Willkommen in Lessons 8.0 Auditorium!
       get_started: Klicke auf die Schaltfläche um das Konto zu aktivieren.
       activate_account: Konto aktivieren
       link_expires: Der Link wird in 24 Stunden ungültig.
       if_link_expires: "Sollte der Link abgelaufen sein, dann melde dich bitte an und fordere eine neue Aktivierungs-EMail an."
     invitation:
-      invitation_to_join: BigBlueButton-Einladung
-      you_have_been_invited: "Du wurdest von %{name} eingeladen, ein BigBlueButton-Konto zu erstellen."
+      invitation_to_join: Lessons 8.0 Auditorium-Einladung
+      you_have_been_invited: "Du wurdest von %{name} eingeladen, ein Lessons 8.0 Auditorium-Konto zu erstellen."
       get_started: "Um dich zu registrieren, klicken bitte auf diese Schaltfläche."
       valid_invitation: Die Einladung ist 24 Stunden gültig.
       sign_up: Registrieren

@@ -47,21 +47,21 @@
 
 uk:
   opengraph:
-    description: "Навчайтеся за допомогою BigBlueButton, перевіреного рішення з відкритим кодом для веб-конференцій, яке забезпечує безперебійну віртуальну співпрацю та онлайн-навчання."
+    description: "Навчайтеся за допомогою Lessons 8.0 Auditorium, перевіреного рішення з відкритим кодом для веб-конференцій, яке забезпечує безперебійну віртуальну співпрацю та онлайн-навчання."
   meeting:
     moderator_message: "Щоб запросити когось на зустріч, надайте це посилання:"
     access_code: "Код доступу: %{code}"
   email:
     activation:
       account_activation: Активація облікового запису
-      welcome_to_bbb: Вітаємо в BigBlueButton!
+      welcome_to_bbb: Вітаємо в Lessons 8.0 Auditorium!
       get_started: "Щоб розпочати, будь ласка, активуйте обліковий запис натиснувши кнопку внизу."
       activate_account: Активуйте обліковий запис
       link_expires: Посилання буде дійсним протягом 24 годин.
       if_link_expires: "Якщо посилання втратить дійсність, виконайте вхід та зробіть запит на новий лист."
     invitation:
-      invitation_to_join: Запрошення доєднатись до BigBlueButton
-      you_have_been_invited: "Вас було запрошено створити обліковий запис в BigBlueButton користувачем %{name}"
+      invitation_to_join: Запрошення доєднатись до Lessons 8.0 Auditorium
+      you_have_been_invited: "Вас було запрошено створити обліковий запис в Lessons 8.0 Auditorium користувачем %{name}"
       get_started: "Щоб зареєструватись, натисніть кнопку знизу та слідуйте подальшим крокам."
       valid_invitation: Запрошення дійсне протягом 48 годин.
       sign_up: Реєстрація

@@ -27,7 +27,7 @@
   "action_permanent": "Seda tegevust ei saa tagasi võtta.",
   "homepage": {
     "welcome_bbb": "Tere tulemast BigBlueButtonisse.",
-    "bigbluebutton_description": "BigBlueButton on avatud lähtekoodiga veebikonverentside süsteem veebiklasside jaoks. Platvorm maksimeerib rakendusliku õppe jaoks aega, võimaldades õpilastel teha koostööd ja saada reaalajas tagasisidet.",
+    "bigbluebutton_description": "Lessons 8.0 Auditorium on avatud lähtekoodiga veebikonverentside süsteem veebiklasside jaoks. Platvorm maksimeerib rakendusliku õppe jaoks aega, võimaldades õpilastel teha koostööd ja saada reaalajas tagasisidet.",
     "greenlight_description": "Looge seansside korraldamiseks oma ruume või liituge teistega lühikese ja mugava lingi abil.",
     "learn_more": "Saa BigBlueButtoni kohta rohkem teada",
     "explore_features": "Tutvuge meie funktsioonidega",
@@ -38,7 +38,7 @@
     "settings_title": "Hallake oma ruume",
     "settings_description": "Seadistage oma ruumid ja koosolekuseaded tõhusa klassiruumi jaoks.",
     "and_more_title": "Ja rohkem!",
-    "and_more_description": "BigBlueButton pakub rakendusõppeks sisseehitatud tööriistu ja on loodud teie aja säästmiseks tunni ajal.",
+    "and_more_description": "Lessons 8.0 Auditorium pakub rakendusõppeks sisseehitatud tööriistu ja on loodud teie aja säästmiseks tunni ajal.",
     "enter_meeting_url": "Sisesta koosoleku URL",
     "enter_meeting_url_instruction": "Palun sisesta BigBlueButtoni koosoleku URL all olevasse välja."
   },

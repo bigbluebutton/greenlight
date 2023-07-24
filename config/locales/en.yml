@@ -47,21 +47,21 @@
 
 en:
   opengraph:
-    description: Learn using BigBlueButton, the trusted open-source web conferencing solution that enables seamless virtual collaboration and online learning experiences.
+    description: Learn using Lessons 8.0 Auditorium, the trusted open-source web conferencing solution that enables seamless virtual collaboration and online learning experiences.
   meeting:
     moderator_message: "To invite someone to the meeting, send them this link:"
     access_code: "Access Code: %{code}"
   email:
     activation:
       account_activation: Account Activation
-      welcome_to_bbb: Welcome to BigBlueButton!
+      welcome_to_bbb: Welcome to Lessons 8.0 Auditorium!
       get_started: To get started, please activate your account by clicking on the button below.
       activate_account: Activate Account
       link_expires: The link will expire in 24 hours.
       if_link_expires: If the link expires, please log in and request a new activation email.
     invitation:
-      invitation_to_join: BigBlueButton Invitation
-      you_have_been_invited: You have been invited to create a BigBlueButton account by %{name}.
+      invitation_to_join: Lessons 8.0 Auditorium Invitation
+      you_have_been_invited: You have been invited to create a Lessons 8.0 Auditorium account by %{name}.
       get_started: To sign up, please click the button below and follow the steps.
       valid_invitation: The invitation is valid for 24 hours.
       sign_up: Sign Up

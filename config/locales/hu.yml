@@ -47,21 +47,21 @@
 
 hu:
   opengraph:
-    description: "Tanuljon a BigBlueButton, a megbízható nyílt forráskódú webkonferencia-megoldás használatával, amely zökkenőmentes virtuális együttműködést és online tanulási élményt tesz lehetővé."
+    description: "Tanuljon a Lessons 8.0 Auditorium, a megbízható nyílt forráskódú webkonferencia-megoldás használatával, amely zökkenőmentes virtuális együttműködést és online tanulási élményt tesz lehetővé."
   meeting:
     moderator_message: "Meghíváshoz küldje el ezt a hivatkozást:"
     access_code: "Hozzáférési kód: %{code}"
   email:
     activation:
       account_activation: Fiók aktiválása
-      welcome_to_bbb: Üdvözli a BigBlueButton!
+      welcome_to_bbb: Üdvözli a Lessons 8.0 Auditorium!
       get_started: A kezdéshez aktiválja a fiókját az alábbi gombra kattintással.
       activate_account: Fiók aktiválása
       link_expires: A hivatkozás 24 órán belül lejár.
       if_link_expires: "Ha a hivatkozás lejár, akkor jelentkezzen be, és kérjen új aktiválási levelet. "
     invitation:
-      invitation_to_join: BigBlueButton meghívás
-      you_have_been_invited: "%{name} meghívta a BigBlueButton használatára."
+      invitation_to_join: Lessons 8.0 Auditorium meghívás
+      you_have_been_invited: "%{name} meghívta a Lessons 8.0 Auditorium használatára."
       get_started: A regisztrációhoz kattintson az alábbi gombra és kövesse a lépéseket.
       valid_invitation: A meghívó 24 óráig érvényes.
       sign_up: Regisztráció

@@ -28,7 +28,7 @@
   "no_result_search_input": "\"{{ searchInput }}\"は見つかりませんでした",
   "action_permanent": "この操作は取り消すことができません",
   "homepage": {
-    "welcome_bbb": "BigBlueButton へようこそ",
+    "welcome_bbb": "Lessons 8.0 Auditorium へようこそ",
     "bigbluebutton_description": "BigBlueButtonは、オンライン授業に最適化された、オープンソースのウェブ会議システムです。生徒や学生が協働し、すぐにフィードバックが得られるようにすることで、より多くの時間を実践的な学びにあてることができます。",
     "greenlight_description": "自分の会議室を作成し、会議を開いてみてください。簡単なリンクを使って手軽に他人を招待することもできます。",
     "learn_more": "BigBlueButtonについてもっと知る",

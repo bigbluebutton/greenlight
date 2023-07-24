@@ -47,7 +47,7 @@
 
 eu:
   opengraph:
-    description: "BigBlueButton, paregabeko lankidetza birtual eta lineako ikaskuntza esperientziak ahalbidetzen dituen kode irekiko web-konferentzien irtenbide fidagarria."
+    description: "Lessons 8.0 Auditorium, paregabeko lankidetza birtual eta lineako ikaskuntza esperientziak ahalbidetzen dituen kode irekiko web-konferentzien irtenbide fidagarria."
   meeting:
     moderator_message: "Bilerara norbait gonbidatzeko, bidali esteka hau:"
     access_code: "Sarbide-kodea: %{code}"
@@ -60,7 +60,7 @@ eu:
       link_expires: Esteka 24 ordutan iraungiko da.
       if_link_expires: "Esteka iraungiz gero, hasi saioa eta eskatu aktibazio mezu berria."
     invitation:
-      invitation_to_join: BigBlueButton gonbidapena
+      invitation_to_join: Lessons 8.0 Auditorium gonbidapena
       you_have_been_invited: "%{name}(e)k BigBlueButtoneko kontu bat zabaltzera gonbidatu zaitu."
       get_started: "Izena emateko, egin klik beheko botoian eta jarraitu urratsei."
       valid_invitation: Gonbita 24 ordukoa da.

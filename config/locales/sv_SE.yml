@@ -47,21 +47,21 @@
 
 sv_SE:
   opengraph:
-    description: "Lär dig att använda BigBlueButton, den pålitliga webbkonferenslösningen med öppen källkod som möjliggör sömlöst virtuellt samarbete och onlineinlärningsupplevelser."
+    description: "Lär dig att använda Lessons 8.0 Auditorium, den pålitliga webbkonferenslösningen med öppen källkod som möjliggör sömlöst virtuellt samarbete och onlineinlärningsupplevelser."
   meeting:
     moderator_message: "Om du vill bjuda in någon till mötet skickar du den här länken:"
     access_code: "Åtkomstkod %{code}"
   email:
     activation:
       account_activation: Kontoaktivering
-      welcome_to_bbb: Välkommen till BigBlueButton!
+      welcome_to_bbb: Välkommen till Lessons 8.0 Auditorium!
       get_started: "För att komma igång, aktivera ditt konto genom att klicka på knappen nedan."
       activate_account: Aktivera Konto
       link_expires: Länken upphör att gälla om 24 timmar.
       if_link_expires: "Om länken har gått ut, vänligen logga in och begär ett nytt aktiveringsmail."
     invitation:
-      invitation_to_join: BigBlueButton-inbjudan
-      you_have_been_invited: "Du har blivit inbjuden att skapa ett BigBlueButton-konto av %{name}."
+      invitation_to_join: Lessons 8.0 Auditorium-inbjudan
+      you_have_been_invited: "Du har blivit inbjuden att skapa ett Lessons 8.0 Auditorium-konto av %{name}."
       get_started: "För att registrera dig, klicka på knappen nedan och följ stegen."
       valid_invitation: Inbjudan är giltig i 24 timmar.
       sign_up: Bli Medlem

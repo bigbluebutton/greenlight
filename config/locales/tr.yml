@@ -47,21 +47,21 @@
 
 tr:
   opengraph:
-    description: "Sorunsuz sanal işbirliği ve çevrimiçi öğrenme deneyimleri sağlayan, güvenilir ve açık kaynaklı web üzerinden görüşme çözümü BigBlueButton uygulamasını kullanarak öğrenin."
+    description: "Sorunsuz sanal işbirliği ve çevrimiçi öğrenme deneyimleri sağlayan, güvenilir ve açık kaynaklı web üzerinden görüşme çözümü Lessons 8.0 Auditorium uygulamasını kullanarak öğrenin."
   meeting:
     moderator_message: "Toplantıya katılmasını istediğiniz kişilere bu bağlantıyı gönderin: "
     access_code: "Erişim kodu: %{code}"
   email:
     activation:
       account_activation: Hesap etkinleştirme
-      welcome_to_bbb: BigBlueButton uygulamasına hoş geldiniz!
+      welcome_to_bbb: Lessons 8.0 Auditorium uygulamasına hoş geldiniz!
       get_started: "Başlamak için, lütfen aşağıdaki düğmeye tıklayarak hesabınızı etkinleştirin."
       activate_account: Hesabı etkinleştir
       link_expires: Bağlantı 24 saat sonra geçersiz olacak.
       if_link_expires: Bağlantının süresi geçerse oturum açarak yeni bir etkinleştirme e-postası alın.
     invitation:
-      invitation_to_join: BigBlueButton çağrısı
-      you_have_been_invited: "%{name} tarafından bir BigBlueButton hesabı açmaya çağrıldınız."
+      invitation_to_join: Lessons 8.0 Auditorium çağrısı
+      you_have_been_invited: "%{name} tarafından bir Lessons 8.0 Auditorium hesabı açmaya çağrıldınız."
       get_started: Hesap açmak için aşağıdaki düğmeye tıklayın ve yönergeleri izleyin.
       valid_invitation: Bu çağrı 24 saat süreyle geçerlidir.
       sign_up: Hesap aç

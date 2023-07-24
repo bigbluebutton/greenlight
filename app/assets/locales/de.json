@@ -28,10 +28,10 @@
   "no_result_search_input": "Es konnten keine Ergebnisse für \"{{ searchInput }}\" gefunden werden",
   "action_permanent": "Diese Aktion kann nicht rückgängig gemacht werden.",
   "homepage": {
-    "welcome_bbb": "Willkommen in BigBlueButton.",
-    "bigbluebutton_description": "BigBlueButton ist ein Open-Source-Webkonferenzsystem für Online-Kurse. Die Plattform optimiert das Lernen, indem sie es ermöglicht, zusammenzuarbeiten und Feedback in Echtzeit zu erhalten.",
+    "welcome_bbb": "Willkommen in Lessons 8.0 Auditorium.",
+    "bigbluebutton_description": "Lessons 8.0 Auditorium ist ein Open-Source-Webkonferenzsystem für Online-Kurse. Die Plattform optimiert das Lernen, indem sie es ermöglicht, zusammenzuarbeiten und Feedback in Echtzeit zu erhalten.",
     "greenlight_description": "Erstelle mit ihr eigene Räume, um Konferenzen abzuhalten, oder tritt über einen kurzen und bequemen Link einer bestehenden bei.",
-    "learn_more": "Erfahre mehr über BigBlueButton",
+    "learn_more": "Erfahre mehr über Lessons 8.0 Auditorium",
     "explore_features": "Entdecke unsere Features",
     "meeting_title": "Konferenzen starten",
     "meeting_description": "Starten Sie einen virtuellen Kurs mit Video, Audio, Bildschirmfreigabe, Chat und allen Tools, die für angewandtes Lernen erforderlich sind.",
@@ -40,9 +40,9 @@
     "settings_title": "Räume verwalten",
     "settings_description": "Konfiguriere Räume und Konferenzeinstellungen, um einen effizienten Online-Kurs einzurichten.",
     "and_more_title": "Und mehr!",
-    "and_more_description": "BigBlueButton bietet Tools für angewandtes Lernen und ist so konzipiert, dass du im Kurs Zeit sparst.",
+    "and_more_description": "Lessons 8.0 Auditorium bietet Tools für angewandtes Lernen und ist so konzipiert, dass du im Kurs Zeit sparst.",
     "enter_meeting_url": "Konferenz-URL eingeben",
-    "enter_meeting_url_instruction": "Bitte geben Sie die URL Ihres BigBlueButton-Meetings in das unten stehende Feld ein."
+    "enter_meeting_url_instruction": "Bitte geben Sie die URL Ihres Lessons 8.0 Auditorium-Meetings in das unten stehende Feld ein."
   },
   "authentication": {
     "sign_in": "Anmelden",

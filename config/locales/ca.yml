@@ -47,21 +47,21 @@
 
 ca:
   opengraph:
-    description: "Aprèn amb BigBlueButton, la solució de videoconferència de codi obert que permet una col·laboració virtual perfecta i experiències d'aprenentatge en línia."
+    description: "Aprèn amb Lessons 8.0 Auditorium, la solució de videoconferència de codi obert que permet una col·laboració virtual perfecta i experiències d'aprenentatge en línia."
   meeting:
     moderator_message: "Per a convidar a algú a la sessió, enveu-li aquest enllaç:"
     access_code: "Codi d'activació: %{code}"
   email:
     activation:
       account_activation: Activació del compte
-      welcome_to_bbb: Benvingut/da a BigBlueButton!
+      welcome_to_bbb: Benvingut/da a Lessons 8.0 Auditorium!
       get_started: "Per començar, activa el teu compte clicant al següent botó."
       activate_account: Activa el compte
       link_expires: L'enllaç expirarà en 24 hores.
       if_link_expires: "Si l'enllaç expira, valida't i sol·licita un nou email d'activació."
     invitation:
-      invitation_to_join: Invitació a BigBlueButton
-      you_have_been_invited: "Has estat convidat a crear un compte de BigBlueButton per %{name}."
+      invitation_to_join: Invitació a Lessons 8.0 Auditorium
+      you_have_been_invited: "Has estat convidat a crear un compte de Lessons 8.0 Auditorium per %{name}."
       get_started: "Per accedir, fer clic al botó següent i segueix els passos."
       valid_invitation: La invitació és vàlida durant les següents 24 hores.
       sign_up: Registre

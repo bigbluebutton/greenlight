@@ -26,21 +26,21 @@
   "no_result_search_input": "Aucun résultat trouvé pour {{ searchInput }}",
   "action_permanent": "Cette action ne peut être annulée",
   "homepage": {
-    "welcome_bbb": "Bienvenue sur BigBlueButton.",
+    "welcome_bbb": "Bienvenue sur Lessons 8.0 Auditorium.",
     "bigbluebutton_description": "BigBluButton est un système de webconférence dont le code source ouvert et qui est destinée à l'enseignement en ligne. La plateforme permet de profiter au mieux du temps dédié à la formation en favorisant la collaboration et une supervision en temps réel. ",
     "greenlight_description": "Créez vos salles et sessions ou rejoignez celles de autres grâce à un lien court et pratique.",
-    "learn_more": "En apprendre plus sur BigBlueButton",
+    "learn_more": "En apprendre plus sur Lessons 8.0 Auditorium",
     "explore_features": "Découvrez les fonctionnalités",
     "meeting_title": "Commencer une réunion",
     "meeting_description": "Démarrez une classe virtuelles avec de la vidéo, de l'audio, du partage d'écran, un chat et tous les outils nécessaires à une formation.",
     "recording_title": "Enregistrez vos réunions",
-    "recording_description": "Enregistrez des conférences dans BigBlueButton et partagez les avec les étudiants pour en étudier les contenus.",
+    "recording_description": "Enregistrez des conférences dans Lessons 8.0 Auditorium et partagez les avec les étudiants pour en étudier les contenus.",
     "settings_title": "Gérez vos salles",
     "settings_description": "Paramétrez vos salles et chaque réunion pour une salle de classe optimale",
     "and_more_title": "Et plus encore!",
-    "and_more_description": "BigBlueButton propose de outils intégrés pour la formation et est conçu pour vous faire gagner du temps pendant le cours",
-    "enter_meeting_url": "Veuillez saisir l'URL de votre réunion sur BigBlueButton dans le champ ci-dessous",
-    "enter_meeting_url_instruction": "Veuillez saisir l'URL de votre réunion BigBlueButton dans le champ ci-dessous."
+    "and_more_description": "Lessons 8.0 Auditorium propose de outils intégrés pour la formation et est conçu pour vous faire gagner du temps pendant le cours",
+    "enter_meeting_url": "Veuillez saisir l'URL de votre réunion sur Lessons 8.0 Auditorium dans le champ ci-dessous",
+    "enter_meeting_url_instruction": "Veuillez saisir l'URL de votre réunion Lessons 8.0 Auditorium dans le champ ci-dessous."
   },
   "authentication": {
     "sign_in": "S'identifier",

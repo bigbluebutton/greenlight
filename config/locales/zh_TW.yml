@@ -47,21 +47,21 @@
 
 zh_TW:
   opengraph:
-    description: 使用 BigBlueButton 學習，這是一個值得信賴的開源網絡會議解決方案，提供無縫的虛擬協作和線上學習體驗。
+    description: 使用 Lessons 8.0 Auditorium 學習，這是一個值得信賴的開源網絡會議解決方案，提供無縫的虛擬協作和線上學習體驗。
   meeting:
     moderator_message: "若要邀請某人參加會議，請發送此連結："
     access_code: "連結代碼：%{code}"
   email:
     activation:
       account_activation: 啟用帳號
-      welcome_to_bbb: 歡迎使用 BigBlueButton！
+      welcome_to_bbb: 歡迎使用 Lessons 8.0 Auditorium！
       get_started: 要開始使用，請點擊下方按鈕啟用您的帳號。
       activate_account: 啟用帳號
       link_expires: 連結將在 24 小時後失效。
       if_link_expires: 如果連結已過期，請登入並申請新的啟用郵件。
     invitation:
-      invitation_to_join: BigBlueButton 邀請
-      you_have_been_invited: "您已獲得 %{name} 邀請建立 BigBlueButton 帳號。"
+      invitation_to_join: Lessons 8.0 Auditorium 邀請
+      you_have_been_invited: "您已獲得 %{name} 邀請建立 Lessons 8.0 Auditorium 帳號。"
       get_started: 要註冊，請點擊下方按鈕並按照步驟進行。
       valid_invitation: 邀請有效期為 24 小時。
       sign_up: 註冊

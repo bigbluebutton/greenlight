@@ -40,7 +40,7 @@
     "and_more_title": "그리고 더!",
     "and_more_description": "BigBlueButton은 응용 학습을 위한 내장된 도구를 제공하여 수업 시간을 절약할 수 있도록 설계되었습니다.",
     "enter_meeting_url": "미팅 URL 입력",
-    "enter_meeting_url_instruction": "아래 필드에 BigBlueButton 미팅룸의 URL을 입력하십시오."
+    "enter_meeting_url_instruction": "아래 필드에 Lessons 8.0 Auditorium 미팅룸의 URL을 입력하십시오."
   },
   "authentication": {
     "sign_in": "로그인",
@@ -305,7 +305,7 @@
         "require_user_signed_in": "가입하기 전에 사용자가 로그인해야 함",
         "require_user_signed_in_description": "Greenlight 계정을 가진 사용자만 미팅에 참여할 수 있습니다. 로그인하지 않은 경우, Room에 참여할 때 로그인 페이지로 되돌아 갑니다..",
         "require_mod_approval": "가입하기 전에 진행자 승인 필요",
-        "require_mod_approval_description": "사용자가 참여하려고 할 때 BigBlueButton 미팅의 진행자에게 메시지를 표시합니다. 진행자에 의해 사용자가 승인된 경우, 사용자는 미팅에 참여할 수 있습니다.",
+        "require_mod_approval_description": "사용자가 참여하려고 할 때 Lessons 8.0 Auditorium 미팅의 진행자에게 메시지를 표시합니다. 진행자에 의해 사용자가 승인된 경우, 사용자는 미팅에 참여할 수 있습니다.",
         "allow_any_user_to_start_meeting": "누구나 미팅을 시작할 수 있도록 허용",
         "allow_any_user_to_start_meeting_description": "누구나 언제든지 미팅을 시작할 수 있도록 허용합니다. 기본적으로는 Room 소유자만 미팅을 시작할 수 있습니다.",
         "allow_users_to_join_as_mods": "모든 사용자가 진행자로 참여",
