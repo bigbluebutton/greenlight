@@ -20,7 +20,7 @@ services:
 
   greenlight-v3:
     entrypoint: [bin/start]
-    image: bigbluebutton/greenlight:v3
+    image: gl-job-tasks
     container_name: greenlight-v3
     restart: unless-stopped
     env_file: .env
@@ -36,7 +36,7 @@ services:
 
   greenlight-v3-poller:
     entrypoint: [bin/poller]
-    image: bigbluebutton/greenlight:v3
+    image: gl-job-tasks
     container_name: greenlight-v3-poller
     env_file: .env
     depends_on:

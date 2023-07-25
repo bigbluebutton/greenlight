@@ -1,30 +1,13 @@
 #!/usr/bin/env bash
 
-# Maximum number of attempts to connect to PostgreSQL
-max_attempts=3
+source config.env
 
-# Time in seconds to wait between each attempt
-wait_seconds=10
+if [ "$RAILS_ENV" = "production" ]; then
+  while ! nc -zw3 $PGHOST $PGPORT
+  do
+    echo "Waiting for postgres to start up ..."
+    sleep 1
+  done
+fi
 
-# Current attempt number
-current_attempt=1
-
-echo "Checking if PostgreSQL is ready..."
-
-while [ $current_attempt -le $max_attempts ]
-do
-    nc -z postgres 5432
-    if [ $? -eq 0 ]; then
-        echo "PostgreSQL is ready, starting the poller task shortly..."
-        sleep 10 # additional 10 seconds to make sure that the database is ready to receive queries
-        bundle exec rake poller:run_all
-        exit 0
-    fi
-
-    echo "PostgreSQL is not ready, retrying in $wait_seconds seconds..."
-    current_attempt=$(( current_attempt+1 ))
-    sleep $wait_seconds
-done
-
-echo "Failed to connect to PostgreSQL after $max_attempts attempts, exiting."
-exit 1
+bundle exec rake poller:run_all

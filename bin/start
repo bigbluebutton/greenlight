@@ -1,21 +1,6 @@
 #!/usr/bin/env bash
 
-PORT="${PORT:=3000}"
-
-# Parse Rails DATABASE and REDIS urls to get host and port
-TXADDR=${DATABASE_URL/*:\/\/}
-TXADDR=${TXADDR/*@/}
-TXADDR=${TXADDR/\/*/}
-IFS=: TXADDR=($TXADDR) IFS=' '
-PGHOST=${TXADDR[0]}
-PGPORT=${TXADDR[1]:-5432}
-
-TXADDR=${REDIS_URL/*:\/\/}
-TXADDR=${TXADDR/*@/}
-TXADDR=${TXADDR/\/*/}
-IFS=: TXADDR=($TXADDR) IFS=' '
-RDHOST=${TXADDR[0]}
-RDPORT=${TXADDR[1]:-6379}
+source config.env
 
 echo "Greenlight-v3 starting on port: $PORT"
 
