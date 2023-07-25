@@ -18,14 +18,15 @@
 
 require_relative 'task_helpers'
 
-desc 'Add default tenant'
-task :add_default_tenant, [:secret] => :environment do |_t, args|
+desc 'Add tenant'
+task :add_tenant, %i[provider secret] => :environment do |_t, args|
+  err 'Missing provider' unless args.provider
   err 'Missing secret' unless args.secret
 
-  tenant = Tenant.new(name: 'bn', client_secret: args.secret)
+  tenant = Tenant.new(name: args.provider, client_secret: args.secret)
 
   if tenant.save
-    TenantSetup.new('bn').call
+    TenantSetup.new(args.provider).call
     success 'Tenant created successfully.'
   else
     err "Tenant not created. Errors: #{tenant.errors.to_a}"
