@@ -40,7 +40,8 @@ RUN apk update \
 COPY . ./
 RUN apk update \
     && apk upgrade \
-    && update-ca-certificates
+    && update-ca-certificates \
+    && chmod +x ./bin/poller
 
 EXPOSE ${PORT}
 ENTRYPOINT [ "./bin/start" ]
