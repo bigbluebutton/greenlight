@@ -31,10 +31,10 @@ module Api
         def index
           sort_config = config_sorting(allowed_columns: %w[name users.name])
 
-          rooms = Room.includes(:user).joins(:user).where(users: { provider: current_provider }).order(sort_config, online: :desc)
+          rooms = Room.includes(:user).where(users: { provider: current_provider }).order(sort_config, online: :desc)
                       .order('last_session DESC NULLS LAST')&.admin_search(params[:search])
 
-          online_server_rooms(rooms)
+          sync_online_rooms
 
           pagy, rooms = pagy_array(rooms)
 
@@ -55,17 +55,26 @@ module Api
           @room = Room.find_by!(friendly_id: params[:friendly_id])
         end
 
-        def online_server_rooms(rooms)
+        # Updates the status and participants count of the live meetings on the BigBlueButton server.
+        def sync_online_rooms
           online_rooms = BigBlueButtonApi.new(provider: current_provider).active_meetings
-          online_rooms_hash = {}
 
+          # Create a hash of the BBB meetings with the meetingID as key and participantCount as value
+          online_rooms_hash = {}
           online_rooms.each do |online_room|
             online_rooms_hash[online_room[:meetingID]] = online_room[:participantCount]
           end
 
+          # Fetch only the online rooms from the database
+          online_room_ids = online_rooms_hash.keys
+          rooms = Room.where(meeting_id: online_room_ids)
+
+          # Updates the status and the participants count of the rooms
           rooms.each do |room|
-            room.online = online_rooms_hash.key?(room.meeting_id)
-            room.participants = online_rooms_hash[room.meeting_id]
+            room.update(
+              online: true,
+              participants: online_rooms_hash[room.meeting_id]
+            )
           end
         end
       end
