@@ -36,7 +36,7 @@ module Api
 
           pagy, paged_rooms = pagy(rooms)
 
-          RunningMeetingChecker.new(rooms: paged_rooms.select(&:online)).call
+          RunningMeetingChecker.new(rooms: paged_rooms.select(&:online)).call if paged_rooms.select(&:online).any?
 
           render_data data: paged_rooms, meta: pagy_metadata(pagy), serializer: ServerRoomSerializer, status: :ok
         end

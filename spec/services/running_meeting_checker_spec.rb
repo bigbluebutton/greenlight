@@ -19,36 +19,65 @@
 require 'rails_helper'
 
 RSpec.describe RunningMeetingChecker, type: :service do
-  let!(:online_room) { create(:room, online: true, user: create(:user, provider: 'greenlight')) }
-  let(:bbb_api) { instance_double(BigBlueButtonApi) }
+  let!(:room) { create(:room, user: create(:user, provider: 'greenlight'), online: true) }
+  let!(:rooms) { create_list(:room, 3, user: create(:user, provider: 'greenlight'), online: true) }
 
-  before do
-    allow(BigBlueButtonApi).to receive(:new).and_return(bbb_api)
+  describe '#call' do
+    it 'retrieves the room participants for an online room' do
+      allow_any_instance_of(BigBlueButtonApi).to receive(:get_meeting_info).with(meeting_id: room.meeting_id).and_return(meeting_info)
+
+      described_class.new(rooms: room).call
+
+      expect(room.participants).to eq(5)
+    end
+
+    it 'retrieves the room participants for multiple online room' do
+      allow_any_instance_of(BigBlueButtonApi).to receive(:get_meeting_info).and_return(meeting_info)
+
+      described_class.new(rooms:).call
+
+      rooms.each do |room|
+        expect(room.participants).to eq(5)
+      end
+    end
+
+    it 'handles BigBlueButtonException and sets room online status to false' do
+      allow_any_instance_of(BigBlueButtonApi).to receive(:get_meeting_info).and_raise(BigBlueButton::BigBlueButtonException)
+
+      described_class.new(rooms: room).call
+
+      expect(room.online).to be(false)
+    end
   end
 
-  context 'when the meeting is running' do
-    let(:bbb_response) do
-      {
-        running: true
-      }
-    end
-
-    it 'updates the online status to true' do
-      allow(bbb_api).to receive(:get_meeting_info).and_return(bbb_response)
-
-      described_class.new(rooms: Room.all).call
-
-      expect(online_room.reload.online).to eq(bbb_response[:running])
-    end
-  end
-
-  context 'when the meeting is not running' do
-    it 'updates the online status to false' do
-      allow(bbb_api).to receive(:get_meeting_info).and_raise(BigBlueButton::BigBlueButtonException)
-
-      described_class.new(rooms: Room.all).call
-
-      expect(online_room.reload.online).to be_falsey
-    end
+  def meeting_info
+    {
+      returncode: 'SUCCESS',
+      meetingName: 'random-671854',
+      meetingID: 'random-671854',
+      internalMeetingID: 'ed055e2011ec6a76e39347808259a42a56f270d6-1690571458817',
+      createTime: '1690571458817',
+      createDate: 'Fri Jul 28 19:10:58 UTC 2023',
+      voiceBridge: '79474',
+      dialNumber: '343-633-0064',
+      attendeePW: 'PvioX208',
+      moderatorPW: 'b9WMdCtJ',
+      running: 'false',
+      duration: '0',
+      hasUserJoined: 'false',
+      recording: 'false',
+      hasBeenForciblyEnded: 'false',
+      startTime: '1690571458841',
+      endTime: '0',
+      participantCount: 5, # Also as integer
+      listenerCount: '0',
+      voiceParticipantCount: '0',
+      videoCount: '0',
+      maxUsers: '0',
+      moderatorCount: '0',
+      attendees: '',
+      metadata: '',
+      isBreakout: 'false'
+    }
   end
 end
