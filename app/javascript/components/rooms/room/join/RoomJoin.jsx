@@ -18,14 +18,10 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
 import JoinCard from './JoinCard';
-import Logo from '../../../shared_components/Logo';
 
 export default function RoomJoin() {
   return (
     <div className="vertical-center">
-      <Row className="text-center pb-4">
-        <Logo />
-      </Row>
       <Row>
         <JoinCard />
       </Row>

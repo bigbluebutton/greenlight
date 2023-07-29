@@ -22,7 +22,6 @@ import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import useCreateActivationLink from '../../../hooks/mutations/account_activation/useCreateActivationLink';
 import Spinner from '../../shared_components/utilities/Spinner';
-import Logo from '../../shared_components/Logo';
 
 export default function VerifyAccount() {
   const [searchParams] = useSearchParams();
@@ -33,9 +32,6 @@ export default function VerifyAccount() {
 
   return (
     <div className="vertical-center">
-      <div className="text-center pb-4">
-        <Logo />
-      </div>
       <Card className="col-md-4 mx-auto p-4 border-0 card-shadow">
         <Stack direction="vertical" className="py-3">
           <h3><strong>{ t('account_activation_page.title') }</strong></h3>
