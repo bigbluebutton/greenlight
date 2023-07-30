@@ -181,7 +181,7 @@
     "recordings_list_empty": "У вас наразі немає записів!",
     "public_recordings_list_empty": "Поки що немає загальнодоступних записів",
     "recordings_list_empty_description": "Записи зявляться тут після того як ви запишете зустріч.",
-    "public_recordings_list_empty_description": "Тут буде перелік записів, коли вони з'являться.",
+    "public_recordings_list_empty_description": "Тут буде перелік записів, коли вони стануть доступними.",
     "delete_recording": "Видалити запис",
     "are_you_sure_delete_recording": "Ви певні, що слід видалити цей запис?",
     "search_not_found": "Записів не знайдено"
