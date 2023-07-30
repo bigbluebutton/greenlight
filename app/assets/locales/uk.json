@@ -174,7 +174,7 @@
     "unpublished": "Знято з публікації",
     "protected": "Захищено",
     "public": "Загальнодоступне",
-    "public_protected": "Загальнодоступний/Захищений",
+    "public_protected": "Загальнодоступне/Захищене",
     "length_in_minutes": "{{recording.length}} хв.",
     "processing_recording": "Обробка запису, це може зайняти декілька хвилин...",
     "copy_recording_urls": "Скопіювати посилання запису",
