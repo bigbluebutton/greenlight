@@ -48,7 +48,7 @@ module Api
           role_hash = role_params.to_h
 
           # Returns an error if the provider does not exist
-          if role_hash[:provider] != 'greenlight' && Tenant.find_by(provider: role_hash[:provider]).nil?
+          unless role_hash[:provider] == 'greenlight' || Tenant.exists?(name: role_hash[:provider])
             return render_error(status: :bad_request, errors: 'Provider does not exist')
           end
 
