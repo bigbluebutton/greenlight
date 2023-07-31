@@ -16,21 +16,23 @@
 
 # frozen_string_literal: true
 
-# Pass the room(s) to the service and it will confirm if the meeting is online or not and will return the # of participants
+# Pass the online rooms to the service and it will confirm if the meeting is running or not and return the # of participants
 class RunningMeetingChecker
   def initialize(rooms:)
     @rooms = rooms
   end
 
   def call
-    online_rooms = Array(@rooms).select { |room| room.online == true }
+    Array(@rooms).each do |room|
+      next unless room.online
 
-    online_rooms.each do |online_room|
-      bbb_meeting = BigBlueButtonApi.new(provider: online_room.user.provider).get_meeting_info(meeting_id: online_room.meeting_id)
-      online_room.participants = bbb_meeting[:participantCount]
-    rescue BigBlueButton::BigBlueButtonException
-      online_room.update(online: false)
-      next
+      begin
+        bbb_meeting = BigBlueButtonApi.new(provider: room.user.provider).get_meeting_info(meeting_id: room.meeting_id)
+        room.participants = bbb_meeting[:participantCount]
+      rescue BigBlueButton::BigBlueButtonException
+        room.update(online: false)
+        next
+      end
     end
   end
 end
