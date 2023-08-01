@@ -67,10 +67,12 @@ body {
   color: silver;
 }
 
-// TODO - samuel: make responsive/add breakpoints
 .btn {
-  min-width: $button-min-width;
   white-space: nowrap;
+
+  @include media-breakpoint-up(sm) {
+    min-width: $button-min-width;
+  }
 }
 
 .btn-sm {
@@ -196,7 +198,6 @@ input.search-bar {
 
 #footer {
   margin-top: $footer-buffer-height;
-  max-height: $footer-height;
 
   #footer-container {
     border-top: 1px solid #d0d5dd;
@@ -205,6 +206,10 @@ input.search-bar {
   a {
     color: var(--brand-color) !important;
     text-decoration: none !important;
+  }
+
+  @include media-breakpoint-up(sm) {
+    max-height: $footer-height;
   }
 }
 
@@ -423,7 +428,6 @@ input.search-bar {
     background: white !important;
     color: black !important;
     border-color: gainsboro !important;
-    min-width: 260px;
     text-align: left;
 
     &:hover, &:focus, &:active {
@@ -436,8 +440,10 @@ input.search-bar {
     }
   }
 
-  .dropdown-menu {
-    min-width: 260px;
+  button, .dropdown-menu {
+    @include media-breakpoint-up(sm) {
+      min-width: 300px;
+    }
   }
 }
 
