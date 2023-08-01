@@ -33,13 +33,3 @@ services:
     depends_on:
       - postgres
       - redis
-
-  greenlight-v3-poller:
-    entrypoint: [bin/poller]
-    image: bigbluebutton/greenlight:v3
-    container_name: greenlight-v3-poller
-    env_file: .env
-    depends_on:
-      - postgres
-      - redis
-

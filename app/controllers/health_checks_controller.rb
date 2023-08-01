@@ -31,6 +31,7 @@ class HealthChecksController < ApplicationController
 
     render plain: response, status: :ok
   rescue StandardError => e
+    logger.error "Health check failed: #{e}"
     render plain: e, status: :internal_server_error
   end
 

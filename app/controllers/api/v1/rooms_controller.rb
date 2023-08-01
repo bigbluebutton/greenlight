@@ -51,7 +51,7 @@ module Api
           room.shared = true if room.user_id != current_user.id
         end
 
-        RunningMeetingChecker.new(rooms:).call
+        RunningMeetingChecker.new(rooms: rooms.select(&:online)).call if rooms.select(&:online).any?
 
         render_data data: rooms, status: :ok
       end
