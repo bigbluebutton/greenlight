@@ -69,7 +69,6 @@ body {
 
 .btn {
   white-space: nowrap;
-  min-width: $button-min-width;
 
   @include media-breakpoint-up(sm) {
     min-width: $button-min-width;
