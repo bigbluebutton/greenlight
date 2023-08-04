@@ -84,7 +84,7 @@ module Api
           user_hash = user_params.to_h
 
           # Re-write LDAP and Google to greenlight
-          user_hash[:provider] = %w[greenlight ldap google].include?(user_hash[:provider]) ? 'greenlight' : user_hash[:provider]
+          user_hash[:provider] = %w[greenlight ldap google openid_connect].include?(user_hash[:provider]) ? 'greenlight' : user_hash[:provider]
 
           # Returns an error if the provider does not exist
           unless user_hash[:provider] == 'greenlight' || Tenant.exists?(name: user_hash[:provider])
@@ -119,7 +119,7 @@ module Api
           room_hash = room_params.to_h
 
           # Re-write LDAP and Google to greenlight
-          room_hash[:provider] = %w[greenlight ldap google].include?(room_hash[:provider]) ? 'greenlight' : room_hash[:provider]
+          room_hash[:provider] = %w[greenlight ldap google openid_connect].include?(room_hash[:provider]) ? 'greenlight' : room_hash[:provider]
 
           unless room_hash[:provider] == 'greenlight' || Tenant.exists?(name: room_hash[:provider])
             return render_error(status: :bad_request, errors: 'Provider does not exist')
