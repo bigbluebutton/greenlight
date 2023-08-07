@@ -23,6 +23,8 @@
   "are_you_sure": "Etes-vous sûr?",
   "return_home": "Retourner à l'accueil",
   "created_at": "Créé à",
+  "view_recordings": "Voir les enregistrements",
+  "join_session": "Rejoindre une session.",
   "no_result_search_input": "Aucun résultat trouvé pour {{ searchInput }}",
   "action_permanent": "Cette action ne peut être annulée",
   "homepage": {
@@ -120,13 +122,13 @@
       "meeting_invitation": "Vous avez été invité à rejoindre la réunion",
       "meeting_not_started": "La réunion n'a pas encore commencé.",
       "join_meeting_automatically": "Vous rejoindrez automatiquement la réunion quand elle débutera",
-      "recording_consent": "J'admets être informé que cette session pourrait être enregistrée. Le cas échéant ma voix et mon image vidéo feront partie de la captation."
+      "recording_consent": "Je reconnais savoir que cette session peut être enregistrée. Le cas échéant ma voix et mon image vidéo pourront apparaître lors de la captation."
     },
     "presentation": {
       "presentation": "Documents",
       "click_to_upload": "Cliquez pour téléverser",
       "drag_and_drop": "ou glissez-déposez",
-      "upload_description": "Téléversez n'importe quel document Office ou fichier pdf. Le temps nécessaire au téléversement dépend du volume du fichier.",
+      "upload_description": "Téléverser tout document Office ou fichier PDF (d'un volume inférieur à {{size}}). Le délai avant de pouvoir utiliser le fichier varie en fonction de son volume.",
       "are_you_sure_delete_presentation": "Etes-vous sûr de vouloir supprimer cet enregistrement ?"
     },
     "shared_access": {
@@ -171,11 +173,15 @@
     "published": "Publiée",
     "unpublished": "Non publiée",
     "protected": "Protégée",
+    "public": "Public",
+    "public_protected": "Public/Protégé",
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "L'enregistrement est en cours de traitement, cela peu prendre quelques minutes...",
     "copy_recording_urls": "Copier l'URL de l'enregistrement",
     "recordings_list_empty": "Vous n'avez pas encore d'enregistrements!",
+    "public_recordings_list_empty": "Il n'y pas encore d'enregistrements publics !",
     "recordings_list_empty_description": "Les enregistrements apparaîtront ici dès que vous aurez réalisé la captation d'une réunion",
+    "public_recordings_list_empty_description": "Les enregistrements apparaitront ici dès qu'ils seront disponibles.",
     "delete_recording": "Effacer l'enregistrement",
     "are_you_sure_delete_recording": "Etes-vous sûr·e de vouloir supprimer cet enregistrement ?",
     "search_not_found": "Aucun enregistrement trouvé"
@@ -255,7 +261,7 @@
         "brand_image": "Logo",
         "click_to_upload": "Cliquez pour téléverser",
         "drag_and_drop": "ou glissez-déposez",
-        "upload_brand_image_description": "Téléverser un fichier PNG, JPG ou SVG. Selon le volume du fichier, il se peut que le téléversement prenne plus de temps avant d'être  opérationnel.",
+        "upload_brand_image_description": "Téléversez tout fichier PNG, JPG ou SVG (d'un volume inférieur à {{size}}). Le délai avant de pouvoir utiliser le fichier varie en fonction de son volume.",
         "remove_branding_image": "Retirer le logo"
       },
       "administration": {
@@ -492,6 +498,11 @@
           "min": "Le nom doit comporter 2 caractères au minimum "
         }
       },
+      "room_join": {
+        "name": {
+          "required": "Veuillez saisir votre nom."
+        }
+      },
       "url": {
         "invalid": "URL non valide"
       }
@@ -501,6 +512,21 @@
         "name": {
           "label": "Nom de la salle",
           "placeholder": "Saisissez un nom pour la salle..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Nom",
+            "placeholder": "Saisissez votre nom"
+        },
+        "access_code": {
+          "label": "Code d'accès",
+          "placeholder": "Saisissez le code d'accès"
+        },
+        "recording_consent": {
+          "label": "Je reconnais savoir que cette session peut être enregistrée. Le cas échéant ma voix et mon image vidéo pourront apparaître lors de la captation."
         }
       }
     },
