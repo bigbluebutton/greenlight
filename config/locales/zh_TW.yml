@@ -72,3 +72,5 @@ zh_TW:
       reset_password: 重設密碼
       link_expires: 連結將在 1 小時後失效。
       ignore_request: 如果您沒有提出更改密碼的請求，請忽略此郵件。
+  room:
+    new_room_name: "%{username}的會議室"
