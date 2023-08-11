@@ -29,7 +29,7 @@
   "action_permanent": "Bu işlem geri alınamaz.",
   "homepage": {
     "welcome_bbb": "BigBlueButton uygulamasına hoş geldiniz.",
-    "bigbluebutton_description": "BigBlueButton, çevrim içi sınıflar için açık kaynaklı bir web konferans sistemidir. Platform, öğrencilerin gerçek zamanlı olarak işbirliği yapmalarını ve geri bildirim almalarını sağlayarak uygulamalı öğrenme zamanının en iyi şekilde kullanılmasını sağlar.",
+    "bigbluebutton_description": "BigBlueButton, çevrim içi sınıflar için açık kaynaklı bir internet konferansı sistemidir. Platform, öğrencilerin gerçek zamanlı olarak işbirliği yapmalarını ve geri bildirim almalarını sağlayarak uygulamalı öğrenme zamanının en iyi şekilde kullanılmasını sağlar.",
     "greenlight_description": "Oturumları başlatmak için kendi odalarınızı oluşturun ya da kısa ve kullanışlı bir bağlantı ile başkalarının odalarına katılın.",
     "learn_more": "BigBlueButton hakkında ayrıntılı bilgi alın",
     "explore_features": "Özelliklerimizi keşfedin",
