@@ -291,7 +291,7 @@
         "default_role": "Varsayılan rol",
         "default_role_description": "Yeni eklenen kullanıcılara atanacak varsayılan rol",
         "registration_method": "Hesap açma yöntemi",
-        "registration_method_description": "Kullanıcıların web sitesinde hesap açma yöntemini değiştirin",
+        "registration_method_description": "Kullanıcıların sitede hesap açma yöntemini değiştirin",
         "registration_methods" : {
           "open": "Serbest hesap açma",
           "invite": "Çağrı ile katılma",
