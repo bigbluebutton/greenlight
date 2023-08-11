@@ -1,0 +1,677 @@
+{
+  "start": "Comezar",
+  "search": "Buscar",
+  "home": "Inicio",
+  "previous": "Anterior",
+  "back": "Atrás",
+  "next": "Seguinte",
+  "view": "Ver",
+  "join": "Unirse",
+  "edit": "Editar",
+  "save": "Gardar",
+  "save_changes": "Gardar os cambios",
+  "update": "Actualizar",
+  "report": "Informar",
+  "share": "Compartir",
+  "cancel": "Cancelar",
+  "close": "Pechar",
+  "delete": "Eliminar",
+  "copy": "Copiar a ligazón para unirse",
+  "or": "Ou",
+  "online": "En liña",
+  "help_center": "Centro de axuda",
+  "are_you_sure": "Confirma isto?",
+  "return_home": "Volver ao inicio",
+  "created_at": "Creado en",
+  "view_recordings": "Ver as gravacións",
+  "join_session": "Únase á sesión",
+  "no_result_search_input": "Non foi posíbel atopar ningún resultado para «{{ searchInput }}»",
+  "action_permanent": "Esta acción non se pode desfacer.",
+  "homepage": {
+    "welcome_bbb": "Dámoslle a benvida a BigBlueButton!",
+    "bigbluebutton_description": "BigBlueButton é un sistema de conferencias web de código aberto para clases en liña. A plataforma maximiza o tempo para a aprendizaxe aplicada ao permitir que o alumnado colabore e reciba comentarios en tempo real.",
+    "greenlight_description": "Cree as súas propias salas para organizar sesións ou xúntese con outras persoas mediante unha ligazón breve e cómoda.",
+    "learn_more": "Saiba máis sobre BigBlueButton",
+    "explore_features": "Coñeza as nosas características",
+    "meeting_title": "Inicie unha xuntanza",
+    "meeting_description": "Inicie unha clase virtual con vídeo, son, pantalla compartida, parola e todas as ferramentas necesarias para a aprendizaxe aplicada.",
+    "recording_title": "Grave as súas xuntanzas",
+    "recording_description": "Grave as xuntanzas de BigBlueButton e compártaas co alumnado para revisar e reflexionar sobre o material.",
+    "settings_title": "Xestione as súas salas",
+    "settings_description": "Configure as súas salas e o os axustes das xuntanzas para estar a cargo dunha aula eficaz.",
+    "and_more_title": "E máis!",
+    "and_more_description": "BigBlueButton ofrece ferramentas integradas para a aprendizaxe aplicada e está deseñada para aforrarlle tempo durante as clases.",
+    "enter_meeting_url": "Introduza o URL da xuntanza",
+    "enter_meeting_url_instruction": "Introduza o URL da súa xuntanza en BigBlueButton no campo seguinte."
+  },
+  "authentication": {
+    "sign_in": "Acceder",
+    "sign_up": "Rexistrarse",
+    "sign_out": "Saír",
+    "email": "Correo-e",
+    "password": "Contrasinal",
+    "confirm_password": "Confirme o contrasinal",
+    "enter_email": "Introduza o seu correo-e",
+    "enter_name": "Introduza o seu nome",
+    "remember_me": "Lembrarme",
+    "forgot_password": "Esqueceu o contrasinal?",
+    "dont_have_account": "Non ten unha conta?",
+    "create_account": "Cree unha conta",
+    "create_an_account": "Crear unha conta",
+    "already_have_account": "Xa ten unha conta?"
+  },
+  "user": {
+    "user": "Usuario",
+    "users": "Usuarios",
+    "name": "Nome",
+    "email_address": "Enderezo de correo-e",
+    "authenticator": "Autenticador",
+    "full_name": "Nome completo",
+    "no_user_found": "Non se atopou ningún usuario",
+    "type_three_characters": "Escriba tres (3) caracteres ou máis para amosar os outros usuarios.",
+    "search_not_found": "Non se atopou ningún usuario",
+    "profile": {
+      "profile": "Perfil",
+      "language": "Idioma",
+      "role": "Rol",
+      "administrator": "Administrador",
+      "guest": "Convidado"
+    },
+    "account": {
+      "account_info": "Información da conta",
+      "delete_account": "Eliminar a conta",
+      "change_password": "Cambiar o contrasinal",
+      "reset_password": "Restabelecer o contrasinal",
+      "update_account_info": "Actualizar a información da conta",
+      "current_password": "Contrasinal actual",
+      "new_password": "Novo contrasinal",
+      "confirm_password": "Confirmar o contrasinal",
+      "permanently_delete_account": "Eliminar definitivamente a súa conta",
+      "delete_account_description": "Se decide eliminar a súa conta, NON será recuperábel. \n Eliminarase toda a información relativa á súa conta, incluídos os axustes, as salas e as gravacións.",
+      "delete_account_confirmation": "Si, quero eliminar a miña conta",
+      "are_you_sure_delete_account": "Confirma que quere eliminar a súa conta?"
+    },
+    "avatar": {
+      "upload_avatar": "Enviar o avatar",
+      "delete_avatar": "Eliminar o avatar",
+      "crop_avatar": "Recortar o seu avatar"
+    },
+    "pending": {
+      "title": "Agardando polo rexistro",
+      "message": "Grazas por rexistrarse! A súa conta está pendente da aprobación por un administrador."
+    }
+  },
+  "room": {
+    "room": "Sala",
+    "rooms": "Salas",
+    "room_name": "Nome da sala",
+    "add_new_room": "+ Nova sala",
+    "create_room": "Crear unha sala",
+    "delete_room": "Eliminar a sala",
+    "create_new_room": "Crear unha nova sala",
+    "enter_room_name": "Introduza o nome da sala",
+    "shared_by": "compartida por ",
+    "last_session": "Última sesión: {{ localizedTime }}",
+    "no_last_session": "Non foi creada creou ningunha sesión anterior",
+    "search_not_found": "Non se atopou ningunha sala",
+    "rooms_list_is_empty": "Vde. aínda non ten salas!",
+    "rooms_list_empty_create_room": "Cree a súa primeira sala premendo no botón de embaixo e introducindo o nome da sala.",
+    "meeting": {
+      "start_meeting": "Comezar a xuntanza",
+      "join_meeting": "Unirse á xuntanza",
+      "meeting_invitation": "Convidárono a unirse",
+      "meeting_not_started": "A xuntanza aínda non comezou",
+      "join_meeting_automatically": "Unirase automaticamente cando comece a xuntanza",
+      "recording_consent": "Recoñezo que esta sesión pode ser gravada. Isto pode incluír a miña voz e vídeo se está activado."
+    },
+    "presentation": {
+      "presentation": "Presentación",
+      "click_to_upload": "Prema para enviar",
+      "drag_and_drop": " ou arrastre e solte",
+      "upload_description": "Envíe calquera documento de oficina ou ficheiro PDF (non maior que {{size}}). Dependendo do tamaño do ficheiro, pode requirir un tempo adicional para envialo antes de poder utilizalo",
+      "are_you_sure_delete_presentation": "Confirma que quere eliminar esta presentación?"
+    },
+    "shared_access": {
+      "access": "Acceso",
+      "add_share_access": "+ Compartir o acceso",
+      "share_room_access": "Compartir o acceso á sala",
+      "add_some_users": "É o momento de engadir algúns usuarios!",
+      "add_some_users_description": "Para engadir novos usuarios, prema no botón de embaixo e busque ou seleccione os usuarios cos que quere compartir esta sala.",
+      "delete_shared_access": "Eliminar o acceso compartido",
+      "are_you_sure_delete_shared_access": "Confirma que quere eliminar este acceso compartido?"
+    },
+    "settings": {
+      "settings": "Axustes",
+      "room_name": "Nome da sala",
+      "user_settings": "Axustes de usuario",
+      "allow_room_to_be_recorded": "Permitir que se grave a sala",
+      "require_signed_in": "Precisar que os usuarios se autentiquen antes de unirse",
+      "require_signed_in_message": "Ten que autenticarse para unirse a esta sala.",
+      "require_mod_approval": "Precisar a aprobación do moderador antes de unirse",
+      "allow_any_user_to_start": "Permitir que calquera usuario inicie esta xuntanza",
+      "all_users_join_as_mods": "Todos os usuarios únense como moderadores",
+      "mute_users_on_join": "Silenciar os usuarios cando se unan",
+      "generate": "Xerar",
+      "access_code": "Código de acceso",
+      "mod_access_code": "Código de acceso de moderador",
+      "mod_access_code_optional": "Código de acceso de moderador (opcional)",
+      "access_code_required": "Introduza o código de acceso",
+      "wrong_access_code": "Código de acceso incorrecto",
+      "generate_viewers_access_code": "Xerar un código de acceso para os espectadores",
+      "generate_mods_access_code": "Xerar un código de acceso para os moderadores",
+      "are_you_sure_delete_room": "Confirma que quere eliminar esta sala?"
+    }
+  },
+  "recording": {
+    "recording": "Gravación",
+    "recordings": "Gravacións",
+    "name": "Nome",
+    "length": "Duración",
+    "users": "Usuarios",
+    "visibility": "Visibilidade",
+    "formats": "Formatos",
+    "published": "Publicada",
+    "unpublished": "Sen publicar",
+    "protected": "Protexida",
+    "public": "Publica",
+    "public_protected": "Publica/protexida",
+    "length_in_minutes": "{{recording.length}} min.",
+    "processing_recording": "Procesando a gravación, isto pode levar varios minutos…",
+    "copy_recording_urls": "Copiar o(s) URL da(s) gravación(s)",
+    "recordings_list_empty": "Vde. aínda non ten ningunha gravación!",
+    "public_recordings_list_empty": "Aínda non hai gravacións públicas!",
+    "recordings_list_empty_description": "As gravacións aparecerán aquí após iniciar unha xuntanza e gravala.",
+    "public_recordings_list_empty_description": "As gravacións aparecerán aquí cando estean dispoñíbeis.",
+    "delete_recording": "Eliminar a gravación",
+    "are_you_sure_delete_recording": "Confirma que quere eliminar esta gravación?",
+    "search_not_found": "Non se atopou ningunha gravación"
+  },
+  "admin": {
+    "admin_panel": "Panel de administración",
+    "manage_users": {
+      "manage_users": "Xestionar os usuarios",
+      "active": "Activo",
+      "approve": "Aprobar",
+      "decline": "Declinar",
+      "pending": "Pendente",
+      "banned": "Expulsado",
+      "ban": "Expulsar",
+      "unban": "Anular a expulsión",
+      "deleted": "Eliminado",
+      "invited_tab": "Convidado",
+      "invite_user": "Convidar a usuario",
+      "send_invitation": "Enviar convite",
+      "enter_user_email": "Introduza o correo do usuario",
+      "new_user": "Novo usuario",
+      "add_new_user": "Novo usuario",
+      "create_new_user": "Crear un novo usuario",
+      "edit_user": "Editar o usuario",
+      "delete_user": "Eliminar o usuario",
+      "users_edit_path": "Usuarios/editar",
+      "create_account": "Cree unha conta",
+      "create_room": "Crear unha sala",
+      "create_new_room": "Crear unha nova sala",
+      "user_created_at": "Creada: {{localizedTime}}",
+      "are_you_sure_delete_account": "Confirma que quere eliminar a conta de {{user.name}}?",
+      "delete_account_warning": "Se decide eliminar esta conta, NON será recuperábel.",
+      "empty_active_users": "Aínda non hai usuarios activos neste servidor!",
+      "empty_active_users_subtext": "Cando o estado dun usuario cambia a activo, aparece aquí.",
+      "empty_pending_users": "Aínda non hai usuarios pendentes neste servidor!",
+      "empty_pending_users_subtext": "Cando o estado dun usuario cambia a pendente, aparece aquí.",
+      "empty_banned_users": "Aínda non hai usuarios expulsados neste servidor!",
+      "empty_banned_users_subtext": "Cando o estado dun usuario cambia a expulsado, aparece aquí.",
+      "empty_invited_users": "Aínda non hai usuarios convidados neste servidor!",
+      "empty_invited_users_subtext": "Cando o estado dun usuario cambia a convidado, aparece aquí.",
+      "invited": {
+        "time_sent": "Hora de envío",
+        "valid": "Valida"
+      }
+    },
+    "server_rooms": {
+      "server_rooms": "Salas no servidor",
+      "name": "Nome",
+      "owner": "Propietario",
+      "room_id": "ID da sala",
+      "participants": "Participantes",
+      "status": "Estado",
+      "running": "En progreso",
+      "not_running": "Sen actividade",
+      "active": "Activa",
+      "current_session": "Sesión actual: {{lastSession}}",
+      "last_session": "Última sesión: {{localizedTime}}",
+      "no_meeting_yet": "Aínda non hai xuntanzas.",
+      "delete_server_rooms": "Eliminar a sala do servidor",
+      "resync_recordings": "Volver sincronizar as gravacións",
+      "empty_room_list": "Aínda non hai salas no servidor!",
+      "empty_room_list_subtext": "As salas aparecerán aquí após crear a súa primeira sala."
+    },
+    "server_recordings": {
+      "server_recordings": "Gravacións no servidor",
+      "latest_recordings": "Últimas gravacións",
+      "no_recordings_found": "Non se atopou ningunha gravación"
+    },
+    "site_settings": {
+      "site_settings": "Axustes do sitio",
+      "customize_greenlight": "Personalizar Greenlight",
+      "appearance": {
+        "appearance": "Aparencia",
+        "brand_color": "Cor corporativa",
+        "regular": "Normal",
+        "lighten": "Claro",
+        "brand_image": "Imaxe corporativa",
+        "click_to_upload": "Prema para enviar",
+        "drag_and_drop": " ou arrastre e solte",
+        "upload_brand_image_description": "Envíe calquera ficheiro PNG, JPG, ou SVG (non maior que {{size}}). Dependendo do tamaño do ficheiro, pode requirir un tempo adicional para envialo antes de poder utilizalo",
+        "remove_branding_image": "Retirar a imaxe corporativa"
+      },
+      "administration": {
+        "administration": "Administración",
+        "terms": "Terms & Conditions",
+        "privacy": "Directiva de privacidade",
+        "privacy_policy": "Directiva de privacidade",
+        "change_term_links": "Cambiar as ligazóns de termos que aparecen na parte inferior da páxina",
+        "change_privacy_link": "Cambiar a ligazón de privacidade  que aparece na parte inferior da páxina",
+        "change_url": "Cambiar o URL",
+        "enter_link": "Introduza aquí a ligazón"
+      },
+      "settings": {
+        "settings": "Axustes",
+        "allow_users_to_share_rooms": "Permitir aos usuarios compartir salas",
+        "allow_users_to_share_rooms_description": "Se o axusta como desactivado, o botón desaparecerá do menú despregábel de opcións de sala, o que impedirá que os usuarios compartan salas",
+        "allow_users_to_preupload_presentation": "Permitir aos usuarios enviar previamente presentacións",
+        "allow_users_to_preupload_presentation_description": "Os usuarios poden enviar previamente unha presentación para utilizala como presentación predeterminada para esa sala específica"
+      },
+      "registration": {
+        "registration": "Rexistro",
+        "role_mapping_by_email": "Asignación de roles por correo",
+        "role_mapping_by_email_description": "Asigne o usuario a un rol usando o seu correo electrónico. Debe ter o formato: rol1=correo-e1, rol2=correo-e2",
+        "enter_role_mapping_rule": "Introduza unha regra de asignación de roles",
+        "resync_on_login": "Volver sincronizar os datos do usuario en cada acceso",
+        "resync_on_login_description": "Volver sincronizar a información dun usuario cada vez que acceda, facendo que o provedor de autenticación externo coincida sempre coa información en Greenlight",
+        "default_role": "Rol predeterminado",
+        "default_role_description": "O rol predeterminado que se asignará aos usuarios que vén de crear",
+        "registration_method": "Método de rexistro",
+        "registration_method_description": "Cambiar o xeito no que os usuarios se rexistran no sitio web",
+        "registration_methods" : {
+          "open": "Rexistro aberto",
+          "invite": "Unirse por convite",
+          "approval": "Aceptar/declinar"
+        }
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "Configuración da sala",
+      "default": "Opcional (predeterminado: activado)",
+      "optional": "Opcional (predeterminado: desactivado)",
+      "enabled": "Forzar a activado",
+      "disabled": "Desactivado",
+      "configurations": {
+        "allow_room_to_be_recorded": "Permitir que se grave a sala",
+        "allow_room_to_be_recorded_description": "Permite aos propietarios das salas especificar se queren a opción de gravar unha sala ou non. Se está activado, o moderador aínda debe premer no botón «Gravar» unha vez que comece a xuntanza.",
+        "require_user_signed_in": "Precisar que os usuarios se autentiquen antes de unirse",
+        "require_user_signed_in_description": "Só permite que os usuarios cunha conta Greenlight se unan á reunión. Se non se autenticaron, serán redirixidos á páxina de acceso cando tenten unirse a unha sala.",
+        "require_mod_approval": "Precisar a aprobación do moderador antes de unirse",
+        "require_mod_approval_description": "Avisar ao moderador da xuntanza de BigBlueButton cando un usuario tenta unirse. Se o usuario é aprobado, poderá unirse á reunión.",
+        "allow_any_user_to_start_meeting": "Permitir que calquera usuario inicie unha xuntanza",
+        "allow_any_user_to_start_meeting_description": "Permitir que calquera usuario inicie a xuntanza en calquera momento. De xeito predeterminado, só o propietario da sala pode iniciar a xuntanza.",
+        "allow_users_to_join_as_mods": "Todos os usuarios únense como moderadores",
+        "allow_users_to_join_as_mods_description": "Concede a todos os usuarios os privilexios de moderador en BigBlueButton cando se unen á xuntanza",
+        "mute_users_on_join": "Silenciar os usuarios cando se unan",
+        "mute_users_on_join_description": "Silenciar automaticamente ao usuario cando se une á xuntanza de BigBlueButton",
+        "viewer_access_code": "Código de acceso de espectador",
+        "viewer_access_code_description": "Permite aos propietarios das salas ter un código alfanumérico ao chou que poden compartir cos usuarios. O código, se se xera, será necesario para que os usuarios se unan ás xuntanzas da sala.",
+        "mod_access_code": "Código de acceso de moderador",
+        "mod_access_code_description": "Permite aos propietarios das salas ter un código alfanumérico ao chou que poden compartir cos usuarios. O código, se se xera, non será necesario para unirse e, cando se use en calquera xuntanza da sala, o usuario será promovido a moderador."
+      }
+    },
+    "roles": {
+      "role": "Rol",
+      "roles": "Roles",
+      "administrator": "Administrador",
+      "guest": "Convidado",
+      "manage_roles": "Xestionar os roles",
+      "delete_role": "Eliminar o rol",
+      "are_you_sure_delete_role": "Confirma que quere eliminar este rol?",
+      "enter_role_name": "Introduza un nome de rol",
+      "add_role": "+ Crear un rol",
+      "create_role": "Crear un rol",
+      "create_new_role": "Crear un novo rol",
+      "no_role_found": "Non se atopou ningún rol",
+      "search_not_found": "Non se atopou ningún rol",
+      "edit": {
+        "create_room": "Permitir que os usuarios con este rol creen salas",
+        "record": "Permitir que os usuarios con este rol graven as súas xuntanzas",
+        "manage_users": "Permitir que usuarios con este rol xestionen os usuarios",
+        "manage_rooms": "Permitir que os usuarios con este rol xestionen salas de servidores",
+        "manage_recordings": "Permitir que os usuarios con este rol xestionen as gravacións do servidor",
+        "manage_site_settings": "Permitir que os usuarios con este rol xestionen os axustes do sitio",
+        "manage_roles": "Permitir que os usuarios con este rol editen outros roles",
+        "shared_list": "Incluir os usuarios con este rol no menú despregábel para compartir salas",
+        "room_limit": "Límite de salas"
+      }
+    }
+  },
+  "toast": {
+    "success": {
+      "user": {
+        "user_created": "Creouse un novo usuario.",
+        "user_updated": "O usuario foi actualizado.",
+        "user_deleted": "O usuario foi eliminado.",
+        "avatar_updated": "O avatar foi actualizado.",
+        "password_updated": "O contrasinal foi actualizado.",
+        "account_activated": "A súa conta foi activada.",
+        "activation_email_sent": "Enviouse un correo que contén as instrucións para activar a súa conta.",
+        "reset_pwd_email_sent": "Enviouse un correo que contén as instrucións para restabelecer o seu contrasinal."
+      },
+      "session": {
+        "signed_out": "Vde. saíu da sesión."
+      },
+      "room": {
+        "room_created": "Creouse unha nova sala.",
+        "room_updated": "A sala foi actualizada",
+        "room_deleted": "A sala foi eliminada.",
+        "room_shared": "A sala foi compartida",
+        "room_unshared": "A sala non está compartida",
+        "recordings_synced": "Sincronizáronse as gravacións da sala.",
+        "room_configuration_updated": "Foi actualizada a configuración da sala.",
+        "room_setting_updated": "Foron actualizados os axustes da sala. ",
+        "presentation_updated": "Foi actualizada a presentación",
+        "presentation_deleted": "A presentación foi eliminada",
+        "joining_meeting": "Uníndose á xuntanza…",
+        "meeting_started": "Comezou a xuntanza",
+        "access_code_copied": "O código de acceso foi copiado.",
+        "access_code_generated": "Xerouse un novo código de acceso.",
+        "access_code_deleted": "O código de acceso foi eliminado.",
+        "copied_meeting_url": "Copiouse o URL da xuntanza. Pódese empregar a ligazón para unirse á xuntanza."
+      },
+      "site_settings": {
+        "site_setting_updated": "Foron actualizados os axustes do sitio.",
+        "brand_color_updated": "A cor corporativa foi actualizada.",
+        "brand_image_updated": "A imaxe corporativa foi actualizada.",
+        "brand_image_deleted": "A imaxe corporativa foi eliminada.",
+        "privacy_policy_updated": "A directiva de pivacidade foi actualizada.",
+        "terms_of_service_updated": "Foron actualizados os termos do servizo."
+      },
+      "recording": {
+        "recording_visibility_updated": "Foi actualizada a visibilidade da gravación.",
+        "recording_name_updated": "Foi actualizado o nome da gravación.",
+        "recording_deleted": "A gravación foi eliminada.",
+        "copied_urls": "Copiáronse os URL das gravacións."
+      },
+      "role": {
+        "role_created": "Creouse un novo rol",
+        "role_updated": "O rol foi actualizado.",
+        "role_deleted": "O rol foi eliminado.",
+        "role_permission_updated": "Foron actualizados os permisos de rol."
+      },
+      "invitations": {
+        "invitation_sent": "Enviouse un convite"
+      }
+    },
+    "error": {
+      "problem_completing_action": "Non é posíbel completar a acción.\n Tenteo de novo.",
+      "file_type_not_supported": "O tipo de ficheiro non é compatible.",
+      "file_size_too_large": "O ficheiro é demasiado grande.",
+      "file_upload_error": "Non é posíbel enviar o ficheiro.",
+      "signin_required": "Ten que autenticarse para acceder a esta páxina.",
+      "roles": {
+        "role_assigned": "Non é posíbel eliminar este rol porque está asignado a polo menos un usuario."
+      },
+      "users": {
+        "signup_error": "Non é posíbel autenticalo. Póñase en contacto coa administración do sitio.",
+        "invalid_invite": "O seu testemuño de convite non é válido ou é incorrecto. Póñase en contacto coa administración do sitio para recibir un novo testemuño.",
+        "email_exists": "Xa existe unha conta con este correo Ténteo de novo con outro correo.",
+        "old_password": "O contrasinal que introduciu non é correcto.",
+        "pending": "O seu rexistro está pendente da aprobación pola administración. Volva tentalo máis adiante.",
+        "banned": "Non ten acceso a esta aplicación. Póñase en contacto coa administración do sitio se cree que se trata dun erro."
+      },
+      "rooms": {
+        "room_limit": "Non é posíbel crear a sala porque se alcanzou o límite de salas."
+      },
+      "session": {
+        "invalid_credentials": "Ou o nome de usuario ou o contrasinal non é válido. Verifique as súas credenciais e ténteo de novo."
+      }
+    }
+  },
+  "global_error_page": {
+    "title": "Erro",
+    "message": "Sentímolo, algo foi mal. Se o incidente ocorre de novo, póñase en contacto coa administración do sitio."
+  },
+  "not_found_error_page": {
+    "title": "Non se atopou a páxina",
+    "message": "Sentímolo, non é posíbel atopar a páxina á que está tentando acceder."
+  },
+  "account_activation_page": {
+    "title": "Activación da conta",
+    "account_unverified": "A súa conta aínda non foi verificada.",
+    "message": "Para usar Greenlight, verifique a súa conta seguindo as instrucións do correo de activación que se lle enviou.",
+    "resend_activation_link": "Se non recibiu un correo de activación ou ten problemas para usalo, prema no botón de embaixo para solicitar un novo correo de activación.",
+    "resend_btn_lbl": "Volver enviar a verificación"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Introduza un nome completo",
+        "min": "O nome debe ter polo menos 2 caracteres",
+        "max": "O nome pode ter como máximo 255 caracteres"
+      },
+      "email": {
+        "required": "Introduza un correo",
+        "email": "O valor introducido non coincide co formato de correo-e",
+        "min": "O correo electrónico debe ter polo menos 6 caracteres",
+        "max": "O nome correo ter como máximo 255 caracteres"
+      },
+      "password": {
+        "required": "Introduza un contrasinal",
+        "match": "O contrasinal debe ter polo menos:",
+        "min": "– Oito caracteres",
+        "lower": "– Unha letra minúscula",
+        "upper": "– Unha letra maiúscula",
+        "digit": "– Un número",
+        "symbol": "– Un símbolo",
+        "max": "O contrasinal pode ter como máximo 255 caracteres"
+      },
+      "password_confirmation": {
+        "required": "Introduza unha confirmación do contrasinal",
+        "match": "Os contrasinais non coinciden"
+      },
+      "emails": {
+        "required": "Introduza polo menos un correo-e válido",
+        "list": "Forneza unha lista de correos válidos separados por comas (usuario@usuarios.com, usuario1@usuarios.com, usuario2@usuarios.com)"
+      },
+      "role_name": {
+        "required": "Introduza o nome do rol"
+      },
+      "role": {
+        "limit": {
+          "required": "Introduza o límite do número de salas",
+          "min": "O mínimo permitido é 0",
+          "max": "O máximo permitido é 100"
+        },
+        "type": {
+          "error": "Debes especificar un número"
+        }
+      },
+      "room": {
+        "name": {
+          "required": "Introduza o nome da sala.",
+          "min": "O nome debe ter polo menos 2 caracteres"
+        }
+      },
+      "room_join": {
+        "name": {
+          "required": "Introduza o seu nome."
+        }
+      },
+      "url": {
+        "invalid": "URL incorrecto"
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Nome da sala",
+          "placeholder": "Introduza un nome de sala…"
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Nome",
+            "placeholder": "Introduza o seu nome"
+        },
+        "access_code": {
+          "label": "Código de acceso",
+          "placeholder": "Introduza o código de acceso"
+        },
+        "recording_consent": {
+          "label": "Recoñezo que esta sesión pode ser gravada. Isto pode incluír a miña voz e vídeo se está activado."
+        }
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Nome completo",
+            "placeholder": "Introduza o seu nome completo"
+          },
+          "email": {
+            "label": "Correo-e",
+            "placeholder": "Introduza o seu correo-e"
+          },
+          "password": {
+            "label": "Contrasinal",
+            "placeholder": "Crear un contrasinal"
+          },
+          "password_confirmation": {
+            "label": "Confirmar o contrasinal",
+            "placeholder": "Confirmar o contrasinal"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "Correo-e",
+            "placeholder": "Correo-e"
+          },
+          "password": {
+            "label": "Contrasinal",
+            "placeholder": "Contrasinal"
+          },
+          "remember_me": {
+            "label": "Lembrarme"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Contrasinal actual",
+            "placeholder": "Introduza o seu contrasinal"
+          },
+          "new_password": {
+            "label": "Novo contrasinal",
+            "placeholder": "Introduza o seu contrasinal"
+          },
+          "password_confirmation": {
+            "label": "Confirmar o contrasinal",
+            "placeholder": "Confirmar o seu novo contrasinal"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Introduza o seu contrasinal actual"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "Correo-e",
+            "placeholder": "Introduza o correo da conta"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Introduza o correo da conta"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Novo contrasinal",
+            "placeholder": "Introduza o seu novo contrasinal"
+          },
+          "password_confirmation": {
+            "label": "Confirmar o contrasinal",
+            "placeholder": "Confirmar o seu novo contrasinal"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Nome completo"
+          },
+          "email": {
+            "label": "Correo-e"
+          },
+          "language": {
+            "label": "Idioma"
+          },
+          "role": {
+            "label": "Rol"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Nome completo",
+            "placeholder": "Introduza o nome completo do usuario"
+          },
+          "email": {
+            "label": "Correo-e",
+            "placeholder": "Introduza o correo do usuario"
+          },
+          "password": {
+            "label": "Contrasinal",
+            "placeholder": "Introduza o contrasinal do usuario"
+          },
+          "password_confirmation": {
+            "label": "Confirmar o contrasinal",
+            "placeholder": "Confirmar o contrasinal"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "Correos-e"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "Introduza aquí a ligazón…"
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "Nome do rol",
+            "placeholder": "Introduza un nome de rol…"
+          }
+        }
+      }
+    }
+  }
+}
