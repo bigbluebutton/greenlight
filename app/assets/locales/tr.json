@@ -477,7 +477,7 @@
       },
       "emails": {
         "required": "Lütfen en az bir geçerli e-posta adresi yazın",
-        "list": "Lütfen virgül ile ayırarak e-posta adresleri listesini yazın (kullanici@websitesi.com,kullanici1@websitesi.com,kullanici2@websitesi.com)"
+        "list": "Lütfen virgül ile ayırarak e-posta adresleri listesini yazın (kullanici@site.com,kullanici1@site.com,kullanici2@site.com)"
       },
       "role_name": {
         "required": "Lütfen rolün adını yazın"
