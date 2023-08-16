@@ -1,0 +1,16 @@
+---
+name: Docker Image Trivy Image Vulnerability Scan Cron Job
+on:
+  schedule:
+
+    - cron: '0 2 * * *'
+permissions:
+  # security-events required for all workflows; action, contents only required for workflows in private repositories
+  security-events: write
+  actions: read
+  contents: read
+jobs:
+  trivy_image_scan_cron:
+    uses: hpi-schul-cloud/infra-tools/.github/workflows/trivy-scan.yaml@master
+    with:
+      image-ref: 'ghcr.io/dbildungsplattform/greenlight:latest'
