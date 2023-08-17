@@ -1,0 +1,18 @@
+---
+name: Greenlight Docker Image on Push to GHCR
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  build_image_on_push:
+    permissions:
+      packages: write
+      security-events: write
+      actions: read
+      contents: read
+    uses: hpi-schul-cloud/infra-tools/.github/workflows/imagetoghcr-on-push.yaml@master
+    with:
+      image_name: "greenlight"
