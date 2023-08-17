@@ -21,7 +21,7 @@ import {
 import {
   Link, Navigate, useLocation, useParams,
 } from 'react-router-dom';
-import { HomeIcon, Square2StackIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, Square2StackIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
@@ -49,6 +49,11 @@ export default function Room() {
   function copyInvite() {
     navigator.clipboard.writeText(`${window.location}/join`);
     toast.success(t('toast.success.room.copied_meeting_url'));
+  }
+
+  function copyVoiceBridge(voice_bridge, voice_bridge_phone_number) {
+    navigator.clipboard.writeText(`Tel.: ${voice_bridge_phone_number} Pin: ${voice_bridge}`);
+    toast.success(t('toast.success.room.copied_voice_bridge'));
   }
 
   // Custom logic to redirect from Rooms page to join page if this isnt the users room and they're not allowed to view it
@@ -93,6 +98,12 @@ export default function Room() {
               }
           </Col>
           <Col>
+          {
+                isRoomLoading
+                  ? (
+                    <RoomNamePlaceHolder />
+                  ) : (
+                    <>
             <Button variant="brand" className="start-meeting-btn mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
               {startMeeting.isLoading && <Spinner className="me-2" />}
               { room?.online ? (
@@ -105,6 +116,11 @@ export default function Room() {
               <Square2StackIcon className="hi-s me-1" />
               { t('copy') }
             </Button>
+            { typeof room.voice_bridge_phone_number !== 'undefined' && <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyVoiceBridge(room?.voice_bridge, room?.voice_bridge_phone_number)}>
+              <PhoneIcon className="hi-s me-1" />
+              { t('copy_voice_bridge') }
+            </Button>}</>)
+}
           </Col>
         </Row>
       </div>

@@ -17,6 +17,7 @@
   "close": "Schließen",
   "delete": "Löschen",
   "copy": "Einladungslink kopieren",
+  "copy_voice_bridge": "Telefoneinwahl kopieren",
   "or": "oder",
   "online": "Online",
   "help_center": "Hilfe",
@@ -382,7 +383,8 @@
         "access_code_copied": "Zugangscode kopiert.",
         "access_code_generated": "Zugangscode generiert.",
         "access_code_deleted": "Zugriffcode wurde gelöscht.",
-        "copied_meeting_url": "Die URL der Konferenz wurde kopiert. Der Link kann verwendet werden, um an der Konferenz teilzunehmen."
+        "copied_meeting_url": "Die URL der Konferenz wurde kopiert. Der Link kann verwendet werden, um an der Konferenz teilzunehmen.",
+        "copied_voice_bridge": "Die Telefonnummer und der Pin wurden kopiert. Diese können genutzt werden um an der Konferenz teilzunehmen."
       },
       "site_settings": {
         "site_setting_updated": "Grundeinstellungen aktualisiert.",

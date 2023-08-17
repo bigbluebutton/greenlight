@@ -17,6 +17,7 @@
   "close": "Close",
   "delete": "Delete",
   "copy": "Copy Join Link",
+  "copy_voice_bridge": "Copy phone dialup",
   "or": "Or",
   "online": "Online",
   "help_center": "Help Center",
@@ -382,7 +383,8 @@
         "access_code_copied": "The access code has been copied.",
         "access_code_generated": "A new access code has been generated.",
         "access_code_deleted": "The access code has been deleted.",
-        "copied_meeting_url": "The meeting URL has been copied. The link can be used to join the meeting."
+        "copied_meeting_url": "The meeting URL has been copied. The link can be used to join the meeting.",
+        "copied_voice_bridge": "The phone number and pin have been copied. They can be used to join the conference."
       },
       "site_settings": {
         "site_setting_updated": "The site setting has been updated.",
