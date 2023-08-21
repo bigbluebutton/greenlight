@@ -211,7 +211,7 @@
       "create_account": "Створити обліковий запис",
       "create_room": "Створити кімнату",
       "create_new_room": "Створити нову кімнату",
-      "user_created_at": "Створено: {{user.created_at}}",
+      "user_created_at": "Створено: {{localizedTime}}",
       "are_you_sure_delete_account": "Ви певні, що слід видалити обліковий запис {{user.name}}?",
       "delete_account_warning": "Якщо ви оберете видалення облікового запису, ця дія буде незворотна.",
       "empty_active_users": "Немає наразі активних користувачів на цьому сервері!",
