@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source config.env
+source bin/config.env
 
 echo "Greenlight-v3 starting on port: $PORT"
 
