@@ -73,4 +73,4 @@ fr:
       link_expires: Le lien expirera dans 1 heure.
       ignore_request: "Si vous n'avez pas demandé un changement de mot de passe, veuillez ignorer ce courriel."
   room:
-    new_room_name: "Salle de 1%{username}"
+    new_room_name: "Salle de %{username}"
