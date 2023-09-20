@@ -73,4 +73,4 @@ fr:
       link_expires: Le lien expirera dans 1 heure.
       ignore_request: "Si vous n'avez pas demandé à changer de mot de passe, ignorez ce message."
   room:
-    new_room_name: "Salle de 1%{username}"
+    new_room_name: "Salle de %{username}"
