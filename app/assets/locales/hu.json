@@ -23,6 +23,8 @@
   "are_you_sure": "Biztos benne?",
   "return_home": "Vissza a kezdőlapra",
   "created_at": "Létrehozva:",
+  "view_recordings": "Felvételek megtekintése",
+  "join_session": "Csatlakozás a munkamenethez",
   "no_result_search_input": "Nincs találat a következőre: „{{ searchInput }}”",
   "action_permanent": "Ez a művelet nem vonható vissza.",
   "homepage": {
@@ -126,7 +128,7 @@
       "presentation": "Bemutató",
       "click_to_upload": "Kattintson a feltöltéshez",
       "drag_and_drop": "vagy húzza és ejtse ide",
-      "upload_description": "Tetszőleges irodai dokumentum vagy PDF-fájl feltöltése.  A fájl méretétől függően több időre lehet szükség, mielőtt használható lesz.",
+      "upload_description": "Tetszőleges dokumentum- vagy PDF-fájl (nem nagyobb, mint {{size}}). A használata előtt a fájl méretétől függően idő szükséges a feltöltéséhez.",
       "are_you_sure_delete_presentation": "Biztos, hogy törli ezt a bemutatót?"
     },
     "shared_access": {
@@ -171,11 +173,15 @@
     "published": "Közzétéve",
     "unpublished": "Nincs közzétéve",
     "protected": "Védett",
+    "public": "Nyilvános",
+    "public_protected": "Nyilvános /Védett",
     "length_in_minutes": "{{recording.length}} perc",
     "processing_recording": "A felvétel feldolgozása néhány percig eltarthat...",
     "copy_recording_urls": "Felvételek webcímének másolása",
     "recordings_list_empty": "Még nincs egy felvétele sem.",
+    "public_recordings_list_empty": "Még egy nyilvános felvétel sincs!",
     "recordings_list_empty_description": "A felvételek itt fognak megjelenni, ha indít és felvesz egy találkozót.",
+    "public_recordings_list_empty_description": "Az elérhető felvételek itt jelennek meg.",
     "delete_recording": "Felvétel törlése",
     "are_you_sure_delete_recording": "Biztos, hogy törli ezt a felvételt?",
     "search_not_found": "Nem található felvétel"
@@ -255,7 +261,7 @@
         "brand_image": "Márkakép",
         "click_to_upload": "Kattintson a feltöltéshez",
         "drag_and_drop": "vagy húzza és ejtse ide",
-        "upload_brand_image_description": "Töltsön fel egy tetszőleges PNG, JPG vagy SVG-fájlt. A fájl méretétől függően több időre lehet szükség, mielőtt használható lesz.",
+        "upload_brand_image_description": "Tetszőleges PNG, JPG, vagy SVG fájl (nem nagyobb, mint {{size}}). A használata előtt a fájl méretétől függően idő szükséges a feltöltéséhez.",
         "remove_branding_image": "Márkakép eltávolítása"
       },
       "administration": {
@@ -492,6 +498,11 @@
           "min": "A névnek legalább 2 karakteresnek kell lennie"
         }
       },
+      "room_join": {
+        "name": {
+          "required": "Adja meg a nevét."
+        }
+      },
       "url": {
         "invalid": "Érvénytelen webcím"
       }
@@ -501,6 +512,21 @@
         "name": {
           "label": "Szoba neve",
           "placeholder": "Adja meg a szoba nevét…"
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Név",
+            "placeholder": "Adja meg a nevét"
+        },
+        "access_code": {
+          "label": "Hozzáférési kód",
+          "placeholder": "Adja meg a hozzáférési kódot"
+        },
+        "recording_consent": {
+          "label": "Tudomásul veszem, hogy ez a munkamenet rögzíthető. Ez vonatkozik a hangomra és a videómra, ha be van kapcsolva."
         }
       }
     },
