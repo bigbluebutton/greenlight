@@ -7,7 +7,7 @@ class PopulateVoiceBrigeForExistingRooms < ActiveRecord::Migration[7.0]
     end
 
     if Room.all.length > 89999
-      raise "The db contains to many rooms to assign each one a unique voice_brige"
+      raise "The db contains to many rooms to assign each one a unique voice_bridge"
     end
 
     Room.where(voice_bridge: nil).each do |room|

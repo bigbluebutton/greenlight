@@ -115,7 +115,7 @@ export default function Room() {
                 </Button>
               )}
               title={t('room.meeting.share_meeting')}
-              body={<ShareRoomForm room={room} />}
+              body={<ShareRoomForm room={room} friendly_id={friendlyId} />}
             />
             </>
             )}

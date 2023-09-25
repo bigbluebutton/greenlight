@@ -25,14 +25,14 @@ import { downloadICS } from '../../../../helpers/ICSDownloadHelper';
 
 
 
-export default function ShareRoomForm({ room, handleClose }) {
+export default function ShareRoomForm({ room, friendly_id }) {
   const { t } = useTranslation();
   const currentUser = useAuth();
 
   function roomJoinUrl(){
-    return `https://${window.location.hostname}/rooms/${room.friendly_id}/join`; 
+    console.log(room);
+    return `https://${window.location.hostname}/rooms/${friendly_id}/join`; 
   }
-
 
   function copyInvite() {
     navigator.clipboard.writeText(roomJoinUrl());
@@ -118,6 +118,7 @@ ShareRoomForm.defaulProps = {
 };
 
 ShareRoomForm.propTypes = {
+  friendly_id: PropTypes.string.isRequired,
   room: PropTypes.shape({
     id: PropTypes.string.isRequired,
     friendly_id: PropTypes.string.isRequired,
