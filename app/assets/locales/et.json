@@ -1,0 +1,671 @@
+{
+  "start": "Alusta",
+  "search": "Otsing",
+  "home": "Kodu",
+  "previous": "Eelmine",
+  "back": "Tagasi",
+  "next": "Järgmine",
+  "view": "Vaata",
+  "join": "Liitu",
+  "edit": "Muuda",
+  "save": "Salvesta",
+  "save_changes": "Salvesta muudatused",
+  "update": "Uuenda",
+  "report": "Raporteeri",
+  "share": "Jaga",
+  "cancel": "Tühista",
+  "close": "Sulge",
+  "delete": "Kustuta",
+  "copy": "Kopeeri liitumislink",
+  "or": "või",
+  "online": "Online",
+  "help_center": "Abi",
+  "are_you_sure": "Oled kindel?",
+  "return_home": "Tagasi koju",
+  "created_at": "Loodud",
+  "no_result_search_input": "Otsingule \"{{ searchInput }}\" vastavaid tulemusi ei leitud",
+  "action_permanent": "Seda tegevust ei saa tagasi võtta.",
+  "homepage": {
+    "welcome_bbb": "Tere tulemast BigBlueButtonisse.",
+    "bigbluebutton_description": "BigBlueButton on avatud lähtekoodiga veebikonverentside süsteem veebiklasside jaoks. Platvorm maksimeerib rakendusliku õppe jaoks aega, võimaldades õpilastel teha koostööd ja saada reaalajas tagasisidet.",
+    "greenlight_description": "Looge seansside korraldamiseks oma ruume või liituge teistega lühikese ja mugava lingi abil.",
+    "learn_more": "Saa BigBlueButtoni kohta rohkem teada",
+    "explore_features": "Tutvuge meie funktsioonidega",
+    "meeting_title": "Käivitage koosolek",
+    "meeting_description": "Käivitage virtuaalne klass video, heli, ekraani jagamise, vestluse ja kõigi rakendusõppeks vajalike tööriistadega.",
+    "recording_title": "Salvestage oma koosolekud",
+    "recording_description": "Salvestage BigBlueButtoni koosolekud ja jagage neid õpilastega, et materjal üle vaadata ja selle üle järele mõelda.",
+    "settings_title": "Hallake oma ruume",
+    "settings_description": "Seadistage oma ruumid ja koosolekuseaded tõhusa klassiruumi jaoks.",
+    "and_more_title": "Ja rohkem!",
+    "and_more_description": "BigBlueButton pakub rakendusõppeks sisseehitatud tööriistu ja on loodud teie aja säästmiseks tunni ajal.",
+    "enter_meeting_url": "Sisesta koosoleku URL",
+    "enter_meeting_url_instruction": "Palun sisesta BigBlueButtoni koosoleku URL all olevasse välja."
+  },
+  "authentication": {
+    "sign_in": "Logi sisse",
+    "sign_up": "Registreeri",
+    "sign_out": "Logi välja",
+    "email": "E-posti aadress",
+    "password": "Parool",
+    "confirm_password": "Kinnita parool",
+    "enter_email": "Sisesta oma e-posti aadress",
+    "enter_name": "Sisesta oma nimi",
+    "remember_me": "Jäta mind meelde",
+    "forgot_password": "Unustasid parooli?",
+    "dont_have_account": "Sul pole veel kontot?",
+    "create_account": "Loo konto",
+    "create_an_account": "Loo konto",
+    "already_have_account": "Sul juba on konto?"
+  },
+  "user": {
+    "user": "Kasutaja",
+    "users": "Kasutajad",
+    "name": "Nimi",
+    "email_address": "E-posti aadress",
+    "authenticator": "Autentikaator",
+    "full_name": "Täisnimi",
+    "no_user_found": "Kasutajat ei leitud",
+    "type_three_characters": "Palun sisesta vähemalt kolm (3) või rohkem tähemärki, et teisi kasutajaid näha.",
+    "search_not_found": "Kasutajaid ei leitud",
+    "profile": {
+      "profile": "Profiil",
+      "language": "Keel",
+      "role": "Roll",
+      "administrator": "Administraator",
+      "guest": "Külaline"
+    },
+    "account": {
+      "account_info": "Konto teave",
+      "delete_account": "Kustuta konto",
+      "change_password": "Muuda parooli",
+      "reset_password": "Lähtesta parool",
+      "update_account_info": "Uuenda konto teavet",
+      "current_password": "Praegune parool",
+      "new_password": "Uus parool",
+      "confirm_password": "Kinnita parool",
+      "permanently_delete_account": "Kustuta oma konto püsivalt",
+      "delete_account_description": "Kui sa otsustad oma konto kustutada, siis seda ei saa taastada. \nKogu kontoga seotud teave kustutatakse, kaasaarvatud seaded, ruumid ja salvestused.",
+      "delete_account_confirmation": "Jah, ma soovin oma konto kustutada",
+      "are_you_sure_delete_account": "Oled kindel, et tahad oma konto kustutada?"
+    },
+    "avatar": {
+      "upload_avatar": "Lae üles profiilipilt",
+      "delete_avatar": "Kustuta profiilipilt",
+      "crop_avatar": "Lõika profiilipilti"
+    },
+    "pending": {
+      "title": "Registreerimine on ootel",
+      "message": "Täname registreerimast! Sinu konto ootab hetkel administraatori heakskiitu."
+    }
+  },
+  "room": {
+    "room": "Ruum",
+    "rooms": "Ruumid",
+    "room_name": "Ruumi nimi",
+    "add_new_room": "+ Uus ruum",
+    "create_room": "Loo ruum",
+    "delete_room": "Kustuta ruum",
+    "create_new_room": "Loo uus ruum",
+    "enter_room_name": "Sisesta ruumi nimi",
+    "shared_by": "jaganud",
+    "last_session": "Viimane sessioon: {{ localizedTime }}",
+    "no_last_session": "Varasemad sessioonid puuduvad",
+    "search_not_found": "Ruume ei leitud",
+    "rooms_list_is_empty": "Sul pole veel ühtegi ruumi!",
+    "rooms_list_empty_create_room": "Oma esimese ruumi loomiseks vajuta all olevat nuppu ning sisesta ruumi nimi.",
+    "meeting": {
+      "start_meeting": "Alusta koosolekuga",
+      "join_meeting": "Liitu koosolekuga",
+      "meeting_invitation": "Oled kutsutud liituma",
+      "meeting_not_started": "Koosolek pole veel alanud",
+      "join_meeting_automatically": "Liitud automaatselt, kui koosolek algab",
+      "recording_consent": "Ma võtan teadmiseks, et seda sessiooni võidakse salvestada. See võib sisaldada mu häält ja videot, kui need on sisse lülitatud."
+    },
+    "presentation": {
+      "presentation": "Esitlus",
+      "click_to_upload": "Vajuta, et üles laadida",
+      "drag_and_drop": "või lohista siia",
+      "upload_description": "Laadige üles mis tahes kontoridokument või PDF-fail (mitte suurem kui {{size}}). Sõltuvalt faili suurusest võib selle üleslaadimiseks kuluda lisaaega, enne kui seda saab kasutada",
+      "are_you_sure_delete_presentation": "Oled kindel, et tahad seda esitlust kustutada?"
+    },
+    "shared_access": {
+      "access": "Ligipääs",
+      "add_share_access": "+ Ligipääsu jagamine",
+      "share_room_access": "Ruumile ligipääsu jagamine",
+      "add_some_users": "Aeg mõned kasutajad lisada!",
+      "add_some_users_description": "Uute kasutajate lisamiseks vajuta all olevale nupule ja otsi või vali kasutajad, kellega tahad selle ruumi ligipääsu jagada.",
+      "delete_shared_access": "Kustuta jagatud ligipääs",
+      "are_you_sure_delete_shared_access": "Oled kindel, et tahad selle ligipääsu jagamise kustutada?"
+    },
+    "settings": {
+      "settings": "Seaded",
+      "room_name": "Ruumi nimi",
+      "user_settings": "Kasutaja seaded",
+      "allow_room_to_be_recorded": "Luba ruumi salvestamine",
+      "require_signed_in": "Nõua kasutajatelt liitumiseelset sisselogimist",
+      "require_signed_in_message": "Pead olema sisse logitud, et selle ruumiga liituda.",
+      "require_mod_approval": "Nõua enne liitumist moderaatori heakskiitu",
+      "allow_any_user_to_start": "Luba kõigil kasutajatel selle koosoleku alustamine",
+      "all_users_join_as_mods": "Luba kasutajatel moderaatorina liitumine",
+      "mute_users_on_join": "Vaigista kasutajad liitumisel",
+      "generate": "Loo",
+      "access_code": "Ligipääsukood",
+      "mod_access_code": "Moderaatori ligipääsukood",
+      "mod_access_code_optional": "Moderaatori ligipääsukood (valikuline)",
+      "access_code_required": "Palun sisesta ligipääsukood",
+      "wrong_access_code": "Vale ligipääsukood",
+      "generate_viewers_access_code": "Loo ligipääsukood vaatajate jaoks",
+      "generate_mods_access_code": "Loo ligipääsukood moderaatorite jaoks",
+      "are_you_sure_delete_room": "Oled kindel, et tahad selle ruumi kustutada?"
+    }
+  },
+  "recording": {
+    "recording": "Salvestus",
+    "recordings": "Salvestused",
+    "name": "Nimi",
+    "length": "Kestvus",
+    "users": "Kasutajad",
+    "visibility": "Nähtavus",
+    "formats": "Vormingud",
+    "published": "Avalikustatud",
+    "unpublished": "Mitteavalikustatud",
+    "protected": "Kaitstud",
+    "length_in_minutes": "{{recording.length}} min.",
+    "processing_recording": "Salvestuse töötlemine, see võib võtta mitmeid minuteid...",
+    "copy_recording_urls": "Kopeeri salvestuse Url(id)",
+    "recordings_list_empty": "Sul pole veel salvestusi!",
+    "recordings_list_empty_description": "Salvestused ilmuvad siia pärast koosoleku alustamist ja selle salvestamist.",
+    "delete_recording": "Kustuta salvestus",
+    "are_you_sure_delete_recording": "Oled kindel, et tahad selle salvestuse kustutada?",
+    "search_not_found": "Salvestusi ei leitud"
+  },
+  "admin": {
+    "admin_panel": "Administraatori paneel",
+    "manage_users": {
+      "manage_users": "Kasutajate haldus",
+      "active": "Aktiivsed",
+      "approve": "Luba",
+      "decline": "Keeldu",
+      "pending": "Ootel",
+      "banned": "Ligipääsukeeld",
+      "ban": "Keela ligipääs",
+      "unban": "Luba ligipääs",
+      "deleted": "Kustutatud",
+      "invited_tab": "Kutsutud",
+      "invite_user": "Kutsu kasutaja",
+      "send_invitation": "Saada kutse",
+      "enter_user_email": "Sisesta kasutaja e-posti aadress",
+      "new_user": "Uus kasutaja",
+      "add_new_user": "Uus kasutaja",
+      "create_new_user": "Loo uus kasutaja",
+      "edit_user": "Muuda kasutajat",
+      "delete_user": "Kustuta kasutaja",
+      "users_edit_path": "Kasutajad/Muuda",
+      "create_account": "Loo konto",
+      "create_room": "Loo ruum",
+      "create_new_room": "Loo uus ruum",
+      "user_created_at": "Loodud: {{localizedTime}}",
+      "are_you_sure_delete_account": "Oled kindel, et tahad kasutaja {{user.name}} konto kustutada?",
+      "delete_account_warning": "Kui otsustad selle konto kustutada, siis seda ei saa taastada.",
+      "empty_active_users": "Selles serveris pole veel aktiivseid kasutajaid!",
+      "empty_active_users_subtext": "Kui kasutaja olek muutub aktiivseks, siis neid kuvatakse siin.",
+      "empty_pending_users": "Selles serveris pole veel ootel olevaid kasutajaid!",
+      "empty_pending_users_subtext": "Kui kasutaja olek muutub ootel olevaks, siis neid kuvatakse siin.",
+      "empty_banned_users": "Selles serveris pole veel ligipääsukeeluga kasutajaid!",
+      "empty_banned_users_subtext": "Kui kasutaja ligipääs keelatakse, siis neid kuvatakse siin.",
+      "empty_invited_users": "Selles serveris pole veel kutsutud kasutajaid!",
+      "empty_invited_users_subtext": "Kui kasutaja kutsutakse, siis neid kuvatakse siin.",
+      "invited": {
+        "time_sent": "Saatmise aeg",
+        "valid": "Kehtiv"
+      }
+    },
+    "server_rooms": {
+      "server_rooms": "Serveri ruumid",
+      "name": "Nimi",
+      "owner": "Omanik",
+      "room_id": "Ruumi ID",
+      "participants": "Osalejaid",
+      "status": "Olek",
+      "running": "Käib",
+      "not_running": "Seisab",
+      "active": "Aktiivsed",
+      "current_session": "Praegune sessioon: {{lastSession}}",
+      "last_session": "Viimane sessioon: {{localizedTime}}",
+      "no_meeting_yet": "Koosolekut veel pole.",
+      "delete_server_rooms": "Kustuta serveri ruum",
+      "resync_recordings": "Salvestuste taassünkroniseerimine",
+      "empty_room_list": "Serveri ruume veel pole!",
+      "empty_room_list_subtext": "Ruumid ilmuvad siia pärast oma esimese ruumi loomist."
+    },
+    "server_recordings": {
+      "server_recordings": "Serveri salvestused",
+      "latest_recordings": "Viimased salvestused",
+      "no_recordings_found": "Salvestusi ei leitud."
+    },
+    "site_settings": {
+      "site_settings": "Saidi sätted",
+      "customize_greenlight": "Kohanda Greenlighti",
+      "appearance": {
+        "appearance": "Välimus",
+        "brand_color": "Brändi värv",
+        "regular": "Tavaline",
+        "lighten": "Heledam",
+        "brand_image": "Brändi pilt",
+        "click_to_upload": "Vajuta üleslaadimiseks",
+        "drag_and_drop": "või lohista siia",
+        "upload_brand_image_description": "Laadige üles mis tahes PNG-, JPG- või SVG-fail (mitte suurem kui {{size}}). Sõltuvalt faili suurusest võib selle üleslaadimiseks kuluda lisaaega, enne kui seda saab kasutada",
+        "remove_branding_image": "Eemalda brändi pilt"
+      },
+      "administration": {
+        "administration": "Administreerimine",
+        "terms": "Kasutustingimused",
+        "privacy": "Privaatsuspoliitika",
+        "privacy_policy": "Privaatsuspoliitika",
+        "change_term_links": "Muutke lehe allosas kuvatavaid terminite linke",
+        "change_privacy_link": "Muutke lehe allosas kuvatavat privaatsuslinki",
+        "change_url": "Muuda URLi",
+        "enter_link": "Sisesta link siia"
+      },
+      "settings": {
+        "settings": "Sätted",
+        "allow_users_to_share_rooms": "Luba kasutajatele ruumide jagamine",
+        "allow_users_to_share_rooms_description": "Keelatud oleku määramisel eemaldatakse nupp ruumivalikute rippmenüüst, takistades kasutajatel ruume jagada",
+        "allow_users_to_preupload_presentation": "Luba kasutajatel esitlusi eellaadida",
+        "allow_users_to_preupload_presentation_description": "Kasutajad saavad esitluse eelnevalt üles laadida, et kasutada seda konkreetse ruumi vaikeesitlusena"
+      },
+      "registration": {
+        "registration": "Registreerimine",
+        "role_mapping_by_email": "Määra roll e-posti aadressi alusel",
+        "role_mapping_by_email_description": "Määra kasutajale roll e-posti aadressi alusel. Peab olema kujul: roll1=epost1, roll2=epost2",
+        "enter_role_mapping_rule": "Sisesta rolli määramise reegel",
+        "resync_on_login": "Sünkroniseeri kasutajate andmed igal sisselogimisel",
+        "resync_on_login_description": "Sünkroonige kasutaja teave uuesti iga kord, kui ta sisse logib, nii et väline autentimise pakkuja vastab alati Greenlighti teabele",
+        "default_role": "Vaikeroll",
+        "default_role_description": "Uutele kasutajatele vaikimisi määratav roll",
+        "registration_method": "Registreerimismeetod",
+        "registration_method_description": "Muuda kasutajate registreerimisviisi",
+        "registration_methods" : {
+          "open": "Avatud registreerimine",
+          "invite": "Kutsed",
+          "approval": "Kinnita/Keeldu"
+        }
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "Ruumi seadistus",
+      "default": "Valikuline (vaikimisi: sees)",
+      "optional": "Valikuline (vaikimisi: väljas)",
+      "enabled": "Jõuga lubatud",
+      "disabled": "Keelatud",
+      "configurations": {
+        "allow_room_to_be_recorded": "Luba ruumi salvestamine",
+        "allow_room_to_be_recorded_description": "Lubab ruumi omanikel määrata, kas ruumi võib salvestada või mitte. Kui see on lubatud, siis peab moderaator ikkagi 'Salvesta' nuppu vajutama, kui koosolek on alanud.",
+        "require_user_signed_in": "Nõua liitumiseks kasutaja sisselogimist",
+        "require_user_signed_in_description": "Luba ainult Greenlighti kontot omavatel kasutajatel koosolekuga liituda. Kui nad pole koosolekuga liitumisel sisse logitud, siis nad suunatakse sisselogimislehele.",
+        "require_mod_approval": "Nõua liitumiseks moderaatori heakskiitu",
+        "require_mod_approval_description": "Viipab moderaatorit, kui kasutaja proovib BigBlueButtoni koosolekuga liituda. Kui kasutaja heaks kiidetakse, saab ta koosolekuga liituda.",
+        "allow_any_user_to_start_meeting": "Iga kasutaja võib koosolekut alustada",
+        "allow_any_user_to_start_meeting_description": "Luba igal kasutajal igal ajal selle koosoleku alustamine. Vaikimisi saab koosolekut alustada vaid ruumi omanik.",
+        "allow_users_to_join_as_mods": "Kõik kasutajad on moderaatorid",
+        "allow_users_to_join_as_mods_description": "Annab kõigile kasutajatele moderaatori privileegid, kui nad BigBlueButtoni koosolekuga liituvad",
+        "mute_users_on_join": "Vaigista kasutajad liitumisel",
+        "mute_users_on_join_description": "Kasutajate automaatne vaigistamine, kui nad BigBlueButtoni koosolekuga liituvad",
+        "viewer_access_code": "Vaataja ligipääsukood",
+        "viewer_access_code_description": "Võimaldab ruumi omanikel tekitada koodi, mida saab kasutajatega jagada. Kui kood on loodud, siis on see ruumiga liitumiseks nõutud kõigilt kasutajatelt.",
+        "mod_access_code": "Moderaatori ligipääsukood",
+        "mod_access_code_description": "Võimaldab ruumide omanikel kasutada juhuslikku tähtnumbrilist koodi, mida saab kasutajatega jagada. Kui kood on loodud, siis seda ei nõuta ja kui seda kasutatakse ruumi koosolekul, liitub see kasutaja moderaatorina."
+      }
+    },
+    "roles": {
+      "role": "Roll",
+      "roles": "Rollid",
+      "administrator": "Administraator",
+      "guest": "Külaline",
+      "manage_roles": "Rollide haldus",
+      "delete_role": "Kustuta roll",
+      "are_you_sure_delete_role": "Oled kindel, et tahad selle rolli kustutada?",
+      "enter_role_name": "Sisesta rolli nimi",
+      "add_role": "+ Loo roll",
+      "create_role": "Loo roll",
+      "create_new_role": "Loo uus roll",
+      "no_role_found": "Rolli ei leitud.",
+      "search_not_found": "Rolle ei leitud",
+      "edit": {
+        "create_room": "Luba selle rolliga kasutajatel ruume luua",
+        "record": "Luba selle rolliga kasutajatel oma koosolekuid salvestada",
+        "manage_users": "Luba selle rolliga kasutajatel kasutajaid hallata",
+        "manage_rooms": "Luba selle rolliga kasutajatel serveri ruume hallata",
+        "manage_recordings": "Luba selle rolliga kasutajatel server salvestusi hallata",
+        "manage_site_settings": "Luba selle rolliga kasutajatel saidi seadete haldus",
+        "manage_roles": "Luba selle rolliga kasutajatel teisi rolle muuta",
+        "shared_list": "Selle rolliga kasutajad ilmuvad ruumide jagamise rippmenüüs",
+        "room_limit": "Ruumide piirang"
+      }
+    }
+  },
+  "toast": {
+    "success": {
+      "user": {
+        "user_created": "Uus kasutaja on loodud.",
+        "user_updated": "Kasutaja on uuendatud.",
+        "user_deleted": "Kasutaja on kustutatud.",
+        "avatar_updated": "Profiilipilt uuendatud.",
+        "password_updated": "Parool uuendatud.",
+        "account_activated": "Su konto on aktiveeritud.",
+        "activation_email_sent": "Konto aktiveerimisjuhiseid sisaldav e-kiri on saadetud.",
+        "reset_pwd_email_sent": "Parooli lähtestamise juhiseid sisaldav e-kiri on saadetud."
+      },
+      "session": {
+        "signed_out": "Oled välja logitud."
+      },
+      "room": {
+        "room_created": "Uus ruum on loodud.",
+        "room_updated": "Ruum on uuendatud.",
+        "room_deleted": "Ruum on kustutatud.",
+        "room_shared": "Ruum on jagatud.",
+        "room_unshared": "Ruumi jagamine on lõpetatud.",
+        "recordings_synced": "Ruumi salvestused on sünkroniseeritud.",
+        "room_configuration_updated": "Ruumi seadistus on uuendatud.",
+        "room_setting_updated": "Ruumi säte on uuendatud.",
+        "presentation_updated": "Esitlus uuendatud",
+        "presentation_deleted": "Esitlus kustutatud",
+        "joining_meeting": "Koosolekuga liitumine...",
+        "meeting_started": "Koosolek algas.",
+        "access_code_copied": "Ligipääsukood on kopeeritud.",
+        "access_code_generated": "Uus ligipääsukood on loodud.",
+        "access_code_deleted": "Ligipääsukood on kustutatud.",
+        "copied_meeting_url": "Koosoleku URL on kopeeritud. Seda linki saab kasutada koosolekuga liitumiseks."
+      },
+      "site_settings": {
+        "site_setting_updated": "Saidi säte on uuendatud.",
+        "brand_color_updated": "Brändi värv on uuendatud.",
+        "brand_image_updated": "Brändi pilt on uuendatud.",
+        "brand_image_deleted": "Brändi pilt on kustutatud.",
+        "privacy_policy_updated": "Privaatsuspoliitika on uuendatud.",
+        "terms_of_service_updated": "Teenustingimused on uuendatud."
+      },
+      "recording": {
+        "recording_visibility_updated": "Salvestuse nähtavus on uuendatud.",
+        "recording_name_updated": "Salvestuse nimi on uuendatud.",
+        "recording_deleted": "Salvestus on kustutatud.",
+        "copied_urls": "Salvestuse URL on kopeeritud."
+      },
+      "role": {
+        "role_created": "Uus roll on loodud.",
+        "role_updated": "Roll on uuendatud.",
+        "role_deleted": "Roll on kustutatud.",
+        "role_permission_updated": "Rolli õigused on uuendatud."
+      },
+      "invitations": {
+        "invitation_sent": "Kutse on saadetud."
+      }
+    },
+    "error": {
+      "problem_completing_action": "Tegevust ei saa lõule viia. \nPalun proovi uuesti.",
+      "file_type_not_supported": "Faili tüüp pole toetatud.",
+      "file_size_too_large": "Fail on liiga suur.",
+      "file_upload_error": "Faili ei saa üles laadida.",
+      "signin_required": "Pead olema sisse logitud, et sellele lehele pääseda.",
+      "roles": {
+        "role_assigned": "Seda rolli ei saa kustutada, sest see on määratud vähemalt ühele kasutajale."
+      },
+      "users": {
+        "signup_error": "Autentimine ebaõnnestus. Palun võta ühendust administraatoriga.",
+        "invalid_invite": "Su kutse on aegunud või pole korrektne. Palun võta ühendust administraatoriga, et saada uus kutse.",
+        "email_exists": "Selle e-posti aadressiga konto on juba olemas. Palun proovi teise e-posti aadressiga uuesti.",
+        "old_password": "Sisestatud parool pole õige.",
+        "pending": "Sinu registreerimine ootab administraatori kinnitust. Palun proovi hiljem uuesti.",
+        "banned": "Sul puudub ligipääs sellele rakendusele. Palun võta ühendust administraatoriga, kui sa usud, et nii ei peaks olema."
+      },
+      "rooms": {
+        "room_limit": "Ruumi ei saa luua ruumide piirangu tõttu."
+      },
+      "session": {
+        "invalid_credentials": "Kasutajanimi või parool on vale. Palun kontrolli oma andmed üle ja proovi uuesti."
+      }
+    }
+  },
+  "global_error_page": {
+    "title": "Viga",
+    "message": "Vabandust, midagi läks valesti. Kui intsident kordub, võta ühendust administraatoriga."
+  },
+  "not_found_error_page": {
+    "title": "Lehte ei leitud",
+    "message": "Vabandust. Lehte, millele üritad ligi pääseda, ei leitud."
+  },
+  "account_activation_page": {
+    "title": "Konto aktiveerimine",
+    "account_unverified": "Su konto pole veel kinnitatud.",
+    "message": "Greenlighti kasutamiseks kinnita oma konto järgides konto aktiveerimise juhiseid, mis on sulle saadetud e-kirjas.",
+    "resend_activation_link": "Kui sa pole konto aktiveerimise e-kirja saanud või sul on probleem selle kasutamisega, vajuta all olevat nuppu, et saada uus e-kiri. Või palka A-rühm.",
+    "resend_btn_lbl": "Saada kinnitus uuesti"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Palun sisesta täisnimi",
+        "min": "Nime pikkus peab olema vähemalt 2 tähemärki",
+        "max": "Nime maksimaalne pikkus on 255 tähemärki"
+      },
+      "email": {
+        "required": "Palun sisesta e-posti aadress",
+        "email": "Sisestatud väärtus ei vasta e-posti aadressi vormingule",
+        "min": "E-posti aadressi pikkus peab olema vähemalt 6 tähemärki",
+        "max": "E-posti aadressi maksimaalne pikkus on 255 tähemärki"
+      },
+      "password": {
+        "required": "Palun sisesta parool",
+        "match": "Minimaalsed nõuded paroolile:",
+        "min": "- kaheksa tähemärki",
+        "lower": "- üks väiketäht",
+        "upper": "- üks suurtäht",
+        "digit": "- üks number",
+        "symbol": "- üks sümbol",
+        "max": "Parooli maksimaalne pikkus on 255 tähemärki"
+      },
+      "password_confirmation": {
+        "required": "Palun sisesta kinnituseks parool uuesti",
+        "match": "Paroolid ei kattu"
+      },
+      "emails": {
+        "required": "Palun sisesta vähemalt üks korrektne e-posti aadress",
+        "list": "Palun sisesta komadega eraldatud nimekiri korrektsetest e-posti aadressidest (user@users.com,user1@users.com,user2@users.com)"
+      },
+      "role_name": {
+        "required": "Palun sisesta rolli nimi"
+      },
+      "role": {
+        "limit": {
+          "required": "Palun sisesta ruumide piirangu arv",
+          "min": "Minimaalselt on lubatud 0",
+          "max": "Maksimaalselt on lubatud 100"
+        },
+        "type": {
+          "error": "Pead sisestama numbri"
+        }
+      },
+      "room": {
+        "name": {
+          "required": "Palun sisesta ruumi nimi.",
+          "min": "Ruumi nime pikkus peab olema vähemalt 2 tähemärki"
+        }
+      },
+      "room_join": {
+        "name": {
+          "required": "Palun sisesta oma nimi."
+        }
+      },
+      "url": {
+        "invalid": "Vigane URL"
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Ruumi nimi",
+          "placeholder": "Sisesta ruumi nimi..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Nimi",
+            "placeholder": "Sisesta oma nimi"
+        },
+        "access_code": {
+          "label": "Ligipääsukood",
+          "placeholder": "Sisesta ligipääsukood"
+        },
+        "recording_consent": {
+          "label": "Ma võtan teadmiseks, et seda sessiooni võidakse salvestada. See võib sisaldada mu häält ja videot, kui need on sisse lülitatud."
+        }
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Täisnimi",
+            "placeholder": "Sisesta oma täisnimi"
+          },
+          "email": {
+            "label": "E-posti aadress",
+            "placeholder": "Sisesta oma e-posti aadress"
+          },
+          "password": {
+            "label": "Parool",
+            "placeholder": "Loo parool"
+          },
+          "password_confirmation": {
+            "label": "Kinnita parool",
+            "placeholder": "Kinnita parool"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "E-posti aadress",
+            "placeholder": "E-posti aadress"
+          },
+          "password": {
+            "label": "Parool",
+            "placeholder": "Parool"
+          },
+          "remember_me": {
+            "label": "Jäta mind meelde"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Praegune parool",
+            "placeholder": "Sisesta oma parool"
+          },
+          "new_password": {
+            "label": "Uus parool",
+            "placeholder": "Sisesta oma uus parool"
+          },
+          "password_confirmation": {
+            "label": "Kinnita parool",
+            "placeholder": "Kinnita oma uus parool"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Palun sisesta oma praegune parool"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "E-posti aadress",
+            "placeholder": "Sisesta konto e-posti aadress"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Palun sisesta konto e-posti aadress"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Uus parool",
+            "placeholder": "Sisesta oma uus parool"
+          },
+          "password_confirmation": {
+            "label": "Kinnita parool",
+            "placeholder": "Kinnita oma uus parool"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Täisnimi"
+          },
+          "email": {
+            "label": "E-posti aadress"
+          },
+          "language": {
+            "label": "Keel"
+          },
+          "role": {
+            "label": "Roll"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Täisnimi",
+            "placeholder": "Sisesta kasutaja täisnimi"
+          },
+          "email": {
+            "label": "E-posti aadress",
+            "placeholder": "Sisesta kasutaja e-posti aadress"
+          },
+          "password": {
+            "label": "Parool",
+            "placeholder": "Sisesta kasutaja parool"
+          },
+          "password_confirmation": {
+            "label": "Kinnita parool",
+            "placeholder": "Kinnita parool"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "E-posti aadressid"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "Sisesta link siia"
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "Rolli nimi",
+            "placeholder": "Sisesta rolli nimi..."
+          }
+        }
+      }
+    }
+  }
+}

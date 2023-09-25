@@ -152,6 +152,8 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     end
 
     it 'deletes the recordings associated with the room' do
+      allow_any_instance_of(BigBlueButtonApi).to receive(:delete_recordings).and_return(true)
+
       room = create(:room, user:)
       create_list(:recording, 10, room:)
       expect { delete :destroy, params: { friendly_id: room.friendly_id } }.to change(Recording, :count).by(-10)
@@ -325,6 +327,220 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       recording_ids = JSON.parse(response.body)['data'].pluck('id')
       expect(response).to have_http_status(:ok)
       expect(recording_ids).to match_array(recordings.pluck(:id))
+    end
+  end
+
+  describe '#public_recordings' do
+    let(:room) { create(:room) }
+
+    before { sign_out_user }
+
+    context 'Filtration' do
+      let!(:public_recording) { create(:recording, room:, visibility: Recording::VISIBILITIES[:public]) }
+      let!(:public_protected_recording) { create(:recording, room:, visibility: Recording::VISIBILITIES[:public_protected]) }
+
+      before do
+        create(:recording, room:, visibility: Recording::VISIBILITIES[:unpublished])
+        create(:recording, room:, visibility: Recording::VISIBILITIES[:published])
+        create(:recording, room:, visibility: Recording::VISIBILITIES[:protected])
+      end
+
+      it 'returns :ok with a list of the room public recordings only' do
+        expected_response = JSON.parse(
+          [PublicRecordingSerializer.new(public_recording), PublicRecordingSerializer.new(public_protected_recording)].to_json
+        )
+
+        get :public_recordings, params: { friendly_id: room.friendly_id }
+
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['data']).to match_array(expected_response)
+      end
+    end
+
+    context 'Pagination' do
+      # The order of creation and the matching of :recorded_at value impacts a page recordings list.
+      # Thus fixing those values ensures the determinism of these examples.
+      let!(:first_page_recordings) do
+        create_list(:recording, Pagy::DEFAULT[:items], room:, recorded_at: Time.zone.at(1_686_943_664), visibility: Recording::VISIBILITIES[:public])
+      end
+      let!(:second_page_recordings) do
+        create_list(:recording, Pagy::DEFAULT[:items], room:, recorded_at: Time.zone.at(1_686_943_664),
+                                                       visibility: Recording::VISIBILITIES[:public_protected])
+      end
+
+      def expect_response_to_have(page:, pages:, recordings:)
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recordings.pluck('id'))
+        expect(JSON.parse(response.body)['meta']['pages']).to eq(pages)
+        expect(JSON.parse(response.body)['meta']['page']).to eq(page)
+      end
+
+      context 'First page' do
+        it 'returns :ok with a list of the first page room public recordings' do
+          get :public_recordings, params: { friendly_id: room.friendly_id, page: 1 }
+
+          expect_response_to_have page: 1, pages: 2, recordings: first_page_recordings
+        end
+      end
+
+      context 'Second page' do
+        it 'returns :ok with a list of the first second page room public recordings' do
+          get :public_recordings, params: { friendly_id: room.friendly_id, page: 2 }
+
+          expect_response_to_have page: 2, pages: 2, recordings: second_page_recordings
+        end
+      end
+
+      context 'No page' do
+        it 'returns :ok with a list of the first page room public recordings' do
+          get :public_recordings, params: { friendly_id: room.friendly_id }
+
+          expect_response_to_have page: 1, pages: 2, recordings: first_page_recordings
+        end
+      end
+
+      context 'Overflowing page' do
+        it 'returns :ok with a list of the last page room public recordings' do
+          get :public_recordings, params: { friendly_id: room.friendly_id, page: 3 }
+
+          expect_response_to_have page: 2, pages: 2, recordings: second_page_recordings
+        end
+      end
+    end
+
+    context 'Sorting' do
+      # The order of creation and the choice of :recorded_at, :name and :length is not RANDOM and was carefully crafted.
+      # It was meant to have a scenario with high entropy.
+      # We decrease inter-records correlation for those values (especially respective to :created_at).
+      let!(:third_recorded_named_c_length_one) do
+        create(:recording, room:, name: 'C', recorded_at: Time.zone.at(1_686_943_800), length: 1, visibility: Recording::VISIBILITIES[:public])
+      end
+      let!(:second_recorded_named_a_length_three) do
+        create(:recording, room:, name: 'A', recorded_at: Time.zone.at(1_686_943_700), length: 3, visibility: Recording::VISIBILITIES[:public])
+      end
+      let!(:first_recorded_named_b_length_two) do
+        create(:recording, room:, name: 'B', recorded_at: Time.zone.at(1_686_943_600), length: 2, visibility: Recording::VISIBILITIES[:public])
+      end
+      let!(:last_recorded_named_c_length_one) do
+        create(:recording, room:, name: 'C', recorded_at: Time.zone.at(1_686_943_900), length: 1, visibility: Recording::VISIBILITIES[:public])
+      end
+
+      def expect_response_to_have_ordered(recordings:)
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['data'].pluck('id')).to eq(recordings.pluck('id'))
+      end
+
+      describe 'Sort by name' do
+        context 'ASC' do
+          it 'returns :ok with the list of the room public recordings sorted by name' do
+            get :public_recordings, params: { friendly_id: room.friendly_id, sort: { column: 'name', direction: 'ASC' } }
+
+            expect_response_to_have_ordered recordings: [second_recorded_named_a_length_three, first_recorded_named_b_length_two,
+                                                         last_recorded_named_c_length_one, third_recorded_named_c_length_one]
+          end
+        end
+
+        context 'DESC' do
+          it 'returns :ok with the list of the room public recordings sorted by name' do
+            get :public_recordings, params: { friendly_id: room.friendly_id, sort: { column: 'name', direction: 'DESC' } }
+
+            expect_response_to_have_ordered recordings: [last_recorded_named_c_length_one, third_recorded_named_c_length_one,
+                                                         first_recorded_named_b_length_two, second_recorded_named_a_length_three]
+          end
+        end
+      end
+
+      describe 'Sort by length' do
+        context 'ASC' do
+          it 'returns :ok with the list of the room public recordings sorted by length' do
+            get :public_recordings, params: { friendly_id: room.friendly_id, sort: { column: 'length', direction: 'ASC' } }
+
+            expect_response_to_have_ordered recordings: [last_recorded_named_c_length_one, third_recorded_named_c_length_one,
+                                                         first_recorded_named_b_length_two, second_recorded_named_a_length_three]
+          end
+        end
+
+        context 'DESC' do
+          it 'returns :ok with the list of the room public recordings sorted by length' do
+            get :public_recordings, params: { friendly_id: room.friendly_id, sort: { column: 'length', direction: 'DESC' } }
+
+            expect_response_to_have_ordered recordings: [second_recorded_named_a_length_three, first_recorded_named_b_length_two,
+                                                         last_recorded_named_c_length_one, third_recorded_named_c_length_one]
+          end
+        end
+      end
+
+      describe 'No sort by' do
+        it 'returns :ok with the list of the room public recordings sorted by recorded_at DESC' do
+          get :public_recordings, params: { friendly_id: room.friendly_id }
+
+          expect_response_to_have_ordered recordings: [last_recorded_named_c_length_one, third_recorded_named_c_length_one,
+                                                       second_recorded_named_a_length_three, first_recorded_named_b_length_two]
+        end
+      end
+    end
+
+    context 'Search' do
+      let!(:applied_math) do
+        create(:recording, room:, name: 'Applied mathematics', visibility: Recording::VISIBILITIES[:public])
+      end
+      let!(:advanced_math) do
+        create(:recording, room:, name: 'Advanced MaTHematics', visibility: Recording::VISIBILITIES[:public_protected])
+      end
+      let!(:thermodynamics) do
+        create(:recording, room:, name: 'Thermodynamics', visibility: Recording::VISIBILITIES[:public_protected])
+      end
+
+      def expect_response_to_match(recordings:)
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recordings.pluck('id'))
+      end
+
+      describe 'Matched by name' do
+        it 'returns :ok with the list of the room public recordings having matching name case insensitive' do
+          get :public_recordings, params: { friendly_id: room.friendly_id, search: 'math' }
+
+          expect_response_to_match recordings: [applied_math, advanced_math]
+        end
+      end
+
+      describe 'Matched by format type' do
+        before do
+          create(:format, recording: applied_math, recording_type: 'podcast')
+        end
+
+        it 'returns :ok with the list of the room public recordings having matching visibility case insensitive' do
+          get :public_recordings, params: { friendly_id: room.friendly_id, search: 'podcast' }
+
+          expect_response_to_match recordings: [applied_math]
+        end
+      end
+
+      describe 'No match' do
+        it 'returns :ok with an empty list' do
+          get :public_recordings,
+              params: { friendly_id: room.friendly_id, search: [Recording::VISIBILITIES[:public_protected], Recording::VISIBILITIES[:public]].sample }
+
+          expect_response_to_match recordings: []
+        end
+      end
+
+      describe 'No Search' do
+        it 'returns :ok with the list of the room public recordings' do
+          get :public_recordings, params: { friendly_id: room.friendly_id }
+
+          expect_response_to_match recordings: [applied_math, advanced_math, thermodynamics]
+        end
+      end
+    end
+
+    context 'Inexistent room' do
+      it 'returns :not_found' do
+        get :public_recordings, params: { friendly_id: '404' }
+
+        expect(response).to have_http_status(:not_found)
+        expect(JSON.parse(response.body)['data']).to be_blank
+      end
     end
   end
 end

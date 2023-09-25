@@ -50,7 +50,20 @@ module Greenlight
       room_limit: 'RoomLimitError',
       pending_user: 'PendingUser',
       banned_user: 'BannedUser',
-      unverified_user: 'UnverifiedUser'
+      unverified_user: 'UnverifiedUser',
+      external_signup_error: 'SignupError',
+      unauthorized: 'Unauthorized'
+    }
+
+    config.uploads = {
+      images: {
+        max_size: 3.megabytes,
+        formats: %i[png jpg jpeg svg]
+      },
+      presentations: {
+        max_size: 30.megabytes,
+        formats: %i[.doc .docx .ppt .pptx .pdf .xls .xlsx .txt .rtf .odt .ods .odp .odg .odc .odi .jpg .jpeg .png]
+      }
     }
 
     ActiveModelSerializers.config.adapter = :json

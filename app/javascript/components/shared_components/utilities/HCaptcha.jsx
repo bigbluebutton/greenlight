@@ -40,10 +40,6 @@ function HCaptcha(_props, ref) {
       console.error('Challenge expired, Timeout.');
       toast.error(t('toast.error.problem_completing_action'));
     },
-
-    handleVerified: () => {
-      toast.success(t('toast.success.success'));
-    },
   }), [i18n.resolvedLanguage]);
 
   if (!envAPI.data?.HCAPTCHA_KEY) {
@@ -56,7 +52,6 @@ function HCaptcha(_props, ref) {
         ref={ref}
         size="invisible"
         sitekey={envAPI.data.HCAPTCHA_KEY}
-        onVerify={HCaptchaHandlers.handleVerified}
         onError={HCaptchaHandlers.handleError}
         onExpire={HCaptchaHandlers.handleExpire}
         onChalExpired={HCaptchaHandlers.handleChalExpired}

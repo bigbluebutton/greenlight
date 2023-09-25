@@ -170,5 +170,143 @@ describe PermissionsChecker, type: :service do
         end
       end
     end
+
+    context 'Public recordings' do
+      let(:public_recording) { create(:recording, visibility: [Recording::VISIBILITIES[:public], Recording::VISIBILITIES[:public_protected]].sample) }
+
+      let(:private_recording) do
+        create(:recording,
+               visibility: [Recording::VISIBILITIES[:published], Recording::VISIBILITIES[:protected], Recording::VISIBILITIES[:unpublished]].sample)
+      end
+
+      it 'returns true if the recording is public' do
+        expect(described_class.new(
+          current_user: nil,
+          permission_names: 'PublicRecordings',
+          user_id: '',
+          friendly_id: '',
+          record_id: public_recording.record_id,
+          current_provider: public_recording.user.provider
+        ).call).to be(true)
+      end
+
+      it 'returns false if the recording is private' do
+        expect(described_class.new(
+          current_user: nil,
+          permission_names: 'PublicRecordings',
+          user_id: '',
+          friendly_id: '',
+          record_id: private_recording.record_id,
+          current_provider: private_recording.user.provider
+        ).call).to be(false)
+      end
+
+      describe 'Differnt provider' do
+        it 'returns false' do
+          expect(described_class.new(
+            current_user: nil,
+            permission_names: 'PublicRecordings',
+            user_id: '',
+            friendly_id: '',
+            record_id: public_recording.record_id,
+            current_provider: "NOT_#{public_recording.user.provider}"
+          ).call).to be(false)
+        end
+      end
+
+      describe 'Inexistent recording' do
+        it 'returns false' do
+          expect(described_class.new(
+            current_user: nil,
+            permission_names: 'PublicRecordings',
+            user_id: '',
+            friendly_id: '',
+            record_id: '404',
+            current_provider: public_recording.user.provider
+          ).call).to be(false)
+        end
+      end
+    end
+
+    context 'ManageRecordings' do
+      let(:current_user) { create(:user) }
+
+      describe 'Recording owned by current user' do
+        let(:room) { create(:room, user: current_user) }
+        let(:recording) { create(:recording, room:) }
+
+        it 'returns true' do
+          expect(described_class.new(
+            current_user:,
+            permission_names: 'ManageRecordings',
+            user_id: '',
+            friendly_id: '',
+            record_id: recording.record_id,
+            current_provider: current_user.provider
+          ).call).to be(true)
+        end
+      end
+
+      describe 'Recording not owned by current user' do
+        let(:recording) { create(:recording) }
+
+        it 'returns false' do
+          expect(described_class.new(
+            current_user:,
+            permission_names: 'ManageRecordings',
+            user_id: '',
+            friendly_id: '',
+            record_id: recording.record_id,
+            current_provider: current_user.provider
+          ).call).to be(false)
+        end
+
+        context 'User with ManageRecordings permission' do
+          let(:current_user) { create(:user, :with_manage_recordings_permission) }
+
+          describe 'Same provider' do
+            it 'returns true' do
+              expect(described_class.new(
+                current_user:,
+                permission_names: 'ManageRecordings',
+                user_id: '',
+                friendly_id: '',
+                record_id: recording.record_id,
+                current_provider: current_user.provider
+              ).call).to be(true)
+            end
+          end
+
+          describe 'Different provider' do
+            it 'returns true' do
+              expect(described_class.new(
+                current_user:,
+                permission_names: 'ManageRecordings',
+                user_id: '',
+                friendly_id: '',
+                record_id: recording.record_id,
+                current_provider: "NOT_#{recording.user.provider}"
+              ).call).to be(false)
+            end
+          end
+        end
+      end
+
+      describe 'Unauthenticated user' do
+        let(:current_user) { nil }
+        let(:recording) { create(:recording) }
+
+        it 'returns false' do
+          expect(described_class.new(
+            current_user:,
+            permission_names: 'ManageRecordings',
+            user_id: '',
+            friendly_id: '',
+            record_id: recording.record_id,
+            current_provider: recording.room.user.provider
+          ).call).to be(false)
+        end
+      end
+    end
   end
 end

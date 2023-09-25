@@ -23,6 +23,8 @@
   "are_you_sure": "Emin misiniz?",
   "return_home": "Girişe dön",
   "created_at": "Oluşturulma",
+  "view_recordings": "Kayıtları görüntüle",
+  "join_session": "Oturuma katıl",
   "no_result_search_input": "\"{{ searchInput }}\" için herhangi bir sonuç bulunamadı",
   "action_permanent": "Bu işlem geri alınamaz.",
   "homepage": {
@@ -126,7 +128,7 @@
       "presentation": "Sunum",
       "click_to_upload": "Yüklemek için tıklayın",
       "drag_and_drop": "ya da sürükleyip bırakın",
-      "upload_description": "Herhangi bir ofis belgesi ya da PDF dosyası yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
+      "upload_description": "Herhangi bir Office belgesi ya da PDF dosyası ({{size}} boyutundan büyük olmayan) yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
       "are_you_sure_delete_presentation": "Bu sunumu silmek istediğinize emin misiniz?"
     },
     "shared_access": {
@@ -171,11 +173,15 @@
     "published": "Yayınlanmış",
     "unpublished": "Yayınlanmamış",
     "protected": "Korunmuş",
+    "public": "Herkese açık",
+    "public_protected": "Herkese açık / Korunmuş",
     "length_in_minutes": "{{recording.length}} dakika",
     "processing_recording": "Kayıt işleniyor. Bu işlem birkaç dakika sürebilir...",
     "copy_recording_urls": "Kayıt adreslerini kopyala",
     "recordings_list_empty": "Henüz bir kaydınız yok!",
+    "public_recordings_list_empty": "Henüz herkese açık bir kayıt yok!",
     "recordings_list_empty_description": "Toplantıları başlatıp kayıt ettikten sonra kayıtlarınız burada görüntülenecek.",
+    "public_recordings_list_empty_description": "Kayıtlar yayınlandığında burada görüntülenecek.",
     "delete_recording": "Kaydı sil",
     "are_you_sure_delete_recording": "Bu kaydı silmek istediğinize emin misiniz?",
     "search_not_found": "Herhangi bir kayıt bulunamadı"
@@ -255,7 +261,7 @@
         "brand_image": "Marka görseli",
         "click_to_upload": "Yüklemek için tıklayın",
         "drag_and_drop": "ya da sürükleyip bırakın",
-        "upload_brand_image_description": "Herhangi PNG, JGP ya da SVG dosyası yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
+        "upload_brand_image_description": "Herhangi bir PNG, JPG ya da SVG dosyası ({{size}} boyutundan büyük olmayan) yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
         "remove_branding_image": "Marka görselini kaldır"
       },
       "administration": {
@@ -492,6 +498,11 @@
           "min": "Ad en az 2 karakter uzunluğunda olabilir"
         }
       },
+      "room_join": {
+        "name": {
+          "required": "Lütfen adınızı yazın."
+        }
+      },
       "url": {
         "invalid": "Adres geçersiz"
       }
@@ -501,6 +512,21 @@
         "name": {
           "label": "Oda adı",
           "placeholder": "Bir oda adı yazın..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Ad",
+            "placeholder": "Adınızı yazın"
+        },
+        "access_code": {
+          "label": "Erişim kodu",
+          "placeholder": "Erişim kodunu yazın"
+        },
+        "recording_consent": {
+          "label": "Bu oturumun kaydedildiğini ve etkinleştirilmiş ise sesim ve görüntümün de kaydedileceğini anladım."
         }
       }
     },

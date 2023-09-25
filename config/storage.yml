@@ -36,13 +36,24 @@ s3:
   secret_access_key: <%= ENV['S3_SECRET_ACCESS_KEY'] %>
   region: <%= ENV['S3_REGION'] %>
   bucket: <%= ENV['S3_BUCKET'] %>
+  force_path_style: <%= ENV.fetch("S3_FORCE_PATH_STYLE", false) %>
 
 # Remember not to checkin your GCS keyfile to a repository
-# google:
-#   service: GCS
-#   project: your_project
-#   credentials: <%= Rails.root.join("path/to/gcs.keyfile") %>
-#   bucket: your_own_bucket-<%= Rails.env %>
+google:
+  service: GCS
+  project: "<%= ENV['GCS_PROJECT'] %>"
+  bucket: "<%= ENV['GCS_BUCKET'] %>"
+  credentials:
+    type: 'service_account'
+    project_id: "<%= ENV['GCS_PROJECT_ID'] %>"
+    private_key_id: "<%= ENV['GCS_PRIVATE_KEY_ID'] %>"
+    private_key: "<%= ENV['GCS_PRIVATE_KEY']&.lines&.join("\\n") %>"
+    client_email: "<%= ENV['GCS_CLIENT_EMAIL'] %>"
+    client_id: "<%= ENV['GCS_CLIENT_ID'] %>"
+    auth_uri: 'https://accounts.google.com/o/oauth2/auth'
+    token_uri: 'https://accounts.google.com/o/oauth2/token'
+    auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs'
+    client_x509_cert_url: "<%= ENV['GCS_CLIENT_CERT'] %>"
 
 # Use bin/rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
 # microsoft:

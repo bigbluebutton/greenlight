@@ -2,7 +2,7 @@
   "start": "Starten",
   "search": "Suche",
   "home": "Startseite",
-  "previous": "Seite zurück",
+  "previous": "Zurück",
   "back": "Zurück",
   "next": "Weiter",
   "view": "Anzeigen",
@@ -20,26 +20,28 @@
   "copy_voice_bridge": "Telefoneinwahl kopieren",
   "or": "oder",
   "online": "Online",
-  "help_center": "Hilfezentrum",
+  "help_center": "Hilfe",
   "are_you_sure": "Wirklich sicher?",
   "return_home": "Zurück zur Startseite",
   "created_at": "Erstellt am",
+  "view_recordings": "Aufzeichnungen anzeigen",
+  "join_session": "Sitzung beitreten",
   "no_result_search_input": "Es konnten keine Ergebnisse für \"{{ searchInput }}\" gefunden werden",
   "action_permanent": "Diese Aktion kann nicht rückgängig gemacht werden.",
   "homepage": {
     "welcome_bbb": "Willkommen in BigBlueButton.",
-    "bigbluebutton_description": "BigBlueButton ist ein Open-Source-Webkonferenzsystem für Online-Klassen. Die Plattform maximiert die Zeit für angewandtes Lernen, indem sie es Studenten ermöglicht, zusammenzuarbeiten und Feedback in Echtzeit zu erhalten.",
-    "greenlight_description": "Erstellen Sie Ihre eigenen Räume, um Konferenzen abzuhalten, oder schließen Sie sich über einen kurzen und bequemen Link anderen an.",
-    "learn_more": "Mehr über BigBlueButton erfahren",
-    "explore_features": "Entdecken Sie unsere Features",
+    "bigbluebutton_description": "BigBlueButton ist ein Open-Source-Webkonferenzsystem für Online-Kurse. Die Plattform optimiert das Lernen, indem sie es ermöglicht, zusammenzuarbeiten und Feedback in Echtzeit zu erhalten.",
+    "greenlight_description": "Erstelle mit ihr eigene Räume, um Konferenzen abzuhalten, oder tritt über einen kurzen und bequemen Link einer bestehenden bei.",
+    "learn_more": "Erfahre mehr über BigBlueButton",
+    "explore_features": "Entdecke unsere Features",
     "meeting_title": "Konferenzen starten",
-    "meeting_description": "Starten Sie eine virtuelle Klasse mit Video, Audio, Bildschirmfreigabe, Chat und allen Tools, die für angewandtes Lernen erforderlich sind.",
+    "meeting_description": "Starten Sie einen virtuellen Kurs mit Video, Audio, Bildschirmfreigabe, Chat und allen Tools, die für angewandtes Lernen erforderlich sind.",
     "recording_title": "Konferenzen aufzeichnen",
-    "recording_description": "Zeichnen Sie die BigBlueButton-Konferenzen auf und geben Sie sie an die Schüler weiter, um den Inhalt zu besprechen und zu reflektieren.",
+    "recording_description": "Zeichne die Konferenzen auf und gebe sie an die Lernenden weiter, um den Inhalt zu besprechen und zu reflektieren.",
     "settings_title": "Räume verwalten",
-    "settings_description": "Konfigurieren Sie Ihre Räume und Konferenzeinstellungen, um ein effektives Klassenzimmer einzurichten.",
+    "settings_description": "Konfiguriere Räume und Konferenzeinstellungen, um einen effizienten Online-Kurs einzurichten.",
     "and_more_title": "Und mehr!",
-    "and_more_description": "BigBlueButton bietet integrierte Tools für angewandtes Lernen und ist so konzipiert, dass Sie im Unterricht Zeit sparen.",
+    "and_more_description": "BigBlueButton bietet Tools für angewandtes Lernen und ist so konzipiert, dass du im Kurs Zeit sparst.",
     "enter_meeting_url": "Konferenz-URL eingeben",
     "enter_meeting_url_instruction": "Bitte geben Sie die URL Ihres BigBlueButton-Meetings in das unten stehende Feld ein."
   },
@@ -56,7 +58,7 @@
     "forgot_password": "Passwort zurücksetzen",
     "dont_have_account": "Noch kein Konto?",
     "create_account": "Konto erstellen",
-    "create_an_account": "Ein Konto erstellen",
+    "create_an_account": "Neues Konto erstellen",
     "already_have_account": "Konto bereits vorhanden?"
   },
   "user": {
@@ -121,21 +123,27 @@
       "meeting_invitation": "Du wurdest zur Teilnahme eingeladen",
       "meeting_not_started": "Die Konferenz hat noch nicht begonnen",
       "join_meeting_automatically": "Beitritt erfolgt automatisch, sobald die Konferenz beginnt",
-      "recording_consent": "Ich nehme zur Kenntnis, dass die Sitzung aufgezeichnet werden kann. Dies wird meine Stimme und mein Bild einschließen, wenn dies aktiviert ist."
+      "recording_consent": "Ich nehme zur Kenntnis, dass die Sitzung aufgezeichnet werden kann. Dies wird meine Stimme und mein Bild einschließen, wenn dies aktiviert ist.",
+      "invite_to_meeting": "{{ name }} lädt Sie ein, an einem Meeting teilzunehmen.",
+      "join_by_url": "An Besprechung per URL teilnehmen",
+      "alternative_options": "Alternative Optionen zur Teilnahme",
+      "download_ics": ".ics-Kalenderdatei herunterladen",
+      "share_meeting": "Raum teilen",
+      "join_by_phone": "mit Telefoneinwahl beitreten"
     },
     "presentation": {
       "presentation": "Präsentation",
       "click_to_upload": "Klicken zum Hochladen",
-      "drag_and_drop": " oder Datei per Drag & Drop hier ablegen",
-      "upload_description": "Ein Office-Dokument oder eine PDF-Datei hochladen. Abhängig von der Größe könnte das eine gewisse Zeit dauern.",
+      "drag_and_drop": " oder Datei per Drag & Drop hier ablegen.",
+      "upload_description": "Ein Office-Dokument oder eine PDF-Datei hochladen (nicht größer als {{size}}). Abhängig von der Größe kann das eine gewisse Zeit dauern.",
       "are_you_sure_delete_presentation": "Diese Präsentation wirklich löschen?"
     },
     "shared_access": {
       "access": "Zugriff",
-      "add_share_access": "+ Zugriff teilen",
+      "add_share_access": "Zugriff teilen",
       "share_room_access": "Teile Raumzugriff",
       "add_some_users": "Füge jetzt ein paar Nutzer:innen hinzu!",
-      "add_some_users_description": "Um jemanden hinzuzufügen, klicke den Knopf unten und suche bzw. wähle aus mit wem Du den Raum teilen möchtest.",
+      "add_some_users_description": "Um jemanden hinzuzufügen, klicke den Knopf unten und suche beziehungsweise wähle aus, mit wem du den Raum teilen möchtest.",
       "delete_shared_access": "Freigegebenen Raumzugriff löschen",
       "are_you_sure_delete_shared_access": "Freigegebenen Raumzugriff wirklich löschen?"
     },
@@ -156,8 +164,8 @@
       "mod_access_code_optional": "Zugangscode für Moderation (optional)",
       "access_code_required": "Bitte den Zugangscode eingeben",
       "wrong_access_code": "Falscher Zugangscode",
-      "generate_viewers_access_code": "Generiere Zugangscode für Zuhörer:innen",
-      "generate_mods_access_code": "Generiere Zugangscode für die Moderation",
+      "generate_viewers_access_code": "Zugangscode für Zuhörer:innen generieren",
+      "generate_mods_access_code": "Zugangscode für die Moderation generieren",
       "are_you_sure_delete_room": "Diesen Raum wirklich löschen?"
     }
   },
@@ -172,11 +180,15 @@
     "published": "Veröffentlicht",
     "unpublished": "Unveröffentlicht",
     "protected": "Geschützt",
+    "public": "Öffentlich",
+    "public_protected": "Öffentlich/Geschützt",
     "length_in_minutes": "{{recording.length}} Minuten",
     "processing_recording": "Aufzeichnung wird erstellt, dies kann einige Minuten dauern...",
     "copy_recording_urls": "Kopiere die URL(s) der Aufzeichnungen",
     "recordings_list_empty": "Keine Aufzeichnung gefunden!",
+    "public_recordings_list_empty": "Bisher gibt es keine geteilten Aufzeichnungen!",
     "recordings_list_empty_description": "Aufzeichnungen werden hier angezeigt, nachdem du eine Besprechung gestartet und aufgezeichnet hast.",
+    "public_recordings_list_empty_description": "Die Aufzeichnungen werden hier angezeigt, sobald die Dozent:in sie geteilt hat.",
     "delete_recording": "Aufzeichnung löschen",
     "are_you_sure_delete_recording": "Diese Aufzeichnung wirklich löschen?",
     "search_not_found": "Keine Aufzeichnungen gefunden"
@@ -223,7 +235,7 @@
       }
     },
     "server_rooms": {
-      "server_rooms": "Serverräume",
+      "server_rooms": "alle Räume",
       "name": "Name",
       "owner": "Besitzer:in",
       "room_id": "Raum-ID",
@@ -235,14 +247,14 @@
       "current_session": "Aktuelle Sitzung: {{lastSession}}",
       "last_session": "Letzte Sitzung: {{localizedTime}}",
       "no_meeting_yet": "Bisher keine Konferenz.",
-      "delete_server_rooms": "Serverraum löschen",
+      "delete_server_rooms": "Raum löschen",
       "resync_recordings": "Aufzeichnungen resynchronisieren",
-      "empty_room_list": "Es gibt noch keine Serverräume!",
+      "empty_room_list": "Es gibt noch keine Räume auf diesem Server!",
       "empty_room_list_subtext": "Die Räume erscheinen hier, nachdem du deinen ersten Raum erstellt hast."
     },
     "server_recordings": {
-      "server_recordings": "Server-Aufzeichnungen",
-      "latest_recordings": "Letzte Aufzeichnungen",
+      "server_recordings": "alle Aufzeichnungen",
+      "latest_recordings": "alle Aufzeichnungen",
       "no_recordings_found": "Keine Aufzeichnungen gefunden."
     },
     "site_settings": {
@@ -256,16 +268,16 @@
         "brand_image": "Logo",
         "click_to_upload": "Klicken zum Hochladen",
         "drag_and_drop": " oder per Drag & Drop",
-        "upload_brand_image_description": "Eine PNG, JPG oder SVG-Datei hochladen. Abhängig von der Größe könnte das eine gewisse Zeit dauern.",
-        "remove_branding_image": "Markenbild/Logo entfernen"
+        "upload_brand_image_description": "Eine PNG-, JPG- oder SVG-Datei hochladen (nicht größer als {{size}}). Abhängig von der Größe kann das eine gewisse Zeit dauern.",
+        "remove_branding_image": "Logo entfernen"
       },
       "administration": {
         "administration": "Administration",
         "terms": "Nutzungsbedingungen",
         "privacy": "Datenschutz",
         "privacy_policy": "Datenschutzerklärung",
-        "change_term_links": "Ändere den Link zu den Nutzungsbedingungen, der unten auf der Seite erscheint",
-        "change_privacy_link": "Ändere den Link zur Datenschutzerklärung, der unten auf der Seite erscheint",
+        "change_term_links": "Ändere den Link zu den Nutzungsbedingungen, der unten auf der Seite erscheint.",
+        "change_privacy_link": "Ändere den Link zur Datenschutzerklärung, der unten auf der Seite erscheint.",
         "change_url": "URL ändern",
         "enter_link": "Link eingeben"
       },
@@ -302,7 +314,7 @@
       "disabled": "Deaktiviert",
       "configurations": {
         "allow_room_to_be_recorded": "Raum kann aufgezeichnet werden",
-        "allow_room_to_be_recorded_description": "Raumaufzeichnungen erlauben. Wenn aktiviert, muss die Moderation immer noch den \"Aufnahme\"-Knopf drücken, nachdem die Konferenz begonnen hat.",
+        "allow_room_to_be_recorded_description": "Aufzeichnungen erlauben. Wenn aktiviert, muss die Moderation immer noch den \"Aufnahme\"-Knopf drücken, nachdem die Konferenz begonnen hat.",
         "require_user_signed_in": "Nutzer:innen müssen eingeloggt sein, um teilzunehmen",
         "require_user_signed_in_description": "Teilnahme an der Konferenz ist nur mit einem Konto in Greenlight möglich. Wer nicht eingeloggt ist, wird auf die Login-Seite weitergeleitet.",
         "require_mod_approval": "Moderation muss der Teilnahme zustimmen",
@@ -378,13 +390,14 @@
         "access_code_generated": "Zugangscode generiert.",
         "access_code_deleted": "Zugriffcode wurde gelöscht.",
         "copied_meeting_url": "Die URL der Konferenz wurde kopiert. Der Link kann verwendet werden, um an der Konferenz teilzunehmen.",
+        "download_ics": "Die .ics-Datei wurde erstellt. Öffnen Sie sie, um sie zu bearbeiten und zu versenden, um Personen zu Ihrem Meeting einzuladen.",
         "copied_voice_bridge": "Die Telefonnummer und der Pin wurden kopiert. Diese können genutzt werden um an der Konferenz teilzunehmen."
       },
       "site_settings": {
         "site_setting_updated": "Grundeinstellungen aktualisiert.",
         "brand_color_updated": "Die Markenfarbe wurde aktualisiert.",
-        "brand_image_updated": "Das Markenbild wurde aktualisiert.",
-        "brand_image_deleted": "Das Markenbild wurde entfernt.",
+        "brand_image_updated": "Das Logo wurde aktualisiert.",
+        "brand_image_deleted": "Das Logo wurde entfernt.",
         "privacy_policy_updated": "Die Datenschutzrichtlinie wurde aktualisiert.",
         "terms_of_service_updated": "Die Nutzungsbedingungen wurden aktualisiert."
       },
@@ -440,8 +453,8 @@
   "account_activation_page": {
     "title": "Kontoaktivierung",
     "account_unverified": "Konto wurde noch nicht verifiziert.",
-    "message": "Um Greenlight zu benutzen, bitte das Konto anhand der Anleitung, die per Aktivierungs-Email geschickt wurde, verifizieren",
-    "resend_activation_link": "Wenn noch keine Aktivierungs-Email angekommen ist, oder es Probleme damit gibt, bitte unten eine neue Aktivierungs-Email anfordern.",
+    "message": "Um Greenlight zu benutzen, verifiziere das Konto bitte anhand der Anleitung, die in der Aktivierungs-Email geschickt wurde.",
+    "resend_activation_link": "Wenn noch keine Aktivierungs-Email angekommen ist, oder es Probleme mit ihr gibt, dann fordere bitte eine neue an.",
     "resend_btn_lbl": "Bestätigungsmail erneut senden"
   },
   "forms": {
@@ -494,6 +507,11 @@
           "min": "Der Name muss mindestens 2 Zeichen lang sein"
         }
       },
+      "room_join": {
+        "name": {
+          "required": "Bitte Namen eingeben."
+        }
+      },
       "url": {
         "invalid": "Ungültige URL"
       }
@@ -503,6 +521,21 @@
         "name": {
           "label": "Raumname",
           "placeholder": "Raumname eingeben..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Name",
+            "placeholder": "Namen eingeben"
+        },
+        "access_code": {
+          "label": "Zugangscode",
+          "placeholder": "Zugangscode eingeben"
+        },
+        "recording_consent": {
+          "label": "Ich nehme zur Kenntnis, dass die Sitzung aufgezeichnet werden kann. Dies wird meine Stimme und mein Bild einschließen, wenn dies aktiviert ist."
         }
       }
     },
@@ -519,7 +552,7 @@
           },
           "password": {
             "label": "Passwort",
-            "placeholder": "Passwort erstellen"
+            "placeholder": "Passwort eingeben"
           },
           "password_confirmation": {
             "label": "Passwort bestätigen",
@@ -531,11 +564,11 @@
         "fields": {
           "email": {
             "label": "E-Mail",
-            "placeholder": "E-Mail"
+            "placeholder": "E-Mail eingeben"
           },
           "password": {
             "label": "Passwort",
-            "placeholder": "Passwort"
+            "placeholder": "Passwort eingeben"
           },
           "remember_me": {
             "label": "Eingeloggt bleiben"
