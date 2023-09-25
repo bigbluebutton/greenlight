@@ -50,17 +50,40 @@ module Greenlight
       room_limit: 'RoomLimitError',
       pending_user: 'PendingUser',
       banned_user: 'BannedUser',
-      unverified_user: 'UnverifiedUser'
+      unverified_user: 'UnverifiedUser',
+      external_signup_error: 'SignupError',
+      unauthorized: 'Unauthorized'
+    }
+
+    config.uploads = {
+      images: {
+        max_size: 3.megabytes,
+        formats: %i[png jpg jpeg svg]
+      },
+      presentations: {
+        max_size: 30.megabytes,
+        formats: %i[.doc .docx .ppt .pptx .pdf .xls .xlsx .txt .rtf .odt .ods .odp .odg .odc .odi .jpg .jpeg .png]
+      }
     }
 
     ActiveModelSerializers.config.adapter = :json
 
     config.active_storage.variant_processor = :mini_magick
 
+    # SVGs are served as binary by default, which causes the browser to download the file instead of displaying it
+    config.active_storage.content_types_to_serve_as_binary -= ['image/svg+xml']
+
     config.bigbluebutton_endpoint = ENV.fetch('BIGBLUEBUTTON_ENDPOINT', 'https://test-install.blindsidenetworks.com/bigbluebutton/api')
     config.bigbluebutton_endpoint = File.join(config.bigbluebutton_endpoint, '') unless config.bigbluebutton_endpoint.end_with?('/')
     config.bigbluebutton_endpoint = File.join(config.bigbluebutton_endpoint, '/api/') unless config.bigbluebutton_endpoint.end_with?('api', 'api/')
 
     config.bigbluebutton_secret = ENV.fetch('BIGBLUEBUTTON_SECRET', '8cd8ef52e8e101574e400365b55e11a6')
+
+    config.voice_bridge_phone_number = ENV.fetch('VOICE_BRIDGE_PHONE_NUMBER', nil)
+
+    config.relative_url_root = ENV.fetch('RELATIVE_URL_ROOT', '/')
+    # Fetch 'RELATIVE_URL_ROOT' ENV variable value while removing any trailing slashes.
+    config.relative_url_root = ENV.fetch('RELATIVE_URL_ROOT', nil)&.sub(%r{/*\z}, '')
+    config.relative_url_root = '/' if config.relative_url_root.blank?
   end
 end

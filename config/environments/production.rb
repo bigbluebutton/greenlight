@@ -60,6 +60,8 @@ Rails.application.configure do
                                     :s3
                                   elsif ENV['S3_ACCESS_KEY_ID'].present?
                                     :amazon
+                                  elsif ENV['GCS_PROJECT'].present?
+                                    :google
                                   else
                                     :local
                                   end
@@ -75,9 +77,9 @@ Rails.application.configure do
       user_name: ENV.fetch('SMTP_USERNAME', nil),
       password: ENV.fetch('SMTP_PASSWORD', nil),
       authentication: ENV.fetch('SMTP_AUTH', nil),
-      enable_starttls_auto: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS_AUTO', 'true')),
-      enable_starttls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS', 'false')),
-      tls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_TLS', 'false')),
+      enable_starttls_auto: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS_AUTO', nil)),
+      enable_starttls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS', nil)),
+      tls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_TLS', nil)),
       openssl_verify_mode: ENV.fetch('SMTP_SSL_VERIFY', 'true') == 'false' ? OpenSSL::SSL::VERIFY_NONE : OpenSSL::SSL::VERIFY_PEER
     }.compact
 
@@ -103,7 +105,7 @@ Rails.application.configure do
 
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).
-  config.log_level = :info
+  config.log_level = ENV['LOG_LEVEL'] || :info
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
@@ -134,10 +136,30 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
   if ENV['RAILS_LOG_TO_STDOUT'].present?
+    $stdout.sync = true
     logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
+
+  if ENV['RAILS_LOG_REMOTE_NAME'] && ENV['RAILS_LOG_REMOTE_PORT']
+    require 'remote_syslog_logger'
+    logger_program = ENV['RAILS_LOG_REMOTE_TAG'] || "greenlight-v3-#{ENV.fetch('RAILS_ENV', nil)}"
+    logger = RemoteSyslogLogger.new(ENV['RAILS_LOG_REMOTE_NAME'], ENV['RAILS_LOG_REMOTE_PORT'], program: logger_program)
+  end
+
+  logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
+
+  # Use Lograge for logging
+  config.lograge.enabled = true
+  config.lograge.custom_options = lambda do |event|
+    { time: Time.zone.now, host: event.payload[:host] }
+  end
+
+  config.lograge.ignore_actions = ['HealthChecksController#check',
+                                   'ApplicationCable::Connection#connect', 'RoomsChannel#subscribe',
+                                   'ApplicationCable::Connection#disconnect', 'RoomsChannel#unsubscribe']
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false

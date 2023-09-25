@@ -12,7 +12,7 @@ Interested? Try Greenlight v3 out on our [demo server](https://demo.bigbluebutto
 
 ## Installation
 
-To install and configure Greenlight v3, please follow the instructions [here](https://docs.bigbluebutton.org/greenlight_v3/gl3-install.html).
+To install and configure Greenlight v3, please follow the instructions [here](https://docs.bigbluebutton.org/greenlight/v3/install).
 
 ## Source Code & Contributing
 

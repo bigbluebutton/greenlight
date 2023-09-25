@@ -18,7 +18,7 @@
 #    https://www.bigbluebutton.org/.
 #
 # This gl-install.sh script automates many of the installation and configuration
-# steps at https://docs.bigbluebutton.org/greenlight_v3/gl3-install.html
+# steps at https://docs.bigbluebutton.org/greenlight/v3/install
 #
 #
 #  Examples
@@ -58,6 +58,10 @@ OPTIONS (install Greenlight):
   
   -h                     Print help
 
+VARIABLES (configure Greenlight):
+  GL_PATH                Configure Greenlight relative URL root path (Optional)
+                          * Use this when deploying Greenlight behind a reverse proxy on a path other than the default '/' e.g. '/gl'.
+
 EXAMPLES:
 
 Sample options for setup a Greenlight 3.x server with a publicly signed (by Let's encrypt) SSL certificate for a FQDN of www.example.com and an email
@@ -67,12 +71,12 @@ of info@example.com that uses a BigBlueButton server at bbb.example.com with sec
 
 Sample options for setup a Greenlight 3.x server with pre-owned SSL certificates for a FQDN of www.example.com that uses a BigBlueButton server at bbb.example.com with secret SECRET: 
 
-    -b bbb.example.com:SECRET -d
+    -s www.example.com -b bbb.example.com:SECRET -d
 
 SUPPORT:
          Community: https://groups.google.com/g/bigbluebutton-greenlight
          Source: https://github.com/bigbluebutton/greenlight-run
-         Docs: https://docs.bigbluebutton.org/greenlight_v3/gl3-install.html
+         Docs: https://docs.bigbluebutton.org/greenlight/v3/install
 
 HERE
 }
@@ -140,9 +144,16 @@ main() {
     esac
   done
 
+  GL_DEFAULT_PATH=/
+  if [ -n "$GL_PATH"  ] && [ "$GL_PATH" != "$GL_DEFAULT_PATH" ]; then
+    if [[ ! $GL_PATH =~ ^/.*[^/]$ ]]; then
+      err "\$GL_PATH ENV is set to '$GL_PATH' which is invalid, Greenlight relative URL root path must start but not end with '/'."
+    fi
+  fi
+
   check_env # Meeting requirements.
 
-  say "Checks passed, installing/upgrading Greenlight!"
+  say "Environment checks passed, installing/upgrading Greenlight!"
 
   apt-get update
   apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" dist-upgrade
@@ -192,9 +203,9 @@ check_env() {
     fi
 
     # Conflict detection of required ports being already in use.
-    if check_ports_listen ':80$|:443$|:5050$'; then
+    if check_ports_listen ':80$|:443$|:5050$|:5151$'; then
       say "Some required ports are already in use by another application!"
-      err "Make sure to clear out the required ports (TCP 80, 443, 5050) if possible OR kindly consider using a clean enviroment before proceeding."
+      err "Make sure to clear out the required ports (TCP 80, 443, 5050, 5151) if possible OR kindly consider using a clean enviroment before proceeding."
     fi
   fi
 
@@ -348,7 +359,7 @@ check_host() {
 
 # This function will install the latest official version of greenlight-v3 and set it as the hosting Bigbluebutton default frontend or update greenlight-v3 if installed.
 # Greenlight is a simple to use Bigbluebutton room manager that offers a set of features useful to online workloads especially virtual schooling.
-# https://docs.bigbluebutton.org/greenlight/gl-overview.html
+# https://docs.bigbluebutton.org/greenlight/v3/install
 install_greenlight_v3(){
   check_root
   install_docker
@@ -365,40 +376,49 @@ install_greenlight_v3(){
   say "pulling latest $GL_IMG_REPO image..."
   docker pull $GL_IMG_REPO
 
-  if [ ! -f $GL3_DIR/.env ]; then
-    docker run --rm --entrypoint sh $GL_IMG_REPO -c 'cat sample.env' > $GL3_DIR/.env && say ".env file was created"
-  fi
+  if [ ! -s $GL3_DIR/docker-compose.yml ]; then
+    docker run --rm --entrypoint sh $GL_IMG_REPO -c 'cat docker-compose.yml' > $GL3_DIR/docker-compose.yml
 
-  if [ ! -f $GL3_DIR/docker-compose.yml ]; then
-    docker run --rm --entrypoint sh $GL_IMG_REPO -c 'cat docker-compose.yml' > $GL3_DIR/docker-compose.yml && say "docker compose file was created"
+    if [ ! -s $GL3_DIR/docker-compose.yml ]; then
+      err "failed to create docker compose file - is docker running?"
+    fi
+
+    say "greenlight-v3 docker compose file was created"
   fi
 
   # Configuring Greenlight v3.
   say "checking the configuration of greenlight-v3..."
 
-  local SECRET_KEY_BASE=$(docker run --rm --entrypoint bundle $GL_IMG_REPO exec rake secret)
+  # Configuring Greenlight v3 docker-compose.yml (if configured no side effect will happen).
+  sed -i "s|^\([ \t-]*POSTGRES_PASSWORD\)\(=[ \t]*\)$|\1=$(openssl rand -hex 24)|g" $GL3_DIR/docker-compose.yml # Do not overwrite the value if not empty.
+
   local PGUSER=postgres # Postgres db user to be used by greenlight-v3.
   local PGTXADDR=postgres:5432 # Postgres DB transport address (pair of (@ip:@port)).
+  local RSTXADDR=redis:6379 # Redis DB transport address (pair of (@ip:@port)).
+  local PGPASSWORD=$(sed -ne "s/^\([ \t-]*POSTGRES_PASSWORD=\)\(.*\)$/\2/p" $GL3_DIR/docker-compose.yml) # Extract generated Postgres password.
+
+  if [ -z "$PGPASSWORD" ]; then
+    err "failed to retrieve greenlight-v3 DB password - retry to resolve."
+  fi
+
+  local DATABASE_URL_ROOT="postgres://$PGUSER:$PGPASSWORD@$PGTXADDR"
+  local REDIS_URL_ROOT="redis://$RSTXADDR"
+
   local PGDBNAME=greenlight-v3-production
-  local PGPASSWORD=$(openssl rand -hex 24) # Postgres user password.
-  local RSTXADDR=redis:6379
+  local SECRET_KEY_BASE=$(docker run --rm --entrypoint bundle $GL_IMG_REPO exec rake secret)
 
-  if [ -n "$BIGBLUEBUTTON" ]; then
-    # BigBlueButton server configuration.
-    local BIGBLUEBUTTON_ENDPOINT="https://${BIGBLUEBUTTON[0]}/bigbluebutton/api"
-    local BIGBLUEBUTTON_SECRET=${BIGBLUEBUTTON[1]}
+  if [ -z "$SECRET_KEY_BASE" ]; then
+    err "failed to generate greenlight-v3 secret key base - is docker running?"
+  fi
 
-    # In this case admins can use the script to configure Greenlight to use the BigBlueButton server or update it to use a different one (overwrite). 
-    sed -i "s|^[# \t]*BIGBLUEBUTTON_ENDPOINT=.*|BIGBLUEBUTTON_ENDPOINT=$BIGBLUEBUTTON_ENDPOINT|" $GL3_DIR/.env
-    sed -i "s|^[# \t]*BIGBLUEBUTTON_SECRET=.*|BIGBLUEBUTTON_SECRET=$BIGBLUEBUTTON_SECRET|"  $GL3_DIR/.env
-  else
-    # Demo BigBlueButton server configuration.
-    local BIGBLUEBUTTON_ENDPOINT="https://test-install.blindsidenetworks.com/bigbluebutton/api"
-    local BIGBLUEBUTTON_SECRET=8cd8ef52e8e101574e400365b55e11a6
+  if [ ! -s $GL3_DIR/.env ]; then
+    docker run --rm --entrypoint sh $GL_IMG_REPO -c 'cat sample.env' > $GL3_DIR/.env
 
-    # In this case admins can use the script to configure Greenlight with the demo server but not update it to use a dedicated server if already configured (no overwrite).
-    sed -i "s|^[# \t]*BIGBLUEBUTTON_ENDPOINT=[ \t]*$|BIGBLUEBUTTON_ENDPOINT=$BIGBLUEBUTTON_ENDPOINT|" $GL3_DIR/.env
-    sed -i "s|^[# \t]*BIGBLUEBUTTON_SECRET=[ \t]*$|BIGBLUEBUTTON_SECRET=$BIGBLUEBUTTON_SECRET|"  $GL3_DIR/.env
+    if [ ! -s $GL3_DIR/.env ]; then
+      err "failed to create greenlight-v3 .env file - is docker running?"
+    fi
+ 
+    say "greenlight-v3 .env file was created"
   fi
 
   # A note for future maintainers:
@@ -407,44 +427,95 @@ install_greenlight_v3(){
   #   A simple change can impact that property and therefore render the upgrading functionnality unoperationnal or impact the running system.
 
   # Configuring Greenlight v3 .env file (if already configured this will only update the BBB endpoint and secret).
+  cp -v $GL3_DIR/.env $GL3_DIR/.env.old && say "old .env file can be retrieved at $GL3_DIR/.env.old" #Backup
 
-  sed -i "s|^[# \t]*SECRET_KEY_BASE=[ \t]*$|SECRET_KEY_BASE=$SECRET_KEY_BASE|" $GL3_DIR/.env
-  sed -i "s|^[# \t]*DATABASE_URL=[ \t]*$|DATABASE_URL=postgres://$PGUSER:$PGPASSWORD@$PGTXADDR/$PGDBNAME|" $GL3_DIR/.env
-  sed -i "s|^[# \t]*REDIS_URL=[ \t]*$|REDIS_URL=redis://$RSTXADDR/|" $GL3_DIR/.env
-  # Configuring Greenlight v3 docker-compose.yml (if configured no side effect will happen).
-  sed -i "s|^\([ \t-]*POSTGRES_PASSWORD\)\(=[ \t]*\)$|\1=$PGPASSWORD|g" $GL3_DIR/docker-compose.yml
+  if [ -n "$BIGBLUEBUTTON" ]; then
+    # BigBlueButton server configuration.
+    local BIGBLUEBUTTON_ENDPOINT="https://${BIGBLUEBUTTON[0]}/bigbluebutton/api"
+    local BIGBLUEBUTTON_SECRET=${BIGBLUEBUTTON[1]}
+
+    # Re-configure a new BBB server to be used by Greenlight. 
+    sed -i "s|^[# \t]*BIGBLUEBUTTON_ENDPOINT=.*|BIGBLUEBUTTON_ENDPOINT=$BIGBLUEBUTTON_ENDPOINT|" $GL3_DIR/.env
+    sed -i "s|^[# \t]*BIGBLUEBUTTON_SECRET=.*|BIGBLUEBUTTON_SECRET=$BIGBLUEBUTTON_SECRET|"  $GL3_DIR/.env
+  else
+    # Demo BigBlueButton server configuration.
+    local BIGBLUEBUTTON_ENDPOINT="https://test-install.blindsidenetworks.com/bigbluebutton/api"
+    local BIGBLUEBUTTON_SECRET=8cd8ef52e8e101574e400365b55e11a6
+
+    # The demo BBB server should be used when not specifying a dedicated one on installation only (no overwriting).
+    sed -i "s|^[# \t]*BIGBLUEBUTTON_ENDPOINT=[ \t]*$|BIGBLUEBUTTON_ENDPOINT=$BIGBLUEBUTTON_ENDPOINT|" $GL3_DIR/.env # Do not overwrite the value if not empty.
+    sed -i "s|^[# \t]*BIGBLUEBUTTON_SECRET=[ \t]*$|BIGBLUEBUTTON_SECRET=$BIGBLUEBUTTON_SECRET|"  $GL3_DIR/.env # Do not overwrite the value if not empty.
+  fi
+
+  sed -i "s|^[# \t]*SECRET_KEY_BASE=[ \t]*$|SECRET_KEY_BASE=$SECRET_KEY_BASE|" $GL3_DIR/.env # Do not overwrite the value if not empty.
+  sed -i "s|^[# \t]*DATABASE_URL=[ \t]*$|DATABASE_URL=$DATABASE_URL_ROOT/$PGDBNAME|" $GL3_DIR/.env # Do not overwrite the value if not empty.
+  sed -i "s|^[# \t]*REDIS_URL=[ \t]*$|REDIS_URL=$REDIS_URL_ROOT/|" $GL3_DIR/.env # Do not overwrite the value if not empty.
 
   # Placing greenlight-v3 nginx file, this will enable greenlight-v3 as your Bigbluebutton frontend (bbb-fe).
+  cp -v $NGINX_FILES_DEST/greenlight-v3.nginx $NGINX_FILES_DEST/greenlight-v3.nginx.old && say "old greenlight-v3 nginx config can be retrieved at $NGINX_FILES_DEST/greenlight-v3.nginx.old" #Backup
   docker run --rm --entrypoint sh $GL_IMG_REPO -c 'cat greenlight-v3.nginx' > $NGINX_FILES_DEST/greenlight-v3.nginx && say "added greenlight-v3 nginx file"
 
+  # Adding Keycloak
+  if [ -n "$INSTALL_KC" ]; then
+      # When attepmting to install/update Keycloak let us attempt to create the database to resolve any issues caused by postgres false negatives.
+      docker-compose -f $GL3_DIR/docker-compose.yml up -d postgres && say "started postgres"
+      wait_postgres_start
+      docker-compose -f $GL3_DIR/docker-compose.yml exec -T postgres psql -U postgres -c 'CREATE DATABASE keycloakdb;'
+  fi
+
   if ! grep -q 'keycloak:' $GL3_DIR/docker-compose.yml; then
+    # The following logic is expected to run only once when adding Keycloak.
     # Keycloak isn't installed
     if [ -n "$INSTALL_KC" ]; then
       # Add Keycloak
       say "Adding Keycloak..."
-      docker-compose -f $GL3_DIR/docker-compose.yml up -d postgres && say "started postgres"
-      sleep 5
-      docker-compose -f $GL3_DIR/docker-compose.yml exec -T postgres psql -U postgres -c 'CREATE DATABASE keycloakdb;' || err "unable to create Keycloak DB"
 
-      say "created Keycloak DB"
       docker-compose -f $GL3_DIR/docker-compose.yml down
-      cp -v $GL3_DIR/docker-compose.yml $GL3_DIR/docker-compose.base.yml # Persist working base compose file for admins.
-      docker run --rm --entrypoint sh $GL_IMG_REPO -c 'cat docker-compose.kc.yml' >> $GL3_DIR/docker-compose.yml && say "added Keycloak to compose file"
+      cp -v $GL3_DIR/docker-compose.yml $GL3_DIR/docker-compose.base.yml # Persist working base compose file for admins as a Backup.
+
+      docker run --rm --entrypoint sh $GL_IMG_REPO -c 'cat docker-compose.kc.yml' >> $GL3_DIR/docker-compose.yml
+
+      if ! grep -q 'keycloak:' $GL3_DIR/docker-compose.yml; then
+        err "failed to add Keycloak service to greenlight-v3 compose file - is docker running?"
+      fi
+      say "added Keycloak to compose file"
+
       KCPASSWORD=$(openssl rand -hex 12) # Keycloak admin password.
-      PGPASSWORD=$(sed -ne "s/^\([ \t-]*POSTGRES_PASSWORD=\)\(.*\)$/\2/p" $GL3_DIR/docker-compose.yml)
-      sed -i "s|^\([ \t-]*KEYCLOAK_ADMIN_PASSWORD\)\(=[ \t]*\)$|\1=$KCPASSWORD|g" $GL3_DIR/docker-compose.yml
-      sed -i "s|^\([ \t-]*KC_DB_PASSWORD\)\(=[ \t]*\)$|\1=$PGPASSWORD|g" $GL3_DIR/docker-compose.yml
+      sed -i "s|^\([ \t-]*KEYCLOAK_ADMIN_PASSWORD\)\(=[ \t]*\)$|\1=$KCPASSWORD|g" $GL3_DIR/docker-compose.yml # Do not overwrite the value if not empty.
+      sed -i "s|^\([ \t-]*KC_DB_PASSWORD\)\(=[ \t]*\)$|\1=$PGPASSWORD|g" $GL3_DIR/docker-compose.yml # Do not overwrite the value if not empty.
 
       # Updating Keycloak nginx file.
+      cp -v $NGINX_FILES_DEST/keycloak.nginx $NGINX_FILES_DEST/keycloak.nginx.old && say "old Keycloak nginx config can be retrieved at $NGINX_FILES_DEST/keycloak.nginx.old"
       docker run --rm --entrypoint sh $GL_IMG_REPO -c 'cat keycloak.nginx' > $NGINX_FILES_DEST/keycloak.nginx && say "added Keycloak nginx file"
     fi
 
   else
     # Update Keycloak nginx file only.
+    cp -v $NGINX_FILES_DEST/keycloak.nginx $NGINX_FILES_DEST/keycloak.nginx.old && say "old Keycloak nginx config can be retrieved at $NGINX_FILES_DEST/keycloak.nginx.old"
     docker run --rm --entrypoint sh $GL_IMG_REPO -c 'cat keycloak.nginx' > $NGINX_FILES_DEST/keycloak.nginx && say "added Keycloak nginx file"
   fi
 
-  nginx -qt || err 'greenlight-v3 failed to install due to nginx tests failing to pass - if using the official image then please contact the maintainers.'
+  # Update .env file catching new configurations:
+  if ! grep -q 'RELATIVE_URL_ROOT=' $GL3_DIR/.env; then
+      cat <<HERE >> $GL3_DIR/.env
+#RELATIVE_URL_ROOT=/gl
+
+HERE
+  fi
+
+  if [ -n "$GL_PATH" ]; then
+    sed -i "s|^[# \t]*RELATIVE_URL_ROOT=.*|RELATIVE_URL_ROOT=$GL_PATH|" $GL3_DIR/.env
+  fi
+
+  local GL_RELATIVE_URL_ROOT=$(sed -ne "s/^\([ \t]*RELATIVE_URL_ROOT=\)\(.*\)$/\2/p" $GL3_DIR/.env) # Extract relative URL root path.
+  say "Deploying Greenlight on the '${GL_RELATIVE_URL_ROOT:-$GL_DEFAULT_PATH}' path..."
+
+  if [ -n "$GL_RELATIVE_URL_ROOT" ] && [ "$GL_RELATIVE_URL_ROOT" != "$GL_DEFAULT_PATH" ]; then
+    sed -i "s|^\([ \t]*location\)[ \t]*\(.*/cable\)[ \t]*\({\)$|\1 $GL_RELATIVE_URL_ROOT/cable \3|" $NGINX_FILES_DEST/greenlight-v3.nginx
+    sed -i "s|^\([ \t]*location\)[ \t]*\(@bbb-fe\)[ \t]*\({\)$|\1 $GL_RELATIVE_URL_ROOT \3|" $NGINX_FILES_DEST/greenlight-v3.nginx
+  fi
+
+  nginx -qt || err 'greenlight-v3 failed to install/update due to nginx tests failing to pass - if using the official image then please contact the maintainers.'
   nginx -qs reload && say 'greenlight-v3 was successfully configured'
 
   # Eager pulling images.
@@ -461,17 +532,38 @@ install_greenlight_v3(){
   say "starting greenlight-v3..."
   docker-compose -f $GL3_DIR/docker-compose.yml up -d
   sleep 5
-  say "greenlight-v3 is ready, You can VISIT: https://$HOST/ !"
+  say "greenlight-v3 is now installed and accessible on: https://$HOST${GL_RELATIVE_URL_ROOT:-$GL_DEFAULT_PATH}"
+  say "To create Greenlight administrator account, see: https://docs.bigbluebutton.org/greenlight/v3/install#creating-an-admin-account"
+
 
   if grep -q 'keycloak:' $GL3_DIR/docker-compose.yml; then
-    say "Keycloak is ready, You can VISIT: https://$HOST/keycloak !"
+    say "Keycloak is installed, up to date and accessible for configuration on: https://$HOST/keycloak/"
+    if [ -n "$KCPASSWORD" ];then
+      say "Use the following credentials when accessing the admin console:"
+      say "   admin"
+      say "   $KCPASSWORD"
+    fi
+
+    say "To complete the configuration of Keycloak, see: https://docs.bigbluebutton.org/greenlight/v3/external-authentication#configuring-keycloak"
   fi
 
-  if [ -n "$KCPASSWORD" ];then
-    say "Keycloak administrator account:"
-    say " admin"
-    say " $KCPASSWORD"
-  fi
+  return 0;
+}
+
+wait_postgres_start() {
+  say "Waiting for the Postgres DB to start..."
+  docker-compose -f $GL3_DIR/docker-compose.yml up -d postgres || err "failed to start Postgres service - retry to resolve"
+
+  local tries=0
+  while ! docker-compose -f $GL3_DIR/docker-compose.yml exec -T postgres pg_isready 2> /dev/null 1>&2; do
+    echo -n .
+    sleep 3
+    if (( ++tries == 3 )); then
+      err "failed to start Postgres due to reaching waiting timeout - retry to resolve" 
+    fi
+  done
+
+  say "Postgres is ready!"
 
   return 0;
 }
@@ -480,7 +572,7 @@ install_ssl() {
   # Assertions for fresh installations
   if [ ! -f /etc/nginx/sites-available/greenlight ]; then
     if [ -d "/etc/letsencrypt/live/$HOST" ]; then
-      err "Unable to generate certificates for $HOST, /etc/letsencrypt/live/$HOST/ already exists."
+      err "Unable to manage certificates for $HOST, /etc/letsencrypt/live/$HOST/ already exists."
     fi
   fi
 
@@ -507,6 +599,7 @@ install_ssl() {
       if [[ ! "$(readlink -e /etc/letsencrypt/live/$HOST/fullchain.pem)" =~ ^/etc/letsencrypt/archive/$HOST.*/fullchain.*\.pem$ ]]; then
         err "fullchain.pem was probably provided and not generated by this script, exiting to avoid conflict."
       fi
+      local GENERATED_CERTS_EXIST=true
     fi
 
     if [ -f /etc/letsencrypt/live/$HOST/privkey.pem ]; then
@@ -567,20 +660,31 @@ HERE
       ln -sf /local/certs/privkey.pem "/etc/letsencrypt/live/$HOST/privkey.pem" && say "privkey.pem found and placed"
   else
     # Auto generate a standalone SSL x509 certificate publicly signed by Let's encrypt for this domain $HOST.
-    say "Rehearsal phase..."
-    if certbot --staging --email "$EMAIL" --agree-tos --rsa-key-size 4096 -w $ASSETS_DEST \
-        -d "$HOST" --deploy-hook "systemctl reload nginx" $LETS_ENCRYPT_OPTIONS certonly; then
-      say "Generating SSL certificates for $HOST..."
-      say "Rehearsal passed, ready to issue production certificates!"
-      say "Issuing production certificates..."
-      if certbot --force-renewal --email "$EMAIL" --agree-tos --rsa-key-size 4096 -w $ASSETS_DEST \
-          -d "$HOST" --deploy-hook "systemctl reload nginx" $LETS_ENCRYPT_OPTIONS certonly; then
-        say "Production SSL certificates has been generated!"
+    if [ -n "$GENERATED_CERTS_EXIST" ]; then
+      say "Checking certificates of $HOST for renewal..."
+      if certbot --email "$EMAIL" --agree-tos --rsa-key-size 4096 -w $ASSETS_DEST \
+            -d "$HOST" --deploy-hook "systemctl reload nginx" $LETS_ENCRYPT_OPTIONS certonly; then
+        say "Renewal checks passed!"
       else
-        warn "Something went wrong when generating production certificates"
+        warn "Something went wrong when attempting to renew certificates!"
       fi
     else
-      warn "Unable to pass the rehearsal phase, avoided generating production certificates to keep rates under limit."
+      say "Generating certificates for $HOST..."
+      say "Rehearsal phase..."
+      if certbot --staging --email "$EMAIL" --agree-tos --rsa-key-size 4096 -w $ASSETS_DEST \
+          -d "$HOST" --deploy-hook "systemctl reload nginx" $LETS_ENCRYPT_OPTIONS certonly; then
+        say "Generating SSL certificates for $HOST..."
+        say "Rehearsal passed, ready to issue production certificates!"
+        say "Issuing production certificates..."
+        if certbot --force-renewal --email "$EMAIL" --agree-tos --rsa-key-size 4096 -w $ASSETS_DEST \
+            -d "$HOST" --deploy-hook "systemctl reload nginx" $LETS_ENCRYPT_OPTIONS certonly; then
+          say "Production SSL certificates has been generated!"
+        else
+          warn "Something went wrong when generating production certificates"
+        fi
+      else
+        warn "Unable to pass the rehearsal phase, avoided generating production certificates to keep rates under limit."
+      fi
     fi
   fi
 
@@ -673,23 +777,6 @@ check_container_running() {
   docker ps | grep -q "$1" || return 1;
 
   return 0;
-}
-
-# Given a filename as $1, if file exists under $sites_dir then the file will be suffixed with '.disabled'.
-# sites_dir points to Bigbluebutton nginx sites, when suffixed with '.disabled' nginx will not include the site on reload/restart thus disabling it.
-disable_nginx_site() {
-  local site_path="$1"
-  local sites_dir=/usr/share/bigbluebutton/nginx
-
-  if [ -z $site_path ]; then
-    return 1;
-  fi
-
-  if [ -f $sites_dir/$site_path ]; then
-    mv $sites_dir/$site_path $sites_dir/$site_path.disabled && return 0;
-  fi
-
-  return 1;
 }
 
 install_docker() {

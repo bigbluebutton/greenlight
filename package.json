@@ -24,6 +24,7 @@
     "react-bootstrap": "^2.2.0",
     "react-colorful": "^5.6.1",
     "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
     "react-hook-form": "^7.28.0",
     "react-i18next": "^11.18.5",
     "react-query": "^3.34.16",
@@ -37,9 +38,9 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds --loader:.png=dataurl --minify",
+    "build": "node esbuild.mjs",
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules --style compressed",
-    "build:development": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --loader:.png=dataurl",
+    "build:development": "node esbuild.dev.mjs",
     "build:development:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "devDependencies": {

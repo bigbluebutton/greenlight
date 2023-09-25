@@ -19,10 +19,8 @@
 
   <p style="font-size: 24px;"> <%= t('email.activation.get_started') %> </p>
 
-  <a href="<%= @activation_url %>" target="_blank">
-    <button style="background-color: <%= @brand_color %>; border-radius: 8px; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; font-weight: 600; margin-top: 16px; margin-bottom: 64px;">
-      <%= t('email.activation.activate_account') %>
-    </button>
+  <a href="<%= @activation_url %>" target="_blank" style="background-color: <%= @brand_color %>; border-radius: 8px; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; font-weight: 600; margin-top: 16px; margin-bottom: 64px;">
+    <%= t('email.activation.activate_account') %>
   </a>
 </div>
 

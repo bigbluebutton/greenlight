@@ -21,7 +21,7 @@ const axiosInstance = axios.create(
     // `baseURL` will be prepended to `url` unless `url` is absolute.
     // It can be convenient to set `baseURL` for an instance of axios to pass relative URLs
     // to methods of that instance.
-    baseURL: '/api/v1',
+    baseURL: `${process.env.RELATIVE_URL_ROOT}/api/v1`,
 
     // `headers` are custom headers to be sent
     headers: {

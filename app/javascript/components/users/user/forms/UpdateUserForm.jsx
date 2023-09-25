@@ -15,7 +15,9 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import React, { useEffect } from 'react';
-import { Button, Stack } from 'react-bootstrap';
+import {
+  Button, Stack,
+} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Form from '../../../shared_components/forms/Form';
@@ -34,7 +36,9 @@ export default function UpdateUserForm({ user }) {
   const { t } = useTranslation();
   const currentUser = useAuth();
 
-  const canUpdateRole = PermissionChecker.hasManageUsers(currentUser);
+  // User with ManageUsers permission can update any user except themselves
+  const canUpdateRole = PermissionChecker.hasManageUsers(currentUser) && currentUser.id !== user.id;
+
   const { data: roles } = useRoles({ enabled: canUpdateRole });
   const { data: locales } = useLocales();
   const updateUserAPI = useUpdateUser(user?.id);

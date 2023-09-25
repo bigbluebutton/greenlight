@@ -49,19 +49,19 @@ jobs:
         id: ci_tag_release_version
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
         shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/} | cut -c 9-)"
+        run: echo "##[set-output name=tag;]$(echo ${{github.ref_name}} | cut -c 9-)"
 
       - name: Extract Tag Release Major
         id: ci_tag_release_major
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
         shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${{steps.ci_tag_release_version.outputs.tag}} | cut -f1-1 -d'.')"
+        run: echo "##[set-output name=tag;]$(echo ${{steps.ci_tag_release_version.outputs.tag}} | cut -f 1-1 -d '.')"
 
       - name: Extract Tag Release Minor
         id: ci_tag_release_minor
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
         shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${{steps.ci_tag_release_version.outputs.tag}} | cut -f1-2 -d'.')"
+        run: echo "##[set-output name=tag;]$(echo ${{steps.ci_tag_release_version.outputs.tag}} | cut -f 1-2 -d '.')"
 
       - name: Build and Push
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')

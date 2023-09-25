@@ -29,7 +29,7 @@ module Api
       # Starts a BigBlueButton meetings and joins in the meeting starter
       def start
         begin
-          MeetingStarter.new(room: @room, base_url: root_url, current_user:, provider: current_provider).call
+          MeetingStarter.new(room: @room, base_url: request.base_url, current_user:, provider: current_provider).call
         rescue BigBlueButton::BigBlueButtonException => e
           return render_error status: :bad_request unless e.key == 'idNotUnique'
         end
@@ -54,7 +54,7 @@ module Api
           settings: %w[glRequireAuthentication glViewerAccessCode glModeratorAccessCode glAnyoneCanStart glAnyoneJoinAsModerator]
         ).call
 
-        return render_error status: :unauthorized if !current_user && settings['glRequireAuthentication'] == 'true'
+        return render_error status: :unauthorized if unauthorized_access?(settings)
 
         bbb_role = infer_bbb_role(mod_code: settings['glModeratorAccessCode'],
                                   viewer_code: settings['glViewerAccessCode'],
@@ -66,9 +66,10 @@ module Api
           status: BigBlueButtonApi.new(provider: current_provider).meeting_running?(room: @room)
         }
 
-        if !data[:status] && settings['glAnyoneCanStart'] == 'true' # Meeting isnt running and anyoneCanStart setting is enabled
+        # Starts meeting if meeting is not running and glAnyoneCanStart is enabled or user is a moderator
+        if !data[:status] && authorized_to_start_meeting?(settings, bbb_role)
           begin
-            MeetingStarter.new(room: @room, base_url: root_url, current_user:, provider: current_provider).call
+            MeetingStarter.new(room: @room, base_url: request.base_url, current_user:, provider: current_provider).call
           rescue BigBlueButton::BigBlueButtonException => e
             return render_error status: :bad_request unless e.key == 'idNotUnique'
           end
@@ -120,6 +121,14 @@ module Api
           access_code_validator(access_code: mod_code) ||
           (anyone_join_as_mod && viewer_code.blank? && mod_code.blank?) ||
           (anyone_join_as_mod && (access_code_validator(access_code: mod_code) || access_code_validator(access_code: viewer_code)))
+      end
+
+      def authorized_to_start_meeting?(settings, bbb_role)
+        settings['glAnyoneCanStart'] == 'true' || bbb_role == 'Moderator'
+      end
+
+      def unauthorized_access?(settings)
+        !current_user && settings['glRequireAuthentication'] == 'true'
       end
 
       def access_code_validator(access_code:)

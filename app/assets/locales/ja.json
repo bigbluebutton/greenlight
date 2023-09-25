@@ -23,12 +23,14 @@
   "are_you_sure": "本当によろしいですか？",
   "return_home": "ホームに戻る",
   "created_at": "作成時",
+  "view_recordings": "録画を視聴",
+  "join_session": "会議に参加",
   "no_result_search_input": "\"{{ searchInput }}\"は見つかりませんでした",
   "action_permanent": "この操作は取り消すことができません",
   "homepage": {
     "welcome_bbb": "BigBlueButton へようこそ",
-    "bigbluebutton_description": "BigBlueButtonは、オンライン授業に最適化された、オープンソースのウェブ会議システムです。生徒や学生が協働し、すぐにフィードバックが得られるようにすることで、より多くの時間を実践的な学びに割くことができます。",
-    "greenlight_description": "自分の会議室を作成し、会議を開いてみてください。簡便なリンクを使って、他人を招待することもできます。",
+    "bigbluebutton_description": "BigBlueButtonは、オンライン授業に最適化された、オープンソースのウェブ会議システムです。生徒や学生が協働し、すぐにフィードバックが得られるようにすることで、より多くの時間を実践的な学びにあてることができます。",
+    "greenlight_description": "自分の会議室を作成し、会議を開いてみてください。簡単なリンクを使って手軽に他人を招待することもできます。",
     "learn_more": "BigBlueButtonについてもっと知る",
     "explore_features": "基本的な機能",
     "meeting_title": "会議を立ち上げる",
@@ -37,7 +39,7 @@
     "recording_description": "BigBlueButtonの会議を録画し、それを生徒や学生と共有することで、教材を効果的に復習させることができます。",
     "settings_title": "会議室を管理する",
     "settings_description": "自分の会議室や会議方法の設定を変更し、効果的な学びの場を作り上げることができます。",
-    "and_more_title": "もちろんそれだけではありません",
+    "and_more_title": "それだけではありません",
     "and_more_description": "BigBlueButtonには実践的な学びのためのさまざまなツールが用意されており、授業を効率的に行うことができるようデザインされています。",
     "enter_meeting_url": "会議URLを入力",
     "enter_meeting_url_instruction": "下の欄にBigBlueButtonの会議のURLを記入してください。"
@@ -109,7 +111,7 @@
     "create_new_room": "新しい会議室を作成する",
     "enter_room_name": "会議室名を入力してください",
     "shared_by": "共有者",
-    "last_session": "最後のセッション: {{ localizedTime }}",
+    "last_session": "最後の会議: {{ localizedTime }}",
     "no_last_session": "会議はまだ開かれていません",
     "search_not_found": "会議室が見つかりません",
     "rooms_list_is_empty": "まだ会議室はありません！",
@@ -126,7 +128,7 @@
       "presentation": "プレゼンファイル",
       "click_to_upload": "クリックしてアップロード",
       "drag_and_drop": "またはドラッグ＆ドロップ",
-      "upload_description": "OfficeドキュメントかPDFファイルをアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。",
+      "upload_description": "OfficeドキュメントかPDFファイル（サイズ{{size}}以下）をアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。",
       "are_you_sure_delete_presentation": "本当にこのプレゼンファイルを削除しますか？"
     },
     "shared_access": {
@@ -168,14 +170,18 @@
     "users": "参加者",
     "visibility": "公開度",
     "formats": "フォーマット",
-    "published": "公開",
-    "unpublished": "非公開",
-    "protected": "秘匿",
+    "published": "限定公開",
+    "unpublished": "閲覧不可",
+    "protected": "保護",
+    "public": "公開",
+    "public_protected": "公開 / 保護",
     "length_in_minutes": "{{recording.length}}分",
     "processing_recording": "録画を処理中。数分かかることがあります...",
     "copy_recording_urls": "録画のURLをコピー",
     "recordings_list_empty": "まだ録画がありません！",
-    "recordings_list_empty_description": "会議を開始し録画すれば、録画データが現れます。",
+    "public_recordings_list_empty": "公開された録画はまだありません！",
+    "recordings_list_empty_description": "会議を開始し、それを録画すると、ここに録画データが表示されます。",
+    "public_recordings_list_empty_description": "視聴が許可されると、ここに録画データが表示されます。",
     "delete_recording": "この録画を削除",
     "are_you_sure_delete_recording": "本当にこの録画を削除しますか？",
     "search_not_found": "録画が見つかりません"
@@ -231,8 +237,8 @@
       "running": "会議中",
       "not_running": "使われていません",
       "active": "アクティブ",
-      "current_session": "現在のセッション: {{lastSession}}",
-      "last_session": "最後のセッション: {{localizedTime}}",
+      "current_session": "現在の会議: {{lastSession}}",
+      "last_session": "最後の会議: {{localizedTime}}",
       "no_meeting_yet": "会議は一度も行われていません。",
       "delete_server_rooms": "全ての会議室を削除",
       "resync_recordings": "録画の再同期",
@@ -255,7 +261,7 @@
         "brand_image": "ブランド画像",
         "click_to_upload": "クリックしてアップロード",
         "drag_and_drop": "あるいはドラッグ＆ドロップ",
-        "upload_brand_image_description": "PNG、JPG、またはSVGファイルをアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。",
+        "upload_brand_image_description": "PNG、JPG、SVGファイル（サイズ{{size}}以下）をアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。",
         "remove_branding_image": "ブランド画像の削除"
       },
       "administration": {
@@ -406,6 +412,7 @@
       "problem_completing_action": "操作をうまく完了できませんでした。\nもう一度やってみてください。",
       "file_type_not_supported": "ファイルの形式がサポートされていません。",
       "file_size_too_large": "ファイルが大きすぎます。",
+      "file_upload_error": "ファイルがアップロードできません。",
       "signin_required": "このページに接続するにはサインインが必要です",
       "roles": {
         "role_assigned": "この役割はすでにユーザーに割り当てられているため、削除できません。"
@@ -491,6 +498,11 @@
           "min": "名前は２文字以上必要です"
         }
       },
+      "room_join": {
+        "name": {
+          "required": "名前を入力してください。"
+        }
+      },
       "url": {
         "invalid": "無効なURL"
       }
@@ -500,6 +512,21 @@
         "name": {
           "label": "会議室名",
           "placeholder": "会議室名を入力..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "名前",
+            "placeholder": "名前を入力してください"
+        },
+        "access_code": {
+          "label": "アクセスコード",
+          "placeholder": "アクセスコードを入力してください"
+        },
+        "recording_consent": {
+          "label": "私はこの会議が録画される可能性があること、また自分の音声とビデオもそれに含まれうることを理解しています。"
         }
       }
     },

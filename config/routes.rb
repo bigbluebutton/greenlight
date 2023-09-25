@@ -25,6 +25,9 @@ Rails.application.routes.draw do
   get '/meeting_ended', to: 'external#meeting_ended'
   post '/recording_ready', to: 'external#recording_ready'
 
+  # Health checks
+  get '/health_check', to: 'health_checks#check'
+
   # All the Api endpoints must be under /api/v1 and must have an extension .json.
   namespace :api do
     namespace :v1 do
@@ -42,6 +45,7 @@ Rails.application.routes.draw do
       resources :rooms, param: :friendly_id do
         member do
           get '/recordings', to: 'rooms#recordings'
+          get '/public_recordings', to: 'rooms#public_recordings'
           get '/recordings_processing', to: 'rooms#recordings_processing'
           get '/public', to: 'rooms#public_show'
           delete :purge_presentation
@@ -59,6 +63,7 @@ Rails.application.routes.draw do
         collection do
           post '/update_visibility', to: 'recordings#update_visibility'
           get '/recordings_count', to: 'recordings#recordings_count'
+          post '/recording_url', to: 'recordings#recording_url'
         end
       end
       resources :shared_accesses, only: %i[create show destroy], param: :friendly_id do
@@ -78,7 +83,7 @@ Rails.application.routes.draw do
         post '/activate', to: 'verify_account#activate', on: :collection
       end
       resources :site_settings, only: :index
-      resources :rooms_configurations, only: :index
+      resources :rooms_configurations, only: %i[index show], param: :name
       resources :locales, only: %i[index show], param: :name
 
       namespace :admin do

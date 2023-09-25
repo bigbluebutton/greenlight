@@ -3,43 +3,67 @@
 location /cable {
     proxy_pass http://127.0.0.1:5050;
     proxy_redirect off;
+    proxy_http_version 1.1;
 
     proxy_set_header Host $http_host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
+
+    proxy_set_header Connection "upgrade";
     proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "Upgrade";
-    proxy_http_version 1.1;
-
-    proxy_read_timeout 6h;
-    proxy_send_timeout 6h;
-    client_body_timeout 6h;
-    send_timeout 6h;
 }
-
 
 location @bbb-fe {
     proxy_pass http://127.0.0.1:5050;
-
-    proxy_read_timeout 60s;
     proxy_redirect off;
+    proxy_http_version 1.1;
 
     proxy_set_header Host $http_host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Cookie "$http_cookie; ip=$remote_addr";
     proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Connection "";
+}
+
+location ~ '/api/v1/rooms/\w{3}-\w{3}-\w{3}-\w{3}.json$' {
+    proxy_pass http://127.0.0.1:5050;
+    proxy_redirect off;
     proxy_http_version 1.1;
 
-    proxy_headers_hash_max_size 512;
-    proxy_headers_hash_bucket_size 128;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Connection "";
 
-    proxy_buffer_size 128k;
-    proxy_buffers 4 256k;
-    proxy_busy_buffers_size 256k;
+    client_max_body_size 31m;
+}
 
-    client_max_body_size 30m;
+location ~ '/api/v1/users/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}.json$' {
+    proxy_pass http://127.0.0.1:5050;
+    proxy_redirect off;
+    proxy_http_version 1.1;
 
-    rewrite ~/(.*)$ /$1 break;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Connection "";
+
+    client_max_body_size 4m;
+}
+
+location ~ /api/v1/admin/site_settings/BrandingImage.json$ {
+    proxy_pass http://127.0.0.1:5050;
+    proxy_redirect off;
+    proxy_http_version 1.1;
+
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Connection "";
+
+    client_max_body_size 4m;
 }

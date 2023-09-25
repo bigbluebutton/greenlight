@@ -61,7 +61,7 @@ describe ProviderCredentials, type: :service do
         service.call
 
         expect(service.call).to eq(['https://test.com', 'secret'])
-        expect(Rails.cache.read('bbb/getUser')).to eq(['https://test.com', 'secret'])
+        expect(Rails.cache.read('v3/bbb/getUser')).to eq(['https://test.com', 'secret'])
       end
     end
   end

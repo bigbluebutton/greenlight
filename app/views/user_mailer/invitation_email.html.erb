@@ -21,10 +21,8 @@
 
   <p style="font-size: 24px;"><%= t('email.invitation.get_started') %></p>
 
-  <a href="<%= @signup_url %>">
-    <button style="background-color: <%= @brand_color %>; border-radius: 8px; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; font-weight: 600; margin-top: 16px; margin-bottom: 64px;">
-      <%= t('email.invitation.sign_up') %>
-    </button>
+  <a href="<%= @signup_url %>" target="_blank" style="background-color: <%= @brand_color %>; border-radius: 8px; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; font-weight: 600; margin-top: 16px; margin-bottom: 64px;">
+    <%= t('email.invitation.sign_up') %>
   </a>
 </div>
 

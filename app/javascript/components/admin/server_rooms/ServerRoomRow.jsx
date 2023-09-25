@@ -51,16 +51,16 @@ export default function ServerRoomRow({ room }) {
       return t('admin.server_rooms.no_meeting_yet');
     }
     if (online) {
-      return t('admin.server_rooms.current_session', { lastSession });
+      return t('admin.server_rooms.current_session', { lastSession: localizedTime });
     }
     return t('admin.server_rooms.last_session', { localizedTime });
   };
 
   const meetingRunning = () => {
     if (online) {
-      return <td className="border-0 text-success"> { t('admin.server_rooms.running') } </td>;
+      return <td className="border-0 text-success"><span className="badge bg-success"> { t('admin.server_rooms.running') } </span></td>;
     }
-    return <td className="border-0"> { t('admin.server_rooms.not_running') } </td>;
+    return <td className="border-0"><span className="badge bg-danger"> { t('admin.server_rooms.not_running') } </span></td>;
   };
 
   return (

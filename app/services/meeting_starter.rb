@@ -28,7 +28,7 @@ class MeetingStarter
 
   def call
     # TODO: amir - Check the legitimately of the action.
-    options = RoomSettingsGetter.new(room_id: @room.id, provider: @room.user.provider, current_user: @current_user, only_bbb_options: true).call
+    options = RoomSettingsGetter.new(room_id: @room.id, provider: @room.user.provider, current_user: @current_user, only_bbb_options: true, voice_bridge: @room.voice_bridge).call
     viewer_code = RoomSettingsGetter.new(
       room_id: @room.id,
       provider: @room.user.provider,
@@ -56,7 +56,7 @@ class MeetingStarter
   private
 
   def computed_options(access_code:)
-    room_url = File.join(@base_url, '/rooms/', @room.friendly_id, '/join')
+    room_url = "#{root_url(host: @base_url)}rooms/#{@room.friendly_id}/join"
     moderator_message = "#{I18n.t('meeting.moderator_message')}<br>#{room_url}"
     moderator_message += "<br>#{I18n.t('meeting.access_code', code: access_code)}" if access_code.present?
     {

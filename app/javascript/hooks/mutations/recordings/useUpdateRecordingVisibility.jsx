@@ -28,6 +28,8 @@ export default function useUpdateRecordingVisibility() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['getRecordings']);
+        queryClient.invalidateQueries(['getRoomRecordings']);
+        queryClient.invalidateQueries(['getServerRecordings']);
         toast.success(t('toast.success.recording.recording_visibility_updated'));
       },
       onError: () => {

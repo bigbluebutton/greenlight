@@ -25,6 +25,7 @@ import { useAuth } from '../../../contexts/auth/AuthProvider';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
 import RoomRecordings from '../../recordings/room_recordings/RoomRecordings';
 import useRoom from '../../../hooks/queries/rooms/useRoom';
+import useRoomConfigValue from '../../../hooks/queries/rooms/useRoomConfigValue';
 
 export default function FeatureTabs() {
   const { t } = useTranslation();
@@ -33,8 +34,9 @@ export default function FeatureTabs() {
 
   const { friendlyId } = useParams();
   const { data: room } = useRoom(friendlyId);
+  const { isLoading: isRoomConfigLoading, data: recordValue } = useRoomConfigValue('record');
 
-  if (isLoading) {
+  if (isLoading || isRoomConfigLoading) {
     return (
       <div className="wide-white pt-4 pb-2 mx-0">
         <Placeholder className="ps-0" animation="glow">
@@ -47,11 +49,16 @@ export default function FeatureTabs() {
     );
   }
 
+  const showRecTabs = (recordValue !== 'false');
+
   return (
-    <Tabs className="wide-white pt-4 mx-0" defaultActiveKey="recordings" unmountOnExit>
-      <Tab className="background-whitesmoke" eventKey="recordings" title={t('recording.recordings')}>
-        <RoomRecordings />
-      </Tab>
+    <Tabs className="wide-white pt-4 mx-0" defaultActiveKey={showRecTabs ? 'recordings' : 'presentation'} unmountOnExit>
+      {showRecTabs
+        && (
+          <Tab className="background-whitesmoke" eventKey="recordings" title={t('recording.recordings')}>
+            <RoomRecordings />
+          </Tab>
+        )}
       {settings?.PreuploadPresentation
         && (
           <Tab className="background-whitesmoke" eventKey="presentation" title={t('room.presentation.presentation')}>
