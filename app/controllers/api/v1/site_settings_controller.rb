@@ -25,17 +25,9 @@ module Api
       # GET /api/v1/site_settings
       # Returns the values of 1 or multiple site_settings that are not forbidden to access
       def index
-        settings = {}
         return render_error status: :forbidden if forbidden_settings(params[:names])
 
-        if params[:names].is_a?(Array)
-          params[:names].each do |name|
-            settings[name] = SettingGetter.new(setting_name: name, provider: current_provider).call
-          end
-        else
-          # return the value directly
-          settings = SettingGetter.new(setting_name: params[:names], provider: current_provider).call
-        end
+        settings = SettingGetter.new(setting_name: params[:names], provider: current_provider).call
 
         render_data data: settings, status: :ok
       end

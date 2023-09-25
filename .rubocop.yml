@@ -46,6 +46,9 @@ RSpec/MultipleMemoizedHelpers:
 RSpec/NestedGroups:
   Max: 7
 
+RSpec/StubbedMock:
+  Enabled: false
+
 # Enable having lines with up to 150 charachters in length.
 Layout/LineLength:
   Max: 150
@@ -79,7 +82,7 @@ Metrics/CyclomaticComplexity:
   Max: 16
 
 Metrics/PerceivedComplexity:
-  Max: 13
+  Max: 15
 
 Rails/Exit:
   Exclude:

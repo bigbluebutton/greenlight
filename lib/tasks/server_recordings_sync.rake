@@ -18,15 +18,19 @@
 
 desc 'Server Recordings sync with BBB server'
 
-task server_recordings_sync: :environment do
-  Recording.destroy_all
+task :server_recordings_sync, %i[provider] => :environment do |_task, args|
+  args.with_defaults(provider: 'greenlight')
 
-  Room.select(:id, :meeting_id).in_batches(of: 25) do |rooms|
+  Room.includes(:user).select(:id, :meeting_id).with_provider(args[:provider]).in_batches(of: 25) do |rooms|
     meeting_ids = rooms.pluck(:meeting_id)
 
-    recordings = BigBlueButtonApi.new(provider: 'greenlight').get_recordings(meeting_ids:)
+    recordings = BigBlueButtonApi.new(provider: args[:provider]).get_recordings(meeting_ids:)
     recordings[:recordings].each do |recording|
       RecordingCreator.new(recording:).call
+      success 'Successfully migrated Recording:'
+      info "RecordID: #{recording[:recordID]}"
+    rescue StandardError => e
+      err "Unable to migrate Recording:\nRecordID: #{recording[:recordID]}\nError: #{e}"
     end
   end
 end

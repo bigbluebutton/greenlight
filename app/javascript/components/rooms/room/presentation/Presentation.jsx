@@ -26,6 +26,7 @@ import useUploadPresentation from '../../../../hooks/mutations/rooms/useUploadPr
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
 import DeletePresentationForm from './forms/DeletePresentationForm';
 import FilesDragAndDrop from '../../../shared_components/utilities/FilesDragAndDrop';
+import { PRESENTATION_MAX_FILE_COEFF, PRESENTATION_SUPPORTED_EXTENSIONS } from '../../../../helpers/FileValidationHelper';
 
 export default function Presentation() {
   const { t } = useTranslation();
@@ -37,13 +38,12 @@ export default function Presentation() {
     onSubmit(files[0]);
   };
 
-  if (!room.presentation_name) {
+  if (!room?.presentation_name) {
     return (
       <FilesDragAndDrop
         onDrop={onDrop}
         numOfFiles={1}
-        formats={['.doc', '.docx', '.ppt', '.pptx', '.pdf', '.xls', '.xlsx', '.txt',
-          '.rtf', '.odt', '.ods', '.odp', '.odg', '.odc', '.odi', '.jpg', '.jpeg', '.png']}
+        formats={PRESENTATION_SUPPORTED_EXTENSIONS}
       >
         <div className="pt-3">
           <Card className="border-0 card-shadow text-center">
@@ -66,7 +66,7 @@ export default function Presentation() {
                   </span>
                 </Card.Title>
                 <Card.Text>
-                  { t('room.presentation.upload_description') }
+                  { t('room.presentation.upload_description', { size: `${PRESENTATION_MAX_FILE_COEFF} MB` }) }
                 </Card.Text>
               </Card.Body>
             </label>

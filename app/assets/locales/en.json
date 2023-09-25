@@ -24,6 +24,8 @@
   "are_you_sure": "Are you sure?",
   "return_home": "Return Home",
   "created_at": "Created at",
+  "view_recordings": "View Recordings",
+  "join_session": "Join Session",
   "no_result_search_input": "Could not find any results for \"{{ searchInput }}\"",
   "action_permanent": "This action cannot be undone.",
   "homepage": {
@@ -133,7 +135,7 @@
       "presentation": "Presentation",
       "click_to_upload": "Click to Upload",
       "drag_and_drop": " or drag and drop",
-      "upload_description": "Upload any office document or PDF file. Depending on the size of the file, it may require additional time to upload before it can be used",
+      "upload_description": "Upload any office document or PDF file (not larger than {{size}}). Depending on the size of the file, it may require additional time to upload before it can be used",
       "are_you_sure_delete_presentation": "Are you sure you want to delete this presentation?"
     },
     "shared_access": {
@@ -178,11 +180,15 @@
     "published": "Published",
     "unpublished": "Unpublished",
     "protected": "Protected",
+    "public": "Public",
+    "public_protected": "Public/Protected",
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Processing recording, this may take several minutes...",
     "copy_recording_urls": "Copy Recording Url(s)",
     "recordings_list_empty": "You don't have any recordings yet!",
+    "public_recordings_list_empty": "There are no public recordings yet!",
     "recordings_list_empty_description": "Recordings will appear here after you start a meeting and record it.",
+    "public_recordings_list_empty_description": "Recordings will appear here when available.",
     "delete_recording": "Delete Recording",
     "are_you_sure_delete_recording": "Are you sure you want to delete this recording?",
     "search_not_found": "No Recordings Found"
@@ -262,7 +268,7 @@
         "brand_image": "Brand Image",
         "click_to_upload": "Click to Upload",
         "drag_and_drop": " or drag and drop",
-        "upload_brand_image_description": "Upload any PNG, JPG, or SVG file. Depending on the size of the file, it may require additional time to upload before it can be used",
+        "upload_brand_image_description": "Upload any PNG, JPG, or SVG file (not larger than {{size}}). Depending on the size of the file, it may require additional time to upload before it can be used",
         "remove_branding_image": "Remove Branding Image"
       },
       "administration": {
@@ -501,6 +507,11 @@
           "min": "Name must be at least 2 characters long"
         }
       },
+      "room_join": {
+        "name": {
+          "required": "Please enter your name."
+        }
+      },
       "url": {
         "invalid": "Invalid URL"
       }
@@ -510,6 +521,21 @@
         "name": {
           "label": "Room Name",
           "placeholder": "Enter a room name..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Name",
+            "placeholder": "Enter your name"
+        },
+        "access_code": {
+          "label": "Access Code",
+          "placeholder": "Enter the access code"
+        },
+        "recording_consent": {
+          "label": "I acknowledge that this session may be recorded. This may include my voice and video if enabled."
         }
       }
     },

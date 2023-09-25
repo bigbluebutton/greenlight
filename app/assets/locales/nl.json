@@ -1,0 +1,651 @@
+{
+  "start": "Start",
+  "search": "Zoek",
+  "home": "Startpagina",
+  "previous": "Vorige",
+  "back": "Terug",
+  "next": "Volgende",
+  "view": "Bekijk",
+  "join": "Deelnemen",
+  "edit": "Bewerk",
+  "save": "Bewaar",
+  "save_changes": "Bewaar wijzigingen",
+  "update": "Pas aan",
+  "report": "Rapport",
+  "share": "Deel",
+  "cancel": "Annuleer",
+  "close": "Sluit",
+  "delete": "Verwijder",
+  "copy": "Kopieer deelnamelink",
+  "or": "Of",
+  "online": "Online",
+  "help_center": "Help centrum",
+  "are_you_sure": "Ben je zeker?",
+  "return_home": "Terug naar startpagina",
+  "created_at": "Gemaakt op",
+  "no_result_search_input": "Kon geen resultaten vinden voor \"{{ searchInput }}\"",
+  "action_permanent": "Deze actie kan niet ongedaan gemaakt worden",
+  "homepage": {
+    "welcome_bbb": "Welkom bij BigBlueButton",
+    "bigbluebutton_description": "BigBlueButton is een vrije software web conferentiesysteem voor online lessen. Het platform maximaliseert de tijd voor toegepast leren door het voor studenten mogelijk te maken om samen te werken en feedback te krijgen in real-time.",
+    "greenlight_description": "Maak je eigen kamers om vergaderingen te organiseren, of neem deel aan vergaderingen van anderen via een korte, makkelijke link.",
+    "learn_more": "Meer leren over BigBlueButton",
+    "explore_features": "Verken de mogelijkheden",
+    "meeting_title": "Start een vergadering",
+    "meeting_description": "Start een virtueel klaslokaal met video, audio, scherm delen, chat en alle tools nodig voor toegepast leren.",
+    "recording_title": "Neem je vergaderingen op",
+    "recording_description": "Neem BigBlueButton-vergaderingen op en deel ze met je studenten om ze te herbekijken en te reflecteren op het materiaal.",
+    "settings_title": "Beheer je kamers",
+    "settings_description": "Configureer je kamer- en vergaderingsinstellingen voor een effectief klasmanagement.",
+    "and_more_title": "En meer!",
+    "and_more_description": "BigBlueButton heeft ingebouwde tools voor toegepast leren en is ontworpen om tijd te besparen tijdens de les.",
+    "enter_meeting_url": "Geef vergaderings-URL",
+    "enter_meeting_url_instruction": "Geef de URL van je BigBlueButton-vergadering in het onderstaand veld."
+  },
+  "authentication": {
+    "sign_in": "Inloggen",
+    "sign_up": "Registreren",
+    "sign_out": "Uitloggen",
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "confirm_password": "Bevestig wachtwoord",
+    "enter_email": "Geef je e-mailadres",
+    "enter_name": "Geef je naam",
+    "remember_me": "Aanmelding onthouden",
+    "forgot_password": "Wachtwoord vergeten?",
+    "dont_have_account": "Nog geen account?",
+    "create_account": "Maak een account",
+    "create_an_account": "Maak een account",
+    "already_have_account": "Heb je al een account?"
+  },
+  "user": {
+    "user": "Gebruiker",
+    "users": "Gebruikers",
+    "name": "Naam",
+    "email_address": "E-mailadres",
+    "authenticator": "Authenticator",
+    "full_name": "Volledige naam",
+    "no_user_found": "Geen gebruiker gevonden",
+    "type_three_characters": "Typ 3 of meer tekens om andere gebruikers te tonen.",
+    "search_not_found": "Geen gebruikers gevonden",
+    "profile": {
+      "profile": "Profiel",
+      "language": "Taal",
+      "role": "Rol",
+      "administrator": "Beheerder",
+      "guest": "Gast"
+    },
+    "account": {
+      "account_info": "Account-info",
+      "delete_account": "Verwijder account",
+      "change_password": "Wijzig wachtwoord",
+      "reset_password": "Wachtwoord opnieuw instellen",
+      "update_account_info": "Accountinfo aanpassen",
+      "current_password": "Huidig wachtwoord",
+      "new_password": "Nieuw wachtwoord",
+      "confirm_password": "Bevestig wachtwoord",
+      "permanently_delete_account": "Verwijder je account definitief",
+      "delete_account_description": "Als je er voor kiest om je account te verwijderen, dan zal die niet hersteld kunnen worden. Alle informatie over jouw account, ook je instellingen, kamers en opnames zullen verwijderd worden.",
+      "delete_account_confirmation": "Ja, ik wil mijn account verwijderen",
+      "are_you_sure_delete_account": "Weet je zeker dat je je account wil verwijderen?"
+    },
+    "avatar": {
+      "upload_avatar": "Upload avatar",
+      "delete_avatar": "Verwijder avatar",
+      "crop_avatar": "Verklein je avatar"
+    },
+    "pending": {
+      "title": "Registratie in afwachting",
+      "message": "Bedankt voor je registratie! Je account staat momenteel in de wachtrij voor goedkeuring door een beheerder."
+    }
+  },
+  "room": {
+    "room": "Kamer",
+    "rooms": "Kamers",
+    "room_name": "Kamernaam",
+    "add_new_room": "+ nieuwe kamer",
+    "create_room": "Maak kamer",
+    "delete_room": "Verwijder kamer",
+    "create_new_room": "Maak nieuwe kamer",
+    "enter_room_name": "Geef de kamernaam",
+    "shared_by": "gedeeld door",
+    "last_session": "Laatste sessie {{ localizedTime }}",
+    "no_last_session": "Geen vorige sessie gemaakt",
+    "search_not_found": "Geen kamers gevonden",
+    "rooms_list_is_empty": "Je hebt nog geen kamers!",
+    "rooms_list_empty_create_room": "Maak je eerste kamer door te klikken op de knop onderaan en je kamer een naam te geven.",
+    "meeting": {
+      "start_meeting": "Start vergadering",
+      "join_meeting": "Neem deel aan vergadering",
+      "meeting_invitation": "Je bent uitgenodigd om deel te nemen",
+      "meeting_not_started": "De vergadering is nog niet begonnen",
+      "join_meeting_automatically": "Je zult automatisch deelnemen wanneer de vergadering begint",
+      "recording_consent": "Ik bevestig dat deze sessie opgenomen mag worden. Die opname kan mijn stem en beeld bevatten wanneer dit ingeschakeld is."
+    },
+    "presentation": {
+      "presentation": "Presentatie",
+      "click_to_upload": "Klik om te uploaden",
+      "drag_and_drop": "of sleep en zet neer",
+      "upload_description": "Upload gelijk welk office-document of PDF-bestand. Afhankelijk van de grootte van het bestand kan dit wat tijd vragen voor het gebruikt kan worden.",
+      "are_you_sure_delete_presentation": "Weet je zeker dat je deze presentatie wil verwijderen?"
+    },
+    "shared_access": {
+      "access": "Toegang",
+      "add_share_access": "+ Deel toegang",
+      "share_room_access": "Deel kamertoegang",
+      "add_some_users": "Tijd om wat gebruikers toe te voegen!",
+      "add_some_users_description": "Klik om nieuwe gebruikers toe te voegen op de knop onderaan en zoek of selecteer de gebruikers waarmee je deze kamer wil delen.",
+      "delete_shared_access": "Verwijder gedeelde toegang",
+      "are_you_sure_delete_shared_access": "Weet je zeker dat je deze gedeelde toegang wil verwijderen?"
+    },
+    "settings": {
+      "settings": "Instellingen",
+      "room_name": "Kamernaam",
+      "user_settings": "Gebruikersinstellingen",
+      "allow_room_to_be_recorded": "Toestaan dat de kamer opgenomen wordt",
+      "require_signed_in": "Vereis dat gebruikers aangemeld zijn voor ze mogen deelnemen",
+      "require_signed_in_message": "Je moet ingelogd zijn om deze kamer te kunnen betreden.",
+      "require_mod_approval": "Vereis goedkeuring door een moderator voor gebruikers mogen deelnemen",
+      "allow_any_user_to_start": "Laat elke gebruiker toe om deze vergadering te beginnen",
+      "all_users_join_as_mods": "Alle gebruikers nemen deel als moderators",
+      "mute_users_on_join": "Demp gebruikers wanneer ze deelnemen",
+      "generate": "Genereer",
+      "access_code": "Toegangscode",
+      "mod_access_code": "Moderator toegangscode",
+      "mod_access_code_optional": "Moderator toegangscode (optioneel)",
+      "access_code_required": "Geef de toegangscode",
+      "wrong_access_code": "Foute toegangscode",
+      "generate_viewers_access_code": "Genereer toegangscode voor kijkers",
+      "generate_mods_access_code": "Genereer toegangscode voor moderators",
+      "are_you_sure_delete_room": "Weet je zeker dat je deze kamer wil verwijderen?"
+    }
+  },
+  "recording": {
+    "recording": "Opname",
+    "recordings": "Opnames",
+    "name": "Naam",
+    "length": "Lengte",
+    "users": "Gebruikers",
+    "visibility": "Zichtbaarheid",
+    "formats": "Formaten",
+    "published": "Gepubliceerd",
+    "unpublished": "Niet gepubliceerd",
+    "protected": "Beschermd",
+    "length_in_minutes": "{{recording.length}} min.",
+    "processing_recording": "Opname wordt verwerkt. Dit kan enkele minuten duren...",
+    "copy_recording_urls": "Kopieer opname-URL(s)",
+    "recordings_list_empty": "Je hebt nog geen opnames!",
+    "recordings_list_empty_description": "Opnames zullen hier verschijnen nadat je een vergadering gestart en die opgenomen hebt.",
+    "delete_recording": "Verwijder opname",
+    "are_you_sure_delete_recording": "Weet je zeker dat je deze opname wil verwijderen?",
+    "search_not_found": "Geen opnames gevonden"
+  },
+  "admin": {
+    "admin_panel": "Beheerderspaneel",
+    "manage_users": {
+      "manage_users": "Beheer gebruikers",
+      "active": "Actief",
+      "approve": "Keur goed",
+      "decline": "Wijs af",
+      "pending": "In afwachting",
+      "banned": "Geband",
+      "ban": "Ban",
+      "unban": "Ban niet",
+      "deleted": "Verwijderd",
+      "invited_tab": "Uitgenodigd",
+      "invite_user": "Gebruiker uitnodigen",
+      "send_invitation": "Stuur uitnodiging",
+      "enter_user_email": "Geef e-mailadres van de gebruiker",
+      "new_user": "Nieuwe gebruiker",
+      "add_new_user": "Nieuwe gebruiker",
+      "create_new_user": "Maak nieuwe gebruiker",
+      "edit_user": "Bewerk gebruiker",
+      "delete_user": "Verwijder gebruiker",
+      "users_edit_path": "Gebruikers/bewerk",
+      "create_account": "Maak account",
+      "create_room": "Maak kamer",
+      "create_new_room": "Maak nieuwe kamer",
+      "user_created_at": "Gemaakt:{{ localizedTime }}",
+      "are_you_sure_delete_account": "Weet je zeker dat je {{username}}'s account wil verwijderen?",
+      "delete_account_warning": "Als je deze account verwijderd, kun je die niet herstellen.",
+      "empty_active_users": "Er zijn nog geen actieve gebruikers op deze server!",
+      "empty_active_users_subtext": "Wanneer de status van een gebruiker wijzigt naar actief, dan zal die hier verschijnen.",
+      "empty_pending_users": "Er zijn nog geen gebruikers in de wachtrij op deze server!",
+      "empty_pending_users_subtext": "Wanneer de status van een gebruiker naar in de wachtrij wijzigt, dan zal die hier verschijnen.",
+      "empty_banned_users": "Er zijn nog geen gebande gebruikers op deze server!",
+      "empty_banned_users_subtext": "Wanneer de status van een gebruiker naar geband wijzigt, dan zal die hier verschijnen.",
+      "empty_invited_users": "Er zijn nog geen uitgenodigde gebruikers op deze server!",
+      "empty_invited_users_subtext": "Wanneer de status van een gebruiker naar uitgenodigt wijzigt, dan zal die hier verschijnen.",
+      "invited": {
+        "time_sent": "Tijd verstuurd",
+        "valid": "Geldig"
+      }
+    },
+    "server_rooms": {
+      "server_rooms": "Serverkamers",
+      "name": "Naam",
+      "owner": "Eigenaar",
+      "room_id": "Kamer ID",
+      "participants": "Deelnemers",
+      "status": "Status",
+      "running": "Loopt",
+      "not_running": "Loopt niet",
+      "active": "Actief",
+      "current_session": "Huidige sessie: {{lastSession}}",
+      "last_session": "Laatste sessie: {{localizedTime}}",
+      "no_meeting_yet": "Nog geen vergadering.",
+      "delete_server_rooms": "Verwijder serverkamer",
+      "resync_recordings": "Hersynchroniseer opnames",
+      "empty_room_list": "Er zijn nog geen serverkamers!",
+      "empty_room_list_subtext": "Kamers zullen hier verschijnen nadat je eerste kamer gemaakt hebt."
+    },
+    "server_recordings": {
+      "server_recordings": "Serveropnames",
+      "latest_recordings": "Laatste opnames",
+      "no_recordings_found": "Nog geen opnames gevonden"
+    },
+    "site_settings": {
+      "site_settings": "Site-instellingen",
+      "customize_greenlight": "Greenlight aanpassen",
+      "appearance": {
+        "appearance": "Uiterlijk",
+        "brand_color": "Merkkleur",
+        "regular": "Gewoon",
+        "lighten": "Lichter",
+        "brand_image": "Logo",
+        "click_to_upload": "Klik om te uploaden",
+        "drag_and_drop": "of sleep en zet neer",
+        "upload_brand_image_description": "Upload gelijk welk PNG-, JPG- of SVG-bestand. Afhankelijk van de grootte van het bestand kan dit wat tijd vragen voor het gebruikt kan worden.",
+        "remove_branding_image": "Verwijder logo"
+      },
+      "administration": {
+        "administration": "Beheer",
+        "terms": "Gebruikersvoorwaarden",
+        "privacy": "Privacybeleid",
+        "privacy_policy": "Privacybeleid",
+        "change_term_links": "Wijzig de links voor gebruikersvoorwaarden die onderaan de pagina verschijnen",
+        "change_privacy_link": "Wijzig de privacy-link die onderaan de pagina verschijnen",
+        "change_url": "Wijzig URL",
+        "enter_link": "Zet hier een link"
+      },
+      "settings": {
+        "settings": "Instellingen",
+        "allow_users_to_share_rooms": "Sta toe dat gebruikers kamers delen",
+        "allow_users_to_share_rooms_description": "Dit op uitschakelen zetten zal de knop doen verdwijnen uit de kameropties zodat gebruikers geen kamers meer kunnen delen",
+        "allow_users_to_preupload_presentation": "Sta toe dat gebruikers presentaties op voorhand uploaden",
+        "allow_users_to_preupload_presentation_description": "Gebruikers kunnen een presentatie op voorhand uploaden om als standaardpresentatie te gebruiken voor die bepaalde kamer"
+      },
+      "registration": {
+        "registration": "Registratie",
+        "role_mapping_by_email": "Rollen koppelen op e-mail",
+        "role_mapping_by_email_description": "Koppel de gebruiker aan een rol op basis van het e-mailadres. Moet in het formaat: role1=email1, role2=email2",
+        "enter_role_mapping_rule": "Geef een regel om rollen te koppelen",
+        "resync_on_login": "Hersynchroniseer gebruikersgegevens bij elke aanmelding",
+        "resync_on_login_description": "Hersynchroniseer gebruikersinformatie elke keer een gebruiker aanmeldt, zodat de externe authenticatieprovider en Greenlight altijd dezelfde informatie bevatten",
+        "default_role": "Standaard rol",
+        "default_role_description": "De standaardrol die toegewezen wordt aan nieuwe gebruikers",
+        "registration_method": "Registratiemethode",
+        "registration_method_description": "Wijzig de manier waarop gebruikers registreren bij de website",
+        "registration_methods" : {
+          "open": "Open registratie",
+          "invite": "Deelnemen op uitnodiging",
+          "approval": "Goedkeuren/afwijzen"
+        }
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "Kamerconfiguratie",
+      "default": "Optioneel (standaard ingeschakeld)",
+      "optional": "Optioneel (standaard uitgeschakeld)",
+      "enabled": "Verplicht ingeschakeld",
+      "disabled": "Uitgeschakeld",
+      "configurations": {
+        "allow_room_to_be_recorded": "Toestaan dat kamer opgenomen wordt",
+        "allow_room_to_be_recorded_description": "Sta kamereigenaars toe om op te geven of ze de optie willen om een kamer op te nemen of niet. Indien ingeschakeld moet de moderator nog steeds klikken op de opname-knop als de vergadering begonnen is.",
+        "require_user_signed_in": "Vereis dat gebruikers aangemeld zijn voor ze mogen deelnemen",
+        "require_user_signed_in_description": "Enkel gebruikers met een account bij Greenlight mogen deelnemen aan de vergadering. Als ze niet ingelogd zijn, dan zullen ze doorverwezen worden naar de aanmeldingspagina wanneer ze proberen deel te nemen aan een vergadering.",
+        "require_mod_approval": "Vereis goedkeuring door een moderator voor gebruikers mogen deelnemen",
+        "require_mod_approval_description": "Geeft een signaal aan de moderator van de BigBlueButton-vergadering wanneer een gebruiker probeert de kamer te betreden. Wanneer de moderator dit goedkeurt, zal de gebruiker binnen kunnen.",
+        "allow_any_user_to_start_meeting": "Laat elke gebruiker toe om deze vergadering te beginnen",
+        "allow_any_user_to_start_meeting_description": "Laat elke gebruiker toe om de vergadering te beginnen op gelijk welk moment. Standaard kan enkel de kamereigenaar een vergadering starten.",
+        "allow_users_to_join_as_mods": "Alle gebruikers nemen deel als moderators",
+        "allow_users_to_join_as_mods_description": "Geeft alle gebruikers moderatorrechten in BigBlueButton wanneer ze deelnemen aan de vergadering",
+        "mute_users_on_join": "Demp gebruikers wanneer ze deelnemen",
+        "mute_users_on_join_description": "Dempt automatisch de gebruiker wanneer die deelneemt aan de BigBlueButton-vergadering",
+        "viewer_access_code": "Kijker toegangscode",
+        "viewer_access_code_description": "Maakt dat kamereigenaars een willekeurige alfanumerieke code kunnen delen met gebruikers. Gebruikers zullen dan deze gegenereerde code nodig hebben om deel te kunnen nemen aan de vergaderingen in deze kamer.",
+        "mod_access_code": "Moderator toegangscode",
+        "mod_access_code_description": "Maakt dat kamereigenaars een willekeurige alfanumerieke code kunnen delen met gebruikers. Gebruikers zullen dan deze gegenereerde code nodig hebben om deel te kunnen nemen aan de vergaderingen in deze kamer als moderator."
+      }
+    },
+    "roles": {
+      "role": "Rol",
+      "roles": "Rollen",
+      "administrator": "Beheerder",
+      "guest": "Gas",
+      "manage_roles": "Beheer rollen",
+      "delete_role": "Verwijder ro",
+      "are_you_sure_delete_role": "Weet je zeker dat je deze rol wil verwijderen?",
+      "enter_role_name": "Geef de naam van een rol",
+      "add_role": "+ Maak rol",
+      "create_role": "Maak ro",
+      "create_new_role": "Maak een nieuwe ro",
+      "no_role_found": "Geen rol gevonden.",
+      "search_not_found": "Geen rollen gevonden",
+      "edit": {
+        "create_room": "Sta toe dat gebruikers met deze rol kamers maken",
+        "record": "Sta toe dat gebruikers met deze rol hun vergaderingen opnemen",
+        "manage_users": "Sta toe dat gebruikers met deze rol gebruikers te beheren",
+        "manage_rooms": "Sta toe dat gebruikers met deze rol serverkamers te beheren",
+        "manage_recordings": "Sta toe dat gebruikers met deze rol serveropnames te beheren",
+        "manage_site_settings": "Sta toe dat gebruikers met deze rol site-instellingen te beheren",
+        "manage_roles": "Sta toe dat gebruikers met deze rol andere rollen te beheren",
+        "shared_list": "Neem gebruikers met deze rol mee op in het rolmenu om kamers te delen",
+        "room_limit": "Kamerlimiet"
+      }
+    }
+  },
+  "toast": {
+    "success": {
+      "user": {
+        "user_created": "Er is een nieuwe gebruiker gemaakt",
+        "user_updated": "De gebruiker is aangepast",
+        "user_deleted": "De gebruiker is verwijderd.",
+        "avatar_updated": "De avatar is aangepast.",
+        "password_updated": "Het wachtwoord is aangepast.",
+        "account_activated": "Je account is geactiveerd.",
+        "activation_email_sent": "Er is een e-mail met instructies om je account te activeren verstuurd.",
+        "reset_pwd_email_sent": "Er is een e-mail met instructies om je wachtwoord opnieuw in te stellen verstuurd."
+      },
+      "session": {
+        "signed_out": "Je bent uitgelogd."
+      },
+      "room": {
+        "room_created": "Er is een nieuwe kamer gemaakt.",
+        "room_updated": "De kamer is aangepast.",
+        "room_deleted": "De kamer is verwijderd.",
+        "room_shared": "De kamer is gedeeld.",
+        "room_unshared": "De kamer is niet meer gedeeld.",
+        "recordings_synced": "De kameropnames zijn gesynchroniseerd.",
+        "room_configuration_updated": "De kamerconfiguratie is aangepast.",
+        "room_setting_updated": "De kamerinstellingen zijn aangepast.",
+        "presentation_updated": "De presentatie is aangepast.",
+        "presentation_deleted": "De presentatie is verwijderd.",
+        "joining_meeting": "Deelnemen aan de vergadering...",
+        "meeting_started": "Vergadering gestart.",
+        "access_code_copied": "De toegangscode is gekopieerd.",
+        "access_code_generated": "Er is een nieuwe toegangscode gegenereerd.",
+        "access_code_deleted": "De toegangscode is verwijderd.",
+        "copied_meeting_url": "De vergaderings-URL is gekopieerd. De link kan gebruikt worden om deel te nemen aan de vergadering."
+      },
+      "site_settings": {
+        "site_setting_updated": "De site-instellingen zijn aangepast.",
+        "brand_color_updated": "De merkkleur is aangepast.",
+        "brand_image_updated": "Het logo is aangepast.",
+        "brand_image_deleted": "Het logo is verwijderd.",
+        "privacy_policy_updated": "Het privacybeleid is aangepast.",
+        "terms_of_service_updated": "De gebruikersvoorwaarden zijn aangepast."
+      },
+      "recording": {
+        "recording_visibility_updated": "De zichtbaarheid van de opname is aangepast.",
+        "recording_name_updated": "De opnamenaam is aangepast.",
+        "recording_deleted": "De opname is verwijderd.",
+        "copied_urls": "De opname-URL is gekopieerd."
+      },
+      "role": {
+        "role_created": "Er is een nieuwe rol gemaakt.",
+        "role_updated": "De rol is aangepast.",
+        "role_deleted": "De rol is verwijderd.",
+        "role_permission_updated": "De rolrechten zijn aangepast."
+      },
+      "invitations": {
+        "invitation_sent": "Er is een uitnodiging verstuurd."
+      }
+    },
+    "error": {
+      "problem_completing_action": "De actie kan niet voltooid worden. Probeer opnieuw.",
+      "file_type_not_supported": "Het bestandstype wordt niet ondersteund.",
+      "file_size_too_large": "Het bestand is te groot.",
+      "file_upload_error": "Het bestand kan niet geüpload worden.",
+      "signin_required": "Je moet ingelogd zijn om deze pagina te kunnen bezoeken.",
+      "roles": {
+        "role_assigned": "Deze rol kan niet verwijderd worden omdat die minstens aan één gebruiker toegewezen is."
+      },
+      "users": {
+        "signup_error": "Je kunt niet geauthenticeerd worden. Neem contact op met je beheerder.",
+        "invalid_invite": "Je uitnodiging is niet geldig of fout. Neem contact op met je beheerder om een nieuwe uitnodiging te ontvangen.",
+        "email_exists": "Er bestaat al een account met dit e-mailadres. Probeer opnieuw met een ander adres.",
+        "old_password": "Het ingegeven wachtwoord is fout.",
+        "pending": "Je registratie wacht op goedkeuring door de beheerder. Probeer later opnieuw.",
+        "banned": "Je hebt geen toegang tot deze applicatie. Neem contact op met je beheerder als je denkt dat dit een vergissing is."
+      },
+      "rooms": {
+        "room_limit": "De kamer kan niet gemaakt worden omdat de limiet op het aantal kamers bereikt is."
+      },
+      "session": {
+        "invalid_credentials": "De gebruikersnaam of het wachtwoord zijn fout. Controleer ze en probeer opnieuw."
+      }
+    }
+  },
+  "global_error_page": {
+    "title": "Fout",
+    "message": "Sorry, er ging wat mis. Als dit opnieuw gebeurt, neem dan contact op met je beheerder."
+  },
+  "not_found_error_page": {
+    "title": "Pagina niet gevonden",
+    "message": "Sorry, de pagina die je probeert te bezoeken kon niet gevonden worden."
+  },
+  "account_activation_page": {
+    "title": "Account-activatie",
+    "account_unverified": "Je account is nog niet geverifieerd.",
+    "message": "Om Greenlight te kunnen gebruiker moet je je account verifiëren met de instructies in de activatiemail die naar jou verstuurd is.",
+    "resend_activation_link": "Als je geen activatiemail gekregen hebt of als je een probleem hebt om die te gebruiken, klik dan op onderstaande knop om een nieuwe activatiemail te ontvangen.",
+    "resend_btn_lbl": "Verificatie opnieuw versturen"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Geef je volledige naam",
+        "min": "Naam moet minstens 2 tekens lang zijn",
+        "max": "Naam mag maximaal 255 tekens lang zijn"
+      },
+      "email": {
+        "required": "Geef een e-mailadres",
+        "email": "De ingevoerde tekst is geen e-mailadres",
+        "min": "E-mail moet minstens 6 tekens lang zijn",
+        "max": "E-mail mag maximaal 255 tekens lang zijn"
+      },
+      "password": {
+        "required": "Geef een wachtwoord",
+        "match": "Wachtwoord moet minstens het volgende bevatten:",
+        "min": "- Acht tekens",
+        "lower": "- Eén kleine letter",
+        "upper": "- Eén hoofdletter",
+        "digit": "- Eén cijfer",
+        "symbol": "- Een symbool",
+        "max": "Wachtwoord mag maximaal 255 tekens lang zijn"
+      },
+      "password_confirmation": {
+        "required": "Bevestig je wachtwoord",
+        "match": "De wachtwoorden komen niet overeen"
+      },
+      "emails": {
+        "required": "Geef minstens één geldig e-mailadres",
+        "list": "Geef een door komma's gescheiden lijst van geldige e-mailadressen (user@users.com,user1@users.com,user2@users.com)"
+      },
+      "role_name": {
+        "required": "Geef de rolnaam"
+      },
+      "role": {
+        "limit": {
+          "required": "Geef het maximaal aantal kamers",
+          "min": "Minimaal toegestaan is 0",
+          "max": "Maximaal toegestaan is 100"
+        },
+        "type": {
+          "error": "Je moet een aantal opgeven"
+        }
+      },
+      "room": {
+        "name": {
+          "required": "Geef de kamernaam.",
+          "min": "Naam moet minstens 2 tekens lang zijn"
+        }
+      },
+      "url": {
+        "invalid": "Ongeldige URL"
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Kamernaam",
+          "placeholder": "Geef een kamernaam..."
+        }
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Volledige naam",
+            "placeholder": "Geef je volledige naam"
+          },
+          "email": {
+            "label": "E-mail",
+            "placeholder": "Geef je e-mailadres"
+          },
+          "password": {
+            "label": "Wachtwoord",
+            "placeholder": "Maak een wachtwoord"
+          },
+          "password_confirmation": {
+            "label": "Bevestig wachtwoord",
+            "placeholder": "Bevestig wachtwoord"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "E-mail",
+            "placeholder": "E-mail"
+          },
+          "password": {
+            "label": "Wachtwoord",
+            "placeholder": "Wachtwoord"
+          },
+          "remember_me": {
+            "label": "Aanmelding onthouden"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Huidig wachtwoord",
+            "placeholder": "Geef je wachtwoord"
+          },
+          "new_password": {
+            "label": "Nieuw wachtwoord",
+            "placeholder": "Geef je wachtwoord"
+          },
+          "password_confirmation": {
+            "label": "Bevestig wachtwoord",
+            "placeholder": "Bevestig je nieuwe wachtwoord"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Geef je huidige wachtwoord"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "E-mail",
+            "placeholder": "Geef het e-mailadres van de account"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Geef het e-mailadres van de account"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Nieuw wachtwoord",
+            "placeholder": "Geef je nieuwe wachtwoord"
+          },
+          "password_confirmation": {
+            "label": "Bevestig wachtwoord",
+            "placeholder": "Bevestig je nieuwe wachtwoord"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Volledige naam"
+          },
+          "email": {
+            "label": "E-mail"
+          },
+          "language": {
+            "label": "Taal"
+          },
+          "role": {
+            "label": "Rol"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Volledige naam",
+            "placeholder": "Geef de volledige naam van de gebruiker"
+          },
+          "email": {
+            "label": "E-mail",
+            "placeholder": "Geef het e-mailadres van de gebruiker"
+          },
+          "password": {
+            "label": "Wachtwoord",
+            "placeholder": "Geef het wachtwoord van de gebruiker"
+          },
+          "password_confirmation": {
+            "label": "Bevestig wachtwoord",
+            "placeholder": "Bevestig het wachtwoord"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "E-mails"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "Zet hier een link..."
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "Rolnaam",
+            "placeholder": "Geef een rolnaam..."
+          }
+        }
+      }
+    }
+  }
+}

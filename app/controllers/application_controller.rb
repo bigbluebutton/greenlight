@@ -63,7 +63,13 @@ class ApplicationController < ActionController::Base
     return unless user.rooms.count <= 0
     return unless PermissionsChecker.new(permission_names: 'CreateRoom', user_id: user.id, current_user: user, current_provider:).call
 
-    Room.create(name: "#{user.name}'s Room", user_id: user.id)
+    Room.create(name: t('room.new_room_name', username: user.name, locale: user.language), user_id: user.id)
+  end
+
+  # Include user domain in lograge logs
+  def append_info_to_payload(payload)
+    super
+    payload[:host] = @current_provider
   end
 
   private
@@ -79,7 +85,6 @@ class ApplicationController < ActionController::Base
   # Parses the url for the user domain
   def parse_user_domain(hostname)
     tenant = hostname&.split('.')&.first
-
     raise 'Invalid domain' unless Tenant.exists?(name: tenant)
 
     tenant
