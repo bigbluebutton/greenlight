@@ -17,6 +17,14 @@
 # frozen_string_literal: true
 
 class Recording < ApplicationRecord
+  VISIBILITIES = {
+    published: 'Published',
+    unpublished: 'Unpublished',
+    protected: 'Protected',
+    public: 'Public',
+    public_protected: 'Public/Protected'
+  }.freeze
+
   belongs_to :room
   has_one :user, through: :room
   has_many :formats, dependent: :destroy
@@ -26,8 +34,11 @@ class Recording < ApplicationRecord
   validates :visibility, presence: true
   validates :length, presence: true
   validates :participants, presence: true
+  validates :visibility, inclusion: VISIBILITIES.values
 
   scope :with_provider, ->(current_provider) { where(user: { provider: current_provider }) }
+
+  after_destroy :destroy_bbb_recording
 
   def self.search(input)
     if input
@@ -36,5 +47,33 @@ class Recording < ApplicationRecord
     end
 
     all.includes(:formats)
+  end
+
+  def self.public_search(input)
+    if input
+      return joins(:formats).where('recordings.name ILIKE :input OR formats.recording_type ILIKE :input',
+                                   input: "%#{input}%").includes(:formats)
+    end
+
+    all.includes(:formats)
+  end
+
+  def self.server_search(input)
+    if input
+      return joins(:formats)
+             .where('recordings.name ILIKE :input OR ' \
+                    'recordings.visibility ILIKE :input OR ' \
+                    'formats.recording_type ILIKE :input OR ' \
+                    '"user"."name" ILIKE :input', input: "%#{input}%")
+             .includes(:formats)
+    end
+
+    all.includes(:formats)
+  end
+
+  private
+
+  def destroy_bbb_recording
+    BigBlueButtonApi.new(provider: user.provider).delete_recordings(record_ids: record_id)
   end
 end

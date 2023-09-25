@@ -47,28 +47,28 @@
 
 de:
   opengraph:
-    description: "Erfahren Sie mehr über BigBlueButton, die bewährte Open-Source-Lösung für Webkonferenzen, die eine nahtlose virtuelle Zusammenarbeit und Online-Lernerfahrungen ermöglicht."
+    description: "Erfahre mehr über BigBlueButton, die bewährte Open-Source-Lösung für Webkonferenzen, die eine nahtlose virtuelle Zusammenarbeit und Online-Lernerfahrungen ermöglicht."
   meeting:
-    moderator_message: "Um jemanden zur Konferenz einzuladen, schicken Sie ihm diesen Link:"
+    moderator_message: "Um jemanden zur Konferenz einzuladen, verschicke diesen Link:"
     access_code: "Zugangscode: %{code}"
   email:
     activation:
       account_activation: Kontoaktivierung
       welcome_to_bbb: Willkommen in BigBlueButton!
-      get_started: "Um loszulegen, aktivieren Sie bitte Ihr Konto, indem Sie auf die Schaltfläche unten klicken."
+      get_started: Klicke auf die Schaltfläche um das Konto zu aktivieren.
       activate_account: Konto aktivieren
       link_expires: Der Link wird in 24 Stunden ungültig.
-      if_link_expires: "Wenn der Link abläuft, melden Sie sich bitte an und fordern Sie eine neue E-Mail zur Aktivierung an."
+      if_link_expires: "Sollte der Link abgelaufen sein, dann melde dich bitte an und fordere eine neue Aktivierungs-EMail an."
     invitation:
       invitation_to_join: BigBlueButton-Einladung
-      you_have_been_invited: "Sie wurden von %{name} eingeladen, ein BigBlueButton-Konto zu erstellen."
-      get_started: "Um sich zu registrieren, klicken Sie bitte auf die Schaltfläche unten und folgen Sie den Schritten."
-      valid_invitation: Die Einladung ist 48 Stunden gültig.
+      you_have_been_invited: "Du wurdest von %{name} eingeladen, ein BigBlueButton-Konto zu erstellen."
+      get_started: "Um dich zu registrieren, klicken bitte auf diese Schaltfläche."
+      valid_invitation: Die Einladung ist 24 Stunden gültig.
       sign_up: Registrieren
     reset:
       password_reset: Passwort zurücksetzen
       password_reset_requested: "Eine Passwortrücksetzung wurde für %{email} beantragt."
-      password_reset_confirmation: "Um Ihr Passwort zurückzusetzen, klicken Sie bitte auf die Schaltfläche unten."
+      password_reset_confirmation: "Um das Passwort zurückzusetzen, klicke bitte auf die Schaltfläche unten."
       reset_password: Passwort zurücksetzen
       link_expires: Der Link wird in 1 Stunde ungültig.
-      ignore_request: "Wenn Sie keinen Antrag zur Änderung Ihres Passworts gestellt haben, ignorieren Sie bitte diese E-Mail."
+      ignore_request: "Wenn du dein Passwort nicht ändern wolltest, dann ignoriere bitte diese E-Mail."

@@ -1,0 +1,671 @@
+{
+  "start": "시작",
+  "search": "검색",
+  "home": "홈",
+  "previous": "이전",
+  "back": "뒤로",
+  "next": "다음",
+  "view": "보기",
+  "join": "참여하기",
+  "edit": "편집",
+  "save": "저장하기",
+  "save_changes": "변경사항 저장",
+  "update": "업데이트",
+  "report": "보고서",
+  "share": "공유",
+  "cancel": "취소",
+  "close": "닫기",
+  "delete": "삭제",
+  "copy": "참여 링크 복사",
+  "or": "또는",
+  "online": "온라인",
+  "help_center": "도움말 센터",
+  "are_you_sure": "확실합니까?",
+  "return_home": "홈으로 돌아가기",
+  "created_at": "에서 생성",
+  "no_result_search_input": "\"{{ searchInput }}\"에 대한 결과를 찾을 수 없습니다.",
+  "action_permanent": "이 작업은 실행 취소할 수 없습니다.",
+  "homepage": {
+    "welcome_bbb": "BigBlueButton에 오신 것을 환영합니다.",
+    "bigbluebutton_description": "BigBlueButton은 온라인 수업을 위한 오픈 소스 웹 회의 시스템입니다. 이 플랫폼은 학생들이 실시간으로 협업하고 피드백을 받을 수 있도록 함으로써 응용 학습 시간을 극대화합니다.",
+    "greenlight_description": "세션을 호스트할 자신의 룸을 만들거나 짧고 편리한 연결을 사용하여 다른 룸에 참여합니다.",
+    "learn_more": "BigBlueButton에 대해 자세히 알아보기",
+    "explore_features": "당사의 기능을 살펴보십시오",
+    "meeting_title": "미팅 시작",
+    "meeting_description": "비디오, 오디오, 화면 공유, 채팅 및 적용된 학습에 필요한 모든 도구로 가상 수업을 시작합니다.",
+    "recording_title": "미팅 녹화",
+    "recording_description": "BigBlueButton의 미팅을 기록하고 학생들과 공유하여 자료를 검토하고 성찰합니다.",
+    "settings_title": "룸 관리",
+    "settings_description": "효율적인 강의실을 구성하도록 회의실 및 회의 설정을 설정합니다.",
+    "and_more_title": "그리고 더!",
+    "and_more_description": "BigBlueButton은 응용 학습을 위한 내장된 도구를 제공하여 수업 시간을 절약할 수 있도록 설계되었습니다.",
+    "enter_meeting_url": "미팅 URL 입력",
+    "enter_meeting_url_instruction": "아래 필드에 BigBlueButton 미팅룸의 URL을 입력하십시오."
+  },
+  "authentication": {
+    "sign_in": "로그인",
+    "sign_up": "등록하기",
+    "sign_out": "로그아웃",
+    "email": "이메일",
+    "password": "패스워드",
+    "confirm_password": "패스워드 확인",
+    "enter_email": "이메일 입력",
+    "enter_name": "이름 입력",
+    "remember_me": "기억하기",
+    "forgot_password": "패스워드를 잊어버렸습니까?",
+    "dont_have_account": "계정이 없습니까?",
+    "create_account": "계정 생성",
+    "create_an_account": "계정 생성",
+    "already_have_account": "이미 계정이 있습니까?"
+  },
+  "user": {
+    "user": "사용자",
+    "users": "사용자들",
+    "name": "이름",
+    "email_address": "이메일 주소",
+    "authenticator": "인증",
+    "full_name": "전체 이름",
+    "no_user_found": "사용자를 찾을 수 없습니다.",
+    "type_three_characters": "다른 사용자를 표시하려면 세(3)자 이상을 입력하십시오.",
+    "search_not_found": "사용자를 찾을 수 없습니다.",
+    "profile": {
+      "profile": "프로필",
+      "language": "언어",
+      "role": "역할",
+      "administrator": "관리자",
+      "guest": "손님"
+    },
+    "account": {
+      "account_info": "계정 정보",
+      "delete_account": "계정 삭제",
+      "change_password": "패스워드 변경",
+      "reset_password": "패스워드 초기화",
+      "update_account_info": "계정 정보 업데이트",
+      "current_password": "현재 패스워드",
+      "new_password": "새로운 패스워드",
+      "confirm_password": "패스워드 확인",
+      "permanently_delete_account": "계정 영구 삭제",
+      "delete_account_description": "계정을 삭제하도록 선택하면 복구할 수 없습니다. \n설정, 회의실 및 기록을 포함한 계정에 대한 모든 정보가 제거됩니다.",
+      "delete_account_confirmation": "예, 제 계정을 삭제하고 싶습니다",
+      "are_you_sure_delete_account": "계정을 삭제하시겠습니까?"
+    },
+    "avatar": {
+      "upload_avatar": "업데이트 아바타",
+      "delete_avatar": "아바타 삭제",
+      "crop_avatar": "아바타 자르기"
+    },
+    "pending": {
+      "title": "등록 대기",
+      "message": "등록해 주셔서 감사합니다! 계정이 현재 관리자의 승인 대기 중입니다."
+    }
+  },
+  "room": {
+    "room": "Room",
+    "rooms": "Room들",
+    "room_name": "Room 이름",
+    "add_new_room": "새로운 Room",
+    "create_room": "Room 생성",
+    "delete_room": "Room 삭제",
+    "create_new_room": "새로운 Room 생성",
+    "enter_room_name": "Room 이름 입력",
+    "shared_by": "에 의해 공유",
+    "last_session": "마지막 세션: {{ localizedTime }}",
+    "no_last_session": "이전 세션이 생성되지 않았습니다",
+    "search_not_found": "Room을 찾을 수 없음",
+    "rooms_list_is_empty": "아직 소유한 Room이 없습니다.",
+    "rooms_list_empty_create_room": "아래 단추를 누른 후 Room 이름을 입력하여 첫 번째 Room을 생성할 수 있습니다.",
+    "meeting": {
+      "start_meeting": "미팅 시작",
+      "join_meeting": "미팅 참여",
+      "meeting_invitation": "가입 초대를 받았습니다.",
+      "meeting_not_started": "미팅이 아직 시작되지 않았습니다",
+      "join_meeting_automatically": "미팅이 시작될 때 자동으로 참여합니다",
+      "recording_consent": "이 세션이 녹화될 수 있고 이를 허락합니다. 이 세션에서 녹화가 진행될 경우 내 음성 및 비디오가 포함될 수 있습니다."
+    },
+    "presentation": {
+      "presentation": "프레젠테이션",
+      "click_to_upload": "업로드하려면 클릭하세요.",
+      "drag_and_drop": "또는 드래그 앤 드롭",
+      "upload_description": "사무실 문서 또는 PDF 파일({{size}}이하)을 업로드합니다. 파일 크기에 따라 파일을 사용하려면 업로드하는 데 추가 시간이 필요할 수 있습니다",
+      "are_you_sure_delete_presentation": "이 프레젠테이션을 삭제하시겠습니까?"
+    },
+    "shared_access": {
+      "access": "액세스",
+      "add_share_access": "+ 액세스 공유",
+      "share_room_access": "공유 Room 액세스",
+      "add_some_users": "사용자를 추가할 시간입니다!",
+      "add_some_users_description": "새 사용자를 추가하려면 아래 단추를 누른 후 Room을 공유할 사용자를 검색하거나 선택하십시오.",
+      "delete_shared_access": "공유 액세스 삭제",
+      "are_you_sure_delete_shared_access": "이 공유 액세스를 삭제하시겠습니까?"
+    },
+    "settings": {
+      "settings": "설정",
+      "room_name": "Room 이름",
+      "user_settings": "사용자 설정",
+      "allow_room_to_be_recorded": "Room 녹화 허용",
+      "require_signed_in": "가입하기 전에 사용자가 로그인하도록 요구",
+      "require_signed_in_message": "이 Room에 참가하려면 로그인해야 합니다.",
+      "require_mod_approval": "참가하기 전에 진행자 승인 필요",
+      "allow_any_user_to_start": "모든 사용자가 이 미팅을 시작할 수 있도록 허용",
+      "all_users_join_as_mods": "모든 사용자가 진행자로 참가",
+      "mute_users_on_join": "사용자가 참가할 때 음소거",
+      "generate": "생성",
+      "access_code": "액세스 코드",
+      "mod_access_code": "진행자용 액세스 코드",
+      "mod_access_code_optional": "진행자용 액세스 코드 (선택)",
+      "access_code_required": "액세스 코드를 입력하세요",
+      "wrong_access_code": "잘못된 액세스 코드입니다.",
+      "generate_viewers_access_code": "참여자용 액세스 코드 생성",
+      "generate_mods_access_code": "진행자용 액세스 코드 생성",
+      "are_you_sure_delete_room": "이 Room을 삭제 하시겠습니까?"
+    }
+  },
+  "recording": {
+    "recording": "녹화",
+    "recordings": "녹화",
+    "name": "이름",
+    "length": "길이",
+    "users": "사용자",
+    "visibility": "가시성",
+    "formats": "형식",
+    "published": "게시됨",
+    "unpublished": "게시되지 않음",
+    "protected": "보호",
+    "length_in_minutes": "{{recording.length}} 분.",
+    "processing_recording": "녹화를 인코딩 중입니다. 몇 분 정도 걸릴 수 있습니다...",
+    "copy_recording_urls": "녹화 Url(S) 복사",
+    "recordings_list_empty": "아직 녹화되지 않았습니다!",
+    "recordings_list_empty_description": "미팅을 중 녹화된 기록이 여기에 나타납니다.",
+    "delete_recording": "녹화 삭제",
+    "are_you_sure_delete_recording": "이 녹화를 삭제하시겠습니까?",
+    "search_not_found": "녹화된 기록을 찾을 수 없음"
+  },
+  "admin": {
+    "admin_panel": "관리자 패널",
+    "manage_users": {
+      "manage_users": "사용자 관리",
+      "active": "활성",
+      "approve": "승인",
+      "decline": "거절",
+      "pending": "대기",
+      "banned": "금지",
+      "ban": "금지",
+      "unban": "금지 해제",
+      "deleted": "삭제",
+      "invited_tab": "초대",
+      "invite_user": "사용자 초대",
+      "send_invitation": "초대장 보내기",
+      "enter_user_email": "사용자 이메일 입력",
+      "new_user": "새로운 사용자",
+      "add_new_user": "새로운 사용자",
+      "create_new_user": "새로운 사용자 생성",
+      "edit_user": "사용자 편집",
+      "delete_user": "사용자 삭제",
+      "users_edit_path": "사용자 / 편집",
+      "create_account": "계정 생성",
+      "create_room": "Room 생성",
+      "create_new_room": "새로운 Room 생성",
+      "user_created_at": "생성됨: {{localizedTime}}",
+      "are_you_sure_delete_account": "{{user.name}}의 계정을 삭제하시겠습니까?",
+      "delete_account_warning": "이 계정을 삭제하면 복구할 수 없습니다.",
+      "empty_active_users": "이 서버에 아직 활성 사용자가 없습니다!",
+      "empty_active_users_subtext": "사용자 상태가 활성으로 변경되면 사용자 상태가 여기에 나타납니다.",
+      "empty_pending_users": "이 서버에는 아직 대기 중인 사용자가 없습니다!",
+      "empty_pending_users_subtext": "사용자 상태가 대기 중으로 변경되면 사용자 상태가 여기에 나타납니다.",
+      "empty_banned_users": "이 서버에는 아직 금지된 사용자가 없습니다!",
+      "empty_banned_users_subtext": "사용자 상태가 금지됨으로 변경되면 사용자 상태가 여기에 나타납니다.",
+      "empty_invited_users": "이 서버에는 아직 초대된 사용자가 없습니다!",
+      "empty_invited_users_subtext": "사용자의 상태가 초대됨으로 변경되면 여기에 나타납니다.",
+      "invited": {
+        "time_sent": "보낸 시간",
+        "valid": "유효한"
+      }
+    },
+    "server_rooms": {
+      "server_rooms": "서버 Rooms",
+      "name": "이름",
+      "owner": "소유자",
+      "room_id": "Room ID",
+      "participants": "참가자",
+      "status": "상태",
+      "running": "실행중",
+      "not_running": "실행 중이 아님",
+      "active": "활성",
+      "current_session": "현재 세션: {{lastSession}}",
+      "last_session": "마지막 세션: {{localizedTime}}",
+      "no_meeting_yet": "아직 미팅이 없습니다.",
+      "delete_server_rooms": "Server Room 삭제",
+      "resync_recordings": "녹화 재동기화",
+      "empty_room_list": "아직 Server Room이 없습니다!",
+      "empty_room_list_subtext": "첫 번째 Room을 생성하면 Room이 여기에 나타납니다."
+    },
+    "server_recordings": {
+      "server_recordings": "Server 녹화",
+      "latest_recordings": "마지막 녹화",
+      "no_recordings_found": "녹화 기록을 찾을 수 없습니다."
+    },
+    "site_settings": {
+      "site_settings": "사이트 설정",
+      "customize_greenlight": "그린라이트 사용자화",
+      "appearance": {
+        "appearance": "외모",
+        "brand_color": "브랜드 컬러",
+        "regular": "보통",
+        "lighten": "얇게",
+        "brand_image": "브랜드 이미지",
+        "click_to_upload": "클릭하여 업로드",
+        "drag_and_drop": "또는 드래그 앤 드롭",
+        "upload_brand_image_description": "PNG, JPG 또는 SVG 파일({{size}} 이하)을 업로드합니다. 파일 크기에 따라 업로드하는 데 시간이 걸릴 수 있습니다.",
+        "remove_branding_image": "브랜딩 이미지 삭제"
+      },
+      "administration": {
+        "administration": "관리",
+        "terms": "이용 약관",
+        "privacy": "개인 정보 보호 정책",
+        "privacy_policy": "개인 정보 보호 정책",
+        "change_term_links": "페이지 하단에 나타나는 용어 링크 변경",
+        "change_privacy_link": "페이지 하단에 나타나는 용어 링크 변경",
+        "change_url": "URL 변경",
+        "enter_link": "링크 입력"
+      },
+      "settings": {
+        "settings": "설정",
+        "allow_users_to_share_rooms": "사용자의 Room 공유 허용",
+        "allow_users_to_share_rooms_description": "사용 불가능으로 설정하면 Room 선택사항 드롭다운 메뉴에서 버튼이 제거되어 사용자가 Room을 공유할 수 없습니다",
+        "allow_users_to_preupload_presentation": "사용자에게 프레젠테이션 발표자료 사전 업로드 허용",
+        "allow_users_to_preupload_presentation_description": "사용자는 특정 Room에서 발표자료로 사용할 프리젠테이션을 미리 업로드할 수 있습니다"
+      },
+      "registration": {
+        "registration": "등록",
+        "role_mapping_by_email": "전자 메일별 역할 매핑",
+        "role_mapping_by_email_description": "전자 메일을 사용하여 사용자를 역할에 매핑합니다. role1=email1, role2=email2 형식이어야 합니다",
+        "enter_role_mapping_rule": "역할 매핑 규칙 입력",
+        "resync_on_login": "로그인할 때마다 사용자 데이터 다시 동기화",
+        "resync_on_login_description": "사용자가 로그인할 때마다 사용자의 정보를 다시 동기화하여 외부 인증 공급자가 항상 Greenlight의 정보와 일치하도록 합니다",
+        "default_role": "기본 역할",
+        "default_role_description": "새로 생성된 사용자에게 할당할 기본 역할",
+        "registration_method": "등록 방법",
+        "registration_method_description": "사용자가 웹 사이트에 등록하는 방법 변경",
+        "registration_methods" : {
+          "open": "공개 등록",
+          "invite": "초대로 참여",
+          "approval": "승인/거부"
+        }
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "Room 구성",
+      "default": "선택 사항(기본값: 사용)",
+      "optional": "선택 사항(기본값: 사용 안 함)",
+      "enabled": "강제 실행",
+      "disabled": "사용 안함",
+      "configurations": {
+        "allow_room_to_be_recorded": "Room 녹화 허용",
+        "allow_room_to_be_recorded_description": "Room 소유자가 녹화 기능의 사용 여부를 지정할 수 있습니다. 활성화된 경우 진행자는 미팅이 시작된 후 Room 상단에 '녹화' 버튼이 활성화 되고 이 버튼을 클릭하면 녹화를 진행할 수 있습니다.",
+        "require_user_signed_in": "가입하기 전에 사용자가 로그인해야 함",
+        "require_user_signed_in_description": "Greenlight 계정을 가진 사용자만 미팅에 참여할 수 있습니다. 로그인하지 않은 경우, Room에 참여할 때 로그인 페이지로 되돌아 갑니다..",
+        "require_mod_approval": "가입하기 전에 진행자 승인 필요",
+        "require_mod_approval_description": "사용자가 참여하려고 할 때 BigBlueButton 미팅의 진행자에게 메시지를 표시합니다. 진행자에 의해 사용자가 승인된 경우, 사용자는 미팅에 참여할 수 있습니다.",
+        "allow_any_user_to_start_meeting": "누구나 미팅을 시작할 수 있도록 허용",
+        "allow_any_user_to_start_meeting_description": "누구나 언제든지 미팅을 시작할 수 있도록 허용합니다. 기본적으로는 Room 소유자만 미팅을 시작할 수 있습니다.",
+        "allow_users_to_join_as_mods": "모든 사용자가 진행자로 참여",
+        "allow_users_to_join_as_mods_description": "모든 사용자가 미팅에 참여할 때 진행자 권한을 부여합니다",
+        "mute_users_on_join": "사용자가 미팅에 참여할 때 음소거",
+        "mute_users_on_join_description": "사용자가 미팅에 참여할 때 자동으로 음소거됨",
+        "viewer_access_code": "참여자 액세스 코드",
+        "viewer_access_code_description": "Room 소유자가 참여자와 공유할 수 있는 임의의 영문,숫자 코드를 가질 수 있습니다. 생성된 코드는 사용자가 Room 미팅에 참여하는 데 필요합니다.",
+        "mod_access_code": "진행자 액세스 코드",
+        "mod_access_code_description": "Room 소유자는 참여자와 공유할 수 있는 임의의 영문, 숫자 코드를 가질 수 있습니다. Room 미팅에서 사용자가 처음부터 진행자로 참여하면 작성된 코드는 필요하지 않습니다. "
+      }
+    },
+    "roles": {
+      "role": "역할",
+      "roles": "역할",
+      "administrator": "관리자",
+      "guest": "손님",
+      "manage_roles": "역할 관리",
+      "delete_role": "역할 삭제",
+      "are_you_sure_delete_role": "이 역할을 삭제하시겠습니까?",
+      "enter_role_name": "역할 이름 입력",
+      "add_role": "+ 역할 생성",
+      "create_role": "역할 생성",
+      "create_new_role": "새로운 역할 생성",
+      "no_role_found": "역할을 찾을 수 없습니다.",
+      "search_not_found": "역할을 찾을 수 없음",
+      "edit": {
+        "create_room": "이 역할을 가진 사용자에게 Room 생성 허용",
+        "record": "이 역할을 가진 사용자에게 미팅 녹화 허용",
+        "manage_users": "이 역할을 가진 사용자에게 사용자 관리 허용",
+        "manage_rooms": "이 역할을 가진 사용자에게 서버 Room 관리 허용",
+        "manage_recordings": "이 역할을 가진 사용자에게 서버 녹화 관리 허용",
+        "manage_site_settings": "이 역할을 가진 사용자에게 사이트 설정 관리 허용",
+        "manage_roles": "이 역할을 가진 사용자가 다른 역할을 편집하도록 허용",
+        "shared_list": "Room 공유 드롭다운 메뉴에 이 역할을 가진 사용자 포함",
+        "room_limit": "Room 제한"
+      }
+    }
+  },
+  "toast": {
+    "success": {
+      "user": {
+        "user_created": "새 사용자가 생성되었습니다.",
+        "user_updated": "사용자가 업데이트되었습니다.",
+        "user_deleted": "사용자가 삭제되었습니다.",
+        "avatar_updated": "아바타가 업데이트되었습니다.",
+        "password_updated": "암호가 업데이트되었습니다.",
+        "account_activated": "계정이 활성화되었습니다.",
+        "activation_email_sent": "계정을 활성화하기 위한 지침이 포함된 이메일이 전송되었습니다.",
+        "reset_pwd_email_sent": "암호를 재설정하는 방법이 포함된 이메일이 전송되었습니다."
+      },
+      "session": {
+        "signed_out": "로그아웃되었습니다."
+      },
+      "room": {
+        "room_created": "새 Room이 생성되었습니다.",
+        "room_updated": "Room이 업데이트되었습니다.",
+        "room_deleted": "Room이 삭제되었습니다.",
+        "room_shared": "Room이 공유되었습니다.",
+        "room_unshared": "Room 공유가 해제되었습니다.",
+        "recordings_synced": "Room 녹화가 동기화되었습니다.",
+        "room_configuration_updated": "Room 환경설정이 업데이트되었습니다.",
+        "room_setting_updated": "Room 설정이 업데이트되었습니다.",
+        "presentation_updated": "프레젠테이션이 업데이트되었습니다.",
+        "presentation_deleted": "프레젠테이션이 삭제되었습니다.",
+        "joining_meeting": "미팅에 참여하는 중...",
+        "meeting_started": "미팅이 시작되었습니다.",
+        "access_code_copied": "액세스 코드가 복사되었습니다.",
+        "access_code_generated": "새 액세스 코드가 생성되었습니다.",
+        "access_code_deleted": "액세스 코드가 삭제되었습니다.",
+        "copied_meeting_url": "미팅 URL이 복사되었습니다. 링크를 통하여 미팅에 참여할 수 있습니다."
+      },
+      "site_settings": {
+        "site_setting_updated": "사이트 설정이 업데이트되었습니다.",
+        "brand_color_updated": "브랜드 색상이 업데이트되었습니다.",
+        "brand_image_updated": "브랜드 이미지가 업데이트되었습니다.",
+        "brand_image_deleted": "브랜드 이미지가 삭제되었습니다.",
+        "privacy_policy_updated": "개인 정보 보호 정책이 업데이트되었습니다.",
+        "terms_of_service_updated": "서비스 약관이 업데이트되었습니다."
+      },
+      "recording": {
+        "recording_visibility_updated": "녹화 가시성이 업데이트되었습니다.",
+        "recording_name_updated": "녹화명이 업데이트되었습니다.",
+        "recording_deleted": "녹화가 삭제되었습니다.",
+        "copied_urls": "녹화 URL이 복사되었습니다."
+      },
+      "role": {
+        "role_created": "새 역할이 생성되었습니다.",
+        "role_updated": "역할이 업데이트되었습니다.",
+        "role_deleted": "역할이 삭제되었습니다.",
+        "role_permission_updated": "역할의 권한이 업데이트되었습니다."
+      },
+      "invitations": {
+        "invitation_sent": "초대장을 보냈습니다."
+      }
+    },
+    "error": {
+      "problem_completing_action": "작업을 완료할 수 없습니다. \n다시 시도하십시오.",
+      "file_type_not_supported": "파일 형식이 지원되지 않습니다.",
+      "file_size_too_large": "파일 크기가 너무 큽니다.",
+      "file_upload_error": "파일을 업로드할 수 없습니다.",
+      "signin_required": "이 페이지에 액세스하려면 로그인해야 합니다.",
+      "roles": {
+        "role_assigned": "이 역할은 적어도 한 명의 사용자에게 할당되어 있으므로 삭제할 수 없습니다."
+      },
+      "users": {
+        "signup_error": "인증할 수 없습니다. 관리자에게 문의하십시오.",
+        "invalid_invite": "초대 토큰이 유효하지 않거나 올바르지 않습니다. 새 토큰을 받으려면 관리자에게 문의하십시오.",
+        "email_exists": "이 이메일의 계정이 이미 존재합니다. 다른 이메일로 다시 시도하십시오.",
+        "old_password": "입력하신 비밀번호가 올바르지 않습니다.",
+        "pending": "귀하의 등록은 관리자의 승인을 기다리고 있습니다. 나중에 다시 시도 해주십시오.",
+        "banned": "이 애플리케이션에 대한 액세스 권한이 없습니다. 이것이 오류라고 생각되면 관리자에게 문의하십시오."
+      },
+      "rooms": {
+        "room_limit": "Room 생성 한도에 도달하여 Room을 더 이상 만들 수 없습니다."
+      },
+      "session": {
+        "invalid_credentials": "사용자 이름 또는 비밀번호가 유효하지 않습니다. 자격 증명을 확인하고 다시 시도하십시오."
+      }
+    }
+  },
+  "global_error_page": {
+    "title": "에러",
+    "message": "죄송합니다. 문제가 발생했습니다. 해당 현상이 다시 발생하면 관리자에게 문의하시기 바랍니다."
+  },
+  "not_found_error_page": {
+    "title": "페이지를 찾을 수 없음",
+    "message": "죄송합니다. 액세스하려는 페이지를 찾을 수 없습니다."
+  },
+  "account_activation_page": {
+    "title": "계정 활성화",
+    "account_unverified": "귀하의 계정이 아직 확인되지 않았습니다.",
+    "message": "Greenlight를 사용하려면 귀하에게 전송된 활성화 이메일의 지침에 따라 귀하의 계정을 확인하십시오.",
+    "resend_activation_link": "활성화 이메일을 받지 못하셨거나 사용에 문제가 있는 경우 아래 버튼을 클릭하여 새 활성화 이메일을 요청하십시오.",
+    "resend_btn_lbl": "인증 재전송"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "이름을 입력하세요.",
+        "min": "이름은 2자 이상이어야 합니다.",
+        "max": "이름은 최대 255자여야 합니다."
+      },
+      "email": {
+        "required": "이메일을 입력하세요",
+        "email": "입력한 값이 이메일 형식과 일치하지 않습니다.",
+        "min": "이메일 주소는 최소 6자 이상이어야 합니다.",
+        "max": "이메일 주소는 최대 255자 길이여야 합니다."
+      },
+      "password": {
+        "required": "비밀번호를 입력하세요",
+        "match": "암호는 최소한 다음을 포함해야 합니다 :",
+        "min": "- 최소 8자 이상",
+        "lower": "- 영문 소문자 1개 이상",
+        "upper": "- 영문 대문자 1개 이상",
+        "digit": "- 최소 숫자 1개 이상",
+        "symbol": "- 특수 기호 최소 1개 이상",
+        "max": "비밀번호는 최대 255자 이하여야 합니다."
+      },
+      "password_confirmation": {
+        "required": "비밀번호 확인을 입력하세요",
+        "match": "암호가 일치하지 않습니다"
+      },
+      "emails": {
+        "required": "유효한 이메일 주소를 하나 이상 입력하세요.",
+        "list": "유효한 이메일 목록을 쉼표로 구분하여 제공해야 합니다(user@users.com,user1@users.com,user2@users.com )"
+      },
+      "role_name": {
+        "required": "역할명을 입력하세요."
+      },
+      "role": {
+        "limit": {
+          "required": "Romm 개수 제한을 입력하세요.",
+          "min": "허용되는 최소값은 0입니다.",
+          "max": "허용되는 최대값은 100입니다."
+        },
+        "type": {
+          "error": "숫자를 지정해야 합니다."
+        }
+      },
+      "room": {
+        "name": {
+          "required": "Room 이름을 입력해주세요.",
+          "min": "이름은 최소 2자 이상이어야 합니다."
+        }
+      },
+      "room_join": {
+        "name": {
+          "required": "당신의 이름을 입력 해주세요."
+        }
+      },
+      "url": {
+        "invalid": "잘못된 URL"
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Room 이름",
+          "placeholder": "Room 이름을 입력하세요..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "이름",
+            "placeholder": "이름을 입력하세요"
+        },
+        "access_code": {
+          "label": "액세스 코드",
+          "placeholder": "액세스 코드를 입력하세요"
+        },
+        "recording_consent": {
+          "label": "이 세션이 녹화될 수 있고 이를 허락합니다. 이 세션에서 녹화가 진행될 경우 내 음성 및 비디오가 포함될 수 있습니다."
+        }
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "전체 이름",
+            "placeholder": "이름을 입력하십시오"
+          },
+          "email": {
+            "label": "이메일",
+            "placeholder": "이메일 입력"
+          },
+          "password": {
+            "label": "패스워드",
+            "placeholder": "패스워드 생성"
+          },
+          "password_confirmation": {
+            "label": "패스워드 확인",
+            "placeholder": "패스워드 확인"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "이메일",
+            "placeholder": "이메일"
+          },
+          "password": {
+            "label": "패스워드",
+            "placeholder": "패스워드"
+          },
+          "remember_me": {
+            "label": "기억하기"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "현재 패스워드",
+            "placeholder": "패스워드를 입력하세요"
+          },
+          "new_password": {
+            "label": "새로운 패스워드",
+            "placeholder": "새로운 패스워드를 입력하세요"
+          },
+          "password_confirmation": {
+            "label": "패스워드 확인",
+            "placeholder": "새로운 패스워드 확인"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "현재 비밀번호를 입력하세요"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "이메일",
+            "placeholder": "계정 이메일 입력"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "계정 이메일을 입력해주세요"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "새로운 패스워드",
+            "placeholder": "새로운 패스워드를 입력하세요"
+          },
+          "password_confirmation": {
+            "label": "패스워드 확인",
+            "placeholder": "새로운 패스워드 확인"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "전체 이름"
+          },
+          "email": {
+            "label": "이메일"
+          },
+          "language": {
+            "label": "언어"
+          },
+          "role": {
+            "label": "역할"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "전체 이름",
+            "placeholder": "이름을 입력하세요"
+          },
+          "email": {
+            "label": "이메일",
+            "placeholder": "사용자 이메일 입력"
+          },
+          "password": {
+            "label": "패스워드",
+            "placeholder": "패스워드를 입력하세요"
+          },
+          "password_confirmation": {
+            "label": "패스워드 확인",
+            "placeholder": "패스워드 확인"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "이메일"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "링크 입력..."
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "역할명",
+            "placeholder": "역할명 입력"
+          }
+        }
+      }
+    }
+  }
+}

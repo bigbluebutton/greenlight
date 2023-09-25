@@ -41,6 +41,10 @@ module Authorizable
     ).call
   end
 
+  def ensure_super_admin
+    return render_error status: :forbidden unless current_user.super_admin?
+  end
+
   private
 
   # Ensures that requests to the API are explicit enough.

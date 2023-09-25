@@ -20,4 +20,8 @@ module Helpers
   def sign_in_user(user)
     session[:session_token] = user.session_token
   end
+
+  def sign_out_user
+    session[:session_token] = nil
+  end
 end

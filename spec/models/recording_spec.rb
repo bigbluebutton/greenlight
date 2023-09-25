@@ -19,6 +19,20 @@
 require 'rails_helper'
 
 RSpec.describe Recording, type: :model do
+  describe 'Constants' do
+    context 'VISIBILITES' do
+      it 'matches certain map' do
+        expect(Recording::VISIBILITIES).to eq({
+                                                published: 'Published',
+                                                unpublished: 'Unpublished',
+                                                protected: 'Protected',
+                                                public: 'Public',
+                                                public_protected: 'Public/Protected'
+                                              })
+      end
+    end
+  end
+
   describe 'validations' do
     subject { create(:recording) }
 
@@ -29,6 +43,7 @@ RSpec.describe Recording, type: :model do
     it { is_expected.to validate_presence_of(:visibility) }
     it { is_expected.to validate_presence_of(:length) }
     it { is_expected.to validate_presence_of(:participants) }
+    it { is_expected.to validate_inclusion_of(:visibility).in_array(Recording::VISIBILITIES.values) }
   end
 
   describe 'scopes' do
@@ -60,6 +75,53 @@ RSpec.describe Recording, type: :model do
     it 'returns all recordings if input is empty' do
       create_list(:recording, 5)
       expect(described_class.all.search('').pluck(:id)).to match_array(described_class.all.pluck(:id))
+    end
+  end
+
+  describe '#public_search' do
+    let(:recording1) { create(:recording, name: 'Greenlight 101', visibility: Recording::VISIBILITIES[:public]) }
+    let(:recording2) { create(:recording, name: 'Greenlight 201', visibility: Recording::VISIBILITIES[:public]) }
+    let(:recording3) { create(:recording, name: 'Bluelight 301', visibility: Recording::VISIBILITIES[:public]) }
+
+    before do
+      create_list(:recording, 5)
+      create(:format, recording: recording3, recording_type: 'podcast')
+    end
+
+    context 'Matching name' do
+      it 'returns the searched recordings' do
+        expect(described_class.public_search('greenlight')).to match_array([recording1, recording2])
+      end
+    end
+
+    context 'Matching format type' do
+      it 'returns the searched recordings' do
+        expect(described_class.public_search('podcast')).to match_array([recording3])
+      end
+    end
+
+    context 'Matching visibility' do
+      it 'returns an empty list' do
+        expect(described_class.public_search('public')).to be_empty
+      end
+    end
+
+    context 'No match' do
+      it 'returns an empty list' do
+        expect(described_class.public_search('404')).to be_empty
+      end
+    end
+
+    it 'returns all recordings if input is empty' do
+      expect(described_class.all.search('')).to match_array(described_class.all)
+    end
+  end
+
+  describe 'after_destroy' do
+    it 'makes a call to BBB to delete the recording' do
+      expect_any_instance_of(BigBlueButtonApi).to receive(:delete_recordings).and_return(true)
+
+      create(:recording).destroy
     end
   end
 end

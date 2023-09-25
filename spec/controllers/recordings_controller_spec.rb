@@ -194,66 +194,88 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
 
   describe '#update_visibility' do
     let(:room) { create(:room, user:) }
-    let(:published_recording) { create(:recording, room:, visibility: 'Published') }
-    let(:unpublished_recording) { create(:recording, room:, visibility: 'Unpublished') }
-    let(:protected_recording) { create(:recording, room:, visibility: 'Protected') }
+    let(:recording) { create(:recording, room:) }
 
-    it 'changes the recording from Published to Unpublished on the bbb server' do
-      expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: published_recording.record_id, publish: false)
-      expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
-      post :update_visibility, params: { visibility: 'Unpublished', id: published_recording.record_id }
+    def expect_to_update_recording_props_to(publish:, protect:, list:, visibility:)
+      expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: recording.record_id, publish:)
+      expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: recording.record_id,
+                                                                                   meta_hash: {
+                                                                                     protect:, 'meta_gl-listed': list
+                                                                                   })
+
+      post :update_visibility, params: { visibility:, id: recording.record_id }
+
+      expect(recording.reload.visibility).to eq(visibility)
+      expect(response).to have_http_status(:ok)
     end
 
-    it 'changes the recording from Published to Protected on the bbb server' do
-      expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: published_recording.record_id,
-                                                                                   meta_hash: { protect: true })
-      expect_any_instance_of(BigBlueButtonApi).not_to receive(:publish_recordings)
-      post :update_visibility, params: { visibility: 'Protected', id: published_recording.record_id }
+    it 'changes the recording visibility to "Published"' do
+      expect_to_update_recording_props_to(publish: true, protect: false, list: false, visibility: Recording::VISIBILITIES[:published])
     end
 
-    it 'changes the recording from Unpublished to Protected on the bbb server' do
-      expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: unpublished_recording.record_id, publish: true)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: unpublished_recording.record_id,
-                                                                                   meta_hash: { protect: true })
-      post :update_visibility, params: { visibility: 'Protected', id: unpublished_recording.record_id }
+    it 'changes the recording visibility to "Unpublished"' do
+      expect_to_update_recording_props_to(publish: false, protect: false, list: false, visibility: Recording::VISIBILITIES[:unpublished])
     end
 
-    it 'changes the recording from Unpublished to Published on the bbb server' do
-      expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: unpublished_recording.record_id, publish: true)
-      expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
-      post :update_visibility, params: { visibility: 'Published', id: unpublished_recording.record_id }
+    it 'changes the recording visibility to "Protected"' do
+      expect_to_update_recording_props_to(publish: true, protect: true, list: false, visibility: Recording::VISIBILITIES[:protected])
     end
 
-    it 'changes the recording from Protected to Published on the bbb server' do
-      expect_any_instance_of(BigBlueButtonApi).not_to receive(:publish_recordings)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: protected_recording.record_id,
-                                                                                   meta_hash: { protect: false })
-      post :update_visibility, params: { visibility: 'Published', id: protected_recording.record_id }
+    it 'changes the recording visibility to "Public"' do
+      expect_to_update_recording_props_to(publish: true, protect: false, list: true, visibility: Recording::VISIBILITIES[:public])
     end
 
-    it 'changes the recording from Protected to Unpublished on the bbb server' do
-      expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: protected_recording.record_id, publish: false)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: protected_recording.record_id,
-                                                                                   meta_hash: { protect: false })
-      post :update_visibility, params: { visibility: 'Unpublished', id: protected_recording.record_id }
+    it 'changes the recording visibility to "Public/Protected"' do
+      expect_to_update_recording_props_to(publish: true, protect: true, list: true, visibility: Recording::VISIBILITIES[:public_protected])
     end
 
-    it 'changes the local recording visibility' do
-      allow_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings)
-      post :update_visibility, params: { visibility: 'Unpublished', id: unpublished_recording.record_id }
-      expect(unpublished_recording.reload.visibility).to eq('Unpublished')
+    context 'Unkown visibility' do
+      it 'returns :bad_request and does not update the recording' do
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:publish_recordings)
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+
+        expect do
+          post :update_visibility, params: { visibility: '404', id: recording.record_id }
+        end.not_to(change { recording.reload.visibility })
+
+        expect(response).to have_http_status(:bad_request)
+      end
     end
 
-    it 'allows a shared user to update a recording visibility' do
-      shared_user = create(:user)
-      create(:shared_access, user_id: shared_user.id, room_id: room.id)
-      sign_in_user(shared_user)
+    context 'shared access' do
+      let(:signed_in_user) { create(:user) }
+      let(:recording) { create(:recording, room:, visibility: Recording::VISIBILITIES[:published]) }
 
-      expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: published_recording.record_id, publish: false)
-      expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
-      expect do
-        post :update_visibility, params: { visibility: 'Unpublished', id: published_recording.record_id }
-      end.to(change { published_recording.reload.visibility })
+      before do
+        sign_in_user(signed_in_user)
+      end
+
+      it 'allows a shared user to update a recording visibility' do
+        create(:shared_access, user_id: signed_in_user.id, room_id: room.id)
+
+        expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: recording.record_id, publish: false)
+        expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: recording.record_id,
+                                                                                     meta_hash: {
+                                                                                       protect: false, 'meta_gl-listed': false
+                                                                                     })
+
+        expect do
+          post :update_visibility, params: { visibility: Recording::VISIBILITIES[:unpublished], id: recording.record_id }
+        end.to(change { recording.reload.visibility })
+
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'disallows a none shared user to update a recording visibility' do
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:publish_recordings)
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+
+        expect do
+          post :update_visibility, params: { visibility: Recording::VISIBILITIES[:unpublished], id: recording.record_id }
+        end.not_to(change { recording.reload.visibility })
+
+        expect(response).to have_http_status(:forbidden)
+      end
     end
 
     # TODO: samuel - add tests for user_with_manage_recordings_permission
@@ -266,6 +288,216 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
 
       get :recordings_count
       expect(JSON.parse(response.body)['data']).to be(5)
+    end
+  end
+
+  describe '#recording_url' do
+    let(:room) { create(:room, user:) }
+
+    before do
+      allow_any_instance_of(BigBlueButtonApi).to receive(:get_recording).and_return(
+        playback: { format: [{ type: 'screenshare', url: 'https://test.com/screenshare' }, { type: 'video', url: 'https://test.com/video' }] }
+      )
+    end
+
+    context 'format not passed' do
+      context 'Protected recording' do
+        let(:recording) do
+          create(:recording, visibility: [
+            Recording::VISIBILITIES[:protected],
+            Recording::VISIBILITIES[:public_protected]
+          ].sample,
+                             room:)
+        end
+
+        it 'makes a call to BBB and returns the URLs' do
+          post :recording_url, params: { id: recording.record_id }
+
+          expect(response).to have_http_status(:ok)
+          expect(JSON.parse(response.body)).to match_array ['https://test.com/screenshare', 'https://test.com/video']
+        end
+
+        context 'Single playback format' do
+          before do
+            allow_any_instance_of(BigBlueButtonApi).to receive(:get_recording).and_return(
+              playback: { format: { type: 'screenshare', url: 'https://test.com/screenshare' } }
+            )
+          end
+
+          it 'makes a call to BBB and returns the URL' do
+            post :recording_url, params: { id: recording.record_id }
+
+            expect(response).to have_http_status(:ok)
+            expect(JSON.parse(response.body)).to eq ['https://test.com/screenshare']
+          end
+        end
+      end
+
+      context 'Unprotected recording' do
+        let(:recording) do
+          create(:recording, visibility: [
+            Recording::VISIBILITIES[:published],
+            Recording::VISIBILITIES[:unpublished],
+            Recording::VISIBILITIES[:public]
+          ].sample,
+                             room:)
+        end
+
+        before { create_list(:format, Faker::Number.within(range: 1..3), recording:) }
+
+        it 'returns the recording record formats URLs' do
+          post :recording_url, params: { id: recording.record_id }
+
+          expect(response).to have_http_status(:ok)
+          expect(JSON.parse(response.body)).to match_array recording.formats.pluck(:url)
+        end
+      end
+    end
+
+    context 'format is passed' do
+      context 'Protected recording' do
+        let(:recording) do
+          create(:recording, visibility: [
+            Recording::VISIBILITIES[:protected],
+            Recording::VISIBILITIES[:public_protected]
+          ].sample,
+                             room:)
+        end
+
+        before { create(:format, recording:, recording_type: 'screenshare', url: 'https://invalid.com/screenshare') }
+
+        it 'makes a call to BBB and returns the URL' do
+          post :recording_url, params: { id: recording.record_id, recording_format: 'screenshare' }
+
+          expect(response).to have_http_status(:ok)
+          expect(JSON.parse(response.body)['data']).to eq 'https://test.com/screenshare'
+        end
+
+        context 'Single playback format' do
+          before do
+            allow_any_instance_of(BigBlueButtonApi).to receive(:get_recording).and_return(
+              playback: { format: { type: 'screenshare', url: 'https://test.com/screenshare/solo' } }
+            )
+          end
+
+          it 'makes a call to BBB and returns the URL' do
+            post :recording_url, params: { id: recording.record_id, recording_format: 'screenshare' }
+
+            expect(response).to have_http_status(:ok)
+            expect(JSON.parse(response.body)['data']).to eq 'https://test.com/screenshare/solo'
+          end
+        end
+
+        context 'Inexistent format' do
+          it 'returns :not_found' do
+            post :recording_url, params: { id: recording.record_id, recording_format: '404' }
+
+            expect(response).to have_http_status(:not_found)
+            expect(JSON.parse(response.body)['data']).to be_blank
+          end
+        end
+      end
+
+      context 'Unprotected recording' do
+        let(:recording) do
+          create(:recording, visibility: [
+            Recording::VISIBILITIES[:published],
+            Recording::VISIBILITIES[:unpublished],
+            Recording::VISIBILITIES[:public]
+          ].sample,
+                             room:)
+        end
+
+        let(:target_format) { create(:format, recording:, recording_type: 'screenshare') }
+
+        before { create_list(:format, 2, recording:) }
+
+        it 'returns the formats URL' do
+          post :recording_url, params: { id: recording.record_id, recording_format: target_format.recording_type }
+
+          expect(response).to have_http_status(:ok)
+          expect(JSON.parse(response.body)['data']).to eq target_format.url
+        end
+
+        context 'Inexistent format' do
+          it 'returns :not_found' do
+            post :recording_url, params: { id: recording.record_id, recording_format: '404' }
+
+            expect(response).to have_http_status(:not_found)
+            expect(JSON.parse(response.body)['data']).to be_blank
+          end
+        end
+      end
+    end
+
+    context 'Other users' do
+      let(:recording) { create(:recording, room:) }
+      let(:signed_in_user) { create(:user) }
+
+      before { sign_in_user(signed_in_user) }
+
+      it 'returns :forbidden' do
+        post :recording_url, params: { id: recording.record_id }
+
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      context 'shared room' do
+        before do
+          create(:shared_access, user_id: signed_in_user.id, room_id: room.id)
+        end
+
+        it 'returns :ok' do
+          post :recording_url, params: { id: recording.record_id }
+
+          expect(response).to have_http_status(:ok)
+        end
+      end
+
+      context 'Recordings Manager' do
+        before { sign_in_user(user_with_manage_recordings_permission) }
+
+        it 'returns :ok' do
+          post :recording_url, params: { id: recording.record_id }
+
+          expect(response).to have_http_status(:ok)
+        end
+      end
+    end
+
+    context 'Unauthenticated' do
+      before { sign_out_user }
+
+      describe 'Public recordings' do
+        let(:recording) { create(:recording, visibility: [Recording::VISIBILITIES[:public], Recording::VISIBILITIES[:public_protected]].sample) }
+
+        it 'returns :ok' do
+          post :recording_url, params: { id: recording.record_id }
+
+          expect(response).to have_http_status(:ok)
+        end
+      end
+
+      describe 'Private recordings' do
+        let(:recording) do
+          create(:recording,
+                 visibility: [Recording::VISIBILITIES[:protected], Recording::VISIBILITIES[:published], Recording::VISIBILITIES[:unpublished]].sample)
+        end
+
+        it 'returns :forbidden' do
+          post :recording_url, params: { id: recording.record_id }
+
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+    end
+
+    context 'Inexistent recording' do
+      it 'returns :not_found' do
+        post :recording_url, params: { id: '404' }
+
+        expect(response).to have_http_status(:not_found)
+      end
     end
   end
 end
