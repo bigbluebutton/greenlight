@@ -146,10 +146,9 @@ Rails.application.configure do
     require 'remote_syslog_logger'
     logger_program = ENV['RAILS_LOG_REMOTE_TAG'] || "greenlight-v3-#{ENV.fetch('RAILS_ENV', nil)}"
     logger = RemoteSyslogLogger.new(ENV['RAILS_LOG_REMOTE_NAME'], ENV['RAILS_LOG_REMOTE_PORT'], program: logger_program)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
-
-  logger.formatter = config.log_formatter
-  config.logger = ActiveSupport::TaggedLogging.new(logger)
 
   # Use Lograge for logging
   config.lograge.enabled = true
