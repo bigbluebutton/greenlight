@@ -231,7 +231,8 @@ module Api
         def room_params
           decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, :provider,
                                                  shared_users_emails: [],
-                                                 room_settings: %w[record muteOnStart guestPolicy glAnyoneCanStart glAnyoneJoinAsModerator])
+                                                 room_settings: %w[record muteOnStart guestPolicy glAnyoneCanStart glAnyoneJoinAsModerator
+                                                                   glViewerAccessCode glModeratorAccessCode])
         end
 
         def settings_params
