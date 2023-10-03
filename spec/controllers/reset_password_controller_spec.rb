@@ -38,7 +38,7 @@ RSpec.describe Api::V1::ResetPasswordController, type: :controller do
       expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'reset_password_email',
                                                                                                    'deliver_now', Hash)
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']).to be_empty
+      expect(response.parsed_body['data']).to be_empty
     end
 
     it 'returns :bad_request for invalid params' do

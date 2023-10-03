@@ -64,8 +64,8 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
         }
       }
 
-      expect(JSON.parse(response.body)['data']).to eq(unverified_user.id)
-      expect(JSON.parse(response.body)['errors']).to eq('UnverifiedUser')
+      expect(response.parsed_body['data']).to eq(unverified_user.id)
+      expect(response.parsed_body['errors']).to eq('UnverifiedUser')
     end
 
     it 'returns BannedUser error if the user is banned' do
@@ -78,7 +78,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
         }
       }
 
-      expect(JSON.parse(response.body)['errors']).to eq('BannedUser')
+      expect(response.parsed_body['errors']).to eq('BannedUser')
     end
 
     it 'returns Pending error if the user is banned' do
@@ -91,7 +91,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
         }
       }
 
-      expect(JSON.parse(response.body)['errors']).to eq('PendingUser')
+      expect(response.parsed_body['errors']).to eq('PendingUser')
     end
 
     it 'logs in with greenlight account before bn account' do

@@ -20,7 +20,7 @@ module Presentable
   extend ActiveSupport::Concern
 
   def presentation_file_name(room)
-    return room.presentation.filename if room.presentation.attached?
+    room.presentation.filename if room.presentation.attached?
   end
 
   def presentation_thumbnail(room)

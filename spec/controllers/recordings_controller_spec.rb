@@ -34,7 +34,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       get :index
 
       expect(response).to have_http_status(:ok)
-      response_recording_ids = JSON.parse(response.body)['data'].pluck('id')
+      response_recording_ids = response.parsed_body['data'].pluck('id')
       expect(response_recording_ids).to match_array(recordings.pluck(:id))
     end
 
@@ -43,7 +43,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       get :index
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']).to be_empty
+      expect(response.parsed_body['data']).to be_empty
     end
 
     it 'returns the recordings according to the query' do
@@ -56,7 +56,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       create_list(:recording, 10)
 
       get :index, params: { search: 'greenlight' }
-      response_recording_ids = JSON.parse(response.body)['data'].pluck('id')
+      response_recording_ids = response.parsed_body['data'].pluck('id')
       expect(response_recording_ids).to match_array(recordings.pluck(:id))
     end
 
@@ -70,7 +70,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       create_list(:recording, 10)
 
       get :index, params: { search: 'presentation' }
-      response_recording_ids = JSON.parse(response.body)['data'].pluck('id')
+      response_recording_ids = response.parsed_body['data'].pluck('id')
       expect(response_recording_ids).to match_array(recordings.pluck(:id))
     end
 
@@ -84,7 +84,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       create_list(:recording, 10)
 
       get :index, params: { search: 'unpublished' }
-      response_recording_ids = JSON.parse(response.body)['data'].pluck('id')
+      response_recording_ids = response.parsed_body['data'].pluck('id')
       expect(response_recording_ids).to match_array(recordings.pluck(:id))
     end
 
@@ -93,7 +93,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       create(:room, user:, recordings:)
 
       get :index, params: { search: '' }
-      response_recording_ids = JSON.parse(response.body)['data'].pluck('id')
+      response_recording_ids = response.parsed_body['data'].pluck('id')
       expect(response_recording_ids).to match_array(recordings.pluck(:id))
     end
 
@@ -108,14 +108,14 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
         get :index, params: { sort: { column: 'name', direction: 'DESC' } }
         expect(response).to have_http_status(:ok)
         # Order is important match_array isn't adequate for this test.
-        expect(JSON.parse(response.body)['data'].pluck('name')).to eq(%w[C B A])
+        expect(response.parsed_body['data'].pluck('name')).to eq(%w[C B A])
       end
 
       it 'orders the recordings list by column and direction ASC' do
         get :index, params: { sort: { column: 'name', direction: 'ASC' } }
         expect(response).to have_http_status(:ok)
         # Order is important match_array isn't adequate for this test.
-        expect(JSON.parse(response.body)['data'].pluck('name')).to eq(%w[A B C])
+        expect(response.parsed_body['data'].pluck('name')).to eq(%w[A B C])
       end
     end
   end
@@ -287,7 +287,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       create_list(:room, 5, user:, recordings:)
 
       get :recordings_count
-      expect(JSON.parse(response.body)['data']).to be(5)
+      expect(response.parsed_body['data']).to be(5)
     end
   end
 
@@ -314,7 +314,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
           post :recording_url, params: { id: recording.record_id }
 
           expect(response).to have_http_status(:ok)
-          expect(JSON.parse(response.body)).to match_array ['https://test.com/screenshare', 'https://test.com/video']
+          expect(response.parsed_body).to match_array ['https://test.com/screenshare', 'https://test.com/video']
         end
 
         context 'Single playback format' do
@@ -328,7 +328,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
             post :recording_url, params: { id: recording.record_id }
 
             expect(response).to have_http_status(:ok)
-            expect(JSON.parse(response.body)).to eq ['https://test.com/screenshare']
+            expect(response.parsed_body).to eq ['https://test.com/screenshare']
           end
         end
       end
@@ -349,7 +349,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
           post :recording_url, params: { id: recording.record_id }
 
           expect(response).to have_http_status(:ok)
-          expect(JSON.parse(response.body)).to match_array recording.formats.pluck(:url)
+          expect(response.parsed_body).to match_array recording.formats.pluck(:url)
         end
       end
     end
@@ -370,7 +370,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
           post :recording_url, params: { id: recording.record_id, recording_format: 'screenshare' }
 
           expect(response).to have_http_status(:ok)
-          expect(JSON.parse(response.body)['data']).to eq 'https://test.com/screenshare'
+          expect(response.parsed_body['data']).to eq 'https://test.com/screenshare'
         end
 
         context 'Single playback format' do
@@ -384,7 +384,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
             post :recording_url, params: { id: recording.record_id, recording_format: 'screenshare' }
 
             expect(response).to have_http_status(:ok)
-            expect(JSON.parse(response.body)['data']).to eq 'https://test.com/screenshare/solo'
+            expect(response.parsed_body['data']).to eq 'https://test.com/screenshare/solo'
           end
         end
 
@@ -393,7 +393,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
             post :recording_url, params: { id: recording.record_id, recording_format: '404' }
 
             expect(response).to have_http_status(:not_found)
-            expect(JSON.parse(response.body)['data']).to be_blank
+            expect(response.parsed_body['data']).to be_blank
           end
         end
       end
@@ -416,7 +416,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
           post :recording_url, params: { id: recording.record_id, recording_format: target_format.recording_type }
 
           expect(response).to have_http_status(:ok)
-          expect(JSON.parse(response.body)['data']).to eq target_format.url
+          expect(response.parsed_body['data']).to eq target_format.url
         end
 
         context 'Inexistent format' do
@@ -424,7 +424,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
             post :recording_url, params: { id: recording.record_id, recording_format: '404' }
 
             expect(response).to have_http_status(:not_found)
-            expect(JSON.parse(response.body)['data']).to be_blank
+            expect(response.parsed_body['data']).to be_blank
           end
         end
       end
