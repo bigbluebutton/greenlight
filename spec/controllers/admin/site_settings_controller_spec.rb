@@ -36,10 +36,10 @@ RSpec.describe Api::V1::Admin::SiteSettingsController, type: :controller do
       get :index, params: { names: %w[settingA settingB] }
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']).to eq({
-                                                        'settingA' => 'valueA',
-                                                        'settingB' => 'valueB'
-                                                      })
+      expect(response.parsed_body['data']).to eq({
+                                                   'settingA' => 'valueA',
+                                                   'settingB' => 'valueB'
+                                                 })
     end
 
     context 'user without ManageSiteSettings permission' do

@@ -9,6 +9,8 @@ on:
       - v2
       - v3
       - translations*
+      - snyk*
+      - dependabot*
 
 jobs:
   main:

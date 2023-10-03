@@ -35,7 +35,7 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
 
       get :index
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recordings.pluck(:id))
+      expect(response.parsed_body['data'].pluck('id')).to match_array(recordings.pluck(:id))
     end
 
     it 'returns the recordings according to the query' do
@@ -43,7 +43,7 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
 
       get :index, params: { search: 'recording' }
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(search_recordings.pluck(:id))
+      expect(response.parsed_body['data'].pluck('id')).to match_array(search_recordings.pluck(:id))
     end
 
     it 'returns all recordings if the search query is empty' do
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
 
       get :index, params: { search: '' }
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recordings.pluck(:id))
+      expect(response.parsed_body['data'].pluck('id')).to match_array(recordings.pluck(:id))
     end
 
     it 'excludes rooms whose owners have a different provider' do
@@ -64,7 +64,7 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
 
       get :index
 
-      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recs.pluck(:id))
+      expect(response.parsed_body['data'].pluck('id')).to match_array(recs.pluck(:id))
     end
 
     context 'SuperAdmin accessing recordings for provider other than current provider' do
@@ -79,7 +79,7 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
 
         get :index
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recordings.pluck(:id))
+        expect(response.parsed_body['data'].pluck('id')).to match_array(recordings.pluck(:id))
       end
     end
 
@@ -105,14 +105,14 @@ RSpec.describe Api::V1::Admin::ServerRecordingsController, type: :controller do
         get :index, params: { sort: { column: 'name', direction: 'DESC' } }
         expect(response).to have_http_status(:ok)
         # Order is important match_array isn't adequate for this test.
-        expect(JSON.parse(response.body)['data'].pluck('name')).to eq(%w[P O O])
+        expect(response.parsed_body['data'].pluck('name')).to eq(%w[P O O])
       end
 
       it 'orders the recordings list by column and direction ASC' do
         get :index, params: { sort: { column: 'name', direction: 'ASC' } }
         expect(response).to have_http_status(:ok)
         # Order is important match_array isn't adequate for this test.
-        expect(JSON.parse(response.body)['data'].pluck('name')).to eq(%w[O O P])
+        expect(response.parsed_body['data'].pluck('name')).to eq(%w[O O P])
       end
     end
   end

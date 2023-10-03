@@ -389,7 +389,7 @@ RSpec.describe ExternalController, type: :controller do
 
         expect(room.reload.online).to be(false)
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)).to eq({})
+        expect(response.parsed_body).to eq({})
       end
 
       it 'increments a rooms recordings processing value if the meeting was recorded' do
@@ -409,7 +409,7 @@ RSpec.describe ExternalController, type: :controller do
 
         expect(room.online).to be(false)
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)).to eq({})
+        expect(response.parsed_body).to eq({})
       end
     end
 
@@ -418,7 +418,7 @@ RSpec.describe ExternalController, type: :controller do
         get :meeting_ended, params: { meetingID: '404', recordingmarks: 'false' }
 
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)).to eq({})
+        expect(response.parsed_body).to eq({})
       end
     end
   end

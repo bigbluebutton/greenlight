@@ -21,17 +21,17 @@ module Authorizable
 
   # Unless the request format is explicitly json Rails will mitigate the responsibility to CSR to handle it.
   def ensure_valid_request
-    return render 'components/index' if !Rails.env.development? && !valid_api_request?
+    render 'components/index' if !Rails.env.development? && !valid_api_request?
   end
 
   # Ensures that the user is logged in
   def ensure_authenticated
-    return render_error status: :unauthorized unless current_user
+    render_error status: :unauthorized unless current_user
   end
 
   # PermissionsChecker service will return a true or false depending on whether the current_user's role has the provided permission_name
   def ensure_authorized(permission_names, user_id: nil, friendly_id: nil, record_id: nil)
-    return render_error status: :forbidden unless PermissionsChecker.new(
+    render_error status: :forbidden unless PermissionsChecker.new(
       current_user:,
       permission_names:,
       user_id:,
@@ -42,7 +42,7 @@ module Authorizable
   end
 
   def ensure_super_admin
-    return render_error status: :forbidden unless current_user.super_admin?
+    render_error status: :forbidden unless current_user.super_admin?
   end
 
   private
