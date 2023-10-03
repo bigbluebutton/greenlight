@@ -39,7 +39,7 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
       get :index
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data'].pluck('email')).to match_array(invitations.pluck(:email))
+      expect(response.parsed_body['data'].pluck('email')).to match_array(invitations.pluck(:email))
     end
 
     it 'returns the invitations according to the query' do
@@ -52,7 +52,7 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
 
       get :index, params: { search: 'test.com' }
 
-      expect(JSON.parse(response.body)['data'].pluck('email')).to match_array(invitations.pluck(:email))
+      expect(response.parsed_body['data'].pluck('email')).to match_array(invitations.pluck(:email))
     end
 
     context 'user without ManageUsers permission' do
@@ -74,7 +74,7 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
       expect { post :create, params: { invitations: valid_params } }.to change(Invitation, :count).by(3)
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['errors']).to be_nil
+      expect(response.parsed_body['errors']).to be_nil
     end
 
     it 'emails the invitations to the invited user' do

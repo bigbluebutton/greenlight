@@ -48,7 +48,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       post :start, params: { friendly_id: room.friendly_id }
 
       expect(response).to have_http_status(:created)
-      expect(JSON.parse(response.body)['data']).to eq('JOIN_URL')
+      expect(response.parsed_body['data']).to eq('JOIN_URL')
     end
 
     it 'cannot make call to MeetingStarter service for another room' do
@@ -81,7 +81,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       post :start, params: { friendly_id: room.friendly_id }
 
       expect(response).to have_http_status(:created)
-      expect(JSON.parse(response.body)['data']).to eq('JOIN_URL')
+      expect(response.parsed_body['data']).to eq('JOIN_URL')
     end
 
     it 'returns an error if the user is not logged in' do
@@ -104,7 +104,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         post :start, params: { friendly_id: room.friendly_id }
 
         expect(response).to have_http_status(:created)
-        expect(JSON.parse(response.body)['data']).to eq('JOIN_URL')
+        expect(response.parsed_body['data']).to eq('JOIN_URL')
       end
     end
 
@@ -134,7 +134,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         post :start, params: { friendly_id: room.friendly_id }
 
         expect(response).to have_http_status(:created)
-        expect(JSON.parse(response.body)['data']).to eq('JOIN_URL')
+        expect(response.parsed_body['data']).to eq('JOIN_URL')
       end
     end
   end
@@ -146,7 +146,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
       post :status, params: { friendly_id: test_room.friendly_id, name: user.name }
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']).to eq({ 'joinUrl' => 'JOIN_URL', 'status' => true })
+      expect(response.parsed_body['data']).to eq({ 'joinUrl' => 'JOIN_URL', 'status' => true })
     end
 
     it 'returns status false if the meeting is NOT running and the user is NOT authorized to start the meeting' do
@@ -156,7 +156,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       post :status, params: { friendly_id: test_room.friendly_id, name: user.name }
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']).to eq({ 'status' => false })
+      expect(response.parsed_body['data']).to eq({ 'status' => false })
     end
 
     it 'joins as viewer if no access code is required nor provided' do
@@ -192,7 +192,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       post :status, params: { friendly_id: room.friendly_id, name: user.name }
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']).to eq({ 'joinUrl' => 'JOIN_URL', 'status' => true })
+      expect(response.parsed_body['data']).to eq({ 'joinUrl' => 'JOIN_URL', 'status' => true })
     end
 
     context 'user is joining a shared room' do
@@ -360,7 +360,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         post :status, params: { friendly_id: room.friendly_id, name: user.name }
 
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data']).to eq({ 'joinUrl' => 'JOIN_URL', 'status' => true })
+        expect(response.parsed_body['data']).to eq({ 'joinUrl' => 'JOIN_URL', 'status' => true })
       end
 
       it 'doesnt start the meeting if its already running' do
@@ -373,7 +373,7 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
         post :status, params: { friendly_id: room.friendly_id, name: user.name }
 
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data']).to eq({ 'joinUrl' => 'JOIN_URL', 'status' => true })
+        expect(response.parsed_body['data']).to eq({ 'joinUrl' => 'JOIN_URL', 'status' => true })
       end
     end
 
