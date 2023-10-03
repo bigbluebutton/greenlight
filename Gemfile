@@ -12,7 +12,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bigbluebutton-api-ruby', '1.9.1'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails', '>= 1.2.0'
-gem 'data_migrate', '>= 9.0.0'
+gem 'data_migrate', '>= 9.1.0'
 gem 'dotenv-rails'
 gem 'google-cloud-storage', '~> 1.44', require: false
 gem 'hcaptcha'
@@ -24,12 +24,12 @@ gem 'jsbundling-rails', '>= 1.1.2'
 gem 'jwt'
 gem 'mini_magick', '>= 4.9.5'
 gem 'omniauth', '~> 2.1.0'
-gem 'omniauth_openid_connect'
+gem 'omniauth_openid_connect', '>= 0.6.1'
 gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
-gem 'pagy', '~> 5.10', '>= 5.10.1'
+gem 'pagy', '~> 6.0', '>= 6.0.0'
 gem 'pg'
 gem 'puma', '~> 5.6'
-gem 'rails', '~> 7.0.5', '>= 7.0.5.1'
+gem 'rails', '~> 7.0.7', '>= 7.0.7.1'
 gem 'redis', '~> 4.0'
 gem 'sprockets-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
@@ -41,7 +41,7 @@ end
 group :development do
   gem 'rubocop', '~> 1.26', require: false
   gem 'rubocop-performance', '~> 1.13', require: false
-  gem 'rubocop-rails', '~> 2.17', '>= 2.17.4', require: false
+  gem 'rubocop-rails', '~> 2.18', '>= 2.18.0', require: false
   gem 'rubocop-rspec', '~> 2.9.0', require: false
   gem 'web-console'
 end
