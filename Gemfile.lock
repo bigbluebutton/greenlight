@@ -437,7 +437,7 @@ GEM
     validate_url (1.0.15)
       activemodel (>= 3.0.0)
       public_suffix
-    web-console (4.2.0)
+    web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
@@ -511,6 +511,6 @@ DEPENDENCIES
   shoulda-matchers (~> 5.0)
   sprockets-rails
   tzinfo-data
-  web-console
+  web-console (>= 4.2.1)
   webdrivers
   webmock
