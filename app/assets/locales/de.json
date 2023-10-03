@@ -179,9 +179,9 @@
     "processing_recording": "Aufzeichnung wird erstellt, dies kann einige Minuten dauern...",
     "copy_recording_urls": "Kopiere die URL(s) der Aufzeichnungen",
     "recordings_list_empty": "Keine Aufzeichnung gefunden!",
-    "public_recordings_list_empty": "Bisher gibt es keine geteilten Aufzeichnungen!",
+    "public_recordings_list_empty": "Bisher gibt es keine öffentlichen Aufzeichnungen!",
     "recordings_list_empty_description": "Aufzeichnungen werden hier angezeigt, nachdem du eine Besprechung gestartet und aufgezeichnet hast.",
-    "public_recordings_list_empty_description": "Die Aufzeichnungen werden hier angezeigt, sobald die Dozent:in sie geteilt hat.",
+    "public_recordings_list_empty_description": "Hier werden Aufzeichnungen angezeigt,sobald sie verfügbar sind.",
     "delete_recording": "Aufzeichnung löschen",
     "are_you_sure_delete_recording": "Diese Aufzeichnung wirklich löschen?",
     "search_not_found": "Keine Aufzeichnungen gefunden"

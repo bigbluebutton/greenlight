@@ -37,7 +37,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
       create_list(:room, 2, user_id: user_two.id)
 
       get :index
-      expect(JSON.parse(response.body)['data'].pluck('friendly_id'))
+      expect(response.parsed_body['data'].pluck('friendly_id'))
         .to match_array(Room.all.pluck(:friendly_id))
     end
 
@@ -56,7 +56,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
         create_list(:room, 2, user_id: user_two.id)
 
         get :index
-        expect(JSON.parse(response.body)['data'].pluck('friendly_id'))
+        expect(response.parsed_body['data'].pluck('friendly_id'))
           .to match_array(Room.all.pluck(:friendly_id))
       end
     end
@@ -69,7 +69,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
       create_list(:room, 2, user: user2)
 
       get :index
-      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(rooms.pluck(:id))
+      expect(response.parsed_body['data'].pluck('id')).to match_array(rooms.pluck(:id))
     end
 
     context 'user without ManageRooms permission' do

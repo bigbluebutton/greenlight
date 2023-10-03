@@ -35,14 +35,14 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       rooms = create_list(:room, 3, user:) + shared_rooms
       get :index
       expect(response).to have_http_status(:ok)
-      response_room_ids = JSON.parse(response.body)['data'].pluck('id')
+      response_room_ids = response.parsed_body['data'].pluck('id')
       expect(response_room_ids).to match_array(rooms.pluck(:id))
     end
 
     it 'no rooms for current_user should return empty list' do
       get :index
       expect(response).to have_http_status(:ok)
-      response_room_ids = JSON.parse(response.body)['data'].pluck('id')
+      response_room_ids = response.parsed_body['data'].pluck('id')
       expect(response_room_ids).to be_empty
     end
 
@@ -54,14 +54,14 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         create_list(:room, 2, user:)
 
         get :index, params: { search: 'room' }
-        expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(searched_rooms.pluck(:id))
+        expect(response.parsed_body['data'].pluck('id')).to match_array(searched_rooms.pluck(:id))
       end
 
       it 'returns all rooms when no search query was given' do
         create_list(:room, 5, user:)
 
         get :index, params: { search: '' }
-        expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(user.rooms.pluck(:id))
+        expect(response.parsed_body['data'].pluck('id')).to match_array(user.rooms.pluck(:id))
       end
     end
   end
@@ -71,13 +71,13 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       room = create(:room, user:)
       get :show, params: { friendly_id: room.friendly_id }
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']['id']).to eq(room.id)
+      expect(response.parsed_body['data']['id']).to eq(room.id)
     end
 
     it 'returns :not_found if the room doesnt exist' do
       get :show, params: { friendly_id: 'invalid_friendly_id' }
       expect(response).to have_http_status(:not_found)
-      expect(JSON.parse(response.body)['data']).to be_nil
+      expect(response.parsed_body['data']).to be_nil
     end
 
     it 'user cannot see another users room without ManageRooms permission' do
@@ -99,7 +99,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       it 'allows a user who the room is shared with to view the room' do
         get :show, params: { friendly_id: room.friendly_id }
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data']['id']).to eq(room.id)
+        expect(response.parsed_body['data']['id']).to eq(room.id)
       end
     end
   end
@@ -129,19 +129,19 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       get :public_show, params: { friendly_id: room.friendly_id }
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']['name']).to eq(room.name)
-      expect(JSON.parse(response.body)['data']['require_authentication']).to be(true)
-      expect(JSON.parse(response.body)['data']['viewer_access_code']).to be(true)
-      expect(JSON.parse(response.body)['data']['moderator_access_code']).to be(false)
-      expect(JSON.parse(response.body)['data']['anyone_join_as_moderator']).to be(true)
-      expect(JSON.parse(response.body)['data']['owner_name']).to eq(user.name)
-      expect(JSON.parse(response.body)['data']['owner_avatar']).to be_present
+      expect(response.parsed_body['data']['name']).to eq(room.name)
+      expect(response.parsed_body['data']['require_authentication']).to be(true)
+      expect(response.parsed_body['data']['viewer_access_code']).to be(true)
+      expect(response.parsed_body['data']['moderator_access_code']).to be(false)
+      expect(response.parsed_body['data']['anyone_join_as_moderator']).to be(true)
+      expect(response.parsed_body['data']['owner_name']).to eq(user.name)
+      expect(response.parsed_body['data']['owner_avatar']).to be_present
     end
 
     it 'returns :not_found if the room doesnt exist' do
       get :public_show, params: { friendly_id: 'invalid_friendly_id' }
       expect(response).to have_http_status(:not_found)
-      expect(JSON.parse(response.body)['data']).to be_nil
+      expect(response.parsed_body['data']).to be_nil
     end
   end
 
@@ -301,7 +301,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       recordings = create_list(:recording, 5, room: room1)
       create_list(:recording, 5, room: room2)
       get :recordings, params: { friendly_id: room1.friendly_id }
-      recording_ids = JSON.parse(response.body)['data'].pluck('id')
+      recording_ids = response.parsed_body['data'].pluck('id')
       expect(response).to have_http_status(:ok)
       expect(recording_ids).to match_array(recordings.pluck(:id))
     end
@@ -309,7 +309,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     it 'returns an empty array if the room has no recordings' do
       room1 = create(:room, user:, friendly_id: 'friendly_id_1')
       get :recordings, params: { friendly_id: room1.friendly_id }
-      recording_ids = JSON.parse(response.body)['data'].pluck('id')
+      recording_ids = response.parsed_body['data'].pluck('id')
       expect(response).to have_http_status(:ok)
       expect(recording_ids).to be_empty
     end
@@ -324,7 +324,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       get :recordings, params: { friendly_id: room.friendly_id }
 
-      recording_ids = JSON.parse(response.body)['data'].pluck('id')
+      recording_ids = response.parsed_body['data'].pluck('id')
       expect(response).to have_http_status(:ok)
       expect(recording_ids).to match_array(recordings.pluck(:id))
     end
@@ -353,7 +353,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         get :public_recordings, params: { friendly_id: room.friendly_id }
 
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data']).to match_array(expected_response)
+        expect(response.parsed_body['data']).to match_array(expected_response)
       end
     end
 
@@ -370,9 +370,9 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       def expect_response_to_have(page:, pages:, recordings:)
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recordings.pluck('id'))
-        expect(JSON.parse(response.body)['meta']['pages']).to eq(pages)
-        expect(JSON.parse(response.body)['meta']['page']).to eq(page)
+        expect(response.parsed_body['data'].pluck('id')).to match_array(recordings.pluck('id'))
+        expect(response.parsed_body['meta']['pages']).to eq(pages)
+        expect(response.parsed_body['meta']['page']).to eq(page)
       end
 
       context 'First page' do
@@ -427,7 +427,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       def expect_response_to_have_ordered(recordings:)
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data'].pluck('id')).to eq(recordings.pluck('id'))
+        expect(response.parsed_body['data'].pluck('id')).to eq(recordings.pluck('id'))
       end
 
       describe 'Sort by name' do
@@ -493,7 +493,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
       def expect_response_to_match(recordings:)
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(recordings.pluck('id'))
+        expect(response.parsed_body['data'].pluck('id')).to match_array(recordings.pluck('id'))
       end
 
       describe 'Matched by name' do
@@ -539,7 +539,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
         get :public_recordings, params: { friendly_id: '404' }
 
         expect(response).to have_http_status(:not_found)
-        expect(JSON.parse(response.body)['data']).to be_blank
+        expect(response.parsed_body['data']).to be_blank
       end
     end
   end

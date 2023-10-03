@@ -34,7 +34,7 @@ RSpec.describe Api::V1::SiteSettingsController, type: :controller do
       get :index, params: { names: 'SettingName' }
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']).to eq('false')
+      expect(response.parsed_body['data']).to eq('false')
     end
 
     it 'calls SettingGetter and returns multiple values' do
@@ -44,7 +44,7 @@ RSpec.describe Api::V1::SiteSettingsController, type: :controller do
       get :index, params: { names: %w[Uno Dos Tres] }
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']).to eq({ 'Uno' => 1, 'Dos' => 2, 'Tres' => 3 })
+      expect(response.parsed_body['data']).to eq({ 'Uno' => 1, 'Dos' => 2, 'Tres' => 3 })
     end
 
     it 'returns forbidden if trying to access a forbidden setting' do
