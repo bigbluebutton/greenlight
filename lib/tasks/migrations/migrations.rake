@@ -141,9 +141,12 @@ namespace :migrations do
                           muteOnStart: parsed_room_settings["muteOnStart"] == true ? "true" : "false",
                           glAnyoneCanStart: parsed_room_settings["anyoneCanStart"] == true ? "true" : "false",
                           glAnyoneJoinAsModerator: parsed_room_settings["joinModerator"] == true ? "true" : "false",
-                          guestPolicy: parsed_room_settings["requireModeratorApproval"] == true ? "ASK_MODERATOR" : "ALWAYS_ACCEPT"
+                          guestPolicy: parsed_room_settings["requireModeratorApproval"] == true ? "ASK_MODERATOR" : "ALWAYS_ACCEPT",
                         }
                       end
+
+      room_settings[:glViewerAccessCode] = r.access_code if r.access_code.present?
+      room_settings[:glModeratorAccessCode] = r.moderator_access_code if r.moderator_access_code.present?
 
       shared_users_emails = r.shared_access.joins(:user).pluck(:'users.email')
 
