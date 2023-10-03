@@ -11,7 +11,7 @@ gem 'aws-sdk-s3', require: false
 gem 'bcrypt', '~> 3.1.7'
 gem 'bigbluebutton-api-ruby', '1.9.1'
 gem 'bootsnap', require: false
-gem 'cssbundling-rails', '>= 1.2.0'
+gem 'cssbundling-rails', '>= 1.3.0'
 gem 'data_migrate', '>= 9.1.0'
 gem 'dotenv-rails'
 gem 'google-cloud-storage', '~> 1.44', require: false
@@ -20,7 +20,7 @@ gem 'hiredis', '~> 0.6.0'
 gem 'i18n-language-mapping'
 gem 'image_processing', '~> 1.2'
 gem 'jbuilder'
-gem 'jsbundling-rails', '>= 1.1.2'
+gem 'jsbundling-rails', '>= 1.2.0'
 gem 'jwt'
 gem 'mini_magick', '>= 4.9.5'
 gem 'omniauth', '~> 2.1.0'
