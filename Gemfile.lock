@@ -296,7 +296,7 @@ GEM
       racc
     pg (1.4.5)
     public_suffix (5.0.3)
-    puma (5.6.5)
+    puma (5.6.7)
       nio4r (~> 2.0)
     racc (1.7.1)
     rack (2.2.8)
@@ -498,7 +498,7 @@ DEPENDENCIES
   omniauth_openid_connect (>= 0.6.1)
   pagy (~> 6.0, >= 6.0.0)
   pg
-  puma (~> 5.0)
+  puma (~> 5.6)
   rails (~> 7.0.7, >= 7.0.7.1)
   redis (~> 4.0)
   remote_syslog_logger
