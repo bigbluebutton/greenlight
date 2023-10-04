@@ -11,7 +11,7 @@ gem 'aws-sdk-s3', require: false
 gem 'bcrypt', '~> 3.1.7'
 gem 'bigbluebutton-api-ruby', '1.9.1'
 gem 'bootsnap', require: false
-gem 'cssbundling-rails', '>= 1.3.0'
+gem 'cssbundling-rails', '>= 1.3.3'
 gem 'data_migrate', '>= 9.1.0'
 gem 'dotenv-rails'
 gem 'google-cloud-storage', '~> 1.44', require: false
