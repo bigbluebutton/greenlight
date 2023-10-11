@@ -105,6 +105,8 @@ export default function JoinCard() {
 
   // Play a sound and displays a toast when the meeting starts if the user was in a waiting queue
   const notifyMeetingStarted = () => {
+    clearInterval(joinInterval);
+
     const audio = new Audio(`${process.env.RELATIVE_URL_ROOT}/audios/notify.mp3`);
     audio.play()
       .catch((err) => {
