@@ -18,9 +18,7 @@ import React from 'react';
 import {
   Stack, Button, Col, Row,
 } from 'react-bootstrap';
-import {
-  Link, Navigate, useLocation, useParams,
-} from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { HomeIcon, Square2StackIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -39,21 +37,15 @@ export default function Room() {
   const { t } = useTranslation();
   const { friendlyId } = useParams();
   const {
-    isLoading: isRoomLoading, isError, data: room, error,
+    isLoading: isRoomLoading, data: room,
   } = useRoom(friendlyId);
   const startMeeting = useStartMeeting(friendlyId);
   const currentUser = useAuth();
-  const location = useLocation();
   const localizedTime = localizeDayDateTimeString(room?.last_session, currentUser?.language);
 
   function copyInvite() {
     navigator.clipboard.writeText(`${window.location}/join`);
     toast.success(t('toast.success.room.copied_meeting_url'));
-  }
-
-  // Custom logic to redirect from Rooms page to join page if this isnt the users room and they're not allowed to view it
-  if (isError && error.response.status === 403) {
-    return <Navigate to={`${location.pathname}/join`} />;
   }
 
   return (
