@@ -26,7 +26,7 @@ module Api
       def index
         return render_data data: current_user, serializer: CurrentUserSerializer, status: :ok if current_user
 
-        render_data data: { signed_in: false }, status: :ok
+        render_data data: { signed_in: false, default_locale: ENV.fetch('DEFAULT_LOCALE') }, status: :ok
       end
 
       # POST /api/v1/sessions
