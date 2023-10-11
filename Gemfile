@@ -5,14 +5,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '>= 3.0'
 
-gem 'active_model_serializers'
+gem 'active_model_serializers', '>= 0.10.14'
 gem 'active_storage_validations', '>= 1.0.4'
 gem 'aws-sdk-s3', require: false
 gem 'bcrypt', '~> 3.1.7'
 gem 'bigbluebutton-api-ruby', '1.9.1'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails', '>= 1.3.3'
-gem 'data_migrate', '>= 9.1.0'
+gem 'data_migrate', '>= 9.2.0'
 gem 'dotenv-rails'
 gem 'google-cloud-storage', '~> 1.44', require: false
 gem 'hcaptcha'
