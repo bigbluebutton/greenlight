@@ -19,7 +19,7 @@ import { useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
 
-export default function useRoomStatus(friendlyId) {
+export default function useRoomStatus(friendlyId, joinInterval) {
   const { t } = useTranslation();
 
   return useMutation(
@@ -27,11 +27,13 @@ export default function useRoomStatus(friendlyId) {
     {
       onSuccess: ({ joinUrl }) => {
         if (joinUrl) {
+          clearInterval(joinInterval);
           toast.loading(t('toast.success.room.joining_meeting'));
           window.location.replace(joinUrl);
         }
       },
       onError: () => {
+        clearInterval(joinInterval);
         toast.error(t('toast.error.problem_completing_action'));
       },
     },
