@@ -29,7 +29,7 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
 gem 'pagy', '~> 6.0', '>= 6.0.0'
 gem 'pg'
 gem 'puma', '~> 5.6'
-gem 'rails', '~> 7.0.7', '>= 7.0.7.1'
+gem 'rails', '~> 7.1.0'
 gem 'redis', '~> 4.0'
 gem 'sprockets-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
@@ -58,6 +58,6 @@ group :test do
 end
 
 group :production do
-  gem 'lograge', '~> 0.13.0'
+  gem 'lograge', '~> 0.14.0'
   gem 'remote_syslog_logger'
 end
