@@ -15,21 +15,16 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import React from 'react';
-import { useRouteError } from 'react-router-dom';
-import DefaultErrorPage from './components/errors/DefaultErrorPage';
-import NotFoundPage from './components/errors/NotFoundPage';
-import ForbiddenRouter from './routes/ForbiddenRouter';
+import { Navigate } from 'react-router-dom';
+import DefaultErrorPage from '../components/errors/DefaultErrorPage';
 
-export default function RootBoundary() {
-  const error = useRouteError();
-  const status = error?.response?.status || error?.status;
+export default function ForbiddenRouter() {
+  const regex = /rooms\/(\w{3}-\w{3}-\w{3})(-\w{3})?/;
+  const match = window.location.pathname.match(regex);
 
-  switch (status) {
-    case 404:
-      return <NotFoundPage />;
-    case 403:
-      return <ForbiddenRouter />;
-    default:
-      return <DefaultErrorPage />;
+  if (match) {
+    return <Navigate to={`${match[0]}/join`} />;
   }
+
+  return <DefaultErrorPage />;
 }
