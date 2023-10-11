@@ -68,7 +68,7 @@ class RecordingCreator
     length = 0
     if recording[:playback][:format].is_a?(Array)
       recording[:playback][:format].each do |formats|
-        length = formats[:length] if formats[:type] == 'presentation'
+        length = formats[:length] if formats[:type] == 'presentation' || formats[:type] == 'video'
       end
     else
       length = recording[:playback][:format][:length]
