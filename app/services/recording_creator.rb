@@ -80,11 +80,11 @@ class RecordingCreator
   def create_formats(recording:, new_recording:)
     if recording[:playback][:format].is_a?(Array)
       recording[:playback][:format].each do |format|
-        Format.find_or_create_by(recording_id: new_recording.id, recording_type: format[:type], url: format[:url])
+        Format.find_or_create_by(recording_id: new_recording.id, recording_type: format[:type]).update(url: format[:url])
       end
     else
-      Format.find_or_create_by(recording_id: new_recording.id, recording_type: recording[:playback][:format][:type],
-                               url: recording[:playback][:format][:url])
+      Format.find_or_create_by(recording_id: new_recording.id,
+                               recording_type: recording[:playback][:format][:type]).update(url: recording[:playback][:format][:url])
     end
   end
 
