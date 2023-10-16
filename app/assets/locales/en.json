@@ -110,7 +110,7 @@
     "delete_room": "Delete Room",
     "create_new_room": "Create New Room",
     "enter_room_name": "Enter the room name",
-    "shared_by": "shared by ",
+    "shared_by": "shared by",
     "last_session": "Last Session: {{ localizedTime }}",
     "no_last_session": "No previous session created",
     "search_not_found": "No Rooms Found",
