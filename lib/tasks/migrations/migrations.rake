@@ -207,7 +207,11 @@ namespace :migrations do
 
 
     # Sets Record to default_enabled in V3 if set to optional in V2
-    rooms_config_record_value = infer_room_config_value(setting.get_value('Room Configuration Recording'))
+    rooms_config_record_value = if setting.get_value("Require Recording Consent") != "true"
+      "true"
+    else
+      infer_room_config_value(setting.get_value('Room Configuration Recording'))
+    end
 
     # RoomConfigurations
     rooms_configurations = {
