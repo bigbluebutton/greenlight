@@ -28,7 +28,7 @@ export default function AuthenticatedOnly() {
   const currentUser = useAuth();
   const location = useLocation();
   const roomsMatch = useMatch('/rooms/:friendlyId');
-  const superAdminMatch = useMatch('/admin/*')
+  const superAdminMatch = useMatch('/admin/*');
   const deleteSession = useDeleteSession({ showToast: false });
 
   // User is either pending or banned
@@ -49,7 +49,7 @@ export default function AuthenticatedOnly() {
     return <Navigate to={`${location.pathname}/join`} />;
   }
 
-  if(currentUser.signed_in && currentUser.isSuperAdmin && !superAdminMatch) {
+  if (currentUser.signed_in && currentUser.isSuperAdmin && !superAdminMatch) {
     return <Navigate to="/admin/users" />;
   }
 
