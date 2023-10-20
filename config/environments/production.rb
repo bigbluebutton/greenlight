@@ -18,6 +18,43 @@
 
 require 'active_support/core_ext/integer/time'
 
+class String
+  def string_between_markers(marker1, marker2)
+    self[/#{Regexp.escape(marker1)}(.*?)#{Regexp.escape(marker2)}/m, 1]
+  end
+end
+
+def parse_sentinels(sentinel_str)
+  work_str = sentinel_str.gsub(/[[:space:]]/, '').delete_prefix('[').delete_suffix(']') # remove all white space and surrounding []
+  sentinel_arr = []
+  until work_str.empty?
+    # cut string with hash content
+    sub_str = work_str.string_between_markers('{', '}')
+    # convert that string to hash (while converting keys to symbols and
+    # values to integer, if possible, else make it string without single quotes)
+    sub_arr = sub_str.split(',').map do |h|
+      h1, h2 = h.split(':')
+      { h1.to_sym => h2.match?(/\D/) ? h2.delete("'") : h2.to_i }
+    end
+    sub_hash = sub_arr.reduce(:merge)
+    sentinel_arr.append(sub_hash)
+    # remove hash string from current working string and delete any surrounding commas
+    work_str.slice! "{#{sub_str}}"
+    work_str = work_str.delete_prefix(',').delete_suffix(',')
+  end
+  sentinel_arr
+end
+
+def config_cache_store
+  if ENV.fetch('REDIS_SENTINEL', nil).present?
+    [:redis_cache_store, { sentinels: parse_sentinels(ENV.fetch('REDIS_SENTINEL')),
+                           url: ENV.fetch('REDIS_URL', nil) || 'redis://mymaster',
+                           name: 'mymaster', role: :master }]
+  else
+    [:redis_cache_store, { url: ENV.fetch('REDIS_URL', nil) }]
+  end
+end
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -111,7 +148,7 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  config.cache_store = :redis_cache_store, { url: ENV.fetch('REDIS_URL', nil) }
+  config.cache_store = config_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter = :async # TODO: Configure :resque
