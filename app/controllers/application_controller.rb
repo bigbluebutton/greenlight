@@ -19,6 +19,12 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
 
+  # Disable forgery protection für SAML callback
+  skip_forgery_protection if: :saml_callback_path?
+  def saml_callback_path?
+    request.fullpath == '/auth/saml/callback'
+  end
+
   # Returns the current signed in User (if any)
   def current_user
     return @current_user if @current_user
