@@ -35,7 +35,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
 
       get :index
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(roles.pluck(:id))
+      expect(response.parsed_body['data'].pluck('id')).to match_array(roles.pluck(:id))
     end
 
     it 'returns the roles according to the query' do
@@ -44,14 +44,14 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       create_list(:role, 3)
 
       get :index, params: { search: 'role' }
-      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(search_roles.pluck(:id))
+      expect(response.parsed_body['data'].pluck('id')).to match_array(search_roles.pluck(:id))
     end
 
     it 'returns all roles if the search bar is empty' do
       create_list(:role, 5)
 
       get :index, params: { search: '' }
-      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(Role.pluck(:id))
+      expect(response.parsed_body['data'].pluck('id')).to match_array(Role.pluck(:id))
     end
 
     it 'excludes roles with a different provider' do
@@ -62,7 +62,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
 
       get :index
 
-      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(greenlight_roles.pluck(:id))
+      expect(response.parsed_body['data'].pluck('id')).to match_array(greenlight_roles.pluck(:id))
     end
 
     context 'user with ManageUser permission' do
@@ -79,7 +79,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
 
         get :index
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(roles.pluck(:id))
+        expect(response.parsed_body['data'].pluck('id')).to match_array(roles.pluck(:id))
       end
     end
 
@@ -108,14 +108,14 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
         expect(response).to have_http_status(:ok)
         # Order is important match_array isn't adequate for this test.
 
-        expect(JSON.parse(response.body)['data'].pluck('name')).to eq(roles.sort.reverse)
+        expect(response.parsed_body['data'].pluck('name')).to eq(roles.sort.reverse)
       end
 
       it 'orders the roles list by column and direction ASC' do
         get :index, params: { sort: { column: 'name', direction: 'ASC' } }
         expect(response).to have_http_status(:ok)
         # Order is important match_array isn't adequate for this test.
-        expect(JSON.parse(response.body)['data'].pluck('name')).to eq(roles.sort)
+        expect(response.parsed_body['data'].pluck('name')).to eq(roles.sort)
       end
     end
   end
@@ -125,14 +125,14 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       valid_params = { name: 'CrazyRole' }
       expect { post :create, params: { role: valid_params } }.to change(Role, :count).by(1)
       expect(response).to have_http_status(:created)
-      expect(JSON.parse(response.body)['errors']).to be_nil
+      expect(response.parsed_body['errors']).to be_nil
     end
 
     it 'returns :bad_request for invalid params' do
       invalid_params = { name: '' }
       post :create, params: { not_role: invalid_params }
       expect(response).to have_http_status(:bad_request)
-      expect(JSON.parse(response.body)['errors']).not_to be_empty
+      expect(response.parsed_body['errors']).not_to be_empty
     end
 
     it 'calls create_role_permissions on role' do
@@ -161,7 +161,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       post :update, params: { id: role.id, role: valid_params }
       expect(role.reload.name).to eq(valid_params[:name])
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['errors']).to be_nil
+      expect(response.parsed_body['errors']).to be_nil
     end
 
     it 'returns :not_found for unfound roles' do
@@ -174,7 +174,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       invalid_params = { name: '' }
       post :update, params: { id: role.id, not_role: invalid_params }
       expect(response).to have_http_status(:bad_request)
-      expect(JSON.parse(response.body)['errors']).not_to be_empty
+      expect(response.parsed_body['errors']).not_to be_empty
     end
 
     context 'user without ManageRoles permission' do
@@ -196,7 +196,7 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       role = create(:role)
       get :show, params: { id: role.id }
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']['id']).to eq(role.id)
+      expect(response.parsed_body['data']['id']).to eq(role.id)
     end
 
     it 'returns :not_found for unfound roles' do

@@ -16,16 +16,8 @@
 
 # frozen_string_literal: true
 
-module Presentable
-  extend ActiveSupport::Concern
-
-  def presentation_file_name(room)
-    room.presentation.filename if room.presentation.attached?
-  end
-
-  def presentation_thumbnail(room)
-    return if !room.presentation.attached? || !room.presentation.representable?
-
-    view_context.rails_representation_url(room.presentation.representation(resize: ['225x125']).processed)
-  end
+if ENV['LOADBALANCER_ENDPOINT'].present?
+  Rails.application.config.session_store :cookie_store, key: '_greenlight-3_0_session', domain: ENV.fetch('SESSION_DOMAIN_NAME', nil)
+else
+  Rails.application.config.session_store :cookie_store, key: '_greenlight-3_0_session'
 end

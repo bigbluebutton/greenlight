@@ -25,7 +25,7 @@ export default function SharedBadge({ ownerName }) {
   return (
     <div>
       <Badge className="rounded-pill shared-badge ms-2">
-        <span>{ t('room.shared_by')}
+        <span>{ t('room.shared_by')} {' '}
           <strong>{ ownerName }</strong>
         </span>
       </Badge>

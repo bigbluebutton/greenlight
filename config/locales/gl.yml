@@ -45,32 +45,32 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-hu:
+gl:
   opengraph:
-    description: "Tanuljon a BigBlueButton, a megbízható nyílt forráskódú webkonferencia-megoldás használatával, amely zökkenőmentes virtuális együttműködést és online tanulási élményt tesz lehetővé."
+    description: "Aprenda usando BigBlueButton, a solución de conferencias web de código aberto de confianza que permite unha colaboración virtual perfecta e experiencias de aprendizaxe en liña."
   meeting:
-    moderator_message: "Meghíváshoz küldje el ezt a hivatkozást:"
-    access_code: "Hozzáférési kód: %{code}"
+    moderator_message: "Para convidar a alguén á xuntanza, envíelle esta ligazón:"
+    access_code: "Código de acceso: %{code}"
   email:
     activation:
-      account_activation: Fiók aktiválása
-      welcome_to_bbb: Üdvözli a BigBlueButton!
-      get_started: A kezdéshez aktiválja a fiókját az alábbi gombra kattintással.
-      activate_account: Fiók aktiválása
-      link_expires: A hivatkozás 24 órán belül lejár.
-      if_link_expires: "Ha a hivatkozás lejár, akkor jelentkezzen be, és kérjen új aktiválási levelet. "
+      account_activation: Activación da conta
+      welcome_to_bbb: Dámoslle a benvida a BigBlueButton!
+      get_started: "Para comezar, active a súa conta premendo no botón de embaixo."
+      activate_account: Activar a conta
+      link_expires: A ligazón caducará en 24 horas.
+      if_link_expires: "Se a ligazón caduca, acceda e solicite un novo correo de activación."
     invitation:
-      invitation_to_join: BigBlueButton meghívás
-      you_have_been_invited: "%{name} meghívta a BigBlueButton használatára."
-      get_started: A regisztrációhoz kattintson az alábbi gombra és kövesse a lépéseket.
-      valid_invitation: A meghívó 24 óráig érvényes.
-      sign_up: Regisztráció
+      invitation_to_join: Convite a BigBlueButton
+      you_have_been_invited: "Vde. foi convidado por %{name} a crear unha conta de BigBlueButton por."
+      get_started: "Para rexistrarse, prema no seguinte botón e siga os pasos."
+      valid_invitation: O convite é válido durante 24 horas.
+      sign_up: Rexistrarse
     reset:
-      password_reset: Jelszó visszaállítása
-      password_reset_requested: "Jelszó-visszaállítás lett kérve a következő címhez: %{email}."
-      password_reset_confirmation: A jelszó visszaállításához kattintson az alábbi gombra.
-      reset_password: Jelszó visszaállítása
-      link_expires: A hivatkozás 1 órán belül lejár.
-      ignore_request: "Ha nem Ön kérte a jelszava megváltoztatását, akkor hagyja figyelmen kívül ezt a levelet."
+      password_reset: Restabelecer o contrasinal
+      password_reset_requested: "Solicitouse un restabelecemento de contrasinal para %{email}."
+      password_reset_confirmation: "Para restabelecer o seu contrasinal, prema no botón de embaixo."
+      reset_password: Restabelecer o contrasinal
+      link_expires: A ligazón caducará en 1 hora.
+      ignore_request: "Se Vde. non fixo unha solicitude para cambiar o seu contrasinal, ignore este correo"
   room:
-    new_room_name: "%{username} szobája"
+    new_room_name: "Sala de %{username}"

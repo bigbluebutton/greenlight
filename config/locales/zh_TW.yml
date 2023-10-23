@@ -49,7 +49,7 @@ zh_TW:
   opengraph:
     description: 使用 BigBlueButton 學習，這是一個值得信賴的開源網絡會議解決方案，提供無縫的虛擬協作和線上學習體驗。
   meeting:
-    moderator_message: "若要邀請某人參加會議，請發送此連結："
+    moderator_message: "邀請他人參加會議，請發送以下連結："
     access_code: "連結代碼：%{code}"
   email:
     activation:
@@ -66,9 +66,11 @@ zh_TW:
       valid_invitation: 邀請有效期為 24 小時。
       sign_up: 註冊
     reset:
-      password_reset: 重設密碼
+      password_reset: 重置密碼
       password_reset_requested: "已對 %{email} 提出重設密碼的請求。"
       password_reset_confirmation: 要重設密碼，請點擊下方按鈕。
-      reset_password: 重設密碼
+      reset_password: 重置密碼
       link_expires: 連結將在 1 小時後失效。
       ignore_request: 如果您沒有提出更改密碼的請求，請忽略此郵件。
+  room:
+    new_room_name: "%{username}的會議室"
