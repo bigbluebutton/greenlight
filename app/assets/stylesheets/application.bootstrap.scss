@@ -67,10 +67,12 @@ body {
   color: silver;
 }
 
-// TODO - samuel: make responsive/add breakpoints
 .btn {
-  min-width: $button-min-width;
   white-space: nowrap;
+
+  @include media-breakpoint-up(sm) {
+    min-width: $button-min-width;
+  }
 }
 
 .btn-sm {
@@ -196,7 +198,6 @@ input.search-bar {
 
 #footer {
   margin-top: $footer-buffer-height;
-  max-height: $footer-height;
 
   #footer-container {
     border-top: 1px solid #d0d5dd;
@@ -205,6 +206,10 @@ input.search-bar {
   a {
     color: var(--brand-color) !important;
     text-decoration: none !important;
+  }
+
+  @include media-breakpoint-up(sm) {
+    max-height: $footer-height;
   }
 }
 
@@ -423,7 +428,6 @@ input.search-bar {
     background: white !important;
     color: black !important;
     border-color: gainsboro !important;
-    min-width: 260px;
     text-align: left;
 
     &:hover, &:focus, &:active {
@@ -436,8 +440,47 @@ input.search-bar {
     }
   }
 
+  button, .dropdown-menu {
+    @include media-breakpoint-up(sm) {
+      min-width: 300px;
+    }
+  }
+}
+
+.simple-select {
+  button {
+    background: white !important;
+    color: black !important;
+    border-color: gainsboro !important;
+    text-align: left;
+    width: 220px;
+
+    &:hover, &:focus, &:active {
+      background: white !important;
+      color: black !important;
+      border-color: gainsboro !important;
+    }
+    &:focus {
+      box-shadow: 0 0 0 0.25rem var(--brand-color-light) !important;
+    }
+    &::after {
+      display: none;
+    }
+  }
+
   .dropdown-menu {
-    min-width: 260px;
+    min-width: 220px;
+  }
+}
+
+@media (max-width: 767px) {
+  .table-responsive .dropdown-menu {
+    position: static !important;
+  }
+}
+@media (min-width: 768px) {
+  .table-responsive {
+    overflow: visible;
   }
 }
 

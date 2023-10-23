@@ -36,9 +36,8 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
       create_list(:room, 2, user_id: user_one.id)
       create_list(:room, 2, user_id: user_two.id)
 
-      allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
       get :index
-      expect(JSON.parse(response.body)['data'].pluck('friendly_id'))
+      expect(response.parsed_body['data'].pluck('friendly_id'))
         .to match_array(Room.all.pluck(:friendly_id))
     end
 
@@ -56,37 +55,10 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
         create_list(:room, 2, user_id: user_one.id)
         create_list(:room, 2, user_id: user_two.id)
 
-        allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
         get :index
-        expect(JSON.parse(response.body)['data'].pluck('friendly_id'))
+        expect(response.parsed_body['data'].pluck('friendly_id'))
           .to match_array(Room.all.pluck(:friendly_id))
       end
-    end
-
-    it 'returns the server room status as online if the meeting has started' do
-      active_server_room = create(:room)
-      active_server_room.update(meeting_id: 'hulsdzwvitlk1dbekzxdprshsxmvycvar0jeaszc')
-
-      allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return(bbb_meetings)
-      get :index
-      expect(JSON.parse(response.body)['data'][0]['online']).to be(true)
-    end
-
-    it 'returns the number of participants in an online server room' do
-      active_server_room = create(:room)
-      active_server_room.update(meeting_id: 'hulsdzwvitlk1dbekzxdprshsxmvycvar0jeaszc')
-
-      allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return(bbb_meetings)
-      get :index
-      expect(JSON.parse(response.body)['data'][0]['participants']).to be(1)
-    end
-
-    it 'returns the server status as not running if BBB server does not return any online meetings' do
-      create(:room)
-
-      allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
-      get :index
-      expect(JSON.parse(response.body)['data'][0]['online']).to be(false)
     end
 
     it 'excludes rooms whose owners have a different provider' do
@@ -96,10 +68,8 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
       rooms = create_list(:room, 2, user: user1)
       create_list(:room, 2, user: user2)
 
-      allow_any_instance_of(BigBlueButtonApi).to receive(:active_meetings).and_return([])
-
       get :index
-      expect(JSON.parse(response.body)['data'].pluck('id')).to match_array(rooms.pluck(:id))
+      expect(response.parsed_body['data'].pluck('id')).to match_array(rooms.pluck(:id))
     end
 
     context 'user without ManageRooms permission' do

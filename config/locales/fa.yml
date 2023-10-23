@@ -63,12 +63,14 @@ fa:
       invitation_to_join: دعوت به پیوستن به BigBlueButton
       you_have_been_invited: "شما توسط %{name} برای ایجاد حساب کاربری در BigBlueButton دعوت شده‌اید."
       get_started: برای ثبت نام لطفا روی دکمه زیر کلیک کنید و مراحل را دنبال کنید.
-      valid_invitation: دعوتنامه فقط ۴۸ ساعت اعتبار دارد.
+      valid_invitation: این پیوند ۲۴ ساعت دیگر منقضی خواهد شد.
       sign_up: ثبت نام
     reset:
-      password_reset: بازنشانی رمز عبور
+      password_reset: بازنشانی گذرواژه
       password_reset_requested: "بازنشانی رمز عبور برای %{email} درخواست شده است."
       password_reset_confirmation: برای بازنشانی رمز عبور، لطفا روی دکمه زیر کلیک کنید.
-      reset_password: بازنشانی رمز عبور
+      reset_password: بازنشانی گذرواژه
       link_expires: این پیوند ۱ ساعت دیگر منقضی خواهد شد.
       ignore_request: اگر درخواستی برای تغییر رمز عبور خود نکرده‌اید، لطفا این ایمیل را نادیده بگیرید.
+  room:
+    new_room_name: "اتاق %{username}"

@@ -19,7 +19,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::Admin::TenantsController, type: :controller do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :with_super_admin) }
   let(:valid_tenant_params) do
     {
       name: 'new_provider',

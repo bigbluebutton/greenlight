@@ -18,16 +18,18 @@
   "delete": "Sil",
   "copy": "Kopyala",
   "or": "Veya",
-  "online": "Çevrimiçi",
+  "online": "Çevrim içi",
   "help_center": "Yardım merkezi",
   "are_you_sure": "Emin misiniz?",
   "return_home": "Girişe dön",
   "created_at": "Oluşturulma",
+  "view_recordings": "Kayıtları görüntüle",
+  "join_session": "Oturuma katıl",
   "no_result_search_input": "\"{{ searchInput }}\" için herhangi bir sonuç bulunamadı",
   "action_permanent": "Bu işlem geri alınamaz.",
   "homepage": {
     "welcome_bbb": "BigBlueButton uygulamasına hoş geldiniz.",
-    "bigbluebutton_description": "BigBlueButton, çevrimiçi sınıflar için açık kaynaklı bir web konferans sistemidir. Platform, öğrencilerin gerçek zamanlı olarak işbirliği yapmalarını ve geri bildirim almalarını sağlayarak uygulamalı öğrenme zamanının en iyi şekilde kullanılmasını sağlar.",
+    "bigbluebutton_description": "BigBlueButton, çevrim içi sınıflar için açık kaynaklı bir internet konferansı sistemidir. Platform, öğrencilerin gerçek zamanlı olarak işbirliği yapmalarını ve geri bildirim almalarını sağlayarak uygulamalı öğrenme zamanının en iyi şekilde kullanılmasını sağlar.",
     "greenlight_description": "Oturumları başlatmak için kendi odalarınızı oluşturun ya da kısa ve kullanışlı bir bağlantı ile başkalarının odalarına katılın.",
     "learn_more": "BigBlueButton hakkında ayrıntılı bilgi alın",
     "explore_features": "Özelliklerimizi keşfedin",
@@ -126,7 +128,7 @@
       "presentation": "Sunum",
       "click_to_upload": "Yüklemek için tıklayın",
       "drag_and_drop": "ya da sürükleyip bırakın",
-      "upload_description": "Herhangi bir ofis belgesi ya da PDF dosyası yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
+      "upload_description": "Herhangi bir Office belgesi ya da PDF dosyası ({{size}} boyutundan büyük olmayan) yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
       "are_you_sure_delete_presentation": "Bu sunumu silmek istediğinize emin misiniz?"
     },
     "shared_access": {
@@ -171,11 +173,15 @@
     "published": "Yayınlanmış",
     "unpublished": "Yayınlanmamış",
     "protected": "Korunmuş",
+    "public": "Herkese açık",
+    "public_protected": "Herkese açık / Korunmuş",
     "length_in_minutes": "{{recording.length}} dakika",
     "processing_recording": "Kayıt işleniyor. Bu işlem birkaç dakika sürebilir...",
     "copy_recording_urls": "Kayıt adreslerini kopyala",
     "recordings_list_empty": "Henüz bir kaydınız yok!",
+    "public_recordings_list_empty": "Henüz herkese açık bir kayıt yok!",
     "recordings_list_empty_description": "Toplantıları başlatıp kayıt ettikten sonra kayıtlarınız burada görüntülenecek.",
+    "public_recordings_list_empty_description": "Kayıtlar yayınlandığında burada görüntülenecek.",
     "delete_recording": "Kaydı sil",
     "are_you_sure_delete_recording": "Bu kaydı silmek istediğinize emin misiniz?",
     "search_not_found": "Herhangi bir kayıt bulunamadı"
@@ -255,7 +261,7 @@
         "brand_image": "Marka görseli",
         "click_to_upload": "Yüklemek için tıklayın",
         "drag_and_drop": "ya da sürükleyip bırakın",
-        "upload_brand_image_description": "Herhangi PNG, JGP ya da SVG dosyası yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
+        "upload_brand_image_description": "Herhangi bir PNG, JPG ya da SVG dosyası ({{size}} boyutundan büyük olmayan) yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
         "remove_branding_image": "Marka görselini kaldır"
       },
       "administration": {
@@ -285,7 +291,7 @@
         "default_role": "Varsayılan rol",
         "default_role_description": "Yeni eklenen kullanıcılara atanacak varsayılan rol",
         "registration_method": "Hesap açma yöntemi",
-        "registration_method_description": "Kullanıcıların web sitesinde hesap açma yöntemini değiştirin",
+        "registration_method_description": "Kullanıcıların sitede hesap açma yöntemini değiştirin",
         "registration_methods" : {
           "open": "Serbest hesap açma",
           "invite": "Çağrı ile katılma",
@@ -471,7 +477,7 @@
       },
       "emails": {
         "required": "Lütfen en az bir geçerli e-posta adresi yazın",
-        "list": "Lütfen virgül ile ayırarak e-posta adresleri listesini yazın (kullanici@websitesi.com,kullanici1@websitesi.com,kullanici2@websitesi.com)"
+        "list": "Lütfen virgül ile ayırarak e-posta adresleri listesini yazın (kullanici@site.com,kullanici1@site.com,kullanici2@site.com)"
       },
       "role_name": {
         "required": "Lütfen rolün adını yazın"
@@ -492,6 +498,11 @@
           "min": "Ad en az 2 karakter uzunluğunda olabilir"
         }
       },
+      "room_join": {
+        "name": {
+          "required": "Lütfen adınızı yazın."
+        }
+      },
       "url": {
         "invalid": "Adres geçersiz"
       }
@@ -501,6 +512,21 @@
         "name": {
           "label": "Oda adı",
           "placeholder": "Bir oda adı yazın..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Ad",
+            "placeholder": "Adınızı yazın"
+        },
+        "access_code": {
+          "label": "Erişim kodu",
+          "placeholder": "Erişim kodunu yazın"
+        },
+        "recording_consent": {
+          "label": "Bu oturumun kaydedildiğini ve etkinleştirilmiş ise sesim ve görüntümün de kaydedileceğini anladım."
         }
       }
     },

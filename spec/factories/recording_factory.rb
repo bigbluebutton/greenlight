@@ -21,7 +21,7 @@ FactoryBot.define do
     room
     name { Faker::Educator.course_name }
     record_id { Faker::Internet.uuid }
-    visibility { 'Unpublished' }
+    visibility { Recording::VISIBILITIES[:unpublished] }
     length { Faker::Number.within(range: 1..60) }
     participants { Faker::Number.within(range: 1..100) }
     recorded_at { Faker::Time.between(from: 2.days.ago, to: Time.zone.now) }

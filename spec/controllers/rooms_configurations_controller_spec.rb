@@ -38,12 +38,32 @@ RSpec.describe Api::V1::RoomsConfigurationsController, type: :controller do
 
       get :index
 
-      expect(JSON.parse(response.body)['data']).to eq({
-                                                        'TRUE' => 'true',
-                                                        'FALSE' => 'false',
-                                                        'OPTIONAL' => 'optional'
-                                                      })
+      expect(response.parsed_body['data']).to eq({
+                                                   'TRUE' => 'true',
+                                                   'FALSE' => 'false',
+                                                   'OPTIONAL' => 'optional'
+                                                 })
       expect(response).to have_http_status(:ok)
+    end
+  end
+
+  describe 'rooms_configurations#show' do
+    before do
+      create(:rooms_configuration, meeting_option: create(:meeting_option, name: 'record'), value: 'false')
+    end
+
+    it 'returns the correct configuration value' do
+      get :show, params: { name: 'record' }
+
+      expect(response.parsed_body['data']).to eq('false')
+
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'returns :not_found if the configuration :name passed does not exist' do
+      get :show, params: { name: 'nonexistent' }
+
+      expect(response).to have_http_status(:not_found)
     end
   end
 end

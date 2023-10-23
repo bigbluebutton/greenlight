@@ -1,0 +1,76 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   "true": "foo"
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+fa_IR:
+  opengraph:
+    description: با استفاده از BigBlueButton بیاموزید؛ راه‌حل متن‌باز و قابل اعتماد کنفرانس تحت وب که همکاری مجازی یکپارچه و تجربیات یادگیری آنلاین را امکان‌پذیر می‌کند.
+  meeting:
+    moderator_message: "برای دعوت از افراد دیگر به این جلسه، این پیوند را برای آن‌ها ارسال کنید:"
+    access_code: "کد دسترسی: %{code}"
+  email:
+    activation:
+      account_activation: فعال‌سازی حساب کاربری
+      welcome_to_bbb: به BigBlueButton خوش آمدید.
+      get_started: برای شروع، لطفا با کلیک بر روی دکمهٔ زیر حساب کاربری خود را فعال کنید.
+      activate_account: فعال‌کردن حساب کاربری
+      link_expires: این پیوند ۲۴ ساعت دیگر منقضی خواهد شد.
+      if_link_expires: در صورت منقضی‌شدن پیوند، لطفا وارد شوید و درخواست یک رایانامهٔ فعال‌سازی جدید کنید.
+    invitation:
+      invitation_to_join: دعوت‌نامهٔ BigBlueButton
+      you_have_been_invited: "شما توسط %{name} برای ایجاد حساب کاربری در BigBlueButton دعوت شده‌اید."
+      get_started: برای ثبت‌نام، لطفا روی دکمهٔ زیر کلیک کنید و گام‌ها را دنبال کنید.
+      valid_invitation: دعوت‌نامه فقط ۴۸ ساعت اعتبار دارد.
+      sign_up: ثبت‌نام
+    reset:
+      password_reset: بازنشانی گذرواژه
+      password_reset_requested: "بازنشانی گذرواژه برای %{email} درخواست شده‌است."
+      password_reset_confirmation: برای بازنشانی گذرواژه، لطفا روی دکمهٔ زیر کلیک کنید.
+      reset_password: بازنشانی گذرواژه
+      link_expires: این پیوند ۱ ساعت دیگر منقضی خواهد شد.
+      ignore_request: اگر درخواستی برای تغییر گذرواژه خود نکرده‌اید، لطفا این رایانامه را نادیده بگیرید.
+  room:
+    new_room_name: "اتاق %{username}"

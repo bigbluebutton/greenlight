@@ -72,3 +72,5 @@ hu:
       reset_password: Jelszó visszaállítása
       link_expires: A hivatkozás 1 órán belül lejár.
       ignore_request: "Ha nem Ön kérte a jelszava megváltoztatását, akkor hagyja figyelmen kívül ezt a levelet."
+  room:
+    new_room_name: "%{username} szobája"
