@@ -18,7 +18,7 @@ import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Stack } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { DocumentDuplicateIcon, LinkIcon } from '@heroicons/react/24/outline';
+import { DocumentDuplicateIcon, LinkIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/auth/AuthProvider';
@@ -41,6 +41,11 @@ export default function RoomCard({ room }) {
     toast.success(t('toast.success.room.copied_meeting_url'));
   }
 
+  function copyVoiceBridge(voice_bridge, voice_bridge_phone_number) {
+    navigator.clipboard.writeText(`Tel.: ${voice_bridge_phone_number} Pin: ${voice_bridge}`);
+    toast.success(t('toast.success.room.copied_voice_bridge'));
+  }
+
   return (
     <Card id="room-card" className="h-100 card-shadow border-0">
       <Card.Body className="pb-0" onClick={handleClick}>
@@ -55,8 +60,8 @@ export default function RoomCard({ room }) {
         </Stack>
 
         <Stack className="my-4">
-          <Card.Title className="mb-0"> { room.name } </Card.Title>
-          { room.shared_owner && (
+          <Card.Title className="mb-0"> {room.name} </Card.Title>
+          {room.shared_owner && (
             <span className="text-muted">{ t('room.shared_by') } {' '} <strong>{ room.shared_owner }</strong></span>
           )}
           { room.last_session ? (
@@ -73,6 +78,12 @@ export default function RoomCard({ room }) {
         >
           <DocumentDuplicateIcon className="hi-m mt-1 text-muted" />
         </Button>
+        {typeof room.voice_bridge_phone_number !== 'undefined' && <Button
+          variant="icon"
+          onClick={() => copyVoiceBridge(room.voice_bridge, room.voice_bridge_phone_number)}
+        >
+          <PhoneIcon className="hi-m mt-1 text-muted" />
+        </Button>}
         <Button variant="brand-outline" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
           {startMeeting.isLoading && <Spinner className="me-2" />}
           { room.online ? (
@@ -101,5 +112,7 @@ RoomCard.propTypes = {
     shared_owner: PropTypes.string,
     online: PropTypes.bool,
     participants: PropTypes.number,
+    voice_bridge: PropTypes.string,
+    voice_bridge_phone_number: PropTypes.string,
   }).isRequired,
 };
