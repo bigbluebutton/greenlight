@@ -1,0 +1,76 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   "true": "foo"
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+el_GR:
+  opengraph:
+    description: "Εκπαιδευτείτε με χρήση του BigBlueButton, την αξιόπιστη λύση διαδικτυακής διάσκεψης ανοιχτού κώδικα που επιτρέπει την απρόσκοπτη εικονική συνεργασία και τη διαδικτυακή εμπειρία εκπαίδευσης."
+  meeting:
+    moderator_message: "Για να προσκαλέσετε κάποιον στη διάσκεψη, στείλτε τον σύνδεσμο:"
+    access_code: "Κωδικός πρόσβασης: %{code}"
+  email:
+    activation:
+      account_activation: Ενεργοποίηση λογαριασμού
+      welcome_to_bbb: Καλώς ορίσατε στο BigBlueButton!
+      get_started: "Για να ξεκινήσετε, παρακαλούμε ενεργοποιήστε τον λογαριασμό σας κάνοντας κλικ στο κουμπί παρακάτω."
+      activate_account: Ενεργοποίηση λογαριασμού
+      link_expires: Ο σύνδεσμος θα λήξει σε 24 ώρες.
+      if_link_expires: "Εάν έληξε ο σύνδεσμος, συνδεθείτε και ζητήστε νέο email ενεργοποίησης."
+    invitation:
+      invitation_to_join: Πρόσκληση BigBlueButton
+      you_have_been_invited: "Έχετε προσκληθεί από τον/την %{name}, να δημιουργήσετε έναν λογαριασμό BigBlueButton."
+      get_started: "Για να εγγραφείτε, παρακαλούμε κάντε κλικ στο κουμπί παρακάτω και ακολουθήστε τα βήματα."
+      valid_invitation: Η πρόσκληση ισχύει για 24 ώρες.
+      sign_up: Εγγραφή
+    reset:
+      password_reset: Επαναφορά κωδικού πρόσβασης
+      password_reset_requested: "Αίτημα επαναφοράς κωδικού πρόσβασης για %{email}."
+      password_reset_confirmation: "Για επαναφορά κωδικού πρόσβασης, παρακαλούμε κάντε κλικ στο παρακάτω κουμπί."
+      reset_password: Επαναφορά κωδικού πρόσβασης
+      link_expires: Ο σύνδεσμος θα λήξει σε 1 ώρα.
+      ignore_request: "Εάν δεν υποβάλατε αίτημα αλλαγής κωδικού πρόσβασης, παρακαλούμε αγνοήστε αυτό το email."
+  room:
+    new_room_name: "Αίθουσα του %{username}"

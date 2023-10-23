@@ -30,7 +30,7 @@ class ProviderCredentials
 
     # Cache the response for an hour
     # fetch will return the value if already cached, if not, it will compute the value, cache it, then return it
-    Rails.cache.fetch("#{@provider}/#{@route}", expires_in: 1.hour) do
+    Rails.cache.fetch("v3/#{@provider}/#{@route}", expires_in: 1.hour) do
       url = URI.parse("#{@endpoint}#{@route}?#{encoded_params}&checksum=#{checksum}")
       res = Net::HTTP.get_response(url)
 

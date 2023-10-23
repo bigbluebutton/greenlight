@@ -25,7 +25,7 @@ module Api
       # GET /api/v1/locales
       # Returns a cached list of locales available
       def index
-        language_with_name = Rails.cache.fetch('locales/list', expires_in: 24.hours) do
+        language_with_name = Rails.cache.fetch('v3/locales/list', expires_in: 24.hours) do
           language_hash = {}
 
           languages = Dir.entries(Rails.root.join('app/assets/locales')).select { |file_name| file_name.ends_with?('.json') }

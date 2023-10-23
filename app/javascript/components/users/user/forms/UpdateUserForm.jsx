@@ -36,9 +36,8 @@ export default function UpdateUserForm({ user }) {
   const { t } = useTranslation();
   const currentUser = useAuth();
 
-  // Remove the display of role input field if the user is a super admin trying to update their own role
-  const isSuperAdminEditOwnRole = user === currentUser && currentUser.isSuperAdmin;
-  const canUpdateRole = PermissionChecker.hasManageUsers(currentUser) && !isSuperAdminEditOwnRole;
+  // User with ManageUsers permission can update any user except themselves
+  const canUpdateRole = PermissionChecker.hasManageUsers(currentUser) && currentUser.id !== user.id;
 
   const { data: roles } = useRoles({ enabled: canUpdateRole });
   const { data: locales } = useLocales();

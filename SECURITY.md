@@ -7,7 +7,7 @@ We actively support Greenlight through the community forums and through security
 | Version | Supported          |
 |---------| ------------------ |
 | v1.x    | :x:                |
-| v2.x    | :white_check_mark: |
+| v2.x    | :x:                |
 | v3.x    | :white_check_mark: |
 | > v3.x  | :x:                |
 

@@ -47,7 +47,7 @@
 
 tr:
   opengraph:
-    description: "Sorunsuz sanal işbirliği ve çevrimiçi öğrenme deneyimleri sağlayan, güvenilir ve açık kaynaklı web üzerinden görüşme çözümü BigBlueButton uygulamasını kullanarak öğrenin."
+    description: "Sorunsuz sanal işbirliği ve çevrim içi öğrenme deneyimleri sağlayan, güvenilir ve açık kaynaklı internet üzerinden görüşme çözümü BigBlueButton uygulamasını kullanarak öğrenin."
   meeting:
     moderator_message: "Toplantıya katılmasını istediğiniz kişilere bu bağlantıyı gönderin: "
     access_code: "Erişim kodu: %{code}"
@@ -72,3 +72,5 @@ tr:
       reset_password: Parolayı sıfırla
       link_expires: Bağlantı 1 saat sonra geçersiz olacak.
       ignore_request: Parola değiştirme isteğinde bulunmadıysanız bu e-postayı yok sayabilirsiniz.
+  room:
+    new_room_name: "%{username} kullanıcısının odası"

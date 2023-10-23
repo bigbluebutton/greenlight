@@ -22,5 +22,34 @@ RSpec.describe SiteSetting, type: :model do
   describe 'validations' do
     it { is_expected.to belong_to(:setting) }
     it { is_expected.to validate_presence_of(:provider) }
+
+    context 'image validations' do
+      it 'passes if the attachement is a png' do
+        site_setting = build(:site_setting, image: fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+        expect(site_setting).to be_valid
+      end
+
+      it 'passes if the attachement is a jpg' do
+        site_setting = build(:site_setting, image: fixture_file_upload(file_fixture('default-avatar.jpg'), 'image/jpeg'))
+        expect(site_setting).to be_valid
+      end
+
+      it 'passes if the attachement is a svg' do
+        site_setting = build(:site_setting, image: fixture_file_upload(file_fixture('default-avatar.svg'), 'image/svg+xml'))
+        expect(site_setting).to be_valid
+      end
+
+      it 'fails if the attachement isn\'t of image type' do
+        site_setting = build(:site_setting, image: fixture_file_upload(file_fixture('default-pdf.pdf'), 'application/pdf'))
+        expect(site_setting).to be_invalid
+        expect(site_setting.errors).to be_of_kind(:image, :content_type_invalid)
+      end
+
+      it 'fails if the attachement is too large' do
+        site_setting = build(:site_setting, image: fixture_file_upload(file_fixture('large-avatar.jpg'), 'image/jpeg'))
+        expect(site_setting).to be_invalid
+        expect(site_setting.errors).to be_of_kind(:image, :file_size_out_of_range)
+      end
+    end
   end
 end

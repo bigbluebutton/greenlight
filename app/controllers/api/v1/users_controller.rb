@@ -39,12 +39,13 @@ module Api
       # POST /api/v1/users.json
       # Creates and saves a new user record in the database with the provided parameters
       def create
-        smtp_enabled = ENV['SMTP_SERVER'].present?
+        return render_error status: :forbidden if external_authn_enabled?
+
         # Check if this is an admin creating a user
         admin_create = current_user && PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call
 
-        # Users created by a user will have the creator language by default with a fallback to the server configured default_locale.
-        create_user_params[:language] = current_user&.language || I18n.default_locale if create_user_params[:language].blank?
+        # Allow only administrative access for authenticated requests
+        return render_error status: :forbidden if current_user && !admin_create
 
         registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
 
@@ -52,14 +53,19 @@ module Api
           return render_error errors: Rails.configuration.custom_error_msgs[:invite_token_invalid]
         end
 
-        user = UserCreator.new(user_params: create_user_params.except(:invite_token), provider: current_provider, role: default_role).call
-
-        user.verify! unless smtp_enabled
-
         # TODO: Add proper error logging for non-verified token hcaptcha
         if !admin_create && hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
           return render_error errors: Rails.configuration.custom_error_msgs[:hcaptcha_invalid]
         end
+
+        # Users created by a user will have the creator language by default with a fallback to the server configured default_locale.
+        create_user_params[:language] = current_user&.language || I18n.default_locale if create_user_params[:language].blank?
+
+        user = UserCreator.new(user_params: create_user_params.except(:invite_token), provider: current_provider, role: default_role).call
+
+        smtp_enabled = ENV['SMTP_SERVER'].present?
+
+        user.verify! unless smtp_enabled
 
         # Set to pending if registration method is approval
         user.pending! if !admin_create && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
@@ -77,9 +83,9 @@ module Api
           return render_data data: user, serializer: CurrentUserSerializer, status: :created unless user.verified?
 
           user.generate_session_token!
-          session[:session_token] = user.session_token unless current_user # if this is NOT an admin creating a user
+          session[:session_token] = user.session_token unless admin_create # if this is NOT an admin creating a user
 
-          render_data data: current_user, serializer: CurrentUserSerializer, status: :created
+          render_data data: user, serializer: CurrentUserSerializer, status: :created
         elsif user.errors.size == 1 && user.errors.of_kind?(:email, :taken)
           render_error errors: Rails.configuration.custom_error_msgs[:email_exists], status: :bad_request
         else
@@ -92,9 +98,10 @@ module Api
       # Updates the values of a user
       def update
         user = User.find(params[:id])
-        # user is updating themselves
-        if current_user.id == params[:id] && !PermissionsChecker.new(permission_names: 'ManageUsers', current_user:, current_provider:).call
-          params[:user].delete(:role_id)
+
+        # User can't change their own role
+        if params[:user][:role_id].present? && current_user == user && params[:user][:role_id] != user.role_id
+          return render_error errors: Rails.configuration.custom_error_msgs[:unauthorized], status: :forbidden
         end
 
         if user.update(update_user_params)

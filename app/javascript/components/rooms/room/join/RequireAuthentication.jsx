@@ -39,7 +39,7 @@ export default function RequireAuthentication({ path }) {
         <Card.Footer className="bg-white">
           {
             env?.OPENID_CONNECT ? (
-              <Form action="/auth/openid_connect" method="POST" data-turbo="false">
+              <Form action={process.env.OMNIAUTH_PATH} method="POST" data-turbo="false">
                 <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
                 <Button variant="brand-outline-color" className="btn btn-lg m-2" type="submit">{t('authentication.sign_up')}</Button>
                 <Button variant="brand" className="btn btn-lg m-2" type="submit">{t('authentication.sign_in')}</Button>

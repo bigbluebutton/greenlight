@@ -72,3 +72,5 @@ ja:
       reset_password: パスワード再設定
       link_expires: リンクは１時間で無効となります。
       ignore_request: もしパスワード再設定の要請をした覚えがないようでしたら、このメールは読み捨ててください。
+  room:
+    new_room_name: "%{username}の会議室"

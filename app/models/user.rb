@@ -17,7 +17,6 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  MAX_AVATAR_SIZE = 3_000_000
   # Reset token max validity period.
   # It's advised to not increase this to more than 1 hour.
   RESET_TOKEN_VALIDITY_PERIOD = 1.hour
@@ -60,8 +59,8 @@ class User < ApplicationRecord
 
   validates :avatar,
             dimension: { width: 300, height: 300 },
-            content_type: %i[png jpg jpeg svg],
-            size: { less_than: 3.megabytes }
+            content_type: Rails.configuration.uploads[:images][:formats],
+            size: { less_than: Rails.configuration.uploads[:images][:max_size] }
 
   validates :reset_digest, uniqueness: true, if: :reset_digest?
   validates :verification_digest, uniqueness: true, if: :verification_digest?

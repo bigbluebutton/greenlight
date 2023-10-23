@@ -23,6 +23,10 @@ describe RecordingsSync, type: :service do
   let(:room) { create(:room, user:, recordings_processing: 5) }
   let(:service) { described_class.new(room:, provider: 'greenlight') }
 
+  before do
+    allow_any_instance_of(BigBlueButtonApi).to receive(:delete_recordings).and_return(true)
+  end
+
   describe '#call' do
     let(:fake_recording_creator) { instance_double(RecordingCreator) }
     let(:other_recordings) { create_list(:recording, 2) }
@@ -61,7 +65,7 @@ describe RecordingsSync, type: :service do
         expect(RecordingCreator).to receive(:new).with(recording: multiple_recordings_response[:recordings][1]).and_call_original
 
         service.call
-        expect(Recording.where(id: other_recordings.pluck(:id))).to eq(other_recordings)
+        expect(Recording.where(id: other_recordings.pluck(:id))).to match_array(other_recordings)
       end
 
       it 'resets the recordings processing value for the room' do

@@ -25,6 +25,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   before do
     ENV['SMTP_SERVER'] = 'test.com'
+    allow(controller).to receive(:external_authn_enabled?).and_return(false)
     request.headers['ACCEPT'] = 'application/json'
   end
 
@@ -35,7 +36,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           name: Faker::Name.name,
           email: Faker::Internet.email,
           password: 'Password123+',
-          language: 'language'
+          language: 'en'
         }
       }
     end
@@ -57,7 +58,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
 
         expect(response).to have_http_status(:created)
-        expect(JSON.parse(response.body)['errors']).to be_nil
+        expect(response.parsed_body['errors']).to be_nil
       end
 
       it 'assigns the User role to the user' do
@@ -68,7 +69,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       context 'User language' do
         it 'Persists the user language in the user record' do
           post :create, params: user_params
-          expect(User.find_by(email: user_params[:user][:email]).language).to eq('language')
+          expect(User.find_by(email: user_params[:user][:email]).language).to eq('en')
         end
 
         it 'defaults user language to default_locale if the language isn\'t specified' do
@@ -112,28 +113,49 @@ RSpec.describe Api::V1::UsersController, type: :controller do
             user = User.find_by email: user_params[:user][:email]
             expect(user).to be_verified
             expect(session[:session_token]).to eq(user.session_token)
+            expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
           end
         end
       end
 
-      context 'Admin creation' do
-        before { sign_in_user(user) }
+      context 'Authenticated request' do
+        context 'Not admin creation' do
+          let(:signed_in_user) { user }
 
-        it 'sends activation email to but does NOT signin the created user' do
-          expect { post :create, params: user_params }.to change(User, :count).by(1)
-          expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
-                                                                                                       'deliver_now', Hash)
-          expect(response).to have_http_status(:created)
-          expect(session[:session_token]).to eql(user.session_token)
+          before { sign_in_user(signed_in_user) }
+
+          it 'returns :forbidden and does NOT create the user' do
+            expect { post :create, params: user_params }.not_to change(User, :count)
+            expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+
+            expect(response).to have_http_status(:forbidden)
+            expect(session[:session_token]).to eql(signed_in_user.session_token)
+          end
         end
 
-        context 'User language' do
-          it 'defaults user language to admin language if the language isn\'t specified' do
-            user.update! language: 'language'
+        context 'Admin creation' do
+          let(:signed_in_user) { user_with_manage_users_permission }
 
-            user_params[:user][:language] = nil
-            post :create, params: user_params
-            expect(User.find_by(email: user_params[:user][:email]).language).to eq('language')
+          before { sign_in_user(signed_in_user) }
+
+          it 'sends activation email to but does NOT signin the created user' do
+            expect { post :create, params: user_params }.to change(User, :count).by(1)
+            expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.at(:no_wait).exactly(:once).with('UserMailer', 'activate_account_email',
+                                                                                                         'deliver_now', Hash)
+            expect(response).to have_http_status(:created)
+            expect(session[:session_token]).to eql(signed_in_user.session_token)
+          end
+
+          context 'User language' do
+            it 'defaults user language to admin language if the language isn\'t specified' do
+              signed_in_user.update! language: 'en'
+
+              user_params[:user][:language] = nil
+              post :create, params: user_params
+              expect(User.find_by(email: user_params[:user][:email]).language).to eq('en')
+              expect(response).to have_http_status(:created)
+              expect(session[:session_token]).to eql(signed_in_user.session_token)
+            end
           end
         end
       end
@@ -148,7 +170,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
         expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
         expect(response).to have_http_status(:bad_request)
-        expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:record_invalid])
+        expect(response.parsed_body['errors']).to eq(Rails.configuration.custom_error_msgs[:record_invalid])
       end
 
       context 'Duplicated email' do
@@ -162,7 +184,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
           expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
           expect(response).to have_http_status(:bad_request)
-          expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:email_exists])
+          expect(response.parsed_body['errors']).to eq(Rails.configuration.custom_error_msgs[:email_exists])
         end
       end
     end
@@ -180,14 +202,14 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           name: 'Optimus Prime',
           email: 'optimus@autobots.cybertron',
           password: 'Autobots1!',
-          language: 'teletraan'
+          language: 'en'
         }
 
         expect { post :create, params: { user: user_params } }.to change(User, :count).from(0).to(1)
 
         expect(User.find_by(email: user_params[:email]).role).to eq(autobots)
         expect(response).to have_http_status(:created)
-        expect(JSON.parse(response.body)['errors']).to be_nil
+        expect(response.parsed_body['errors']).to be_nil
       end
     end
 
@@ -206,7 +228,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
 
           expect(response).to have_http_status(:created)
-          expect(JSON.parse(response.body)['errors']).to be_nil
+          expect(response.parsed_body['errors']).to be_nil
         end
 
         it 'deletes an invitation after using it' do
@@ -222,14 +244,14 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect { post :create, params: user_params }.to change(User, :count).by(1)
 
           expect(response).to have_http_status(:created)
-          expect(JSON.parse(response.body)['errors']).to be_nil
+          expect(response.parsed_body['errors']).to be_nil
         end
 
         it 'returns an InviteInvalid error if no invite is passed' do
           expect { post :create, params: user_params }.not_to change(User, :count)
 
           expect(response).to have_http_status(:bad_request)
-          expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
+          expect(response.parsed_body['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
         end
 
         it 'returns an InviteInvalid error if the token is wrong' do
@@ -237,7 +259,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect { post :create, params: user_params }.not_to change(User, :count)
 
           expect(response).to have_http_status(:bad_request)
-          expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
+          expect(response.parsed_body['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
         end
       end
 
@@ -255,6 +277,20 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
       end
     end
+
+    context 'External AuthN enabled' do
+      before do
+        allow(controller).to receive(:external_authn_enabled?).and_return(true)
+      end
+
+      it 'returns :forbidden without creating the user account' do
+        expect { post :create, params: user_params }.not_to change(User, :count)
+
+        expect(response).to have_http_status(:forbidden)
+        expect(response.parsed_body['data']).to be_blank
+        expect(response.parsed_body['errors']).not_to be_nil
+      end
+    end
   end
 
   describe '#show' do
@@ -265,7 +301,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     it 'returns a user if id is valid' do
       get :show, params: { id: user.id }
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']['id']).to eq(user.id)
+      expect(response.parsed_body['data']['id']).to eq(user.id)
     end
   end
 
@@ -277,7 +313,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     it 'updates the users attributes' do
       updated_params = {
         name: 'New Name',
-        language: 'gl'
+        language: 'fr'
       }
       patch :update, params: { id: user.id, user: updated_params }
       expect(response).to have_http_status(:ok)
@@ -317,15 +353,32 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(user.role_id).not_to eq(updated_params[:role_id])
     end
 
-    it 'allows a user with ManageUser permissions to edit their own role' do
+    it 'allows a user to change their own name' do
+      updated_params = {
+        name: 'New Awesome Name'
+      }
+
+      patch :update, params: { id: user.id, user: updated_params }
+
+      user.reload
+
+      expect(user.name).to eq(updated_params[:name])
+    end
+
+    it 'doesnt allow a user with ManageUser permissions to edit their own role' do
       sign_in_user(user_with_manage_users_permission)
+
+      old_role_id = user_with_manage_users_permission.role_id
       updated_params = {
         role_id: create(:role, name: 'New Role').id
       }
+
       patch :update, params: { id: user_with_manage_users_permission.id, user: updated_params }
 
       user_with_manage_users_permission.reload
-      expect(user_with_manage_users_permission.role_id).to eq(updated_params[:role_id])
+      expect(response).to have_http_status(:forbidden)
+      expect(user_with_manage_users_permission.role_id).to eq(old_role_id)
+      expect(user_with_manage_users_permission.role_id).not_to eq(updated_params[:role_id])
     end
 
     it 'allows a user with ManageUser permissions to edit another users role' do
@@ -415,6 +468,34 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       sign_in_user(external_user)
       post :change_password, params: {}
       expect(response).to have_http_status(:forbidden)
+    end
+  end
+
+  context 'private methods' do
+    describe '#external_authn_enabled?' do
+      before do
+        allow(controller).to receive(:external_authn_enabled?).and_call_original
+      end
+
+      context 'OPENID_CONNECT_ISSUER is present?' do
+        before do
+          ENV['OPENID_CONNECT_ISSUER'] = 'issuer'
+        end
+
+        it 'returns true' do
+          expect(controller).to be_external_authn_enabled
+        end
+      end
+
+      context 'OPENID_CONNECT_ISSUER is NOT present?' do
+        before do
+          ENV['OPENID_CONNECT_ISSUER'] = ''
+        end
+
+        it 'returns false' do
+          expect(controller).not_to be_external_authn_enabled
+        end
+      end
     end
   end
 end

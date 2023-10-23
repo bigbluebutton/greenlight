@@ -32,9 +32,7 @@ namespace :configuration do
 
     info 'Checking connection to Postgres Database:'
     begin
-      ActiveRecord::Base.establish_connection # Establishes connection
-      ActiveRecord::Base.connection # Calls connection object
-      failed('Unable to connect to Database') unless ActiveRecord::Base.connected?
+      failed('Unable to connect to Database') unless ActiveRecord::Base.connection.active?
     rescue StandardError => e
       failed("Unable to connect to Database - #{e}")
     end

@@ -36,10 +36,10 @@ RSpec.describe Api::V1::Admin::SiteSettingsController, type: :controller do
       get :index, params: { names: %w[settingA settingB] }
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']).to eq({
-                                                        'settingA' => 'valueA',
-                                                        'settingB' => 'valueB'
-                                                      })
+      expect(response.parsed_body['data']).to eq({
+                                                   'settingA' => 'valueA',
+                                                   'settingB' => 'valueB'
+                                                 })
     end
 
     context 'user without ManageSiteSettings permission' do
@@ -58,9 +58,42 @@ RSpec.describe Api::V1::Admin::SiteSettingsController, type: :controller do
     it 'updates the value of SiteSetting' do
       setting = create(:setting, name: 'ShareRooms')
       site_setting = create(:site_setting, setting:, value: false)
-      get :update, params: { name: 'ShareRooms', site_setting: { value: true } }
+      patch :update, params: { name: 'ShareRooms', site_setting: { value: true } }
       expect(response).to have_http_status(:ok)
       expect(site_setting.reload.value).to eq('true')
+    end
+
+    context 'Branding image upload' do
+      describe 'valid image' do
+        it 'returns :ok and attach the file' do
+          setting = create(:setting, name: 'BrandingImage')
+          site_setting = create(:site_setting, setting:, value: false)
+
+          patch :update,
+                params: { name: 'BrandingImage', site_setting: {
+                  value: fixture_file_upload(file_fixture('default-avatar.png'), 'image/png')
+                } }
+
+          expect(site_setting.reload.image).to be_attached
+          expect(site_setting.image.blob.filename).to eq('default-avatar.png')
+          expect(response).to have_http_status(:ok)
+        end
+      end
+
+      describe 'invalid image' do
+        it 'returns :bad_request and does NOT attach the file' do
+          setting = create(:setting, name: 'BrandingImage')
+          site_setting = create(:site_setting, setting:, value: false)
+
+          patch :update,
+                params: { name: 'BrandingImage', site_setting: {
+                  value: fixture_file_upload(file_fixture('default-pdf.pdf'), 'application/pdf')
+                } }
+
+          expect(site_setting.reload.image).not_to be_attached
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
     end
 
     context 'user without ManageSiteSettings permission' do
@@ -69,7 +102,7 @@ RSpec.describe Api::V1::Admin::SiteSettingsController, type: :controller do
       end
 
       it 'cant update the value of SiteSetting' do
-        get :update, params: { name: 'ShareRooms', site_setting: { value: true } }
+        patch :update, params: { name: 'ShareRooms', site_setting: { value: true } }
         expect(response).to have_http_status(:forbidden)
       end
     end

@@ -42,7 +42,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
 
       get :show, params: { friendly_id: room.friendly_id }
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']).to eq({ 'setting' => 'value' })
+      expect(response.parsed_body['data']).to eq({ 'setting' => 'value' })
     end
 
     it 'returns the value for a shared user' do
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
       sign_in_user(shared_user)
 
       get :show, params: { friendly_id: room.friendly_id }
-      expect(JSON.parse(response.body)['data']).to eq({ 'setting' => 'value' })
+      expect(response.parsed_body['data']).to eq({ 'setting' => 'value' })
     end
 
     context 'AuthN' do

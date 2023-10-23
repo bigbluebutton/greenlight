@@ -51,12 +51,6 @@ jobs:
         shell: bash
         run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/} | cut -c 9-)"
 
-      - name: Extract Tag Release Major
-        id: ci_tag_release_major
-        if: contains(env.DOCKER_BUILD_ENABLED, 'true')
-        shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${{steps.ci_tag_release_version.outputs.tag}} | cut -f1-1 -d'.')"
-
       - name: Build and Push
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
         uses: docker/build-push-action@v3
@@ -64,7 +58,6 @@ jobs:
           push: true
           tags: |
             "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_version.outputs.tag }}"
-            "${{ steps.ci_docker_repository.outputs.repository }}:v${{ steps.ci_tag_release_major.outputs.tag }}"
           build-args: "VERSION_TAG=release-${{ steps.ci_tag_release_version.outputs.tag }}"
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new

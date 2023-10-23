@@ -32,10 +32,10 @@ RSpec.describe Api::V1::Admin::RolePermissionsController, type: :controller do
       get :index, params: { role_id: user_with_manage_roles_permission.role_id }
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']['CreateRoom']).to eq('true')
-      expect(JSON.parse(response.body)['data']['RoomLimit']).to eq('100')
-      expect(JSON.parse(response.body)['data']['SharedList']).to eq('true')
-      expect(JSON.parse(response.body)['data']['ManageRoles']).to eq('true')
+      expect(response.parsed_body['data']['CreateRoom']).to eq('true')
+      expect(response.parsed_body['data']['RoomLimit']).to eq('100')
+      expect(response.parsed_body['data']['SharedList']).to eq('true')
+      expect(response.parsed_body['data']['ManageRoles']).to eq('true')
     end
 
     context 'user without ManageRoles permission' do

@@ -29,12 +29,14 @@ import useCreateSession from '../../../../hooks/mutations/sessions/useCreateSess
 import useSignInForm from '../../../../hooks/forms/users/authentication/useSignInForm';
 import HCaptcha from '../../../shared_components/utilities/HCaptcha';
 import FormCheckBox from '../../../shared_components/forms/controls/FormCheckBox';
+import useEnv from '../../../../hooks/queries/env/useEnv';
 
 export default function SigninForm() {
   const { t } = useTranslation();
   const { methods, fields } = useSignInForm();
   const createSessionAPI = useCreateSession();
   const captchaRef = useRef(null);
+  const { data: env } = useEnv();
 
   const handleSubmit = useCallback(async (session) => {
     const results = await captchaRef.current?.execute({ async: true });
@@ -52,7 +54,11 @@ export default function SigninForm() {
           <FormCheckBox field={fields.extend_session} />
         </Col>
         <Col>
-          <Link to="/forget_password" className="text-link float-end small"> {t('authentication.forgot_password')} </Link>
+          {
+            env?.SMTP_ENABLED && (
+              <Link to="/forget_password" className="text-link float-end small"> {t('authentication.forgot_password')} </Link>
+            )
+          }
         </Col>
       </Row>
       <HCaptcha ref={captchaRef} />

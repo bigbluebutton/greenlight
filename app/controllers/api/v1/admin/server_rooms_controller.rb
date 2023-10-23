@@ -31,14 +31,14 @@ module Api
         def index
           sort_config = config_sorting(allowed_columns: %w[name users.name])
 
-          rooms = Room.includes(:user).joins(:user).where(users: { provider: current_provider }).order(sort_config, online: :desc)
+          rooms = Room.includes(:user).where(users: { provider: current_provider }).order(sort_config, online: :desc)
                       .order('last_session DESC NULLS LAST')&.admin_search(params[:search])
 
-          online_server_rooms(rooms)
+          pagy, paged_rooms = pagy(rooms)
 
-          pagy, rooms = pagy_array(rooms)
+          RunningMeetingChecker.new(rooms: paged_rooms.select(&:online)).call if paged_rooms.any?(&:online)
 
-          render_data data: rooms, meta: pagy_metadata(pagy), serializer: ServerRoomSerializer, status: :ok
+          render_data data: paged_rooms, meta: pagy_metadata(pagy), serializer: ServerRoomSerializer, status: :ok
         end
 
         # GET /api/v1/admin/server_rooms/:friendly_id/resync.json
@@ -53,20 +53,6 @@ module Api
 
         def find_room
           @room = Room.find_by!(friendly_id: params[:friendly_id])
-        end
-
-        def online_server_rooms(rooms)
-          online_rooms = BigBlueButtonApi.new(provider: current_provider).active_meetings
-          online_rooms_hash = {}
-
-          online_rooms.each do |online_room|
-            online_rooms_hash[online_room[:meetingID]] = online_room[:participantCount]
-          end
-
-          rooms.each do |room|
-            room.online = online_rooms_hash.key?(room.meeting_id)
-            room.participants = online_rooms_hash[room.meeting_id]
-          end
         end
       end
     end
