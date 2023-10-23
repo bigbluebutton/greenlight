@@ -60,8 +60,8 @@ export default function RoomCard({ room }) {
         </Stack>
 
         <Stack className="my-4">
-          <Card.Title className="mb-0"> { room.name } </Card.Title>
-          { room.shared_owner && (
+          <Card.Title className="mb-0"> {room.name} </Card.Title>
+          {room.shared_owner && (
             <span className="text-muted">{ t('room.shared_by') } {' '} <strong>{ room.shared_owner }</strong></span>
           )}
           { room.last_session ? (
