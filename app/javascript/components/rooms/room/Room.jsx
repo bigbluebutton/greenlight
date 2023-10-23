@@ -21,7 +21,7 @@ import {
 import {
   Link, Navigate, useLocation, useParams,
 } from 'react-router-dom';
-import { HomeIcon, Square2StackIcon, PhoneIcon} from '@heroicons/react/24/outline';
+import { HomeIcon, Square2StackIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
@@ -33,9 +33,6 @@ import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from '../MeetingBadges';
 import SharedBadge from './SharedBadge';
 import RoomNamePlaceHolder from './RoomNamePlaceHolder';
-import Modal from '../../shared_components/modals/Modal';
-import ShareRoomForm from './forms/ShareRoomForm';
-import Title from '../../shared_components/utilities/Title';
 
 export default function Room() {
   const { t } = useTranslation();
@@ -47,9 +44,14 @@ export default function Room() {
   const currentUser = useAuth();
   const localizedTime = localizeDayDateTimeString(room?.last_session, currentUser?.language);
 
-  // Custom logic to redirect from Rooms page to join page if this isnt the users room and they're not allowed to view it
-  if (isError && error.response.status === 403) {
-    return <Navigate to={`${location.pathname}/join`} />;
+  function copyInvite() {
+    navigator.clipboard.writeText(`${window.location}/join`);
+    toast.success(t('toast.success.room.copied_meeting_url'));
+  }
+
+  function copyVoiceBridge(voice_bridge, voice_bridge_phone_number) {
+    navigator.clipboard.writeText(`Tel.: ${voice_bridge_phone_number} Pin: ${voice_bridge}`);
+    toast.success(t('toast.success.room.copied_voice_bridge'));
   }
 
   return (
@@ -89,36 +91,29 @@ export default function Room() {
             }
           </Col>
           <Col>
-          {
-                isRoomLoading
-                  ? (
-                    <RoomNamePlaceHolder />
-                  ) : (
-                    <>
-            <Button variant="brand" className="start-meeting-btn mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
-              {startMeeting.isLoading && <Spinner className="me-2" />}
-              {room?.online ? (
-                t('room.meeting.join_meeting')
-              ) : (
-                t('room.meeting.start_meeting')
-              )}
-            </Button>
-            <Modal
-              size="lg"
-              modalButton={(
-                <Button
-                  variant="brand-outline"
-                  className="mt-1 mx-2 float-end"
-                >
-                  <ShareIcon className="hi-s me-1" />
-                  {t('room.meeting.share_meeting')}
-                </Button>
-              )}
-              title={t('room.meeting.share_meeting')}
-              body={<ShareRoomForm room={room} />}
-            />
-            </>
-            )}
+            {
+              isRoomLoading
+                ? (
+                  <RoomNamePlaceHolder />
+                ) : (
+                  <>
+                    <Button variant="brand" className="start-meeting-btn mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
+                      {startMeeting.isLoading && <Spinner className="me-2" />}
+                      {room?.online ? (
+                        t('room.meeting.join_meeting')
+                      ) : (
+                        t('room.meeting.start_meeting')
+                      )}
+                    </Button>
+                    <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyInvite()}>
+                      <Square2StackIcon className="hi-s me-1" />
+                      {t('copy')}
+                    </Button>
+                    {typeof room.voice_bridge_phone_number !== 'undefined' && <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyVoiceBridge(room?.voice_bridge, room?.voice_bridge_phone_number)}>
+                      <PhoneIcon className="hi-s me-1" />
+                      {t('copy_voice_bridge')}
+                    </Button>}</>)
+            }
           </Col>
         </Row>
       </div>
