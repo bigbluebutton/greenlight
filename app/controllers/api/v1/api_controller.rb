@@ -89,7 +89,7 @@ module Api
         { sort_column => sort_direction }
       end
 
-      # Checks if external authentication is enabled
+      # Checks if external authentication is enabled (currently only OIDC is implemented)
       def external_authn_enabled?
         ENV['OPENID_CONNECT_ISSUER'].present?
       end
