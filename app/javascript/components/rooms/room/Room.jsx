@@ -18,9 +18,7 @@ import React from 'react';
 import {
   Stack, Button, Col, Row,
 } from 'react-bootstrap';
-import {
-  Link, Navigate, useLocation, useParams,
-} from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { HomeIcon, Square2StackIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -33,6 +31,7 @@ import useStartMeeting from '../../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from '../MeetingBadges';
 import SharedBadge from './SharedBadge';
 import RoomNamePlaceHolder from './RoomNamePlaceHolder';
+import Title from '../../shared_components/utilities/Title';
 
 export default function Room() {
   const { t } = useTranslation();
