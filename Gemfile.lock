@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/Ithanil/omniauth-ldap
+  revision: 0e8852ecd28b4293245683348333af2fd8a1916f
+  specs:
+    omniauth-ldap (2.1.0)
+      net-ldap (~> 0.16)
+      omniauth (~> 2.1.0)
+      pyu-ruby-sasl (~> 0.0.3.3)
+      rubyntlm (~> 0.6.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -270,6 +280,7 @@ GEM
     net-imap (0.4.12)
       date
       net-protocol
+    net-ldap (0.18.0)
     net-pop (0.1.2)
       net-protocol
     net-protocol (0.2.2)
@@ -317,6 +328,7 @@ GEM
     public_suffix (5.0.3)
     puma (5.6.8)
       nio4r (~> 2.0)
+    pyu-ruby-sasl (0.0.3.3)
     racc (1.8.0)
     rack (2.2.9)
     rack-oauth2 (2.2.0)
@@ -430,6 +442,8 @@ GEM
     ruby-progressbar (1.13.0)
     ruby-vips (2.1.4)
       ffi (~> 1.12)
+    ruby2_keywords (0.0.5)
+    rubyntlm (0.6.3)
     rubyzip (2.3.2)
     selenium-webdriver (4.8.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -529,6 +543,7 @@ DEPENDENCIES
   lograge (~> 0.14.0)
   mini_magick (>= 4.9.5)
   omniauth (~> 2.1.2)
+  omniauth-ldap!
   omniauth-rails_csrf_protection (~> 1.0.2)
   omniauth_openid_connect (>= 0.6.1)
   pagy (~> 6.0, >= 6.0.0)
