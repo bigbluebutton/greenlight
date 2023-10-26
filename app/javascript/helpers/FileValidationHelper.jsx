@@ -45,7 +45,7 @@ export const PRESENTATION_SUPPORTED_EXTENSIONS = Object.keys(PRESENTATION_SUPPOR
 export const PRESENTATION_SUPPORTED_MIMES = Object.values(PRESENTATION_SUPPORTED_FORMATS);
 
 export const IMAGE_MAX_FILE_COEFF = 3;
-export const PRESENTATION_MAX_FILE_COEFF = 10;
+export const PRESENTATION_MAX_FILE_COEFF = 30;
 
 export const fileValidation = (file, type) => {
   const MEBIBYTE = 1024 * 1024;

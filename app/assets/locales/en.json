@@ -111,7 +111,7 @@
     "delete_room": "Delete Room",
     "create_new_room": "Create New Room",
     "enter_room_name": "Enter the room name",
-    "shared_by": "shared by ",
+    "shared_by": "shared by",
     "last_session": "Last Session: {{ localizedTime }}",
     "no_last_session": "No previous session created",
     "search_not_found": "No Rooms Found",
@@ -123,7 +123,13 @@
       "meeting_invitation": "You have been invited to join",
       "meeting_not_started": "The meeting has not started yet",
       "join_meeting_automatically": "You will automatically join when the meeting starts",
-      "recording_consent": "I acknowledge that this session may be recorded. This may include my voice and video if enabled."
+      "recording_consent": "I acknowledge that this session may be recorded. This may include my voice and video if enabled.",
+      "invite_to_meeting": "{{ name }} invites you to join a meeting.",
+      "join_by_url": "Join room by URL",
+      "alternative_options": "Alternative options to join",
+      "download_ics": "Download .ics calender file",
+      "share_meeting": "Share Room",
+      "join_by_phone": "join with telephone dial-up"
     },
     "presentation": {
       "presentation": "Presentation",
@@ -384,6 +390,7 @@
         "access_code_generated": "A new access code has been generated.",
         "access_code_deleted": "The access code has been deleted.",
         "copied_meeting_url": "The meeting URL has been copied. The link can be used to join the meeting.",
+        "download_ics": "The .ics file has been created. Open it to edit and send it, to invite people to your Meeting.",
         "copied_voice_bridge": "The phone number and pin have been copied. They can be used to join the conference."
       },
       "site_settings": {

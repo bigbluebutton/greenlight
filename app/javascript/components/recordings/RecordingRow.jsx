@@ -181,13 +181,14 @@ export default function RecordingRow({
                 <Button
                   variant="icon"
                   className="mt-1 me-3"
+                  title={t('recording.copy_recording_urls')}
                   onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}
                 >
                   <ClipboardDocumentIcon className="hi-s text-muted" />
                 </Button>
               )}
               <Modal
-                modalButton={<Dropdown.Item className="btn btn-icon"><TrashIcon className="hi-s me-2" /></Dropdown.Item>}
+                modalButton={<Dropdown.Item className="btn btn-icon"><TrashIcon className="hi-s me-2" title={t('delete')} /></Dropdown.Item>}
                 body={(
                   <DeleteRecordingForm
                     mutation={useDeleteAPI}
