@@ -17,34 +17,40 @@
 # frozen_string_literal: true
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  issuer = ENV.fetch('OPENID_CONNECT_ISSUER', '')
+  oidc_issuer = ENV.fetch('OPENID_CONNECT_ISSUER', '')
+  ldap_server = ENV.fetch('LDAP_SERVER', '')
+
   lb = ENV.fetch('LOADBALANCER_ENDPOINT', '')
 
   if lb.present?
-    provider :openid_connect, setup: lambda { |env|
-      request = Rack::Request.new(env)
-      current_provider = request.params['current_provider'] || request.host&.split('.')&.first
-      secret = Tenant.find_by(name: current_provider)&.client_secret
-      issuer_url = File.join issuer.to_s, "/#{current_provider}"
+    if oidc_issuer.present?
+      # OpenID Connect with LB
+      provider :openid_connect, setup: lambda { |env|
+        request = Rack::Request.new(env)
+        current_provider = request.params['current_provider'] || request.host&.split('.')&.first
+        secret = Tenant.find_by(name: current_provider)&.client_secret
+        issuer_url = File.join oidc_issuer.to_s, "/#{current_provider}"
 
-      env['omniauth.strategy'].options[:issuer] = issuer_url
-      env['omniauth.strategy'].options[:scope] = %i[openid email profile]
-      env['omniauth.strategy'].options[:uid_field] = ENV.fetch('OPENID_CONNECT_UID_FIELD', 'sub')
-      env['omniauth.strategy'].options[:discovery] = true
-      env['omniauth.strategy'].options[:client_options].identifier = ENV.fetch('OPENID_CONNECT_CLIENT_ID')
-      env['omniauth.strategy'].options[:client_options].secret = secret
-      env['omniauth.strategy'].options[:client_options].redirect_uri = File.join(
-        File.join('https://', "#{current_provider}.#{ENV.fetch('OPENID_CONNECT_REDIRECT', '')}", 'auth', 'openid_connect', 'callback')
-      )
-      env['omniauth.strategy'].options[:client_options].authorization_endpoint = File.join(issuer_url, 'protocol', 'openid-connect', 'auth')
-      env['omniauth.strategy'].options[:client_options].token_endpoint = File.join(issuer_url, 'protocol', 'openid-connect', 'token')
-      env['omniauth.strategy'].options[:client_options].userinfo_endpoint = File.join(issuer_url, 'protocol', 'openid-connect', 'userinfo')
-      env['omniauth.strategy'].options[:client_options].jwks_uri = File.join(issuer_url, 'protocol', 'openid-connect', 'certs')
-      env['omniauth.strategy'].options[:client_options].end_session_endpoint = File.join(issuer_url, 'protocol', 'openid-connect', 'logout')
-    }
-  elsif issuer.present?
+        env['omniauth.strategy'].options[:issuer] = issuer_url
+        env['omniauth.strategy'].options[:scope] = %i[openid email profile]
+        env['omniauth.strategy'].options[:uid_field] = ENV.fetch('OPENID_CONNECT_UID_FIELD', 'sub')
+        env['omniauth.strategy'].options[:discovery] = true
+        env['omniauth.strategy'].options[:client_options].identifier = ENV.fetch('OPENID_CONNECT_CLIENT_ID')
+        env['omniauth.strategy'].options[:client_options].secret = secret
+        env['omniauth.strategy'].options[:client_options].redirect_uri = File.join(
+          File.join('https://', "#{current_provider}.#{ENV.fetch('OPENID_CONNECT_REDIRECT', '')}", 'auth', 'openid_connect', 'callback')
+        )
+        env['omniauth.strategy'].options[:client_options].authorization_endpoint = File.join(issuer_url, 'protocol', 'openid-connect', 'auth')
+        env['omniauth.strategy'].options[:client_options].token_endpoint = File.join(issuer_url, 'protocol', 'openid-connect', 'token')
+        env['omniauth.strategy'].options[:client_options].userinfo_endpoint = File.join(issuer_url, 'protocol', 'openid-connect', 'userinfo')
+        env['omniauth.strategy'].options[:client_options].jwks_uri = File.join(issuer_url, 'protocol', 'openid-connect', 'certs')
+        env['omniauth.strategy'].options[:client_options].end_session_endpoint = File.join(issuer_url, 'protocol', 'openid-connect', 'logout')
+      }
+    end
+  elsif oidc_issuer.present?
+    # OpenID Connect
     provider :openid_connect,
-             issuer:,
+             issuer: oidc_issuer,
              scope: %i[openid email profile],
              uid_field: ENV.fetch('OPENID_CONNECT_UID_FIELD', 'sub'),
              discovery: true,
@@ -53,5 +59,16 @@ Rails.application.config.middleware.use OmniAuth::Builder do
                secret: ENV.fetch('OPENID_CONNECT_CLIENT_SECRET'),
                redirect_uri: File.join(ENV.fetch('OPENID_CONNECT_REDIRECT', ''), 'auth', 'openid_connect', 'callback')
              }
+  elsif ldap_server.present?
+    # LDAP
+    provider :ldap,
+             host: ldap_server,
+             title: ENV.fetch('LDAP_TITLE', nil),
+             port: ENV.fetch('LDAP_PORT', 389),
+             method: ENV.fetch('LDAP_METHOD', :plain),
+             base: ENV.fetch('LDAP_BASE', ''),
+             uid: ENV.fetch('LDAP_UID', ''),
+             bind_dn: ENV.fetch('LDAP_BIND_DN', ''),
+             password: ENV.fetch('LDAP_PASSWORD', nil)
   end
 end
