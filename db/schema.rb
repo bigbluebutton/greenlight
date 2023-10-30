@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_05_183747) do
+ActiveRecord::Schema[7.1].define(version: 2023_07_05_183747) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -53,6 +53,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_183747) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recording_id"], name: "index_formats_on_recording_id"
+  end
+
+  create_table "gifts", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "ticket"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "invitations", force: :cascade do |t|
@@ -179,6 +187,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_183747) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_tenants_on_name", unique: true
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.string "number", null: false
+    t.boolean "drawn", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
