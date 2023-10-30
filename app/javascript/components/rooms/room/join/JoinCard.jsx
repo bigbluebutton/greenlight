@@ -252,7 +252,7 @@ export default function JoinCard() {
         </Row>
         <Row>
           {!currentUser?.signed_in && (
-            env?.OPENID_CONNECT ? (
+            env?.EXTERNAL_AUTH ? (
               <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> {t('authentication.already_have_account')}
                 <RegularForm action={process.env.OMNIAUTH_PATH} method="POST" data-turbo="false">
                   <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />

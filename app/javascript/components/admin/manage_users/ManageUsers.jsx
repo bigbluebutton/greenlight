@@ -81,7 +81,7 @@ export default function ManageUsers() {
                             />
                           )}
                         {
-                          (!envAPI.isLoading && !envAPI.data?.OPENID_CONNECT)
+                          (!envAPI.isLoading && !envAPI.data?.EXTERNAL_AUTH)
                           && (
                             <Modal
                               modalButton={
