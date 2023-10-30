@@ -25,7 +25,7 @@ module Api
       # Returns basic NON-CONFIDENTIAL information on the environment variables
       def index
         render_data data: {
-          OPENID_CONNECT: ENV['OPENID_CONNECT_ISSUER'].present?,
+          EXTERNAL_AUTH: ENV['OPENID_CONNECT_ISSUER'].present?, # currently only OIDC is implemented
           HCAPTCHA_KEY: ENV.fetch('HCAPTCHA_SITE_KEY', nil),
           VERSION_TAG: ENV.fetch('VERSION_TAG', ''),
           CURRENT_PROVIDER: current_provider,

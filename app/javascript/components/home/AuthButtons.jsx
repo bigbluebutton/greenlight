@@ -40,7 +40,7 @@ export default function AuthButtons({ direction }) {
     return registrationMethod !== 'invite' || !!inviteToken;
   }
 
-  if (env?.OPENID_CONNECT) {
+  if (env?.EXTERNAL_AUTH) {
     return (
       <Form action={process.env.OMNIAUTH_PATH} method="POST" data-turbo="false">
         <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />

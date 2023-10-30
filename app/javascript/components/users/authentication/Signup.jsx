@@ -32,7 +32,7 @@ export default function Signup() {
   const envAPI = useEnv();
   const isLoading = envAPI.isLoading || registrationMethodSettingAPI.isLoading;
 
-  if (envAPI.data?.OPENID_CONNECT) {
+  if (envAPI.data?.EXTERNAL_AUTH) {
     return <Navigate to="/" replace />;
   }
 
