@@ -27,7 +27,9 @@ task :server_recordings_sync, %i[provider] => :environment do |_task, args|
     recordings = BigBlueButtonApi.new(provider: args[:provider]).get_recordings(meeting_ids:)
 
     # Skip the entire batch if the first and last recordings exist
-    next if Recording.exists?(record_id: recordings[:recordings][0][:recordID]) && Recording.exists?(record_id: recordings[:recordings][-1][:recordID])
+    if Recording.exists?(record_id: recordings[:recordings][0][:recordID]) && Recording.exists?(record_id: recordings[:recordings][-1][:recordID])
+      next
+    end
 
     recordings[:recordings].each do |recording|
       next if Recording.exists?(record_id: recording[:recordID])
