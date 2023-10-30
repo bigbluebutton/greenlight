@@ -25,7 +25,13 @@ task :server_recordings_sync, %i[provider] => :environment do |_task, args|
     meeting_ids = rooms.pluck(:meeting_id)
 
     recordings = BigBlueButtonApi.new(provider: args[:provider]).get_recordings(meeting_ids:)
+
+    # Skip the entire batch if the first and last recordings exist
+    next if Recording.exists?(record_id: recordings[:recordings][0][:recordID]) && Recording.exists?(record_id: recordings[:recordings][-1][:recordID])
+
     recordings[:recordings].each do |recording|
+      next if Recording.exists?(record_id: recording[:recordID])
+
       RecordingCreator.new(recording:).call
       success 'Successfully migrated Recording:'
       info "RecordID: #{recording[:recordID]}"
