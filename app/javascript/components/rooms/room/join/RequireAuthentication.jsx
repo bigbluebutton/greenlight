@@ -19,7 +19,6 @@ import { Button, Form } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import Logo from '../../../shared_components/Logo';
 import useEnv from '../../../../hooks/queries/env/useEnv';
 import ButtonLink from '../../../shared_components/utilities/ButtonLink';
 
