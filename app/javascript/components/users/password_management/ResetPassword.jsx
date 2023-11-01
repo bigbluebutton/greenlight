@@ -17,11 +17,13 @@
 import React, { useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import useVerifyToken from '../../../hooks/mutations/users/useVerifyToken';
 import ResetPwdForm from './forms/ResetPwdForm';
 import Logo from '../../shared_components/Logo';
 
 export default function ResetPassword() {
+  const { t } = useTranslation();
   const { token } = useParams();
   const verifyTokenAPI = useVerifyToken(token);
 
@@ -37,6 +39,7 @@ export default function ResetPassword() {
         <Logo />
       </div>
       <Card className="col-xl-5 col-lg-6 col-md-8 col-10 mx-auto p-4 border-0 card-shadow">
+        <Card.Title className="text-center pb-2"> { t('user.account.set_password') } </Card.Title>
         <ResetPwdForm token={token} />
       </Card>
     </div>
