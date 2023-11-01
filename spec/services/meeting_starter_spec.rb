@@ -41,7 +41,7 @@ describe MeetingStarter, type: :service do
       logoutURL: url,
       meta_endCallbackUrl: File.join(base_url, '/meeting_ended'),
       'meta_bbb-recording-ready-url': File.join(base_url, '/recording_ready'),
-      'meta_bbb-origin-version': 3,
+      'meta_bbb-origin-version': 'v3',
       'meta_bbb-origin': 'greenlight',
       setting: 'value'
     }
