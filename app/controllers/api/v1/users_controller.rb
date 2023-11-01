@@ -39,7 +39,7 @@ module Api
       # POST /api/v1/users.json
       # Creates and saves a new user record in the database with the provided parameters
       def create
-        return render_error status: :forbidden if external_authn_enabled?
+        return render_error status: :forbidden if external_auth?
 
         # Check if this is an admin creating a user
         admin_create = current_user && PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call

@@ -49,6 +49,8 @@ export default function useCreateSession() {
           toast.error(t('toast.error.users.banned'));
         } else if (err.response.data.errors === 'UnverifiedUser') {
           navigate(`/verify?id=${err.response.data.data}`);
+        } else if (err.response.data.errors === 'PasswordNotSet') {
+          navigate(`/reset_password/${err.response.data.data}`);
         } else {
           toast.error(t('toast.error.session.invalid_credentials'));
         }

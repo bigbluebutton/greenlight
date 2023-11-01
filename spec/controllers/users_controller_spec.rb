@@ -25,7 +25,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   before do
     ENV['SMTP_SERVER'] = 'test.com'
-    allow(controller).to receive(:external_authn_enabled?).and_return(false)
+    allow(controller).to receive(:external_auth?).and_return(false)
     request.headers['ACCEPT'] = 'application/json'
   end
 
@@ -280,7 +280,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context 'External AuthN enabled' do
       before do
-        allow(controller).to receive(:external_authn_enabled?).and_return(true)
+        allow(controller).to receive(:external_auth?).and_return(true)
       end
 
       it 'returns :forbidden without creating the user account' do
@@ -472,9 +472,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   end
 
   context 'private methods' do
-    describe '#external_authn_enabled?' do
+    describe '#external_auth??' do
       before do
-        allow(controller).to receive(:external_authn_enabled?).and_call_original
+        allow(controller).to receive(:external_auth?).and_call_original
       end
 
       context 'OPENID_CONNECT_ISSUER is present?' do
@@ -483,7 +483,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
 
         it 'returns true' do
-          expect(controller).to be_external_authn_enabled
+          expect(controller).to be_external_auth
         end
       end
 
@@ -493,7 +493,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
 
         it 'returns false' do
-          expect(controller).not_to be_external_authn_enabled
+          expect(controller).not_to be_external_auth
         end
       end
     end
