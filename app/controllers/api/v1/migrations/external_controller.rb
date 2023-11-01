@@ -105,6 +105,11 @@ module Api
 
           return render_error(status: :bad_request, errors: user&.errors&.to_a) unless user.save
 
+          if user_hash[:provider] != 'greenlight'
+            user.password_digest = nil
+            user.save(validations: false)
+          end
+
           render_data status: :created
         end
 
