@@ -56,7 +56,10 @@ module Api
         def create_default_room
           return unless role_params[:name] == 'CreateRoom' && role_params[:value] == true
 
-          User.includes(:rooms).where(role_id: role_params[:role_id]).where(rooms: { id: nil }).find_in_batches do |group|
+          User.includes(:rooms)
+              .with_provider(current_provider)
+              .where(role_id: role_params[:role_id])
+              .where(rooms: { id: nil }).find_in_batches do |group|
             group.each do |user|
               Room.create(name: t('room.new_room_name', username: user.name, locale: user.language), user_id: user.id)
             end
