@@ -483,7 +483,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
 
         it 'returns true' do
-          expect(controller).to be_external_authn_enabled
+          expect(controller).to be_external_auth
         end
       end
 
@@ -493,7 +493,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
 
         it 'returns false' do
-          expect(controller).not_to be_external_authn_enabled
+          expect(controller).not_to be_external_auth
         end
       end
     end
