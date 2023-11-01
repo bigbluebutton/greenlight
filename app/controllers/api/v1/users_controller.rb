@@ -169,7 +169,8 @@ module Api
         return false if create_user_params[:invite_token].blank?
 
         # Try to delete the invitation and return true if it succeeds
-        Invitation.destroy_by(email: create_user_params[:email], provider: current_provider, token: create_user_params[:invite_token]).present?
+        Invitation.destroy_by(email: create_user_params[:email].downcase, provider: current_provider,
+                              token: create_user_params[:invite_token]).present?
       end
     end
   end

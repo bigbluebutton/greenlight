@@ -91,7 +91,7 @@ module Api
             return render_error(status: :bad_request, errors: 'Provider does not exist')
           end
 
-          return render_data status: :created if User.exists?(email: user_hash[:email], provider: user_hash[:provider])
+          return render_data status: :created if User.exists?(email: user_hash[:email].downcase, provider: user_hash[:provider])
 
           user_hash[:language] = I18n.default_locale if user_hash[:language].blank? || user_hash[:language] == 'default'
 
