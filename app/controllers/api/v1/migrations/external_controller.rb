@@ -255,7 +255,7 @@ module Api
 
           raise ActiveSupport::MessageEncryptor::InvalidMessage unless encrypted_params.is_a? String
 
-          crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base[0..31], cipher: 'aes-256-gcm', serializer: Marshal)
+          crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secret_key_base[0..31], cipher: 'aes-256-gcm', serializer: Marshal)
           decrypted_params = crypt.decrypt_and_verify(encrypted_params) || {}
 
           raise ActiveSupport::MessageEncryptor::InvalidMessage unless decrypted_params.is_a? Hash
