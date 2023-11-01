@@ -77,7 +77,7 @@ export default function JoinCard() {
     }
 
     roomStatusAPI.mutate(data);
-    const interval = setInterval(() => roomStatusAPI.mutate(data), 5000);
+    const interval = setInterval(() => roomStatusAPI.mutate(data), 30000);
     setJoinInterval(interval);
   };
   const reset = () => { setHasStarted(false); };// Reset pipeline;
