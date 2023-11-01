@@ -110,7 +110,7 @@
     "delete_room": "Supprimer une salle",
     "create_new_room": "Créer une nouvelle salle",
     "enter_room_name": "Saisissez le nom de la salle",
-    "shared_by": "partagé par",
+    "shared_by": "Partagé par",
     "last_session": "Dernière session : {{ localizedTime }}",
     "no_last_session": "Il n'y a aucune session précédente",
     "search_not_found": "Aucune salle trouvée",
