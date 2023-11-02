@@ -28,7 +28,7 @@ import SearchBar from '../shared_components/search/SearchBar';
 import ProcessingRecordingRow from './ProcessingRecordingRow';
 
 export default function RecordingsList({
-  recordings, isLoading, setPage, searchInput, setSearchInput, recordingsProcessing, adminTable,
+  recordings, isLoading, setPage, searchInput, setSearchInput, recordingsProcessing, adminTable, numPlaceholders,
 }) {
   const { t } = useTranslation();
 
@@ -65,7 +65,7 @@ export default function RecordingsList({
                 <tbody className="border-top-0">
                   {[...Array(recordingsProcessing)].map(() => <ProcessingRecordingRow />)}
                   {
-                    (isLoading && [...Array(7)].map((val, idx) => (
+                    (isLoading && [...Array(numPlaceholders)].map((val, idx) => (
                       // eslint-disable-next-line react/no-array-index-key
                       <RecordingsListRowPlaceHolder key={idx} />
                     )))
@@ -103,6 +103,7 @@ RecordingsList.defaultProps = {
   recordingsProcessing: 0,
   searchInput: '',
   adminTable: false,
+  numPlaceholders: 7,
 };
 
 RecordingsList.propTypes = {
@@ -132,4 +133,5 @@ RecordingsList.propTypes = {
   setSearchInput: PropTypes.func.isRequired,
   recordingsProcessing: PropTypes.number,
   adminTable: PropTypes.bool,
+  numPlaceholders: PropTypes.number,
 };

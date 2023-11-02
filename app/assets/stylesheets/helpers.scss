@@ -34,14 +34,14 @@
 }
 
 .no-header-height {
-  min-height: calc(100vh - $footer-height - $footer-buffer-height);
+  min-height: calc(100vh - $footer-height);
 }
 
 .regular-height {
-  min-height: calc(100vh - $header-height - $footer-height - $footer-buffer-height);
+  min-height: calc(100vh - $header-height - $footer-height);
 
   .vertical-center {
-    min-height: calc(100vh - $header-height - $header-height - $footer-height - $footer-buffer-height);
+    min-height: calc(100vh - $header-height - $header-height - $footer-height);
   }
 }
 
