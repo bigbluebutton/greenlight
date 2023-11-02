@@ -71,8 +71,13 @@ export default function RecordingsList({
                     )))
                   }
                   {
-                    (recordings?.data?.length > 0 && recordings?.data?.map((recording) => (
-                      <RoomsRecordingRow key={recording.id} recording={recording} adminTable={adminTable} />
+                    (recordings?.data?.length > 0 && recordings?.data?.map((recording, idx) => (
+                      <RoomsRecordingRow
+                        key={recording.id}
+                        recording={recording}
+                        adminTable={adminTable}
+                        dropUp={(recordings?.meta?.page || 0) * (recordings?.meta?.items || 0) - 1 === idx}
+                      />
                     )))
                   }
                 </tbody>
@@ -99,7 +104,7 @@ export default function RecordingsList({
 }
 
 RecordingsList.defaultProps = {
-  recordings: { data: [], meta: { page: 1, pages: 1 } },
+  recordings: { data: [], meta: { page: 1, pages: 1, items: 3 } },
   recordingsProcessing: 0,
   searchInput: '',
   adminTable: false,
@@ -125,6 +130,7 @@ RecordingsList.propTypes = {
     meta: PropTypes.shape({
       page: PropTypes.number,
       pages: PropTypes.number,
+      items: PropTypes.number,
     }),
   }),
   isLoading: PropTypes.bool.isRequired,

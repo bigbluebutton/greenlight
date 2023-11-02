@@ -462,7 +462,7 @@ input.search-bar {
       box-shadow: 0 0 0 0.25rem var(--brand-color-light) !important;
     }
     &::after {
-      display: none;
+      display: none !important;
     }
   }
 
