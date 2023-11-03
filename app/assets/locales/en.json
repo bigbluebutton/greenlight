@@ -166,6 +166,7 @@
   "recording": {
     "recording": "Recording",
     "recordings": "Recordings",
+    "processing": "Recordings Processing...",
     "name": "Name",
     "length": "Length",
     "users": "Users",

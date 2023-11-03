@@ -16,7 +16,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Stack, Table } from 'react-bootstrap';
+import {
+  Badge, Card, Stack, Table,
+} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import SortBy from '../shared_components/search/SortBy';
 import RecordingsListRowPlaceHolder from './RecordingsListRowPlaceHolder';
@@ -25,7 +27,6 @@ import RoomsRecordingRow from './room_recordings/RoomsRecordingRow';
 import Pagination from '../shared_components/Pagination';
 import EmptyRecordingsList from './EmptyRecordingsList';
 import SearchBar from '../shared_components/search/SearchBar';
-import ProcessingRecordingRow from './ProcessingRecordingRow';
 
 export default function RecordingsList({
   recordings, isLoading, setPage, searchInput, setSearchInput, recordingsProcessing, adminTable, numPlaceholders,
@@ -42,6 +43,16 @@ export default function RecordingsList({
         <div>
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
+        { recordingsProcessing > 0 && (
+          <Badge className="ms-auto badge-brand-outline p-2">
+            <Stack direction="horizontal" gap={2}>
+              <Badge className="rounded-pill recordings-count-badge ms-2 text-brand">
+                { recordingsProcessing }
+              </Badge>
+              <span> { t('recording.processing') } </span>
+            </Stack>
+          </Badge>
+        )}
       </Stack>
       {
         (searchInput && recordings?.data.length === 0)
@@ -63,7 +74,6 @@ export default function RecordingsList({
                   </tr>
                 </thead>
                 <tbody className="border-top-0">
-                  {[...Array(recordingsProcessing)].map(() => <ProcessingRecordingRow />)}
                   {
                     (isLoading && [...Array(numPlaceholders)].map((val, idx) => (
                       // eslint-disable-next-line react/no-array-index-key
