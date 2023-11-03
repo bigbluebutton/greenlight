@@ -28,7 +28,7 @@ import SearchBar from '../shared_components/search/SearchBar';
 import ProcessingRecordingRow from './ProcessingRecordingRow';
 
 export default function RecordingsList({
-  recordings, isLoading, setPage, searchInput, setSearchInput, recordingsProcessing, adminTable,
+  recordings, isLoading, setPage, searchInput, setSearchInput, recordingsProcessing, adminTable, numPlaceholders,
 }) {
   const { t } = useTranslation();
 
@@ -65,14 +65,19 @@ export default function RecordingsList({
                 <tbody className="border-top-0">
                   {[...Array(recordingsProcessing)].map(() => <ProcessingRecordingRow />)}
                   {
-                    (isLoading && [...Array(7)].map((val, idx) => (
+                    (isLoading && [...Array(numPlaceholders)].map((val, idx) => (
                       // eslint-disable-next-line react/no-array-index-key
                       <RecordingsListRowPlaceHolder key={idx} />
                     )))
                   }
                   {
-                    (recordings?.data?.length > 0 && recordings?.data?.map((recording) => (
-                      <RoomsRecordingRow key={recording.id} recording={recording} adminTable={adminTable} />
+                    (recordings?.data?.length > 0 && recordings?.data?.map((recording, idx) => (
+                      <RoomsRecordingRow
+                        key={recording.id}
+                        recording={recording}
+                        adminTable={adminTable}
+                        dropUp={(recordings?.meta?.page || 0) * (recordings?.meta?.items || 0) - 1 === idx}
+                      />
                     )))
                   }
                 </tbody>
@@ -99,10 +104,11 @@ export default function RecordingsList({
 }
 
 RecordingsList.defaultProps = {
-  recordings: { data: [], meta: { page: 1, pages: 1 } },
+  recordings: { data: [], meta: { page: 1, pages: 1, items: 3 } },
   recordingsProcessing: 0,
   searchInput: '',
   adminTable: false,
+  numPlaceholders: 7,
 };
 
 RecordingsList.propTypes = {
@@ -124,6 +130,7 @@ RecordingsList.propTypes = {
     meta: PropTypes.shape({
       page: PropTypes.number,
       pages: PropTypes.number,
+      items: PropTypes.number,
     }),
   }),
   isLoading: PropTypes.bool.isRequired,
@@ -132,4 +139,5 @@ RecordingsList.propTypes = {
   setSearchInput: PropTypes.func.isRequired,
   recordingsProcessing: PropTypes.number,
   adminTable: PropTypes.bool,
+  numPlaceholders: PropTypes.number,
 };
