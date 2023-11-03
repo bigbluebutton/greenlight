@@ -20,19 +20,21 @@ import useUpdateRecordingVisibility from '../../../hooks/mutations/recordings/us
 import useDeleteRecording from '../../../hooks/mutations/recordings/useDeleteRecording';
 import RecordingRow from '../RecordingRow';
 
-export default function RoomsRecordingRow({ recording, adminTable }) {
+export default function RoomsRecordingRow({ recording, adminTable, dropUp }) {
   return (
     <RecordingRow
       adminTable={adminTable}
       recording={recording}
       visibilityMutation={useUpdateRecordingVisibility}
       deleteMutation={useDeleteRecording}
+      dropUp={dropUp}
     />
   );
 }
 
 RoomsRecordingRow.defaultProps = {
   adminTable: false,
+  dropUp: false,
 };
 
 RoomsRecordingRow.propTypes = {
@@ -51,4 +53,5 @@ RoomsRecordingRow.propTypes = {
     map: PropTypes.func,
   }).isRequired,
   adminTable: PropTypes.bool,
+  dropUp: PropTypes.bool,
 };

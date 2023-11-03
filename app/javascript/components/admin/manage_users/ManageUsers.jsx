@@ -47,7 +47,7 @@ export default function ManageUsers() {
   }
 
   return (
-    <div id="admin-panel" className="pb-3">
+    <div id="admin-panel" className="pb-4">
       <h3 className="py-5">{t('admin.admin_panel')}</h3>
       <Card className="border-0 card-shadow">
         <Tab.Container activeKey="users">
