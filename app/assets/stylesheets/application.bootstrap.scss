@@ -421,6 +421,14 @@ input.search-bar {
   }
 }
 
+.badge-brand-outline {
+  font-size: 0.8rem;
+  border: 2px solid gainsboro;
+  color: var(--brand-color);
+  background-color: white !important;
+  box-shadow: var(--brand-color-light);
+}
+
 .setting-select {
   button {
     background: white !important;
