@@ -77,7 +77,7 @@ module Api
         end
 
         # POST /api/v1/migrations/users.json
-        # Expects: { user: { :name, :email, :external_id, :language, :role } }
+        # Expects: { user: { :name, :email, :password_digest, :provider, :external_id, :language, :role } }
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Creates a user.
         def create_user
@@ -108,6 +108,8 @@ module Api
           if user_hash[:provider] != 'greenlight'
             user.password_digest = nil
             user.save(validations: false)
+          else
+            puts User.where(['id = ?', user.id]).update_all(password_digest: user_hash[:password_digest])
           end
 
           render_data status: :created
@@ -230,7 +232,7 @@ module Api
         end
 
         def user_params
-          decrypted_params.require(:user).permit(:name, :email, :provider, :external_id, :language, :role, :created_at)
+          decrypted_params.require(:user).permit(:name, :email, :password_digest, :provider, :external_id, :language, :role, :created_at)
         end
 
         def room_params
