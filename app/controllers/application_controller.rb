@@ -78,6 +78,7 @@ class ApplicationController < ActionController::Base
   def invalid_session?(user)
     return true if user&.session_token != session[:session_token]
     return true if user&.session_expiry && DateTime.now > user&.session_expiry
+    return true if !user.super_admin? && user.provider != current_provider
 
     false
   end
