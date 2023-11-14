@@ -38,11 +38,11 @@ RSpec.describe Api::V1::RoomsConfigurationsController, type: :controller do
 
       get :index
 
-      expect(JSON.parse(response.body)['data']).to eq({
-                                                        'TRUE' => 'true',
-                                                        'FALSE' => 'false',
-                                                        'OPTIONAL' => 'optional'
-                                                      })
+      expect(response.parsed_body['data']).to eq({
+                                                   'TRUE' => 'true',
+                                                   'FALSE' => 'false',
+                                                   'OPTIONAL' => 'optional'
+                                                 })
       expect(response).to have_http_status(:ok)
     end
   end
@@ -55,7 +55,7 @@ RSpec.describe Api::V1::RoomsConfigurationsController, type: :controller do
     it 'returns the correct configuration value' do
       get :show, params: { name: 'record' }
 
-      expect(JSON.parse(response.body)['data']).to eq('false')
+      expect(response.parsed_body['data']).to eq('false')
 
       expect(response).to have_http_status(:ok)
     end

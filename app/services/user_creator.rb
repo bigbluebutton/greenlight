@@ -25,6 +25,7 @@ class UserCreator
   end
 
   def call
+    @user_params[:email] = @user_params[:email].downcase
     email_role = infer_role_from_email(@user_params[:email])
 
     User.new({

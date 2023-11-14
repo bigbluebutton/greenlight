@@ -35,7 +35,7 @@ import SimpleSelect from '../shared_components/utilities/SimpleSelect';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
-  recording, visibilityMutation: useVisibilityAPI, deleteMutation: useDeleteAPI, adminTable,
+  recording, visibilityMutation: useVisibilityAPI, deleteMutation: useDeleteAPI, adminTable, dropUp,
 }) {
   const { t } = useTranslation();
 
@@ -104,6 +104,7 @@ export default function RecordingRow({
       <td className="border-0">
         <SimpleSelect
           defaultValue={recording.visibility}
+          dropUp={dropUp}
         >
           <Dropdown.Item
             key="Public/Protected"
@@ -181,13 +182,14 @@ export default function RecordingRow({
                 <Button
                   variant="icon"
                   className="mt-1 me-3"
+                  title={t('recording.copy_recording_urls')}
                   onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}
                 >
                   <ClipboardDocumentIcon className="hi-s text-muted" />
                 </Button>
               )}
               <Modal
-                modalButton={<Dropdown.Item className="btn btn-icon"><TrashIcon className="hi-s me-2" /></Dropdown.Item>}
+                modalButton={<Dropdown.Item className="btn btn-icon"><TrashIcon className="hi-s me-2" title={t('delete')} /></Dropdown.Item>}
                 body={(
                   <DeleteRecordingForm
                     mutation={useDeleteAPI}
@@ -204,6 +206,7 @@ export default function RecordingRow({
 
 RecordingRow.defaultProps = {
   adminTable: false,
+  dropUp: false,
 };
 
 RecordingRow.propTypes = {
@@ -226,4 +229,5 @@ RecordingRow.propTypes = {
   visibilityMutation: PropTypes.func.isRequired,
   deleteMutation: PropTypes.func.isRequired,
   adminTable: PropTypes.bool,
+  dropUp: PropTypes.bool,
 };

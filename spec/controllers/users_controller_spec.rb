@@ -25,7 +25,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   before do
     ENV['SMTP_SERVER'] = 'test.com'
-    allow(controller).to receive(:external_authn_enabled?).and_return(false)
+    allow(controller).to receive(:external_auth?).and_return(false)
     request.headers['ACCEPT'] = 'application/json'
   end
 
@@ -58,7 +58,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
 
         expect(response).to have_http_status(:created)
-        expect(JSON.parse(response.body)['errors']).to be_nil
+        expect(response.parsed_body['errors']).to be_nil
       end
 
       it 'assigns the User role to the user' do
@@ -170,7 +170,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
         expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
         expect(response).to have_http_status(:bad_request)
-        expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:record_invalid])
+        expect(response.parsed_body['errors']).to eq(Rails.configuration.custom_error_msgs[:record_invalid])
       end
 
       context 'Duplicated email' do
@@ -184,7 +184,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
           expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
           expect(response).to have_http_status(:bad_request)
-          expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:email_exists])
+          expect(response.parsed_body['errors']).to eq(Rails.configuration.custom_error_msgs[:email_exists])
         end
       end
     end
@@ -209,7 +209,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
         expect(User.find_by(email: user_params[:email]).role).to eq(autobots)
         expect(response).to have_http_status(:created)
-        expect(JSON.parse(response.body)['errors']).to be_nil
+        expect(response.parsed_body['errors']).to be_nil
       end
     end
 
@@ -228,7 +228,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
 
           expect(response).to have_http_status(:created)
-          expect(JSON.parse(response.body)['errors']).to be_nil
+          expect(response.parsed_body['errors']).to be_nil
         end
 
         it 'deletes an invitation after using it' do
@@ -244,14 +244,14 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect { post :create, params: user_params }.to change(User, :count).by(1)
 
           expect(response).to have_http_status(:created)
-          expect(JSON.parse(response.body)['errors']).to be_nil
+          expect(response.parsed_body['errors']).to be_nil
         end
 
         it 'returns an InviteInvalid error if no invite is passed' do
           expect { post :create, params: user_params }.not_to change(User, :count)
 
           expect(response).to have_http_status(:bad_request)
-          expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
+          expect(response.parsed_body['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
         end
 
         it 'returns an InviteInvalid error if the token is wrong' do
@@ -259,7 +259,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect { post :create, params: user_params }.not_to change(User, :count)
 
           expect(response).to have_http_status(:bad_request)
-          expect(JSON.parse(response.body)['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
+          expect(response.parsed_body['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
         end
       end
 
@@ -280,15 +280,15 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context 'External AuthN enabled' do
       before do
-        allow(controller).to receive(:external_authn_enabled?).and_return(true)
+        allow(controller).to receive(:external_auth?).and_return(true)
       end
 
       it 'returns :forbidden without creating the user account' do
         expect { post :create, params: user_params }.not_to change(User, :count)
 
         expect(response).to have_http_status(:forbidden)
-        expect(JSON.parse(response.body)['data']).to be_blank
-        expect(JSON.parse(response.body)['errors']).not_to be_nil
+        expect(response.parsed_body['data']).to be_blank
+        expect(response.parsed_body['errors']).not_to be_nil
       end
     end
   end
@@ -301,7 +301,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     it 'returns a user if id is valid' do
       get :show, params: { id: user.id }
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['data']['id']).to eq(user.id)
+      expect(response.parsed_body['data']['id']).to eq(user.id)
     end
   end
 
@@ -472,9 +472,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   end
 
   context 'private methods' do
-    describe '#external_authn_enabled?' do
+    describe '#external_auth??' do
       before do
-        allow(controller).to receive(:external_authn_enabled?).and_call_original
+        allow(controller).to receive(:external_auth?).and_call_original
       end
 
       context 'OPENID_CONNECT_ISSUER is present?' do
@@ -483,7 +483,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
 
         it 'returns true' do
-          expect(controller).to be_external_authn_enabled
+          expect(controller).to be_external_auth
         end
       end
 
@@ -493,7 +493,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
 
         it 'returns false' do
-          expect(controller).not_to be_external_authn_enabled
+          expect(controller).not_to be_external_auth
         end
       end
     end

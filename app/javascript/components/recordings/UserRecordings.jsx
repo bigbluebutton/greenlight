@@ -31,6 +31,7 @@ export default function UserRecordings() {
         setPage={setPage}
         setSearchInput={setSearchInput}
         searchInput={searchInput}
+        numPlaceholders={5}
       />
     </div>
   );

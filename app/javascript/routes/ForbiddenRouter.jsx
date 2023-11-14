@@ -14,28 +14,17 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import { toast } from 'react-toastify';
-import { useMutation } from 'react-query';
-import { useTranslation } from 'react-i18next';
-import axios from '../../../helpers/Axios';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import DefaultErrorPage from '../components/errors/DefaultErrorPage';
 
-export default function useRoomStatus(friendlyId, joinInterval) {
-  const { t } = useTranslation();
+export default function ForbiddenRouter() {
+  const regex = /rooms\/(\w{3}-\w{3}-\w{3})(-\w{3})?/;
+  const match = window.location.pathname.match(regex);
 
-  return useMutation(
-    (data) => axios.post(`/meetings/${friendlyId}/status.json`, data).then((resp) => resp.data.data),
-    {
-      onSuccess: ({ joinUrl }) => {
-        if (joinUrl) {
-          clearInterval(joinInterval);
-          toast.loading(t('toast.success.room.joining_meeting'));
-          window.location.replace(joinUrl);
-        }
-      },
-      onError: () => {
-        clearInterval(joinInterval);
-        toast.error(t('toast.error.problem_completing_action'));
-      },
-    },
-  );
+  if (match) {
+    return <Navigate to={`${match[0]}/join`} />;
+  }
+
+  return <DefaultErrorPage />;
 }

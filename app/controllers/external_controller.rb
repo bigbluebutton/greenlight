@@ -129,7 +129,7 @@ class ExternalController < ApplicationController
     return false if token.blank?
 
     # Try to delete the invitation and return true if it succeeds
-    Invitation.destroy_by(email:, provider: current_provider, token:).present?
+    Invitation.destroy_by(email: email.downcase, provider: current_provider, token:).present?
   end
 
   def build_user_info(credentials)

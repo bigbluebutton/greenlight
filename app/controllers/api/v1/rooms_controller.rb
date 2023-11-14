@@ -51,7 +51,7 @@ module Api
           room.shared = true if room.user_id != current_user.id
         end
 
-        RunningMeetingChecker.new(rooms: rooms.select(&:online)).call if rooms.select(&:online).any?
+        RunningMeetingChecker.new(rooms: rooms.select(&:online)).call if rooms.any?(&:online)
 
         render_data data: rooms, status: :ok
       end
@@ -133,7 +133,7 @@ module Api
       def recordings
         sort_config = config_sorting(allowed_columns: %w[name length visibility])
 
-        pagy, room_recordings = pagy(@room.recordings&.order(sort_config, recorded_at: :desc)&.search(params[:q]))
+        pagy, room_recordings = pagy(@room.recordings&.order(sort_config, recorded_at: :desc)&.search(params[:q]), items: 3)
         render_data data: room_recordings, meta: pagy_metadata(pagy), status: :ok
       end
 

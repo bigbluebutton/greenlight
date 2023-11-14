@@ -91,7 +91,7 @@ module Api
             return render_error(status: :bad_request, errors: 'Provider does not exist')
           end
 
-          return render_data status: :created if User.exists?(email: user_hash[:email], provider: user_hash[:provider])
+          return render_data status: :created if User.exists?(email: user_hash[:email].downcase, provider: user_hash[:provider])
 
           user_hash[:language] = I18n.default_locale if user_hash[:language].blank? || user_hash[:language] == 'default'
 
@@ -104,6 +104,11 @@ module Api
           user = User.new(user_hash.merge(verified: true, role:))
 
           return render_error(status: :bad_request, errors: user&.errors&.to_a) unless user.save
+
+          if user_hash[:provider] != 'greenlight'
+            user.password_digest = nil
+            user.save(validations: false)
+          end
 
           render_data status: :created
         end
@@ -231,7 +236,8 @@ module Api
         def room_params
           decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, :provider,
                                                  shared_users_emails: [],
-                                                 room_settings: %w[record muteOnStart guestPolicy glAnyoneCanStart glAnyoneJoinAsModerator])
+                                                 room_settings: %w[record muteOnStart guestPolicy glAnyoneCanStart glAnyoneJoinAsModerator
+                                                                   glViewerAccessCode glModeratorAccessCode])
         end
 
         def settings_params
@@ -249,7 +255,7 @@ module Api
 
           raise ActiveSupport::MessageEncryptor::InvalidMessage unless encrypted_params.is_a? String
 
-          crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base[0..31], cipher: 'aes-256-gcm', serializer: Marshal)
+          crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secret_key_base[0..31], cipher: 'aes-256-gcm', serializer: Marshal)
           decrypted_params = crypt.decrypt_and_verify(encrypted_params) || {}
 
           raise ActiveSupport::MessageEncryptor::InvalidMessage unless decrypted_params.is_a? Hash

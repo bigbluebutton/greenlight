@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source config.env
+source bin/config.env
 
 echo "Greenlight-v3 starting on port: $PORT"
 
@@ -28,4 +28,4 @@ rails assets:precompile
 rails db:create
 rails db:migrate:with_data
 
-rails s -b 0.0.0.0 -p $PORT
+exec rails s -b 0.0.0.0 -p $PORT

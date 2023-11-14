@@ -19,9 +19,10 @@
 module Api
   module V1
     class RoomsConfigurationsController < ApiController
-      before_action only: %i[index show] do
+      before_action only: %i[index] do
         ensure_authorized(%w[CreateRoom ManageSiteSettings ManageRoles ManageRooms], friendly_id: params[:friendly_id])
       end
+      skip_before_action :ensure_authenticated, only: %i[show]
 
       # GET /api/v1/rooms_configurations.json
       # Fetches and returns all rooms configurations.
@@ -45,7 +46,7 @@ module Api
 
         render_data data: config_value, status: :ok
       rescue StandardError
-        return render_error status: :not_found unless config_value
+        render_error status: :not_found unless config_value
       end
     end
   end

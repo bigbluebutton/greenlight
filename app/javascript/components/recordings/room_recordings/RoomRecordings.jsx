@@ -36,6 +36,7 @@ export default function RoomRecordings() {
         setSearchInput={setSearchInput}
         searchInput={searchInput}
         recordingsProcessing={roomRecordingsProcessing.data}
+        numPlaceholders={3}
       />
     </div>
   );

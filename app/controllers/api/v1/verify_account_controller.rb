@@ -61,8 +61,8 @@ module Api
       def find_user_and_authorize
         return render_error status: :bad_request unless params[:user]
 
-        @user = User.find_by id: params[:user][:id]
-        return render_data status: :ok unless @user && !@user.verified?
+        @user = User.find_by id: params[:user][:id], provider: current_provider
+        render_data status: :ok unless @user && !@user.verified?
       end
     end
   end

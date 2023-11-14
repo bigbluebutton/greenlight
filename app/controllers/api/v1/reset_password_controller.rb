@@ -30,7 +30,7 @@ module Api
         # TODO: Log events.
         return render_error unless params[:user]
 
-        user = User.find_by email: params[:user][:email]
+        user = User.find_by email: params[:user][:email].downcase, provider: current_provider
 
         # Silently fail for unfound or external users.
         return render_data status: :ok unless user && !user.external_id?
