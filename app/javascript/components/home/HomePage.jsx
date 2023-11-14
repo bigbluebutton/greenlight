@@ -26,6 +26,7 @@ import {
 import { toast } from 'react-toastify';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import HomepageFeatureCard from './HomepageFeatureCard';
+import useRoomConfigValue from '../../hooks/queries/rooms/useRoomConfigValue.jsx';
 
 export default function HomePage() {
   const { t } = useTranslation();
@@ -33,6 +34,7 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const error = searchParams.get('error');
+  const { data: recordValue } = useRoomConfigValue('record');
 
   // Redirects the user to the proper page based on signed in status and CreateRoom permission
   useEffect(
@@ -88,13 +90,15 @@ export default function HomePage() {
             icon={<ComputerDesktopIcon className="hi-s text-white" />}
           />
         </Col>
-        <Col className="mb-3">
-          <HomepageFeatureCard
-            title={t('homepage.recording_title')}
-            description={t('homepage.recording_description')}
-            icon={<VideoCameraIcon className="hi-s text-white" />}
-          />
-        </Col>
+        { (recordValue !== 'false' || recordValue !== 'optional') && (
+          <Col className="mb-3">
+            <HomepageFeatureCard
+              title={t('homepage.recording_title')}
+              description={t('homepage.recording_description')}
+              icon={<VideoCameraIcon className="hi-s text-white" />}
+            />
+          </Col>
+        )}
         <Col className="mb-3">
           <HomepageFeatureCard
             title={t('homepage.settings_title')}
