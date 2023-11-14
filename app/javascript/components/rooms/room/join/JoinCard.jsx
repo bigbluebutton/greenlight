@@ -42,7 +42,7 @@ import RoomJoinPlaceholder from './RoomJoinPlaceholder';
 import useRoomJoinForm from '../../../../hooks/forms/rooms/useRoomJoinForm';
 import ButtonLink from '../../../shared_components/utilities/ButtonLink';
 import Title from '../../../shared_components/utilities/Title';
-import useRoomConfigValue from '../../../../hooks/queries/rooms/useRoomConfigValue.jsx';
+import useRoomConfigValue from '../../../../hooks/queries/rooms/useRoomConfigValue';
 
 export default function JoinCard() {
   const { t } = useTranslation();
