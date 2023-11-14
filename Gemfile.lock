@@ -54,7 +54,7 @@ GEM
       activemodel (>= 4.1)
       case_transform (>= 0.2)
       jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
-    active_storage_validations (1.0.4)
+    active_storage_validations (1.1.0)
       activejob (>= 5.2.0)
       activemodel (>= 5.2.0)
       activestorage (>= 5.2.0)
@@ -257,7 +257,7 @@ GEM
     memoist (0.16.2)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.4)
+    mini_portile2 (2.8.5)
     minitest (5.20.0)
     msgpack (1.6.0)
     multi_json (1.15.0)
@@ -489,7 +489,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (>= 0.10.14)
-  active_storage_validations (>= 1.0.4)
+  active_storage_validations (>= 1.1.0)
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   bigbluebutton-api-ruby (= 1.9.1)
