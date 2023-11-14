@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '>= 3.0'
 
 gem 'active_model_serializers', '>= 0.10.14'
-gem 'active_storage_validations', '>= 1.0.4'
+gem 'active_storage_validations', '>= 1.1.0'
 gem 'aws-sdk-s3', require: false
 gem 'bcrypt', '~> 3.1.7'
 gem 'bigbluebutton-api-ruby', '1.9.1'
