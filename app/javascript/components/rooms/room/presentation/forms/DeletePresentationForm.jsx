@@ -37,7 +37,7 @@ export default function DeletePresentationForm({ handleClose }) {
       <Stack direction="horizontal" className="mb-3">
         <ExclamationTriangleIcon className="text-danger hi-xl" />
         <Stack direction="vertical" className="ps-3">
-          <h3> { t('recording.delete_recording') } </h3>
+          <h3> { t('room.presentation.delete_presentation') } </h3>
           <p className="mb-0"> { t('room.presentation.are_you_sure_delete_presentation') } </p>
           <p className="mt-0"><strong> { t('action_permanent') } </strong></p>
         </Stack>

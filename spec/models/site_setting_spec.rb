@@ -48,7 +48,7 @@ RSpec.describe SiteSetting, type: :model do
       it 'fails if the attachement is too large' do
         site_setting = build(:site_setting, image: fixture_file_upload(file_fixture('large-avatar.jpg'), 'image/jpeg'))
         expect(site_setting).to be_invalid
-        expect(site_setting.errors).to be_of_kind(:image, :file_size_out_of_range)
+        expect(site_setting.errors).to be_of_kind(:image, :file_size_not_less_than)
       end
     end
   end
