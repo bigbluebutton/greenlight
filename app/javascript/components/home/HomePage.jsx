@@ -90,7 +90,7 @@ export default function HomePage() {
             icon={<ComputerDesktopIcon className="hi-s text-white" />}
           />
         </Col>
-        { (recordValue !== 'false' || recordValue !== 'optional') && (
+        { (recordValue !== 'false') && (
           <Col className="mb-3">
             <HomepageFeatureCard
               title={t('homepage.recording_title')}

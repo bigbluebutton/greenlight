@@ -207,7 +207,7 @@ export default function JoinCard() {
             <h1 className="mt-2">
               {publicRoom?.data.name}
             </h1>
-            { (recordValue !== 'false' || recordValue !== 'optional') && (
+            { (recordValue !== 'false') && (
               <ButtonLink
                 variant="brand-outline"
                 className="mt-3 mb-0 cursor-pointer"
