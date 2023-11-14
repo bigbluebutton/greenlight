@@ -19,12 +19,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
-export default function SimpleSelect({ defaultValue, children }) {
+export default function SimpleSelect({ defaultValue, dropUp, children }) {
   // Get the currently selected option and set the dropdown toggle to that value
   const defaultString = children?.filter((item) => item.props.value === defaultValue)[0];
 
   return (
-    <Dropdown className="simple-select">
+    <Dropdown className="simple-select" drop={dropUp ? 'up' : undefined}>
       <Dropdown.Toggle>
         { defaultString?.props?.children }
         <ChevronDownIcon className="hi-s float-end" />
@@ -38,10 +38,12 @@ export default function SimpleSelect({ defaultValue, children }) {
 
 SimpleSelect.defaultProps = {
   defaultValue: '',
+  dropUp: false,
   children: undefined,
 };
 
 SimpleSelect.propTypes = {
   defaultValue: PropTypes.string,
+  dropUp: PropTypes.bool,
   children: PropTypes.arrayOf(PropTypes.element),
 };

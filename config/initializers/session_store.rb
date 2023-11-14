@@ -16,22 +16,8 @@
 
 # frozen_string_literal: true
 
-module Api
-  module V1
-    class EnvController < ApiController
-      skip_before_action :ensure_authenticated
-
-      # GET /api/v1/env
-      # Returns basic NON-CONFIDENTIAL information on the environment variables
-      def index
-        render_data data: {
-          EXTERNAL_AUTH: external_auth?,
-          HCAPTCHA_KEY: ENV.fetch('HCAPTCHA_SITE_KEY', nil),
-          VERSION_TAG: ENV.fetch('VERSION_TAG', ''),
-          CURRENT_PROVIDER: current_provider,
-          SMTP_ENABLED: ENV.fetch('SMTP_SERVER', nil)
-        }, status: :ok
-      end
-    end
-  end
+if ENV['LOADBALANCER_ENDPOINT'].present?
+  Rails.application.config.session_store :cookie_store, key: '_greenlight-3_0_session', domain: ENV.fetch('SESSION_DOMAIN_NAME', nil)
+else
+  Rails.application.config.session_store :cookie_store, key: '_greenlight-3_0_session'
 end

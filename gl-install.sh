@@ -405,7 +405,7 @@ install_greenlight_v3(){
   local REDIS_URL_ROOT="redis://$RSTXADDR"
 
   local PGDBNAME=greenlight-v3-production
-  local SECRET_KEY_BASE=$(docker run --rm --entrypoint bundle $GL_IMG_REPO exec rake secret)
+  local SECRET_KEY_BASE=$(docker run --rm --entrypoint bundle $GL_IMG_REPO exec rails secret)
 
   if [ -z "$SECRET_KEY_BASE" ]; then
     err "failed to generate greenlight-v3 secret key base - is docker running?"

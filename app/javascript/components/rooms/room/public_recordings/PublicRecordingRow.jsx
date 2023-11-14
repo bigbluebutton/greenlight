@@ -73,6 +73,7 @@ export default function PublicRecordingRow({
           <Button
             variant="icon"
             className="mt-1 me-3"
+            title={t('recording.copy_recording_urls')}
             onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}
           >
             <ClipboardDocumentIcon className="hi-s text-muted" />
