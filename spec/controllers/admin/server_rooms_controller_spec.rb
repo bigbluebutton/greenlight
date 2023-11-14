@@ -154,7 +154,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
                                hasJoinedVoice: 'false',
                                hasVideo: 'false',
                                clientType: 'HTML5' } },
-      metadata: { 'bbb-origin-version': '3',
+      metadata: { 'bbb-origin-version': 'v3',
                   'bbb-recording-ready-url': 'http://localhost:3000/recording_ready',
                   'bbb-origin': 'greenlight',
                   endcallbackurl: 'http://localhost:3000/meeting_ended' },

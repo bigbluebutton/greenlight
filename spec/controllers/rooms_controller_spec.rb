@@ -298,8 +298,8 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     it 'returns recordings belonging to the room' do
       room1 = create(:room, user:, friendly_id: 'friendly_id_1')
       room2 = create(:room, user:, friendly_id: 'friendly_id_2')
-      recordings = create_list(:recording, 5, room: room1)
-      create_list(:recording, 5, room: room2)
+      recordings = create_list(:recording, 3, room: room1)
+      create_list(:recording, 3, room: room2)
       get :recordings, params: { friendly_id: room1.friendly_id }
       recording_ids = response.parsed_body['data'].pluck('id')
       expect(response).to have_http_status(:ok)
@@ -320,7 +320,7 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       create(:shared_access, user_id: shared_user.id, room_id: room.id)
       sign_in_user(shared_user)
 
-      recordings = create_list(:recording, 5, room:)
+      recordings = create_list(:recording, 3, room:)
 
       get :recordings, params: { friendly_id: room.friendly_id }
 

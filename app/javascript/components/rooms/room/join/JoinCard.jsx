@@ -42,6 +42,7 @@ import RoomJoinPlaceholder from './RoomJoinPlaceholder';
 import useRoomJoinForm from '../../../../hooks/forms/rooms/useRoomJoinForm';
 import ButtonLink from '../../../shared_components/utilities/ButtonLink';
 import Title from '../../../shared_components/utilities/Title';
+import useRoomConfigValue from '../../../../hooks/queries/rooms/useRoomConfigValue';
 
 export default function JoinCard() {
   const { t } = useTranslation();
@@ -54,6 +55,7 @@ export default function JoinCard() {
   const roomStatusAPI = useRoomStatus(friendlyId, joinInterval);
 
   const { data: env } = useEnv();
+  const { data: recordValue } = useRoomConfigValue('record');
 
   const { methods, fields } = useRoomJoinForm();
 
@@ -77,7 +79,7 @@ export default function JoinCard() {
     }
 
     roomStatusAPI.mutate(data);
-    const interval = setInterval(() => roomStatusAPI.mutate(data), 5000);
+    const interval = setInterval(() => roomStatusAPI.mutate(data), 30000);
     setJoinInterval(interval);
   };
   const reset = () => { setHasStarted(false); };// Reset pipeline;
@@ -205,13 +207,15 @@ export default function JoinCard() {
             <h1 className="mt-2">
               {publicRoom?.data.name}
             </h1>
-            <ButtonLink
-              variant="brand-outline"
-              className="mt-3 mb-0 cursor-pointer"
-              to={`/rooms/${friendlyId}/public_recordings`}
-            >
-              <span> <VideoCameraIcon className="hi-s text-brand" /> {t('view_recordings')} </span>
-            </ButtonLink>
+            { (recordValue !== 'false') && (
+              <ButtonLink
+                variant="brand-outline"
+                className="mt-3 mb-0 cursor-pointer"
+                to={`/rooms/${friendlyId}/public_recordings`}
+              >
+                <span> <VideoCameraIcon className="hi-s text-brand" /> {t('view_recordings')} </span>
+              </ButtonLink>
+            )}
           </Col>
           <Col>
             <Stack direction="vertical" gap={3}>
@@ -252,7 +256,7 @@ export default function JoinCard() {
         </Row>
         <Row>
           {!currentUser?.signed_in && (
-            env?.OPENID_CONNECT ? (
+            env?.EXTERNAL_AUTH ? (
               <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> {t('authentication.already_have_account')}
                 <RegularForm action={process.env.OMNIAUTH_PATH} method="POST" data-turbo="false">
                   <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />

@@ -73,6 +73,7 @@ module Api
 
         # Can't share the room if it's already shared or it's the room owner
         shareable_users = User.with_attached_avatar
+                              .with_provider(current_provider)
                               .where.not(id: [@room.shared_users.pluck(:id) << @room.user_id])
                               .where(role_id: [role_ids])
                               .name_search(params[:search])

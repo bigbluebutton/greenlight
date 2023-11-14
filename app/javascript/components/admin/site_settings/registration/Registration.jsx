@@ -52,7 +52,7 @@ export default function Registration() {
         </Dropdown.Item>
       </SettingSelect>
 
-      { env?.OPENID_CONNECT && (
+      { env?.EXTERNAL_AUTH && (
         <Row className="mb-3">
           <SettingsRow
             name="ResyncOnLogin"

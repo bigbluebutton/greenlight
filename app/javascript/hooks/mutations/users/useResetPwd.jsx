@@ -28,7 +28,7 @@ export default function useResetPwd() {
     (user) => axios.post('/reset_password/reset.json', { user }),
     {
       onSuccess: () => {
-        toast.success(t('toast.success.user.password_updated'));
+        toast.success(t('toast.success.user.password_changed'));
         navigate('/signin');
       },
       onError: () => {

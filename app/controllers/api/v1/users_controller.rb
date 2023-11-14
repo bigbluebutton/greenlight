@@ -39,7 +39,7 @@ module Api
       # POST /api/v1/users.json
       # Creates and saves a new user record in the database with the provided parameters
       def create
-        return render_error status: :forbidden if external_authn_enabled?
+        return render_error status: :forbidden if external_auth?
 
         # Check if this is an admin creating a user
         admin_create = current_user && PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call
@@ -169,7 +169,8 @@ module Api
         return false if create_user_params[:invite_token].blank?
 
         # Try to delete the invitation and return true if it succeeds
-        Invitation.destroy_by(email: create_user_params[:email], provider: current_provider, token: create_user_params[:invite_token]).present?
+        Invitation.destroy_by(email: create_user_params[:email].downcase, provider: current_provider,
+                              token: create_user_params[:invite_token]).present?
       end
     end
   end
