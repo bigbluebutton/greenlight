@@ -15,9 +15,7 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import React from 'react';
-import {
-  Navigate, Outlet, useLocation, useMatch,
-} from 'react-router-dom';
+import { Navigate, Outlet, useMatch } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useAuth } from '../contexts/auth/AuthProvider';
