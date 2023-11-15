@@ -46,7 +46,7 @@ export default function AuthenticatedOnly() {
 
   // Custom logic to redirect from Rooms page to join page if the user isn't signed in
   if (!currentUser.signed_in && roomsMatch) {
-    return <Navigate to={`${location.pathname}/join`} />;
+    return <Navigate to={`${roomsMatch.pathnameBase}/join`} />;
   }
 
   if (currentUser.signed_in && currentUser.isSuperAdmin && !superAdminMatch) {
