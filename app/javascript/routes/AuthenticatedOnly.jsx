@@ -26,7 +26,6 @@ import useDeleteSession from '../hooks/mutations/sessions/useDeleteSession';
 export default function AuthenticatedOnly() {
   const { t } = useTranslation();
   const currentUser = useAuth();
-  const location = useLocation();
   const roomsMatch = useMatch('/rooms/:friendlyId');
   const superAdminMatch = useMatch('/admin/*');
   const deleteSession = useDeleteSession({ showToast: false });
