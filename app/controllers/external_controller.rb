@@ -24,13 +24,22 @@ class ExternalController < ApplicationController
   # GET 'auth/:provider/callback'
   # Creates the user using the information received through the external auth method
   def create_user
+    debugger
     provider = current_provider
 
     credentials = request.env['omniauth.auth']
 
     user_info = build_user_info(credentials)
 
-    user = User.find_by(external_id: credentials['uid'], provider:) || User.find_by(email: credentials['info']['email'], provider:)
+    user = User.find_by(external_id: credentials['uid'], provider:)
+
+    # Fallback mechanism to search by email
+    if user.blank?
+      user = User.find_by(email: credentials['info']['email'], provider:)
+      # Update the user's external id to the latest value to avoid using the fallback
+      user.update(external_id: credentials['uid']) if user.present? && credentials['uid'].present?
+    end
+
     new_user = user.blank?
 
     registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
