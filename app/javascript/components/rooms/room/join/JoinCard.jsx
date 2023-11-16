@@ -207,15 +207,13 @@ export default function JoinCard() {
             <h1 className="mt-2">
               {publicRoom?.data.name}
             </h1>
-            { (recordValue !== 'false') && (
-              <ButtonLink
-                variant="brand-outline"
-                className="mt-3 mb-0 cursor-pointer"
-                to={`/rooms/${friendlyId}/public_recordings`}
-              >
-                <span> <VideoCameraIcon className="hi-s text-brand" /> {t('view_recordings')} </span>
-              </ButtonLink>
-            )}
+            <ButtonLink
+              variant="brand-outline"
+              className="mt-3 mb-0 cursor-pointer"
+              to={`/rooms/${friendlyId}/public_recordings`}
+            >
+              <span> <VideoCameraIcon className="hi-s text-brand" /> {t('view_recordings')} </span>
+            </ButtonLink>
           </Col>
           <Col>
             <Stack direction="vertical" gap={3}>
