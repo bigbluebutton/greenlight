@@ -18,7 +18,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import {
-  Navigate, Link, useParams,
+  Navigate, Link, useParams, useLocation,
 } from 'react-router-dom';
 import {
   Button, Col, Row, Stack, Form as RegularForm,
@@ -60,6 +60,19 @@ export default function JoinCard() {
   const { methods, fields } = useRoomJoinForm();
 
   const path = encodeURIComponent(document.location.pathname);
+
+  // get queryParams for JoinFormName
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const joinFormName = queryParams.get('joinFormName');
+
+  useEffect(() => { // Default join name input to the value of joinFormName if it's provided in the query parameters
+    if (joinFormName) {
+      methods.setValue('name', joinFormName);
+    } else if (currentUser?.name) {
+      methods.setValue('name', currentUser.name);
+    }
+  }, [joinFormName, currentUser?.name]);
 
   useEffect(() => { // set cookie to return to if needed
     const date = new Date();
