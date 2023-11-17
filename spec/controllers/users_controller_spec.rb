@@ -72,7 +72,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
           expect(ActionMailer::MailDeliveryJob).to have_been_enqueued
                                                .at(:no_wait).exactly(:once)
-                                               .with('UserMailer', 'new_user_signup_email', 'deliver_now', Hash)
+            .with('UserMailer', 'new_user_signup_email', 'deliver_now', Hash)
         end
       end
 
