@@ -66,6 +66,16 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(User.find_by(email: user_params[:user][:email]).role.name).to eq('User')
       end
 
+      context 'EmailOnSignup' do
+        it 'emails all admins that a new user has signed up' do
+          post :create, params: user_params
+
+          expect(ActionMailer::MailDeliveryJob).to have_been_enqueued
+                                               .at(:no_wait).exactly(:once)
+                                               .with('UserMailer', 'new_user_signup_email', 'deliver_now', Hash)
+        end
+      end
+
       context 'User language' do
         it 'Persists the user language in the user record' do
           post :create, params: user_params
