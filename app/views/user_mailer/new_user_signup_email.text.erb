@@ -17,9 +17,10 @@
 %>
 
 ---
-<%= t('email.invitation.invitation_to_join') %>
-<%= t('email.invitation.you_have_been_invited', name: @name) %>
-<%= t('email.invitation.get_started') %>
+<%= t('email.new_user_signup.new_user') %>
+<%= t('email.new_user_signup.new_user_description' %>
+<%= t('email.new_user_signup.name', name: @user.name) %>
+<%= t('email.new_user_signup.email', email: @user.email) %>
+<%= t('email.new_user_signup.take_action') %>
 <%= @signup_url %>
-<%= t('email.invitation.valid_invitation') %>
 ---
