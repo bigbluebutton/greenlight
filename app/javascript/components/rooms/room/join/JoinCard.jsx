@@ -66,14 +66,6 @@ export default function JoinCard() {
   const queryParams = new URLSearchParams(location.search);
   const joinFormName = queryParams.get('joinFormName');
 
-  useEffect(() => { // Default join name input to the value of joinFormName if it's provided in the query parameters
-    if (joinFormName) {
-      methods.setValue('name', joinFormName);
-    } else if (currentUser?.name) {
-      methods.setValue('name', currentUser.name);
-    }
-  }, [joinFormName, currentUser?.name]);
-
   useEffect(() => { // set cookie to return to if needed
     const date = new Date();
     date.setTime(date.getTime() + (60 * 1000)); // expire the cookie in 1min
@@ -99,10 +91,12 @@ export default function JoinCard() {
 
   useEffect(() => {
     // Default Join name to authenticated user full name.
-    if (currentUser?.name) {
+    if (joinFormName) {
+      methods.setValue('name', joinFormName);
+    } else if (currentUser?.name) {
       methods.setValue('name', currentUser.name);
     }
-  }, [currentUser?.name]);
+  }, [joinFormName, currentUser?.name]);
 
   useEffect(() => {
     // Room channel subscription:
