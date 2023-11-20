@@ -105,12 +105,8 @@ module Api
 
           return render_error(status: :bad_request, errors: user&.errors&.to_a) unless user.save
 
-          if user_hash[:provider] != 'greenlight'
-            user.password_digest = nil
-            user.save(validations: false)
-          else
-            puts User.where(['id = ?', user.id]).update_all(password_digest: user_hash[:password_digest])
-          end
+          user.password_digest = user_hash[:provider] != 'greenlight' ? nil : user_hash[:password_digest]
+          user.save(validations: false)
 
           render_data status: :created
         end
