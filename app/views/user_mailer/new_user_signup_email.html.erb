@@ -1,0 +1,30 @@
+<!--BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.-->
+
+<!--Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).-->
+
+<!--This program is free software; you can redistribute it and/or modify it under the-->
+<!--terms of the GNU Lesser General Public License as published by the Free Software-->
+<!--Foundation; either version 3.0 of the License, or (at your option) any later-->
+<!--version.-->
+
+<!--Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY-->
+<!--WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A-->
+<!--PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.-->
+
+<!--You should have received a copy of the GNU Lesser General Public License along-->
+<!--with Greenlight; if not, see <http://www.gnu.org/licenses/>.-->
+
+<div style="padding-left: 80px; padding-right: 80px;">
+  <p style="font-size: 40px; margin-bottom: 20px; font-weight: 600;"><%= t('email.new_user_signup.new_user') %></p>
+
+  <p style="font-size: 24px;"><%= t('email.new_user_signup.new_user_description') %></p>
+
+  <p style="font-size: 20px;"><%= t('email.new_user_signup.name', name: @user.name) %></p>
+  <p style="font-size: 20px;"><%= t('email.new_user_signup.email', email: @user.email) %></p>
+
+  <p style="font-size: 24px;"><%= t('email.new_user_signup.take_action') %></p>
+
+  <a href="<%= @signup_url %>" target="_blank" style="background-color: <%= @brand_color %>; border-radius: 8px; border: none; color: white; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; font-weight: 600; margin-top: 16px; margin-bottom: 64px;">
+    <%= t('email.new_user_signup.admin_panel') %>
+  </a>
+</div>

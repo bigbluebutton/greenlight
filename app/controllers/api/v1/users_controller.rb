@@ -76,6 +76,9 @@ module Api
             UserMailer.with(user:,
                             activation_url: activate_account_url(token), base_url: request.base_url,
                             provider: current_provider).activate_account_email.deliver_later
+
+            UserMailer.with(user:, admin_panel_url:, provider: current_provider)
+                      .new_user_signup_email.deliver_later
           end
 
           create_default_room(user)

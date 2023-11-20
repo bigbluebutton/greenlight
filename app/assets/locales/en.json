@@ -357,7 +357,8 @@
         "manage_site_settings": "Allow users with this role to manage site settings",
         "manage_roles": "Allow users with this role to edit other roles",
         "shared_list": "Include users with this role in the dropdown for sharing rooms",
-        "room_limit": "Room Limit"
+        "room_limit": "Room Limit",
+        "email_on_signup": "Receive an email when a new user signs up"
       }
     }
   },
