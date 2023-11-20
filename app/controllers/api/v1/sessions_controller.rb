@@ -20,6 +20,7 @@ module Api
   module V1
     class SessionsController < ApiController
       skip_before_action :ensure_authenticated, only: %i[index create]
+      before_action :ensure_unauthenticated, only: :create
 
       # GET /api/v1/sessions
       # Returns the current_user
@@ -43,7 +44,7 @@ module Api
         return render_error if user.blank?
 
         # Will return an error if the user is NOT from the current provider and if the user is NOT a super admin
-        return render_error if user.provider != current_provider && !user.super_admin?
+        return render_error status: :forbidden if !user.super_admin? && (user.provider != current_provider || external_auth?)
 
         # Password is not set (local user migrated from v2)
         if user.external_id.blank? && user.password_digest.blank?
