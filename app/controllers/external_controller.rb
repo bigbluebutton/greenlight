@@ -24,7 +24,6 @@ class ExternalController < ApplicationController
   # GET 'auth/:provider/callback'
   # Creates the user using the information received through the external auth method
   def create_user
-    debugger
     provider = current_provider
 
     credentials = request.env['omniauth.auth']
