@@ -38,4 +38,10 @@ class UserMailerPreview < ActionMailer::Preview
 
     UserMailer.with(user: fake_user.new('user', 'user@users'), invitation_url: 'https://example.com/invite').invitation_email
   end
+
+  def new_user_signup_email
+    fake_user = Struct.new(:name, :email)
+
+    UserMailer.with(user: fake_user.new('user', 'user@users')).new_user_signup_email
+  end
 end

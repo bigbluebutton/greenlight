@@ -130,6 +130,13 @@ export default function EditRoleForm({ role }) {
                 defaultValue={rolePermissions?.SharedList === 'true'}
               />
 
+              <RolePermissionRow
+                permissionName="EmailOnSignup"
+                description={t('admin.roles.edit.email_on_signup')}
+                roleId={role?.id}
+                defaultValue={rolePermissions?.EmailOnSignup === 'true'}
+              />
+
               <Form methods={methodsLimit} onBlur={methodsLimit.handleSubmit(updatePermissionAPI.mutate)}>
                 <Stack direction="horizontal">
                   <div className="text-muted me-auto">

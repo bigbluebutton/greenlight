@@ -16,8 +16,6 @@
 
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/PerceivedComplexity
-
 module Api
   module V1
     module Migrations
@@ -274,4 +272,3 @@ module Api
     end
   end
 end
-# rubocop:enable Metrics/PerceivedComplexity
