@@ -29,6 +29,11 @@ module Authorizable
     render_error status: :unauthorized unless current_user
   end
 
+  # Ensures that the user is NOT logged in
+  def ensure_unauthenticated
+    render_error status: :unauthorized if current_user
+  end
+
   # PermissionsChecker service will return a true or false depending on whether the current_user's role has the provided permission_name
   def ensure_authorized(permission_names, user_id: nil, friendly_id: nil, record_id: nil)
     render_error status: :forbidden unless PermissionsChecker.new(
