@@ -29,7 +29,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 
       env['omniauth.strategy'].options[:issuer] = issuer_url
       env['omniauth.strategy'].options[:scope] = %i[openid email profile]
-      env['omniauth.strategy'].options[:uid_field] = ENV.fetch('OPENID_CONNECT_UID_FIELD', 'preferred_username')
+      env['omniauth.strategy'].options[:uid_field] = ENV.fetch('OPENID_CONNECT_UID_FIELD', 'sub')
       env['omniauth.strategy'].options[:discovery] = true
       env['omniauth.strategy'].options[:client_options].identifier = ENV.fetch('OPENID_CONNECT_CLIENT_ID')
       env['omniauth.strategy'].options[:client_options].secret = secret
@@ -46,7 +46,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     provider :openid_connect,
              issuer:,
              scope: %i[openid email profile],
-             uid_field: ENV.fetch('OPENID_CONNECT_UID_FIELD', 'preferred_username'),
+             uid_field: ENV.fetch('OPENID_CONNECT_UID_FIELD', 'sub'),
              discovery: true,
              client_options: {
                identifier: ENV.fetch('OPENID_CONNECT_CLIENT_ID'),

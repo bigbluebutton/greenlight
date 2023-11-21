@@ -29,6 +29,7 @@ import useDeleteSharedAccess from '../../../../hooks/mutations/shared_accesses/u
 import useSharedUsers from '../../../../hooks/queries/shared_accesses/useSharedUsers';
 import SharedAccessEmpty from './SharedAccessEmpty';
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
+import { useAuth } from '../../../../contexts/auth/AuthProvider';
 
 export default function SharedAccess() {
   const { t } = useTranslation();
@@ -37,6 +38,8 @@ export default function SharedAccess() {
   const { data: sharedUsers } = useSharedUsers(friendlyId, searchInput);
   const deleteSharedAccess = useDeleteSharedAccess(friendlyId);
   const { data: room } = useRoom(friendlyId);
+  const currentUser = useAuth();
+  const isAdmin = currentUser?.role.name === 'Administrator';
 
   if (sharedUsers?.length || searchInput) {
     return (
@@ -45,7 +48,7 @@ export default function SharedAccess() {
           <div>
             <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
           </div>
-          { !room.shared && (
+          { (!room.shared || isAdmin) && (
             <Modal
               modalButton={(
                 <Button
@@ -82,7 +85,7 @@ export default function SharedAccess() {
                           </Stack>
                         </td>
                         <td>
-                          {!room.shared && (
+                          { (!room.shared || isAdmin) && (
                           <Button
                             variant="icon"
                             className="float-end pe-2"

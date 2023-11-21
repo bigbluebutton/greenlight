@@ -50,7 +50,7 @@ group :test do
   gem 'capybara'
   gem 'factory_bot_rails', '>= 6.3.0'
   gem 'faker'
-  gem 'rspec-rails', '>= 6.0.2'
+  gem 'rspec-rails', '>= 6.0.4'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'webdrivers'
