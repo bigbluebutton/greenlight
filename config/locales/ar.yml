@@ -65,6 +65,13 @@ ar:
       get_started: للتسجيل ، يرجى النقر فوق الزر أدناه واتباع الخطوات.
       valid_invitation: الدعوة صالحة لمدة 24 ساعة.
       sign_up: التسجيل
+    new_user_signup:
+      new_user: تسجيل مستخدم جديد
+      new_user_description: قام مستخدم جديد بالتسجيل لاستخدام بك بلو بتن.
+      name: "الاسم: %{name}"
+      email: "البريد: %{email}"
+      admin_panel: "لوحة الإدارة"
+      take_action: "لعرض المستخدم الجديد أو اتخاذ الإجراء اللازم، قم بزيارة لوحة الادارة"
     reset:
       password_reset: إعادة تعيين كلمة المرور
       password_reset_requested: "تم طلب إعادة تعيين كلمة المرور لـ %{email}."
