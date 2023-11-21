@@ -65,6 +65,13 @@ fa_IR:
       get_started: برای ثبت‌نام، لطفا روی دکمهٔ زیر کلیک کنید و گام‌ها را دنبال کنید.
       valid_invitation: دعوت‌نامه فقط ۴۸ ساعت اعتبار دارد.
       sign_up: ثبت‌نام
+    new_user_signup:
+      new_user: ثبت نام کاربر جدید
+      new_user_description: یک کاربر جدید برای استفاده از BigBlueButton ثبت نام کرده است.
+      name: "نام: %{name}"
+      email: "ایمیل: %{email}"
+      admin_panel: "پنل مدیر کل"
+      take_action: "برای مشاهده کاربر جدید یا انجام اقدامات لازم، به پنل مدیر مراجعه کنید"
     reset:
       password_reset: بازنشانی گذرواژه
       password_reset_requested: "بازنشانی گذرواژه برای %{email} درخواست شده‌است."
