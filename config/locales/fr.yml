@@ -47,30 +47,37 @@
 
 fr:
   opengraph:
-    description: "Apprenez à utiliser BigBlueButton, la solution de webconférence open-source, fiable et qui offre une expérience adaptée aux collaborations comme aux apprentissages en ligne."
+    description: "Apprenez à utiliser BigBlueButton, la solution de webconférence open-source, fiable et qui offre une  expérience adaptée aux collaborations comme aux apprentissages en ligne."
   meeting:
-    moderator_message: "Pour inviter quelqu'un à la réunion, envoyez ce lien:"
-    access_code: "Code d'accès: 1%{code}"
+    moderator_message: "Pour inviter quelqu'un à la réunion, envoyez-lui ce lien :"
+    access_code: "Code d'accès: %{code}"
   email:
     activation:
       account_activation: Activation du compte
-      welcome_to_bbb: Bienvenue dans BigBlueButton!
-      get_started: "Pour commencer, veuillez activer votre compte en cliquant sur le lien ci-dessous."
+      welcome_to_bbb: Bienvenue dans BigBlueButton
+      get_started: "Pour commencer, veuillez activer votre compte en cliquant sur le bouton ci-dessous."
       activate_account: Activer le compte
       link_expires: Le lien expirera dans 24 heures.
-      if_link_expires: "Si le lien a expiré, veuillez vous connecter et demander un nouveau courriel d'activation"
+      if_link_expires: "Si le lien a expiré, veuillez vous connecter et demander un nouveau courriel pour l'activation."
     invitation:
-      invitation_to_join: Invitation à rejoindre BigBlueButton
-      you_have_been_invited: "Vous avez été invité à créer un compte dans BigBlueButton par 1%{name}."
-      get_started: "Pour vous inscrire, veuillez cliquer sur le bouton ci-dessous et suivre les étapes proposées"
+      invitation_to_join: Invitation BigBlueButton
+      you_have_been_invited: "Vous avez été invité à créer un compte BigBlueButton par %{name} ."
+      get_started: "Pour vous inscrire, veuillez cliquer sur le bouton ci-dessous et suivre les instructions."
       valid_invitation: L'invitation est valable pendant 24 heures.
-      sign_up: inscription
+      sign_up: Inscription
+    new_user_signup:
+      new_user: Un nouvel utilisateur s'est inscrit
+      new_user_description: Un nouvel utilisateur s'est inscrit pour utiliser BigBlueButton.
+      name: "Nom: %{name}"
+      email: "Courriel:  %{email}"
+      admin_panel: "Panneau Administrateur"
+      take_action: "Pour afficher le nouvel utilisateur ou toute action nécessaire, consultez le Panneau Administrateur"
     reset:
-      password_reset: Demande de réinitialisation du mot de passe
-      password_reset_requested: "Une demande de réinitialisation de mot de passe est demandée par 1%{email}"
-      password_reset_confirmation: "Pour réinitialiser votre mot de passe, veuillez cliquer sur la bouton ci-dessous\""
-      reset_password: Réinitialisation du mot de passe
+      password_reset: Réinitialiser le mot de passe
+      password_reset_requested: "Une réinitialisation de mot de passe a été demandée par %{email} ."
+      password_reset_confirmation: "Pour réinitialiser votre mot de passe, veuillez cliquer sur le bouton ci-dessous."
+      reset_password: Réinitialiser le mot de passe
       link_expires: Le lien expirera dans 1 heure.
-      ignore_request: "Si vous n'avez pas demandé à changer de mot de passe, ignorez ce message."
+      ignore_request: "Si vous n'avez pas demandé un changement de mot de passe, veuillez ignorer ce courriel."
   room:
     new_room_name: "Salle de %{username}"
