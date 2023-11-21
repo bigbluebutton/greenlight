@@ -307,7 +307,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
             encrypted_params = encrypt_params({ user: valid_user_params }, expires_in: 10.seconds)
             expect { post :create_user, params: { v2: { encrypted_params: } } }.to change(User, :count).by(1)
 
-            user = User.take
+            user = User.find_by(email: valid_user_params[:email])
             expect(user.name).to eq(valid_user_params[:name])
             expect(user.email).to eq(valid_user_params[:email])
             expect(user.language).to eq(valid_user_params[:language])
