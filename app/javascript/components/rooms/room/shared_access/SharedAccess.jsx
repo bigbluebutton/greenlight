@@ -40,7 +40,6 @@ export default function SharedAccess() {
   const { data: room } = useRoom(friendlyId);
   const currentUser = useAuth();
   const isAdmin = currentUser?.role.name === 'Administrator';
-  const isOwner = room?.owner_name === currentUser?.name;
 
   if (sharedUsers?.length || searchInput) {
     return (
@@ -49,7 +48,7 @@ export default function SharedAccess() {
           <div>
             <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
           </div>
-          { (isAdmin || isOwner) && (
+          { (!room.shared || isAdmin) && (
             <Modal
               modalButton={(
                 <Button
@@ -86,7 +85,7 @@ export default function SharedAccess() {
                           </Stack>
                         </td>
                         <td>
-                          { (isAdmin || isOwner) && (
+                          { (!room.shared || isAdmin) && (
                           <Button
                             variant="icon"
                             className="float-end pe-2"
