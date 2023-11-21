@@ -158,7 +158,7 @@ GEM
     drb (2.2.0)
       ruby2_keywords
     erubi (1.12.0)
-    factory_bot (6.4.0)
+    factory_bot (6.4.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.4.0)
       factory_bot (~> 6.4)
@@ -505,6 +505,7 @@ DEPENDENCIES
   data_migrate (>= 9.2.0)
   debug
   dotenv-rails
+  factory_bot (>= 6.4.1)
   factory_bot_rails (>= 6.3.0)
   faker
   google-cloud-storage (~> 1.44)
