@@ -55,7 +55,10 @@ class ExternalController < ApplicationController
       create_default_room(user)
 
       # Send admins an email if smtp is enabled
-      UserMailer.with(user:, admin_panel_url:, provider: current_provider).new_user_signup_email.deliver_later if ENV['SMTP_SERVER'].present?
+      if ENV['SMTP_SERVER'].present?
+        UserMailer.with(user:, admin_panel_url:, base_url: request.base_url,
+                        provider: current_provider).new_user_signup_email.deliver_later
+      end
     end
 
     if SettingGetter.new(setting_name: 'ResyncOnLogin', provider:).call
