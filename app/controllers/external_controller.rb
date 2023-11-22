@@ -53,6 +53,9 @@ class ExternalController < ApplicationController
       user = UserCreator.new(user_params: user_info, provider: current_provider, role: default_role).call
       user.save!
       create_default_room(user)
+
+      # Send admins an email if smtp is enabled
+      UserMailer.with(user:, admin_panel_url:, provider: current_provider).new_user_signup_email.deliver_later if ENV['SMTP_SERVER'].present?
     end
 
     if SettingGetter.new(setting_name: 'ResyncOnLogin', provider:).call
