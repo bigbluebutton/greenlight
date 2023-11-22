@@ -65,6 +65,13 @@ tr:
       get_started: Hesap açmak için aşağıdaki düğmeye tıklayın ve yönergeleri izleyin.
       valid_invitation: Bu çağrı 24 saat süreyle geçerlidir.
       sign_up: Hesap aç
+    new_user_signup:
+      new_user: Yeni kullanıcı hesabı açma
+      new_user_description: Yeni bir kullanıcı BigBlueButton kullanmak için hesap açtı.
+      name: "Adı: %{name}"
+      email: "E-posta adresi: %{email}"
+      admin_panel: "Yönetim panosu"
+      take_action: "Yeni kullanıcıyı görüntülemek ya da gerekli işlemi yapmak için yönetim panosuna gidin"
     reset:
       password_reset: Parolayı sıfırla
       password_reset_requested: "%{email} için bir parola sıfırlama isteğinde bulunuldu."
