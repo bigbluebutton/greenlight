@@ -115,7 +115,6 @@ module Api
         #                    shared_users_emails: [ <list of shared users emails> ] }}
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Creates a Room and its RoomMeetingOptions.
-        # rubocop:disable Metrics/CyclomaticComplexity
         def create_room
           room_hash = room_params.to_h
 
@@ -170,7 +169,6 @@ module Api
 
           render_data status: :created
         end
-        # rubocop:enable Metrics/CyclomaticComplexity
 
         # POST /api/v1/migrations/site_settings.json
         # Expects: { settings: { site_settings: { :PrimaryColor, :PrimaryColorLight, :PrimaryColorDark,
