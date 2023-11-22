@@ -66,7 +66,7 @@ en:
       valid_invitation: The invitation is valid for 24 hours.
       sign_up: Sign Up
     new_user_signup:
-      new_user: New User Signup
+      new_user: New BigBlueButton User Signup
       new_user_description: A new user has signed up to use BigBlueButton.
       name: "Name: %{name}"
       email: "Email: %{email}"
