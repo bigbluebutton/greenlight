@@ -71,9 +71,8 @@ class UserMailer < ApplicationMailer
 
   def admin_emails
     # Find all the roles that have EmailOnSignup enabled
-    role_ids = Role.joins(role_permissions: :permission)
-                   .with_provider(@provider)
-                   .where(role_permissions: { value: 'true' }, permission: { name: 'EmailOnSignup' })
+    role_ids = Role.joins(role_permissions: :permission).with_provider(@provider).where(role_permissions: { value: 'true' },
+                                                                                        permission: { name: 'EmailOnSignup' })
                    .pluck(:id)
 
     User.where(role_id: role_ids).pluck(:email)
