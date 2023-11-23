@@ -47,26 +47,26 @@
 
 tr:
   opengraph:
-    description: "Sorunsuz sanal işbirliği ve çevrim içi öğrenme deneyimleri sağlayan, güvenilir ve açık kaynaklı internet üzerinden görüşme çözümü BigBlueButton uygulamasını kullanarak öğrenin."
+    description: "Sorunsuz sanal işbirliği ve çevrim içi öğrenme deneyimi sağlayan, güvenilir açık kaynaklı internet konferansı çözümü BigBlueButton uygulamasını kullanarak öğrenin."
   meeting:
-    moderator_message: "Toplantıya katılmasını istediğiniz kişilere bu bağlantıyı gönderin: "
+    moderator_message: "Toplantıya çağırmak istediğiniz kişilere bu bağlantıyı gönderin:"
     access_code: "Erişim kodu: %{code}"
   email:
     activation:
       account_activation: Hesap etkinleştirme
       welcome_to_bbb: BigBlueButton uygulamasına hoş geldiniz!
-      get_started: "Başlamak için, lütfen aşağıdaki düğmeye tıklayarak hesabınızı etkinleştirin."
+      get_started: Lütfen başlamak için aşağıdaki düğmeye tıklayarak hesabınızı etkinleştirin.
       activate_account: Hesabı etkinleştir
-      link_expires: Bağlantı 24 saat sonra geçersiz olacak.
-      if_link_expires: Bağlantının süresi geçerse oturum açarak yeni bir etkinleştirme e-postası alın.
+      link_expires: Bu bağlantı 24 saat sonra geçersiz olacak.
+      if_link_expires: "Bağlantının süresi geçerse, yeni bir etkinleştirme e-postası almak için oturum açın."
     invitation:
       invitation_to_join: BigBlueButton çağrısı
       you_have_been_invited: "%{name} tarafından bir BigBlueButton hesabı açmaya çağrıldınız."
       get_started: Hesap açmak için aşağıdaki düğmeye tıklayın ve yönergeleri izleyin.
-      valid_invitation: Bu çağrı 24 saat süreyle geçerlidir.
+      valid_invitation: Çağrı 24 saat boyunca geçerlidir.
       sign_up: Hesap aç
     new_user_signup:
-      new_user: Yeni kullanıcı hesabı açma
+      new_user: Yeni BigBlueButton kullanıcı hesabı açılışı
       new_user_description: Yeni bir kullanıcı BigBlueButton kullanmak için hesap açtı.
       name: "Adı: %{name}"
       email: "E-posta adresi: %{email}"
@@ -74,10 +74,10 @@ tr:
       take_action: "Yeni kullanıcıyı görüntülemek ya da gerekli işlemi yapmak için yönetim panosuna gidin"
     reset:
       password_reset: Parolayı sıfırla
-      password_reset_requested: "%{email} için bir parola sıfırlama isteğinde bulunuldu."
+      password_reset_requested: "%{email} e-posta adresi için parola sıfırlama isteğinde bulunuldu."
       password_reset_confirmation: Parolanızı sıfırlamak için aşağıdaki düğmeye tıklayın.
       reset_password: Parolayı sıfırla
       link_expires: Bağlantı 1 saat sonra geçersiz olacak.
-      ignore_request: Parola değiştirme isteğinde bulunmadıysanız bu e-postayı yok sayabilirsiniz.
+      ignore_request: Parolanızı değiştirme isteğinde bulunmadıysanız bu e-postayı yok sayabilirsiniz.
   room:
     new_room_name: "%{username} kullanıcısının odası"
