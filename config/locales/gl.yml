@@ -66,7 +66,7 @@ gl:
       valid_invitation: O convite é válido durante 24 horas.
       sign_up: Rexistrarse
     new_user_signup:
-      new_user: Rexistro de novo usuario
+      new_user: Novo rexistro de usuario de BigBlueButton
       new_user_description: Rexistrouse un novo usuario para usar BigBlueButton.
       name: "Nome: %{name}"
       email: "Correo-e: %{email}"
