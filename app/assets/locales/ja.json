@@ -81,6 +81,7 @@
       "account_info": "アカウント情報",
       "delete_account": "アカウント削除",
       "change_password": "パスワード変更",
+      "set_password": "新しいパスワードを入力",
       "reset_password": "パスワード再設定",
       "update_account_info": "アカウント情報の更新",
       "current_password": "現在のパスワード",
@@ -129,6 +130,7 @@
       "click_to_upload": "クリックしてアップロード",
       "drag_and_drop": "またはドラッグ＆ドロップ",
       "upload_description": "OfficeドキュメントかPDFファイル（サイズ{{size}}以下）をアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。",
+      "delete_presentation": "プレゼンファイルを削除",
       "are_you_sure_delete_presentation": "本当にこのプレゼンファイルを削除しますか？"
     },
     "shared_access": {
@@ -165,6 +167,7 @@
   "recording": {
     "recording": "録画",
     "recordings": "録画",
+    "processing": "録画を処理しています...",
     "name": "名前",
     "length": "長さ",
     "users": "参加者",
@@ -347,7 +350,8 @@
         "manage_site_settings": "この役割のユーザーに、サイト全体の設定を許可する",
         "manage_roles": "この役割のユーザーに、他の役割の内容を変更することを許可する",
         "shared_list": "この役割のユーザーを、会議室を共有できるユーザーのリストに含める",
-        "room_limit": "作成できる会議室数の制限"
+        "room_limit": "作成できる会議室数の制限",
+        "email_on_signup": "新しいユーザーがサインアップしたときメールを受け取る"
       }
     }
   },
@@ -358,6 +362,7 @@
         "user_updated": "ユーザーが更新されました。",
         "user_deleted": "ユーザーが削除されました。",
         "avatar_updated": "アバターが更新されました。",
+        "password_changed": "パスワードが更新されました。もう一度サインインしてください。",
         "password_updated": "パスワードが更新されました。",
         "account_activated": "アカウントが有効化されました。サインインしてみてください。",
         "activation_email_sent": "アクチベーションメールが送信されました",
