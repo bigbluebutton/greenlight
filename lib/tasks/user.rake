@@ -43,6 +43,29 @@ namespace :user do
     exit 0
   end
 
+  desc 'Set user role to Administrator'
+  task :set_admin_role, %i[email] => :environment do |_task, args|
+      email = args[:email]
+      
+      if email.blank?
+        info 'Please provide an email address of the user you wish to set to Administrator role.'
+      else
+        user = User.find_by(email: email, provider: 'greenlight')
+        if user
+            role = Role.find_by(name: 'Administrator', provider: 'greenlight')
+            if role
+                user.role = role
+                user.save!
+                success "User role set to Administrator for email: #{email}"
+            else
+              info "Role 'Administrator' not found for provider 'greenlight'"
+            end
+        else
+          info "User with email: #{email} not found"
+        end
+      end
+  end
+
   private
 
   def check_role!(user:)
