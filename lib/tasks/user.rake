@@ -60,8 +60,7 @@ namespace :user do
     # return err if Administrator role not found
     err "Role 'Administrator' not found for provider 'greenlight'" if role.blank?
 
-    user.role = role
-    user.save!
+    user.update(role:)
     success "User role set to Administrator for email: #{email}"
   end
 
