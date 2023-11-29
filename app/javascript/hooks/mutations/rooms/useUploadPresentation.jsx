@@ -28,7 +28,11 @@ export default function useUploadPresentation(friendlyId) {
     fileValidation(presentation, 'presentation');
     const formData = new FormData();
     formData.append('room[presentation]', presentation);
-    return axios.patch(`/rooms/${friendlyId}.json`, formData);
+    return axios.patch(`/rooms/${friendlyId}.json`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   };
 
   const mutation = useMutation(uploadPresentation, {
