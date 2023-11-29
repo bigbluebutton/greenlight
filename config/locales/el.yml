@@ -66,7 +66,7 @@ el:
       valid_invitation: Η πρόσκληση ισχύει για 24 ώρες.
       sign_up: Εγγραφή
     new_user_signup:
-      new_user: Εγγραφή νέου χρήστη
+      new_user: Εγγραφή νέου χρήστη BigBlueButton
       new_user_description: Ένας νέος χρήστης έχει εγγραφεί για να χρησιμοποιήσει το BigBlueButton.
       name: "Όνομα: %{name}"
       email: "Email: %{email}"
