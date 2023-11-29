@@ -66,7 +66,7 @@ fa_IR:
       valid_invitation: دعوت‌نامه فقط ۴۸ ساعت اعتبار دارد.
       sign_up: ثبت‌نام
     new_user_signup:
-      new_user: ثبت نام کاربر جدید
+      new_user: ثبت نام کاربر جدید BigBlueButton
       new_user_description: یک کاربر جدید برای استفاده از BigBlueButton ثبت نام کرده است.
       name: "نام: %{name}"
       email: "ایمیل: %{email}"
