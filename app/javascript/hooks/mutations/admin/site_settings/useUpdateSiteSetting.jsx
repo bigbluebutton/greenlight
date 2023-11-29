@@ -35,7 +35,11 @@ export default function useUpdateSiteSetting(name) {
       settings = data;
     }
 
-    return axios.patch(`/admin/site_settings/${name}.json`, settings);
+    return axios.patch(`/admin/site_settings/${name}.json`, settings, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   };
 
   const handleSuccess = () => {
