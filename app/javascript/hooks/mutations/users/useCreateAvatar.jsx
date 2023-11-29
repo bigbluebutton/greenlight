@@ -30,7 +30,11 @@ export default function useCreateAvatar(currentUser) {
     });
     const formData = new FormData();
     formData.append('user[avatar]', avatarBlob);
-    return axios.patch(`/users/${currentUser.id}.json`, formData);
+    return axios.patch(`/users/${currentUser.id}.json`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   }
 
   const mutation = useMutation(

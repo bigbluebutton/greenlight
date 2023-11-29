@@ -35,7 +35,7 @@ module Api
           render_data data: site_settings, status: :ok
         end
 
-        # GET /api/v1/admin/site_settings/:name.json
+        # PATCH /api/v1/admin/site_settings/:name.json
         # Updates the value of the specified Site Setting
         def update
           site_setting = SiteSetting.joins(:setting)
