@@ -274,6 +274,8 @@
         "privacy_policy": "Privacy Policy",
         "change_term_links": "Change the terms links that appears at the bottom of the page",
         "change_privacy_link": "Change the privacy link that appears at the bottom of the page",
+        "helpcenter": "Help center",
+        "change_helpcenter_link": "Change the help center link that appears under the profile dropdown",
         "change_url": "Change URL",
         "enter_link": "Enter link here"
       },
@@ -395,6 +397,7 @@
         "brand_image_updated": "The brand image has been updated.",
         "brand_image_deleted": "The brand image has been deleted.",
         "privacy_policy_updated": "The privacy policy has been updated.",
+        "helpcenter_updated": "The help center link has been updated.",
         "terms_of_service_updated": "The terms of service have been updated."
       },
       "recording": {

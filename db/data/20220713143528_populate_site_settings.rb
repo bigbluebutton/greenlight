@@ -27,6 +27,7 @@ class PopulateSiteSettings < ActiveRecord::Migration[7.0]
         provider: 'greenlight' },
       { setting: Setting.find_by(name: 'Terms'), value: '', provider: 'greenlight' },
       { setting: Setting.find_by(name: 'PrivacyPolicy'), value: '', provider: 'greenlight' },
+      { setting: Setting.find_by(name: 'HelpCenter'), value: '', provider: 'greenlight' },
       { setting: Setting.find_by(name: 'RegistrationMethod'), value: SiteSetting::REGISTRATION_METHODS[:open], provider: 'greenlight' },
       { setting: Setting.find_by(name: 'ShareRooms'), value: 'true', provider: 'greenlight' },
       { setting: Setting.find_by(name: 'PreuploadPresentation'), value: 'true', provider: 'greenlight' },
