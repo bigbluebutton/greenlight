@@ -25,17 +25,17 @@ import PropTypes from 'prop-types';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
 import Avatar from '../users/user/Avatar';
-import useSiteSettings from '../../hooks/queries/admin/site_settings/useSiteSettings';
+import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 
 export default function NavbarSignedIn({ currentUser }) {
   const { t } = useTranslation();
   const deleteSession = useDeleteSession({ showToast: true });
-  const { data: siteSettings } = useSiteSettings(['HelpCenter']);
+  const { data: helpCenter } = useSiteSetting('HelpCenter');
 
   // check if Help Center link is set in Site Settings and return link
   const getHelpCenterLink = () => {
-    if (siteSettings?.HelpCenter) {
-      return siteSettings?.HelpCenter;
+    if (helpCenter) {
+      return helpCenter;
     }
     return 'https://docs.bigbluebutton.org/greenlight/v3/install';
   };
