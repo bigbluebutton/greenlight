@@ -27,6 +27,7 @@ class ExternalController < ApplicationController
     provider = current_provider
 
     credentials = request.env['omniauth.auth']
+    Rails.logger.debug "External auth credentials:\r\n" + YAML::dump(credentials)
 
     user_info = build_user_info(credentials)
 
@@ -148,11 +149,23 @@ class ExternalController < ApplicationController
 
   def build_user_info(credentials)
     {
-      name: credentials['info']['name'],
-      email: credentials['info']['email'],
+      name: extract_value(credentials, ENV.fetch('OPENID_CONNECT_NAME_FIELD', 'info.name')),
+      email: extract_value(credentials, ENV.fetch('OPENID_CONNECT_MAIL_FIELD', 'info.email')),
       language: extract_language_code(credentials['info']['locale']),
       external_id: credentials['uid'],
       verified: true
     }
+  end
+
+  def extract_value(credentials, path)
+    keys = path.split('.')
+    value = credentials
+
+    keys.each do |key|
+      return nil unless value.is_a?(Hash) && value[key]
+      value = value[key]
+    end
+
+    return value
   end
 end
