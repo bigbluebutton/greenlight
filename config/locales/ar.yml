@@ -54,7 +54,7 @@ ar:
   email:
     activation:
       account_activation: تفعيل الحساب
-      welcome_to_bbb: مرحبًا بك في  بك بلو بتن!
+      welcome_to_bbb: مرحبًا بك في  بك_بلو_بتن!
       get_started: للبدء ، يرجى تفعيل حسابك بالضغط على الزر أدناه.
       activate_account: تفعيل حساب
       link_expires: ستنتهي صلاحية الرابط في غضون 24 ساعة.
