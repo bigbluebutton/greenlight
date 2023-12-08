@@ -66,7 +66,7 @@ ar:
       valid_invitation: الدعوة صالحة لمدة 24 ساعة.
       sign_up: التسجيل
     new_user_signup:
-      new_user: تسجيل مستخدم جديد في بك بلو بتن
+      new_user: تسجيل مستخدم جديد في بك_بلو_بتن
       new_user_description: قام مستخدم جديد بالتسجيل لاستخدام بك بلو بتن.
       name: "الاسم: %{name}"
       email: "البريد: %{email}"
