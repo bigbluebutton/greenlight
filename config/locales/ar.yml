@@ -67,7 +67,7 @@ ar:
       sign_up: التسجيل
     new_user_signup:
       new_user: تسجيل مستخدم جديد في بك_بلو_بتن
-      new_user_description: قام مستخدم جديد بالتسجيل لاستخدام بك بلو بتن.
+      new_user_description: قام مستخدم جديد بالتسجيل لاستخدام بك_بلو_بتن.
       name: "الاسم: %{name}"
       email: "البريد: %{email}"
       admin_panel: "لوحة الإدارة"
