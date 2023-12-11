@@ -29,6 +29,7 @@
     "react-i18next": "^11.18.5",
     "react-query": "^3.34.16",
     "react-router-dom": "^6.4.3",
+    "react-select": "^5.8.0",
     "react-test-renderer": "^17.0.2",
     "react-toastify": "^9.1.1",
     "sass": "^1.52.1",

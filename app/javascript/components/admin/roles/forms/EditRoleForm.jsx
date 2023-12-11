@@ -31,6 +31,7 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import RolePermissionRowPlaceHolder from '../RolePermissionRowPlaceHolder';
 import useEditRoleNameForm from '../../../../hooks/forms/admin/roles/useEditRoleNameForm';
 import useEditRoleLimitForm from '../../../../hooks/forms/admin/roles/useEditRoleLimitForm';
+import Select from "react-select";
 
 export default function EditRoleForm({ role }) {
   const { t } = useTranslation();
@@ -136,6 +137,28 @@ export default function EditRoleForm({ role }) {
                 roleId={role?.id}
                 defaultValue={rolePermissions?.EmailOnSignup === 'true'}
               />
+
+              <Form className="pb-3">
+                <Stack direction="horizontal">
+                  <div className="text-muted me-auto">
+                    {t('admin.roles.edit.allowed_recording_visibility')}
+                  </div>
+                  <div>
+                    <Select
+                      className="float-end"
+                      isMulti
+                      filterOption={false}
+                      options={[
+                        { value: 'Published', label: 'Published' },
+                        { value: 'Unpublished', label: 'Unpublished' },
+                        { value: 'Protected', label: 'Protected' },
+                        { value: 'Public', label: 'Public' },
+                        { value: 'Public/Protected', label: 'Public/Protected' }
+                      ]}
+                    />
+                  </div>
+                </Stack>
+              </Form>
 
               <Form methods={methodsLimit} onBlur={methodsLimit.handleSubmit(updatePermissionAPI.mutate)}>
                 <Stack direction="horizontal">
