@@ -97,12 +97,14 @@ export default function JoinCard() {
     } else if (currentUser?.name) {
       methods.setValue('name', currentUser.name);
     }
+  }, [joinFormName, currentUser?.name]);
 
-    // Default viewerCode if passed as query params
+  useEffect(() => {
+    // Default viewerCode if passed as query param
     if (viewerCode) {
       methods.setValue('access_code', viewerCode);
     }
-  }, [viewerCode, joinFormName, currentUser?.name]);
+  }, [viewerCode]);
 
   useEffect(() => {
     // Room channel subscription:
