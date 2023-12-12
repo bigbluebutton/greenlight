@@ -47,7 +47,7 @@ export default function RecordingRow({
   const currentUser = useAuth();
   const redirectRecordingUrl = useRedirectRecordingUrl();
   const copyRecordingUrl = useCopyRecordingUrl();
-  const allowedVisibilities = JSON.parse(currentUser.permissions?.AccessToVisibilities)
+  const allowedVisibilities = JSON.parse(currentUser.permissions?.AccessToVisibilities);
 
   const localizedTime = localizeDateTimeString(recording?.recorded_at, currentUser?.language);
   const formats = recording.formats.sort(
@@ -107,7 +107,7 @@ export default function RecordingRow({
           defaultValue={recording.visibility}
           dropUp={dropUp}
         >
-          { (allowedVisibilities.includes('Public/Protected') || recording.visibility == 'Public/Protected') && (
+          { (allowedVisibilities.includes('Public/Protected') || recording.visibility === 'Public/Protected') && (
             <Dropdown.Item
               key="Public/Protected"
               value="Public/Protected"
@@ -117,7 +117,7 @@ export default function RecordingRow({
             </Dropdown.Item>
           )}
 
-          { (allowedVisibilities.includes('Public') || recording.visibility == 'Public') && (
+          { (allowedVisibilities.includes('Public') || recording.visibility === 'Public') && (
             <Dropdown.Item
               key="Public"
               value="Public"
@@ -127,7 +127,7 @@ export default function RecordingRow({
             </Dropdown.Item>
           )}
 
-          { (allowedVisibilities.includes('Protected') || recording.visibility == 'Protected') && (
+          { (allowedVisibilities.includes('Protected') || recording.visibility === 'Protected') && (
             <Dropdown.Item
               key="Protected"
               value="Protected"
@@ -137,7 +137,7 @@ export default function RecordingRow({
             </Dropdown.Item>
           )}
 
-          { (allowedVisibilities.includes('Published') || recording.visibility == 'Published') && (
+          { (allowedVisibilities.includes('Published') || recording.visibility === 'Published') && (
             <Dropdown.Item
               key="Published"
               value="Published"
@@ -147,7 +147,7 @@ export default function RecordingRow({
             </Dropdown.Item>
           )}
 
-          { (allowedVisibilities.includes('Unpublished') || recording.visibility == 'Unpublished') && (
+          { (allowedVisibilities.includes('Unpublished') || recording.visibility === 'Unpublished') && (
             <Dropdown.Item
               key="Unpublished"
               value="Unpublished"

@@ -229,8 +229,25 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       expect_to_update_recording_props_to(publish: true, protect: true, list: true, visibility: Recording::VISIBILITIES[:public_protected])
     end
 
-    context 'Unkown visibility' do
-      it 'returns :bad_request and does not update the recording' do
+    context 'AccessToVisibilities permission' do
+      before do
+        RolePermission.find_by(role: user.role, permission: Permission.find_by(name: 'AccessToVisibilities')).update(value: ['Published'])
+      end
+
+      it 'returns forbidden if the user is not permitted to use that format' do
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:publish_recordings)
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+
+        expect do
+          post :update_visibility, params: { visibility: 'Unpublished', id: recording.record_id }
+        end.not_to(change { recording.reload.visibility })
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    context 'Unknown visibility' do
+      it 'returns :forbidden and does not update the recording' do
         expect_any_instance_of(BigBlueButtonApi).not_to receive(:publish_recordings)
         expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
 
@@ -238,7 +255,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
           post :update_visibility, params: { visibility: '404', id: recording.record_id }
         end.not_to(change { recording.reload.visibility })
 
-        expect(response).to have_http_status(:bad_request)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 
@@ -248,6 +265,9 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
 
       before do
         sign_in_user(signed_in_user)
+
+        # IDK where this is created so, small hack to remove it
+        RolePermission.find_by(permission: Permission.find_by(name: 'AccessToVisibilities'), value: 'false').destroy
       end
 
       it 'allows a shared user to update a recording visibility' do

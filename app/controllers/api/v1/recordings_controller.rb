@@ -63,9 +63,13 @@ module Api
       def update_visibility
         new_visibility = params[:visibility].to_s
 
-        new_visibility_params = visibility_params_of(new_visibility)
+        allowed_visibilities = JSON.parse(RolePermission.joins(:permission)
+                                            .find_by(role_id: current_user.role_id, permission: { name: 'AccessToVisibilities' })
+                                                        .value)
 
-        return render_error status: :bad_request if new_visibility_params.nil?
+        return render_error status: :forbidden unless allowed_visibilities.include?(new_visibility)
+
+        new_visibility_params = visibility_params_of(new_visibility)
 
         bbb_api = BigBlueButtonApi.new(provider: current_provider)
 

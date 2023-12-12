@@ -18,6 +18,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Stack } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import Select from 'react-select';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import useUpdateRole from '../../../../hooks/mutations/admin/roles/useUpdateRole';
@@ -31,7 +32,6 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import RolePermissionRowPlaceHolder from '../RolePermissionRowPlaceHolder';
 import useEditRoleNameForm from '../../../../hooks/forms/admin/roles/useEditRoleNameForm';
 import useEditRoleLimitForm from '../../../../hooks/forms/admin/roles/useEditRoleLimitForm';
-import Select from "react-select";
 
 export default function EditRoleForm({ role }) {
   const { t } = useTranslation();
@@ -44,6 +44,14 @@ export default function EditRoleForm({ role }) {
   const updatePermissionAPI = useUpdateRolePermission();
 
   const { methods: methodsName, fields: fieldsName } = useEditRoleNameForm({ defaultValues: { name: role?.name } });
+
+  const visibilityOptions = [
+    { value: 'Published', label: 'Published' },
+    { value: 'Unpublished', label: 'Unpublished' },
+    { value: 'Protected', label: 'Protected' },
+    { value: 'Public', label: 'Public' },
+    { value: 'Public/Protected', label: 'Public/Protected' },
+  ];
 
   const {
     methods: methodsLimit,
@@ -145,16 +153,19 @@ export default function EditRoleForm({ role }) {
                   </div>
                   <div>
                     <Select
-                      className="float-end"
+                      className="custom-select float-end"
                       isMulti
-                      filterOption={false}
-                      options={[
-                        { value: 'Published', label: 'Published' },
-                        { value: 'Unpublished', label: 'Unpublished' },
-                        { value: 'Protected', label: 'Protected' },
-                        { value: 'Public', label: 'Public' },
-                        { value: 'Public/Protected', label: 'Public/Protected' }
-                      ]}
+                      isClearable={false}
+                      isSearchable={false}
+                      defaultValue={visibilityOptions?.filter((vis) => JSON.parse(rolePermissions?.AccessToVisibilities)?.includes(vis.value))}
+                      options={visibilityOptions}
+                      onChange={(value) => {
+                        updatePermissionAPI.mutate({ role_id: role?.id, name: 'AccessToVisibilities', value: value.map((v) => v.value) });
+                      }}
+                      classNames={{
+                        control: (state) => (state.isFocused ? 'select-brand-control' : ''),
+                        option: (state) => (state.isFocused ? 'select-brand-option' : ''),
+                      }}
                     />
                   </div>
                 </Stack>
