@@ -65,6 +65,7 @@ export default function JoinCard() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const joinFormName = queryParams.get('joinFormName');
+  const viewerCode = queryParams.get('viewerCode');
 
   useEffect(() => { // set cookie to return to if needed
     const date = new Date();
@@ -96,7 +97,12 @@ export default function JoinCard() {
     } else if (currentUser?.name) {
       methods.setValue('name', currentUser.name);
     }
-  }, [joinFormName, currentUser?.name]);
+
+    // Default viewerCode if passed as query params
+    if(viewerCode) {
+      methods.setValue('access_code', viewerCode);
+    }
+  }, [viewerCode, joinFormName, currentUser?.name]);
 
   useEffect(() => {
     // Room channel subscription:
