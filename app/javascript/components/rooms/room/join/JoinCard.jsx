@@ -99,7 +99,7 @@ export default function JoinCard() {
     }
 
     // Default viewerCode if passed as query params
-    if(viewerCode) {
+    if (viewerCode) {
       methods.setValue('access_code', viewerCode);
     }
   }, [viewerCode, joinFormName, currentUser?.name]);
