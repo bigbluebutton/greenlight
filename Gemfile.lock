@@ -409,6 +409,10 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.29.0)
       parser (>= 3.2.1.0)
+    rubocop-capybara (2.19.0)
+      rubocop (~> 1.41)
+    rubocop-factory_bot (2.24.0)
+      rubocop (~> 1.33)
     rubocop-performance (1.16.0)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
@@ -529,6 +533,8 @@ DEPENDENCIES
   remote_syslog_logger
   rspec-rails (>= 6.0.4)
   rubocop (~> 1.26)
+  rubocop-capybara (~> 2.19.0)
+  rubocop-factory_bot (~> 2.24.0)
   rubocop-performance (~> 1.13)
   rubocop-rails (~> 2.18, >= 2.18.0)
   rubocop-rspec (~> 2.9.0)
@@ -539,3 +545,9 @@ DEPENDENCIES
   web-console (>= 4.2.1)
   webdrivers
   webmock
+
+RUBY VERSION
+   ruby 3.1.0p0
+
+BUNDLED WITH
+   2.3.9
