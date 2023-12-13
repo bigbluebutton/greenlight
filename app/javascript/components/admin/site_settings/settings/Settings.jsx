@@ -16,12 +16,16 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Dropdown } from 'react-bootstrap';
 import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSiteSettings';
 import SettingsRow from '../SettingsRow';
+import SettingSelect from './SettingSelect';
+import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 
 export default function Settings() {
   const { t } = useTranslation();
-  const { data: siteSettings, isLoading } = useSiteSettings(['ShareRooms', 'PreuploadPresentation']);
+  const { data: siteSettings, isLoading } = useSiteSettings(['ShareRooms', 'PreuploadPresentation', 'DefaultRecordingVisibility']);
+  const updateDefaultRecordingVisibility = useUpdateSiteSetting('DefaultRecordingVisibility');
 
   if (isLoading) return null;
 
@@ -47,6 +51,19 @@ export default function Settings() {
       )}
         value={siteSettings?.PreuploadPresentation}
       />
+
+      <SettingSelect
+        defaultValue={siteSettings?.DefaultRecordingVisibility}
+        title={t('admin.site_settings.settings.default_visibility')}
+        description={t('admin.site_settings.settings.default_visibility_description')}
+      >
+        <Dropdown.Item key="Published" value="Published" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Published' })}>
+          {t('recording.published')}
+        </Dropdown.Item>
+        <Dropdown.Item key="Unpublished" value="Unpublished" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Unpublished' })}>
+          {t('recording.unpublished')}
+        </Dropdown.Item>
+      </SettingSelect>
     </>
   );
 }

@@ -17,25 +17,32 @@
 # frozen_string_literal: true
 
 class RecordingCreator
-  def initialize(recording:)
+  def initialize(recording:, first_creation: false)
     @recording = recording
+    @first_creation = first_creation
   end
 
   def call
     meeting_id = @recording[:metadata][:meetingId] || @recording[:meetingID]
-    room_id = Room.find_by(meeting_id:)&.id
+    room = Room.find_by(meeting_id:)
+    raise ActiveRecord::RecordNotFound if room.nil?
 
-    raise ActiveRecord::RecordNotFound if room_id.nil?
+    @provider = room.user.provider
 
-    visibility = get_recording_visibility(recording: @recording)
+    # If the recording is being created for the first time, get the visibility from the site setting
+    visibility = if @first_creation
+                   default_recording_visibility
+                 else
+                   recording_visibility
+                 end
 
     # Get length of presentation format(s)
-    length = get_recording_length(recording: @recording)
+    length = recording_length
 
     new_name = @recording[:metadata][:name] || @recording[:name]
 
     new_recording = Recording.find_or_initialize_by(record_id: @recording[:recordID])
-    new_recording.room_id = room_id
+    new_recording.room_id = room.id
     new_recording.name = new_name
     new_recording.visibility = visibility
     new_recording.participants = @recording[:participants]
@@ -45,16 +52,25 @@ class RecordingCreator
     new_recording.save!
 
     # Create format(s)
-    create_formats(recording: @recording, new_recording:)
+    create_formats(new_recording:)
+
+    return unless @first_creation
+
+    BigBlueButtonApi.new(provider: @provider).update_recording_visibility(record_id: @recording.record_id, visibility:)
   end
 
   private
 
+  # Returns the default recording visibility for a recording that is being created for the first time
+  def default_recording_visibility
+    SettingGetter.new(setting_name: 'DefaultRecordingVisibility', provider: @provider).call
+  end
+
   # Returns the visibility of the recording (published, unpublished or protected)
-  def get_recording_visibility(recording:)
-    list = recording[:metadata][:'gl-listed'].to_s == 'true'
-    protect = recording[:protected].to_s == 'true'
-    publish = recording[:published].to_s == 'true'
+  def recording_visibility
+    list = @recording[:metadata][:'gl-listed'].to_s == 'true'
+    protect = @recording[:protected].to_s == 'true'
+    publish = @recording[:published].to_s == 'true'
 
     visibility = visibility_for(publish:, protect:, list:)
 
@@ -64,27 +80,27 @@ class RecordingCreator
   end
 
   # Returns the length of presentation recording for the recording given
-  def get_recording_length(recording:)
+  def recording_length
     length = 0
-    if recording[:playback][:format].is_a?(Array)
-      recording[:playback][:format].each do |formats|
+    if @recording[:playback][:format].is_a?(Array)
+      @recording[:playback][:format].each do |formats|
         length = formats[:length] if formats[:type] == 'presentation' || formats[:type] == 'video'
       end
     else
-      length = recording[:playback][:format][:length]
+      length = @recording[:playback][:format][:length]
     end
     length
   end
 
   # Creates format(s) for given new_recording
-  def create_formats(recording:, new_recording:)
-    if recording[:playback][:format].is_a?(Array)
-      recording[:playback][:format].each do |format|
+  def create_formats(new_recording:)
+    if @recording[:playback][:format].is_a?(Array)
+      @recording[:playback][:format].each do |format|
         Format.find_or_create_by(recording_id: new_recording.id, recording_type: format[:type]).update(url: format[:url])
       end
     else
       Format.find_or_create_by(recording_id: new_recording.id,
-                               recording_type: recording[:playback][:format][:type]).update(url: recording[:playback][:format][:url])
+                               recording_type: @recording[:playback][:format][:type]).update(url: @recording[:playback][:format][:url])
     end
   end
 

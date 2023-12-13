@@ -104,7 +104,7 @@ class ExternalController < ApplicationController
       @room.update(recordings_processing: @room.recordings_processing - 1) unless @room.recordings_processing.zero?
     end
 
-    RecordingCreator.new(recording:).call
+    RecordingCreator.new(recording:, first_creation: true).call
 
     render json: {}, status: :ok
   end

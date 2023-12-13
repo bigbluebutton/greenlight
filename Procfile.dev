@@ -1,3 +1,2 @@
 web: bin/rails server -p $PORT
 js: yarn build:development
-css: yarn build:development:css --watch
