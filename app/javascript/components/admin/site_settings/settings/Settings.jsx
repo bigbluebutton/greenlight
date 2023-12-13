@@ -57,6 +57,15 @@ export default function Settings() {
         title={t('admin.site_settings.settings.default_visibility')}
         description={t('admin.site_settings.settings.default_visibility_description')}
       >
+        <Dropdown.Item key="Public/Protected" value="Public/Protected" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Public/Protected' })}>
+          {t('recording.published')}
+        </Dropdown.Item>
+        <Dropdown.Item key="Public" value="Public" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Public' })}>
+          {t('recording.unpublished')}
+        </Dropdown.Item>
+        <Dropdown.Item key="Protected" value="Protected" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Protected' })}>
+          {t('recording.published')}
+        </Dropdown.Item>
         <Dropdown.Item key="Published" value="Published" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Published' })}>
           {t('recording.published')}
         </Dropdown.Item>
