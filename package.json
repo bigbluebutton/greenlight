@@ -41,7 +41,7 @@
   "scripts": {
     "build": "node esbuild.mjs",
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules --style compressed",
-    "build:development": "node esbuild.dev.mjs",
+    "build:development": "node esbuild.dev.mjs --watch",
     "build:development:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "devDependencies": {
