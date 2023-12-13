@@ -49,7 +49,7 @@ end
 group :test do
   gem 'capybara'
   gem 'factory_bot', '>= 6.4.1'
-  gem 'factory_bot_rails', '>= 6.3.0'
+  gem 'factory_bot_rails', '>= 6.4.2'
   gem 'faker'
   gem 'rspec-rails', '>= 6.0.4'
   gem 'selenium-webdriver'
