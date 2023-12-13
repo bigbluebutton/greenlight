@@ -28,9 +28,6 @@ module Api
       before_action only: %i[update update_visibility recording_url] do
         ensure_authorized(%w[ManageRecordings SharedRoom PublicRecordings], record_id: params[:id])
       end
-      before_action only: %i[index recordings_count] do
-        ensure_authorized('CreateRoom')
-      end
 
       # GET /api/v1/recordings.json
       # Returns all of the current_user's recordings
