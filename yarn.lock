@@ -1100,11 +1100,6 @@
   resolved "https://registry.npmjs.org/@emotion/weak-memoize/-/weak-memoize-0.3.1.tgz"
   integrity sha512-EsBwpc7hBUJWAsNPBmJy4hxWx12v6bshQsldrVmjxJoc3isbxhOrF2IcCpaXxfvq03NwkI7sbsOLXbYuqF/8Ww==
 
-"@esbuild/linux-x64@0.19.9":
-  version "0.19.9"
-  resolved "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.19.9.tgz"
-  integrity sha512-JUjpystGFFmNrEHQnIVG8hKwvA2DN5o7RqiO1CVX8EN/F/gkCjkUMgVn6hzScpwnJtl2mPR6I9XV1oW8k9O+0A==
-
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
   resolved "https://registry.npmjs.org/@eslint-community/eslint-utils/-/eslint-utils-4.4.0.tgz"
@@ -2093,6 +2088,11 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
+esbuild-linux-64@0.14.54:
+  version "0.14.54"
+  resolved "https://registry.npmjs.org/esbuild-linux-64/-/esbuild-linux-64-0.14.54.tgz"
+  integrity sha512-EgjAgH5HwTbtNsTqQOXWApBaPVdDn7XcK+/PtJwZLT1UmpLoznPd8c5CxqsH2dQK3j05YsB3L17T8vE7cp4cCg==
+
 esbuild-plugin-import-glob@^0.1.1:
   version "0.1.1"
   resolved "https://registry.npmjs.org/esbuild-plugin-import-glob/-/esbuild-plugin-import-glob-0.1.1.tgz"
@@ -2108,33 +2108,32 @@ esbuild-sass-plugin@^2.2.6:
     resolve "^1.22.6"
     sass "^1.7.3"
 
-esbuild@^0.19.4, esbuild@^0.19.9:
-  version "0.19.9"
-  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.19.9.tgz"
-  integrity sha512-U9CHtKSy+EpPsEBa+/A2gMs/h3ylBC0H0KSqIg7tpztHerLi6nrrcoUJAkNCEPumx8yJ+Byic4BVwHgRbN0TBg==
+esbuild@^0.14.42, esbuild@^0.19.4:
+  version "0.14.54"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.14.54.tgz"
+  integrity sha512-Cy9llcy8DvET5uznocPyqL3BFRrFXSVqbgpMJ9Wz8oVjZlh/zUSNbPRbov0VX7VxN2JH1Oa0uNxZ7eLRb62pJA==
   optionalDependencies:
-    "@esbuild/android-arm" "0.19.9"
-    "@esbuild/android-arm64" "0.19.9"
-    "@esbuild/android-x64" "0.19.9"
-    "@esbuild/darwin-arm64" "0.19.9"
-    "@esbuild/darwin-x64" "0.19.9"
-    "@esbuild/freebsd-arm64" "0.19.9"
-    "@esbuild/freebsd-x64" "0.19.9"
-    "@esbuild/linux-arm" "0.19.9"
-    "@esbuild/linux-arm64" "0.19.9"
-    "@esbuild/linux-ia32" "0.19.9"
-    "@esbuild/linux-loong64" "0.19.9"
-    "@esbuild/linux-mips64el" "0.19.9"
-    "@esbuild/linux-ppc64" "0.19.9"
-    "@esbuild/linux-riscv64" "0.19.9"
-    "@esbuild/linux-s390x" "0.19.9"
-    "@esbuild/linux-x64" "0.19.9"
-    "@esbuild/netbsd-x64" "0.19.9"
-    "@esbuild/openbsd-x64" "0.19.9"
-    "@esbuild/sunos-x64" "0.19.9"
-    "@esbuild/win32-arm64" "0.19.9"
-    "@esbuild/win32-ia32" "0.19.9"
-    "@esbuild/win32-x64" "0.19.9"
+    "@esbuild/linux-loong64" "0.14.54"
+    esbuild-android-64 "0.14.54"
+    esbuild-android-arm64 "0.14.54"
+    esbuild-darwin-64 "0.14.54"
+    esbuild-darwin-arm64 "0.14.54"
+    esbuild-freebsd-64 "0.14.54"
+    esbuild-freebsd-arm64 "0.14.54"
+    esbuild-linux-32 "0.14.54"
+    esbuild-linux-64 "0.14.54"
+    esbuild-linux-arm "0.14.54"
+    esbuild-linux-arm64 "0.14.54"
+    esbuild-linux-mips64le "0.14.54"
+    esbuild-linux-ppc64le "0.14.54"
+    esbuild-linux-riscv64 "0.14.54"
+    esbuild-linux-s390x "0.14.54"
+    esbuild-netbsd-64 "0.14.54"
+    esbuild-openbsd-64 "0.14.54"
+    esbuild-sunos-64 "0.14.54"
+    esbuild-windows-32 "0.14.54"
+    esbuild-windows-64 "0.14.54"
+    esbuild-windows-arm64 "0.14.54"
 
 escalade@^3.1.1:
   version "3.1.1"
