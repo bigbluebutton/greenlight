@@ -26,16 +26,18 @@ export default function useUpdateSiteSetting(name) {
 
   const uploadPresentation = (data) => {
     let settings;
+    let headers = { 'Content-Type': 'application/json' };
 
     if (name === 'BrandingImage') {
       fileValidation(data, 'image');
       settings = new FormData();
       settings.append('site_setting[value]', data);
+      headers = { 'Content-Type': 'multipart/form-data' };
     } else {
       settings = data;
     }
 
-    return axios.patch(`/admin/site_settings/${name}.json`, settings);
+    return axios.patch(`/admin/site_settings/${name}.json`, settings, { headers });
   };
 
   const handleSuccess = () => {
