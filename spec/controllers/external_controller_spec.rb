@@ -374,7 +374,7 @@ RSpec.describe ExternalController, type: :controller do
     end
 
     it 'calls RecordingCreator with the right values' do
-      expect(RecordingCreator).to receive(:new).with(recording: sample_recording).and_call_original
+      expect(RecordingCreator).to receive(:new).with(recording: sample_recording, first_creation: true).and_call_original
 
       post :recording_ready
     end

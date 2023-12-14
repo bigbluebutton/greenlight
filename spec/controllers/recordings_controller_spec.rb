@@ -196,37 +196,16 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
     let(:room) { create(:room, user:) }
     let(:recording) { create(:recording, room:) }
 
-    def expect_to_update_recording_props_to(publish:, protect:, list:, visibility:)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: recording.record_id, publish:)
-      expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: recording.record_id,
-                                                                                   meta_hash: {
-                                                                                     protect:, 'meta_gl-listed': list
-                                                                                   })
+    it 'updates a recordings visibility' do
+      expect_any_instance_of(BigBlueButtonApi)
+        .to receive(:update_recording_visibility)
+        .with(record_id: recording.record_id, visibility: Recording::VISIBILITIES[:published])
 
-      post :update_visibility, params: { visibility:, id: recording.record_id }
+      expect do
+        post :update_visibility, params: { visibility: Recording::VISIBILITIES[:published], id: recording.record_id }
+      end.to(change { recording.reload.visibility })
 
-      expect(recording.reload.visibility).to eq(visibility)
       expect(response).to have_http_status(:ok)
-    end
-
-    it 'changes the recording visibility to "Published"' do
-      expect_to_update_recording_props_to(publish: true, protect: false, list: false, visibility: Recording::VISIBILITIES[:published])
-    end
-
-    it 'changes the recording visibility to "Unpublished"' do
-      expect_to_update_recording_props_to(publish: false, protect: false, list: false, visibility: Recording::VISIBILITIES[:unpublished])
-    end
-
-    it 'changes the recording visibility to "Protected"' do
-      expect_to_update_recording_props_to(publish: true, protect: true, list: false, visibility: Recording::VISIBILITIES[:protected])
-    end
-
-    it 'changes the recording visibility to "Public"' do
-      expect_to_update_recording_props_to(publish: true, protect: false, list: true, visibility: Recording::VISIBILITIES[:public])
-    end
-
-    it 'changes the recording visibility to "Public/Protected"' do
-      expect_to_update_recording_props_to(publish: true, protect: true, list: true, visibility: Recording::VISIBILITIES[:public_protected])
     end
 
     context 'AccessToVisibilities permission' do
@@ -235,8 +214,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       end
 
       it 'returns forbidden if the user is not permitted to use that format' do
-        expect_any_instance_of(BigBlueButtonApi).not_to receive(:publish_recordings)
-        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recording_visibility)
 
         expect do
           post :update_visibility, params: { visibility: 'Unpublished', id: recording.record_id }
@@ -248,8 +226,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
 
     context 'Unknown visibility' do
       it 'returns :forbidden and does not update the recording' do
-        expect_any_instance_of(BigBlueButtonApi).not_to receive(:publish_recordings)
-        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recording_visibility)
 
         expect do
           post :update_visibility, params: { visibility: '404', id: recording.record_id }
@@ -273,11 +250,9 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       it 'allows a shared user to update a recording visibility' do
         create(:shared_access, user_id: signed_in_user.id, room_id: room.id)
 
-        expect_any_instance_of(BigBlueButtonApi).to receive(:publish_recordings).with(record_ids: recording.record_id, publish: false)
-        expect_any_instance_of(BigBlueButtonApi).to receive(:update_recordings).with(record_id: recording.record_id,
-                                                                                     meta_hash: {
-                                                                                       protect: false, 'meta_gl-listed': false
-                                                                                     })
+        expect_any_instance_of(BigBlueButtonApi)
+          .to receive(:update_recording_visibility)
+          .with(record_id: recording.record_id, visibility: Recording::VISIBILITIES[:unpublished])
 
         expect do
           post :update_visibility, params: { visibility: Recording::VISIBILITIES[:unpublished], id: recording.record_id }
@@ -287,8 +262,7 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       end
 
       it 'disallows a none shared user to update a recording visibility' do
-        expect_any_instance_of(BigBlueButtonApi).not_to receive(:publish_recordings)
-        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recording_visibility)
 
         expect do
           post :update_visibility, params: { visibility: Recording::VISIBILITIES[:unpublished], id: recording.record_id }

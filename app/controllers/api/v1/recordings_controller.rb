@@ -69,12 +69,7 @@ module Api
 
         return render_error status: :forbidden unless allowed_visibilities.include?(new_visibility)
 
-        new_visibility_params = visibility_params_of(new_visibility)
-
-        bbb_api = BigBlueButtonApi.new(provider: current_provider)
-
-        bbb_api.publish_recordings(record_ids: @recording.record_id, publish: new_visibility_params[:publish])
-        bbb_api.update_recordings(record_id: @recording.record_id, meta_hash: new_visibility_params[:meta_hash])
+        BigBlueButtonApi.new(provider: current_provider).update_recording_visibility(record_id: @recording.record_id, visibility: new_visibility)
 
         @recording.update!(visibility: new_visibility)
 
@@ -125,18 +120,6 @@ module Api
 
       def find_recording
         @recording = Recording.find_by! record_id: params[:id]
-      end
-
-      def visibility_params_of(visibility)
-        params_of = {
-          Recording::VISIBILITIES[:unpublished] => { publish: false, meta_hash: { protect: false, 'meta_gl-listed': false } },
-          Recording::VISIBILITIES[:published] => { publish: true, meta_hash: { protect: false, 'meta_gl-listed': false } },
-          Recording::VISIBILITIES[:public] => { publish: true, meta_hash: { protect: false, 'meta_gl-listed': true } },
-          Recording::VISIBILITIES[:protected] => { publish: true, meta_hash: { protect: true, 'meta_gl-listed': false } },
-          Recording::VISIBILITIES[:public_protected] => { publish: true, meta_hash: { protect: true, 'meta_gl-listed': true } }
-        }
-
-        params_of[visibility.to_s]
       end
     end
   end
