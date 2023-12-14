@@ -56,14 +56,14 @@ class RecordingCreator
 
     return unless @first_creation
 
-    BigBlueButtonApi.new(provider: @provider).update_recording_visibility(record_id: @recording.record_id, visibility:)
+    BigBlueButtonApi.new(provider: @provider).update_recording_visibility(record_id: new_recording.record_id, visibility:)
   end
 
   private
 
   # Returns the default recording visibility for a recording that is being created for the first time
   def default_recording_visibility
-    SettingGetter.new(setting_name: 'DefaultRecordingVisibility', provider: @provider).call
+    SettingGetter.new(setting_name: 'DefaultRecordingVisibility', provider: @provider).call || 'Published'
   end
 
   # Returns the visibility of the recording (published, unpublished or protected)
