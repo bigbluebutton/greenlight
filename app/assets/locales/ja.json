@@ -282,7 +282,9 @@
         "allow_users_to_share_rooms": "ユーザーに会議室の共有を許可",
         "allow_users_to_share_rooms_description": "無効に設定した場合、各会議室のドロップダウンからボタンが削除され、ユーザーが会議室を共有できなくなります",
         "allow_users_to_preupload_presentation": "ユーザーにプレゼンファイルの事前アップロードを許可",
-        "allow_users_to_preupload_presentation_description": "ユーザーがプレゼンファイルを事前にアップロードし、この会議室専用の標準プレゼンとして使用できるようになります"
+        "allow_users_to_preupload_presentation_description": "ユーザーがプレゼンファイルを事前にアップロードし、この会議室専用の標準プレゼンとして使用できるようになります",
+        "default_visibility": "デフォルトの録画公開度",
+        "default_visibility_description": "新しい録画は、まずは全てこの公開度となります。"
       },
       "registration": {
         "registration": "ユーザー登録",
@@ -351,7 +353,8 @@
         "manage_roles": "この役割のユーザーに、他の役割の内容を変更することを許可する",
         "shared_list": "この役割のユーザーを、会議室を共有できるユーザーのリストに含める",
         "room_limit": "作成できる会議室数の制限",
-        "email_on_signup": "新しいユーザーが登録したときメールを受け取る"
+        "email_on_signup": "新しいユーザーが登録したときメールを受け取る",
+        "allowed_recording_visibility": "許可する公開度"
       }
     }
   },
