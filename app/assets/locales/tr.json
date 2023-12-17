@@ -282,7 +282,9 @@
         "allow_users_to_share_rooms": "Kullanıcılar odayı paylaşabilsin",
         "allow_users_to_share_rooms_description": "Bu seçenek devre dışı olarak ayarlandığında, düğme oda seçenekleri açılır menüsünden kaldırılır ve kullanıcıların odaları paylaşması engellenir.",
         "allow_users_to_preupload_presentation": "Kullanıcılar önceden sunum yükleyebilsin",
-        "allow_users_to_preupload_presentation_description": "Kullanıcılar, bu odada varsayılan olarak kullanılacak bir sunumu önceden yükleyebilir"
+        "allow_users_to_preupload_presentation_description": "Kullanıcılar, bu odada varsayılan olarak kullanılacak bir sunumu önceden yükleyebilir",
+        "default_visibility": "Varsayılan kaydetme görünürlüğü",
+        "default_visibility_description": "Yeni oluşturulan tüm kayıtların varsayılan görünürlüğünü belirler"
       },
       "registration": {
         "registration": "Hesap açma",
@@ -351,7 +353,8 @@
         "manage_roles": "Bu roldeki kullanıcılar diğer kullanıcı rollerini düzenleyebilsin",
         "shared_list": "Bu roldeki kullanıcılar oda paylaşma açılan kutularında görüntülensin",
         "room_limit": "Oda sayısı sınırı",
-        "email_on_signup": "Yeni bir kullanıcı hesap açtığında e-posta alın"
+        "email_on_signup": "Yeni bir kullanıcı hesap açtığında e-posta alın",
+        "allowed_recording_visibility": "İzin verilen kaydetme görünürlükleri"
       }
     }
   },
