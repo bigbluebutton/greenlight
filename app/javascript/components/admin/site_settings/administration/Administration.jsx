@@ -23,7 +23,7 @@ import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSi
 
 export default function Administration() {
   const { t } = useTranslation();
-  const { data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy']);
+  const { data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy', 'HelpCenter']);
 
   return (
     <>
@@ -43,6 +43,15 @@ export default function Administration() {
           id="privacyForm"
           mutation={() => useUpdateSiteSetting('PrivacyPolicy')}
           value={siteSettings?.PrivacyPolicy}
+        />
+      </Row>
+      <Row>
+        <h6> { t('admin.site_settings.administration.helpcenter') } </h6>
+        <p className="text-muted"> { t('admin.site_settings.administration.change_helpcenter_link') } </p>
+        <LinksForm
+          id="helpForm"
+          mutation={() => useUpdateSiteSetting('HelpCenter')}
+          value={siteSettings?.HelpCenter}
         />
       </Row>
     </>

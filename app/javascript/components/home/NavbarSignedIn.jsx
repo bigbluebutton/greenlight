@@ -25,10 +25,12 @@ import PropTypes from 'prop-types';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
 import Avatar from '../users/user/Avatar';
+import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 
 export default function NavbarSignedIn({ currentUser }) {
   const { t } = useTranslation();
   const deleteSession = useDeleteSession({ showToast: true });
+  const { data: helpCenter } = useSiteSetting('HelpCenter');
 
   const adminAccess = () => {
     const { permissions } = currentUser;
@@ -61,10 +63,15 @@ export default function NavbarSignedIn({ currentUser }) {
             <IdentificationIcon className="hi-s me-3" />
             {t('user.profile.profile')}
           </Nav.Link>
-          <Nav.Link eventKey={2} href="https://docs.bigbluebutton.org/greenlight/v3/install">
-            <QuestionMarkCircleIcon className="hi-s me-3" />
-            {t('help_center')}
-          </Nav.Link>
+          {
+            helpCenter
+            && (
+              <Nav.Link eventKey={2} href={helpCenter}>
+                <QuestionMarkCircleIcon className="hi-s me-3" />
+                {t('help_center')}
+              </Nav.Link>
+            )
+          }
           {
             adminAccess()
             && (
@@ -103,10 +110,15 @@ export default function NavbarSignedIn({ currentUser }) {
             <IdentificationIcon className="hi-s me-3" />
             { t('user.profile.profile') }
           </NavDropdown.Item>
-          <NavDropdown.Item href="https://docs.bigbluebutton.org/greenlight/v3/install">
-            <QuestionMarkCircleIcon className="hi-s me-3" />
-            {t('help_center')}
-          </NavDropdown.Item>
+          {
+            helpCenter
+            && (
+              <NavDropdown.Item href={helpCenter}>
+                <QuestionMarkCircleIcon className="hi-s me-3" />
+                {t('help_center')}
+              </NavDropdown.Item>
+            )
+          }
           {
             adminAccess()
             && (
