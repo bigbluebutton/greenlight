@@ -21,7 +21,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 export default function SimpleSelect({ defaultValue, dropUp, children }) {
   // Get the currently selected option and set the dropdown toggle to that value
-  const defaultString = children?.filter((item) => item.props.value === defaultValue)[0];
+  const defaultString = children?.filter(Boolean)?.filter((item) => item.props.value === defaultValue)[0];
 
   return (
     <Dropdown className="simple-select" drop={dropUp ? 'up' : undefined}>

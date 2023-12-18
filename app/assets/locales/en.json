@@ -284,7 +284,9 @@
         "allow_users_to_share_rooms": "Allow Users to Share Rooms",
         "allow_users_to_share_rooms_description": "Setting to disabled will remove the button from the room options dropdown, preventing users from sharing rooms",
         "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",
-        "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room"
+        "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room",
+        "default_visibility": "Default Recording Visibility",
+        "default_visibility_description": "All newly created recordings will have this visibility by default"
       },
       "registration": {
         "registration": "Registration",
@@ -353,7 +355,8 @@
         "manage_roles": "Allow users with this role to edit other roles",
         "shared_list": "Include users with this role in the dropdown for sharing rooms",
         "room_limit": "Room Limit",
-        "email_on_signup": "Receive an email when a new user signs up"
+        "email_on_signup": "Receive an email when a new user signs up",
+        "allowed_recording_visibility": "Allowed recording visibilities"
       }
     }
   },

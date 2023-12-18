@@ -12,7 +12,7 @@
     "axios": "^1.6.0",
     "bootstrap": "5.1.3",
     "bootstrap-icons": "^1.8.3",
-    "esbuild": "^0.14.42",
+    "esbuild": "^0.19.9",
     "esbuild-plugin-import-glob": "^0.1.1",
     "esbuild-sass-plugin": "^2.2.6",
     "i18next": "^21.9.1",
@@ -29,6 +29,7 @@
     "react-i18next": "^11.18.5",
     "react-query": "^3.34.16",
     "react-router-dom": "^6.4.3",
+    "react-select": "^5.8.0",
     "react-test-renderer": "^17.0.2",
     "react-toastify": "^9.1.1",
     "sass": "^1.52.1",
@@ -40,7 +41,7 @@
   "scripts": {
     "build": "node esbuild.mjs",
     "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules --style compressed",
-    "build:development": "node esbuild.dev.mjs",
+    "build:development": "node esbuild.dev.mjs --watch",
     "build:development:css": "sass ./app/assets/stylesheets/application.bootstrap.scss ./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "devDependencies": {

@@ -84,6 +84,7 @@ class TenantSetup
     shared_list = Permission.find_by(name: 'SharedList')
     can_record = Permission.find_by(name: 'CanRecord')
     room_limit = Permission.find_by(name: 'RoomLimit')
+    access_to_visbilities = Permission.find_by(name: 'AccessToVisibilities')
 
     RolePermission.create! [
       { role: admin, permission: create_room, value: 'true' },
@@ -95,6 +96,7 @@ class TenantSetup
       { role: admin, permission: shared_list, value: 'true' },
       { role: admin, permission: can_record, value: 'true' },
       { role: admin, permission: room_limit, value: '100' },
+      { role: admin, permission: access_to_visbilities, value: Recording::VISIBILITIES.values },
 
       { role: user, permission: create_room, value: 'true' },
       { role: user, permission: manage_users, value: 'false' },
@@ -105,6 +107,7 @@ class TenantSetup
       { role: user, permission: shared_list, value: 'true' },
       { role: user, permission: can_record, value: 'true' },
       { role: user, permission: room_limit, value: '100' },
+      { role: user, permission: access_to_visbilities, value: Recording::VISIBILITIES.values },
 
       { role: guest, permission: create_room, value: 'false' },
       { role: guest, permission: manage_users, value: 'false' },
@@ -114,7 +117,8 @@ class TenantSetup
       { role: guest, permission: manage_roles, value: 'false' },
       { role: guest, permission: shared_list, value: 'true' },
       { role: guest, permission: can_record, value: 'true' },
-      { role: guest, permission: room_limit, value: '100' }
+      { role: guest, permission: room_limit, value: '100' },
+      { role: guest, permission: access_to_visbilities, value: Recording::VISIBILITIES.values }
     ]
   end
 end
