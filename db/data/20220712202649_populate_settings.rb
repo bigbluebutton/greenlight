@@ -25,7 +25,6 @@ class PopulateSettings < ActiveRecord::Migration[7.0]
       { name: 'BrandingImage' },
       { name: 'Terms' },
       { name: 'PrivacyPolicy' },
-      { name: 'HelpCenter' },
       { name: 'RegistrationMethod' },
       { name: 'ShareRooms' },
       { name: 'PreuploadPresentation' },
