@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddHelpCenterSetting < ActiveRecord::Migration[7.1]
   def up
     Setting.create!(name: 'HelpCenter') unless Setting.exists?(name: 'HelpCenter')
