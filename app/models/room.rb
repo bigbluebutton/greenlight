@@ -103,13 +103,18 @@ class Room < ApplicationRecord
 
   # Create unique pin for voice brige max 10^5 - 10000 unique ids
   def set_voice_brige
-    if Rails.application.config.voice_bridge_phone_number != nil
+    unless Rails.application.config.voice_bridge_phone_number.nil?
+      if Room.all.where.not(voice_bridge: nil).length > 89999
+        self.voice_bridge = nil
+        return
+      end
+
       id = SecureRandom.random_number((10.pow(5)) - 1)
-      raise if Room.exists?(voice_bridge: id) || id < 10000
-    
+      while Room.exists?(voice_bridge: id) || id < 10000
+        id += 1 % 89999 + 10000
+      end
+
       self.voice_bridge = id
     end
-  rescue StandardError
-    retry
   end
 end
