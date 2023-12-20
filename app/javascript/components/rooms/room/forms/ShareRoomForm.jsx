@@ -123,6 +123,8 @@ ShareRoomForm.propTypes = {
     id: PropTypes.string.isRequired,
     friendly_id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    voice_bridge_phone_number: PropTypes.string,
+    voice_bridge: PropTypes.string,
     last_session: PropTypes.string,
     shared_owner: PropTypes.string,
     online: PropTypes.bool,

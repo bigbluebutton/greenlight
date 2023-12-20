@@ -24,7 +24,7 @@ export const createICSContent = (name, room_name, url, voice_bridge, voice_bridg
   }
 
 
-  description = `\n\n${t('room.meeting.invite_to_meeting', {name})}\n\n${t('room.meeting.join_by_url')}:\n${url}\n`;
+  var description = `\n\n${t('room.meeting.invite_to_meeting', {name})}\n\n${t('room.meeting.join_by_url')}:\n${url}\n`;
 
   if (typeof voice_bridge !== 'undefined' && typeof voice_bridge_phone_number !== 'undefined') {
     description += `\n${t('or')} ${t('room.meeting.join_by_phone')}:\n${voice_bridge_phone_number},,${voice_bridge}`;
@@ -32,7 +32,7 @@ export const createICSContent = (name, room_name, url, voice_bridge, voice_bridg
 
   const date = new Date();
 
-  return eventContent = {
+  return {
     start: [date.getFullYear(), date.getMonth(), date.getDay(), 12, 0],
     url: url,
     description: description,
@@ -41,7 +41,7 @@ export const createICSContent = (name, room_name, url, voice_bridge, voice_bridg
 }
 
 const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phone_number,t) => {
-  phone_data = "";
+  var phone_data = "";
 
   if (typeof voice_bridge !== 'undefined' && typeof voice_bridge_phone_number !== 'undefined') {
     phone_data = `<h6 style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 16px; line-height: 19.2px; margin: 0;" align="left">${t('or')} ${t('room.meeting.join_by_phone')}:</h6>
@@ -125,7 +125,7 @@ const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phon
 
   const date = new Date();
 
-  return eventContent = {
+  return {
     start: [date.getFullYear(), date.getMonth(), date.getDay(), 12, 0],
     url: url,
     htmlContent: HTML,
