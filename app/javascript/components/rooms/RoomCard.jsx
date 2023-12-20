@@ -27,9 +27,6 @@ import Spinner from '../shared_components/utilities/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from './MeetingBadges';
 import UserBoardIcon from './UserBoardIcon';
-import { downloadICS } from '../../helpers/ICSDownloadHelper';
-import Modal from '../shared_components/modals/Modal';
-import ShareRoomForm from './room/forms/ShareRoomForm';
 
 export default function RoomCard({ room }) {
   const { t } = useTranslation();
