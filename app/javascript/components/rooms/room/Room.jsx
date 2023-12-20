@@ -18,7 +18,7 @@ import React from 'react';
 import {
   Stack, Button, Col, Row,
 } from 'react-bootstrap';
-import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { HomeIcon, Square2StackIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -90,29 +90,29 @@ export default function Room() {
             }
           </Col>
           <Col>
-          {
-                isRoomLoading
-                  ? (
-                    <RoomNamePlaceHolder />
-                  ) : (
-                    <>
-            <Button variant="brand" className="start-meeting-btn mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
-              {startMeeting.isLoading && <Spinner className="me-2" />}
-              {room?.online ? (
-                t('room.meeting.join_meeting')
-              ) : (
-                t('room.meeting.start_meeting')
-              )}
-            </Button>
-            <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyInvite()}>
-              <Square2StackIcon className="hi-s me-1" />
-              { t('copy') }
-            </Button>
-            { typeof room.voice_bridge_phone_number !== 'undefined' && <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyVoiceBridge(room?.voice_bridge, room?.voice_bridge_phone_number)}>
-              <PhoneIcon className="hi-s me-1" />
-              { t('copy_voice_bridge') }
-            </Button>}</>)
-}
+            {
+              isRoomLoading
+                ? (
+                  <RoomNamePlaceHolder />
+                ) : (
+                  <>
+                    <Button variant="brand" className="start-meeting-btn mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
+                      {startMeeting.isLoading && <Spinner className="me-2" />}
+                      {room?.online ? (
+                        t('room.meeting.join_meeting')
+                      ) : (
+                        t('room.meeting.start_meeting')
+                      )}
+                    </Button>
+                    <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyInvite()}>
+                      <Square2StackIcon className="hi-s me-1" />
+                      {t('copy')}
+                    </Button>
+                    {typeof room.voice_bridge_phone_number !== 'undefined' && <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyVoiceBridge(room?.voice_bridge, room?.voice_bridge_phone_number)}>
+                      <PhoneIcon className="hi-s me-1" />
+                      {t('copy_voice_bridge')}
+                    </Button>}</>)
+            }
           </Col>
         </Row>
       </div>
