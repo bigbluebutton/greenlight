@@ -66,7 +66,7 @@ export default function NavbarSignedIn({ currentUser }) {
           {
             helpCenter
             && (
-              <Nav.Link eventKey={2} href={helpCenter}>
+              <Nav.Link eventKey={2} href={helpCenter} target="_blank">
                 <QuestionMarkCircleIcon className="hi-s me-3" />
                 {t('help_center')}
               </Nav.Link>
@@ -113,7 +113,7 @@ export default function NavbarSignedIn({ currentUser }) {
           {
             helpCenter
             && (
-              <NavDropdown.Item href={helpCenter}>
+              <NavDropdown.Item href={helpCenter} target="_blank">
                 <QuestionMarkCircleIcon className="hi-s me-3" />
                 {t('help_center')}
               </NavDropdown.Item>

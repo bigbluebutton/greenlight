@@ -27,7 +27,7 @@ export default function Administration() {
 
   return (
     <>
-      <Row className="mb-4">
+      <Row>
         <h6> { t('admin.site_settings.administration.terms') } </h6>
         <p className="text-muted"> { t('admin.site_settings.administration.change_term_links') } </p>
         <LinksForm
