@@ -62,13 +62,13 @@ export default function Settings() {
           value="Public/Protected"
           onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Public/Protected' })}
         >
-          {t('recording.published')}
+          {t('recording.public_protected')}
         </Dropdown.Item>
         <Dropdown.Item key="Public" value="Public" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Public' })}>
-          {t('recording.unpublished')}
+          {t('recording.public')}
         </Dropdown.Item>
         <Dropdown.Item key="Protected" value="Protected" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Protected' })}>
-          {t('recording.published')}
+          {t('recording.protected')}
         </Dropdown.Item>
         <Dropdown.Item key="Published" value="Published" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Published' })}>
           {t('recording.published')}
