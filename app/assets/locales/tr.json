@@ -274,6 +274,8 @@
         "privacy_policy": "Gizlilik ilkesi",
         "change_term_links": "Sayfanın altında görüntülenecek koşullar bağlantısını değiştir",
         "change_privacy_link": "Sayfanın altında görüntülenecek gizlilik bağlantısını değiştir",
+        "helpcenter": "Yardım merkezi",
+        "change_helpcenter_link": "Profil açılır menüsünde görüntülenecek yardım merkezi bağlantısını değiştirin",
         "change_url": "Adresi değiştir",
         "enter_link": "Bağlantıyı buraya yazın"
       },
@@ -282,7 +284,9 @@
         "allow_users_to_share_rooms": "Kullanıcılar odayı paylaşabilsin",
         "allow_users_to_share_rooms_description": "Bu seçenek devre dışı olarak ayarlandığında, düğme oda seçenekleri açılır menüsünden kaldırılır ve kullanıcıların odaları paylaşması engellenir.",
         "allow_users_to_preupload_presentation": "Kullanıcılar önceden sunum yükleyebilsin",
-        "allow_users_to_preupload_presentation_description": "Kullanıcılar, bu odada varsayılan olarak kullanılacak bir sunumu önceden yükleyebilir"
+        "allow_users_to_preupload_presentation_description": "Kullanıcılar, bu odada varsayılan olarak kullanılacak bir sunumu önceden yükleyebilir",
+        "default_visibility": "Varsayılan kaydetme görünürlüğü",
+        "default_visibility_description": "Yeni oluşturulan tüm kayıtların varsayılan görünürlüğünü belirler"
       },
       "registration": {
         "registration": "Hesap açma",
@@ -351,7 +355,8 @@
         "manage_roles": "Bu roldeki kullanıcılar diğer kullanıcı rollerini düzenleyebilsin",
         "shared_list": "Bu roldeki kullanıcılar oda paylaşma açılan kutularında görüntülensin",
         "room_limit": "Oda sayısı sınırı",
-        "email_on_signup": "Yeni bir kullanıcı hesap açtığında e-posta alın"
+        "email_on_signup": "Yeni bir kullanıcı hesap açtığında e-posta alın",
+        "allowed_recording_visibility": "İzin verilen kaydetme görünürlükleri"
       }
     }
   },
@@ -395,6 +400,7 @@
         "brand_image_updated": "Marka görseli güncellendi.",
         "brand_image_deleted": "Marka görseli silindi.",
         "privacy_policy_updated": "Gizlilik ilkesi güncellendi.",
+        "helpcenter_updated": "Yardım merkezi bağlantısı güncellendi.",
         "terms_of_service_updated": "Hizmet koşulları güncellendi."
       },
       "recording": {
