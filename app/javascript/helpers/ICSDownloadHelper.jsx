@@ -49,7 +49,7 @@ const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phon
   }
 
   const HTML = `<head>
-    <!-- Compiled with Bootstrap Email version: 1.3.1 --><meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="x-apple-disable-message-reformatting">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
@@ -64,7 +64,7 @@ const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phon
         <tr>
           <td valign="top" style="line-height: 24px; font-size: 16px; margin: 0;" align="left">
             <div>
-              <p style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">Hallo ...</p>
+              <p style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left"></p>
             </div>
             <table class="container-fluid" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
               <tbody>
@@ -108,11 +108,11 @@ const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phon
                       </tbody>
                     </table>
                     <br>
-                    <h5 style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 20px; line-height: 24px; margin: 0;" align="left">${t('room.meetings.alternative')}:</h5>
+                    <h5 style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 20px; line-height: 24px; margin: 0;" align="left">${t('room.meeting.alternative_options')}:</h5>
                     <h6 style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 16px; line-height: 19.2px; margin: 0;" align="left">${t('room.meeting.join_by_url')}</h6>
                     <p style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left"><a style="color: #0d6efd;">${url}</a></p>
                     <br>
-                    ${tel}
+                    ${phone_data}
                   </td>
                 </tr>
               </tbody>

@@ -17,7 +17,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { DocumentDuplicateIcon, CalendarIcon } from '@heroicons/react/24/outline';
+import { Square2StackIcon, CalendarIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
@@ -65,7 +65,7 @@ export default function ShareRoomForm({ room, friendly_id }) {
             variant="brand-outline"
             onClick={() => copyInvite()}
           >
-            <DocumentDuplicateIcon className="hi-s mt-0 text-muted" />
+            <Square2StackIcon className="hi-s mt-0 text-muted" />
           </Button>
         </InputGroup>
       </Form.Group>
@@ -84,7 +84,7 @@ export default function ShareRoomForm({ room, friendly_id }) {
             variant="brand-outline"
             onClick={() => copyPhoneNumber()}
           >
-            <DocumentDuplicateIcon className="hi-s mt-0 text-muted" />
+            <Square2StackIcon className="hi-s mt-0 text-muted" />
           </Button>
         </InputGroup>
       </Form.Group>}

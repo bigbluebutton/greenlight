@@ -19,7 +19,7 @@ import {
   Stack, Button, Col, Row,
 } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
-import { HomeIcon, Square2StackIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, ShareIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import { localizeDayDateTimeString } from '../../../helpers/DateTimeHelper';
