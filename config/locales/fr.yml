@@ -74,7 +74,7 @@ fr:
       take_action: "Pour afficher le nouvel utilisateur ou pour toute action nécessaire, consultez le panneau Administrateur"
     reset:
       password_reset: Demande de réinitialisation du mot de passe
-      password_reset_requested: "Une demande de réinitialisation de mot de passe est demandée par 1%{email}"
+      password_reset_requested: "Une demande de réinitialisation de mot de passe est demandée par %{email}"
       password_reset_confirmation: "Pour réinitialiser votre mot de passe, veuillez cliquer sur la bouton ci-dessous\""
       reset_password: Réinitialisation du mot de passe
       link_expires: Le lien expirera dans 1 heure.
