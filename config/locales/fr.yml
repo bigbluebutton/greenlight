@@ -71,7 +71,7 @@ fr:
       name: "Nom: %{name}"
       email: "Courriel: %{email}"
       admin_panel: "Panneau Administrateur"
-      take_action: "Pour afficher le nouvel utilisateur ou pour toute action nécessaire, consultez le panneau Administrateur"
+      take_action: "Pour afficher le nouvel utilisateur ou pour toute action nécessaire, consultez le panneau d'administration."
     reset:
       password_reset: Demande de réinitialisation du mot de passe
       password_reset_requested: "Une demande de réinitialisation de mot de passe est demandée par %{email}"
