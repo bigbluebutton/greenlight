@@ -50,7 +50,7 @@ fr:
     description: "Apprenez à utiliser BigBlueButton, la solution de webconférence open-source, fiable et qui offre une expérience adaptée aux collaborations comme aux apprentissages en ligne."
   meeting:
     moderator_message: "Pour inviter quelqu'un à la réunion, envoyez ce lien:"
-    access_code: "Code d'accès: 1%{code}"
+    access_code: "Code d'accès: %{code}"
   email:
     activation:
       account_activation: Activation du compte
