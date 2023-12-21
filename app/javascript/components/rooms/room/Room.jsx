@@ -32,6 +32,7 @@ import MeetingBadges from '../MeetingBadges';
 import SharedBadge from './SharedBadge';
 import RoomNamePlaceHolder from './RoomNamePlaceHolder';
 import Title from '../../shared_components/utilities/Title';
+import useRoomSettings from '../../../hooks/queries/rooms/useRoomSettings';
 
 export default function Room() {
   const { t } = useTranslation();
@@ -42,6 +43,19 @@ export default function Room() {
   const startMeeting = useStartMeeting(friendlyId);
   const currentUser = useAuth();
   const localizedTime = localizeDayDateTimeString(room?.last_session, currentUser?.language);
+  const roomSettings = useRoomSettings(friendlyId);
+
+  function copyAccessCode(role) {
+    if(role == "viewer") {
+      navigator.clipboard.writeText(roomSettings?.data?.glViewerAccessCode);
+      toast.success(t('toast.success.room.copied_viewer_code'));
+    }
+    
+    if (role == "moderator") {
+      navigator.clipboard.writeText(roomSettings?.data?.glModeratorAccessCode);
+      toast.success(t('toast.success.room.copied_moderator_code'));
+    }
+  }
 
   function copyInvite() {
     navigator.clipboard.writeText(`${window.location}/join`);
@@ -60,7 +74,7 @@ export default function Room() {
           </Col>
         </Row>
         <Row className="py-5">
-          <Col className="col-xxl-8">
+          <Col className="col-4">
             {
                 isRoomLoading
                   ? (
@@ -97,6 +111,22 @@ export default function Room() {
               <Square2StackIcon className="hi-s me-1" />
               { t('copy') }
             </Button>
+            { roomSettings?.data?.glViewerAccessCode
+              && (
+                <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyAccessCode("viewer")}>
+                  <Square2StackIcon className="hi-s me-1" />
+                  { t('copy_viewer_code') }
+                </Button>
+              )
+            }
+            { roomSettings?.data?.glModeratorAccessCode
+              && (
+                <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyAccessCode("moderator")}>
+                  <Square2StackIcon className="hi-s me-1" />
+                  { t('copy_moderator_code') }
+                </Button>
+              )
+            }
           </Col>
         </Row>
       </div>
