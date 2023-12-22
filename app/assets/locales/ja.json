@@ -274,6 +274,8 @@
         "privacy_policy": "プライバシーポリシー",
         "change_term_links": "ページ下方の利用規約へのリンクを変更する",
         "change_privacy_link": "ページ下方のプライバシーポリシーへのリンクを変更する",
+        "helpcenter": "ヘルプセンター",
+        "change_helpcenter_link": "プロフィールのドロップダウンメニュー内に表示されるヘルプセンターのリンクを変更",
         "change_url": "URL変更",
         "enter_link": "リンクをここに入力"
       },
@@ -398,6 +400,7 @@
         "brand_image_updated": "ブランド画像がアップデートされました。",
         "brand_image_deleted": "ブランド画像が消去されました。",
         "privacy_policy_updated": "プライバシーポリシーがアップデートされました。",
+        "helpcenter_updated": "ヘルプセンターのリンクが更新されました。",
         "terms_of_service_updated": "利用規約がアップデートされました。"
       },
       "recording": {
