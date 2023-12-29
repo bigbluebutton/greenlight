@@ -74,7 +74,11 @@ export default function useUpdateSiteSetting(name) {
         handleSuccess();
       },
       onError: (error) => {
-        handleError(error, t, toast);
+        if (error.response.data.errors.includes('Image MalwareDetected')) {
+          toast.error(t('toast.error.malware_detected'));
+        } else {
+          handleError(error, t, toast);
+        }
       },
     },
   );

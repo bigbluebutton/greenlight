@@ -52,4 +52,40 @@ RSpec.describe SiteSetting, type: :model do
       end
     end
   end
+
+  describe 'before_save' do
+    describe '#scan_image_for_virus' do
+      let(:site_setting) { create(:site_setting) }
+
+      before do
+        allow_any_instance_of(described_class).to receive(:virus_scan?).and_return(true)
+      end
+
+      it 'makes a call to ClamAV if CLAMAV_SCANNING=true' do
+        expect(Clamby).to receive(:safe?)
+
+        site_setting.image.attach(fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+      end
+
+      it 'adds an error if the file is not safe' do
+        allow(Clamby).to receive(:safe?).and_return(false)
+        site_setting.image.attach(fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+        expect(site_setting.errors[:image]).to eq(['MalwareDetected'])
+      end
+
+      it 'does not makes a call to ClamAV if the image is not changing' do
+        expect(Clamby).not_to receive(:safe?)
+
+        site_setting.update(provider: 'New Provider')
+      end
+
+      it 'does not makes a call to ClamAV if CLAMAV_SCANNING=false' do
+        allow_any_instance_of(described_class).to receive(:virus_scan?).and_return(false)
+
+        expect(Clamby).not_to receive(:safe?)
+
+        site_setting.image.attach(fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+      end
+    end
+  end
 end

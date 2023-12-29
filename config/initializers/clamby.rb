@@ -16,34 +16,9 @@
 
 # frozen_string_literal: true
 
-class SiteSetting < ApplicationRecord
-  REGISTRATION_METHODS = {
-    open: 'open',
-    invite: 'invite',
-    approval: 'approval'
-  }.freeze
-
-  belongs_to :setting
-
-  has_one_attached :image
-
-  validates :provider, presence: true
-  validates :image,
-            content_type: Rails.configuration.uploads[:images][:formats],
-            size: { less_than: Rails.configuration.uploads[:images][:max_size] }
-
-  before_save :scan_image_for_virus
-
-  private
-
-  def scan_image_for_virus
-    return if !virus_scan? || !attachment_changes['image']
-
-    path = attachment_changes['image']&.attachable&.tempfile&.path
-
-    return true if Clamby.safe?(path)
-
-    errors.add(:image, 'MalwareDetected')
-    throw :abort
-  end
-end
+Clamby.configure({
+                   check: ENV.fetch('CLAMAV_SCANNING', 'false') == 'true',
+                   daemonize: ENV.fetch('CLAMAV_DAEMONIZE', 'true') == 'true',
+                   fdpass: ENV.fetch('CLAMAV_DAEMONIZE', 'true') == 'true',
+                   config_file: ENV.fetch('CLAMAV_CONFIG', nil)
+                 })

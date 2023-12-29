@@ -38,6 +38,8 @@ class Room < ApplicationRecord
   validates :recordings_processing, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   before_validation :set_friendly_id, :set_meeting_id, on: :create
+  before_save :scan_presentation_for_virus
+
   after_create :create_meeting_options
 
   attr_accessor :shared, :active, :participants
@@ -98,5 +100,16 @@ class Room < ApplicationRecord
     self.meeting_id = id
   rescue StandardError
     retry
+  end
+
+  def scan_presentation_for_virus
+    return if !virus_scan? || !attachment_changes['presentation']
+
+    path = attachment_changes['presentation']&.attachable&.tempfile&.path
+
+    return true if Clamby.safe?(path)
+
+    errors.add(:presentation, 'MalwareDetected')
+    throw :abort
   end
 end
