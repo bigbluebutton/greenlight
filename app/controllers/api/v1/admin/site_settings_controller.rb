@@ -51,10 +51,7 @@ module Api
                      site_setting.update(value: params[:site_setting][:value].to_s)
                    end
 
-          unless update
-            return render_error status: :bad_request,
-                                errors: Rails.configuration.custom_error_msgs[:record_invalid]
-          end
+          return render_error status: :bad_request, errors: site_setting.errors.to_a unless update
 
           render_data status: :ok
         end

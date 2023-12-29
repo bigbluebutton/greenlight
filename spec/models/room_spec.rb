@@ -86,6 +86,42 @@ RSpec.describe Room, type: :model do
     end
   end
 
+  describe 'before_save' do
+    describe '#scan_presentation_for_virus' do
+      let(:room) { create(:room) }
+
+      before do
+        allow_any_instance_of(described_class).to receive(:virus_scan?).and_return(true)
+      end
+
+      it 'makes a call to ClamAV if CLAMAV_SCANNING=true' do
+        expect(Clamby).to receive(:safe?)
+
+        room.presentation.attach(fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+      end
+
+      it 'adds an error if the file is not safe' do
+        allow(Clamby).to receive(:safe?).and_return(false)
+        room.presentation.attach(fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+        expect(room.errors[:presentation]).to eq(['MalwareDetected'])
+      end
+
+      it 'does not makes a call to ClamAV if the image is not changing' do
+        expect(Clamby).not_to receive(:safe?)
+
+        room.update(name: 'New Name')
+      end
+
+      it 'does not makes a call to ClamAV if CLAMAV_SCANNING=false' do
+        allow_any_instance_of(described_class).to receive(:virus_scan?).and_return(false)
+
+        expect(Clamby).not_to receive(:safe?)
+
+        room.presentation.attach(fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+      end
+    end
+  end
+
   context 'after_create' do
     describe 'create_meeting_options' do
       let!(:viewer_access_code) { create(:meeting_option, name: 'glViewerAccessCode', default_value: '') }

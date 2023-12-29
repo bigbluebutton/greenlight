@@ -71,6 +71,7 @@ class User < ApplicationRecord
   validate :check_user_role_provider, if: :role_changed?
 
   before_validation :set_session_token, on: :create
+  before_save :scan_avatar_for_virus
 
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
 
@@ -213,5 +214,18 @@ class User < ApplicationRecord
     return unless role
 
     errors.add(:user_provider, 'has to be the same as the Role provider') if provider != role.provider
+  end
+
+  private
+
+  def scan_avatar_for_virus
+    return if !virus_scan? || !attachment_changes['avatar']
+
+    path = attachment_changes['avatar']&.attachable&.tempfile&.path
+
+    return true if Clamby.safe?(path)
+
+    errors.add(:avatar, 'MalwareDetected')
+    throw :abort
   end
 end
