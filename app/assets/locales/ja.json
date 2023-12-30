@@ -291,7 +291,7 @@
       "registration": {
         "registration": "ユーザー登録",
         "role_mapping_by_email": "メールアドレスによる役割の割り当て",
-        "role_mapping_by_email_description": "メールアドレスを使ってユーザーに役割を割り当てます。役割1=メール1, 役割2=メール2、の形式にしてください。",
+        "role_mapping_by_email_description": "メールアドレスによって、割り当てられる役割を固定します。役割1=メール1, 役割2=メール2、の形式にしてください。",
         "enter_role_mapping_rule": "役割割り当てルールを入力",
         "resync_on_login": "サインインごとにユーザーのデーターを再同期",
         "resync_on_login_description": "サインインのたびにユーザーの情報を再同期し、外部の承認提供者の情報とGreenlightの情報とを常に一致させます",
