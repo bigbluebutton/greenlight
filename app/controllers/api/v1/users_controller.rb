@@ -108,6 +108,9 @@ module Api
 
         if user.update(update_user_params)
           create_default_room(user)
+          if params[:language] != @current_user.language
+            I18n.default_locale = params[:language].to_sym
+          end
           render_data  status: :ok
         else
           render_error errors: user.errors.to_a

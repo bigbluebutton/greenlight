@@ -57,6 +57,7 @@ class MeetingStarter
 
   def computed_options(access_code:)
     room_url = "#{root_url(host: @base_url)}rooms/#{@room.friendly_id}/join"
+    I18n.default_locale = @current_user.language.to_sym
     moderator_message = "#{I18n.t('meeting.moderator_message')}<br>#{room_url}"
     moderator_message += "<br>#{I18n.t('meeting.access_code', code: access_code)}" if access_code.present?
     {
