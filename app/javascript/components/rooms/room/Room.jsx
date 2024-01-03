@@ -98,30 +98,41 @@ export default function Room() {
               }
           </Col>
           <Col>
-            <Button variant="brand" className="start-meeting-btn mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
-              {startMeeting.isLoading && <Spinner className="me-2" />}
-              { room?.online ? (
-                t('room.meeting.join_meeting')
-              ) : (
-                t('room.meeting.start_meeting')
-              )}
-            </Button>
-            <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyInvite()}>
-              <Square2StackIcon className="hi-s me-1" />
-              { t('copy') }
-            </Button>
-            { roomSettings?.data?.glViewerAccessCode && (
-            <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyAccessCode('viewer')}>
-              <Square2StackIcon className="hi-s me-1" />
-              { t('copy_viewer_code') }
-            </Button>
-            )}
-            { roomSettings?.data?.glModeratorAccessCode && (
-            <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyAccessCode('moderator')}>
-              <Square2StackIcon className="hi-s me-1" />
-              { t('copy_moderator_code') }
-            </Button>
-            )}
+            <Row>
+              <Col className="col-12">
+                <Button
+                  variant="brand"
+                  className="start-meeting-btn mt-1 mx-2 float-end"
+                  onClick={startMeeting.mutate}
+                  disabled={startMeeting.isLoading}
+                >
+                  {startMeeting.isLoading && <Spinner className="me-2" />}
+                  { room?.online ? (
+                    t('room.meeting.join_meeting')
+                  ) : (
+                    t('room.meeting.start_meeting')
+                  )}
+                </Button>
+                <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyInvite()}>
+                  <Square2StackIcon className="hi-s me-1" />
+                  { t('copy') }
+                </Button>
+              </Col>
+              <Col className="col-12 copy-buttons">
+                { roomSettings?.data?.glViewerAccessCode && (
+                <Button variant="brand-outline" className="mt-1 mx-2 float-end btn-sm" onClick={() => copyAccessCode('viewer')}>
+                  <Square2StackIcon className="hi-s me-1" />
+                  { t('copy_viewer_code') }
+                </Button>
+                )}
+                { roomSettings?.data?.glModeratorAccessCode && (
+                <Button variant="brand-outline" className="mt-1 mx-2 float-end btn-sm" onClick={() => copyAccessCode('moderator')}>
+                  <Square2StackIcon className="hi-s me-1" />
+                  { t('copy_moderator_code') }
+                </Button>
+                )}
+              </Col>
+            </Row>
           </Col>
         </Row>
       </div>
