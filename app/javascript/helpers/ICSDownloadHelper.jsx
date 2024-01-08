@@ -18,12 +18,17 @@ import { createEvent } from "ics";
 import { saveAs } from "file-saver";
 
 
-export const createICSContent = (name, room_name, url, voice_bridge, voice_bridge_phone_number, t, use_html=false) => {
+const use_html = false;
+
+const createICSContent = (name, room_name, url, voice_bridge, voice_bridge_phone_number, t) => {
   if (use_html) {
     return createICSWithHtml(name, room_name, url,voice_bridge,voice_bridge_phone_number, t);
+  } else {
+    return createICSWithoutHTML(name, room_name, url, voice_bridge, voice_bridge_phone_number, t);
   }
+}
 
-
+const createICSWithoutHTML = (name, room_name, url, voice_bridge, voice_bridge_phone_number, t) => {
   let description = `\n\n${t('room.meeting.invite_to_meeting', {name})}\n\n${t('room.meeting.join_by_url')}:\n${url}\n`;
 
   if (typeof voice_bridge !== 'undefined' && typeof voice_bridge_phone_number !== 'undefined') {
@@ -33,7 +38,7 @@ export const createICSContent = (name, room_name, url, voice_bridge, voice_bridg
   const date = new Date();
 
   return {
-    start: [date.getFullYear(), date.getMonth(), date.getDay(), 12, 0],
+    start: [date.getFullYear(), date.getMonth() + 1, date.getDate(), 12, 0],
     url: url,
     description: description,
     title: room_name,
@@ -126,7 +131,7 @@ const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phon
   const date = new Date();
 
   return {
-    start: [date.getFullYear(), date.getMonth(), date.getDay(), 12, 0],
+    start: [date.getFullYear(), date.getMonth() + 1, date.getDate(), 12, 0],
     url: url,
     htmlContent: HTML,
     title: room_name
