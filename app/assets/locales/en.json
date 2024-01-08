@@ -129,7 +129,8 @@
       "alternative_options": "Alternative options to join",
       "download_ics": "Download .ics calender file",
       "share_meeting": "Share Room",
-      "join_by_phone": "join with telephone dial-up"
+      "join_by_phone": "Connect via telephone dial-up",
+      "location": "Video conference - Further details are provided below"
     },
     "presentation": {
       "presentation": "Presentation",

@@ -129,7 +129,8 @@
       "alternative_options": "Alternative Optionen zur Teilnahme",
       "download_ics": ".ics-Kalenderdatei herunterladen",
       "share_meeting": "Raum teilen",
-      "join_by_phone": "mit Telefoneinwahl beitreten"
+      "join_by_phone": "Mit Telefoneinwahl beitreten",
+      "location": "Videokonferenz, siehe Details im termin"
     },
     "presentation": {
       "presentation": "Präsentation",
