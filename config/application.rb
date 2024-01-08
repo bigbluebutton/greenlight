@@ -84,6 +84,6 @@ module Greenlight
     config.relative_url_root = '/' if config.relative_url_root.blank?
 
     I18n.load_path += Dir[Rails.root.join('config/locales/*.{rb,yml}').to_s]
-    config.i18n.fallbacks = %i[en fr de]
+    config.i18n.fallbacks = %i[en]
   end
 end
