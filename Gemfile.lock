@@ -273,7 +273,7 @@ GEM
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.5.9)
+    nio4r (2.7.0)
     nokogiri (1.15.5)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -312,7 +312,7 @@ GEM
     psych (5.1.1.1)
       stringio
     public_suffix (5.0.3)
-    puma (5.6.7)
+    puma (5.6.8)
       nio4r (~> 2.0)
     racc (1.7.3)
     rack (2.2.8)
@@ -529,7 +529,7 @@ DEPENDENCIES
   omniauth_openid_connect (>= 0.6.1)
   pagy (~> 6.0, >= 6.0.0)
   pg
-  puma (~> 5.6)
+  puma (~> 5.6, >= 5.6.8)
   rails (~> 7.1.1)
   redis (~> 4.0)
   remote_syslog_logger
@@ -547,3 +547,9 @@ DEPENDENCIES
   web-console (>= 4.2.1)
   webdrivers
   webmock
+
+RUBY VERSION
+   ruby 3.0.0p0
+
+BUNDLED WITH
+   2.2.3
