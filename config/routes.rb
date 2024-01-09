@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   # External requests
   get '/auth/:provider/callback', to: 'external#create_user'
   post '/auth/:provider/callback', to: 'external#create_user'
+  get '/auth/failure', to: 'external#auth_failure'
   get '/meeting_ended', to: 'external#meeting_ended'
   post '/recording_ready', to: 'external#recording_ready'
 
