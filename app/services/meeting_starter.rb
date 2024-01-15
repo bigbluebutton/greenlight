@@ -57,8 +57,8 @@ class MeetingStarter
 
   def computed_options(access_code:)
     room_url = "#{root_url(host: @base_url)}rooms/#{@room.friendly_id}/join"
-    moderator_message = "#{I18n.t('meeting.moderator_message', locale: @current_user.language.to_sym)}<br>#{room_url}"
-    moderator_message += "<br>#{I18n.t('meeting.access_code', code: access_code, locale: @current_user.language.to_sym)}" if access_code.present?
+    moderator_message = "#{I18n.t('meeting.moderator_message', locale: @current_user&.language&.to_sym)}<br>#{room_url}"
+    moderator_message += "<br>#{I18n.t('meeting.access_code', code: access_code, locale: @current_user&.language&.to_sym)}" if access_code.present?
     {
       moderatorOnlyMessage: moderator_message,
       logoutURL: room_url,
