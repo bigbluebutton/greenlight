@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_08_202126) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_18_154727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -193,12 +193,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_08_202126) do
     t.uuid "role_id"
     t.string "language", null: false
     t.string "reset_digest"
-    t.datetime "reset_sent_at"
+    t.datetime "reset_sent_at", precision: nil
     t.boolean "verified", default: false
     t.string "verification_digest"
-    t.datetime "verification_sent_at"
+    t.datetime "verification_sent_at", precision: nil
     t.string "session_token"
-    t.datetime "session_expiry"
+    t.datetime "session_expiry", precision: nil
     t.integer "status", default: 0
     t.boolean "confirm_terms", default: false
     t.boolean "email_notifs", default: false
