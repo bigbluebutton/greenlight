@@ -286,7 +286,11 @@
         "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",
         "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room",
         "default_visibility": "Default Recording Visibility",
-        "default_visibility_description": "All newly created recordings will have this visibility by default"
+        "default_visibility_description": "All newly created recordings will have this visibility by default",
+        "confirm_terms": "Confirm terms and conditions",
+        "confirm_terms_description": "Require users to confirm terms and conditions",
+        "disable": "Disable",
+        "enable": "Enable"
       },
       "registration": {
         "registration": "Registration",
@@ -401,7 +405,8 @@
         "brand_image_deleted": "The brand image has been deleted.",
         "privacy_policy_updated": "The privacy policy has been updated.",
         "helpcenter_updated": "The help center link has been updated.",
-        "terms_of_service_updated": "The terms of service have been updated."
+        "terms_of_service_updated": "The terms of service have been updated.",
+        "confirm_terms_updated": "The confirmation for terms of service have been updated."
       },
       "recording": {
         "recording_visibility_updated": "The recording visibility has been updated.",
@@ -460,6 +465,12 @@
     "resend_activation_link": "If you haven't received an activation email or if you are having a problem using it, click on the button below to request a new activation email.",
     "resend_btn_lbl": "Resend Verification"
   },
+  "confirm_terms_page": {
+    "title": "Confirm terms and conditions",
+    "account_unconfirmed": "Your account has not accepted the terms and conditions.",
+    "message": "Please accept the terms and conditions for Greenlight.",
+    "confirm_btn_lbl": "Confirm"
+  },
   "forms": {
     "validations": {
       "full_name": {
@@ -486,6 +497,9 @@
       "password_confirmation": {
         "required": "Please enter a password confirmation",
         "match": "The passwords do not match"
+      },
+      "confirm_terms": {
+        "required": "Please accept the terms and conditions"
       },
       "emails": {
         "required": "Please enter at least one valid email",
@@ -560,6 +574,12 @@
           "password_confirmation": {
             "label": "Confirm Password",
             "placeholder": "Confirm password"
+          },
+          "confirm_terms": {
+            "label": "I Accept the terms and conditions"
+          },
+          "email_notifs": {
+            "label": "I would like to receive email updates from Greenlight"
           }
         }
       },

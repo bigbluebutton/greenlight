@@ -20,6 +20,8 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useAuth } from '../contexts/auth/AuthProvider';
 import useDeleteSession from '../hooks/mutations/sessions/useDeleteSession';
+import useSiteSetting from '../hooks/queries/site_settings/useSiteSetting';
+import ConfirmTerms from '../components/users/account_activation/ConfirmTerms';
 
 export default function AuthenticatedOnly() {
   const { t } = useTranslation();
@@ -27,6 +29,7 @@ export default function AuthenticatedOnly() {
   const roomsMatch = useMatch('/rooms/:friendlyId');
   const superAdminMatch = useMatch('/admin/*');
   const deleteSession = useDeleteSession({ showToast: false });
+  const { data: confirmTerms } = useSiteSetting('ConfirmTerms');
 
   // User is either pending or banned
   if (currentUser.signed_in && (currentUser.status !== 'active' || !currentUser.verified)) {
@@ -48,6 +51,10 @@ export default function AuthenticatedOnly() {
 
   if (currentUser.signed_in && currentUser.isSuperAdmin && !superAdminMatch) {
     return <Navigate to="/admin/users" />;
+  }
+
+  if (currentUser.signed_in && confirmTerms && !currentUser.confirm_terms) {
+    return <ConfirmTerms />;
   }
 
   if (!currentUser.signed_in) {

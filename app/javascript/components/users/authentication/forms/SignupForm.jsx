@@ -43,6 +43,10 @@ export default function SignupForm() {
       <FormControl field={fields.email} type="email" />
       <FormControl field={fields.password} type="password" />
       <FormControl field={fields.password_confirmation} type="password" />
+
+      <FormControl field={fields.confirm_terms} type="checkbox" />
+      <FormControl field={fields.email_notifs} type="checkbox" />
+
       <HCaptcha ref={captchaRef} />
       <Stack className="mt-1" gap={1}>
         <Button variant="brand" className="w-100 my-3 mt-1" type="submit" disabled={createUserAPI.isLoading}>

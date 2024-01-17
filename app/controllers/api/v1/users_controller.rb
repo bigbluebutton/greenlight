@@ -100,7 +100,6 @@ module Api
       # Updates the values of a user
       def update
         user = User.find(params[:id])
-
         # User can't change their own role
         if params[:user][:role_id].present? && current_user == user && params[:user][:role_id] != user.role_id
           return render_error errors: Rails.configuration.custom_error_msgs[:unauthorized], status: :forbidden
@@ -156,11 +155,13 @@ module Api
       private
 
       def create_user_params
-        @create_user_params ||= params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id, :invite_token)
+        @create_user_params ||= params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id,
+                                                             :confirm_terms, :email_notifs, :invite_token)
       end
 
       def update_user_params
-        @update_user_params ||= params.require(:user).permit(:name, :password, :avatar, :language, :role_id, :invite_token)
+        @update_user_params ||= params.require(:user).permit(:name, :password, :avatar, :language, :role_id,
+                                                             :confirm_terms, :email_notifs, :invite_token)
       end
 
       def change_password_params
