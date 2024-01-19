@@ -43,7 +43,7 @@ export function useSignUpFormValidation() {
     password_confirmation: yup.string().required('forms.validations.password_confirmation.required')
       .oneOf([yup.ref('password')], 'forms.validations.password_confirmation.match'),
 
-    confirm_terms: yup.boolean().oneOf([true], 'forms.validations.confirm_terms.required'),
+    terms: yup.boolean().oneOf([true], 'forms.validations.terms.required'),
   })), []);
 }
 
@@ -89,18 +89,18 @@ export default function useSignUpForm({ defaultValues: _defaultValues, ..._confi
         },
       },
     },
-    confirm_terms: {
-      label: t('forms.user.signup.fields.confirm_terms.label'),
-      controlId: 'signupFormConfirmTerms',
+    terms: {
+      label: t('forms.user.signup.fields.terms.label'),
+      controlId: 'signupFormTerms',
       hookForm: {
-        id: 'confirm_terms',
+        id: 'terms',
       },
     },
-    email_notifs: {
-      label: t('forms.user.signup.fields.email_notifs.label'),
-      controlId: 'signupFormEmailNotifs',
+    marketing: {
+      label: t('forms.user.signup.fields.marketing.label'),
+      controlId: 'signupFormMarketing',
       hookForm: {
-        id: 'email_notifs',
+        id: 'marketing',
       },
     },
   }), [i18n.resolvedLanguage]);
@@ -117,8 +117,8 @@ export default function useSignUpForm({ defaultValues: _defaultValues, ..._confi
           email: '',
           password: '',
           password_confirmation: '',
-          confirm_terms: false,
-          email_notifs: false,
+          terms: false,
+          marketing: false,
         },
         ..._defaultValues,
       },

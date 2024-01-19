@@ -29,14 +29,14 @@ export default function ConfirmTerms() {
 
   const currentUser = useAuth();
   const updateUserAPI = useUpdateUser(currentUser?.id);
-  const [isCheckedTerms, setIsCheckedTerms] = useState(currentUser?.confirm_terms || false);
-  const [isCheckedEmails, setIsCheckedEmails] = useState(currentUser?.email_notifs || false);
+  const [isCheckedTerms, setIsCheckedTerms] = useState(currentUser?.terms || false);
+  const [isCheckedMarketing, setisCheckedMarketing] = useState(currentUser?.marketing || false);
 
   // Update the user's confirm_terms value when the button is clicked
   const handleConfirmTerms = () => {
     updateUserAPI.mutate({
-      confirm_terms: isCheckedTerms,
-      email_notifs: isCheckedEmails,
+      terms: isCheckedTerms,
+      marketing: isCheckedMarketing,
     });
   };
 
@@ -45,39 +45,38 @@ export default function ConfirmTerms() {
       <div className="text-center pb-4">
         <Logo />
       </div>
-      <Card className="col-md-4 mx-auto p-4 border-0 card-shadow">
+      <Card className="col-md-5 mx-auto p-4 border-0 card-shadow">
         <Stack direction="vertical" className="py-3">
           <h3><strong>{ t('confirm_terms_page.title') }</strong></h3>
-          <h5 className="mb-3">{ t('confirm_terms_page.account_unconfirmed') }</h5>
         </Stack>
         <span className="mb-3">{ t('confirm_terms_page.message') }</span>
 
         <Stack direction="horizontal">
-          <Stack>
-            {t('forms.user.signup.fields.confirm_terms.label')}
-          </Stack>
           <div className="form-switch">
             <input
-              className="form-check-input fs-5"
+              className="form-check-input"
               type="checkbox"
               checked={isCheckedTerms}
               onChange={() => setIsCheckedTerms(!isCheckedTerms)}
             />
           </div>
+          <Stack>
+            {t('forms.user.signup.fields.terms.label')}
+          </Stack>
         </Stack>
 
         <Stack direction="horizontal">
-          <Stack>
-            {t('forms.user.signup.fields.email_notifs.label')}
-          </Stack>
           <div className="form-switch">
             <input
-              className="form-check-input fs-5"
+              className="form-check-input"
               type="checkbox"
-              checked={isCheckedEmails}
-              onChange={() => setIsCheckedEmails(!isCheckedEmails)}
+              checked={isCheckedMarketing}
+              onChange={() => setisCheckedMarketing(!isCheckedMarketing)}
             />
           </div>
+          <Stack>
+            {t('forms.user.signup.fields.marketing.label')}
+          </Stack>
         </Stack>
 
         <Button

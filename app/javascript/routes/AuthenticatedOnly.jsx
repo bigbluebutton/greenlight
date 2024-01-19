@@ -53,7 +53,7 @@ export default function AuthenticatedOnly() {
     return <Navigate to="/admin/users" />;
   }
 
-  if (currentUser.signed_in && confirmTerms && !currentUser.confirm_terms) {
+  if (currentUser.signed_in && confirmTerms && !currentUser.terms) {
     return <ConfirmTerms />;
   }
 

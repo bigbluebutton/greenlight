@@ -11,10 +11,5 @@ class AddConfirmTermsToSiteSettings < ActiveRecord::Migration[7.1]
       value: false,
       provider: 'greenlight'
     )
-
-    change_table :users, bulk: true do |t|
-      t.boolean :confirm_terms, default: false
-      t.boolean :email_notifs, default: false
-    end
   end
 end

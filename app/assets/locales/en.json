@@ -466,9 +466,8 @@
     "resend_btn_lbl": "Resend Verification"
   },
   "confirm_terms_page": {
-    "title": "Confirm terms and conditions",
-    "account_unconfirmed": "Your account has not accepted the terms and conditions.",
-    "message": "Please accept the terms and conditions for Greenlight.",
+    "title": "Accept Our Terms and Conditions",
+    "message": "To continue using BigBlueButton, please accept our terms and conditions.",
     "confirm_btn_lbl": "Confirm"
   },
   "forms": {
@@ -575,11 +574,11 @@
             "label": "Confirm Password",
             "placeholder": "Confirm password"
           },
-          "confirm_terms": {
+          "terms": {
             "label": "I Accept the terms and conditions"
           },
-          "email_notifs": {
-            "label": "I would like to receive email updates from Greenlight"
+          "marketing": {
+            "label": "I would like to receive email updates"
           }
         }
       },

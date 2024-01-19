@@ -19,7 +19,7 @@
 class UserSerializer < ApplicationSerializer
   include Avatarable
 
-  attributes :id, :name, :email, :provider, :language, :avatar, :verified, :confirm_terms, :email_notifs, :created_at
+  attributes :id, :name, :email, :provider, :language, :avatar, :verified, :terms, :marketing, :created_at
 
   belongs_to :role
 
@@ -30,8 +30,4 @@ class UserSerializer < ApplicationSerializer
   def avatar
     user_avatar(object)
   end
-
-  delegate :confirm_terms, to: :object
-
-  delegate :email_notifs, to: :object
 end

@@ -46,8 +46,8 @@ export default function AuthProvider({ children }) {
     external_account: currentUser?.external_account,
     stateChanging: false,
     isSuperAdmin: currentUser?.super_admin,
-    confirm_terms: currentUser?.confirm_terms,
-    email_notifs: currentUser?.email_notifs,
+    terms: currentUser?.terms,
+    marketing: currentUser?.marketing,
   };
 
   const memoizedCurrentUser = useMemo(() => user, [user]);
