@@ -279,7 +279,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.5-x86_64-linux)
       racc (~> 1.4)
-    omniauth (2.1.1)
+    omniauth (2.1.2)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
       rack-protection
@@ -323,7 +323,8 @@ GEM
       faraday-follow_redirects
       json-jwt (>= 1.11.0)
       rack (>= 2.1.0)
-    rack-protection (3.1.0)
+    rack-protection (3.2.0)
+      base64 (>= 0.1.0)
       rack (~> 2.2, >= 2.2.4)
     rack-session (1.0.1)
       rack (< 3)
@@ -524,7 +525,7 @@ DEPENDENCIES
   jwt
   lograge (~> 0.14.0)
   mini_magick (>= 4.9.5)
-  omniauth (~> 2.1.0)
+  omniauth (~> 2.1.2)
   omniauth-rails_csrf_protection (~> 1.0.1)
   omniauth_openid_connect (>= 0.6.1)
   pagy (~> 6.0, >= 6.0.0)
@@ -547,3 +548,9 @@ DEPENDENCIES
   web-console (>= 4.2.1)
   webdrivers
   webmock
+
+RUBY VERSION
+   ruby 3.0.0p0
+
+BUNDLED WITH
+   2.2.3
