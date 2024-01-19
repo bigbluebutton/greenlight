@@ -16,7 +16,7 @@
 
 import React from 'react';
 import {
-  Stack, Button, Col, Row,
+  Stack, Button, Col, Row, Dropdown,
 } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { HomeIcon, Square2StackIcon } from '@heroicons/react/24/outline';
@@ -113,24 +113,33 @@ export default function Room() {
                     t('room.meeting.start_meeting')
                   )}
                 </Button>
-                <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyInvite()}>
-                  <Square2StackIcon className="hi-s me-1" />
-                  { t('copy') }
-                </Button>
-              </Col>
-              <Col className="col-12 copy-buttons">
-                { roomSettings?.data?.glViewerAccessCode && (
-                <Button variant="brand-outline" className="mt-1 mx-2 float-end btn-sm" onClick={() => copyAccessCode('viewer')}>
-                  <Square2StackIcon className="hi-s me-1" />
-                  { t('copy_viewer_code') }
-                </Button>
-                )}
-                { roomSettings?.data?.glModeratorAccessCode && (
-                <Button variant="brand-outline" className="mt-1 mx-2 float-end btn-sm" onClick={() => copyAccessCode('moderator')}>
-                  <Square2StackIcon className="hi-s me-1" />
-                  { t('copy_moderator_code') }
-                </Button>
-                )}
+
+                <Dropdown className="btn-group mt-1 mx-2 float-end pb-5">
+                  <Button variant="brand-outline" type="button" className="btn dropdown-main" onClick={() => copyInvite()}>
+                    <Square2StackIcon className="hi-s me-1" />
+                    { t('copy') }
+                  </Button>
+                  { (roomSettings?.data?.glModeratorAccessCode || roomSettings?.data?.glViewerAccessCode) && (
+                    <Dropdown.Toggle
+                      variant="brand-outline"
+                      className="btn dropdown-toggle dropdown-toggle-split"
+                      id="dropdown-toggle"
+                    />
+                  )}
+
+                  <Dropdown.Menu className="dropdown-menu">
+                    { roomSettings?.data?.glModeratorAccessCode && (
+                      <Dropdown.Item onClick={() => copyAccessCode('moderator')}>
+                        { t('copy_moderator_code') }
+                      </Dropdown.Item>
+                    )}
+                    { roomSettings?.data?.glViewerAccessCode && (
+                      <Dropdown.Item onClick={() => copyAccessCode('viewer')}>
+                        { t('copy_viewer_code') }
+                      </Dropdown.Item>
+                    )}
+                  </Dropdown.Menu>
+                </Dropdown>
               </Col>
             </Row>
           </Col>
