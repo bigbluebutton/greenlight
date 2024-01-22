@@ -276,7 +276,10 @@
         "change_privacy_link": "Change the privacy link that appears at the bottom of the page",
         "helpcenter": "Help Center",
         "change_helpcenter_link": "Change the help center link that appears under the profile dropdown",
+        "maintenance": "Maintenance Banner",
+        "change_maintenance_text": "Change the maintenance banner text that appears in the header",
         "change_url": "Change URL",
+        "change_text": "Change text",
         "enter_link": "Enter link here"
       },
       "settings": {
@@ -672,7 +675,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "Enter link here..."
+            "placeholder": "Enter link here...",
+            "text_placeholder": "Enter text here..."
           }
         }
       },

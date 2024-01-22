@@ -29,6 +29,9 @@ export default function App() {
   const currentUser = useAuth();
   const location = useLocation();
 
+  // check for the maintenance banner
+  const maintenanceBanner = useSiteSetting(['Maintenance']);
+
   // Pages that do not need a header: SignIn, SignUp and JoinMeeting (if the user is not signed in)
   const homePage = location.pathname === '/';
   const pageHeight = (homePage || currentUser.signed_in) ? 'regular-height' : 'no-header-height';
@@ -52,6 +55,11 @@ export default function App() {
     <>
       <Title>BigBlueButton</Title>
       {(homePage || currentUser.signed_in) && <Header /> }
+      {maintenanceBanner.data && (
+        <div className="alert alert-danger mb-0" role="alert">
+          {maintenanceBanner.data}
+        </div>
+      )}
       <Container className={pageHeight}>
         <Outlet />
       </Container>
