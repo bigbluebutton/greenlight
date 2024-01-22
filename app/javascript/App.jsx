@@ -24,6 +24,7 @@ import { useAuth } from './contexts/auth/AuthProvider';
 import Footer from './components/shared_components/Footer';
 import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
 import Title from './components/shared_components/utilities/Title';
+import Maintenance from './components/shared_components/Maintenance';
 
 export default function App() {
   const currentUser = useAuth();
@@ -55,11 +56,7 @@ export default function App() {
     <>
       <Title>BigBlueButton</Title>
       {(homePage || currentUser.signed_in) && <Header /> }
-      {maintenanceBanner.data && (
-        <div className="alert alert-danger mb-0" role="alert">
-          {maintenanceBanner.data}
-        </div>
-      )}
+      {maintenanceBanner.data && <Maintenance />}
       <Container className={pageHeight}>
         <Outlet />
       </Container>
