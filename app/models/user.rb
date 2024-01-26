@@ -81,8 +81,8 @@ class User < ApplicationRecord
     all
   end
 
-  def self.name_search(input)
-    return where('users.name ILIKE :input', input: "%#{input}%") if input
+  def self.shared_access_search(input)
+    return where('users.name ILIKE :input OR users.email ILIKE :input', input: "%#{input}%") if input
 
     all
   end
