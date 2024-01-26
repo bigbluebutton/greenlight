@@ -548,9 +548,3 @@ DEPENDENCIES
   web-console (>= 4.2.1)
   webdrivers
   webmock
-
-RUBY VERSION
-   ruby 3.0.0p0
-
-BUNDLED WITH
-   2.2.3
