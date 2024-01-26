@@ -159,9 +159,9 @@ GEM
     drb (2.2.0)
       ruby2_keywords
     erubi (1.12.0)
-    factory_bot (6.4.2)
+    factory_bot (6.4.5)
       activesupport (>= 5.0.0)
-    factory_bot_rails (6.4.2)
+    factory_bot_rails (6.4.3)
       factory_bot (~> 6.4)
       railties (>= 5.0.0)
     faker (3.1.1)
@@ -279,7 +279,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.0-x86_64-linux)
       racc (~> 1.4)
-    omniauth (2.1.1)
+    omniauth (2.1.2)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
       rack-protection
@@ -512,7 +512,7 @@ DEPENDENCIES
   debug
   dotenv-rails
   factory_bot (>= 6.4.1)
-  factory_bot_rails (>= 6.4.2)
+  factory_bot_rails (>= 6.4.3)
   faker
   google-cloud-storage (~> 1.44)
   hcaptcha
@@ -524,7 +524,7 @@ DEPENDENCIES
   jwt
   lograge (~> 0.14.0)
   mini_magick (>= 4.9.5)
-  omniauth (~> 2.1.0)
+  omniauth (~> 2.1.2)
   omniauth-rails_csrf_protection (~> 1.0.1)
   omniauth_openid_connect (>= 0.6.1)
   pagy (~> 6.0, >= 6.0.0)
@@ -547,9 +547,3 @@ DEPENDENCIES
   web-console (>= 4.2.1)
   webdrivers
   webmock
-
-RUBY VERSION
-   ruby 3.0.0p0
-
-BUNDLED WITH
-   2.2.3

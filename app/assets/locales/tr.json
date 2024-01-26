@@ -425,6 +425,7 @@
       "file_size_too_large": "Dosya boyutu çok büyük.",
       "file_upload_error": "Dosya yüklenemedi.",
       "signin_required": "Bu sayfaya erişebilmek için oturum açmalısınız",
+      "malware_detected": "Zararlı yazılım algılandı! Yüklediğiniz dosyada zararlı yazılım bulunuyor. Lütfen dosyayı denetleyip yeniden deneyin.",
       "roles": {
         "role_assigned": "Bu rol, en az bir kullanıcıya atanmış olduğundan silinemez."
       },
