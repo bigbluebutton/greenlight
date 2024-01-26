@@ -49,15 +49,13 @@ export default function Room() {
     if (role === 'viewer') {
       navigator.clipboard.writeText(roomSettings?.data?.glViewerAccessCode);
       toast.success(t('toast.success.room.copied_viewer_code'));
-      return;
-    }
-    if (role === 'moderator') {
+    } else if (role === 'moderator') {
       navigator.clipboard.writeText(roomSettings?.data?.glModeratorAccessCode);
       toast.success(t('toast.success.room.copied_moderator_code'));
-      return;
+    } else {
+      navigator.clipboard.writeText(`${window.location}/join`);
+      toast.success(t('toast.success.room.copied_meeting_url'));
     }
-    navigator.clipboard.writeText(`${window.location}/join`);
-    toast.success(t('toast.success.room.copied_meeting_url'));
   }
 
   return (
