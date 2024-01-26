@@ -229,7 +229,7 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     jmespath (1.6.2)
-    jsbundling-rails (1.2.1)
+    jsbundling-rails (1.2.2)
       railties (>= 6.0.0)
     json (2.6.3)
     json-jwt (1.16.3)
@@ -367,7 +367,7 @@ GEM
       psych (>= 4.0.0)
     redis (4.8.0)
     regexp_parser (2.8.1)
-    reline (0.4.1)
+    reline (0.4.2)
       io-console (~> 0.5)
     remote_syslog_logger (1.0.4)
       syslog_protocol
@@ -520,7 +520,7 @@ DEPENDENCIES
   i18n-language-mapping
   image_processing (~> 1.2)
   jbuilder
-  jsbundling-rails (>= 1.2.1)
+  jsbundling-rails (>= 1.2.2)
   jwt
   lograge (~> 0.14.0)
   mini_magick (>= 4.9.5)
