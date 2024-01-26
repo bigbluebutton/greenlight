@@ -45,18 +45,17 @@ export default function Room() {
   const localizedTime = localizeDayDateTimeString(room?.last_session, currentUser?.language);
   const roomSettings = useRoomSettings(friendlyId);
 
-  function copyAccessCode(role) {
+  function copyInvite(role) {
     if (role === 'viewer') {
       navigator.clipboard.writeText(roomSettings?.data?.glViewerAccessCode);
       toast.success(t('toast.success.room.copied_viewer_code'));
+      return
     }
     if (role === 'moderator') {
       navigator.clipboard.writeText(roomSettings?.data?.glModeratorAccessCode);
       toast.success(t('toast.success.room.copied_moderator_code'));
+      return
     }
-  }
-
-  function copyInvite() {
     navigator.clipboard.writeText(`${window.location}/join`);
     toast.success(t('toast.success.room.copied_meeting_url'));
   }
@@ -129,12 +128,12 @@ export default function Room() {
 
                   <Dropdown.Menu className="dropdown-menu">
                     { roomSettings?.data?.glModeratorAccessCode && (
-                      <Dropdown.Item onClick={() => copyAccessCode('moderator')}>
+                      <Dropdown.Item onClick={() => copyInvite('moderator')}>
                         { t('copy_moderator_code') }
                       </Dropdown.Item>
                     )}
                     { roomSettings?.data?.glViewerAccessCode && (
-                      <Dropdown.Item onClick={() => copyAccessCode('viewer')}>
+                      <Dropdown.Item onClick={() => copyInvite('viewer')}>
                         { t('copy_viewer_code') }
                       </Dropdown.Item>
                     )}
