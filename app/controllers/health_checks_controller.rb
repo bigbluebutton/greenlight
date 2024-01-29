@@ -69,8 +69,8 @@ class HealthChecksController < ApplicationController
   end
 
   def check_big_blue_button
-    checksum = Digest::SHA1.hexdigest("getMeetings#{Rails.configuration.bigbluebutton_secret}")
-    uri = URI("#{Rails.configuration.bigbluebutton_endpoint}getMeetings?checksum=#{checksum}")
+    checksum = Digest::SHA1.hexdigest("isMeetingRunningmeetingID=0#{Rails.configuration.bigbluebutton_secret}")
+    uri = URI("#{Rails.configuration.bigbluebutton_endpoint}isMeetingRunning?meetingID=0&checksum=#{checksum}")
     res = Net::HTTP.get(uri)
     doc = Nokogiri::XML(res)
 
