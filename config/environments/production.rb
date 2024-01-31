@@ -159,4 +159,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Enable HSTS in production mode
+  config.ssl_options = { hsts: { preload: true, expires: 1.year, subdomains: true } }
 end
