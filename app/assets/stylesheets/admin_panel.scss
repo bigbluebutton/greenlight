@@ -67,6 +67,12 @@
   .dropdown-toggle::after {
     display: none !important;
   }
+
+  @include media-breakpoint-down(md) {
+    .dropdown-menu {
+      transform: none !important;
+    }
+  }
 }
 
 #manage-users-table {
