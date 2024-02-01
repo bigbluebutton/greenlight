@@ -38,7 +38,7 @@ class User < ApplicationRecord
   enum status: { active: 0, pending: 1, banned: 2 }
 
   validates :name, presence: true,
-                   length: { minimum: 2, maximum: 255 } # TODO: amir - Change into full_name or seperate first and last name.
+                   length: { minimum: 1, maximum: 255 } # TODO: amir - Change into full_name or seperate first and last name.
 
   validates :email,
             format: /\A[\w\-.+]+@[\w\-.]+\.[a-z]+\z/i,

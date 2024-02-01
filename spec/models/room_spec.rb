@@ -27,7 +27,7 @@ RSpec.describe Room, type: :model do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to have_many(:recordings).dependent(:destroy) }
     it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_length_of(:name).is_at_least(2).is_at_most(255) }
+    it { is_expected.to validate_length_of(:name).is_at_least(1).is_at_most(255) }
     it { is_expected.to validate_numericality_of(:recordings_processing).only_integer.is_greater_than_or_equal_to(0) }
 
     # Can't test validation on friendly_id and meeting_id due to before_validations
