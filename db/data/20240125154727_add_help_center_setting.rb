@@ -3,20 +3,11 @@
 class AddHelpCenterSetting < ActiveRecord::Migration[7.1]
   def up
     setting = Setting.find_or_create_by(name: 'HelpCenter')
-    SiteSetting.find_or_create_by(setting:, value: 'Published', provider: 'greenlight')
 
-    SiteSetting.find_or_create_by(
-      setting:,
-      value: '',
-      provider: 'greenlight'
-    )
+    SiteSetting.find_or_create_by(setting:, value: '', provider: 'greenlight')
 
     Tenant.all.each do |tenant|
-      SiteSetting.find_or_create_by(
-        setting:,
-        value: '',
-        provider: tenant.name
-      )
+      SiteSetting.find_or_create_by(setting:, value: '', provider: tenant.name)
     end
   end
 
