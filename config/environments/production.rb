@@ -161,5 +161,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Enable HSTS in production mode
+  config.force_ssl = true
   config.ssl_options = { hsts: { preload: true, expires: 1.year, subdomains: true } }
 end
