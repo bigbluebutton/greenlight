@@ -162,5 +162,8 @@ Rails.application.configure do
 
   # Enable HSTS in production mode
   config.force_ssl = true
-  config.ssl_options = { hsts: { preload: true, expires: 1.year, subdomains: true } }
+  config.ssl_options = {
+    redirect: { exclude: ->(request) { request.path.include?('health_check') } },
+    hsts: { expires: 1.year, subdomains: true }
+  }
 end
