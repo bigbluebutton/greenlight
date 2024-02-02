@@ -192,7 +192,7 @@
     "search_not_found": "Nem található felvétel"
   },
   "admin": {
-    "admin_panel": "Adminisztrátori panel",
+    "admin_panel": "Üzemeltetői panel",
     "manage_users": {
       "manage_users": "Felhasználók kezelése",
       "active": "Aktív",
