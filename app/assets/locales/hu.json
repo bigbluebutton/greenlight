@@ -336,7 +336,7 @@
     "roles": {
       "role": "Szerepkör",
       "roles": "Szerepkörök",
-      "administrator": "Adminisztrátor",
+      "administrator": "Üzemeltető",
       "guest": "Vendég",
       "manage_roles": "Szerepkörök kezelése",
       "delete_role": "Szerepkör törlése",
