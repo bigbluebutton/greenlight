@@ -49,7 +49,7 @@ hu_HU:
   opengraph:
     description: "Tanuljon a BigBlueButton, a megbízható, nyílt forráskódú webkonferencia-megoldás használatával, amely zökkenőmentes virtuális együttműködést és online tanulási élményt tesz lehetővé."
   meeting:
-    moderator_message: "Az előadásra meghíváshoz, oszd meg az alábbi linket:"
+    moderator_message: "Az előadásra meghíváshoz, ossza meg az alábbi linket:"
     access_code: "Hozzáférési kód: %{code}"
   email:
     activation:
