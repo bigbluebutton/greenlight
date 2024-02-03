@@ -1,0 +1,83 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   "true": "foo"
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+hu_HU:
+  opengraph:
+    description: "Tanuljon a BigBlueButton, a megbízható, nyílt forráskódú webkonferencia-megoldás használatával, amely zökkenőmentes virtuális együttműködést és online tanulási élményt tesz lehetővé."
+  meeting:
+    moderator_message: "Az előadásra meghíváshoz, oszd meg az alábbi linket:"
+    access_code: "Hozzáférési kód: %{code}"
+  email:
+    activation:
+      account_activation: Fiókaktiválás
+      welcome_to_bbb: A BigBlueButton üdvözöl.
+      get_started: A kezdéshez aktiválja fiókját az alábbi gombra kattintással.
+      activate_account: Fiók aktiválása
+      link_expires: Ez a link 24 óra múlva lejár.
+      if_link_expires: "Ha a link már lejárt, jelentkezzen be és kérjen egy új aktiváló e-mailt."
+    invitation:
+      invitation_to_join: BigBlueButton meghívó
+      you_have_been_invited: "Meghívták, hogy készítsen egy BigblueButton fiókot %{name} e-mail címmel."
+      get_started: A regisztrációhoz kattintson az alábbi gombra és hajtsa végre a lépéseket.
+      valid_invitation: A meghívás 24 óráig érvényes.
+      sign_up: Regisztráció
+    new_user_signup:
+      new_user: Új BigBlueButton felhasználó regisztráció
+      new_user_description: "Egy új felhasználó regisztrált, hogy használhassa a BigBlueButton-t."
+      name: "Név: %{name}"
+      email: "E-mail: %{email}"
+      admin_panel: "Üzemeltetői panel"
+      take_action: "Az új felhasználó megtekintéséhez, illetve a szükséges műveletek elvégzéséhez látogasson el az Üzemeltetői panelre."
+    reset:
+      password_reset: Jelszó visszaállítása
+      password_reset_requested: "%{email} e-mail címre egy jelszóvisszaállítási kérés érkezett."
+      password_reset_confirmation: Új jelszó beállításához kattintson a gombra.
+      reset_password: Jelszó visszaállítása
+      link_expires: Ez a link 1 óra múlva lejár.
+      ignore_request: "Ha nem igényelt jelszómódosítást, akkor ezt hagyja figyelmen kívül."
+  room:
+    new_room_name: "%{username} szobája"
