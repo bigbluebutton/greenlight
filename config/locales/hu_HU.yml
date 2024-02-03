@@ -54,7 +54,7 @@ hu_HU:
   email:
     activation:
       account_activation: Fiókaktiválás
-      welcome_to_bbb: A BigBlueButton üdvözöl.
+      welcome_to_bbb: A BigBlueButton üdvözli.
       get_started: A kezdéshez aktiválja fiókját az alábbi gombra kattintással.
       activate_account: Fiók aktiválása
       link_expires: Ez a link 24 óra múlva lejár.
