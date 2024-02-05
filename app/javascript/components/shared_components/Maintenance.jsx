@@ -21,7 +21,7 @@ export default function Maintenance() {
   const maintenanceBanner = useSiteSetting(['Maintenance']);
 
   return (
-    <div className="alert alert-danger mb-0" role="alert">
+    <div className="alert alert-danger mb-0 text-center" role="alert">
       {maintenanceBanner.data}
     </div>
   );
