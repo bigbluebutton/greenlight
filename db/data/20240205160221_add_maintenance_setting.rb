@@ -14,7 +14,7 @@ class AddMaintenanceSetting < ActiveRecord::Migration[7.1]
   end
 
   def down
-    Setting.find_by(name: 'Maintenance')&.destroy
-    SiteSetting.find_by(setting: Setting.find_by(name: 'Maintenance')).destroy
+    raise ActiveRecord::IrreversibleMigration
   end
 end
+
