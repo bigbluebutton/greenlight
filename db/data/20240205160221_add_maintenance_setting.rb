@@ -17,4 +17,3 @@ class AddMaintenanceSetting < ActiveRecord::Migration[7.1]
     raise ActiveRecord::IrreversibleMigration
   end
 end
-
