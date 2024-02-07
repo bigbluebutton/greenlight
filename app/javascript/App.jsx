@@ -34,14 +34,14 @@ export default function App() {
   const notify = () => {
     if (maintenanceBanner.data) {
       toast.info(maintenanceBanner.data, {
-        position: "top-center",
+        position: 'top-center',
         autoClose: false,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light"
+        theme: 'light',
       });
     }
   };
