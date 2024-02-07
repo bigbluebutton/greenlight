@@ -42,6 +42,7 @@ export default function App() {
         draggable: true,
         progress: undefined,
         theme: 'light',
+        className: 'text-center',
       });
     }
   };
