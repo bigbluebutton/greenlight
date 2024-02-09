@@ -2,9 +2,9 @@
 
 class AddHelpCenterSetting < ActiveRecord::Migration[7.1]
   def up
-    setting = Setting.find_or_create_by(name: 'HelpCenter')
+    setting = Setting.create(name: 'HelpCenter') unless Setting.exists?(name: 'HelpCenter')
 
-    SiteSetting.find_or_create_by(setting:, value: '', provider: 'greenlight')
+    SiteSetting.create(setting:, value: '', provider: 'greenlight') unless SiteSetting.exists?(setting:, value: '', provider: 'greenlight')
 
     Tenant.all.each do |tenant|
       SiteSetting.find_or_create_by(setting:, value: '', provider: tenant.name)
