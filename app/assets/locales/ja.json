@@ -17,6 +17,8 @@
   "close": "閉じる",
   "delete": "削除",
   "copy": "参加リンクをコピー",
+  "copy_viewer_code": "視聴者用コードをコピーする",
+  "copy_moderator_code": "司会者用コードをコピーする",
   "or": "もしくは",
   "online": "オンライン",
   "help_center": "ヘルプセンター",
@@ -392,7 +394,9 @@
         "access_code_copied": "接続コードがコピーされました。",
         "access_code_generated": "接続コードが作成されました。",
         "access_code_deleted": "アクセスコードが消去されました。",
-        "copied_meeting_url": "会議のURLがコピーされました。このリンクを使用すると会議に参加できます。"
+        "copied_meeting_url": "会議のURLがコピーされました。このリンクを使用すると会議に参加できます。",
+        "copied_viewer_code": "視聴者用のアクセスコードがコピーされました。",
+        "copied_moderator_code": "司会者用のアクセスコードがコピーされました。"
       },
       "site_settings": {
         "site_setting_updated": "サイトの設定が更新されました。",
