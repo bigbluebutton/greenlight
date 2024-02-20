@@ -159,4 +159,11 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Enable HSTS in production mode
+  config.force_ssl = true
+  config.ssl_options = {
+    redirect: { exclude: ->(request) { request.path.include?('health_check') } },
+    hsts: { expires: 1.year, subdomains: true }
+  }
 end
