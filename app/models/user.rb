@@ -126,7 +126,7 @@ class User < ApplicationRecord
 
   def generate_session_token!(extended_session: false)
     digest = User.generate_digest(SecureRandom.alphanumeric(40))
-    expiry = extended_session ? 7.days.from_now : 6.hours.from_now
+    expiry = extended_session ? 7.days.from_now : 24.hours.from_now
 
     update! session_token: digest, session_expiry: expiry
   rescue ActiveRecord::RecordInvalid
