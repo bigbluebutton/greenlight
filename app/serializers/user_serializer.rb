@@ -19,7 +19,7 @@
 class UserSerializer < ApplicationSerializer
   include Avatarable
 
-  attributes :id, :name, :email, :provider, :language, :avatar, :verified, :created_at
+  attributes :id, :name, :email, :provider, :language, :avatar, :verified, :terms, :marketing, :created_at
 
   belongs_to :role
 

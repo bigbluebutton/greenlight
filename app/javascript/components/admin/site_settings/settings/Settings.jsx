@@ -26,6 +26,7 @@ export default function Settings() {
   const { t } = useTranslation();
   const { data: siteSettings, isLoading } = useSiteSettings(['ShareRooms', 'PreuploadPresentation', 'DefaultRecordingVisibility']);
   const updateDefaultRecordingVisibility = useUpdateSiteSetting('DefaultRecordingVisibility');
+  const updateConfirmTerms = useUpdateSiteSetting('ConfirmTerms');
 
   if (isLoading) return null;
 
@@ -75,6 +76,19 @@ export default function Settings() {
         </Dropdown.Item>
         <Dropdown.Item key="Unpublished" value="Unpublished" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Unpublished' })}>
           {t('recording.unpublished')}
+        </Dropdown.Item>
+      </SettingSelect>
+
+      <SettingSelect
+        defaultValue={siteSettings?.ConfirmTerms}
+        title={t('admin.site_settings.settings.confirm_terms')}
+        description={t('admin.site_settings.settings.confirm_terms_description')}
+      >
+        <Dropdown.Item key="false" value="false" onClick={() => updateConfirmTerms.mutate({ value: 'false' })}>
+          {t('admin.site_settings.settings.disable')}
+        </Dropdown.Item>
+        <Dropdown.Item key="true" value="true" onClick={() => updateConfirmTerms.mutate({ value: 'true' })}>
+          {t('admin.site_settings.settings.enable')}
         </Dropdown.Item>
       </SettingSelect>
     </>

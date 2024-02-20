@@ -42,6 +42,8 @@ export function useSignUpFormValidation() {
       .test('oneSymbol', 'forms.validations.password.symbol', (pwd) => pwd.match(/[`@%~!#£$\\^&*()\][+={}/|:;"'<>\-,.?_ ]/)),
     password_confirmation: yup.string().required('forms.validations.password_confirmation.required')
       .oneOf([yup.ref('password')], 'forms.validations.password_confirmation.match'),
+
+    terms: yup.boolean().oneOf([true], 'forms.validations.terms.required'),
   })), []);
 }
 
@@ -87,6 +89,20 @@ export default function useSignUpForm({ defaultValues: _defaultValues, ..._confi
         },
       },
     },
+    terms: {
+      label: t('forms.user.signup.fields.terms.label'),
+      controlId: 'signupFormTerms',
+      hookForm: {
+        id: 'terms',
+      },
+    },
+    marketing: {
+      label: t('forms.user.signup.fields.marketing.label'),
+      controlId: 'signupFormMarketing',
+      hookForm: {
+        id: 'marketing',
+      },
+    },
   }), [i18n.resolvedLanguage]);
 
   const validationSchema = useSignUpFormValidation();
@@ -101,6 +117,8 @@ export default function useSignUpForm({ defaultValues: _defaultValues, ..._confi
           email: '',
           password: '',
           password_confirmation: '',
+          terms: false,
+          marketing: false,
         },
         ..._defaultValues,
       },
