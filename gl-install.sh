@@ -96,6 +96,14 @@ main() {
   check_ubuntu_lts
   need_x64
 
+  DOCKER_COMPOSE_CMD="docker-compose"
+  # Test if docker-compose command exists
+  if ! command -v $DOCKER_COMPOSE_CMD &> /dev/null
+  then
+          # Change the command to the build in docker compose command
+          DOCKER_COMPOSE_CMD="docker compose"
+  fi
+
   while builtin getopts "s:e:b:hdk" opt "${@}"; do
 
     case $opt in
@@ -458,9 +466,9 @@ install_greenlight_v3(){
   # Adding Keycloak
   if [ -n "$INSTALL_KC" ]; then
       # When attepmting to install/update Keycloak let us attempt to create the database to resolve any issues caused by postgres false negatives.
-      docker-compose -f $GL3_DIR/docker-compose.yml up -d postgres && say "started postgres"
-      wait_postgres_start
-      docker-compose -f $GL3_DIR/docker-compose.yml exec -T postgres psql -U postgres -c 'CREATE DATABASE keycloakdb;'
+      $DOCKER_COMPOSE_CMD -f $GL3_DIR/docker-compose.yml up -d postgres && say "started postgres"
+      wait_postgres_start($DOCKER_COMPOSE_CMD)
+      $DOCKER_COMPOSE_CMD -f $GL3_DIR/docker-compose.yml exec -T postgres psql -U postgres -c 'CREATE DATABASE keycloakdb;'
   fi
 
   if ! grep -q 'keycloak:' $GL3_DIR/docker-compose.yml; then
@@ -470,7 +478,7 @@ install_greenlight_v3(){
       # Add Keycloak
       say "Adding Keycloak..."
 
-      docker-compose -f $GL3_DIR/docker-compose.yml down
+      $DOCKER_COMPOSE_CMD -f $GL3_DIR/docker-compose.yml down
       cp -v $GL3_DIR/docker-compose.yml $GL3_DIR/docker-compose.base.yml # Persist working base compose file for admins as a Backup.
 
       docker run --rm --entrypoint sh $GL_IMG_REPO -c 'cat docker-compose.kc.yml' >> $GL3_DIR/docker-compose.yml
@@ -520,17 +528,17 @@ HERE
 
   # Eager pulling images.
   say "pulling latest greenlight-v3 services images..."
-  docker-compose -f $GL3_DIR/docker-compose.yml pull
+  $DOCKER_COMPOSE_CMD -f $GL3_DIR/docker-compose.yml pull
 
   if check_container_running greenlight-v3; then
     # Restarting Greenlight-v3 services after updates.
     say "greenlight-v3 is updating..."
     say "shutting down greenlight-v3..."
-    docker-compose -f $GL3_DIR/docker-compose.yml down
+    $DOCKER_COMPOSE_CMD -f $GL3_DIR/docker-compose.yml down
   fi
 
   say "starting greenlight-v3..."
-  docker-compose -f $GL3_DIR/docker-compose.yml up -d
+  $DOCKER_COMPOSE_CMD -f $GL3_DIR/docker-compose.yml up -d
   sleep 5
   say "greenlight-v3 is now installed and accessible on: https://$HOST${GL_RELATIVE_URL_ROOT:-$GL_DEFAULT_PATH}"
   say "To create Greenlight administrator account, see: https://docs.bigbluebutton.org/greenlight/v3/install#creating-an-admin-account"
@@ -552,10 +560,10 @@ HERE
 
 wait_postgres_start() {
   say "Waiting for the Postgres DB to start..."
-  docker-compose -f $GL3_DIR/docker-compose.yml up -d postgres || err "failed to start Postgres service - retry to resolve"
+  $DOCKER_COMPOSE_CMD -f $GL3_DIR/docker-compose.yml up -d postgres || err "failed to start Postgres service - retry to resolve"
 
   local tries=0
-  while ! docker-compose -f $GL3_DIR/docker-compose.yml exec -T postgres pg_isready 2> /dev/null 1>&2; do
+  while ! $DOCKER_COMPOSE_CMD -f $GL3_DIR/docker-compose.yml exec -T postgres pg_isready 2> /dev/null 1>&2; do
     echo -n .
     sleep 3
     if (( ++tries == 3 )); then
