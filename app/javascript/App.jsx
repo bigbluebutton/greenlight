@@ -31,7 +31,9 @@ export default function App() {
 
   // check for the maintenance banner
   const maintenanceBanner = useSiteSetting(['Maintenance']);
-  const notify = () => {
+
+  // useEffect hook for running notify maintenance banner on page load
+  useEffect(() => {
     if (maintenanceBanner.data) {
       toast.info(maintenanceBanner.data, {
         position: 'top-center',
@@ -45,11 +47,6 @@ export default function App() {
         className: 'text-center',
       });
     }
-  };
-
-  // useEffect hook for running notify maintenance banner on page load
-  useEffect(() => {
-    notify();
   }, [maintenanceBanner.data]);
 
   // Pages that do not need a header: SignIn, SignUp and JoinMeeting (if the user is not signed in)
