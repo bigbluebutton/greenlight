@@ -18,7 +18,7 @@ import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import Header from './components/shared_components/Header';
 import { useAuth } from './contexts/auth/AuthProvider';
 import Footer from './components/shared_components/Footer';
@@ -28,6 +28,26 @@ import Title from './components/shared_components/utilities/Title';
 export default function App() {
   const currentUser = useAuth();
   const location = useLocation();
+
+  // check for the maintenance banner
+  const maintenanceBanner = useSiteSetting(['Maintenance']);
+
+  // useEffect hook for running notify maintenance banner on page load
+  useEffect(() => {
+    if (maintenanceBanner.data) {
+      toast.info(maintenanceBanner.data, {
+        position: 'top-center',
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+        className: 'text-center',
+      });
+    }
+  }, [maintenanceBanner.data]);
 
   // Pages that do not need a header: SignIn, SignUp and JoinMeeting (if the user is not signed in)
   const homePage = location.pathname === '/';
