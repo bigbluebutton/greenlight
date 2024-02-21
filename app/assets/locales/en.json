@@ -288,7 +288,11 @@
         "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",
         "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room",
         "default_visibility": "Default Recording Visibility",
-        "default_visibility_description": "All newly created recordings will have this visibility by default"
+        "default_visibility_description": "All newly created recordings will have this visibility by default",
+        "session_timeout": "Session Timeout",
+        "session_timeout_description": "You can configure the session timeout with a default cookie of 1 day or extended session cookie of 7 days",
+        "default_session_timeout": "Default (1 day)",
+        "extended_session_timeout": "Extended (7 days)"
       },
       "registration": {
         "registration": "Registration",

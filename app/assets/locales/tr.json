@@ -17,6 +17,8 @@
   "close": "Kapat",
   "delete": "Sil",
   "copy": "Kopyala",
+  "copy_viewer_code": "İzleyici kodunu kopyala",
+  "copy_moderator_code": "Sorumlu kodunu kopyala",
   "or": "Veya",
   "online": "Çevrim içi",
   "help_center": "Yardım merkezi",
@@ -392,7 +394,9 @@
         "access_code_copied": "Erişim kodu kopyalandı.",
         "access_code_generated": "Erişim kodu oluşturuldu.",
         "access_code_deleted": "Erişim kodu silindi.",
-        "copied_meeting_url": "Toplantı adresi kopyalandı. Bu adres toplantıya katılmak için kullanılabilir."
+        "copied_meeting_url": "Toplantı adresi kopyalandı. Bu adres toplantıya katılmak için kullanılabilir.",
+        "copied_viewer_code": "İzleyici erişim kodu kopyalandı.",
+        "copied_moderator_code": "Sorumlu erişim kodu kopyalandı."
       },
       "site_settings": {
         "site_setting_updated": "Site ayarları güncellendi.",

@@ -73,6 +73,11 @@ class ExternalController < ApplicationController
     end
 
     user.generate_session_token!
+
+    # set the cookie based on session timeout setting
+    session_timeout = SettingGetter.new(setting_name: 'SessionTimeout', provider: current_provider).call
+    handle_session_timeout(session_timeout.to_i, user) if session_timeout
+
     session[:session_token] = user.session_token
 
     # TODO: - Ahmad: deal with errors
@@ -126,6 +131,18 @@ class ExternalController < ApplicationController
   end
 
   private
+
+  def handle_session_timeout(session_timeout, user)
+    # Creates a cookie based on session timeout site setting
+    cookies.encrypted[:_extended_session] = {
+      value: {
+        session_token: user.session_token
+      },
+      expires: session_timeout.days,
+      httponly: true,
+      secure: true
+    }
+  end
 
   def extract_language_code(locale)
     locale.try(:scan, /^[a-z]{2}/)&.first || I18n.default_locale

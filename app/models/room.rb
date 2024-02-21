@@ -34,7 +34,7 @@ class Room < ApplicationRecord
             content_type: Rails.configuration.uploads[:presentations][:formats],
             size: { less_than: Rails.configuration.uploads[:presentations][:max_size] }
 
-  validates :name, length: { minimum: 2, maximum: 255 }
+  validates :name, length: { minimum: 1, maximum: 255 }
   validates :recordings_processing, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   before_validation :set_friendly_id, :set_meeting_id, on: :create
