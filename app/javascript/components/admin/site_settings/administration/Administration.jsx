@@ -18,12 +18,13 @@ import React from 'react';
 import { Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import LinksForm from './LinksForm';
+import TextForm from './TextForm';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSiteSettings';
 
 export default function Administration() {
   const { t } = useTranslation();
-  const { data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy', 'HelpCenter']);
+  const { data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy', 'HelpCenter', 'Maintenance']);
 
   return (
     <>
@@ -52,6 +53,15 @@ export default function Administration() {
           id="helpForm"
           mutation={() => useUpdateSiteSetting('HelpCenter')}
           value={siteSettings?.HelpCenter}
+        />
+      </Row>
+      <Row>
+        <h6> { t('admin.site_settings.administration.maintenance') } </h6>
+        <p className="text-muted"> { t('admin.site_settings.administration.change_maintenance_text') } </p>
+        <TextForm
+          id="maintenanceForm"
+          mutation={() => useUpdateSiteSetting('Maintenance')}
+          value={siteSettings?.Maintenance}
         />
       </Row>
     </>
