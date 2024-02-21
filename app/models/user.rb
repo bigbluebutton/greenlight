@@ -38,7 +38,7 @@ class User < ApplicationRecord
   enum status: { active: 0, pending: 1, banned: 2 }
 
   validates :name, presence: true,
-                   length: { minimum: 2, maximum: 255 } # TODO: amir - Change into full_name or seperate first and last name.
+                   length: { minimum: 1, maximum: 255 } # TODO: amir - Change into full_name or seperate first and last name.
 
   validates :email,
             format: /\A[\w\-.+]+@[\w\-.]+\.[a-z]+\z/i,
@@ -126,7 +126,7 @@ class User < ApplicationRecord
 
   def generate_session_token!(extended_session: false)
     digest = User.generate_digest(SecureRandom.alphanumeric(40))
-    expiry = extended_session ? 7.days.from_now : 6.hours.from_now
+    expiry = extended_session ? 7.days.from_now : 24.hours.from_now
 
     update! session_token: digest, session_expiry: expiry
   rescue ActiveRecord::RecordInvalid

@@ -18,6 +18,7 @@
 
 require 'rails_helper'
 require 'bigbluebutton_api'
+require 'uri'
 
 describe MeetingStarter, type: :service do
   let(:user) { create(:user) }
@@ -43,6 +44,7 @@ describe MeetingStarter, type: :service do
       'meta_bbb-recording-ready-url': File.join(base_url, '/recording_ready'),
       'meta_bbb-origin-version': 'v3',
       'meta_bbb-origin': 'greenlight',
+      'meta_bbb-origin-server-name': URI(base_url).host,
       setting: 'value'
     }
   end
