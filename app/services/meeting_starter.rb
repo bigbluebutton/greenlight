@@ -16,6 +16,8 @@
 
 # frozen_string_literal: true
 
+require 'uri'
+
 class MeetingStarter
   include Rails.application.routes.url_helpers
 
@@ -65,7 +67,8 @@ class MeetingStarter
       meta_endCallbackUrl: meeting_ended_url(host: @base_url),
       'meta_bbb-recording-ready-url': recording_ready_url(host: @base_url),
       'meta_bbb-origin-version': ENV.fetch('VERSION_TAG', 'v3'),
-      'meta_bbb-origin': 'greenlight'
+      'meta_bbb-origin': 'greenlight',
+      'meta_bbb-origin-server-name': URI(@base_url).host
     }
   end
 

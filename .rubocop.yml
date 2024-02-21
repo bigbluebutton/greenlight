@@ -64,6 +64,7 @@ Metrics/BlockLength:
   AllowedMethods: [ 'describe', 'context', 'xdescribe', 'xcontext', 'FactoryBot.define' ]
   Exclude:
     - 'config/routes.rb'
+    - 'config/environments/production.rb'
   Max: 70
 
 Metrics/ClassLength:
