@@ -17,6 +17,8 @@
   "close": "Close",
   "delete": "Delete",
   "copy": "Copy Join Link",
+  "copy_viewer_code": "Copy Viewer Code",
+  "copy_moderator_code": "Copy Moderator Code",
   "or": "Or",
   "online": "Online",
   "help_center": "Help Center",
@@ -289,7 +291,11 @@
         "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",
         "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room",
         "default_visibility": "Default Recording Visibility",
-        "default_visibility_description": "All newly created recordings will have this visibility by default"
+        "default_visibility_description": "All newly created recordings will have this visibility by default",
+        "session_timeout": "Session Timeout",
+        "session_timeout_description": "You can configure the session timeout with a default cookie of 1 day or extended session cookie of 7 days",
+        "default_session_timeout": "Default (1 day)",
+        "extended_session_timeout": "Extended (7 days)"
       },
       "registration": {
         "registration": "Registration",
@@ -395,7 +401,9 @@
         "access_code_copied": "The access code has been copied.",
         "access_code_generated": "A new access code has been generated.",
         "access_code_deleted": "The access code has been deleted.",
-        "copied_meeting_url": "The meeting URL has been copied. The link can be used to join the meeting."
+        "copied_meeting_url": "The meeting URL has been copied. The link can be used to join the meeting.",
+        "copied_viewer_code": "The viewer access code has been copied.",
+        "copied_moderator_code": "The moderator access code has been copied."
       },
       "site_settings": {
         "site_setting_updated": "The site setting has been updated.",

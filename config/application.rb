@@ -85,5 +85,6 @@ module Greenlight
 
     I18n.load_path += Dir[Rails.root.join('config/locales/*.{rb,yml}').to_s]
     config.i18n.fallbacks = %i[en]
+    config.i18n.enforce_available_locales = false
   end
 end

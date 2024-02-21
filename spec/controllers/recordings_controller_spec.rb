@@ -242,9 +242,6 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
 
       before do
         sign_in_user(signed_in_user)
-
-        # IDK where this is created so, small hack to remove it
-        RolePermission.find_by(permission: Permission.find_by(name: 'AccessToVisibilities'), value: 'false').destroy
       end
 
       it 'allows a shared user to update a recording visibility' do
