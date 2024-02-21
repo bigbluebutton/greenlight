@@ -6,11 +6,13 @@ class AddMaintenanceSetting < ActiveRecord::Migration[7.1]
 
     return if SiteSetting.exists?(setting: Setting.find_by(name: 'Maintenance'))
 
-    SiteSetting.create!(
-      setting: Setting.find_by(name: 'Maintenance'),
-      value: '',
-      provider: 'greenlight'
-    )
+    Tenant.all.each do |tenant|
+      SiteSetting.create!(
+        setting: Setting.find_by(name: 'Maintenance'),
+        value: '',
+        provider: tenant.name
+      )
+    end
   end
 
   def down
