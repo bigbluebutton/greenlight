@@ -17,12 +17,16 @@
   "close": "Fechar",
   "delete": "Apagar",
   "copy": "Copiar link de participação",
+  "copy_viewer_code": "Copiar código do visualizador",
+  "copy_moderator_code": "Copiar código do moderador",
   "or": "Ou",
   "online": "Online",
   "help_center": "Central de Ajuda",
   "are_you_sure": "Tem a certeza?",
   "return_home": "Voltar para Página Inicial",
   "created_at": "Criado em",
+  "view_recordings": "Ver Gravações",
+  "join_session": "Participar na Sessão",
   "no_result_search_input": "Não foi possível encontrar nenhum resultado para \"{{ searchInput }}\"",
   "action_permanent": "Esta ação não pode ser desfeita.",
   "homepage": {
@@ -79,6 +83,7 @@
       "account_info": "Informações da Conta",
       "delete_account": "Excluir Conta",
       "change_password": "Alterar Senha",
+      "set_password": "Defina a Sua Nova Palavra-passe",
       "reset_password": "Redefinir a senha",
       "update_account_info": "Atualizar informações da conta",
       "current_password": "Senha Atual",
@@ -108,7 +113,7 @@
     "delete_room": "Apagar sala",
     "create_new_room": "Criar nova sala",
     "enter_room_name": "Introduza o nome da sala",
-    "shared_by": "Partilhada por",
+    "shared_by": "Partilhado por",
     "last_session": "Última sessão: {{ localizedTime }}",
     "no_last_session": "Não existem sessões anteriores",
     "search_not_found": "Não foram encontradas salas",
@@ -126,7 +131,8 @@
       "presentation": "Apresentação",
       "click_to_upload": "Clique para enviar",
       "drag_and_drop": "ou arraste e largue",
-      "upload_description": "Carregue qualquer documento do Office ou arquivo PDF. Dependendo do tamanho do ficheiro, pode ser necessário mais tempo para carregar antes de poder ser usado.",
+      "upload_description": "Carregue qualquer documento do Office ou ficheiro PDF (não superior a {{size}}). Dependendo do tamanho do ficheiro, pode ser necessário tempo adicional para carregar antes de poder ser utilizado.",
+      "delete_presentation": "Eliminar Apresentação",
       "are_you_sure_delete_presentation": "Você tem a certeza que deseja excluir esta apresentação?"
     },
     "shared_access": {
@@ -163,6 +169,7 @@
   "recording": {
     "recording": "Gravação",
     "recordings": "Gravações",
+    "processing": "Gravações em processamento...",
     "name": "Nome",
     "length": "Duração",
     "users": "Utilizadores",
@@ -171,11 +178,15 @@
     "published": "Publicada",
     "unpublished": "Não publicada",
     "protected": "Protegida",
+    "public": "Público",
+    "public_protected": "Público/Protegido",
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "A processar a gravação. Isto pode demorar alguns minutos...",
     "copy_recording_urls": "Copiar link da gravação",
     "recordings_list_empty": "Ainda não possui nenhuma gravação!",
+    "public_recordings_list_empty": "Ainda não existem gravações públicas!",
     "recordings_list_empty_description": "As gravações aparecerão aqui depois que iniciar uma reunião e gravá-la.",
+    "public_recordings_list_empty_description": "As gravações aparecerão aqui quando estiverem disponíveis.",
     "delete_recording": "Excluir gravação",
     "are_you_sure_delete_recording": "Tem a certeza de que deseja excluir esta gravação?",
     "search_not_found": "Gravações não encontradas"
@@ -255,7 +266,7 @@
         "brand_image": "Logotipo",
         "click_to_upload": "Clique para enviar",
         "drag_and_drop": "ou assaste e solte",
-        "upload_brand_image_description": "Carregue qualquer ficheiro PNG, JPG ou SVG. Dependendo do tamanho do ficheiro, pode ser necessário tempo adicional para carregar antes que possa ser usado.",
+        "upload_brand_image_description": "Carregue qualquer ficheiro PNG, JPG ou SVG (não superior a {{size}}). Dependendo do tamanho do ficheiro, pode ser necessário tempo adicional para carregar antes de poder ser utilizado.",
         "remove_branding_image": "Excluir logotipo"
       },
       "administration": {
@@ -265,7 +276,12 @@
         "privacy_policy": "Política de Privacidade",
         "change_term_links": "Altere os links dos Termos que aparecem no rodapé da página.",
         "change_privacy_link": "Mudar a ligação para a Política de Privacidade que aparece no rodapé da página",
+        "helpcenter": "Centro de Ajuda",
+        "change_helpcenter_link": "Altere o link da central de ajuda que aparece no menu suspenso do perfil",
+        "maintenance": "Aviso de Manutenção",
+        "change_maintenance_text": "Altere o texto do banner de manutenção que aparece no cabeçalho",
         "change_url": "Alterar URL",
+        "change_text": "Alterar texto",
         "enter_link": "Coloque o link aqui"
       },
       "settings": {
@@ -273,7 +289,13 @@
         "allow_users_to_share_rooms": "Permitir que os utilizadores partilhem salas",
         "allow_users_to_share_rooms_description": "Definir como desativado removerá o botão do menu suspenso de opções da sala, impedindo que os utilizadores partilhem salas",
         "allow_users_to_preupload_presentation": "Permitir que os utilizadores enviem apresentações previamente",
-        "allow_users_to_preupload_presentation_description": "Os utilizadores podem pré-carregar uma apresentação para ser usada como apresentação padrão para aquela sala específica"
+        "allow_users_to_preupload_presentation_description": "Os utilizadores podem pré-carregar uma apresentação para ser usada como apresentação padrão para aquela sala específica",
+        "default_visibility": "Visibilidade de gravação padrão",
+        "default_visibility_description": "Todas as gravações recém-criadas terão esta visibilidade por padrão",
+        "session_timeout": "Sessão expirada",
+        "session_timeout_description": "Você pode configurar o tempo limite da sessão com um cookie padrão de 1 dia ou um cookie de sessão estendida de 7 dias",
+        "default_session_timeout": "Padrão (1 dia)",
+        "extended_session_timeout": "Prolongado (7 dias)"
       },
       "registration": {
         "registration": "Registo",
@@ -341,7 +363,9 @@
         "manage_site_settings": "Permitir que utilizadores com este papel façam a gestão das configurações do site",
         "manage_roles": "Permitir que utilizadores com este papel possam editar outros papéis",
         "shared_list": "Incluir utilizadores com este papel no menu suspenso para partilhar salas ",
-        "room_limit": "Limite da sala"
+        "room_limit": "Limite da sala",
+        "email_on_signup": "Receba um e-mail quando um novo usuário se inscrever",
+        "allowed_recording_visibility": "Visibilidades de gravação permitidas"
       }
     }
   },
@@ -352,6 +376,7 @@
         "user_updated": "O utilizador foi actualizado",
         "user_deleted": "O utilizador foi excluído",
         "avatar_updated": "O avatar foi actualizado",
+        "password_changed": "A sua senha foi atualizada com sucesso. Faça login novamente.",
         "password_updated": "A senha foi actualizada.",
         "account_activated": "A sua conta foi ativada.",
         "activation_email_sent": "Um e-mail que contém as instruções para ativar a sua conta foi enviado.",
@@ -376,7 +401,9 @@
         "access_code_copied": "O código de acesso foi copiado.",
         "access_code_generated": "Um novo código de acesso foi gerado.",
         "access_code_deleted": "O código de acesso foi excluído.",
-        "copied_meeting_url": "A URL da reunião foi copiada. O link pode ser usado para entrar na reunião."
+        "copied_meeting_url": "A URL da reunião foi copiada. O link pode ser usado para entrar na reunião.",
+        "copied_viewer_code": "O código de acesso do visualizador foi copiado.",
+        "copied_moderator_code": "O código de acesso do moderador foi copiado."
       },
       "site_settings": {
         "site_setting_updated": "A configuração do site foi atualizada.",
@@ -384,6 +411,7 @@
         "brand_image_updated": "O logotipo foi atualizado.",
         "brand_image_deleted": "O logotipo foi excluído.",
         "privacy_policy_updated": "A Política de Privacidade foi atualizada.",
+        "helpcenter_updated": "O link do centro de ajuda foi atualizado.",
         "terms_of_service_updated": "Os Termos e Condições foram atualizados."
       },
       "recording": {
@@ -408,6 +436,7 @@
       "file_size_too_large": "O tamanho do ficheiro é muito grande.",
       "file_upload_error": "O ficheiro não pode ser carregado.",
       "signin_required": "Deve fazer login para aceder a esta página.",
+      "malware_detected": "Malware detectado! O ficheiro que enviou pode conter malware. Verifique o seu ficheiro e tente novamente.",
       "roles": {
         "role_assigned": "Este Papel não pode ser excluído porque está atribuído a pelo menos um utilizador."
       },
@@ -492,6 +521,11 @@
           "min": "O nome deve conter ao menos 2 caracteres"
         }
       },
+      "room_join": {
+        "name": {
+          "required": "Insira o seu nome."
+        }
+      },
       "url": {
         "invalid": "URL Inválida"
       }
@@ -501,6 +535,21 @@
         "name": {
           "label": "Nome da Sala",
           "placeholder": "Digite o nome da sala..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Nome",
+            "placeholder": "Insira o seu nome."
+        },
+        "access_code": {
+          "label": "Código de acesso",
+          "placeholder": "Insira o código de acesso"
+        },
+        "recording_consent": {
+          "label": "Tenho conhecimento que esta sessão pode ser gravada. Isso pode incluir a minha voz e vídeo, se ativado."
         }
       }
     },
@@ -634,7 +683,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "Digite o endereço aqui..."
+            "placeholder": "Digite o endereço aqui...",
+            "text_placeholder": "Insira o texto aqui..."
           }
         }
       },
