@@ -34,7 +34,12 @@ export default function App() {
 
   // useEffect hook for running notify maintenance banner on page load
   useEffect(() => {
-    if (maintenanceBanner.data) {
+    // set a cookie for a day after maintenance banner dismissed
+    const maintenanceClosedAt = localStorage.getItem('maintenanceClosedAt');
+    const now = new Date();
+    const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
+
+    if (maintenanceBanner.data && (!maintenanceClosedAt || now.getTime() - new Date(maintenanceClosedAt).getTime() > oneDayInMilliseconds)) {
       toast.info(maintenanceBanner.data, {
         position: 'top-center',
         autoClose: false,
@@ -45,6 +50,7 @@ export default function App() {
         progress: undefined,
         theme: 'light',
         className: 'text-center',
+        onClose: () => localStorage.setItem('maintenanceClosedAt', new Date().toISOString()),
       });
     }
   }, [maintenanceBanner.data]);

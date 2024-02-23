@@ -29,6 +29,11 @@ export default function TextForm({ id, value, mutation: useUpdateSiteSettingsAPI
 
   const { methods, fields } = useTextForm({ defaultValues: { value } });
 
+  // Function to clear the form
+  const clearForm = () => {
+    methods.reset({ value: '' });
+  };
+
   return (
     <Form id={id} methods={methods} onSubmit={updateSiteSettingsAPI.mutate}>
       <FormControl
@@ -37,9 +42,13 @@ export default function TextForm({ id, value, mutation: useUpdateSiteSettingsAPI
         type="text"
         noLabel
       />
-      <Button id={`${id}-submit-btn`} className="mb-2 float-end" variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
+      <Button id={`${id}-clear-btn`} className="mb-2 float-end" variant="brand" onClick={clearForm} disabled={updateSiteSettingsAPI.isLoading}>
         {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
-        { t('admin.site_settings.administration.change_text') }
+        { t('admin.site_settings.administration.clear_text') }
+      </Button>
+      <Button id={`${id}-submit-btn`} className="mb-2 float-end me-2" variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
+        {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
+        { t('admin.site_settings.administration.set_text') }
       </Button>
     </Form>
   );

@@ -29,6 +29,15 @@ export default function Administration() {
   return (
     <>
       <Row>
+        <h6> { t('admin.site_settings.administration.maintenance') } </h6>
+        <p className="text-muted"> { t('admin.site_settings.administration.change_maintenance_text') } </p>
+        <TextForm
+          id="maintenanceForm"
+          mutation={() => useUpdateSiteSetting('Maintenance')}
+          value={siteSettings?.Maintenance}
+        />
+      </Row>
+      <Row>
         <h6> { t('admin.site_settings.administration.terms') } </h6>
         <p className="text-muted"> { t('admin.site_settings.administration.change_term_links') } </p>
         <LinksForm
@@ -53,15 +62,6 @@ export default function Administration() {
           id="helpForm"
           mutation={() => useUpdateSiteSetting('HelpCenter')}
           value={siteSettings?.HelpCenter}
-        />
-      </Row>
-      <Row>
-        <h6> { t('admin.site_settings.administration.maintenance') } </h6>
-        <p className="text-muted"> { t('admin.site_settings.administration.change_maintenance_text') } </p>
-        <TextForm
-          id="maintenanceForm"
-          mutation={() => useUpdateSiteSetting('Maintenance')}
-          value={siteSettings?.Maintenance}
         />
       </Row>
     </>
