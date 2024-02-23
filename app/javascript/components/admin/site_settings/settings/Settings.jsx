@@ -54,7 +54,8 @@ export default function Settings() {
       )}
         value={siteSettings?.PreuploadPresentation}
       />
-      {envAPI.data?.EXTERNAL_AUTH && 
+      { envAPI.data?.EXTERNAL_AUTH
+        && (
         <SettingSelect
           defaultValue={siteSettings?.SessionTimeout}
           title={t('admin.site_settings.settings.session_timeout')}
@@ -67,7 +68,7 @@ export default function Settings() {
             {t('admin.site_settings.settings.extended_session_timeout')}
           </Dropdown.Item>
         </SettingSelect>
-      }
+        )}
 
       <SettingSelect
         defaultValue={siteSettings?.DefaultRecordingVisibility}
