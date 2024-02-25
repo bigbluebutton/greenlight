@@ -278,7 +278,10 @@
         "change_privacy_link": "ページ下方のプライバシーポリシーへのリンクを変更する",
         "helpcenter": "ヘルプセンター",
         "change_helpcenter_link": "プロフィールのドロップダウンメニュー内に表示されるヘルプセンターのリンクを変更",
+        "maintenance": "メンテナンスバナー",
+        "change_maintenance_text": "ヘッダーに表示されるメンテナンスバナーの文章を変更する",
         "change_url": "URL変更",
+        "change_text": "文章を変更",
         "enter_link": "リンクをここに入力"
       },
       "settings": {
@@ -288,7 +291,11 @@
         "allow_users_to_preupload_presentation": "ユーザーにプレゼンファイルの事前アップロードを許可",
         "allow_users_to_preupload_presentation_description": "ユーザーがプレゼンファイルを事前にアップロードし、この会議室専用の標準プレゼンとして使用できるようになります",
         "default_visibility": "デフォルトの録画公開度",
-        "default_visibility_description": "新しい録画は、まずは全てこの公開度となります。"
+        "default_visibility_description": "新しい録画は、まずは全てこの公開度となります。",
+        "session_timeout": "セッションの継続時間",
+        "session_timeout_description": "セッションの継続時間は、通常のクッキー設定では１日ですが、７日間の延長設定とすることもできます",
+        "default_session_timeout": "通常（１日）",
+        "extended_session_timeout": "延長（７日間）"
       },
       "registration": {
         "registration": "ユーザー登録",
@@ -676,7 +683,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "ここにリンクを入力..."
+            "placeholder": "ここにリンクを入力...",
+            "text_placeholder": "文章をここに入力..."
           }
         }
       },
