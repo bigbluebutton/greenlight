@@ -52,7 +52,7 @@ export default function App() {
         className: 'text-center',
         onClose: () => localStorage.setItem('maintenanceClosedAt', new Date().toISOString()),
       });
-      localStorage.setItem('maintenanceBannerId', toastId)
+      localStorage.setItem('maintenanceBannerId', toastId);
     }
   }, [maintenanceBanner.data]);
 

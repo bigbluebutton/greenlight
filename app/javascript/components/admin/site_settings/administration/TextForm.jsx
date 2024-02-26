@@ -18,23 +18,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import FormControl from '../../../shared_components/forms/FormControl';
 import useTextForm from '../../../../hooks/forms/admin/site_settings/useTextForm';
-import { toast } from 'react-toastify';
 
 export default function TextForm({ id, value, mutation: useUpdateSiteSettingsAPI }) {
   const updateSiteSettingsAPI = useUpdateSiteSettingsAPI();
   const { t } = useTranslation();
+  const maintenanceBannerId = localStorage.getItem('maintenanceBannerId');
 
   const { methods, fields } = useTextForm({ defaultValues: { value } });
 
   // Function to clear the form
   const clearForm = () => {
     methods.reset({ value: '' });
-    let maintenanceBannerId = localStorage.getItem('maintenanceBannerId')
-    toast.dismiss(maintenanceBannerId)
+    toast.dismiss(maintenanceBannerId);
   };
 
   return (
