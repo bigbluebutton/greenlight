@@ -42,9 +42,18 @@ class UserMailer < ApplicationMailer
     @email = params[:email]
     @name = params[:name]
     @signup_url = params[:signup_url]
-    @email = params[:email]
 
     mail(to: @email, subject: t('email.invitation.invitation_to_join'))
+  end
+
+  def new_user_signup_email
+    @user = params[:user]
+    @admin_panel_url = params[:admin_panel_url]
+    emails = admin_emails
+
+    return if emails.blank? # Dont send anything if no-one has EmailOnSignup enabled
+
+    mail(to: emails, subject: t('email.new_user_signup.new_user'))
   end
 
   private
@@ -58,5 +67,14 @@ class UserMailer < ApplicationMailer
     branding_hash = SettingGetter.new(setting_name: %w[PrimaryColor BrandingImage], provider: @provider).call
     @brand_image = ActionController::Base.helpers.image_url(branding_hash['BrandingImage'], host: @base_url)
     @brand_color = branding_hash['PrimaryColor']
+  end
+
+  def admin_emails
+    # Find all the roles that have EmailOnSignup enabled
+    role_ids = Role.joins(role_permissions: :permission).with_provider(@provider).where(role_permissions: { value: 'true' },
+                                                                                        permission: { name: 'EmailOnSignup' })
+                   .pluck(:id)
+
+    User.where(role_id: role_ids).pluck(:email)
   end
 end

@@ -29,7 +29,7 @@
   "action_permanent": "Cette action ne peut être annulée",
   "homepage": {
     "welcome_bbb": "Bienvenue sur BigBlueButton.",
-    "bigbluebutton_description": "BigBluButton est un système de webconférence dont le code source ouvert et qui est destinée à l'enseignement en ligne. La plateforme permet de profiter au mieux du temps dédié à la formation en favorisant la collaboration et une supervision en temps réel. ",
+    "bigbluebutton_description": "BigBlueButton est un système de webconférence dont le code source ouvert et qui est destinée à l'enseignement en ligne. La plateforme permet de profiter au mieux du temps dédié à la formation en favorisant la collaboration et une supervision en temps réel. ",
     "greenlight_description": "Créez vos salles et sessions ou rejoignez celles de autres grâce à un lien court et pratique.",
     "learn_more": "En apprendre plus sur BigBlueButton",
     "explore_features": "Découvrez les fonctionnalités",
@@ -81,6 +81,7 @@
       "account_info": "Informations sur le compte",
       "delete_account": "Supprimer le compte",
       "change_password": "Changer de mot de passe",
+      "set_password": "Définissez votre nouveau mot de passe",
       "reset_password": "Réinitialiser le mot de passe",
       "update_account_info": "Mettre à jour les informations du compte",
       "current_password": "Mot de passe actuel",
@@ -110,7 +111,7 @@
     "delete_room": "Supprimer une salle",
     "create_new_room": "Créer une nouvelle salle",
     "enter_room_name": "Saisissez le nom de la salle",
-    "shared_by": "Partagé par",
+    "shared_by": "partagé par",
     "last_session": "Dernière session : {{ localizedTime }}",
     "no_last_session": "Il n'y a aucune session précédente",
     "search_not_found": "Aucune salle trouvée",
@@ -129,6 +130,7 @@
       "click_to_upload": "Cliquez pour téléverser",
       "drag_and_drop": "ou glissez-déposez",
       "upload_description": "Téléverser tout document Office ou fichier PDF (d'un volume inférieur à {{size}}). Le délai avant de pouvoir utiliser le fichier varie en fonction de son volume.",
+      "delete_presentation": "Effacer la présentation",
       "are_you_sure_delete_presentation": "Etes-vous sûr de vouloir supprimer cet enregistrement ?"
     },
     "shared_access": {
@@ -165,6 +167,7 @@
   "recording": {
     "recording": "Enregistrement",
     "recordings": "Enregistrements",
+    "processing": "Enregistrements en cours de traitement...",
     "name": "Nom",
     "length": "Durée",
     "users": "Utilisateurs",
@@ -347,7 +350,8 @@
         "manage_site_settings": "Permettre aux utilisateurs avec ce rôle de gérer les paramètres du site",
         "manage_roles": "Permettre aux utilisateurs avec ce rôle de modifier les autres rôles",
         "shared_list": "Inclure les utilisateurs avec ce rôle dans le menu déroulant du partage des salles",
-        "room_limit": "Limite pour la salle"
+        "room_limit": "Limite pour la salle",
+        "email_on_signup": "Recevoir un email quand un nouvel utilisateur s'inscrit"
       }
     }
   },
@@ -358,6 +362,7 @@
         "user_updated": "L'utilisateur a été mis à jour.",
         "user_deleted": "L'utilisateur a été supprimé.",
         "avatar_updated": "L'avatar a été mis à jour.",
+        "password_changed": "Votre mot de passe a été mis à jour. Veuillez vous identifier à nouveau.",
         "password_updated": "Le mot de passe a été changé.",
         "account_activated": "Le compte a été activé avec succès. Veuillez vous connecter à votre compte.",
         "activation_email_sent": "Un courriel d'activation a été envoyé.",

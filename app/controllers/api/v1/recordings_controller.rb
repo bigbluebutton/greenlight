@@ -28,9 +28,6 @@ module Api
       before_action only: %i[update update_visibility recording_url] do
         ensure_authorized(%w[ManageRecordings SharedRoom PublicRecordings], record_id: params[:id])
       end
-      before_action only: %i[index recordings_count] do
-        ensure_authorized('CreateRoom')
-      end
 
       # GET /api/v1/recordings.json
       # Returns all of the current_user's recordings
@@ -66,14 +63,13 @@ module Api
       def update_visibility
         new_visibility = params[:visibility].to_s
 
-        new_visibility_params = visibility_params_of(new_visibility)
+        allowed_visibilities = JSON.parse(RolePermission.joins(:permission)
+                                            .find_by(role_id: current_user.role_id, permission: { name: 'AccessToVisibilities' })
+                                                        .value)
 
-        return render_error status: :bad_request if new_visibility_params.nil?
+        return render_error status: :forbidden unless allowed_visibilities.include?(new_visibility)
 
-        bbb_api = BigBlueButtonApi.new(provider: current_provider)
-
-        bbb_api.publish_recordings(record_ids: @recording.record_id, publish: new_visibility_params[:publish])
-        bbb_api.update_recordings(record_id: @recording.record_id, meta_hash: new_visibility_params[:meta_hash])
+        BigBlueButtonApi.new(provider: current_provider).update_recording_visibility(record_id: @recording.record_id, visibility: new_visibility)
 
         @recording.update!(visibility: new_visibility)
 
@@ -124,18 +120,6 @@ module Api
 
       def find_recording
         @recording = Recording.find_by! record_id: params[:id]
-      end
-
-      def visibility_params_of(visibility)
-        params_of = {
-          Recording::VISIBILITIES[:unpublished] => { publish: false, meta_hash: { protect: false, 'meta_gl-listed': false } },
-          Recording::VISIBILITIES[:published] => { publish: true, meta_hash: { protect: false, 'meta_gl-listed': false } },
-          Recording::VISIBILITIES[:public] => { publish: true, meta_hash: { protect: false, 'meta_gl-listed': true } },
-          Recording::VISIBILITIES[:protected] => { publish: true, meta_hash: { protect: true, 'meta_gl-listed': false } },
-          Recording::VISIBILITIES[:public_protected] => { publish: true, meta_hash: { protect: true, 'meta_gl-listed': true } }
-        }
-
-        params_of[visibility.to_s]
       end
     end
   end

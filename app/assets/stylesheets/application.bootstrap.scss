@@ -284,6 +284,21 @@ input.search-bar {
   }
 }
 
+.custom-select {
+  .select-brand-control {
+    border-color: var(--brand-color) !important;
+    box-shadow: 0 0 0 1px var(--brand-color) !important;
+  }
+
+  .select-brand-option {
+    background-color: whitesmoke;
+    color: var(--brand-color) !important;
+    &:active {
+      background-color: var(--brand-color-light) !important;
+    }
+  }
+}
+
 //Brand
 :root {
   --brand-color: '';

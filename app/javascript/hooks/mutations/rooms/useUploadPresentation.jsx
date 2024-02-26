@@ -28,7 +28,11 @@ export default function useUploadPresentation(friendlyId) {
     fileValidation(presentation, 'presentation');
     const formData = new FormData();
     formData.append('room[presentation]', presentation);
-    return axios.patch(`/rooms/${friendlyId}.json`, formData);
+    return axios.patch(`/rooms/${friendlyId}.json`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   };
 
   const mutation = useMutation(uploadPresentation, {
@@ -37,7 +41,11 @@ export default function useUploadPresentation(friendlyId) {
       toast.success(t('toast.success.room.presentation_updated'));
     },
     onError: (error) => {
-      handleError(error, t, toast);
+      if (error.response.data.errors.includes('Presentation MalwareDetected')) {
+        toast.error(t('toast.error.malware_detected'));
+      } else {
+        handleError(error, t, toast);
+      }
     },
   });
 

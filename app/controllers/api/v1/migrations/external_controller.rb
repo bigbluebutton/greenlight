@@ -16,8 +16,6 @@
 
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/PerceivedComplexity
-
 module Api
   module V1
     module Migrations
@@ -77,7 +75,7 @@ module Api
         end
 
         # POST /api/v1/migrations/users.json
-        # Expects: { user: { :name, :email, :external_id, :language, :role } }
+        # Expects: { user: { :name, :email, :password_digest, :provider, :external_id, :language, :role } }
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Creates a user.
         def create_user
@@ -105,10 +103,8 @@ module Api
 
           return render_error(status: :bad_request, errors: user&.errors&.to_a) unless user.save
 
-          if user_hash[:provider] != 'greenlight'
-            user.password_digest = nil
-            user.save(validations: false)
-          end
+          user.password_digest = user_hash[:provider] == 'greenlight' ? user_hash[:password_digest] : nil
+          user.save(validations: false)
 
           render_data status: :created
         end
@@ -119,7 +115,6 @@ module Api
         #                    shared_users_emails: [ <list of shared users emails> ] }}
         # Returns: { data: Array[serializable objects] , errors: Array[String] }
         # Does: Creates a Room and its RoomMeetingOptions.
-        # rubocop:disable Metrics/CyclomaticComplexity
         def create_room
           room_hash = room_params.to_h
 
@@ -174,7 +169,6 @@ module Api
 
           render_data status: :created
         end
-        # rubocop:enable Metrics/CyclomaticComplexity
 
         # POST /api/v1/migrations/site_settings.json
         # Expects: { settings: { site_settings: { :PrimaryColor, :PrimaryColorLight, :PrimaryColorDark,
@@ -230,7 +224,7 @@ module Api
         end
 
         def user_params
-          decrypted_params.require(:user).permit(:name, :email, :provider, :external_id, :language, :role, :created_at)
+          decrypted_params.require(:user).permit(:name, :email, :password_digest, :provider, :external_id, :language, :role, :created_at)
         end
 
         def room_params
@@ -276,4 +270,3 @@ module Api
     end
   end
 end
-# rubocop:enable Metrics/PerceivedComplexity

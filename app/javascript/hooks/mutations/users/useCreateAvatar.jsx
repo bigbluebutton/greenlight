@@ -30,7 +30,11 @@ export default function useCreateAvatar(currentUser) {
     });
     const formData = new FormData();
     formData.append('user[avatar]', avatarBlob);
-    return axios.patch(`/users/${currentUser.id}.json`, formData);
+    return axios.patch(`/users/${currentUser.id}.json`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   }
 
   const mutation = useMutation(
@@ -41,8 +45,12 @@ export default function useCreateAvatar(currentUser) {
         queryClient.invalidateQueries('getUser');
         toast.success(t('toast.success.user.avatar_updated'));
       },
-      onError: () => {
-        toast.error(t('toast.error.problem_completing_action'));
+      onError: (error) => {
+        if (error.response.data.errors.includes('Avatar MalwareDetected')) {
+          toast.error(t('toast.error.malware_detected'));
+        } else {
+          toast.error(t('toast.error.problem_completing_action'));
+        }
       },
     },
   );

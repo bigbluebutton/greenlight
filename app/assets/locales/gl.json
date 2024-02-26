@@ -81,6 +81,7 @@
       "account_info": "Información da conta",
       "delete_account": "Eliminar a conta",
       "change_password": "Cambiar o contrasinal",
+      "set_password": "Defina o seu novo contrasinal",
       "reset_password": "Restabelecer o contrasinal",
       "update_account_info": "Actualizar a información da conta",
       "current_password": "Contrasinal actual",
@@ -129,6 +130,7 @@
       "click_to_upload": "Prema para enviar",
       "drag_and_drop": " ou arrastre e solte",
       "upload_description": "Envíe calquera documento de oficina ou ficheiro PDF (non maior que {{size}}). Dependendo do tamaño do ficheiro, pode requirir un tempo adicional para envialo antes de poder utilizalo",
+      "delete_presentation": "Eliminar presentación",
       "are_you_sure_delete_presentation": "Confirma que quere eliminar esta presentación?"
     },
     "shared_access": {
@@ -165,6 +167,7 @@
   "recording": {
     "recording": "Gravación",
     "recordings": "Gravacións",
+    "processing": "Procesando as gravacións…",
     "name": "Nome",
     "length": "Duración",
     "users": "Usuarios",
@@ -347,7 +350,8 @@
         "manage_site_settings": "Permitir que os usuarios con este rol xestionen os axustes do sitio",
         "manage_roles": "Permitir que os usuarios con este rol editen outros roles",
         "shared_list": "Incluir os usuarios con este rol no menú despregábel para compartir salas",
-        "room_limit": "Límite de salas"
+        "room_limit": "Límite de salas",
+        "email_on_signup": "Recibir un correo-e cando se rexistre un novo usuario"
       }
     }
   },
@@ -358,6 +362,7 @@
         "user_updated": "O usuario foi actualizado.",
         "user_deleted": "O usuario foi eliminado.",
         "avatar_updated": "O avatar foi actualizado.",
+        "password_changed": "O seu contrasinal foi actualizado correctamente. Acceda de novo.",
         "password_updated": "O contrasinal foi actualizado.",
         "account_activated": "A súa conta foi activada.",
         "activation_email_sent": "Enviouse un correo que contén as instrucións para activar a súa conta.",

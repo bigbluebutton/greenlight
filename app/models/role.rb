@@ -47,6 +47,8 @@ class Role < ApplicationRecord
                 'true'
               when 'RoomLimit'
                 '100'
+              when 'AccessToVisibilities'
+                Recording::VISIBILITIES.values
               else
                 'false'
               end

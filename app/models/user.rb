@@ -38,7 +38,7 @@ class User < ApplicationRecord
   enum status: { active: 0, pending: 1, banned: 2 }
 
   validates :name, presence: true,
-                   length: { minimum: 2, maximum: 255 } # TODO: amir - Change into full_name or seperate first and last name.
+                   length: { minimum: 1, maximum: 255 } # TODO: amir - Change into full_name or seperate first and last name.
 
   validates :email,
             format: /\A[\w\-.+]+@[\w\-.]+\.[a-z]+\z/i,
@@ -71,6 +71,7 @@ class User < ApplicationRecord
   validate :check_user_role_provider, if: :role_changed?
 
   before_validation :set_session_token, on: :create
+  before_save :scan_avatar_for_virus
 
   scope :with_provider, ->(current_provider) { where(provider: current_provider) }
 
@@ -80,8 +81,8 @@ class User < ApplicationRecord
     all
   end
 
-  def self.name_search(input)
-    return where('users.name ILIKE :input', input: "%#{input}%") if input
+  def self.shared_access_search(input)
+    return where('users.name ILIKE :input OR users.email ILIKE :input', input: "%#{input}%") if input
 
     all
   end
@@ -125,7 +126,7 @@ class User < ApplicationRecord
 
   def generate_session_token!(extended_session: false)
     digest = User.generate_digest(SecureRandom.alphanumeric(40))
-    expiry = extended_session ? 7.days.from_now : 6.hours.from_now
+    expiry = extended_session ? 7.days.from_now : 24.hours.from_now
 
     update! session_token: digest, session_expiry: expiry
   rescue ActiveRecord::RecordInvalid
@@ -213,5 +214,18 @@ class User < ApplicationRecord
     return unless role
 
     errors.add(:user_provider, 'has to be the same as the Role provider') if provider != role.provider
+  end
+
+  private
+
+  def scan_avatar_for_virus
+    return if !virus_scan? || !attachment_changes['avatar']
+
+    path = attachment_changes['avatar']&.attachable&.tempfile&.path
+
+    return true if Clamby.safe?(path)
+
+    errors.add(:avatar, 'MalwareDetected')
+    throw :abort
   end
 end

@@ -50,7 +50,7 @@ module Api
         private
 
         def role_params
-          params.require(:role).permit(:role_id, :name, :value)
+          params.require(:role).permit(:role_id, :name, :value, value: [])
         end
 
         def create_default_room

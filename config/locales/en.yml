@@ -65,6 +65,13 @@ en:
       get_started: To sign up, please click the button below and follow the steps.
       valid_invitation: The invitation is valid for 24 hours.
       sign_up: Sign Up
+    new_user_signup:
+      new_user: New BigBlueButton User Signup
+      new_user_description: A new user has signed up to use BigBlueButton.
+      name: "Name: %{name}"
+      email: "Email: %{email}"
+      admin_panel: "Administrator Panel"
+      take_action: "To view the new user or to take the necessary action, visit the Administrator Panel"
     reset:
       password_reset: Reset Password
       password_reset_requested: A password reset has been requested for %{email}.

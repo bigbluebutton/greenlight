@@ -2,6 +2,8 @@ require:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-factory_bot
+  - rubocop-capybara
 
 AllCops:
   Exclude:
@@ -62,6 +64,7 @@ Metrics/BlockLength:
   AllowedMethods: [ 'describe', 'context', 'xdescribe', 'xcontext', 'FactoryBot.define' ]
   Exclude:
     - 'config/routes.rb'
+    - 'config/environments/production.rb'
   Max: 70
 
 Metrics/ClassLength:
@@ -70,7 +73,7 @@ Metrics/ClassLength:
 # A calculated magnitude based on number of assignments,
 # branches, and conditions.
 Metrics/AbcSize:
-  Max: 65
+  Max: 85
 
 Metrics/ParameterLists:
   CountKeywordArgs: false
@@ -79,10 +82,10 @@ RSpec/AnyInstance:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
-  Max: 16
+  Max: 18
 
 Metrics/PerceivedComplexity:
-  Max: 15
+  Max: 18
 
 Rails/Exit:
   Exclude:

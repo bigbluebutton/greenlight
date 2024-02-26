@@ -135,17 +135,13 @@ Rails.application.configure do
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
-  if ENV['RAILS_LOG_TO_STDOUT'].present?
-    $stdout.sync = true
-    logger           = ActiveSupport::Logger.new($stdout)
-    logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
-  end
-
   if ENV['RAILS_LOG_REMOTE_NAME'] && ENV['RAILS_LOG_REMOTE_PORT']
     require 'remote_syslog_logger'
     logger_program = ENV['RAILS_LOG_REMOTE_TAG'] || "greenlight-v3-#{ENV.fetch('RAILS_ENV', nil)}"
     logger = RemoteSyslogLogger.new(ENV['RAILS_LOG_REMOTE_NAME'], ENV['RAILS_LOG_REMOTE_PORT'], program: logger_program)
+  else
+    $stdout.sync = true
+    logger = ActiveSupport::Logger.new($stdout)
   end
 
   logger.formatter = config.log_formatter
@@ -163,4 +159,11 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Enable HSTS in production mode
+  config.force_ssl = true
+  config.ssl_options = {
+    redirect: { exclude: ->(request) { request.path.include?('health_check') } },
+    hsts: { expires: 1.year, subdomains: true }
+  }
 end
