@@ -21,12 +21,14 @@ import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSi
 import SettingsRow from '../SettingsRow';
 import SettingSelect from './SettingSelect';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
+import useEnv from '../../../../hooks/queries/env/useEnv';
 
 export default function Settings() {
   const { t } = useTranslation();
   const { data: siteSettings, isLoading } = useSiteSettings(['ShareRooms', 'PreuploadPresentation', 'DefaultRecordingVisibility', 'SessionTimeout']);
   const updateDefaultRecordingVisibility = useUpdateSiteSetting('DefaultRecordingVisibility');
   const updateSessionTimeout = useUpdateSiteSetting('SessionTimeout');
+  const { data: env } = useEnv();
 
   if (isLoading) return null;
 
@@ -52,19 +54,21 @@ export default function Settings() {
       )}
         value={siteSettings?.PreuploadPresentation}
       />
-
-      <SettingSelect
-        defaultValue={siteSettings?.SessionTimeout}
-        title={t('admin.site_settings.settings.session_timeout')}
-        description={t('admin.site_settings.settings.session_timeout_description')}
-      >
-        <Dropdown.Item key="default" value="1" onClick={() => updateSessionTimeout.mutate({ value: '1' })}>
-          {t('admin.site_settings.settings.default_session_timeout')}
-        </Dropdown.Item>
-        <Dropdown.Item key="extended" value="7" onClick={() => updateSessionTimeout.mutate({ value: '7' })}>
-          {t('admin.site_settings.settings.extended_session_timeout')}
-        </Dropdown.Item>
-      </SettingSelect>
+      { env?.EXTERNAL_AUTH
+        && (
+        <SettingSelect
+          defaultValue={siteSettings?.SessionTimeout}
+          title={t('admin.site_settings.settings.session_timeout')}
+          description={t('admin.site_settings.settings.session_timeout_description')}
+        >
+          <Dropdown.Item key="default" value="1" onClick={() => updateSessionTimeout.mutate({ value: '1' })}>
+            {t('admin.site_settings.settings.default_session_timeout')}
+          </Dropdown.Item>
+          <Dropdown.Item key="extended" value="7" onClick={() => updateSessionTimeout.mutate({ value: '7' })}>
+            {t('admin.site_settings.settings.extended_session_timeout')}
+          </Dropdown.Item>
+        </SettingSelect>
+        )}
 
       <SettingSelect
         defaultValue={siteSettings?.DefaultRecordingVisibility}
