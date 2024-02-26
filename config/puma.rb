@@ -59,3 +59,10 @@ pidfile ENV.fetch('PIDFILE', 'tmp/pids/server.pid')
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart
+# Enable puma-metrics gem https://rubygems.org/gems/puma-metrics
+plugin 'metrics'
+# Bind the metric server to "url". "tcp://" is the only accepted protocol.
+#
+# The default is "tcp://0.0.0.0:9393", we bind it to localhost to be safe
+# by default.
+metrics_url 'tcp://127.0.0.1:9393'
