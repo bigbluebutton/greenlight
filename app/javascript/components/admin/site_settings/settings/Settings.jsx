@@ -28,7 +28,7 @@ export default function Settings() {
   const { data: siteSettings, isLoading } = useSiteSettings(['ShareRooms', 'PreuploadPresentation', 'DefaultRecordingVisibility', 'SessionTimeout']);
   const updateDefaultRecordingVisibility = useUpdateSiteSetting('DefaultRecordingVisibility');
   const updateSessionTimeout = useUpdateSiteSetting('SessionTimeout');
-  const envAPI = useEnv();
+  const { data: env } = useEnv();
 
   if (isLoading) return null;
 
@@ -54,7 +54,7 @@ export default function Settings() {
       )}
         value={siteSettings?.PreuploadPresentation}
       />
-      { envAPI.data?.EXTERNAL_AUTH
+      { env?.EXTERNAL_AUTH
         && (
         <SettingSelect
           defaultValue={siteSettings?.SessionTimeout}
