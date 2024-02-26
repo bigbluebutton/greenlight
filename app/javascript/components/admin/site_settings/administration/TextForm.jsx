@@ -22,6 +22,7 @@ import Form from '../../../shared_components/forms/Form';
 import Spinner from '../../../shared_components/utilities/Spinner';
 import FormControl from '../../../shared_components/forms/FormControl';
 import useTextForm from '../../../../hooks/forms/admin/site_settings/useTextForm';
+import { toast } from 'react-toastify';
 
 export default function TextForm({ id, value, mutation: useUpdateSiteSettingsAPI }) {
   const updateSiteSettingsAPI = useUpdateSiteSettingsAPI();
@@ -32,6 +33,8 @@ export default function TextForm({ id, value, mutation: useUpdateSiteSettingsAPI
   // Function to clear the form
   const clearForm = () => {
     methods.reset({ value: '' });
+    let maintenanceBannerId = localStorage.getItem('maintenanceBannerId')
+    toast.dismiss(maintenanceBannerId)
   };
 
   return (
@@ -44,7 +47,7 @@ export default function TextForm({ id, value, mutation: useUpdateSiteSettingsAPI
       />
       <Button id={`${id}-clear-btn`} className="mb-2 float-end" variant="brand" onClick={clearForm} disabled={updateSiteSettingsAPI.isLoading}>
         {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
-        { t('admin.site_settings.administration.clear_text') }
+        { t('admin.site_settings.administration.clear_banner') }
       </Button>
       <Button id={`${id}-submit-btn`} className="mb-2 float-end me-2" variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
         {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}

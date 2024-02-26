@@ -40,7 +40,7 @@ export default function App() {
     const oneDayInMilliseconds = 24 * 60 * 60 * 1000;
 
     if (maintenanceBanner.data && (!maintenanceClosedAt || now.getTime() - new Date(maintenanceClosedAt).getTime() > oneDayInMilliseconds)) {
-      toast.info(maintenanceBanner.data, {
+      const toastId = toast.info(maintenanceBanner.data, {
         position: 'top-center',
         autoClose: false,
         hideProgressBar: true,
@@ -52,6 +52,7 @@ export default function App() {
         className: 'text-center',
         onClose: () => localStorage.setItem('maintenanceClosedAt', new Date().toISOString()),
       });
+      localStorage.setItem('maintenanceBannerId', toastId)
     }
   }, [maintenanceBanner.data]);
 
