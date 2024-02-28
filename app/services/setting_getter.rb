@@ -52,11 +52,7 @@ class SettingGetter
   private
 
   def transform_value(site_setting)
-    if site_setting.setting.name == 'BrandingImage'
-      return rails_blob_path site_setting.image, only_path: true if site_setting.image.attached?
-
-      return ActionController::Base.helpers.image_path('bbb_logo.png')
-    end
+    return rails_blob_path site_setting.image, only_path: true if site_setting.setting.name == 'BrandingImage' && site_setting.image.attached?
 
     case site_setting.value
     when 'true'

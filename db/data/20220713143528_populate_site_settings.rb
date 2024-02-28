@@ -18,12 +18,18 @@
 
 class PopulateSiteSettings < ActiveRecord::Migration[7.0]
   def up
+    image_path = begin
+      ActionController::Base.helpers.image_path('bbb_logo.png')
+    rescue StandardError
+      'https://github.com/bigbluebutton/greenlight/blob/master/app/assets/images/bbb_logo.png'
+    end
+
     SiteSetting.create! [
       { setting: Setting.find_by(name: 'PrimaryColor'), value: '#467fcf', provider: 'greenlight' },
       { setting: Setting.find_by(name: 'PrimaryColorLight'), value: '#e8eff9', provider: 'greenlight' },
       { setting: Setting.find_by(name: 'PrimaryColorDark'), value: '#316cbe', provider: 'greenlight' },
       { setting: Setting.find_by(name: 'BrandingImage'),
-        value: ActionController::Base.helpers.image_path('bbb_logo.png'),
+        value: image_path,
         provider: 'greenlight' },
       { setting: Setting.find_by(name: 'Terms'), value: '', provider: 'greenlight' },
       { setting: Setting.find_by(name: 'PrivacyPolicy'), value: '', provider: 'greenlight' },
