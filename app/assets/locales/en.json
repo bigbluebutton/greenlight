@@ -281,7 +281,8 @@
         "maintenance": "Maintenance Banner",
         "change_maintenance_text": "Change the maintenance banner text that appears in the header",
         "change_url": "Change URL",
-        "change_text": "Change text",
+        "set_text": "Set Text",
+        "clear_banner": "Clear Banner",
         "enter_link": "Enter link here"
       },
       "settings": {
