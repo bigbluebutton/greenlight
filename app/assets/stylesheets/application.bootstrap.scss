@@ -315,9 +315,17 @@ input.search-bar {
   border-color: var(--brand-color);
   color: white;
 
+  &:active {
+    background-color: var(--brand-color) !important;
+    border-color: var(--brand-color) !important;
+    color: white !important;
+  }
+
   &:hover {
-    box-shadow: inset 0 0 200px 200px rgba(0, 0, 0, 0.1);
+    background-color: var(--brand-color);
+    border-color: var(--brand-color);
     color: white;
+    box-shadow: inset 0 0 200px 200px rgba(0, 0, 0, 0.1);
   }
 
   &:focus {
@@ -331,8 +339,15 @@ input.search-bar {
   background-color: white;
   box-shadow: var(--brand-color-light);
 
+  &:active {
+    border-color: var(--brand-color) !important;
+    background-color: white !important;
+    color: var(--brand-color) !important;
+  }
+
   &:hover {
     border-color: var(--brand-color);
+    background-color: white;
     color: var(--brand-color);
   }
 
