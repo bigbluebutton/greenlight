@@ -124,7 +124,11 @@ module Api
       end
 
       def authorized_to_start_meeting?(settings, bbb_role)
-        settings['glAnyoneCanStart'] == 'true' || bbb_role == 'Moderator'
+        if(settings['glAnyoneJoinAsModerator'])
+          settings['glAnyoneCanStart'] == 'true' || @room.user_id == current_user&.id
+        else
+          settings['glAnyoneCanStart'] == 'true' || bbb_role == 'Moderator'
+        end
       end
 
       def unauthorized_access?(settings)
