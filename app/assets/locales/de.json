@@ -17,6 +17,8 @@
   "close": "Schließen",
   "delete": "Löschen",
   "copy": "Einladungslink kopieren",
+  "copy_viewer_code": "Zugangscode für Zuhörer:innen kopieren",
+  "copy_moderator_code": "Zugangscode für Moderation kopieren",
   "or": "oder",
   "online": "Online",
   "help_center": "Hilfe",
@@ -274,7 +276,13 @@
         "privacy_policy": "Datenschutzerklärung",
         "change_term_links": "Ändere den Link zu den Nutzungsbedingungen, der unten auf der Seite erscheint.",
         "change_privacy_link": "Ändere den Link zur Datenschutzerklärung, der unten auf der Seite erscheint.",
+        "helpcenter": "Hilfeseite",
+        "change_helpcenter_link": "Ändern Sie den Link zur Hilfeseite, der unter dem Profil-Dropdown erscheint",
+        "maintenance": "Wartungshinweis",
+        "change_maintenance_text": "Ändern Sie den Text des Wartungshinweises, der in der Kopfzeile erscheint",
         "change_url": "URL ändern",
+        "set_text": "Text eingeben",
+        "clear_banner": "Banner entfernen",
         "enter_link": "Link eingeben"
       },
       "settings": {
@@ -282,7 +290,13 @@
         "allow_users_to_share_rooms": "Räume können geteilt werden",
         "allow_users_to_share_rooms_description": "Wenn dies deaktiviert ist, dann wird der Knopf zum Teilen eines Raums von den Raumeinstellungen entfernt.",
         "allow_users_to_preupload_presentation": "Präsentationen können hochgeladen werden",
-        "allow_users_to_preupload_presentation_description": "Nutzer:innen können eine Präsentation im Voraus hochladen, die dann als Standard für diesen Raum genutzt wird."
+        "allow_users_to_preupload_presentation_description": "Nutzer:innen können eine Präsentation im Voraus hochladen, die dann als Standard für diesen Raum genutzt wird.",
+        "default_visibility": "Standard-Sichtbarkeit der Aufnahmen",
+        "default_visibility_description": "Alle neu erstellten Aufnahmen haben standardmäßig diese Sichtbarkeit",
+        "session_timeout": "Timeout der Sitzung",
+        "session_timeout_description": "Sie können das Sitzungs-Timeout mit einem Standard-Cookie von 1 Tag oder einem erweiterten Sitzungs-Cookie von 7 Tagen konfigurieren",
+        "default_session_timeout": "Standard (1 Tag)",
+        "extended_session_timeout": "Erweitert (7 Tage)"
       },
       "registration": {
         "registration": "Registrierung",
@@ -351,7 +365,8 @@
         "manage_roles": "Nutzer:innen mit dieser Rolle erlauben, andere Rollen zu bearbeiten",
         "shared_list": "Nutzer:innen mit dieser Rolle in die Auswahlliste für die gemeinsame Nutzung von Räumen aufnehmen",
         "room_limit": "Raumlimit",
-        "email_on_signup": "Bei Anmeldung neuer Nutzer E-Mail erhalten"
+        "email_on_signup": "Bei Anmeldung neuer Nutzer E-Mail erhalten",
+        "allowed_recording_visibility": "Erlaubte Sichtbarkeit der Aufnahmen"
       }
     }
   },
@@ -387,7 +402,9 @@
         "access_code_copied": "Zugangscode kopiert.",
         "access_code_generated": "Zugangscode generiert.",
         "access_code_deleted": "Zugriffcode wurde gelöscht.",
-        "copied_meeting_url": "Die URL der Konferenz wurde kopiert. Der Link kann verwendet werden, um an der Konferenz teilzunehmen."
+        "copied_meeting_url": "Die URL der Konferenz wurde kopiert. Der Link kann verwendet werden, um an der Konferenz teilzunehmen.",
+        "copied_viewer_code": "Zugangscode für Zuhörer:innen wurde in die Zwischenablage kopiert.",
+        "copied_moderator_code": "Zugangscode für Moderation wurde in die Zwischenablage kopiert."
       },
       "site_settings": {
         "site_setting_updated": "Grundeinstellungen aktualisiert.",
@@ -395,6 +412,7 @@
         "brand_image_updated": "Das Logo wurde aktualisiert.",
         "brand_image_deleted": "Das Logo wurde entfernt.",
         "privacy_policy_updated": "Die Datenschutzrichtlinie wurde aktualisiert.",
+        "helpcenter_updated": "Der Link zur Hilfeseite wurde aktualisiert.",
         "terms_of_service_updated": "Die Nutzungsbedingungen wurden aktualisiert."
       },
       "recording": {
@@ -419,6 +437,7 @@
       "file_size_too_large": "Datei ist zu groß.",
       "file_upload_error": "Die Datei kann nicht hochgeladen werden.",
       "signin_required": "Bitte einloggen um diese Seite anzuzeigen.",
+      "malware_detected": "Schadsoftware gefunden! Die Datei, die Sie hochgeladen haben, könnte Schadsoftware enthalten. Bitte überprüfen Sie Ihre Datei und versuchen Sie es erneut.",
       "roles": {
         "role_assigned": "Diese Rolle kann nicht gelöscht werden, da sie mindestens einer Person zugeordnet ist."
       },
@@ -665,7 +684,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "Link eingeben..."
+            "placeholder": "Link eingeben...",
+            "text_placeholder": "Text eingeben..."
           }
         }
       },
