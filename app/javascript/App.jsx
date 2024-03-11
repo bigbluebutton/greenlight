@@ -50,7 +50,6 @@ export default function App() {
         progress: undefined,
         theme: 'light',
         className: 'text-center',
-        onClose: () => localStorage.setItem('maintenanceClosedAt', new Date().toISOString()),
       });
       localStorage.setItem('maintenanceBannerId', toastId);
     }

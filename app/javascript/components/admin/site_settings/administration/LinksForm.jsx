@@ -27,7 +27,7 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
   const updateSiteSettingsAPI = useUpdateSiteSettingsAPI();
   const { t } = useTranslation();
 
-  const { methods, fields } = useLinksForm({ defaultValues: { value } });
+  const { methods, fields } = useLinksForm({ defaultValues: { value: value } });
 
   return (
     <Form id={id} methods={methods} onSubmit={updateSiteSettingsAPI.mutate}>
@@ -48,5 +48,5 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
 LinksForm.propTypes = {
   id: PropTypes.string.isRequired,
   mutation: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
 };
