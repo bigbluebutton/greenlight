@@ -29,13 +29,13 @@ export default function TextForm({ id, value, mutation: useUpdateSiteSettingsAPI
   const { t } = useTranslation();
   const maintenanceBannerId = localStorage.getItem('maintenanceBannerId');
 
-  const { methods, fields } = useTextForm({ defaultValues: { value: value } });
+  const { methods, fields } = useTextForm({ defaultValues: { value } });
 
   // Function to clear the form
   const clearForm = () => {
-      methods.reset({ value: '' });
-      toast.dismiss(maintenanceBannerId);
-      updateSiteSettingsAPI.mutate('')
+    methods.reset({ value: '' });
+    toast.dismiss(maintenanceBannerId);
+    updateSiteSettingsAPI.mutate('');
   };
 
   return (
@@ -62,4 +62,8 @@ TextForm.propTypes = {
   id: PropTypes.string.isRequired,
   mutation: PropTypes.func.isRequired,
   value: PropTypes.string,
+};
+
+TextForm.defaultProps = {
+  value: '',
 };
