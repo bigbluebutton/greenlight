@@ -121,7 +121,7 @@ class User < ApplicationRecord
   # Gives the session token and expiry a default value before saving
   def set_session_token
     self.session_token = User.generate_digest(SecureRandom.alphanumeric(40))
-    self.session_expiry = 6.hours.from_now
+    self.session_expiry = 24.hours.from_now
   end
 
   def generate_session_token!(extended_session: false)
