@@ -413,7 +413,8 @@
         "brand_image_deleted": "The brand image has been deleted.",
         "privacy_policy_updated": "The privacy policy has been updated.",
         "helpcenter_updated": "The help center link has been updated.",
-        "terms_of_service_updated": "The terms of service have been updated."
+        "terms_of_service_updated": "The terms of service have been updated.",
+        "maintenance_updated": "The maintenance banner has been updated."
       },
       "recording": {
         "recording_visibility_updated": "The recording visibility has been updated.",
