@@ -18,7 +18,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 export default function RoomSettingsRow({
-  settingName, config, value, description, updateMutation: useUpdateAPI, disabled
+  settingName, config, value, description, updateMutation: useUpdateAPI, disabled,
 }) {
   const updateAPI = useUpdateAPI();
   const checkedValue = useMemo(() => {
@@ -59,6 +59,7 @@ export default function RoomSettingsRow({
 RoomSettingsRow.defaultProps = {
   value: '',
   config: 'false',
+  disabled: false,
 };
 
 RoomSettingsRow.propTypes = {
@@ -67,4 +68,5 @@ RoomSettingsRow.propTypes = {
   value: PropTypes.string,
   config: PropTypes.string,
   description: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
 };
