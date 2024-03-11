@@ -85,15 +85,16 @@ export default function RoomSettings() {
                 config={roomConfigs?.glRequireAuthentication}
                 description={t('room.settings.require_signed_in')}
               />
-              { roomSetting?.data?.glAnyoneJoinAsModerator === 'false' && (
-                <RoomSettingsRow
-                  settingName="guestPolicy"
-                  updateMutation={updateMutationWrapper}
-                  value={roomSetting?.data?.guestPolicy}
-                  config={roomConfigs?.guestPolicy}
-                  description={t('room.settings.require_mod_approval')}
-                />
-              )}
+
+              <RoomSettingsRow
+                settingName="guestPolicy"
+                updateMutation={updateMutationWrapper}
+                value={roomSetting?.data?.guestPolicy}
+                config={roomConfigs?.guestPolicy}
+                description={t('room.settings.require_mod_approval')}
+                disabled={roomSetting?.data?.glAnyoneJoinAsModerator === 'true'}
+              />
+
               <RoomSettingsRow
                 settingName="glAnyoneCanStart"
                 updateMutation={updateMutationWrapper}

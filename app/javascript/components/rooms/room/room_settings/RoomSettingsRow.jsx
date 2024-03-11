@@ -18,7 +18,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 export default function RoomSettingsRow({
-  settingName, config, value, description, updateMutation: useUpdateAPI,
+  settingName, config, value, description, updateMutation: useUpdateAPI, disabled
 }) {
   const updateAPI = useUpdateAPI();
   const checkedValue = useMemo(() => {
@@ -49,7 +49,7 @@ export default function RoomSettingsRow({
           onChange={(event) => {
             updateAPI.mutate({ settingName, settingValue: event.target.checked });
           }}
-          disabled={updateAPI.isLoading || config === 'true'}
+          disabled={updateAPI.isLoading || config === 'true' || disabled}
         />
       </div>
     </div>
