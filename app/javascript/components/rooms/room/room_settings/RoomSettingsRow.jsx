@@ -22,13 +22,15 @@ export default function RoomSettingsRow({
 }) {
   const updateAPI = useUpdateAPI();
   const checkedValue = useMemo(() => {
-    if (value === 'true' || value === 'ASK_MODERATOR') {
+    if (disabled) {
+      return false;
+    } if (value === 'true' || value === 'ASK_MODERATOR') {
       return true;
     } if (value === 'false' || value === 'ALWAYS_ACCEPT') {
       return false;
     }
     return value;
-  }, [value]);
+  }, [value, disabled]);
 
   if (config === 'false') {
     return null;
