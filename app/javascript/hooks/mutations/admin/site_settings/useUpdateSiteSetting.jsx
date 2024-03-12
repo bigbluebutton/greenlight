@@ -54,8 +54,14 @@ export default function useUpdateSiteSetting(name) {
       case 'PrivacyPolicy':
         toast.success(t('toast.success.site_settings.privacy_policy_updated'));
         break;
+      case 'HelpCenter':
+        toast.success(t('toast.success.site_settings.helpcenter_updated'));
+        break;
       case 'TermsOfService':
         toast.success(t('toast.success.site_settings.terms_of_service_updated'));
+        break;
+      case 'Maintenance':
+        toast.success(t('toast.success.site_settings.maintenance_updated'));
         break;
       default:
         toast.success(t('toast.success.site_settings.site_setting_updated'));
@@ -71,7 +77,11 @@ export default function useUpdateSiteSetting(name) {
         handleSuccess();
       },
       onError: (error) => {
-        handleError(error, t, toast);
+        if (error.response.data.errors.includes('Image MalwareDetected')) {
+          toast.error(t('toast.error.malware_detected'));
+        } else {
+          handleError(error, t, toast);
+        }
       },
     },
   );

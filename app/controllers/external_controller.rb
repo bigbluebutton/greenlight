@@ -73,7 +73,11 @@ class ExternalController < ApplicationController
       return redirect_to pending_path if user.pending?
     end
 
-    user.generate_session_token!
+    # set the cookie based on session timeout setting
+    session_timeout = SettingGetter.new(setting_name: 'SessionTimeout', provider: current_provider).call
+    user.generate_session_token!(extended_session: session_timeout)
+    handle_session_timeout(session_timeout.to_i, user) if session_timeout
+
     session[:session_token] = user.session_token
 
     # TODO: - Ahmad: deal with errors
@@ -105,7 +109,7 @@ class ExternalController < ApplicationController
       @room.update(recordings_processing: @room.recordings_processing - 1) unless @room.recordings_processing.zero?
     end
 
-    RecordingCreator.new(recording:).call
+    RecordingCreator.new(recording:, first_creation: true).call
 
     render json: {}, status: :ok
   end
@@ -127,6 +131,18 @@ class ExternalController < ApplicationController
   end
 
   private
+
+  def handle_session_timeout(session_timeout, user)
+    # Creates a cookie based on session timeout site setting
+    cookies.encrypted[:_extended_session] = {
+      value: {
+        session_token: user.session_token
+      },
+      expires: session_timeout.days,
+      httponly: true,
+      secure: true
+    }
+  end
 
   def extract_language_code(locale)
     locale.try(:scan, /^[a-z]{2}/)&.first || I18n.default_locale

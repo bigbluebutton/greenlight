@@ -17,7 +17,14 @@
 # frozen_string_literal: true
 
 if ENV['LOADBALANCER_ENDPOINT'].present?
-  Rails.application.config.session_store :cookie_store, key: '_greenlight-3_0_session', domain: ENV.fetch('SESSION_DOMAIN_NAME', nil)
+  Rails.application.config.session_store :cookie_store,
+                                         key: '_greenlight-3_0_session',
+                                         domain: ENV.fetch('SESSION_DOMAIN_NAME', nil),
+                                         secure: Rails.env.production?,
+                                         path: ENV.fetch('RELATIVE_URL_ROOT', '/')
 else
-  Rails.application.config.session_store :cookie_store, key: '_greenlight-3_0_session'
+  Rails.application.config.session_store :cookie_store,
+                                         key: '_greenlight-3_0_session',
+                                         secure: Rails.env.production?,
+                                         path: ENV.fetch('RELATIVE_URL_ROOT', '/')
 end

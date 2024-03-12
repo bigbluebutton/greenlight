@@ -41,7 +41,11 @@ export default function useUploadPresentation(friendlyId) {
       toast.success(t('toast.success.room.presentation_updated'));
     },
     onError: (error) => {
-      handleError(error, t, toast);
+      if (error.response.data.errors.includes('Presentation MalwareDetected')) {
+        toast.error(t('toast.error.malware_detected'));
+      } else {
+        handleError(error, t, toast);
+      }
     },
   });
 

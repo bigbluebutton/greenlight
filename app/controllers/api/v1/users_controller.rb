@@ -110,7 +110,7 @@ module Api
           create_default_room(user)
           render_data  status: :ok
         else
-          render_error errors: Rails.configuration.custom_error_msgs[:record_invalid]
+          render_error errors: user.errors.to_a
         end
       end
 

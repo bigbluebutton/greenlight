@@ -81,6 +81,7 @@
       "account_info": "Kontoinformation",
       "delete_account": "Konto löschen",
       "change_password": "Passwort ändern",
+      "set_password": "Setzen Sie Ihr neues Passwort",
       "reset_password": "Passwort zurücksetzen",
       "update_account_info": "Konto aktualisieren",
       "current_password": "Aktuelles Passwort",
@@ -129,6 +130,7 @@
       "click_to_upload": "Klicken zum Hochladen",
       "drag_and_drop": " oder Datei per Drag & Drop hier ablegen.",
       "upload_description": "Ein Office-Dokument oder eine PDF-Datei hochladen (nicht größer als {{size}}). Abhängig von der Größe kann das eine gewisse Zeit dauern.",
+      "delete_presentation": "Präsentation löschen",
       "are_you_sure_delete_presentation": "Diese Präsentation wirklich löschen?"
     },
     "shared_access": {
@@ -165,6 +167,7 @@
   "recording": {
     "recording": "Aufzeichnung",
     "recordings": "Aufzeichnungen",
+    "processing": "Aufzeichnungen werden erstellt...",
     "name": "Name",
     "length": "Länge",
     "users": "Nutzer:innen",
@@ -347,7 +350,8 @@
         "manage_site_settings": "Nutzer:innen mit dieser Rolle erlauben, die Webseiteneinstellungen zu verwalten",
         "manage_roles": "Nutzer:innen mit dieser Rolle erlauben, andere Rollen zu bearbeiten",
         "shared_list": "Nutzer:innen mit dieser Rolle in die Auswahlliste für die gemeinsame Nutzung von Räumen aufnehmen",
-        "room_limit": "Raumlimit"
+        "room_limit": "Raumlimit",
+        "email_on_signup": "Bei Anmeldung neuer Nutzer E-Mail erhalten"
       }
     }
   },
@@ -358,6 +362,7 @@
         "user_updated": "Nutzer:in aktualisiert.",
         "user_deleted": "Nutzer:in gelöscht.",
         "avatar_updated": "Avatar aktualisiert.",
+        "password_changed": "Passwort erfolgreich aktualisiert. Bitte erneut anmelden.",
         "password_updated": "Passwort aktualisiert.",
         "account_activated": "Konto erfolgreich aktiviert. Bitte melden Sie sich in Ihrem Konto an.",
         "activation_email_sent": "E-Mail zur Aktivierung wurde gesendet",

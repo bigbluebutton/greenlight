@@ -18,6 +18,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Stack } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import Select from 'react-select';
 import Form from '../../../shared_components/forms/Form';
 import FormControl from '../../../shared_components/forms/FormControl';
 import useUpdateRole from '../../../../hooks/mutations/admin/roles/useUpdateRole';
@@ -43,6 +44,14 @@ export default function EditRoleForm({ role }) {
   const updatePermissionAPI = useUpdateRolePermission();
 
   const { methods: methodsName, fields: fieldsName } = useEditRoleNameForm({ defaultValues: { name: role?.name } });
+
+  const visibilityOptions = [
+    { value: 'Published', label: 'Published' },
+    { value: 'Unpublished', label: 'Unpublished' },
+    { value: 'Protected', label: 'Protected' },
+    { value: 'Public', label: 'Public' },
+    { value: 'Public/Protected', label: 'Public/Protected' },
+  ];
 
   const {
     methods: methodsLimit,
@@ -136,6 +145,31 @@ export default function EditRoleForm({ role }) {
                 roleId={role?.id}
                 defaultValue={rolePermissions?.EmailOnSignup === 'true'}
               />
+
+              <Form className="pb-3">
+                <Stack direction="horizontal">
+                  <div className="text-muted me-auto">
+                    {t('admin.roles.edit.allowed_recording_visibility')}
+                  </div>
+                  <div>
+                    <Select
+                      className="custom-select float-end"
+                      isMulti
+                      isClearable={false}
+                      isSearchable={false}
+                      defaultValue={visibilityOptions?.filter((vis) => JSON.parse(rolePermissions?.AccessToVisibilities)?.includes(vis.value))}
+                      options={visibilityOptions}
+                      onChange={(value) => {
+                        updatePermissionAPI.mutate({ role_id: role?.id, name: 'AccessToVisibilities', value: value.map((v) => v.value) });
+                      }}
+                      classNames={{
+                        control: (state) => (state.isFocused ? 'select-brand-control' : ''),
+                        option: (state) => (state.isFocused ? 'select-brand-option' : ''),
+                      }}
+                    />
+                  </div>
+                </Stack>
+              </Form>
 
               <Form methods={methodsLimit} onBlur={methodsLimit.handleSubmit(updatePermissionAPI.mutate)}>
                 <Stack direction="horizontal">
