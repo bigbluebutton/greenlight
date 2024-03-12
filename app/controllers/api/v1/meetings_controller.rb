@@ -67,7 +67,7 @@ module Api
         }
 
         # Starts meeting if meeting is not running and glAnyoneCanStart is enabled or user is a moderator
-        if !data[:status] && authorized_to_start_meeting?(settings, bbb_role)
+        if !data[:status] && authorized_to_start_meeting?(settings)
           begin
             MeetingStarter.new(room: @room, base_url: request.base_url, current_user:, provider: current_provider).call
           rescue BigBlueButton::BigBlueButtonException => e
@@ -123,7 +123,7 @@ module Api
           (anyone_join_as_mod && (access_code_validator(access_code: mod_code) || access_code_validator(access_code: viewer_code)))
       end
 
-      def authorized_to_start_meeting?(settings, bbb_role)
+      def authorized_to_start_meeting?(settings)
         settings['glAnyoneCanStart'] == 'true' || @room.user_id == current_user&.id || current_user&.shared_rooms&.include?(@room)
       end
 
