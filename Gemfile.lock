@@ -312,11 +312,15 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.4.5)
+    prometheus-client (4.2.2)
     psych (5.1.2)
       stringio
     public_suffix (5.0.3)
     puma (5.6.8)
       nio4r (~> 2.0)
+    puma-metrics (1.2.5)
+      prometheus-client (>= 0.10)
+      puma (>= 5.0)
     racc (1.7.3)
     rack (2.2.8.1)
     rack-oauth2 (2.2.0)
@@ -534,6 +538,7 @@ DEPENDENCIES
   pagy (~> 6.0, >= 6.0.0)
   pg
   puma (~> 5.6)
+  puma-metrics (~> 1.2.0)
   rails (~> 7.1.3)
   redis (~> 4.0)
   remote_syslog_logger
