@@ -413,7 +413,8 @@
         "brand_image_deleted": "Η εικόνα επωνυμίας διαγράφηκε.",
         "privacy_policy_updated": "Η πολιτική ιδιωτικότητας ενημερώθηκε.",
         "helpcenter_updated": "Ο σύνδεσμος για το Κέντρο βοήθειας ενημερώθηκε. ",
-        "terms_of_service_updated": "Οι όριο χρήσης ενημερώθηκαν."
+        "terms_of_service_updated": "Οι όριο χρήσης ενημερώθηκαν.",
+        "maintenance_updated": "Το μήνυμα της λειτουργίας συντήρησης ενημερώθηκε."
       },
       "recording": {
         "recording_visibility_updated": "Η εμφάνιση καταγραφής ενημερώθηκε.",
