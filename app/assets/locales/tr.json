@@ -321,7 +321,7 @@
       "default": "İsteğe bağlı (varsayılan olarak açık)",
       "optional": "İsteğe bağlı (varsayılan olarak kapalı)",
       "enabled": "Zorla açılsın",
-      "disabled": "Devre dışı",
+      "disabled": "Kapalı",
       "configurations": {
         "allow_room_to_be_recorded": "Odanın kaydı alınabilsin",
         "allow_room_to_be_recorded_description": "Oda sahiplerinin, bir odanın kaydedilmesi hakkında bir seçenek sunmak isteyip istemediklerini belirtmelerini sağlar. Bu seçenek açılsa bile, sorumlu, toplantı başladıktan sonra “Kaydet düğmesine tıklamalıdır.",
