@@ -278,7 +278,11 @@
         "change_privacy_link": "Sayfanın altında görüntülenecek gizlilik bağlantısını değiştir",
         "helpcenter": "Yardım merkezi",
         "change_helpcenter_link": "Profil açılır menüsünde görüntülenecek yardım merkezi bağlantısını değiştirin",
+        "maintenance": "Bakım duyurusu",
+        "change_maintenance_text": "Üst bilgide görüntülecek bakım duyurusu metnini değiştirin",
         "change_url": "Adresi değiştir",
+        "set_text": "Metni ayarla",
+        "clear_banner": "Duyuruyu temizle",
         "enter_link": "Bağlantıyı buraya yazın"
       },
       "settings": {
@@ -288,7 +292,11 @@
         "allow_users_to_preupload_presentation": "Kullanıcılar önceden sunum yükleyebilsin",
         "allow_users_to_preupload_presentation_description": "Kullanıcılar, bu odada varsayılan olarak kullanılacak bir sunumu önceden yükleyebilir",
         "default_visibility": "Varsayılan kaydetme görünürlüğü",
-        "default_visibility_description": "Yeni oluşturulan tüm kayıtların varsayılan görünürlüğünü belirler"
+        "default_visibility_description": "Yeni oluşturulan tüm kayıtların varsayılan görünürlüğünü belirler",
+        "session_timeout": "Oturum zaman aşımı",
+        "session_timeout_description": "Oturum zaman aşımı süresini varsayılan çerez ile 1 gün ile uzatılmış çerez ile 7 gün arasında yapılandırabilirsiniz",
+        "default_session_timeout": "Varsayılan (1 gün)",
+        "extended_session_timeout": "Uzatılmış (7 gün)"
       },
       "registration": {
         "registration": "Hesap açma",
@@ -405,7 +413,8 @@
         "brand_image_deleted": "Marka görseli silindi.",
         "privacy_policy_updated": "Gizlilik ilkesi güncellendi.",
         "helpcenter_updated": "Yardım merkezi bağlantısı güncellendi.",
-        "terms_of_service_updated": "Hizmet koşulları güncellendi."
+        "terms_of_service_updated": "Hizmet koşulları güncellendi.",
+        "maintenance_updated": "Bakım duyurusu güncellendi."
       },
       "recording": {
         "recording_visibility_updated": "Kayıt görünürlüğü güncellendi.",
@@ -676,7 +685,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "Bağlantıyı buraya yazın..."
+            "placeholder": "Bağlantıyı buraya yazın...",
+            "text_placeholder": "Metni buraya yazın..."
           }
         }
       },
