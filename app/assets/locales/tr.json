@@ -318,9 +318,9 @@
     },
     "room_configuration": {
       "room_configuration": "Oda yapılandırması",
-      "default": "İsteğe bağlı (varsayılan olarak etkin)",
+      "default": "İsteğe bağlı (varsayılan olarak açık)",
       "optional": "İsteğe bağlı (varsayılan olarak devre dışı)",
-      "enabled": "Zorla etkinleştirilsin",
+      "enabled": "Zorla açılsın",
       "disabled": "Devre dışı",
       "configurations": {
         "allow_room_to_be_recorded": "Odanın kaydı alınabilsin",
