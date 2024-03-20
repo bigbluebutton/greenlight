@@ -551,7 +551,7 @@
           "placeholder": "Erişim kodunu yazın"
         },
         "recording_consent": {
-          "label": "Bu oturumun kaydedildiğini ve etkinleştirilmiş ise sesim ve görüntümün de kaydedileceğini anladım."
+          "label": "Bu oturumun kaydedildiğini ve açılmış ise sesim ve görüntümün de kaydedileceğini anladım."
         }
       }
     },
