@@ -58,6 +58,8 @@ OPTIONS (install Greenlight):
   
   -h                     Print help
 
+  -m                     Migration-Install from a pre-installed Greenlight v2 on the same system; nginx needs to be stopped
+
 VARIABLES (configure Greenlight):
   GL_PATH                Configure Greenlight relative URL root path (Optional)
                           * Use this when deploying Greenlight behind a reverse proxy on a path other than the default '/' e.g. '/gl'.
@@ -96,7 +98,7 @@ main() {
   check_ubuntu_lts
   need_x64
 
-  while builtin getopts "s:e:b:hdk" opt "${@}"; do
+  while builtin getopts "s:e:b:hdkm" opt "${@}"; do
 
     case $opt in
       h)
@@ -134,6 +136,9 @@ main() {
       k)
         INSTALL_KC=true
         ;;      
+      m)
+        MIGRATION_INSTALL=true
+        ;;      
       :)
         err "Missing option argument for -$OPTARG"
         ;;
@@ -158,7 +163,9 @@ main() {
   apt-get update
   apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" dist-upgrade
   
-  install_ssl
+  if [ ! -n "$MIGRATION_INSTALL" ]; then
+    install_ssl
+  fi
   install_greenlight_v3
 
   apt-get auto-remove -y
@@ -183,23 +190,27 @@ check_env() {
 
   local bbb_detected_err="This deployment installs Greenlight without BigBlueButton if planning to install both on the same system then please follow https://github.com/bigbluebutton/bbb-install instead."
 
-  # Detecting BBB on the system
-  if [ "${BIGBLUEBUTTON[0]}" == "$HOST" ]; then
-    say "Your FQDN match that of the BigBlueButton server to be used, are you willing to install Greenlight with BigBlueButton on this system?"
-    err "$bbb_detected_err."
-  fi
+  if [ ! -n "$MIGRATION_INSTALL" ]; then
+    # Detecting BBB on the system
+    if [ "${BIGBLUEBUTTON[0]}" == "$HOST" ]; then
+      say "Your FQDN match that of the BigBlueButton server to be used, are you willing to install Greenlight with BigBlueButton on this system?"
+      err "$bbb_detected_err."
+    fi
 
-  if dpkg -l | grep -q bbb; then
-    say "BigBlueButton modules has been detected on this system!" 
-    err "$bbb_detected_err."
+    if dpkg -l | grep -q bbb; then
+      say "BigBlueButton modules has been detected on this system!" 
+      err "$bbb_detected_err."
+    fi
   fi
 
   # Possible conflicts on setup.
   if [ ! -f /etc/nginx/sites-available/greenlight ]; then
-    # Conflict detection of existent nginx on the system not installed by this script (possible collision with other applications).
-    if dpkg -s nginx 1> /dev/null 2>&1; then
-      say "Nginx is already installed on this system by another mean, this deployment may impact your workload!"
-      err "Remove and cleanup nginx configurations on this system OR kindly consider using a clean enviroment before proceeding."
+    if [ ! -n "$MIGRATION_INSTALL" ]; then
+      # Conflict detection of existent nginx on the system not installed by this script (possible collision with other applications).
+      if dpkg -s nginx 1> /dev/null 2>&1; then
+        say "Nginx is already installed on this system by another mean, this deployment may impact your workload!"
+        err "Remove and cleanup nginx configurations on this system OR kindly consider using a clean enviroment before proceeding."
+      fi
     fi
 
     # Conflict detection of required ports being already in use.
