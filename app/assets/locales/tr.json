@@ -288,7 +288,7 @@
       "settings": {
         "settings": "Ayarlar",
         "allow_users_to_share_rooms": "Kullanıcılar odayı paylaşabilsin",
-        "allow_users_to_share_rooms_description": "Bu seçenek devre dışı olarak ayarlandığında, düğme oda seçenekleri açılır menüsünden kaldırılır ve kullanıcıların odaları paylaşması engellenir.",
+        "allow_users_to_share_rooms_description": "Bu seçenek kapatıldığında, düğme oda seçenekleri açılır menüsünden kaldırılır ve kullanıcıların odaları paylaşması engellenir.",
         "allow_users_to_preupload_presentation": "Kullanıcılar önceden sunum yükleyebilsin",
         "allow_users_to_preupload_presentation_description": "Kullanıcılar, bu odada varsayılan olarak kullanılacak bir sunumu önceden yükleyebilir",
         "default_visibility": "Varsayılan kaydetme görünürlüğü",
@@ -319,7 +319,7 @@
     "room_configuration": {
       "room_configuration": "Oda yapılandırması",
       "default": "İsteğe bağlı (varsayılan olarak açık)",
-      "optional": "İsteğe bağlı (varsayılan olarak devre dışı)",
+      "optional": "İsteğe bağlı (varsayılan olarak kapalı)",
       "enabled": "Zorla açılsın",
       "disabled": "Devre dışı",
       "configurations": {
