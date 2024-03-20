@@ -324,7 +324,7 @@
       "disabled": "Devre dışı",
       "configurations": {
         "allow_room_to_be_recorded": "Odanın kaydı alınabilsin",
-        "allow_room_to_be_recorded_description": "Oda sahiplerinin, bir odanın kaydedilmesi hakkında bir seçenek sunmak isteyip istemediklerini belirtmelerini sağlar. Bu seçenek etkinleştirilse bile, sorumlu, toplantı başladıktan sonra “Kaydet düğmesine tıklamalıdır.",
+        "allow_room_to_be_recorded_description": "Oda sahiplerinin, bir odanın kaydedilmesi hakkında bir seçenek sunmak isteyip istemediklerini belirtmelerini sağlar. Bu seçenek açılsa bile, sorumlu, toplantı başladıktan sonra “Kaydet düğmesine tıklamalıdır.",
         "require_user_signed_in": "Kullanıcıların katılmadan önce oturum açması zorunlu olsun",
         "require_user_signed_in_description": "Bu seçenek etkinleştirildiğinde, yalnızca Greenlight hesabı olan kullanıcılar toplantıya katılabilir. Oturum açmamış kullanıcılar, bir odaya katılmaya çalışırken oturum açma sayfasına yönlendirilir.",
         "require_mod_approval": "Katılmadan önce sorumlu onayı gereksin",
