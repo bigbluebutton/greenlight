@@ -47,7 +47,7 @@
 
 tr:
   opengraph:
-    description: "Sorunsuz sanal işbirliği ve çevrim içi öğrenme deneyimi sağlayan, güvenilir açık kaynaklı internet konferansı çözümü BigBlueButton uygulamasını kullanarak öğrenin."
+    description: "Sorunsuz sanal işbirliği ve çevrim içi öğrenme deneyimi sağlayan, güvenilir açık kaynaklı İnternet konferansı çözümü BigBlueButton uygulamasını kullanarak öğrenin."
   meeting:
     moderator_message: "Toplantıya çağırmak istediğiniz kişilere bu bağlantıyı gönderin:"
     access_code: "Erişim kodu: %{code}"
