@@ -45,10 +45,10 @@ module Api
             end
 
             signup_url = if ENV['OPENID_CONNECT_ISSUER'].present?
-              "#{request.base_url}/signin?inviteToken=#{invitation.token}"
-            else
-              "#{request.base_url}/signup?inviteToken=#{invitation.token}"
-            end
+                           "#{request.base_url}/signin?inviteToken=#{invitation.token}"
+                         else
+                           "#{request.base_url}/signup?inviteToken=#{invitation.token}"
+                         end
 
             UserMailer.with(
               email:,
