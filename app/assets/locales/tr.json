@@ -216,7 +216,7 @@
       "create_account": "Hesap ekle",
       "create_room": "Oda ekle",
       "create_new_room": "Yeni oda ekle",
-      "user_created_at": "Oluşturulma: {{user.created_at}}",
+      "user_created_at": "Oluşturulma: {{localizedTime}}",
       "are_you_sure_delete_account": "{{user.name}} kullanıcısının hesabını silmek istediğinize emin misiniz?",
       "delete_account_warning": "Bu hesabı silmeyi seçerseniz, bu işlem geri alınamaz.",
       "empty_active_users": "Bu sunucuda henüz etkin bir kullanıcı yok!",
