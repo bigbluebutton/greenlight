@@ -114,7 +114,7 @@
     "create_new_room": "Yeni oda ekle",
     "enter_room_name": "Oda adını yazın",
     "shared_by": "şununla paylaşılmış",
-    "last_session": "Son oturum: {{ room.last_session }}",
+    "last_session": "Son oturum: {{ localizedTime }}",
     "no_last_session": "Daha önce bir oturum yapılmamış",
     "search_not_found": "Herhangi bir kullanıcı bulunamadı.",
     "rooms_list_is_empty": "Henüz bir oda oluşturmamışsınız!",
@@ -216,7 +216,7 @@
       "create_account": "Hesap ekle",
       "create_room": "Oda ekle",
       "create_new_room": "Yeni oda ekle",
-      "user_created_at": "Oluşturulma: {{user.created_at}}",
+      "user_created_at": "Oluşturulma: {{localizedTime}}",
       "are_you_sure_delete_account": "{{user.name}} kullanıcısının hesabını silmek istediğinize emin misiniz?",
       "delete_account_warning": "Bu hesabı silmeyi seçerseniz, bu işlem geri alınamaz.",
       "empty_active_users": "Bu sunucuda henüz etkin bir kullanıcı yok!",
@@ -278,17 +278,25 @@
         "change_privacy_link": "Sayfanın altında görüntülenecek gizlilik bağlantısını değiştir",
         "helpcenter": "Yardım merkezi",
         "change_helpcenter_link": "Profil açılır menüsünde görüntülenecek yardım merkezi bağlantısını değiştirin",
+        "maintenance": "Bakım duyurusu",
+        "change_maintenance_text": "Üst bilgide görüntülecek bakım duyurusu metnini değiştirin",
         "change_url": "Adresi değiştir",
+        "set_text": "Metni ayarla",
+        "clear_banner": "Duyuruyu temizle",
         "enter_link": "Bağlantıyı buraya yazın"
       },
       "settings": {
         "settings": "Ayarlar",
         "allow_users_to_share_rooms": "Kullanıcılar odayı paylaşabilsin",
-        "allow_users_to_share_rooms_description": "Bu seçenek devre dışı olarak ayarlandığında, düğme oda seçenekleri açılır menüsünden kaldırılır ve kullanıcıların odaları paylaşması engellenir.",
+        "allow_users_to_share_rooms_description": "Bu seçenek kapatıldığında, düğme oda seçenekleri açılır menüsünden kaldırılır ve kullanıcıların odaları paylaşması engellenir.",
         "allow_users_to_preupload_presentation": "Kullanıcılar önceden sunum yükleyebilsin",
         "allow_users_to_preupload_presentation_description": "Kullanıcılar, bu odada varsayılan olarak kullanılacak bir sunumu önceden yükleyebilir",
         "default_visibility": "Varsayılan kaydetme görünürlüğü",
-        "default_visibility_description": "Yeni oluşturulan tüm kayıtların varsayılan görünürlüğünü belirler"
+        "default_visibility_description": "Yeni oluşturulan tüm kayıtların varsayılan görünürlüğünü belirler",
+        "session_timeout": "Oturum zaman aşımı",
+        "session_timeout_description": "Oturum zaman aşımı süresini varsayılan çerez ile 1 gün ile uzatılmış çerez ile 7 gün arasında yapılandırabilirsiniz",
+        "default_session_timeout": "Varsayılan (1 gün)",
+        "extended_session_timeout": "Uzatılmış (7 gün)"
       },
       "registration": {
         "registration": "Hesap açma",
@@ -310,13 +318,13 @@
     },
     "room_configuration": {
       "room_configuration": "Oda yapılandırması",
-      "default": "İsteğe bağlı (varsayılan olarak etkin)",
-      "optional": "İsteğe bağlı (varsayılan olarak devre dışı)",
-      "enabled": "Zorla etkinleştirilsin",
-      "disabled": "Devre dışı",
+      "default": "İsteğe bağlı (varsayılan olarak açık)",
+      "optional": "İsteğe bağlı (varsayılan olarak kapalı)",
+      "enabled": "Zorla açılsın",
+      "disabled": "Kapalı",
       "configurations": {
         "allow_room_to_be_recorded": "Odanın kaydı alınabilsin",
-        "allow_room_to_be_recorded_description": "Oda sahiplerinin, bir odanın kaydedilmesi hakkında bir seçenek sunmak isteyip istemediklerini belirtmelerini sağlar. Bu seçenek etkinleştirilse bile, sorumlu, toplantı başladıktan sonra “Kaydet düğmesine tıklamalıdır.",
+        "allow_room_to_be_recorded_description": "Oda sahiplerinin, bir odanın kaydedilmesi hakkında bir seçenek sunmak isteyip istemediklerini belirtmelerini sağlar. Bu seçenek açılsa bile, sorumlu, toplantı başladıktan sonra “Kaydet düğmesine tıklamalıdır.",
         "require_user_signed_in": "Kullanıcıların katılmadan önce oturum açması zorunlu olsun",
         "require_user_signed_in_description": "Bu seçenek etkinleştirildiğinde, yalnızca Greenlight hesabı olan kullanıcılar toplantıya katılabilir. Oturum açmamış kullanıcılar, bir odaya katılmaya çalışırken oturum açma sayfasına yönlendirilir.",
         "require_mod_approval": "Katılmadan önce sorumlu onayı gereksin",
@@ -405,7 +413,8 @@
         "brand_image_deleted": "Marka görseli silindi.",
         "privacy_policy_updated": "Gizlilik ilkesi güncellendi.",
         "helpcenter_updated": "Yardım merkezi bağlantısı güncellendi.",
-        "terms_of_service_updated": "Hizmet koşulları güncellendi."
+        "terms_of_service_updated": "Hizmet koşulları güncellendi.",
+        "maintenance_updated": "Bakım duyurusu güncellendi."
       },
       "recording": {
         "recording_visibility_updated": "Kayıt görünürlüğü güncellendi.",
@@ -542,7 +551,7 @@
           "placeholder": "Erişim kodunu yazın"
         },
         "recording_consent": {
-          "label": "Bu oturumun kaydedildiğini ve etkinleştirilmiş ise sesim ve görüntümün de kaydedileceğini anladım."
+          "label": "Bu oturumun kaydedildiğini ve açılmış ise sesim ve görüntümün de kaydedileceğini anladım."
         }
       }
     },
@@ -676,7 +685,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "Bağlantıyı buraya yazın..."
+            "placeholder": "Bağlantıyı buraya yazın...",
+            "text_placeholder": "Metni buraya yazın..."
           }
         }
       },
