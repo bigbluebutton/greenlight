@@ -114,7 +114,7 @@
     "create_new_room": "Yeni oda ekle",
     "enter_room_name": "Oda adını yazın",
     "shared_by": "şununla paylaşılmış",
-    "last_session": "Son oturum: {{ room.last_session }}",
+    "last_session": "Son oturum: {{ localizedTime }}",
     "no_last_session": "Daha önce bir oturum yapılmamış",
     "search_not_found": "Herhangi bir kullanıcı bulunamadı.",
     "rooms_list_is_empty": "Henüz bir oda oluşturmamışsınız!",
