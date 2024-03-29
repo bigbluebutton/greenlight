@@ -19,7 +19,8 @@
 module ApplicationHelper
   def branding_image
     asset_path = SettingGetter.new(setting_name: 'BrandingImage', provider: current_provider).call
-    asset_url(asset_path)
+    puts "TESTING: #{ENV.fetch('HOST')}"
+    asset_url(asset_path, host: ENV.fetch('HOST', nil))
   end
 
   def page_title
