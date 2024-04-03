@@ -283,7 +283,7 @@
         "change_url": "تغییر نشانی اینترنتی",
         "set_text": "تنظیم متن",
         "clear_banner": "پاکسازی اعلامیه",
-        "enter_link": "پیوند را اینجا وارد کنید"
+        "enter_link": "پیوند را این‌جا وارد کنید"
       },
       "settings": {
         "settings": "تنظیمات",
@@ -685,7 +685,7 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "پیوند را اینجا وارد کنید...",
+            "placeholder": "پیوند را این‌جا وارد کنید...",
             "text_placeholder": "متن را این‌جا وارد کنید"
           }
         }
