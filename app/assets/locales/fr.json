@@ -17,6 +17,8 @@
   "close": "Fermer",
   "delete": "Supprimer",
   "copy": "Copier",
+  "copy_viewer_code": "Copie du code pour les participants",
+  "copy_moderator_code": "Copie du code pour les modérateurs",
   "or": "Ou",
   "online": "En ligne",
   "help_center": "Aide",
@@ -274,7 +276,13 @@
         "privacy_policy": "Règles de confidentialité",
         "change_term_links": "Modifier les liens vers les conditions générales présentés en bas de page",
         "change_privacy_link": "Modifier le lien vers les règles de confidentialité présenté en bas de page",
+        "helpcenter": "Centre d'aide",
+        "change_helpcenter_link": " Dans le menu déroulant du profil, modifier le lien vers le centre d'aide",
+        "maintenance": "Bandeau de maintenance",
+        "change_maintenance_text": "Modifier le texte du bandeau de maintenance qui apparaît en entête",
         "change_url": "Modifier l'URL",
+        "set_text": "Définir le texte",
+        "clear_banner": "Effacer le bandeau",
         "enter_link": "Saisir le lien ici"
       },
       "settings": {
@@ -282,7 +290,13 @@
         "allow_users_to_share_rooms": "Permettre aux utilisateurs de partager les salles",
         "allow_users_to_share_rooms_description": "En réglant sur inactivé, le bouton sera supprimé des options du menu paramètres de chaque salle et cela empêchera les utilisateurs de les partager.",
         "allow_users_to_preupload_presentation": "Permettre aux utilisateurs de téléverser les documents de présentations en avance",
-        "allow_users_to_preupload_presentation_description": "Pour cette salle, les utilisateurs peuvent téléverser un document de présentation à l'avance et l'utiliser par défaut "
+        "allow_users_to_preupload_presentation_description": "Pour cette salle, les utilisateurs peuvent téléverser un document de présentation à l'avance et l'utiliser par défaut ",
+        "default_visibility": "Lisibilité par défaut des enregistrements",
+        "default_visibility_description": "La lisibilité choisie s'appliquera à tous les enregistrements ultérieurs",
+        "session_timeout": "Durée maximum d'une session",
+        "session_timeout_description": "Vous pouvez configurer la durée max d'une session avec un cookie de connexion de 1 jour, par défaut, ou l'étendre à 7 jours",
+        "default_session_timeout": "Défaut (1 jour)",
+        "extended_session_timeout": "Etendu (7 jours)"
       },
       "registration": {
         "registration": "Inscription",
@@ -351,7 +365,8 @@
         "manage_roles": "Permettre aux utilisateurs avec ce rôle de modifier les autres rôles",
         "shared_list": "Inclure les utilisateurs avec ce rôle dans le menu déroulant du partage des salles",
         "room_limit": "Limite pour la salle",
-        "email_on_signup": "Recevoir un email quand un nouvel utilisateur s'inscrit"
+        "email_on_signup": "Recevoir un email quand un nouvel utilisateur s'inscrit",
+        "allowed_recording_visibility": "Enregistrements autorisés pour la lecture"
       }
     }
   },
@@ -387,7 +402,9 @@
         "access_code_copied": "Le code d'accès a été copié.",
         "access_code_generated": "Le code d'accès a été créé.",
         "access_code_deleted": "Le code d'accès a été supprimé.",
-        "copied_meeting_url": "L'URL de la réunion a été copiée. Le lien peut être utilisé pour rejoindre la réunion."
+        "copied_meeting_url": "L'URL de la réunion a été copiée. Le lien peut être utilisé pour rejoindre la réunion.",
+        "copied_viewer_code": "Le code d'accès du participant est copié",
+        "copied_moderator_code": "Le code d'accès des modérateurs est copié"
       },
       "site_settings": {
         "site_setting_updated": "La configuration du site a été mise à jour.",
@@ -395,7 +412,9 @@
         "brand_image_updated": "L'image de marque a été actualisée.",
         "brand_image_deleted": "L'image de marque a été supprimée.",
         "privacy_policy_updated": "La politique de confidentialité a été mise à jour.",
-        "terms_of_service_updated": "Les conditions de service ont été mises à jour."
+        "helpcenter_updated": "Le lien vers le centre d'aide a été mis à jour",
+        "terms_of_service_updated": "Les conditions de service ont été mises à jour.",
+        "maintenance_updated": "Le bandeau de maintenance a été mis à jour"
       },
       "recording": {
         "recording_visibility_updated": "La visibilité de l'enregistrement a été mise à jour.",
@@ -419,6 +438,7 @@
       "file_size_too_large": "La taille du fichier est trop importante",
       "file_upload_error": "Le fichier ne peut pas être téléversé",
       "signin_required": "Vous devez vous identifier pour avoir accès à cette page.",
+      "malware_detected": "Un programme malveillant a été détecté! Le fichier que vous avez téléversé pourrait contenir un programme malveillant. Veuillez vérifier le fichier avant de recommencer.",
       "roles": {
         "role_assigned": "Ce rôle ne peut être supprimé car il est assigné à au moins un utilisateur."
       },
@@ -665,7 +685,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "Saisir le lien ici..."
+            "placeholder": "Saisir le lien ici...",
+            "text_placeholder": "Saisissez le texte ici..."
           }
         }
       },
