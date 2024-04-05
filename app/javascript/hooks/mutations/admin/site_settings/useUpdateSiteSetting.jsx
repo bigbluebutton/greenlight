@@ -60,6 +60,9 @@ export default function useUpdateSiteSetting(name) {
       case 'TermsOfService':
         toast.success(t('toast.success.site_settings.terms_of_service_updated'));
         break;
+      case 'Maintenance':
+        toast.success(t('toast.success.site_settings.maintenance_updated'));
+        break;
       default:
         toast.success(t('toast.success.site_settings.site_setting_updated'));
     }

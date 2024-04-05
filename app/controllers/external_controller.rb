@@ -72,10 +72,9 @@ class ExternalController < ApplicationController
       return redirect_to pending_path if user.pending?
     end
 
-    user.generate_session_token!
-
     # set the cookie based on session timeout setting
     session_timeout = SettingGetter.new(setting_name: 'SessionTimeout', provider: current_provider).call
+    user.generate_session_token!(extended_session: session_timeout)
     handle_session_timeout(session_timeout.to_i, user) if session_timeout
 
     session[:session_token] = user.session_token

@@ -48,5 +48,9 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
 LinksForm.propTypes = {
   id: PropTypes.string.isRequired,
   mutation: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
+};
+
+LinksForm.defaultProps = {
+  value: '',
 };

@@ -35,6 +35,7 @@ export default function TextForm({ id, value, mutation: useUpdateSiteSettingsAPI
   const clearForm = () => {
     methods.reset({ value: '' });
     toast.dismiss(maintenanceBannerId);
+    updateSiteSettingsAPI.mutate('');
   };
 
   return (
@@ -60,5 +61,9 @@ export default function TextForm({ id, value, mutation: useUpdateSiteSettingsAPI
 TextForm.propTypes = {
   id: PropTypes.string.isRequired,
   mutation: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
+};
+
+TextForm.defaultProps = {
+  value: '',
 };
