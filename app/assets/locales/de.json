@@ -357,8 +357,8 @@
       "search_not_found": "Keine Rollen gefunden",
       "edit": {
         "create_room": "Nutzende mit dieser Rolle das Anlegen von Räumen gestatten",
-        "record": "Nutzer:innen mit dieser Rolle die Aufzeichnung ihrer Konferenzen ermöglichen",
-        "manage_users": "Nutzer:innen mit dieser Rolle erlauben, Benutzer zu verwalten",
+        "record": "Nutzenden mit dieser Rolle die Aufzeichnung ihrer Konferenzen ermöglichen",
+        "manage_users": "Nutzenden mit dieser Rolle erlauben, Benutzer zu verwalten",
         "manage_rooms": "Nutzer:innen mit dieser Rolle erlauben, Serverräumen zu verwalten",
         "manage_recordings": "Nutzer:innen mit dieser Rolle erlauben, Aufzeichnungen zu verwalten",
         "manage_site_settings": "Nutzende mit dieser Rolle erlauben, die Webseiteneinstellungen zu verwalten",
