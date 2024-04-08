@@ -329,7 +329,7 @@
         "require_user_signed_in_description": "Teilnahme an der Konferenz ist nur mit einem Konto in Greenlight möglich. Wer nicht eingeloggt ist, wird auf die Login-Seite weitergeleitet.",
         "require_mod_approval": "Moderation muss der Teilnahme zustimmen",
         "require_mod_approval_description": "Fragt die Moderation der Konferenz an, wenn eine Nutzer:in teilnehmen möchte. Wenn die Moderation das erlaubt, kann die Nutzer:in teilnehmen.",
-        "allow_any_user_to_start_meeting": "Jede:r kann die Konferenz starten",
+        "allow_any_user_to_start_meeting": "Alle Nutzenden die Konferenz starten",
         "allow_any_user_to_start_meeting_description": "Erlaubt Nutzenden die Konferenz jederzeit zu starten. Standardmäßig können nur Raumbesitzende die Konferenz starten.",
         "allow_users_to_join_as_mods": "Jede:r kann moderieren",
         "allow_users_to_join_as_mods_description": "Gibt allen Moderationsrechte, wenn sie der Konferenz beitreten.",
