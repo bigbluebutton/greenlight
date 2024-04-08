@@ -333,7 +333,7 @@
         "allow_any_user_to_start_meeting_description": "Erlaubt Nutzer:innen die Konferenz jederzeit zu starten. Standardmäßig kann nur die Raumbesitzer:in die Konferenz starten.",
         "allow_users_to_join_as_mods": "Jede:r kann moderieren",
         "allow_users_to_join_as_mods_description": "Gibt allen Moderationsrechte, wenn sie der Konferenz beitreten.",
-        "mute_users_on_join": "Nutzer:innen anfangs stummschalten",
+        "mute_users_on_join": "Nutzende anfangs stummschalten",
         "mute_users_on_join_description": "Automatisch stummenschalten, wenn man die Konferenz betritt.",
         "viewer_access_code": "Zugriffscode für Zuhörer:innen",
         "viewer_access_code_description": "Erlaubt Raumbesitzer:innen einen zufälligen alphanumerischen Zugriffscode zu generieren, der mit Nutzer:innen geteilt werden kann. Falls ein solcher Zugriffscode generiert wird, ist dieser notwendig damit Nutzer:innen an der Konferenz teilnehmen können.",
