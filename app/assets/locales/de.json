@@ -306,7 +306,7 @@
         "resync_on_login": "Daten bei jedem Login aktualisieren",
         "resync_on_login_description": "Daten bei jedem Login aktualisieren, so dass Greenlight immer dieselben Informationen hat, wie der externe Authentifizierungsanbieter",
         "default_role": "Standard-Rolle",
-        "default_role_description": "Standard-Rolle, die neuen Nutzer:innen zugeteilt wird",
+        "default_role_description": "Standard-Rolle, die neuen Nutzenden zugeteilt wird",
         "registration_method": "Registrierungs-Methode",
         "registration_method_description": "Registrierungs-Methoden ändern",
         "registration_methods" : {
