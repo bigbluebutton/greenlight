@@ -139,7 +139,7 @@
       "access": "Zugriff",
       "add_share_access": "Zugriff teilen",
       "share_room_access": "Teile Raumzugriff",
-      "add_some_users": "Füge jetzt ein paar Nutzer:innen hinzu!",
+      "add_some_users": "Füge jetzt ein paar Nutzende hinzu!",
       "add_some_users_description": "Um jemanden hinzuzufügen, klicke den Knopf unten und suche beziehungsweise wähle aus, mit wem du den Raum teilen möchtest.",
       "delete_shared_access": "Freigegebenen Raumzugriff löschen",
       "are_you_sure_delete_shared_access": "Freigegebenen Raumzugriff wirklich löschen?"
@@ -149,7 +149,7 @@
       "room_name": "Raumname",
       "user_settings": "Nutzer-Einstellungen",
       "allow_room_to_be_recorded": "Raum darf aufgezeichnet werden",
-      "require_signed_in": "Nutzer:innen müssen vor dem Beitritt eingeloggt sein",
+      "require_signed_in": "Nutzende müssen vor dem Beitritt eingeloggt sein",
       "require_signed_in_message": "Login erforderlich um beizutreten.",
       "require_mod_approval": "Moderation muss dem Beitritt zustimmen",
       "allow_any_user_to_start": "Jede:r kann die Konferenz starten",
