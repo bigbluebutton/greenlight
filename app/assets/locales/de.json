@@ -338,7 +338,7 @@
         "viewer_access_code": "Zugriffscode für Zuhörende",
         "viewer_access_code_description": "Erlaubt Raumbesitzenden einen zufälligen alphanumerischen Zugriffscode zu generieren, der mit Nutzenden geteilt werden kann. Falls ein solcher Zugriffscode generiert wird, ist dieser notwendig damit Nutzenden an der Konferenz teilnehmen können.",
         "mod_access_code": "Zugangscode für Moderation",
-        "mod_access_code_description": "Erlaubt Raumbesitzenden einen zufälligen alphanumerischen Zugriffscode zu generieren, der mit Nutzer:innen geteilt werden kann. Falls ein solcher Zugriffscode generiert wird, ist dieser nicht notwendig damit Nutzer:innen an der Konferenz teilnehmen können - wird er benutzt, wird die Nutzer:in zur Moderation."
+        "mod_access_code_description": "Erlaubt Raumbesitzenden einen zufälligen alphanumerischen Zugriffscode zu generieren, der mit Nutzenden geteilt werden kann. Falls ein solcher Zugriffscode generiert wird, ist dieser nicht notwendig damit Nutzende an der Konferenz teilnehmen können - wird er benutzt, wird die Nutzer:in zur Moderation."
       }
     },
     "roles": {
