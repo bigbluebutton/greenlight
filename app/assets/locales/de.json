@@ -161,7 +161,7 @@
       "mod_access_code_optional": "Zugangscode für Moderation (optional)",
       "access_code_required": "Bitte den Zugangscode eingeben",
       "wrong_access_code": "Falscher Zugangscode",
-      "generate_viewers_access_code": "Zugangscode für Zuhörer:innen generieren",
+      "generate_viewers_access_code": "Zugangscode für Zuhörende generieren",
       "generate_mods_access_code": "Zugangscode für die Moderation generieren",
       "are_you_sure_delete_room": "Diesen Raum wirklich löschen?"
     }
