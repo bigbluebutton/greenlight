@@ -219,7 +219,7 @@
       "user_created_at": "Erstellt am: {{localizedTime}}",
       "are_you_sure_delete_account": "Wirklich das Konto von {{user.name}} löschen?",
       "delete_account_warning": "Wenn dieses Konto gelöscht wird, kann es NICHT wiederhergestellt werden.",
-      "empty_active_users": "Es gibt noch keine aktiven Nutzer:innen auf diesem Server!",
+      "empty_active_users": "Es gibt noch keine aktiven Nutzenden auf diesem Server!",
       "empty_active_users_subtext": "Wenn der Status eines Nutzers/einer Nutzerin auf \"aktiv\" geändert wird, wird er hier angezeigt.",
       "empty_pending_users": "Es sind noch keine freizugebenden Nutzer:innen auf diesem Server!",
       "empty_pending_users_subtext": "Wenn der Status eines Nutzers/einer Nutzerin auf \"ausstehend\" geändert wird, erscheint er hier.",
