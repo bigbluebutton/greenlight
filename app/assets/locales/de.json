@@ -356,7 +356,7 @@
       "no_role_found": "Keine Rolle gefunden.",
       "search_not_found": "Keine Rollen gefunden",
       "edit": {
-        "create_room": "Nutzer:innen mit dieser Rolle das Anlegen von Räumen gestatten",
+        "create_room": "Nutzende mit dieser Rolle das Anlegen von Räumen gestatten",
         "record": "Nutzer:innen mit dieser Rolle die Aufzeichnung ihrer Konferenzen ermöglichen",
         "manage_users": "Nutzer:innen mit dieser Rolle erlauben, Benutzer zu verwalten",
         "manage_rooms": "Nutzer:innen mit dieser Rolle erlauben, Serverräumen zu verwalten",
