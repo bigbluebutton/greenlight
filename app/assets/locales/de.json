@@ -362,8 +362,8 @@
         "manage_rooms": "Nutzer:innen mit dieser Rolle erlauben, Serverräumen zu verwalten",
         "manage_recordings": "Nutzer:innen mit dieser Rolle erlauben, Aufzeichnungen zu verwalten",
         "manage_site_settings": "Nutzende mit dieser Rolle erlauben, die Webseiteneinstellungen zu verwalten",
-        "manage_roles": "Nutzer:innen mit dieser Rolle erlauben, andere Rollen zu bearbeiten",
-        "shared_list": "Nutzer:innen mit dieser Rolle in die Auswahlliste für die gemeinsame Nutzung von Räumen aufnehmen",
+        "manage_roles": "Nutzende mit dieser Rolle erlauben, andere Rollen zu bearbeiten",
+        "shared_list": "Nutzende mit dieser Rolle in die Auswahlliste für die gemeinsame Nutzung von Räumen aufnehmen",
         "room_limit": "Raumlimit",
         "email_on_signup": "Bei Anmeldung neuer Nutzer E-Mail erhalten",
         "allowed_recording_visibility": "Erlaubte Sichtbarkeit der Aufnahmen"
