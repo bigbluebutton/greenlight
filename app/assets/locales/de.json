@@ -290,7 +290,7 @@
         "allow_users_to_share_rooms": "Räume können geteilt werden",
         "allow_users_to_share_rooms_description": "Wenn dies deaktiviert ist, dann wird der Knopf zum Teilen eines Raums von den Raumeinstellungen entfernt.",
         "allow_users_to_preupload_presentation": "Präsentationen können hochgeladen werden",
-        "allow_users_to_preupload_presentation_description": "Nutzer:innen können eine Präsentation im Voraus hochladen, die dann als Standard für diesen Raum genutzt wird.",
+        "allow_users_to_preupload_presentation_description": "Nutzende können eine Präsentation im Voraus hochladen, die dann als Standard für diesen Raum genutzt wird.",
         "default_visibility": "Standard-Sichtbarkeit der Aufnahmen",
         "default_visibility_description": "Alle neu erstellten Aufnahmen haben standardmäßig diese Sichtbarkeit",
         "session_timeout": "Timeout der Sitzung",
