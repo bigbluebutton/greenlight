@@ -152,7 +152,7 @@
       "require_signed_in": "Nutzende müssen vor dem Beitritt eingeloggt sein",
       "require_signed_in_message": "Login erforderlich um beizutreten.",
       "require_mod_approval": "Moderation muss dem Beitritt zustimmen",
-      "allow_any_user_to_start": "Jede:r kann die Konferenz starten",
+      "allow_any_user_to_start": "Alle Nutzenden können die Konferenz starten",
       "all_users_join_as_mods": "Jede:r nimmt als Moderation teil",
       "mute_users_on_join": "Nutzende anfangs stummschalten",
       "generate": "Generieren",
