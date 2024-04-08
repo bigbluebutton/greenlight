@@ -154,7 +154,7 @@
       "require_mod_approval": "Moderation muss dem Beitritt zustimmen",
       "allow_any_user_to_start": "Jede:r kann die Konferenz starten",
       "all_users_join_as_mods": "Jede:r nimmt als Moderation teil",
-      "mute_users_on_join": "Nutzer:innen anfangs stummschalten",
+      "mute_users_on_join": "Nutzende anfangs stummschalten",
       "generate": "Generieren",
       "access_code": "Zugangscode",
       "mod_access_code": "Zugangscode für Moderation",
