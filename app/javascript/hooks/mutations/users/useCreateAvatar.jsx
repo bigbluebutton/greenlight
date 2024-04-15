@@ -23,7 +23,7 @@ export default function useCreateAvatar(currentUser) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  async function createAvatar({original, resized}) {
+  async function createAvatar({ original, resized }) {
     // TODO - samuel: how to validate if toBlob() will transform any file into a png by default
     const avatarBlob = await new Promise((resolve) => {
       resized.toBlob(resolve);
