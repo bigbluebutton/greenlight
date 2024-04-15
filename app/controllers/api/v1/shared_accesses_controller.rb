@@ -76,7 +76,7 @@ module Api
                               .with_provider(current_provider)
                               .where.not(id: [@room.shared_users.pluck(:id) << @room.user_id])
                               .where(role_id: [role_ids])
-                              .name_search(params[:search])
+                              .shared_access_search(params[:search])
         render_data data: shareable_users, serializer: SharedAccessSerializer, status: :ok
       end
 

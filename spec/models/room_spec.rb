@@ -27,7 +27,7 @@ RSpec.describe Room, type: :model do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to have_many(:recordings).dependent(:destroy) }
     it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_length_of(:name).is_at_least(2).is_at_most(255) }
+    it { is_expected.to validate_length_of(:name).is_at_least(1).is_at_most(255) }
     it { is_expected.to validate_numericality_of(:recordings_processing).only_integer.is_greater_than_or_equal_to(0) }
 
     # Can't test validation on friendly_id and meeting_id due to before_validations
@@ -82,6 +82,42 @@ RSpec.describe Room, type: :model do
       it 'prevents duplicate meeting_ids' do
         duplicate_room = create(:room)
         expect { duplicate_room.meeting_id = room.meeting_id }.to change { duplicate_room.valid? }.to false
+      end
+    end
+  end
+
+  describe 'before_save' do
+    describe '#scan_presentation_for_virus' do
+      let(:room) { create(:room) }
+
+      before do
+        allow_any_instance_of(described_class).to receive(:virus_scan?).and_return(true)
+      end
+
+      it 'makes a call to ClamAV if CLAMAV_SCANNING=true' do
+        expect(Clamby).to receive(:safe?)
+
+        room.presentation.attach(fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+      end
+
+      it 'adds an error if the file is not safe' do
+        allow(Clamby).to receive(:safe?).and_return(false)
+        room.presentation.attach(fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+        expect(room.errors[:presentation]).to eq(['MalwareDetected'])
+      end
+
+      it 'does not makes a call to ClamAV if the image is not changing' do
+        expect(Clamby).not_to receive(:safe?)
+
+        room.update(name: 'New Name')
+      end
+
+      it 'does not makes a call to ClamAV if CLAMAV_SCANNING=false' do
+        allow_any_instance_of(described_class).to receive(:virus_scan?).and_return(false)
+
+        expect(Clamby).not_to receive(:safe?)
+
+        room.presentation.attach(fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
       end
     end
   end

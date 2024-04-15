@@ -16,24 +16,9 @@
 
 # frozen_string_literal: true
 
-class AddEmailOnSignUpPermission < ActiveRecord::Migration[7.1]
-  def up
-    email_permission = Permission.create!(name: 'EmailOnSignup')
-    admin = Role.where(name: 'Administrator')
-
-    values = []
-    admin.each do |adm|
-      values << { role: adm, permission: email_permission, value: 'true' }
-    end
-
-    Role.where.not(name: 'Administrator').each do |role|
-      values.push({ role:, permission: email_permission, value: 'false' })
-    end
-
-    RolePermission.create! values
-  end
-
-  def down
-    raise ActiveRecord::IrreversibleMigration
-  end
-end
+Clamby.configure({
+                   check: ENV.fetch('CLAMAV_SCANNING', 'false') == 'true',
+                   daemonize: ENV.fetch('CLAMAV_DAEMONIZE', 'true') == 'true',
+                   fdpass: ENV.fetch('CLAMAV_DAEMONIZE', 'true') == 'true',
+                   config_file: ENV.fetch('CLAMAV_CONFIG', nil)
+                 })
