@@ -72,7 +72,7 @@ export default function SetAvatar({ user }) {
   const editor = useRef(null);
   const handleSave = () => {
     if (editor) {
-      createAvatar.mutate(editor.current.getImageScaledToCanvas());
+      createAvatar.mutate({original: avatar, resized: editor.current.getImageScaledToCanvas()});
       handleClose();
     }
   };
