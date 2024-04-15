@@ -149,7 +149,7 @@
       "room_name": "Nom de la salle",
       "user_settings": "Paramètres de l'utilisateur",
       "allow_room_to_be_recorded": "Permettre les enregistrements dans cette salle",
-      "require_signed_in": "Seuls les utilisateurs identifiés peuvent rejoindre la salle",
+      "require_signed_in": "Seuls les utilisateurs authentifiés peuvent rejoindre la salle",
       "require_signed_in_message": "Vous devez vous identifier pour rejoindre la salle",
       "require_mod_approval": "L'approbation d'un modérateur est nécessaire pour rejoindre la réunion.",
       "allow_any_user_to_start": "Tout utilisateur peut démarrer la réunion",
