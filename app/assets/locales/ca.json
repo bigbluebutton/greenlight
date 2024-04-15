@@ -1,0 +1,703 @@
+{
+  "start": "Iniciar",
+  "search": "Cercar",
+  "home": "Inici",
+  "previous": "Anterior",
+  "back": "Enrere",
+  "next": "Següent",
+  "view": "Veure",
+  "join": "Unir-se",
+  "edit": "Editar",
+  "save": "Guardar",
+  "save_changes": "Guardar canvis",
+  "update": "Actualitzar",
+  "report": "Informe",
+  "share": "Compartir",
+  "cancel": "Cancel·lar",
+  "close": "Tancar",
+  "delete": "Eliminar",
+  "copy": "Copiar enllaç d'unió",
+  "copy_viewer_code": "Copiar codi de visualitzador",
+  "copy_moderator_code": "Copiar codi de moderador",
+  "or": "O",
+  "online": "En línia",
+  "help_center": "Centre d'ajuda",
+  "are_you_sure": "Estàs segur?",
+  "return_home": "Tornar a l'inici",
+  "created_at": "Creat el",
+  "view_recordings": "Veure enregistraments",
+  "join_session": "Unir-se a la sessió",
+  "no_result_search_input": "No s'han trobat resultats per a \"{{ searchInput }}\"",
+  "action_permanent": "Aquesta acció no es pot desfer.",
+  "homepage": {
+    "welcome_bbb": "Benvingut a BigBlueButton.",
+    "bigbluebutton_description": "BigBlueButton és un sistema de conferències web de codi obert per a classes en línia. La plataforma maximitza el temps per a l'aprenentatge aplicat, permetent als estudiants col·laborar i rebre retroalimentació en temps real.",
+    "greenlight_description": "Crea les teves pròpies sales per organitzar sessions, o uneix-te a altres utilitzant un enllaç curt i convenient.",
+    "learn_more": "Aprèn més sobre BigBlueButton",
+    "explore_features": "Explora les nostres funcionalitats",
+    "meeting_title": "Llança una reunió",
+    "meeting_description": "Llança una classe virtual amb vídeo, àudio, compartició de pantalla, xat i totes les eines requerides per a l'aprenentatge aplicat.",
+    "recording_title": "Grava les teves reunions",
+    "recording_description": "Grava les reunions de BigBlueButton i comparteix-les amb els estudiants per revisar i reflexionar sobre el material.",
+    "settings_title": "Gestiona les teves sales",
+    "settings_description": "Configura les teves sales i ajustos de reunions per estar al càrrec d'una aula eficaç.",
+    "and_more_title": "I més!",
+    "and_more_description": "BigBlueButton ofereix eines integrades per a l'aprenentatge aplicat i està dissenyat per estalviar-te temps durant la classe.",
+    "enter_meeting_url": "Introdueix l'URL de la reunió",
+    "enter_meeting_url_instruction": "Si us plau, introdueix l'URL de la teva reunió de BigBlueButton al camp de sota."
+  },
+  "authentication": {
+    "sign_in": "Iniciar sessió",
+    "sign_up": "Registrar-se",
+    "sign_out": "Tancar sessió",
+    "email": "Correu electrònic",
+    "password": "Contrasenya",
+    "confirm_password": "Confirmar contrasenya",
+    "enter_email": "Introdueix el teu correu electrònic",
+    "enter_name": "Introdueix el teu nom",
+    "remember_me": "Recorda'm",
+    "forgot_password": "Has oblidat la contrasenya?",
+    "dont_have_account": "No tens un compte?",
+    "create_account": "Crear un compte",
+    "create_an_account": "Crea un compte",
+    "already_have_account": "Ja tens un compte?"
+  },
+  "user": {
+    "user": "Usuari",
+    "users": "Usuaris",
+    "name": "Nom",
+    "email_address": "Adreça de correu electrònic",
+    "authenticator": "Autenticador",
+    "full_name": "Nom complet",
+    "no_user_found": "No s'ha trobat cap usuari",
+    "type_three_characters": "Si us plau, escriu tres (3) caràcters o més per mostrar els altres usuaris.",
+    "search_not_found": "No s'han trobat usuaris",
+    "profile": {
+      "profile": "Perfil",
+      "language": "Idioma",
+      "role": "Rol",
+      "administrator": "Administrador",
+      "guest": "Convidat"
+    },
+    "account": {
+      "account_info": "Informació del compte",
+      "delete_account": "Eliminar compte",
+      "change_password": "Canviar contrasenya",
+      "set_password": "Estableix la teva nova contrasenya",
+      "reset_password": "Restablir contrasenya",
+      "update_account_info": "Actualitzar informació del compte",
+      "current_password": "Contrasenya actual",
+      "new_password": "Nova contrasenya",
+      "confirm_password": "Confirmar contrasenya",
+      "permanently_delete_account": "Eliminar permanentment el teu compte",
+      "delete_account_description": "Si decideixes eliminar el teu compte, NO es podrà recuperar. \n Tota la informació relacionada amb el teu compte, incloent configuracions, sales i enregistraments serà eliminada.",
+      "delete_account_confirmation": "Sí, vull eliminar el meu compte",
+      "are_you_sure_delete_account": "Estàs segur que vols eliminar el teu compte?"
+    },
+    "avatar": {
+      "upload_avatar": "Pujar Avatar",
+      "delete_avatar": "Eliminar Avatar",
+      "crop_avatar": "Retallar el teu Avatar"
+    },
+    "pending": {
+      "title": "Registre Pendent",
+      "message": "Gràcies per registrar-te! El teu compte està pendent d'aprovació per part d'un administrador."
+    }
+  },
+  "room": {
+    "room": "Sala",
+    "rooms": "Sales",
+    "room_name": "Nom de la Sala",
+    "add_new_room": "+ Nova Sala",
+    "create_room": "Crear Sala",
+    "delete_room": "Eliminar Sala",
+    "create_new_room": "Crear Nova Sala",
+    "enter_room_name": "Introdueix el nom de la sala",
+    "shared_by": "compartit per",
+    "last_session": "Última Sessió: {{ localizedTime }}",
+    "no_last_session": "No s'ha creat cap sessió anterior",
+    "search_not_found": "No s'han trobat Sales",
+    "rooms_list_is_empty": "Encara no tens cap sala!",
+    "rooms_list_empty_create_room": "Crea la teva primera sala fent clic al botó de sota i introduint un nom de sala.",
+    "meeting": {
+      "start_meeting": "Iniciar Reunió",
+      "join_meeting": "Unir-se a la Reunió",
+      "meeting_invitation": "Has estat convidat a unir-te",
+      "meeting_not_started": "La reunió encara no ha començat",
+      "join_meeting_automatically": "T'uniràs automàticament quan la reunió comenci",
+      "recording_consent": "Reconec que aquesta sessió pot ser gravada. Això pot incloure la meva veu i vídeo si està activat."
+    },
+    "presentation": {
+      "presentation": "Presentació",
+      "click_to_upload": "Fes clic per pujar",
+      "drag_and_drop": " o arrossega i deixa anar",
+      "upload_description": "Pujar qualsevol document d'oficina o fitxer PDF (no més gran de {{size}}). Depenent de la mida del fitxer, pot requerir temps addicional per pujar abans que pugui ser utilitzat",
+      "delete_presentation": "Eliminar Presentació",
+      "are_you_sure_delete_presentation": "Estàs segur que vols eliminar aquesta presentació?"
+    },
+    "shared_access": {
+      "access": "Accés",
+      "add_share_access": "+ Compartir Accés",
+      "share_room_access": "Compartir Accés a la Sala",
+      "add_some_users": "Hora d'afegir alguns usuaris!",
+      "add_some_users_description": "Per afegir nous usuaris, fes clic al botó de sota i busca o selecciona els usuaris amb els quals vols compartir aquesta sala.",
+      "delete_shared_access": "Eliminar Accés Compartit",
+      "are_you_sure_delete_shared_access": "Estàs segur que vols eliminar aquest Accés Compartit?"
+    },
+    "settings": {
+      "settings": "Configuració",
+      "room_name": "Nom de la sala",
+      "user_settings": "Configuració d'Usuari",
+      "allow_room_to_be_recorded": "Permetre que la sala sigui enregistrada",
+      "require_signed_in": "Requerir que els usuaris iniciïn sessió abans d'unir-se",
+      "require_signed_in_message": "Has d'estar registrat per unir-te a aquesta sala.",
+      "require_mod_approval": "Requerir aprovació del moderador abans d'unir-se",
+      "allow_any_user_to_start": "Permetre a qualsevol usuari començar aquesta reunió",
+      "all_users_join_as_mods": "Tots els usuaris s'uneixen com a moderadors",
+      "mute_users_on_join": "Silenciar els usuaris quan s'uneixen",
+      "generate": "Generar",
+      "access_code": "Codi d'Accés",
+      "mod_access_code": "Codi d'Accés de Moderador",
+      "mod_access_code_optional": "Codi d'Accés de Moderador (opcional)",
+      "access_code_required": "Si us plau, introdueix el codi d'accés",
+      "wrong_access_code": "Codi d'Accés Incorrecte",
+      "generate_viewers_access_code": "Generar codi d'accés per a espectadors",
+      "generate_mods_access_code": "Generar codi d'accés per a moderadors",
+      "are_you_sure_delete_room": "Estàs segur que vols eliminar aquesta sala?"
+    }
+  },
+  "recording": {
+    "recording": "Enregistrament",
+    "recordings": "Enregistraments",
+    "processing": "Processant Enregistraments...",
+    "name": "Nom",
+    "length": "Durada",
+    "users": "Usuaris",
+    "visibility": "Visibilitat",
+    "formats": "Formats",
+    "published": "Publicat",
+    "unpublished": "No Publicat",
+    "protected": "Protegit",
+    "public": "Públic",
+    "public_protected": "Públic/Protegit",
+    "length_in_minutes": "{{recording.length}} min.",
+    "processing_recording": "Processant enregistrament, això pot trigar diversos minuts...",
+    "copy_recording_urls": "Copiar URL(s) d'Enregistrament",
+    "recordings_list_empty": "Encara no tens cap enregistrament!",
+    "public_recordings_list_empty": "Encara no hi ha enregistraments públics!",
+    "recordings_list_empty_description": "Els enregistraments apareixeran aquí després que comencis una reunió i la registres.",
+    "public_recordings_list_empty_description": "Els enregistraments apareixeran aquí quan estiguin disponibles.",
+    "delete_recording": "Eliminar Enregistrament",
+    "are_you_sure_delete_recording": "Estàs segur que vols eliminar aquest enregistrament?",
+    "search_not_found": "No s'han trobat Enregistraments"
+  },
+  "admin": {
+    "admin_panel": "Panell d'Administrador",
+    "manage_users": {
+      "manage_users": "Gestionar Usuaris",
+      "active": "Actiu",
+      "approve": "Aprovar",
+      "decline": "Rebutjar",
+      "pending": "Pendent",
+      "banned": "Prohibit",
+      "ban": "Prohibir",
+      "unban": "Desprohibir",
+      "deleted": "Esborrat",
+      "invited_tab": "Convidat",
+      "invite_user": "Convidar Usuari",
+      "send_invitation": "Enviar Invitació",
+      "enter_user_email": "Introduir correu electrònic de l'usuari",
+      "new_user": "Nou Usuari",
+      "add_new_user": "Nou Usuari",
+      "create_new_user": "Crear Nou Usuari",
+      "edit_user": "Editar Usuari",
+      "delete_user": "Esborrar Usuari",
+      "users_edit_path": "Usuaris/Editar",
+      "create_account": "Crear Compte",
+      "create_room": "Crear Sala",
+      "create_new_room": "Crear Nova Sala",
+      "user_created_at": "Creat: {{localizedTime}}",
+      "are_you_sure_delete_account": "Estàs segur que vols esborrar el compte de {{user.name}}?",
+      "delete_account_warning": "Si decideixes esborrar aquest compte, NO podrà ser recuperat.",
+      "empty_active_users": "Encara no hi ha usuaris actius en aquest servidor!",
+      "empty_active_users_subtext": "Quan l'estat d'un usuari canviï a actiu, apareixerà aquí.",
+      "empty_pending_users": "Encara no hi ha usuaris pendents en aquest servidor!",
+      "empty_pending_users_subtext": "Quan l'estat d'un usuari canviï a pendent, apareixerà aquí.",
+      "empty_banned_users": "Encara no hi ha usuaris prohibits en aquest servidor!",
+      "empty_banned_users_subtext": "Quan l'estat d'un usuari canviï a prohibit, apareixerà aquí.",
+      "empty_invited_users": "Encara no hi ha usuaris convidats en aquest servidor!",
+      "empty_invited_users_subtext": "Quan l'estat d'un usuari canviï a convidat, apareixerà aquí.",
+      "invited": {
+        "time_sent": "Hora d'Enviaments",
+        "valid": "Vàlid"
+      }
+    },
+    "server_rooms": {
+      "server_rooms": "Sales del Servidor",
+      "name": "Nom",
+      "owner": "Propietari",
+      "room_id": "ID de la Sala",
+      "participants": "Participants",
+      "status": "Estat",
+      "running": "En marxa",
+      "not_running": "No en marxa",
+      "active": "Actiu",
+      "current_session": "Sessió actual: {{lastSession}}",
+      "last_session": "Última sessió: {{localizedTime}}",
+      "no_meeting_yet": "Encara no hi ha reunions.",
+      "delete_server_rooms": "Eliminar Sala del Servidor",
+      "resync_recordings": "Re-sincronitzar Enregistraments",
+      "empty_room_list": "Encara no hi ha sales del servidor!",
+      "empty_room_list_subtext": "Les sales apareixeran aquí després de crear la teva primera sala."
+    },
+    "server_recordings": {
+      "server_recordings": "Enregistraments del Servidor",
+      "latest_recordings": "Últims Enregistraments",
+      "no_recordings_found": "No s'han trobat enregistraments."
+    },
+    "site_settings": {
+      "site_settings": "Configuració del Lloc",
+      "customize_greenlight": "Personalitzar Greenlight",
+      "appearance": {
+        "appearance": "Aparença",
+        "brand_color": "Color de Marca",
+        "regular": "Regular",
+        "lighten": "Aclarir",
+        "brand_image": "Imatge de Marca",
+        "click_to_upload": "Fes clic per pujar",
+        "drag_and_drop": " o arrossega i deixa anar",
+        "upload_brand_image_description": "Puja qualsevol fitxer PNG, JPG o SVG (no més gran de {{size}}). Depenent de la mida del fitxer, pot requerir temps addicional per pujar abans que pugui ser utilitzat",
+        "remove_branding_image": "Eliminar Imatge de Marca"
+      },
+      "administration": {
+        "administration": "Administració",
+        "terms": "Termes i Condicions",
+        "privacy": "Política de Privacitat",
+        "privacy_policy": "Política de Privacitat",
+        "change_term_links": "Canviar els enllaços de termes que apareixen al peu de pàgina",
+        "change_privacy_link": "Canviar l'enllaç de privacitat que apareix al peu de pàgina",
+        "helpcenter": "Centre d'Ajuda",
+        "change_helpcenter_link": "Canviar l'enllaç del centre d'ajuda que apareix sota el desplegable del perfil",
+        "maintenance": "Banner de Manteniment",
+        "change_maintenance_text": "Canviar el text del banner de manteniment que apareix a la capçalera",
+        "change_url": "Canviar URL",
+        "set_text": "Establir Text",
+        "clear_banner": "Netejar Banner",
+        "enter_link": "Introduir enllaç aquí"
+      },
+      "settings": {
+        "settings": "Configuració",
+        "allow_users_to_share_rooms": "Permetre als Usuaris Compartir Sales",
+        "allow_users_to_share_rooms_description": "Desactivar aquesta opció eliminarà el botó de les opcions de sala del desplegable, prevenint que els usuaris puguin compartir sales",
+        "allow_users_to_preupload_presentation": "Permetre als Usuaris Pujar Presentacions Prèviament",
+        "allow_users_to_preupload_presentation_description": "Els usuaris poden pujar una presentació prèviament per utilitzar-la com a presentació per defecte per a aquella sala específica",
+        "default_visibility": "Visibilitat d'Enregistrament per Defecte",
+        "default_visibility_description": "Tots els enregistraments creats de nou tindran aquesta visibilitat per defecte",
+        "session_timeout": "Temps d'Espera de la Sessió",
+        "session_timeout_description": "Pots configurar el temps d'espera de la sessió amb una cookie per defecte d'1 dia o una cookie de sessió ampliada de 7 dies",
+        "default_session_timeout": "Per defecte (1 dia)",
+        "extended_session_timeout": "Ampliat (7 dies)"
+      },
+      "registration": {
+        "registration": "Registre",
+        "role_mapping_by_email": "Assignació de Rols per Correu Electrònic",
+        "role_mapping_by_email_description": "Assigna l'usuari a un rol utilitzant el seu correu electrònic. Ha d'estar en el format: rol1=correu1, rol2=correu2",
+        "enter_role_mapping_rule": "Introduir una regla d'assignació de rols",
+        "resync_on_login": "Resincronitzar Dades de l'Usuari a Cada Inici de Sessió",
+        "resync_on_login_description": "Resincronitza la informació d'un usuari cada vegada que inicien sessió, fent que el proveïdor d'autenticació extern sempre coincideixi amb la informació a Greenlight",
+        "default_role": "Rol per Defecte",
+        "default_role_description": "El rol per defecte que s'assignarà als usuaris de nova creació",
+        "registration_method": "Mètode de Registre",
+        "registration_method_description": "Canviar la manera en què els usuaris es registren al lloc web",
+        "registration_methods" : {
+          "open": "Registre Obert",
+          "invite": "Unir-se per Invitació",
+          "approval": "Aprovar/Rebutjar"
+        }
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "Configuració de la Sala",
+      "default": "Opcional (per defecte: activat)",
+      "optional": "Opcional (per defecte: desactivat)",
+      "enabled": "Forçar Activat",
+      "disabled": "Desactivat",
+      "configurations": {
+        "allow_room_to_be_recorded": "Permetre que la sala sigui enregistrada",
+        "allow_room_to_be_recorded_description": "Permet als propietaris de la sala especificar si volen l'opció d'enregistrar una sala o no. Si està activat, el moderador encara haurà de prémer el botó 'Enregistrar' una vegada hagi començat la reunió.",
+        "require_user_signed_in": "Requerir que els usuaris estiguin registrats abans de unir-se",
+        "require_user_signed_in_description": "Només permet als usuaris amb un compte de Greenlight unir-se a la reunió. Si no estan registrats, seran redirigits a la pàgina d'inici de sessió quan intentin unir-se a una sala.",
+        "require_mod_approval": "Requerir l'aprovació del moderador abans de unir-se",
+        "require_mod_approval_description": "Sol·licita al moderador de la reunió de BigBlueButton quan un usuari intenta unir-se. Si l'usuari és aprovat, podrà unir-se a la reunió.",
+        "allow_any_user_to_start_meeting": "Permetre a qualsevol usuari començar una reunió",
+        "allow_any_user_to_start_meeting_description": "Permet a qualsevol usuari començar la reunió en qualsevol moment. Per defecte, només el propietari de la sala pot començar la reunió.",
+        "allow_users_to_join_as_mods": "Tots els usuaris s'uneixen com a moderadors",
+        "allow_users_to_join_as_mods_description": "Dóna a tots els usuaris els privilegis de moderador a BigBlueButton quan s'uneixen a la reunió.",
+        "mute_users_on_join": "Silenciar els usuaris quan s'uneixen",
+        "mute_users_on_join_description": "Silencia automàticament l'usuari quan s'uneix a la reunió de BigBlueButton.",
+        "viewer_access_code": "Codi d'Accés de Visualitzador",
+        "viewer_access_code_description": "Permet als propietaris de la sala tenir un codi alfanumèric aleatori que pot ser compartit amb els usuaris. El codi, si es genera, serà requerit perquè els usuaris puguin unir-se a les reunions de la sala.",
+        "mod_access_code": "Codi d'Accés de Moderador",
+        "mod_access_code_description": "Permet als propietaris de la sala tenir un codi alfanumèric aleatori que pot ser compartit amb els usuaris. El codi, si es genera, no serà requerit i quan s'utilitzi en qualsevol reunió de la sala unirà l'usuari com a moderador."
+      }
+    },
+    "roles": {
+      "role": "Rol",
+      "roles": "Rols",
+      "administrator": "Administrador",
+      "guest": "Convidat",
+      "manage_roles": "Gestionar Rols",
+      "delete_role": "Eliminar Rol",
+      "are_you_sure_delete_role": "Estàs segur que vols eliminar aquest rol?",
+      "enter_role_name": "Introdueix un nom de rol",
+      "add_role": "+ Crear Rol",
+      "create_role": "Crear Rol",
+      "create_new_role": "Crear un nou rol",
+      "no_role_found": "No s'ha trobat cap rol.",
+      "search_not_found": "No s'han Trobat Rols",
+      "edit": {
+        "create_room": "Allow users with this role to create rooms",
+        "record": "Allow users with this role to record their meetings",
+        "manage_users": "Allow users with this role to manage users",
+        "manage_rooms": "Allow users with this role to manage server rooms",
+        "manage_recordings": "Allow users with this role to manage server recordings",
+        "manage_site_settings": "Allow users with this role to manage site settings",
+        "manage_roles": "Allow users with this role to edit other roles",
+        "shared_list": "Include users with this role in the dropdown for sharing rooms",
+        "room_limit": "Room Limit",
+        "email_on_signup": "Receive an email when a new user signs up",
+        "allowed_recording_visibility": "Allowed recording visibilities"
+      }
+    }
+  },
+  "toast": {
+    "success": {
+      "user": {
+        "user_created": "S'ha creat un nou usuari.",
+        "user_updated": "L'usuari s'ha actualitzat.",
+        "user_deleted": "L'usuari s'ha eliminat.",
+        "avatar_updated": "L'avatar s'ha actualitzat.",
+        "password_changed": "S'ha actualitzat la contrasenya amb èxit. Si us plau, inicia sessió de nou.",
+        "password_updated": "La contrasenya s'ha actualitzat.",
+        "account_activated": "El teu compte s'ha activat.",
+        "activation_email_sent": "S'ha enviat un correu electrònic amb les instruccions per activar el teu compte.",
+        "reset_pwd_email_sent": "S'ha enviat un correu electrònic amb les instruccions per restablir la teva contrasenya."
+      },
+      "session": {
+        "signed_out": "Has tancat la sessió."
+      },
+      "room": {
+        "room_created": "S'ha creat una nova sala.",
+        "room_updated": "La sala s'ha actualitzat.",
+        "room_deleted": "La sala s'ha eliminat.",
+        "room_shared": "La sala s'ha compartit.",
+        "room_unshared": "La sala ha deixat de compartir-se.",
+        "recordings_synced": "Les gravacions de la sala s'han sincronitzat.",
+        "room_configuration_updated": "La configuració de la sala s'ha actualitzat.",
+        "room_setting_updated": "L'ajust de la sala s'ha actualitzat.",
+        "presentation_updated": "La presentació s'ha actualitzat.",
+        "presentation_deleted": "La presentació s'ha eliminat.",
+        "joining_meeting": "Unint-se a la reunió...",
+        "meeting_started": "Reunió iniciada.",
+        "access_code_copied": "El codi d'accés s'ha copiat.",
+        "access_code_generated": "S'ha generat un nou codi d'accés.",
+        "access_code_deleted": "El codi d'accés s'ha eliminat.",
+        "copied_meeting_url": "L'URL de la reunió s'ha copiat. L'enllaç es pot utilitzar per unir-se a la reunió.",
+        "copied_viewer_code": "El codi d'accés de visualització s'ha copiat.",
+        "copied_moderator_code": "El codi d'accés de moderador s'ha copiat."
+      },
+      "site_settings": {
+        "site_setting_updated": "L'ajust del lloc s'ha actualitzat.",
+        "brand_color_updated": "El color de la marca s'ha actualitzat.",
+        "brand_image_updated": "La imatge de la marca s'ha actualitzat.",
+        "brand_image_deleted": "La imatge de la marca s'ha eliminat.",
+        "privacy_policy_updated": "La política de privacitat s'ha actualitzat.",
+        "helpcenter_updated": "L'enllaç del centre d'ajuda s'ha actualitzat.",
+        "terms_of_service_updated": "Els termes del servei s'han actualitzat.",
+        "maintenance_updated": "La pancarta de manteniment s'ha actualitzat."
+      },
+      "recording": {
+        "recording_visibility_updated": "La visibilitat de la gravació s'ha actualitzat.",
+        "recording_name_updated": "El nom de la gravació s'ha actualitzat.",
+        "recording_deleted": "La gravació s'ha eliminat.",
+        "copied_urls": "Les URL de la gravació s'han copiat."
+      },
+      "role": {
+        "role_created": "S'ha creat un nou rol.",
+        "role_updated": "El rol s'ha actualitzat.",
+        "role_deleted": "El rol s'ha eliminat.",
+        "role_permission_updated": "El permís del rol s'ha actualitzat."
+      },
+      "invitations": {
+        "invitation_sent": "S'ha enviat una invitació."
+      }
+    },
+    "error": {
+      "problem_completing_action": "L'acció no es pot completar. \n Si us plau, intenta-ho de nou.",
+      "file_type_not_supported": "El tipus de fitxer no és compatible.",
+      "file_size_too_large": "La mida del fitxer és massa gran.",
+      "file_upload_error": "El fitxer no es pot pujar.",
+      "signin_required": "Has d'estar registrat per accedir a aquesta pàgina.",
+      "malware_detected": "S'ha detectat Malware! El fitxer que has pujat podria contenir malware. Si us plau, revisa el teu fitxer i intenta-ho de nou.",
+      "roles": {
+        "role_assigned": "Aquest rol no es pot eliminar perquè està assignat a almenys un usuari."
+      },
+      "users": {
+        "signup_error": "No pots ser autenticat. Si us plau, contacta amb el teu administrador.",
+        "invalid_invite": "El teu token d'invitació és invàlid o incorrecte. Si us plau, contacta amb el teu administrador per rebre un nou token.",
+        "email_exists": "Ja existeix un compte amb aquest correu electrònic. Si us plau, intenta-ho de nou amb un altre correu electrònic.",
+        "old_password": "La contrasenya que has introduït és incorrecta.",
+        "pending": "La teva inscripció està pendent de l'aprovació de l'administrador. Si us plau, intenta-ho més tard.",
+        "banned": "No tens accés a aquesta aplicació. Si us plau, contacta amb el teu administrador si creus que això és un error."
+      },
+      "rooms": {
+        "room_limit": "La sala no es pot crear perquè s'ha assolit el límit de sales."
+      },
+      "session": {
+        "invalid_credentials": "El nom d'usuari o la contrasenya són invàlids. Si us plau, verifica les teves credencials i intenta-ho de nou."
+      }
+    }
+  },
+  "global_error_page": {
+    "title": "Error",
+    "message": "Ho sentim, alguna cosa ha anat malament. Si l'incident es repeteix, si us plau, contacta amb l'administrador."
+  },
+  "not_found_error_page": {
+    "title": "Pàgina No Trobada",
+    "message": "Ho sentim, la pàgina que estàs intentant accedir no es pot trobar."
+  },
+  "account_activation_page": {
+    "title": "Activació del Compte",
+    "account_unverified": "El teu compte encara no ha estat verificat.",
+    "message": "Per utilitzar Greenlight, si us plau verifica el teu compte seguint les instruccions del correu electrònic d'activació que t'hem enviat.",
+    "resend_activation_link": "Si no has rebut un correu electrònic d'activació o si tens algun problema utilitzant-lo, fes clic al botó de sota per sol·licitar un nou correu electrònic d'activació.",
+    "resend_btn_lbl": "Reenviar Verificació"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Si us plau, introdueix un nom complet",
+        "min": "El nom ha de tenir almenys 2 caràcters de longitud",
+        "max": "El nom ha de tenir com a màxim 255 caràcters de longitud"
+      },
+      "email": {
+        "required": "Si us plau, introdueix un correu electrònic",
+        "email": "El valor introduït no coincideix amb el format d'un correu electrònic",
+        "min": "El correu electrònic ha de tenir almenys 6 caràcters de longitud",
+        "max": "El correu electrònic ha de tenir com a màxim 255 caràcters de longitud"
+      },
+      "password": {
+        "required": "Si us plau, introdueix una contrasenya",
+        "match": "La contrasenya ha de tenir almenys:",
+        "min": "- Vuit caràcters",
+        "lower": "- Una lletra minúscula",
+        "upper": "- Una lletra majúscula",
+        "digit": "- Un dígit",
+        "symbol": "- Un símbol",
+        "max": "La contrasenya ha de tenir com a màxim 255 caràcters de longitud"
+      },
+      "password_confirmation": {
+        "required": "Si us plau, introdueix una confirmació de la contrasenya",
+        "match": "Les contrasenyes no coincideixen"
+      },
+      "emails": {
+        "required": "Si us plau, introdueix almenys un correu electrònic vàlid",
+        "list": "Si us plau, proporciona una llista separada per comes de correus electrònics vàlids (usuari@usuaris.com,usuari1@usuaris.com,usuari2@usuaris.com)"
+      },
+      "role_name": {
+        "required": "Si us plau, introdueix el nom del rol"
+      },
+      "role": {
+        "limit": {
+          "required": "Si us plau, introdueix el límit de comptador de la sala",
+          "min": "El mínim permès és 0",
+          "max": "El màxim permès és 100"
+        },
+        "type": {
+          "error": "Has d'especificar un número"
+        }
+      },
+      "room": {
+        "name": {
+          "required": "Si us plau, introdueix el nom de la sala.",
+          "min": "El nom ha de tenir almenys 2 caràcters de llargada"
+        }
+      },
+      "room_join": {
+        "name": {
+          "required": "Si us plau, introdueix el teu nom."
+        }
+      },
+      "url": {
+        "invalid": "URL no vàlida"
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Nom de la Sala",
+          "placeholder": "Introdueix un nom per a la sala..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Nom",
+            "placeholder": "Introdueix el teu nom"
+        },
+        "access_code": {
+          "label": "Codi d'Accés",
+          "placeholder": "Introdueix el codi d'accés"
+        },
+        "recording_consent": {
+          "label": "Reconec que aquesta sessió pot ser enregistrada. Això pot incloure la meva veu i vídeo si està activat."
+        }
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Nom complet",
+            "placeholder": "Introdueix el teu nom complet"
+          },
+          "email": {
+            "label": "Correu electrònic",
+            "placeholder": "Introdueix el teu correu electrònic"
+          },
+          "password": {
+            "label": "Contrasenya",
+            "placeholder": "Crea una contrasenya"
+          },
+          "password_confirmation": {
+            "label": "Confirma la contrasenya",
+            "placeholder": "Confirma la contrasenya"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "Correu electrònic",
+            "placeholder": "Correu electrònic"
+          },
+          "password": {
+            "label": "Contrasenya",
+            "placeholder": "Contrasenya"
+          },
+          "remember_me": {
+            "label": "Recorda'm"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Contrasenya actual",
+            "placeholder": "Introdueix la teva contrasenya"
+          },
+          "new_password": {
+            "label": "Nova contrasenya",
+            "placeholder": "Introdueix la teva nova contrasenya"
+          },
+          "password_confirmation": {
+            "label": "Confirma la contrasenya",
+            "placeholder": "Confirma la teva nova contrasenya"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Si us plau, introdueix la teva contrasenya actual"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "Correu electrònic",
+            "placeholder": "Introdueix el correu electrònic del compte"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Si us plau, introdueix el correu electrònic del compte"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Nova contrasenya",
+            "placeholder": "Introdueix la teva nova contrasenya"
+          },
+          "password_confirmation": {
+            "label": "Confirma la contrasenya",
+            "placeholder": "Confirma la teva nova contrasenya"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Nom complet"
+          },
+          "email": {
+            "label": "Correu electrònic"
+          },
+          "language": {
+            "label": "Idioma"
+          },
+          "role": {
+            "label": "Rol"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Nom complet",
+            "placeholder": "Introdueix el nom complet de l'usuari"
+          },
+          "email": {
+            "label": "Correu electrònic",
+            "placeholder": "Introdueix el correu electrònic de l'usuari"
+          },
+          "password": {
+            "label": "Contrasenya",
+            "placeholder": "Introdueix la contrasenya de l'usuari"
+          },
+          "password_confirmation": {
+            "label": "Confirmar Contrasenya",
+            "placeholder": "Confirma la contrasenya"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "Correus electrònics"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "Introdueix l'enllaç aquí...",
+            "text_placeholder": "Introdueix el text aquí..."
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "Nom del rol",
+            "placeholder": "Introdueix un nom de rol..."
+          }
+        }
+      }
+    }
+  }
+}
