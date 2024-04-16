@@ -42,6 +42,7 @@ module Api
           pending_users = User.includes(:role)
                               .with_provider(current_provider)
                               .where(status: 'pending')
+                              .order(created_at: :asc)
                               .search(params[:search])
 
           pagy, pending_users = pagy(pending_users)
