@@ -25,8 +25,6 @@ export default function PendingUsers({ searchInput }) {
   const [page, setPage] = useState();
   const { isLoading, data: users } = usePendingUsers(searchInput, page);
   const { t } = useTranslation();
-  // sort the users as newest first
-  const reversedUsers = users?.data.reverse();
 
   return (
     <div>
@@ -37,7 +35,7 @@ export default function PendingUsers({ searchInput }) {
             <NoSearchResults text={t('user.search_not_found')} searchInput={searchInput} />
           </div>
         ) : (
-          <BannedPendingUsersTable users={reversedUsers} pendingTable isLoading={isLoading} pagination={users?.meta} setPage={setPage} />
+          <BannedPendingUsersTable users={users?.data} pendingTable isLoading={isLoading} pagination={users?.meta} setPage={setPage} />
         )
       }
     </div>
