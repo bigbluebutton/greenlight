@@ -23,4 +23,8 @@ class ApplicationRecord < ActiveRecord::Base
   def virus_scan?
     ENV.fetch('CLAMAV_SCANNING', 'false') == 'true'
   end
+
+  def server_tags_hash
+    ENV.fetch('SERVER_TAGS_MAP', '').split(",").map { |pair| pair.split(":") }.to_h
+  end
 end

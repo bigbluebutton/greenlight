@@ -2,6 +2,7 @@ import * as esbuild from 'esbuild';
 
 // Fetch 'RELATIVE_URL_ROOT' ENV variable value while removing any trailing slashes.
 const relativeUrlRoot = (process.env.RELATIVE_URL_ROOT || '').replace(/\/*$/, '');
+const serverTagsMap = (process.env.SERVER_TAGS_MAP || '');
 
 esbuild.context({
   entryPoints: ['app/javascript/main.jsx'],
@@ -15,6 +16,7 @@ esbuild.context({
   define: {
     'process.env.RELATIVE_URL_ROOT': `"${relativeUrlRoot}"`,
     'process.env.OMNIAUTH_PATH': `"${relativeUrlRoot}/auth/openid_connect"`, // currently, only OIDC is implemented
+    'process.env.SERVER_TAGS_MAP': `"${serverTagsMap}"`,
   },
 }).then(context => {
   if (process.argv.includes("--watch")) {

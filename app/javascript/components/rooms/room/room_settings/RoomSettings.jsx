@@ -16,7 +16,7 @@
 
 import React from 'react';
 import {
-  Row, Col, Button, Stack,
+  Row, Col, Button, Stack, Dropdown,
 } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
@@ -33,6 +33,7 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import UpdateRoomNameForm from './forms/UpdateRoomNameForm';
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
 import UnshareRoom from './UnshareRoom';
+import SimpleSelect from '../../../shared_components/utilities/SimpleSelect';
 
 export default function RoomSettings() {
   const { t } = useTranslation();
@@ -44,6 +45,12 @@ export default function RoomSettings() {
 
   const updateMutationWrapper = () => useUpdateRoomSetting(friendlyId);
   const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
+
+  const serverTagsMap = (process.env.SERVER_TAGS_MAP || '').split(",").reduce((map, pair) => {
+    let [key, value] = pair.split(":");
+    map[key] = value;
+    return map;
+  }, {});
 
   return (
     <div id="room-settings" className="pt-3">
@@ -66,6 +73,23 @@ export default function RoomSettings() {
                 config={roomConfigs?.glModeratorAccessCode}
                 description={t('room.settings.generate_mods_access_code')}
               />
+              <Row>
+                <SimpleSelect defaultValue=''>
+                  {
+                    <Dropdown.Item key='' value=''>
+                    </Dropdown.Item>
+                  }
+
+                  {
+                    <Dropdown.Item
+                      key={Object.keys(serverTagsMap)[0]}
+                      value={Object.values(serverTagsMap)[0]}
+                    >
+                      { Object.values(serverTagsMap)[0] }
+                    </Dropdown.Item>
+                  }
+                </SimpleSelect>
+            </Row>
             </Col>
             <Col className="ps-4">
               <Row> <h6 className="text-brand">{ t('room.settings.user_settings') }</h6> </Row>
