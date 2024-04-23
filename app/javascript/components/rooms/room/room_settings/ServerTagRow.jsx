@@ -16,41 +16,36 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Dropdown, } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import { Row, Dropdown } from 'react-bootstrap';
 import SimpleSelect from '../../../shared_components/utilities/SimpleSelect';
 
 export default function ServerTagRow({
   tag,
 }) {
-  const { t } = useTranslation();
-
-  const serverTagsMap = (process.env.SERVER_TAGS_MAP || '').split(",").reduce((map, pair) => {
-    let [key, value] = pair.split(":");
+  /* eslint-disable no-param-reassign */
+  const serverTagsMap = (process.env.SERVER_TAGS_MAP || '').split(',').reduce((map, pair) => {
+    const [key, value] = pair.split(':');
     map[key] = value;
     return map;
   }, {});
+  /* eslint-enable no-param-reassign */
 
   return (
     <Row>
       <SimpleSelect defaultValue={tag}>
-        {
-          <Dropdown.Item key='' value=''>
-          </Dropdown.Item>
-        }
+        <Dropdown.Item key="" value="" />
 
-        {
-          <Dropdown.Item
-            key={Object.keys(serverTagsMap)[0]}
-            value={Object.values(serverTagsMap)[0]}
-          >
-            {Object.values(serverTagsMap)[0]}
-          </Dropdown.Item>
-        }
+        <Dropdown.Item
+          key={Object.keys(serverTagsMap)[0]}
+          value={Object.values(serverTagsMap)[0]}
+        >
+          {Object.values(serverTagsMap)[0]}
+        </Dropdown.Item>
       </SimpleSelect>
     </Row>
   );
 }
+
 ServerTagRow.defaultProps = {
   tag: '',
 };
