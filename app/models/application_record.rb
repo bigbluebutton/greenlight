@@ -25,6 +25,6 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def server_tags_hash
-    ENV.fetch('SERVER_TAGS_MAP', '').split(",").map { |pair| pair.split(":") }.to_h
+    ENV.fetch('SERVER_TAGS_MAP', '').split(',').to_h { |pair| pair.split(':') }
   end
 end
