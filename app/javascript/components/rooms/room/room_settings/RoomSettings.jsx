@@ -69,7 +69,8 @@ export default function RoomSettings() {
               />
               {(process.env.SERVER_TAGS_MAP !== '') && (
                 <ServerTagRow
-                  tag=""
+                  currentTag={roomSetting?.data?.serverTag}
+                  updateMutation={updateMutationWrapper}
                 />
               )}
             </Col>

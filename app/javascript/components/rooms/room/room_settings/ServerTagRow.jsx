@@ -20,30 +20,57 @@ import { Row, Dropdown } from 'react-bootstrap';
 import SimpleSelect from '../../../shared_components/utilities/SimpleSelect';
 
 export default function ServerTagRow({
-  tag,
+  currentTag, updateMutation: useUpdateAPI,
 }) {
+  /* eslint-disable no-param-reassign */
+  const serverTagsMap = process.env.SERVER_TAGS_MAP.split(',').reduce((map, pair) => {
+    const [key, value] = pair.split(':');
+    map[key] = value;
+    return map;
+  }, {});
+  /* eslint-enable no-param-reassign */
+
+  function getTagName(tag) {
+    if (tag in serverTagsMap) {
+      return serverTagsMap[tag];
+    }
+    return '';
+  }
+
+  const updateAPI = useUpdateAPI();
   const dropdownTags = process.env.SERVER_TAGS_MAP.split(',').map((pair) => {
-    const [tagString, friendlyName] = pair.split(':');
+    const [tagString, tagName] = pair.split(':');
     return (
-      <Dropdown.Item key={tagString} value={friendlyName}>
-        {friendlyName}
+      <Dropdown.Item
+        key={tagString}
+        value={tagName}
+        onClick={() => updateAPI.mutate({ settingName: 'serverTag', settingValue: tagString })}
+      >
+        {tagName}
       </Dropdown.Item>
     );
   });
 
   return (
     <Row>
-      <SimpleSelect defaultValue={tag}>
-        {[<Dropdown.Item key="" value="" />].concat(dropdownTags)}
+      <SimpleSelect defaultValue={getTagName(currentTag)}>
+        {[
+          <Dropdown.Item
+            key=""
+            value=""
+            onClick={() => updateAPI.mutate({ settingName: 'serverTag', settingValue: '' })}
+          />,
+        ].concat(dropdownTags)}
       </SimpleSelect>
     </Row>
   );
 }
 
 ServerTagRow.defaultProps = {
-  tag: '',
+  currentTag: '',
 };
 
 ServerTagRow.propTypes = {
-  tag: PropTypes.string,
+  currentTag: PropTypes.string,
+  updateMutation: PropTypes.func.isRequired,
 };
