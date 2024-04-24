@@ -18,22 +18,38 @@
 
 class CreateServerTagsOption < ActiveRecord::Migration[7.0]
   def up
-    MeetingOption.create(name: 'meta_server-tag', default_value: '') unless MeetingOption.exists?(name: 'meta_server-tag')
-    unless RoomsConfiguration.exists?(meeting_option: MeetingOption.find_by(name: 'meta_server-tag'), provider: 'greenlight')
-      RoomsConfiguration.create(meeting_option: MeetingOption.find_by(name: 'meta_server-tag'), value: 'optional', provider: 'greenlight')
+    MeetingOption.create(name: 'serverTag', default_value: '') unless MeetingOption.exists?(name: 'serverTag')
+    unless RoomsConfiguration.exists?(meeting_option: MeetingOption.find_by(name: 'serverTag'), provider: 'greenlight')
+      RoomsConfiguration.create(meeting_option: MeetingOption.find_by(name: 'serverTag'), value: 'optional', provider: 'greenlight')
     end
     Tenant.all.each do |tenant|
-      unless RoomsConfiguration.exists?(meeting_option: MeetingOption.find_by(name: 'meta_server-tag'), provider: tenant.name)
-        RoomsConfiguration.create(meeting_option: MeetingOption.find_by(name: 'meta_server-tag'), value: 'optional', provider: tenant.name)
+      unless RoomsConfiguration.exists?(meeting_option: MeetingOption.find_by(name: 'serverTag'), provider: tenant.name)
+        RoomsConfiguration.create(meeting_option: MeetingOption.find_by(name: 'serverTag'), value: 'optional', provider: tenant.name)
+      end
+    end
+
+    MeetingOption.create(name: 'serverTagRequired', default_value: 'false') unless MeetingOption.exists?(name: 'serverTagRequired')
+    unless RoomsConfiguration.exists?(meeting_option: MeetingOption.find_by(name: 'serverTagRequired'), provider: 'greenlight')
+      RoomsConfiguration.create(meeting_option: MeetingOption.find_by(name: 'serverTagRequired'), value: 'optional', provider: 'greenlight')
+    end
+    Tenant.all.each do |tenant|
+      unless RoomsConfiguration.exists?(meeting_option: MeetingOption.find_by(name: 'serverTagRequired'), provider: tenant.name)
+        RoomsConfiguration.create(meeting_option: MeetingOption.find_by(name: 'serverTagRequired'), value: 'optional', provider: tenant.name)
       end
     end
   end
 
   def down
     Tenant.all.each do |tenant|
-      RoomsConfiguration.find_by(meeting_option: MeetingOption.find_by(name: 'meta_server-tag'), provider: tenant.name).destroy
+      RoomsConfiguration.find_by(meeting_option: MeetingOption.find_by(name: 'serverTag'), provider: tenant.name).destroy
     end
-    RoomsConfiguration.find_by(meeting_option: MeetingOption.find_by(name: 'meta_server-tag'), provider: 'greenlight').destroy
-    MeetingOption.find_by(name: 'meta_server-tag').destroy
+    RoomsConfiguration.find_by(meeting_option: MeetingOption.find_by(name: 'serverTag'), provider: 'greenlight').destroy
+    MeetingOption.find_by(name: 'serverTag').destroy
+
+    Tenant.all.each do |tenant|
+      RoomsConfiguration.find_by(meeting_option: MeetingOption.find_by(name: 'serverTagRequired'), provider: tenant.name).destroy
+    end
+    RoomsConfiguration.find_by(meeting_option: MeetingOption.find_by(name: 'serverTagRequired'), provider: 'greenlight').destroy
+    MeetingOption.find_by(name: 'serverTagRequired').destroy
   end
 end
