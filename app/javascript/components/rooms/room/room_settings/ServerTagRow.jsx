@@ -22,25 +22,19 @@ import SimpleSelect from '../../../shared_components/utilities/SimpleSelect';
 export default function ServerTagRow({
   tag,
 }) {
-  /* eslint-disable no-param-reassign */
-  const serverTagsMap = (process.env.SERVER_TAGS_MAP || '').split(',').reduce((map, pair) => {
-    const [key, value] = pair.split(':');
-    map[key] = value;
-    return map;
-  }, {});
-  /* eslint-enable no-param-reassign */
+  const dropdownTags = process.env.SERVER_TAGS_MAP.split(',').map((pair) => {
+    const [tagString, friendlyName] = pair.split(':');
+    return (
+      <Dropdown.Item key={tagString} value={friendlyName}>
+        {friendlyName}
+      </Dropdown.Item>
+    );
+  });
 
   return (
     <Row>
       <SimpleSelect defaultValue={tag}>
-        <Dropdown.Item key="" value="" />
-
-        <Dropdown.Item
-          key={Object.keys(serverTagsMap)[0]}
-          value={Object.values(serverTagsMap)[0]}
-        >
-          {Object.values(serverTagsMap)[0]}
-        </Dropdown.Item>
+        {[<Dropdown.Item key="" value="" />].concat(dropdownTags)}
       </SimpleSelect>
     </Row>
   );

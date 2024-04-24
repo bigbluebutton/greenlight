@@ -67,9 +67,11 @@ export default function RoomSettings() {
                 config={roomConfigs?.glModeratorAccessCode}
                 description={t('room.settings.generate_mods_access_code')}
               />
-              <ServerTagRow
-                tag="Test"
-              />
+              {(process.env.SERVER_TAGS_MAP !== '') && (
+                <ServerTagRow
+                  tag=""
+                />
+              )}
             </Col>
             <Col className="ps-4">
               <Row> <h6 className="text-brand">{ t('room.settings.user_settings') }</h6> </Row>
