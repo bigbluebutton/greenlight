@@ -23,7 +23,7 @@ export default function ServerTagRow({
   currentTag, updateMutation: useUpdateAPI,
 }) {
   /* eslint-disable no-param-reassign */
-  const serverTagsMap = process.env.SERVER_TAGS_MAP.split(',').reduce((map, pair) => {
+  const serverTagsMap = process.env.SERVER_TAG_NAMES.split(',').reduce((map, pair) => {
     const [key, value] = pair.split(':');
     map[key] = value;
     return map;
@@ -38,7 +38,7 @@ export default function ServerTagRow({
   }
 
   const updateAPI = useUpdateAPI();
-  const dropdownTags = process.env.SERVER_TAGS_MAP.split(',').map((pair) => {
+  const dropdownTags = process.env.SERVER_TAG_NAMES.split(',').map((pair) => {
     const [tagString, tagName] = pair.split(':');
     return (
       <Dropdown.Item

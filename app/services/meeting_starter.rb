@@ -42,7 +42,7 @@ class MeetingStarter
     # handle server tag options
     if options.key?('serverTag')
       tag = options.delete('serverTag')
-      options.store('meta_server-tag', tag) if server_tags_hash.key?(tag)
+      options.store('meta_server-tag', tag) if Rails.configuration.server_tag_names.key?(tag)
     end
 
     options.merge!(computed_options(access_code: viewer_code['glViewerAccessCode']))
@@ -83,9 +83,5 @@ class MeetingStarter
     return unless @room.presentation.attached?
 
     rails_blob_url(@room.presentation, host: @base_url).gsub('&', '%26')
-  end
-
-  def server_tags_hash
-    ENV.fetch('SERVER_TAGS_MAP', '').split(',').to_h { |pair| pair.split(':') }
   end
 end

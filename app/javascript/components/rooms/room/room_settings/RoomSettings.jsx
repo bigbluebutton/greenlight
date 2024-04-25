@@ -67,7 +67,7 @@ export default function RoomSettings() {
                 config={roomConfigs?.glModeratorAccessCode}
                 description={t('room.settings.generate_mods_access_code')}
               />
-              {(process.env.SERVER_TAGS_MAP !== '') && (
+              {(process.env.SERVER_TAG_NAMES !== '') && (
                 <ServerTagRow
                   currentTag={roomSetting?.data?.serverTag}
                   updateMutation={updateMutationWrapper}
