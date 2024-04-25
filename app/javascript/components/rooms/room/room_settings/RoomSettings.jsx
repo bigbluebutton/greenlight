@@ -16,7 +16,7 @@
 
 import React from 'react';
 import {
-  Row, Col, Button, Stack,
+  Row, Col, Button, Stack, Form,
 } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
@@ -45,6 +45,8 @@ export default function RoomSettings() {
   const updateMutationWrapper = () => useUpdateRoomSetting(friendlyId);
   const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
 
+  const updateAPI = updateMutationWrapper();
+
   return (
     <div id="room-settings" className="pt-3">
       <Card className="mx-auto p-4 border-0 card-shadow">
@@ -52,6 +54,17 @@ export default function RoomSettings() {
           <Row>
             <Col className="border-end border-2">
               <UpdateRoomNameForm friendlyId={friendlyId} />
+
+              <Row className="my-3">
+                <h6 className="text-brand">Login URL</h6>
+
+                <Stack direction="horizontal">
+                  <Form.Control id="loginURL" type="text" defaultValue={roomSetting?.data?.loginURL} />
+                  <Button type="submit" variant="brand" className="ms-3"
+                          onClick={() => { updateAPI.mutate({ settingName: 'loginURL', settingValue: document.getElementById("loginURL")?.value }) }}> { t('update') } </Button>
+                </Stack>
+              </Row>
+
               <AccessCodeRow
                 settingName="glViewerAccessCode"
                 updateMutation={updateMutationWrapper}
