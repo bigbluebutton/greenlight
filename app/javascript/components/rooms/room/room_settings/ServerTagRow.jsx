@@ -34,7 +34,7 @@ export default function ServerTagRow({
     if (tag in serverTagsMap) {
       return serverTagsMap[tag];
     }
-    return 'Default';
+    return process.env.DEFAULT_TAG_NAME;
   }
 
   const updateAPI = useUpdateAPI();
@@ -57,9 +57,11 @@ export default function ServerTagRow({
         {[
           <Dropdown.Item
             key=""
-            value=""
+            value={process.env.DEFAULT_TAG_NAME}
             onClick={() => updateAPI.mutate({ settingName: 'serverTag', settingValue: '' })}
-          />,
+          >
+            {process.env.DEFAULT_TAG_NAME}
+          </Dropdown.Item>,
         ].concat(dropdownTags)}
       </SimpleSelect>
     </Row>
