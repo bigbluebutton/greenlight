@@ -17,7 +17,7 @@
 # frozen_string_literal: true
 
 class CurrentUserSerializer < UserSerializer
-  attributes :signed_in, :permissions, :status, :external_account, :super_admin
+  attributes :signed_in, :permissions, :status, :external_account, :super_admin, :allowed_tags
 
   def signed_in
     true
@@ -36,5 +36,17 @@ class CurrentUserSerializer < UserSerializer
 
   def super_admin
     object.super_admin?
+  end
+
+  def allowed_tags
+    tags = []
+    Rails.configuration.server_tag_names.each do |tag, _|
+      if Rails.configuration.server_tag_roles.key?(tag)
+        tags.push(tag) if Rails.configuration.server_tag_roles[tag].include?(object.role_id)
+      else
+        tags.push(tag)
+      end
+    end
+    tags.presence
   end
 end

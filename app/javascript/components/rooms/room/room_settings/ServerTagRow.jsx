@@ -20,7 +20,7 @@ import { Row, Dropdown } from 'react-bootstrap';
 import SimpleSelect from '../../../shared_components/utilities/SimpleSelect';
 
 export default function ServerTagRow({
-  currentTag, updateMutation: useUpdateAPI,
+  currentTag, allowedTags, updateMutation: useUpdateAPI,
 }) {
   /* eslint-disable no-param-reassign */
   const serverTagsMap = process.env.SERVER_TAG_NAMES.split(',').reduce((map, pair) => {
@@ -34,13 +34,13 @@ export default function ServerTagRow({
     if (tag in serverTagsMap) {
       return serverTagsMap[tag];
     }
-    return '';
+    return 'Default';
   }
 
   const updateAPI = useUpdateAPI();
   const dropdownTags = process.env.SERVER_TAG_NAMES.split(',').map((pair) => {
     const [tagString, tagName] = pair.split(':');
-    return (
+    return (allowedTags.includes(tagString) && (
       <Dropdown.Item
         key={tagString}
         value={tagName}
@@ -48,7 +48,7 @@ export default function ServerTagRow({
       >
         {tagName}
       </Dropdown.Item>
-    );
+    ));
   });
 
   return (
@@ -72,5 +72,6 @@ ServerTagRow.defaultProps = {
 
 ServerTagRow.propTypes = {
   currentTag: PropTypes.string,
+  allowedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   updateMutation: PropTypes.func.isRequired,
 };
