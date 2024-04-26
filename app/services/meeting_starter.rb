@@ -39,11 +39,7 @@ class MeetingStarter
       settings: 'glViewerAccessCode'
     ).call
 
-    # handle server tag options
-    if options.key?('serverTag')
-      tag = options.delete('serverTag')
-      options.store('meta_server-tag', tag) if Rails.configuration.server_tag_names.key?(tag)
-    end
+    handle_server_tag(meeting_options: options)
 
     options.merge!(computed_options(access_code: viewer_code['glViewerAccessCode']))
 
@@ -77,6 +73,18 @@ class MeetingStarter
       'meta_bbb-origin': 'greenlight',
       'meta_bbb-origin-server-name': URI(@base_url).host
     }
+  end
+
+  def handle_server_tag(meeting_options:)
+    if meeting_options['serverTag'].present?
+      tag = meeting_options.delete('serverTag')
+      tagRequired = meeting_options.delete('serverTagRequired')
+      tagParam = tagRequired == 'true' ? tag + '!' : tag
+      meeting_options.store('meta_server-tag', tagParam) if Rails.configuration.server_tag_names.key?(tag)
+    else
+      meeting_options.delete('serverTag')
+      meeting_options.delete('serverTagRequired')
+    end
   end
 
   def presentation_url
