@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -30,6 +30,14 @@ export default function TextForm({ id, value, mutation: useUpdateSiteSettingsAPI
   const maintenanceBannerId = localStorage.getItem('maintenanceBannerId');
 
   const { methods, fields } = useTextForm({ defaultValues: { value } });
+
+  useEffect(() => {
+    if(!methods) {
+      return;
+    }
+    methods.reset({ value: value });
+
+  }, [methods, value]);
 
   // Function to clear the form
   const clearForm = () => {
