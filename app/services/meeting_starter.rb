@@ -78,9 +78,9 @@ class MeetingStarter
   def handle_server_tag(meeting_options:)
     if meeting_options['serverTag'].present?
       tag = meeting_options.delete('serverTag')
-      tagRequired = meeting_options.delete('serverTagRequired')
-      tagParam = tagRequired == 'true' ? tag + '!' : tag
-      meeting_options.store('meta_server-tag', tagParam) if Rails.configuration.server_tag_names.key?(tag)
+      tag_required = meeting_options.delete('serverTagRequired')
+      tag_param = tag_required == 'true' ? "#{tag} !" : tag
+      meeting_options.store('meta_server-tag', tag_param) if Rails.configuration.server_tag_names.key?(tag)
     else
       meeting_options.delete('serverTag')
       meeting_options.delete('serverTagRequired')

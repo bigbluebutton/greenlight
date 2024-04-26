@@ -16,7 +16,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Dropdown } from 'react-bootstrap';
+import { Row, Col, Dropdown, ButtonGroup, ToggleButton } from 'react-bootstrap';
 import SimpleSelect from '../../../shared_components/utilities/SimpleSelect';
 
 export default function ServerTagRow({
@@ -54,28 +54,51 @@ export default function ServerTagRow({
 
   return (
     <Row>
-      <SimpleSelect defaultValue={getTagName(currentTag)}>
-        {[
-          <Dropdown.Item
-            key=""
-            value={process.env.DEFAULT_TAG_NAME}
-            onClick={() => updateAPI.mutate({ settingName: 'serverTag', settingValue: '' })}
+      <Col>
+        <SimpleSelect defaultValue={getTagName(currentTag)}>
+          {[
+            <Dropdown.Item
+              key=""
+              value={process.env.DEFAULT_TAG_NAME}
+              onClick={() => updateAPI.mutate({ settingName: 'serverTag', settingValue: '' })}
+            >
+              {process.env.DEFAULT_TAG_NAME}
+            </Dropdown.Item>,
+          ].concat(dropdownTags)}
+        </SimpleSelect>
+      </Col>
+      <Col>
+        <ButtonGroup>
+          <ToggleButton
+            key="desired"
+            id="desired"
+            type="radio"
+            variant='outline-success'
+            name="radio"
+            checked={tagRequired === false}
+            onChange={(event) => {
+              console.log(event);
+              updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: false });
+            }}
           >
-            {process.env.DEFAULT_TAG_NAME}
-          </Dropdown.Item>,
-        ].concat(dropdownTags)}
-      </SimpleSelect>
-      <div className="form-switch">
-        <input
-          className="form-check-input fs-5"
-          type="checkbox"
-          id="serverTagRequired"
-          checked={tagRequired}
-          onChange={(event) => {
-            updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: event.target.checked });
-          }}
-        />
-      </div>
+            Desired
+          </ToggleButton>
+          <ToggleButton
+            key="required"
+            id="required"
+            type="radio"
+            variant='outline-danger'
+            name="radio"
+            checked={tagRequired === true}
+            onChange={(event) => {
+              console.log(event);
+              updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: true });
+            }}
+          >
+            Required
+          </ToggleButton>
+        </ButtonGroup>
+      </Col>
     </Row>
   );
 }
