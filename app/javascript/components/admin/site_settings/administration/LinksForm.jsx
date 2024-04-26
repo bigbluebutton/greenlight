@@ -30,11 +30,8 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
   const { methods, fields } = useLinksForm({ defaultValues: { value } });
 
   useEffect(() => {
-    if(!methods) {
-      return;
-    }
-    methods.reset({ value: value });
-
+    if (!methods) { return; }
+    methods.reset({ value });
   }, [methods, value]);
 
   return (

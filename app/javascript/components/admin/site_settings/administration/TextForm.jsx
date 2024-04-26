@@ -32,11 +32,8 @@ export default function TextForm({ id, value, mutation: useUpdateSiteSettingsAPI
   const { methods, fields } = useTextForm({ defaultValues: { value } });
 
   useEffect(() => {
-    if(!methods) {
-      return;
-    }
-    methods.reset({ value: value });
-
+    if (!methods) { return; }
+    methods.reset({ value });
   }, [methods, value]);
 
   // Function to clear the form
