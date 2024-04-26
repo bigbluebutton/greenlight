@@ -20,8 +20,10 @@ import { Row, Dropdown } from 'react-bootstrap';
 import SimpleSelect from '../../../shared_components/utilities/SimpleSelect';
 
 export default function ServerTagRow({
-  currentTag, allowedTags, updateMutation: useUpdateAPI,
+  currentTag, tagRequired, allowedTags, updateMutation: useUpdateAPI,
 }) {
+  const updateAPI = useUpdateAPI();
+
   /* eslint-disable no-param-reassign */
   const serverTagsMap = process.env.SERVER_TAG_NAMES.split(',').reduce((map, pair) => {
     const [key, value] = pair.split(':');
@@ -37,7 +39,6 @@ export default function ServerTagRow({
     return process.env.DEFAULT_TAG_NAME;
   }
 
-  const updateAPI = useUpdateAPI();
   const dropdownTags = process.env.SERVER_TAG_NAMES.split(',').map((pair) => {
     const [tagString, tagName] = pair.split(':');
     return (allowedTags.includes(tagString) && (
@@ -64,16 +65,29 @@ export default function ServerTagRow({
           </Dropdown.Item>,
         ].concat(dropdownTags)}
       </SimpleSelect>
+      <div className="form-switch">
+        <input
+          className="form-check-input fs-5"
+          type="checkbox"
+          id="serverTagRequired"
+          checked={tagRequired}
+          onChange={(event) => {
+            updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: event.target.checked });
+          }}
+        />
+      </div>
     </Row>
   );
 }
 
 ServerTagRow.defaultProps = {
   currentTag: '',
+  tagRequired: false,
 };
 
 ServerTagRow.propTypes = {
   currentTag: PropTypes.string,
+  tagRequired: PropTypes.bool,
   allowedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   updateMutation: PropTypes.func.isRequired,
 };
