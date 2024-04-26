@@ -16,11 +16,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Dropdown, ButtonGroup, ToggleButton } from 'react-bootstrap';
+import {
+  Row, Col, Dropdown, ButtonGroup, ToggleButton
+} from 'react-bootstrap';
 import SimpleSelect from '../../../shared_components/utilities/SimpleSelect';
 
 export default function ServerTagRow({
-  currentTag, tagRequired, allowedTags, updateMutation: useUpdateAPI,
+  updateMutation: useUpdateAPI, currentTag, tagRequired, allowedTags, description,
 }) {
   const updateAPI = useUpdateAPI();
 
@@ -54,6 +56,7 @@ export default function ServerTagRow({
 
   return (
     <Row>
+      <h6 className="text-brand">{description}</h6>
       <Col>
         <SimpleSelect defaultValue={getTagName(currentTag)}>
           {[
@@ -73,11 +76,10 @@ export default function ServerTagRow({
             key="desired"
             id="desired"
             type="radio"
-            variant='outline-success'
+            variant="outline-success"
             name="radio"
             checked={tagRequired === false}
             onChange={(event) => {
-              console.log(event);
               updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: false });
             }}
           >
@@ -87,11 +89,10 @@ export default function ServerTagRow({
             key="required"
             id="required"
             type="radio"
-            variant='outline-danger'
+            variant="outline-danger"
             name="radio"
             checked={tagRequired === true}
             onChange={(event) => {
-              console.log(event);
               updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: true });
             }}
           >
@@ -109,8 +110,9 @@ ServerTagRow.defaultProps = {
 };
 
 ServerTagRow.propTypes = {
+  updateMutation: PropTypes.func.isRequired,
   currentTag: PropTypes.string,
   tagRequired: PropTypes.bool,
   allowedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  updateMutation: PropTypes.func.isRequired,
+  description: PropTypes.string.isRequired,
 };

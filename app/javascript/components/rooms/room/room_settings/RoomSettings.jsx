@@ -69,10 +69,11 @@ export default function RoomSettings() {
               />
               {(process.env.SERVER_TAG_NAMES !== '') && (
                 <ServerTagRow
+                  updateMutation={updateMutationWrapper}
                   currentTag={roomSetting?.data?.serverTag}
                   tagRequired={roomSetting?.data?.serverTagRequired === 'true'}
                   allowedTags={currentUser?.allowedTags}
-                  updateMutation={updateMutationWrapper}
+                  description="Select a specialized server type for this room"
                 />
               )}
             </Col>
