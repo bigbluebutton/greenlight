@@ -17,7 +17,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Row, Col, Dropdown, ButtonGroup, ToggleButton
+  Row, Col, Dropdown, ButtonGroup, ToggleButton,
 } from 'react-bootstrap';
 import SimpleSelect from '../../../shared_components/utilities/SimpleSelect';
 
@@ -58,7 +58,7 @@ export default function ServerTagRow({
     <Row>
       <h6 className="text-brand">{description}</h6>
       <Col>
-        <SimpleSelect defaultValue={getTagName(currentTag)}>
+        <SimpleSelect defaultValue={getTagName(currentTag)} dropUp>
           {[
             <Dropdown.Item
               key=""
@@ -79,7 +79,7 @@ export default function ServerTagRow({
             variant="outline-success"
             name="radio"
             checked={tagRequired === false}
-            onChange={(event) => {
+            onChange={() => {
               updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: false });
             }}
           >
@@ -92,7 +92,7 @@ export default function ServerTagRow({
             variant="outline-danger"
             name="radio"
             checked={tagRequired === true}
-            onChange={(event) => {
+            onChange={() => {
               updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: true });
             }}
           >
