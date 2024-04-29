@@ -18,38 +18,44 @@
 
 class CreateServerTagsOption < ActiveRecord::Migration[7.0]
   def up
-    MeetingOption.create(name: 'serverTag', default_value: '') unless MeetingOption.exists?(name: 'serverTag')
-    unless RoomsConfiguration.exists?(meeting_option: MeetingOption.find_by(name: 'serverTag'), provider: 'greenlight')
-      RoomsConfiguration.create(meeting_option: MeetingOption.find_by(name: 'serverTag'), value: 'optional', provider: 'greenlight')
+    MeetingOption.create!(name: 'serverTag', default_value: '') unless MeetingOption.exists?(name: 'serverTag')
+    tag_option = MeetingOption.find_by!(name: 'serverTag')
+    unless RoomsConfiguration.exists?(meeting_option: tag_option, provider: 'greenlight')
+      RoomsConfiguration.create!(meeting_option: tag_option, value: 'optional', provider: 'greenlight')
     end
     Tenant.all.each do |tenant|
-      unless RoomsConfiguration.exists?(meeting_option: MeetingOption.find_by(name: 'serverTag'), provider: tenant.name)
-        RoomsConfiguration.create(meeting_option: MeetingOption.find_by(name: 'serverTag'), value: 'optional', provider: tenant.name)
+      unless RoomsConfiguration.exists?(meeting_option: tag_option, provider: tenant.name)
+        RoomsConfiguration.create!(meeting_option: tag_option, value: 'optional', provider: tenant.name)
       end
     end
+    Room.find_each { |room| RoomMeetingOption.find_or_create_by!(room:, meeting_option: tag_option) }
 
-    MeetingOption.create(name: 'serverTagRequired', default_value: 'false') unless MeetingOption.exists?(name: 'serverTagRequired')
-    unless RoomsConfiguration.exists?(meeting_option: MeetingOption.find_by(name: 'serverTagRequired'), provider: 'greenlight')
-      RoomsConfiguration.create(meeting_option: MeetingOption.find_by(name: 'serverTagRequired'), value: 'optional', provider: 'greenlight')
+    MeetingOption.create!(name: 'serverTagRequired', default_value: 'false') unless MeetingOption.exists?(name: 'serverTagRequired')
+    tag_required_option = MeetingOption.find_by!(name: 'serverTagRequired')
+    unless RoomsConfiguration.exists?(meeting_option: tag_required_option, provider: 'greenlight')
+      RoomsConfiguration.create!(meeting_option: tag_required_option, value: 'optional', provider: 'greenlight')
     end
     Tenant.all.each do |tenant|
-      unless RoomsConfiguration.exists?(meeting_option: MeetingOption.find_by(name: 'serverTagRequired'), provider: tenant.name)
-        RoomsConfiguration.create(meeting_option: MeetingOption.find_by(name: 'serverTagRequired'), value: 'optional', provider: tenant.name)
+      unless RoomsConfiguration.exists?(meeting_option: tag_required_option, provider: tenant.name)
+        RoomsConfiguration.create!(meeting_option: tag_required_option, value: 'optional', provider: tenant.name)
+      end
+    end
+    Room.find_each do |room|
+      unless RoomMeetingOption.exists?(room:, meeting_option: tag_required_option)
+        RoomMeetingOption.create!(room:, meeting_option: tag_required_option, value: 'false')
       end
     end
   end
 
   def down
-    Tenant.all.each do |tenant|
-      RoomsConfiguration.find_by(meeting_option: MeetingOption.find_by(name: 'serverTag'), provider: tenant.name).destroy
-    end
-    RoomsConfiguration.find_by(meeting_option: MeetingOption.find_by(name: 'serverTag'), provider: 'greenlight').destroy
-    MeetingOption.find_by(name: 'serverTag').destroy
+    tag_option = MeetingOption.find_by!(name: 'serverTag')
+    RoomMeetingOption.destroy_by(meeting_option: tag_option)
+    RoomsConfiguration.destroy_by(meeting_option: tag_option)
+    tag_option.destroy
 
-    Tenant.all.each do |tenant|
-      RoomsConfiguration.find_by(meeting_option: MeetingOption.find_by(name: 'serverTagRequired'), provider: tenant.name).destroy
-    end
-    RoomsConfiguration.find_by(meeting_option: MeetingOption.find_by(name: 'serverTagRequired'), provider: 'greenlight').destroy
-    MeetingOption.find_by(name: 'serverTagRequired').destroy
+    tag_required_option = MeetingOption.find_by!(name: 'serverTagRequired')
+    RoomMeetingOption.destroy_by(meeting_option: tag_required_option)
+    RoomsConfiguration.destroy_by(meeting_option: tag_required_option)
+    tag_required_option.destroy
   end
 end
