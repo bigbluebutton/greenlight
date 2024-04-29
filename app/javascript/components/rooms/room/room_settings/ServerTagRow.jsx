@@ -15,6 +15,7 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import {
   Row, Col, Dropdown, ButtonGroup, ToggleButton,
@@ -25,6 +26,7 @@ export default function ServerTagRow({
   updateMutation: useUpdateAPI, currentTag, tagRequired, allowedTags, description,
 }) {
   const updateAPI = useUpdateAPI();
+  const { t } = useTranslation();
 
   /* eslint-disable no-param-reassign */
   const serverTagsMap = process.env.SERVER_TAG_NAMES.split(',').reduce((map, pair) => {
@@ -63,6 +65,7 @@ export default function ServerTagRow({
             <Dropdown.Item
               key=""
               value={process.env.DEFAULT_TAG_NAME}
+              disabled={updateAPI.isLoading}
               onClick={() => updateAPI.mutate({ settingName: 'serverTag', settingValue: '' })}
             >
               {process.env.DEFAULT_TAG_NAME}
@@ -79,11 +82,12 @@ export default function ServerTagRow({
             variant="outline-success"
             name="radio"
             checked={tagRequired === false}
+            disabled={updateAPI.isLoading}
             onChange={() => {
               updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: false });
             }}
           >
-            Desired
+            {t('room.settings.server_tag_desired')}
           </ToggleButton>
           <ToggleButton
             key="required"
@@ -92,11 +96,12 @@ export default function ServerTagRow({
             variant="outline-danger"
             name="radio"
             checked={tagRequired === true}
+            disabled={updateAPI.isLoading}
             onChange={() => {
               updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: true });
             }}
           >
-            Required
+            {t('room.settings.server_tag_required')}
           </ToggleButton>
         </ButtonGroup>
       </Col>

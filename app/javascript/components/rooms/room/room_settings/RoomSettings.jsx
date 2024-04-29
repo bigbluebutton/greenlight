@@ -73,7 +73,7 @@ export default function RoomSettings() {
                   currentTag={roomSetting?.data?.serverTag}
                   tagRequired={roomSetting?.data?.serverTagRequired === 'true'}
                   allowedTags={currentUser?.allowedTags}
-                  description="Select a specialized server type for this room"
+                  description={t('room.settings.server_tag')}
                 />
               )}
             </Col>

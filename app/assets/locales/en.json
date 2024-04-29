@@ -164,6 +164,9 @@
       "wrong_access_code": "Wrong Access Code",
       "generate_viewers_access_code": "Generate access code for viewers",
       "generate_mods_access_code": "Generate access code for moderators",
+      "server_tag": "Select a server type for this room",
+      "server_tag_desired": "Desired",
+      "server_tag_required": "Required",
       "are_you_sure_delete_room": "Are you sure you want to delete this room?"
     }
   },
