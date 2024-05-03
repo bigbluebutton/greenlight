@@ -483,8 +483,8 @@
       "email": {
         "required": "Si us plau, introdueix un correu electrònic",
         "email": "El valor introduït no coincideix amb el format d'un correu electrònic",
-        "min": "El correu electrònic ha de tenir almenys 6 caràcters de longitud",
-        "max": "El correu electrònic ha de tenir com a màxim 255 caràcters de longitud"
+        "min": "El correu electrònic ha de tenir almenys 6 caràcters",
+        "max": "El correu electrònic ha de tenir com a màxim 255 caràcters"
       },
       "password": {
         "required": "Si us plau, introdueix una contrasenya",
