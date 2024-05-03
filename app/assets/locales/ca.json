@@ -267,14 +267,14 @@
         "click_to_upload": "Fes clic per pujada",
         "drag_and_drop": " o arrossega i deixa anar",
         "upload_brand_image_description": "Puja qualsevol fitxer PNG, JPG o SVG (no més gran de {{size}}). Depenent de la mida del fitxer, pot requerir temps addicional per pujar abans que pugui ser utilitzat",
-        "remove_branding_image": "Eliminar Imatge de Marca"
+        "remove_branding_image": "Elimina Imatge de Marca"
       },
       "administration": {
         "administration": "Administració",
         "terms": "Termes i Condicions",
         "privacy": "Política de Privacitat",
         "privacy_policy": "Política de Privacitat",
-        "change_term_links": "Canviar els enllaços de termes que apareixen al peu de pàgina",
+        "change_term_links": "Canvia els enllaços de termes que apareixen al peu de pàgina",
         "change_privacy_link": "Canviar l'enllaç de privacitat que apareix al peu de pàgina",
         "helpcenter": "Centre d'Ajuda",
         "change_helpcenter_link": "Canviar l'enllaç del centre d'ajuda que apareix sota el desplegable del perfil",
