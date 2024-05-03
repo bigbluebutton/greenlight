@@ -520,7 +520,7 @@
       "room": {
         "name": {
           "required": "Si us plau, introdueix el nom de la sala.",
-          "min": "El nom ha de tenir almenys 2 caràcters de llargada"
+          "min": "El nom ha de tenir almenys 2 caràcters"
         }
       },
       "room_join": {
