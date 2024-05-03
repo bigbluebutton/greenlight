@@ -407,7 +407,7 @@
         "copied_moderator_code": "El codi d'accés de moderador s'ha copiat."
       },
       "site_settings": {
-        "site_setting_updated": "L'ajust del lloc s'ha actualitzat.",
+        "site_setting_updated": "Els paràmetres del lloc s'han actualitzat.",
         "brand_color_updated": "El color de la marca s'ha actualitzat.",
         "brand_image_updated": "La imatge de la marca s'ha actualitzat.",
         "brand_image_deleted": "La imatge de la marca s'ha suprimit.",
