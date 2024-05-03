@@ -30,7 +30,7 @@
   "no_result_search_input": "No s'han trobat resultats per a \"{{ searchInput }}\"",
   "action_permanent": "Aquesta acció no es pot desfer.",
   "homepage": {
-    "welcome_bbb": "Benvingut a BigBlueButton.",
+    "welcome_bbb": "Benvinguda a BigBlueButton.",
     "bigbluebutton_description": "BigBlueButton és un sistema de conferències web de codi obert per a classes en línia. La plataforma maximitza el temps per a l'aprenentatge aplicat, permetent als estudiants col·laborar i rebre retroalimentació en temps real.",
     "greenlight_description": "Crea les teves pròpies sales per organitzar sessions, o uneix-te a altres utilitzant un enllaç curt i convenient.",
     "learn_more": "Aprèn més sobre BigBlueButton",
