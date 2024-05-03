@@ -161,8 +161,8 @@
       "mod_access_code_optional": "Codi d'Accés de Moderador (opcional)",
       "access_code_required": "Si us plau, introdueix el codi d'accés",
       "wrong_access_code": "Codi d'Accés Incorrecte",
-      "generate_viewers_access_code": "Generar codi d'accés per a espectadors",
-      "generate_mods_access_code": "Generar codi d'accés per a moderadors",
+      "generate_viewers_access_code": "Genera codi d'accés per a espectadors",
+      "generate_mods_access_code": "Genera codi d'accés per a moderadors",
       "are_you_sure_delete_room": "Estàs segur que vols suprimir aquesta sala?"
     }
   },
@@ -182,7 +182,7 @@
     "public_protected": "Públic/Protegit",
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Processant enregistrament, això pot trigar diversos minuts...",
-    "copy_recording_urls": "Copiar URL(s) d'Enregistrament",
+    "copy_recording_urls": "Copia URL(s) d'Enregistrament",
     "recordings_list_empty": "Encara no tens cap enregistrament!",
     "public_recordings_list_empty": "Encara no hi ha enregistraments públics!",
     "recordings_list_empty_description": "Els enregistraments apareixeran aquí després que comencis una reunió i la registres.",
