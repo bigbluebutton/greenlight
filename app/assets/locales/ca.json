@@ -145,9 +145,9 @@
       "are_you_sure_delete_shared_access": "Estàs segur que vols suprimir aquest Accés Compartit?"
     },
     "settings": {
-      "settings": "Configuració",
+      "settings": "Paràmetres",
       "room_name": "Nom de la sala",
-      "user_settings": "Configuració d'Usuari",
+      "user_settings": "Paràmetres d'Usuari",
       "allow_room_to_be_recorded": "Permetre que la sala sigui enregistrada",
       "require_signed_in": "Requerir que els usuaris iniciïn sessió abans d'unir-se",
       "require_signed_in_message": "Has d'estar registrat per unir-te a aquesta sala.",
