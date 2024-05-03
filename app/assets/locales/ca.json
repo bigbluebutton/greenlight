@@ -188,7 +188,7 @@
     "recordings_list_empty_description": "Els enregistraments apareixeran aquí després que comencis una reunió i la registres.",
     "public_recordings_list_empty_description": "Els enregistraments apareixeran aquí quan estiguin disponibles.",
     "delete_recording": "Suprimeix Enregistrament",
-    "are_you_sure_delete_recording": "Estàs segur que vols eliminar aquest enregistrament?",
+    "are_you_sure_delete_recording": "Estàs segur que vols suprimir aquest enregistrament?",
     "search_not_found": "No s'han trobat Enregistraments"
   },
   "admin": {
