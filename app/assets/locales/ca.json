@@ -363,7 +363,7 @@
         "manage_recordings": "Permet als usuaris amb aquesta funció gestionar els enregistraments del servidor",
         "manage_site_settings": "Permet als usuaris amb aquesta funció gestionar els paràmetres del lloc",
         "manage_roles": "Allow users with this role to edit other roles",
-        "shared_list": "Include users with this role in the dropdown for sharing rooms",
+        "shared_list": "Inclou els usuaris amb aquesta funció al menú desplegable per compartir sales",
         "room_limit": "Límit d'habitació",
         "email_on_signup": "Receive an email when a new user signs up",
         "allowed_recording_visibility": "Visibilitats d'enregistrament permeses"
