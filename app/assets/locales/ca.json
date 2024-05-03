@@ -327,7 +327,7 @@
         "allow_room_to_be_recorded_description": "Permet als propietaris de la sala especificar si volen l'opció d'enregistrar una sala o no. Si està activat, el moderador encara haurà de prémer el botó 'Enregistrar' una vegada hagi començat la reunió.",
         "require_user_signed_in": "Requereix que els usuaris estiguin registrats abans de unir-se",
         "require_user_signed_in_description": "Només permet als usuaris amb un compte de Greenlight unir-se a la reunió. Si no estan registrats, seran redirigits a la pàgina d'inici de sessió quan intentin unir-se a una sala.",
-        "require_mod_approval": "Requerir l'aprovació del moderador abans de unir-se",
+        "require_mod_approval": "Requereix l'aprovació del moderador abans de unir-se",
         "require_mod_approval_description": "Sol·licita al moderador de la reunió de BigBlueButton quan un usuari intenta unir-se. Si l'usuari és aprovat, podrà unir-se a la reunió.",
         "allow_any_user_to_start_meeting": "Permetre a qualsevol usuari començar una reunió",
         "allow_any_user_to_start_meeting_description": "Permet a qualsevol usuari començar la reunió en qualsevol moment. Per defecte, només el propietari de la sala pot començar la reunió.",
