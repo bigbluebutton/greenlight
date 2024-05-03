@@ -438,7 +438,7 @@
       "file_size_too_large": "La mida del fitxer és massa gran.",
       "file_upload_error": "El fitxer no es pot pujar.",
       "signin_required": "Has d'estar registrat per accedir a aquesta pàgina.",
-      "malware_detected": "S'ha detectat Malware! El fitxer que has pujat podria contenir malware. Si us plau, revisa el teu fitxer i intenta-ho de nou.",
+      "malware_detected": "S'ha detectat programari maliciós! El fitxer que has pujat podria contenir programari maliciós. Si us plau, revisa el teu fitxer i intenta-ho de nou.",
       "roles": {
         "role_assigned": "Aquest rol no es pot suprimit perquè està assignat a almenys un usuari."
       },
