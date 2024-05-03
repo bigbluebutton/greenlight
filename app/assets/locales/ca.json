@@ -362,7 +362,7 @@
         "manage_rooms": "Allow users with this role to manage server rooms",
         "manage_recordings": "Permet als usuaris amb aquesta funció gestionar els enregistraments del servidor",
         "manage_site_settings": "Permet als usuaris amb aquesta funció gestionar els paràmetres del lloc",
-        "manage_roles": "Allow users with this role to edit other roles",
+        "manage_roles": "Permet als usuaris amb aquest rol editar altres funcions",
         "shared_list": "Inclou els usuaris amb aquesta funció al menú desplegable per compartir sales",
         "room_limit": "Límit d'habitació",
         "email_on_signup": "Rebre un correu electrònic quan es registra un usuari nou",
