@@ -494,7 +494,7 @@
         "upper": "- Una lletra majúscula",
         "digit": "- Un dígit",
         "symbol": "- Un símbol",
-        "max": "La contrasenya ha de tenir com a màxim 255 caràcters de longitud"
+        "max": "La contrasenya ha de tenir com a màxim 255 caràcters"
       },
       "password_confirmation": {
         "required": "Si us plau, introdueix una confirmació de la contrasenya",
