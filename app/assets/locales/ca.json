@@ -670,7 +670,7 @@
             "placeholder": "Introdueix la contrasenya de l'usuari"
           },
           "password_confirmation": {
-            "label": "Confirmar Contrasenya",
+            "label": "Confirma Contrasenya",
             "placeholder": "Confirma la contrasenya"
           }
         }
