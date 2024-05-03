@@ -64,7 +64,7 @@ ca:
       you_have_been_invited: "Has estat convidat a crear un compte en BigBlueButton per %{name}."
       get_started: "Per inscriure't, si us plau fes clic al botó de sota i segueix els passos."
       valid_invitation: La invitació és vàlida durant 24 hores.
-      sign_up: Registra't
+      sign_up: Registre
     new_user_signup:
       new_user: Nova Alta d'Usuari en BigBlueButton
       new_user_description: Un nou usuari s'ha registrat per utilitzar BigBlueButton.
