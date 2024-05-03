@@ -132,7 +132,7 @@
       "click_to_upload": "Fes clic per pujar",
       "drag_and_drop": " o arrossega i deixa anar",
       "upload_description": "Pujar qualsevol document d'oficina o fitxer PDF (no més gran de {{size}}). Depenent de la mida del fitxer, pot requerir temps addicional per pujar abans que pugui ser utilitzat",
-      "delete_presentation": "Eliminar Presentació",
+      "delete_presentation": "Suprimeix Presentació",
       "are_you_sure_delete_presentation": "Estàs segur que vols eliminar aquesta presentació?"
     },
     "shared_access": {
