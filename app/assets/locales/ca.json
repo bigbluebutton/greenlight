@@ -81,7 +81,7 @@
     },
     "account": {
       "account_info": "Informació del compte",
-      "delete_account": "Eliminar compte",
+      "delete_account": "Suprimeix compte",
       "change_password": "Canviar contrasenya",
       "set_password": "Estableix la teva nova contrasenya",
       "reset_password": "Restablir contrasenya",
