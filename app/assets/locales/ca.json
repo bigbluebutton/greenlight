@@ -245,7 +245,7 @@
       "current_session": "Sessió actual: {{lastSession}}",
       "last_session": "Última sessió: {{localizedTime}}",
       "no_meeting_yet": "Encara no hi ha reunions.",
-      "delete_server_rooms": "Eliminar Sala del Servidor",
+      "delete_server_rooms": "Suprimeix Sala del Servidor",
       "resync_recordings": "Re-sincronitzar Enregistraments",
       "empty_room_list": "Encara no hi ha sales del servidor!",
       "empty_room_list_subtext": "Les sales apareixeran aquí després de crear la teva primera sala."
@@ -347,7 +347,7 @@
       "administrator": "Administrador",
       "guest": "Convidat",
       "manage_roles": "Gestionar Rols",
-      "delete_role": "Eliminar Rol",
+      "delete_role": "Suprimeix Rol",
       "are_you_sure_delete_role": "Estàs segur que vols eliminar aquest rol?",
       "enter_role_name": "Introdueix un nom de rol",
       "add_role": "+ Crear Rol",
