@@ -194,9 +194,9 @@
   "admin": {
     "admin_panel": "Panell d'Administrador",
     "manage_users": {
-      "manage_users": "Gestionar Usuaris",
+      "manage_users": "Gestiona Usuaris",
       "active": "Actiu",
-      "approve": "Aprovar",
+      "approve": "Aprova",
       "decline": "Rebutjar",
       "pending": "Pendent",
       "banned": "Prohibit",
