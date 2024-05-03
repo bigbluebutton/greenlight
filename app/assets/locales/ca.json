@@ -120,7 +120,7 @@
     "rooms_list_is_empty": "Encara no tens cap sala!",
     "rooms_list_empty_create_room": "Crea la teva primera sala fent clic al botó de sota i introduint un nom de sala.",
     "meeting": {
-      "start_meeting": "Iniciar Reunió",
+      "start_meeting": "Inicia Reunió",
       "join_meeting": "Unir-se a la Reunió",
       "meeting_invitation": "Has estat convidat a unir-te",
       "meeting_not_started": "La reunió encara no ha començat",
