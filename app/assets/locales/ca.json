@@ -197,7 +197,7 @@
       "manage_users": "Gestiona Usuaris",
       "active": "Actiu",
       "approve": "Aprova",
-      "decline": "Rebutja",
+      "decline": "Declina",
       "pending": "Pendent",
       "banned": "Vetat",
       "ban": "Veta",
@@ -312,7 +312,7 @@
         "registration_methods" : {
           "open": "Registre Obert",
           "invite": "Unir-se per Invitació",
-          "approval": "Aprova/Rebutja"
+          "approval": "Aprova/Declina"
         }
       }
     },
