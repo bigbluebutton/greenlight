@@ -47,7 +47,7 @@
     "enter_meeting_url_instruction": "Si us plau, introdueix l'URL de la teva reunió de BigBlueButton al camp de sota."
   },
   "authentication": {
-    "sign_in": "Iniciar sessió",
+    "sign_in": "Inicia la sessió",
     "sign_up": "Registrar-se",
     "sign_out": "Tancar sessió",
     "email": "Correu electrònic",
