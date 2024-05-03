@@ -163,7 +163,7 @@
       "wrong_access_code": "Codi d'Accés Incorrecte",
       "generate_viewers_access_code": "Generar codi d'accés per a espectadors",
       "generate_mods_access_code": "Generar codi d'accés per a moderadors",
-      "are_you_sure_delete_room": "Estàs segur que vols eliminar aquesta sala?"
+      "are_you_sure_delete_room": "Estàs segur que vols suprimir aquesta sala?"
     }
   },
   "recording": {
@@ -187,7 +187,7 @@
     "public_recordings_list_empty": "Encara no hi ha enregistraments públics!",
     "recordings_list_empty_description": "Els enregistraments apareixeran aquí després que comencis una reunió i la registres.",
     "public_recordings_list_empty_description": "Els enregistraments apareixeran aquí quan estiguin disponibles.",
-    "delete_recording": "Eliminar Enregistrament",
+    "delete_recording": "Suprimeix Enregistrament",
     "are_you_sure_delete_recording": "Estàs segur que vols eliminar aquest enregistrament?",
     "search_not_found": "No s'han trobat Enregistraments"
   },
