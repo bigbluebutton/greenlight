@@ -312,7 +312,7 @@
         "registration_methods" : {
           "open": "Registre Obert",
           "invite": "Unir-se per Invitació",
-          "approval": "Aprovar/Rebutjar"
+          "approval": "Aprova/Rebutja"
         }
       }
     },
@@ -320,7 +320,7 @@
       "room_configuration": "Configuració de la Sala",
       "default": "Opcional (per defecte: activat)",
       "optional": "Opcional (per defecte: desactivat)",
-      "enabled": "Forçar Activat",
+      "enabled": "Força Activat",
       "disabled": "Desactivat",
       "configurations": {
         "allow_room_to_be_recorded": "Permetre que la sala sigui enregistrada",
