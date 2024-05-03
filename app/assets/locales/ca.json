@@ -375,7 +375,7 @@
       "user": {
         "user_created": "S'ha creat un nou usuari.",
         "user_updated": "L'usuari s'ha actualitzat.",
-        "user_deleted": "L'usuari s'ha eliminat.",
+        "user_deleted": "L'usuari s'ha suprimit.",
         "avatar_updated": "L'avatar s'ha actualitzat.",
         "password_changed": "S'ha actualitzat la contrasenya amb èxit. Si us plau, inicia sessió de nou.",
         "password_updated": "La contrasenya s'ha actualitzat.",
