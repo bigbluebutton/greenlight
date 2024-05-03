@@ -356,7 +356,7 @@
       "no_role_found": "No s'ha trobat cap rol.",
       "search_not_found": "No s'han Trobat Rols",
       "edit": {
-        "create_room": "Allow users with this role to create rooms",
+        "create_room": "Permet als usuaris amb aquest rol crear sales",
         "record": "Allow users with this role to record their meetings",
         "manage_users": "Allow users with this role to manage users",
         "manage_rooms": "Permet als usuaris amb aquest rol gestionar sales de servidors",
