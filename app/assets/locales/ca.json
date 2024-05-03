@@ -418,7 +418,7 @@
       },
       "recording": {
         "recording_visibility_updated": "La visibilitat dels enregistraments s'ha actualitzat.",
-        "recording_name_updated": "El nom de la gravació s'ha actualitzat.",
+        "recording_name_updated": "El nom dels enregistrament s'ha actualitzat.",
         "recording_deleted": "La gravació s'ha suprimit.",
         "copied_urls": "Les URL de la gravació s'han copiat."
       },
