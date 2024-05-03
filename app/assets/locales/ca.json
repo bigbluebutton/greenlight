@@ -308,7 +308,7 @@
         "default_role": "Rol per Defecte",
         "default_role_description": "El rol per defecte que s'assignarà als usuaris de nova creació",
         "registration_method": "Mètode de Registre",
-        "registration_method_description": "Canviar la manera en què els usuaris es registren al lloc web",
+        "registration_method_description": "Canvia la manera en què els usuaris es registren al lloc web",
         "registration_methods" : {
           "open": "Registre Obert",
           "invite": "Unir-se per Invitació",
