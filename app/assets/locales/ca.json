@@ -91,7 +91,7 @@
       "confirm_password": "Confirmar contrasenya",
       "permanently_delete_account": "Eliminar permanentment el teu compte",
       "delete_account_description": "Si decideixes suprimir el teu compte, NO es podrà recuperar. \n Tota la informació relacionada amb el teu compte, incloent configuracions, sales i enregistraments serà eliminada.",
-      "delete_account_confirmation": "Sí, vull eliminar el meu compte",
+      "delete_account_confirmation": "Sí, vull suprimir el meu compte",
       "are_you_sure_delete_account": "Estàs segur que vols eliminar el teu compte?"
     },
     "avatar": {
