@@ -217,7 +217,7 @@
       "create_room": "Crear Sala",
       "create_new_room": "Crear Nova Sala",
       "user_created_at": "Creat: {{localizedTime}}",
-      "are_you_sure_delete_account": "Estàs segur que vols esborrar el compte de {{user.name}}?",
+      "are_you_sure_delete_account": "Estàs segur que vols suprimir el compte de {{user.name}}?",
       "delete_account_warning": "Si decideixes esborrar aquest compte, NO podrà ser recuperat.",
       "empty_active_users": "Encara no hi ha usuaris actius en aquest servidor!",
       "empty_active_users_subtext": "Quan l'estat d'un usuari canviï a actiu, apareixerà aquí.",
