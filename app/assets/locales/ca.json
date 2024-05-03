@@ -286,7 +286,7 @@
         "enter_link": "Introduir enllaç aquí"
       },
       "settings": {
-        "settings": "Configuració",
+        "settings": "Paràmetres",
         "allow_users_to_share_rooms": "Permetre als Usuaris Compartir Sales",
         "allow_users_to_share_rooms_description": "Desactivar aquesta opció eliminarà el botó de les opcions de sala del desplegable, prevenint que els usuaris puguin compartir sales",
         "allow_users_to_preupload_presentation": "Permetre als Usuaris Pujar Presentacions Prèviament",
