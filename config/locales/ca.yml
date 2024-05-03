@@ -70,8 +70,8 @@ ca:
       new_user_description: Un nou usuari s'ha registrat per utilitzar BigBlueButton.
       name: "Nom: %{name}"
       email: "Correu electrònic: %{email}"
-      admin_panel: "Panel d'Administrador"
-      take_action: "Per veure el nou usuari o per prendre les accions necessàries, visita el Panel d'Administrador"
+      admin_panel: "Tauler d'Administrador"
+      take_action: "Per veure el nou usuari o per prendre les accions necessàries, visita el Tauler d'Administrador"
     reset:
       password_reset: Restableix la Contrasenya
       password_reset_requested: "S'ha sol·licitat un restabliment de contrasenya per %{email}."
