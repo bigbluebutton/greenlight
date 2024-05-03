@@ -137,8 +137,8 @@
     },
     "shared_access": {
       "access": "Accés",
-      "add_share_access": "+ Compartir Accés",
-      "share_room_access": "Compartir Accés a la Sala",
+      "add_share_access": "+ Comparteix Accés",
+      "share_room_access": "Comparteix Accés a la Sala",
       "add_some_users": "Hora d'afegir alguns usuaris!",
       "add_some_users_description": "Per afegir nous usuaris, fes clic al botó de sota i busca o selecciona els usuaris amb els quals vols compartir aquesta sala.",
       "delete_shared_access": "Suprimeix Accés Compartit",
