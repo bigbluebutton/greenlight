@@ -366,7 +366,7 @@
         "shared_list": "Include users with this role in the dropdown for sharing rooms",
         "room_limit": "Room Limit",
         "email_on_signup": "Receive an email when a new user signs up",
-        "allowed_recording_visibility": "Allowed recording visibilities"
+        "allowed_recording_visibility": "Visibilitats d'enregistrament permeses"
       }
     }
   },
