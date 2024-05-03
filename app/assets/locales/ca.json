@@ -359,7 +359,7 @@
         "create_room": "Allow users with this role to create rooms",
         "record": "Allow users with this role to record their meetings",
         "manage_users": "Allow users with this role to manage users",
-        "manage_rooms": "Allow users with this role to manage server rooms",
+        "manage_rooms": "Permet als usuaris amb aquest rol gestionar sales de servidors",
         "manage_recordings": "Permet als usuaris amb aquest rol gestionar els enregistraments del servidor",
         "manage_site_settings": "Permet als usuaris amb aquest rol gestionar els paràmetres del lloc",
         "manage_roles": "Permet als usuaris amb aquest rol editar altres funcions",
