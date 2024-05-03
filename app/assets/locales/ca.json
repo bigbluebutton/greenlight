@@ -95,9 +95,9 @@
       "are_you_sure_delete_account": "Estàs segur que vols suprimir el teu compte?"
     },
     "avatar": {
-      "upload_avatar": "Pujar Avatar",
+      "upload_avatar": "Puja Avatar",
       "delete_avatar": "Suprimeix Avatar",
-      "crop_avatar": "Retallar el teu Avatar"
+      "crop_avatar": "Retalla el teu Avatar"
     },
     "pending": {
       "title": "Registre Pendent",
