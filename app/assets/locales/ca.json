@@ -283,7 +283,7 @@
         "change_url": "Canvia URL",
         "set_text": "Estableix Text",
         "clear_banner": "Neteja Anunci",
-        "enter_link": "Introduir enllaç aquí"
+        "enter_link": "Introdueix enllaç aquí"
       },
       "settings": {
         "settings": "Paràmetres",
@@ -302,7 +302,7 @@
         "registration": "Registre",
         "role_mapping_by_email": "Assignació de Rols per Correu Electrònic",
         "role_mapping_by_email_description": "Assigna l'usuari a un rol utilitzant el seu correu electrònic. Ha d'estar en el format: rol1=correu1, rol2=correu2",
-        "enter_role_mapping_rule": "Introduir una regla d'assignació de rols",
+        "enter_role_mapping_rule": "Introdueix una regla d'assignació de rols",
         "resync_on_login": "Resincronitza Dades de l'Usuari a Cada Inici de Sessió",
         "resync_on_login_description": "Resincronitza la informació d'un usuari cada vegada que inicien sessió, fent que el proveïdor d'autenticació extern sempre coincideixi amb la informació a Greenlight",
         "default_role": "Rol per Defecte",
