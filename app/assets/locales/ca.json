@@ -26,7 +26,7 @@
   "return_home": "Tornar a l'inici",
   "created_at": "Creat el",
   "view_recordings": "Veure enregistraments",
-  "join_session": "Unir-se a la sessió",
+  "join_session": "Entra a la sessió",
   "no_result_search_input": "No s'han trobat resultats per a \"{{ searchInput }}\"",
   "action_permanent": "Aquesta acció no es pot desfer.",
   "homepage": {
