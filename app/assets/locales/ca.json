@@ -444,7 +444,7 @@
       },
       "users": {
         "signup_error": "No pots ser autenticat. Si us plau, contacta amb el teu administrador.",
-        "invalid_invite": "El teu token d'invitació és invàlid o incorrecte. Si us plau, contacta amb el teu administrador per rebre un nou token.",
+        "invalid_invite": "El teu testimoni d'invitació és invàlid o incorrecte. Si us plau, contacta amb el teu administrador per rebre un nou testimoni.",
         "email_exists": "Ja existeix un compte amb aquest correu electrònic. Si us plau, intenta-ho de nou amb un altre correu electrònic.",
         "old_password": "La contrasenya que has introduït és incorrecta.",
         "pending": "La teva inscripció està pendent de l'aprovació de l'administrador. Si us plau, intenta-ho més tard.",
