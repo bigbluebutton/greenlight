@@ -279,8 +279,8 @@
         "helpcenter": "Centre d'Ajuda",
         "change_helpcenter_link": "Canviar l'enllaç del centre d'ajuda que apareix sota el desplegable del perfil",
         "maintenance": "Anunci de Manteniment",
-        "change_maintenance_text": "Canviar el text del banner de manteniment que apareix a la capçalera",
-        "change_url": "Canviar URL",
+        "change_maintenance_text": "Canviar el text de l'anunci de manteniment que apareix a la capçalera",
+        "change_url": "Canvia URL",
         "set_text": "Establir Text",
         "clear_banner": "Netejar Banner",
         "enter_link": "Introduir enllaç aquí"
