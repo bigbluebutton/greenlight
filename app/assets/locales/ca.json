@@ -96,7 +96,7 @@
     },
     "avatar": {
       "upload_avatar": "Pujar Avatar",
-      "delete_avatar": "Eliminar Avatar",
+      "delete_avatar": "Suprimeix Avatar",
       "crop_avatar": "Retallar el teu Avatar"
     },
     "pending": {
@@ -110,7 +110,7 @@
     "room_name": "Nom de la Sala",
     "add_new_room": "+ Nova Sala",
     "create_room": "Crear Sala",
-    "delete_room": "Eliminar Sala",
+    "delete_room": "Suprimeix Sala",
     "create_new_room": "Crear Nova Sala",
     "enter_room_name": "Introdueix el nom de la sala",
     "shared_by": "compartit per",
