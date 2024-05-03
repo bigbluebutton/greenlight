@@ -425,7 +425,7 @@
       "role": {
         "role_created": "S'ha creat un nou rol.",
         "role_updated": "El rol s'ha actualitzat.",
-        "role_deleted": "El rol s'ha eliminat.",
+        "role_deleted": "El rol s'ha suprimit.",
         "role_permission_updated": "El permís del rol s'ha actualitzat."
       },
       "invitations": {
@@ -440,7 +440,7 @@
       "signin_required": "Has d'estar registrat per accedir a aquesta pàgina.",
       "malware_detected": "S'ha detectat Malware! El fitxer que has pujat podria contenir malware. Si us plau, revisa el teu fitxer i intenta-ho de nou.",
       "roles": {
-        "role_assigned": "Aquest rol no es pot eliminar perquè està assignat a almenys un usuari."
+        "role_assigned": "Aquest rol no es pot suprimit perquè està assignat a almenys un usuari."
       },
       "users": {
         "signup_error": "No pots ser autenticat. Si us plau, contacta amb el teu administrador.",
