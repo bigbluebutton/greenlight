@@ -477,7 +477,7 @@
     "validations": {
       "full_name": {
         "required": "Si us plau, introdueix un nom complet",
-        "min": "El nom ha de tenir almenys 2 caràcters de longitud",
+        "min": "El nom ha de tenir almenys 2 caràcters",
         "max": "El nom ha de tenir com a màxim 255 caràcters"
       },
       "email": {
