@@ -149,7 +149,7 @@
       "room_name": "Nom de la sala",
       "user_settings": "Paràmetres d'Usuari",
       "allow_room_to_be_recorded": "Permetre que la sala sigui enregistrada",
-      "require_signed_in": "Requerir que els usuaris iniciïn sessió abans d'unir-se",
+      "require_signed_in": "Requereix que els usuaris iniciïn sessió abans d'unir-se",
       "require_signed_in_message": "Has d'estar registrat per unir-te a aquesta sala.",
       "require_mod_approval": "Requerir aprovació del moderador abans d'unir-se",
       "allow_any_user_to_start": "Permetre a qualsevol usuari començar aquesta reunió",
