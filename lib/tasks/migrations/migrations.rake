@@ -160,10 +160,13 @@ namespace :migrations do
                          room_settings: room_settings,
                          shared_users_emails: shared_users_emails } }
       if r.presentation.attached?
-        params[:room][:presentation] = { blob: Base64.encode64(r.presentation.blob.download),
-                                         filename: r.presentation.blob.filename.to_s }
+         begin
+             params[:room][:presentation] = { blob: Base64.encode64(r.presentation.blob.download),
+                                               filename: r.presentation.blob.filename.to_s }
+         rescue Errno::ENOENT
+             p "Failed to locate '#{r.presentation.blob.filename.to_s}' in active storage, skipping."
+         end
       end
-
       response = Net::HTTP.post(uri('rooms'), payload(params), COMMON[:headers])
 
       case response
