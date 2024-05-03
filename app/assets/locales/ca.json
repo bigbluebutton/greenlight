@@ -49,7 +49,7 @@
   "authentication": {
     "sign_in": "Inicia la sessió",
     "sign_up": "Registre",
-    "sign_out": "Tancar sessió",
+    "sign_out": "Tanca la sessió",
     "email": "Correu electrònic",
     "password": "Contrasenya",
     "confirm_password": "Confirmar contrasenya",
