@@ -358,7 +358,7 @@
       "edit": {
         "create_room": "Permet als usuaris amb aquest rol crear sales",
         "record": "Permet que els usuaris amb aquest rol enregistrin les seves reunions",
-        "manage_users": "Allow users with this role to manage users",
+        "manage_users": "Permet als usuaris amb aquest rol gestionar usuaris",
         "manage_rooms": "Permet als usuaris amb aquest rol gestionar sales de servidors",
         "manage_recordings": "Permet als usuaris amb aquest rol gestionar els enregistraments del servidor",
         "manage_site_settings": "Permet als usuaris amb aquest rol gestionar els paràmetres del lloc",
