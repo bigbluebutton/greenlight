@@ -410,7 +410,7 @@
         "site_setting_updated": "L'ajust del lloc s'ha actualitzat.",
         "brand_color_updated": "El color de la marca s'ha actualitzat.",
         "brand_image_updated": "La imatge de la marca s'ha actualitzat.",
-        "brand_image_deleted": "La imatge de la marca s'ha eliminat.",
+        "brand_image_deleted": "La imatge de la marca s'ha suprimit.",
         "privacy_policy_updated": "La política de privacitat s'ha actualitzat.",
         "helpcenter_updated": "L'enllaç del centre d'ajuda s'ha actualitzat.",
         "terms_of_service_updated": "Els termes del servei s'han actualitzat.",
@@ -419,7 +419,7 @@
       "recording": {
         "recording_visibility_updated": "La visibilitat de la gravació s'ha actualitzat.",
         "recording_name_updated": "El nom de la gravació s'ha actualitzat.",
-        "recording_deleted": "La gravació s'ha eliminat.",
+        "recording_deleted": "La gravació s'ha suprimit.",
         "copied_urls": "Les URL de la gravació s'han copiat."
       },
       "role": {
