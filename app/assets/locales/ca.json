@@ -392,7 +392,7 @@
         "room_deleted": "La sala s'ha suprimit.",
         "room_shared": "La sala s'ha compartit.",
         "room_unshared": "La sala ha deixat de compartir-se.",
-        "recordings_synced": "Les gravacions de la sala s'han sincronitzat.",
+        "recordings_synced": "Els enregistraments de la sala s'han sincronitzat.",
         "room_configuration_updated": "La configuració de la sala s'ha actualitzat.",
         "room_setting_updated": "L'ajust de la sala s'ha actualitzat.",
         "presentation_updated": "La presentació s'ha actualitzat.",
@@ -417,7 +417,7 @@
         "maintenance_updated": "La pancarta de manteniment s'ha actualitzat."
       },
       "recording": {
-        "recording_visibility_updated": "La visibilitat de la gravació s'ha actualitzat.",
+        "recording_visibility_updated": "La visibilitat dels enregistraments s'ha actualitzat.",
         "recording_name_updated": "El nom de la gravació s'ha actualitzat.",
         "recording_deleted": "La gravació s'ha suprimit.",
         "copied_urls": "Les URL de la gravació s'han copiat."
