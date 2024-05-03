@@ -471,7 +471,7 @@
     "account_unverified": "El teu compte encara no ha estat verificat.",
     "message": "Per utilitzar Greenlight, si us plau verifica el teu compte seguint les instruccions del correu electrònic d'activació que t'hem enviat.",
     "resend_activation_link": "Si no has rebut un correu electrònic d'activació o si tens algun problema utilitzant-lo, fes clic al botó de sota per sol·licitar un nou correu electrònic d'activació.",
-    "resend_btn_lbl": "Reenviar Verificació"
+    "resend_btn_lbl": "Reenvia Verificació"
   },
   "forms": {
     "validations": {
