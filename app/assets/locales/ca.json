@@ -142,7 +142,7 @@
       "add_some_users": "Hora d'afegir alguns usuaris!",
       "add_some_users_description": "Per afegir nous usuaris, fes clic al botó de sota i busca o selecciona els usuaris amb els quals vols compartir aquesta sala.",
       "delete_shared_access": "Suprimeix Accés Compartit",
-      "are_you_sure_delete_shared_access": "Estàs segur que vols eliminar aquest Accés Compartit?"
+      "are_you_sure_delete_shared_access": "Estàs segur que vols suprimir aquest Accés Compartit?"
     },
     "settings": {
       "settings": "Configuració",
