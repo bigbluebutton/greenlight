@@ -420,7 +420,7 @@
         "recording_visibility_updated": "La visibilitat dels enregistraments s'ha actualitzat.",
         "recording_name_updated": "El nom dels enregistrament s'ha actualitzat.",
         "recording_deleted": "L'enregistrament s'ha suprimit.",
-        "copied_urls": "Les URL de l'enregistrament s'han copiat."
+        "copied_urls": "Les URL de l'enregistrament s'ha copiat."
       },
       "role": {
         "role_created": "S'ha creat un nou rol.",
