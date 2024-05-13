@@ -30,9 +30,8 @@ export default function ShareRoomForm({ room }) {
   const { isLoading, data: envData } = useEnv();
   const currentUser = useAuth();
 
-  function roomJoinUrl(){
-    console.log(room);
-    return `https://${window.location.hostname}/rooms/${friendly_id}/join`;
+  function roomJoinUrl() {
+    return `${window.location}/${room.friendly_id}/join`;
   }
 
   function copyInvite() {
