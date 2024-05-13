@@ -112,12 +112,6 @@ export default function ShareRoomForm({ room }) {
   );
 }
 
-ShareRoomForm.defaultProps = {
-  room: PropTypes.shape({
-    last_session: '',
-  }),
-};
-
 ShareRoomForm.propTypes = {
   room: PropTypes.shape({
     id: PropTypes.string.isRequired,
