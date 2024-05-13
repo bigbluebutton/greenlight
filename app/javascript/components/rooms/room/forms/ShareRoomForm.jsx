@@ -22,16 +22,17 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { downloadICS } from '../../../../helpers/ICSDownloadHelper';
+import useEnv from '../../../../hooks/queries/env/useEnv';
 
 
-
-export default function ShareRoomForm({ room, friendly_id }) {
+export default function ShareRoomForm({ room }) {
   const { t } = useTranslation();
+  const { isLoading, data: envData } = useEnv();
   const currentUser = useAuth();
 
   function roomJoinUrl(){
     console.log(room);
-    return `https://${window.location.hostname}/rooms/${friendly_id}/join`; 
+    return `https://${window.location.hostname}/rooms/${friendly_id}/join`;
   }
 
   function copyInvite() {
@@ -44,8 +45,8 @@ export default function ShareRoomForm({ room, friendly_id }) {
     toast.success(t('toast.success.room.copied_voice_bridge'));
   }
 
-  function downloadICSFile(){
-    downloadICS(currentUser.name, room.name, roomJoinUrl(), room.voice_bridge, room.voice_bridge_phone_number, t);
+  function downloadICSFile() {
+    downloadICS(currentUser.name, room.name, roomJoinUrl(), room.voice_bridge, room.voice_bridge_phone_number, t, envData.ICS_USE_HTML);
     toast.success(t('toast.success.room.download_ics'));
   }
 
@@ -101,6 +102,7 @@ export default function ShareRoomForm({ room, friendly_id }) {
           />
           <Button
             variant="brand-outline"
+            disabled={isLoading}
             onClick={() => downloadICSFile()}
           >
             <CalendarIcon className="hi-s mt-0 text-muted" />
@@ -111,14 +113,13 @@ export default function ShareRoomForm({ room, friendly_id }) {
   );
 }
 
-ShareRoomForm.defaulProps = {
+ShareRoomForm.defaultProps = {
   room: PropTypes.shape({
     last_session: '',
   }),
 };
 
 ShareRoomForm.propTypes = {
-  friendly_id: PropTypes.string.isRequired,
   room: PropTypes.shape({
     id: PropTypes.string.isRequired,
     friendly_id: PropTypes.string.isRequired,

@@ -18,18 +18,16 @@ import { createEvent } from "ics";
 import { saveAs } from "file-saver";
 
 
-const use_html = false;
-
-const createICSContent = (name, room_name, url, voice_bridge, voice_bridge_phone_number, t) => {
+const createICSContent = (name, room_name, url, voice_bridge, voice_bridge_phone_number, t, use_html) => {
   if (use_html) {
-    return createICSWithHtml(name, room_name, url,voice_bridge,voice_bridge_phone_number, t);
+    return createICSWithHtml(name, room_name, url, voice_bridge, voice_bridge_phone_number, t);
   } else {
     return createICSWithoutHTML(name, room_name, url, voice_bridge, voice_bridge_phone_number, t);
   }
 }
 
 const createICSWithoutHTML = (name, room_name, url, voice_bridge, voice_bridge_phone_number, t) => {
-  let description = `\n\n${t('room.meeting.invite_to_meeting', {name})}\n\n${t('room.meeting.join_by_url')}:\n${url}\n`;
+  let description = `\n\n${t('room.meeting.invite_to_meeting', { name })}\n\n${t('room.meeting.join_by_url')}:\n${url}\n`;
 
   if (typeof voice_bridge !== 'undefined' && typeof voice_bridge_phone_number !== 'undefined') {
     description += `\n${t('room.meeting.join_by_phone')}: ${voice_bridge_phone_number},,${voice_bridge}\nPIN: ${voice_bridge}`;
@@ -46,7 +44,7 @@ const createICSWithoutHTML = (name, room_name, url, voice_bridge, voice_bridge_p
   };
 }
 
-const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phone_number,t) => {
+const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phone_number, t) => {
   let phone_data = "";
 
   if (typeof voice_bridge !== 'undefined' && typeof voice_bridge_phone_number !== 'undefined') {
@@ -54,7 +52,8 @@ const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phon
         <p style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">${voice_bridge_phone_number},,${voice_bridge}</p>`;
   }
 
-  const HTML = `<head>
+  const HTML = `
+  <head>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="x-apple-disable-message-reformatting">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -102,7 +101,7 @@ const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phon
                         </tr>
                       </tbody>
                     </table>
-                    <h5 style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 20px; line-height: 24px; margin: 0;" align="left">${t('room.meeting.invite_to_meeting', {name})}</h5>
+                    <h5 style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 20px; line-height: 24px; margin: 0;" align="left">${t('room.meeting.invite_to_meeting', { name })}</h5>
                     <br>
                     <table class="btn btn-primary" role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-radius: 6px; border-collapse: separate !important;">
                       <tbody>
@@ -140,9 +139,11 @@ const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phon
   };
 }
 
-export const downloadICS = (name, room, url, voice_bridge, voice_bridge_phone_number, t) => {
-  createEvent(createICSContent(name, room, url, voice_bridge, voice_bridge_phone_number, t), (error, value) => {
-    console.log(error);
+export const downloadICS = (name, room, url, voice_bridge, voice_bridge_phone_number, t, use_html) => {
+  createEvent(createICSContent(name, room, url, voice_bridge, voice_bridge_phone_number, t, use_html), (error, value) => {
+    if (error !== undefined){
+      throw new Error('Error creating ICS: ' + error);
+    }
     const blob = new Blob([value], { type: "text/plain;charset=utf-8" });
     saveAs(blob, `bbb-meeting-${room.replace(/[/\\?%*:|"<>]/g, '')}.ics`);
   });
