@@ -79,5 +79,9 @@ en:
       reset_password: Reset Password
       link_expires: The link will expire in 1 hour.
       ignore_request: If you did not make a request to change your password, please ignore this email.
+    role_change_notification:
+      role_change: "Your user-role has been changed"
+      role_change_description: "Your BigBlueButton-user has been assigned to the role \"%{new_role}\""
+      site: "log in to BigBlueButton"
   room:
     new_room_name: "%{username}'s Room"
