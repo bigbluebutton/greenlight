@@ -100,6 +100,8 @@ module Api
       # Updates the values of a user
       def update
         user = User.find(params[:id])
+        role_edit = params[:user][:role_id] != user.role_id
+		    smtp_enabled = ENV['SMTP_SERVER'].present?
 
         # User can't change their own role
         if params[:user][:role_id].present? && current_user == user && params[:user][:role_id] != user.role_id
@@ -115,6 +117,12 @@ module Api
         if user.update(update_user_params)
           create_default_room(user)
           render_data  status: :ok
+
+          #  user-mail-notification when role is changed
+		      if role_edit && smtp_enabled
+		        UserMailer.with(user: user, role: Role.find(params[:user][:role_id])[:name], base_url: request.base_url, provider: current_provider).role_change_notification_email.deliver_later
+          end
+
         else
           render_error errors: user.errors.to_a
         end
