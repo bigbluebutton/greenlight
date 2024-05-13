@@ -79,5 +79,9 @@ de:
       reset_password: Passwort zurücksetzen
       link_expires: Der Link wird in 1 Stunde ungültig.
       ignore_request: "Wenn du dein Passwort nicht ändern wolltest, dann ignoriere bitte diese E-Mail."
+    role_change_notification:
+      role_change: "Ihre Benutzer-Rolle wurde geändert"
+      role_change_description: "Ihr BigBlueButton-Konto hat die Rolle \"%{new_role}\" erhalten"
+      site: "In BigBlueButton einloggen"
   room:
     new_room_name: "Raum von %{username}"
