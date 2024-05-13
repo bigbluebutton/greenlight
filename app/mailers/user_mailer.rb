@@ -56,6 +56,14 @@ class UserMailer < ApplicationMailer
     mail(to: emails, subject: t('email.new_user_signup.new_user'))
   end
 
+  def role_change_notification_email
+    
+    @user = params[:user]
+    @new_role = params[:role]
+  
+      mail(to: email_address_with_name(@user.email, @user.name), subject: t('email.role_change_notification.role_change'))
+  end
+
   private
 
   def preset
