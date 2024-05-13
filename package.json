@@ -14,7 +14,7 @@
     "bootstrap-icons": "^1.8.3",
     "esbuild": "^0.19.9",
     "esbuild-plugin-import-glob": "^0.1.1",
-    "esbuild-sass-plugin": "^2.2.6",
+    "esbuild-sass-plugin": "^3.0.0",
     "i18next": "^21.9.1",
     "i18next-http-backend": "^1.4.1",
     "lodash.debounce": "^4.0.8",
