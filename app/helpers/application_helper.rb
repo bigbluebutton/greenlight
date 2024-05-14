@@ -24,9 +24,9 @@ module ApplicationHelper
 
   def page_title
     match = request&.url&.match('\/rooms\/(\w{3}-\w{3}-\w{3}-\w{3})')
-    return 'BigBlueButton' if match.blank?
+    return "Whiteboard | TutorBees.net" if match.blank?
 
     room_name = Room.find_by(friendly_id: match[1])&.name
-    room_name || 'BigBlueButton'
+    room_name || "Whiteboard | TutorBees.net"
   end
 end

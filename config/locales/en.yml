@@ -47,7 +47,9 @@
 
 en:
   opengraph:
-    description: Learn using TutorBees Whiteboard, the trusted open-source web conferencing solution that enables seamless virtual collaboration and online learning experiences.
+    description:
+      Learn using TutorBees.net's Whiteboard, an online learning experience offered by
+      the best online tutoring portal for students and professionals.
   meeting:
     moderator_message: "To invite someone to the meeting, send them this link:"
     access_code: "Access Code: %{code}"
