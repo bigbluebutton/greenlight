@@ -1,6 +1,6 @@
-// BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+// TutorBees Whiteboard open source conferencing system - http://www.TutorBees Whiteboard.org/.
 //
-// Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+// Copyright (c) 2022 TutorBees Whiteboard Inc. and by respective authors (see below).
 //
 // This program is free software; you can redistribute it and/or modify it under the
 // terms of the GNU Lesser General Public License as published by the Free Software
@@ -14,16 +14,16 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import { useQuery } from 'react-query';
-import axios from '../../../helpers/Axios';
+import { useQuery } from "react-query";
+import axios from "../../../helpers/Axios";
 
 export default function useLocales() {
   return useQuery(
-    'getLocales',
-    () => axios.get('/locales.json').then((resp) => resp.data.data),
+    "getLocales",
+    () => axios.get("/locales.json").then((resp) => resp.data.data),
     {
       cacheTime: 21600000, // 6 hours
       staleTime: 10800000, // 3 hours
-    },
+    }
   );
 }
