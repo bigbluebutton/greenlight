@@ -14,45 +14,46 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React, { useEffect } from 'react';
-import { Container } from 'react-bootstrap';
-import { Outlet, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { ToastContainer, toast } from 'react-toastify';
-import Header from './components/shared_components/Header';
-import { useAuth } from './contexts/auth/AuthProvider';
-import Footer from './components/shared_components/Footer';
-import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
-import Title from './components/shared_components/utilities/Title';
+import React, { useEffect } from "react";
+import { Container } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
+import { Outlet, useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import Footer from "./components/shared_components/Footer";
+import Header from "./components/shared_components/Header";
+import Title from "./components/shared_components/utilities/Title";
+import { useAuth } from "./contexts/auth/AuthProvider";
+import useSiteSetting from "./hooks/queries/site_settings/useSiteSetting";
 
 export default function App() {
   const currentUser = useAuth();
   const location = useLocation();
 
   // check for the maintenance banner
-  const maintenanceBanner = useSiteSetting(['Maintenance']);
+  const maintenanceBanner = useSiteSetting(["Maintenance"]);
 
   // useEffect hook for running notify maintenance banner on page load
   useEffect(() => {
     if (maintenanceBanner.data) {
       const toastId = toast.info(maintenanceBanner.data, {
-        position: 'top-center',
+        position: "top-center",
         autoClose: false,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: 'light',
-        className: 'text-center',
+        theme: "light",
+        className: "text-center",
       });
-      localStorage.setItem('maintenanceBannerId', toastId);
+      localStorage.setItem("maintenanceBannerId", toastId);
     }
   }, [maintenanceBanner.data]);
 
   // Pages that do not need a header: SignIn, SignUp and JoinMeeting (if the user is not signed in)
-  const homePage = location.pathname === '/';
-  const pageHeight = (homePage || currentUser.signed_in) ? 'regular-height' : 'no-header-height';
+  const homePage = location.pathname === "/";
+  const pageHeight =
+    homePage || currentUser.signed_in ? "regular-height" : "no-header-height";
 
   // i18n
   const { i18n } = useTranslation();
@@ -61,26 +62,34 @@ export default function App() {
   }, [currentUser?.language]);
 
   // Greenlight V3 brand-color theming
-  const { isLoading, data: brandColors } = useSiteSetting(['PrimaryColor', 'PrimaryColorLight']);
+  const { isLoading, data: brandColors } = useSiteSetting([
+    "PrimaryColor",
+    "PrimaryColorLight",
+  ]);
 
   if (isLoading) return null;
 
-  document.documentElement.style.setProperty('--brand-color', brandColors.PrimaryColor);
-  document.documentElement.style.setProperty('--brand-color-light', brandColors.PrimaryColorLight);
-  document.documentElement.style.setProperty('--toastify-color-success', brandColors.PrimaryColor);
+  document.documentElement.style.setProperty(
+    "--brand-color",
+    brandColors.PrimaryColor
+  );
+  document.documentElement.style.setProperty(
+    "--brand-color-light",
+    brandColors.PrimaryColorLight
+  );
+  document.documentElement.style.setProperty(
+    "--toastify-color-success",
+    brandColors.PrimaryColor
+  );
 
   return (
     <>
-      <Title>BigBlueButton</Title>
-      {(homePage || currentUser.signed_in) && <Header /> }
+      <Title>Whiteboard | TutorBees.net</Title>
+      {(homePage || currentUser.signed_in) && <Header />}
       <Container className={pageHeight}>
         <Outlet />
       </Container>
-      <ToastContainer
-        position="bottom-right"
-        newestOnTop
-        autoClose={3000}
-      />
+      <ToastContainer position="bottom-right" newestOnTop autoClose={3000} />
       <Footer />
     </>
   );
