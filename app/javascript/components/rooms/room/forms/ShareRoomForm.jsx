@@ -31,7 +31,9 @@ export default function ShareRoomForm({ room }) {
   const currentUser = useAuth();
 
   function roomJoinUrl() {
-    return `${window.location}/${room.friendly_id}/join`;
+    if (room.friendly_id !== undefined)
+      return `${window.location}/${room.friendly_id}/join`;
+    return `${window.location}/join`;
   }
 
   function copyInvite() {
