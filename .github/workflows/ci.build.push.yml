@@ -4,13 +4,8 @@ env:
 name: CI Build Push
 on:
   push:
-    branches-ignore:
-      - v1
-      - v2
-      - v3
-      - translations*
-      - snyk*
-      - dependabot*
+    branches:
+      - master
 
 jobs:
   main:
