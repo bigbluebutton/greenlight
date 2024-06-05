@@ -21,7 +21,7 @@ import { useAuth } from '../contexts/auth/AuthProvider';
 export default function UnauthenticatedOnly() {
   const currentUser = useAuth();
 
-  if (currentUser.signed_in) {
+  if (currentUser.signed_in && !currentUser.stateChanging) {
     return <Navigate to="/" replace />;
   }
 
