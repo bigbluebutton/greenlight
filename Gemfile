@@ -32,7 +32,7 @@ gem 'pg'
 gem 'puma', '~> 5.6'
 gem 'rails', '~> 7.1.3'
 gem 'redis', '~> 4.0'
-gem 'sprockets-rails'
+gem 'sprockets-rails', '>= 3.5.0'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
