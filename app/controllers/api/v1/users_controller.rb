@@ -166,8 +166,11 @@ module Api
       end
 
       def update_user_params
-        external_auth? ? @update_user_params ||= params.require(:user).permit(:password, :avatar, :language, :role_id, :invite_token)
-                                        : params.require(:user).permit(:name, :password, :avatar, :language, :role_id, :invite_token)
+        @update_user_params ||= if external_auth?
+                                  params.require(:user).permit(:password, :avatar, :language, :role_id, :invite_token)
+                                else
+                                  params.require(:user).permit(:name, :password, :avatar, :language, :role_id, :invite_token)
+                                end
       end
 
       def change_password_params
