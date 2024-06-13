@@ -101,14 +101,19 @@ class Room < ApplicationRecord
     retry
   end
 
-  # Create unique pin for voice brige max 10^5 - 10000 unique ids
+  # Create unique pin for voice brige max 10^x - x*0.1 unique ids (x = len of pin)
+  # No leading Zeros
   def set_voice_brige
     return if Rails.application.config.voice_bridge_phone_number.nil?
 
-    return if Room.all.where.not(voice_bridge: nil).length > 89_999
+    pin_len = Rails.application.config.sip_pin_length
 
-    id = SecureRandom.random_number(10.pow(5) - 1)
-    id += (1 % 89_999) + 10_000 while Room.exists?(voice_bridge: id) || id < 10_000
+    max_pins = 10.pow(pin_len) - 10.pow(pin_len - 1) - 1
+
+    return if Room.all.where.not(voice_bridge: nil).length > max_pins # Check if a pins are left
+
+    id = SecureRandom.random_number(10.pow(pin_len) - 1) # Pick random pin
+    id = ((id + 1) % max_pin) + 10.pow(pin_len - 1) while Room.exists?(voice_bridge: id) || id < 10.pow(pin_len - 1) # Take next free pin
 
     self.voice_bridge = id
   end
