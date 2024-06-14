@@ -19,13 +19,13 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Square2StackIcon, CalendarIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
-import { Form, InputGroup, Button } from 'react-bootstrap';
+import { Form, InputGroup, Button, Row, Col } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { downloadICS } from '../../../../helpers/ICSDownloadHelper';
 import useEnv from '../../../../hooks/queries/env/useEnv';
 
 
-export default function ShareRoomForm({ room }) {
+export default function ShareRoomForm({ room, roomSettings }) {
   const { t } = useTranslation();
   const { isLoading, data: envData } = useEnv();
   const currentUser = useAuth();
@@ -36,9 +36,17 @@ export default function ShareRoomForm({ room }) {
     return `${window.location}/join`;
   }
 
-  function copyInvite() {
-    navigator.clipboard.writeText(roomJoinUrl());
-    toast.success(t('toast.success.room.copied_meeting_url'));
+  function copyInvite(role) {
+    if (role === 'viewer') {
+      navigator.clipboard.writeText(roomSettings?.data?.glViewerAccessCode);
+      toast.success(t('toast.success.room.copied_viewer_code'));
+    } else if (role === 'moderator') {
+      navigator.clipboard.writeText(roomSettings?.data?.glModeratorAccessCode);
+      toast.success(t('toast.success.room.copied_moderator_code'));
+    } else {
+      navigator.clipboard.writeText(roomJoinUrl());
+      toast.success(t('toast.success.room.copied_meeting_url'));
+    }
   }
 
   function copyPhoneNumber() {
@@ -110,6 +118,48 @@ export default function ShareRoomForm({ room }) {
           </Button>
         </InputGroup>
       </Form.Group>
+
+      {(roomSettings?.data?.glModeratorAccessCode || roomSettings?.data?.glViewerAccessCode) && <Row className='mb-3'>
+        {(roomSettings?.data?.glModeratorAccessCode) && <Form.Group as={Col}>
+          <Form.Label>{t('copy_moderator_code')}</Form.Label>
+          <InputGroup>
+            <Form.Control
+              placeholder={roomSettings?.data?.glModeratorAccessCode}
+              defaultValue={roomSettings?.data?.glModeratorAccessCode}
+              aria-label="Moderator code"
+              aria-describedby="basic-addon2"
+              readOnly
+            />
+            <Button
+              variant="brand-outline"
+              disabled={isLoading}
+              onClick={() => copyInvite('moderator')}
+            >
+              <Square2StackIcon className="hi-s mt-0 text-muted" />
+            </Button>
+          </InputGroup>
+        </Form.Group>}
+
+        {(roomSettings?.data?.glViewerAccessCode) && <Form.Group as={Col}>
+          <Form.Label>{t('copy_viewer_code')}</Form.Label>
+          <InputGroup>
+            <Form.Control
+              placeholder={roomSettings?.data?.glViewerAccessCode}
+              defaultValue={roomSettings?.data?.glViewerAccessCode}
+              aria-label="Viewer Code"
+              aria-describedby="basic-addon2"
+              readOnly
+            />
+            <Button
+              variant="brand-outline"
+              disabled={isLoading}
+              onClick={() => copyInvite('viewer')}
+            >
+              <Square2StackIcon className="hi-s mt-0 text-muted" />
+            </Button>
+          </InputGroup>
+        </Form.Group>}
+      </Row>}
     </Form>
   );
 }

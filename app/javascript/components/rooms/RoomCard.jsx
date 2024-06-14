@@ -28,6 +28,8 @@ import MeetingBadges from './MeetingBadges';
 import UserBoardIcon from './UserBoardIcon';
 import Modal from '../shared_components/modals/Modal';
 import ShareRoomForm from './room/forms/ShareRoomForm';
+import useRoomSettings from '../../hooks/queries/rooms/useRoomSettings';
+
 
 export default function RoomCard({ room }) {
   const { t } = useTranslation();
@@ -36,6 +38,8 @@ export default function RoomCard({ room }) {
   const startMeeting = useStartMeeting(room.friendly_id);
   const currentUser = useAuth();
   const localizedTime = localizeDateTimeString(room?.last_session, currentUser?.language);
+  const roomSettings = useRoomSettings(room.friendly_id);
+
 
   return (
     <Card id="room-card" className="h-100 card-shadow border-0">
@@ -51,9 +55,9 @@ export default function RoomCard({ room }) {
         </Stack>
 
         <Stack className="my-4">
-          <Card.Title className="mb-0"> { room.name } </Card.Title>
-          { room.shared_owner && (
-            <span className="text-muted">{ t('room.shared_by') } {' '} <strong>{ room.shared_owner }</strong></span>
+          <Card.Title className="mb-0"> {room.name} </Card.Title>
+          {room.shared_owner && (
+            <span className="text-muted">{t('room.shared_by')} {' '} <strong>{room.shared_owner}</strong></span>
           )}
           {room.last_session ? (
             <span className="text-muted"> {t('room.last_session', { localizedTime })} </span>
@@ -73,7 +77,7 @@ export default function RoomCard({ room }) {
             </Button>
           )}
           title={t('room.meeting.share_meeting')}
-          body={<ShareRoomForm room={room} friendly_id={room.friendly_id} />}
+          body={<ShareRoomForm room={room} friendly_id={room.friendly_id} roomSettings={roomSettings} />}
         />
 
         <Button variant="brand-outline" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
@@ -88,12 +92,6 @@ export default function RoomCard({ room }) {
     </Card>
   );
 }
-
-RoomCard.defaulProps = {
-  room: PropTypes.shape({
-    last_session: '',
-  }),
-};
 
 RoomCard.propTypes = {
   room: PropTypes.shape({
