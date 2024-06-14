@@ -107,7 +107,6 @@ class Room < ApplicationRecord
     return if Rails.application.config.voice_bridge_phone_number.nil?
 
     pin_len = Rails.application.config.sip_pin_length
-
     max_pins = 10.pow(pin_len) - 10.pow(pin_len - 1) - 1
 
     return if Room.all.where.not(voice_bridge: nil).length > max_pins # Check if a pins are left
