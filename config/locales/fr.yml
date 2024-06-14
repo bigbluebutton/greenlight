@@ -47,18 +47,18 @@
 
 fr:
   opengraph:
-    description: "Apprenez à utiliser BigBlueButton, la solution de webconférence open-source, fiable et qui offre une  expérience adaptée aux collaborations comme aux apprentissages en ligne."
+    description: "Apprenez à utiliser BigBlueButton, la solution de webconférence open-source, fiable et qui offre une expérience adaptée aux collaborations comme aux apprentissages en ligne."
   meeting:
     moderator_message: "Pour inviter quelqu'un à la réunion, envoyez ce lien:"
     access_code: "Code d'accès: %{code}"
   email:
     activation:
       account_activation: Activation du compte
-      welcome_to_bbb: Bienvenue dans BigBlueButton
-      get_started: "Pour commencer, veuillez activer votre compte en cliquant sur le bouton ci-dessous."
+      welcome_to_bbb: Bienvenue dans BigBlueButton!
+      get_started: "Pour commencer, veuillez activer votre compte en cliquant sur le lien ci-dessous."
       activate_account: Activer le compte
       link_expires: Le lien expirera dans 24 heures.
-      if_link_expires: "Si le lien a expiré, veuillez vous connecter et demander un nouveau courriel pour l'activation."
+      if_link_expires: "Si le lien a expiré, veuillez vous connecter et demander un nouveau courriel d'activation"
     invitation:
       invitation_to_join: Invitation à rejoindre BigBlueButton
       you_have_been_invited: "Vous avez été invité à créer un compte dans BigBlueButton par %{name}."
@@ -78,6 +78,6 @@ fr:
       password_reset_confirmation: "Pour réinitialiser votre mot de passe, veuillez cliquer sur le bouton ci-dessous."
       reset_password: Réinitialisation du mot de passe
       link_expires: Le lien expirera dans 1 heure.
-      ignore_request: "Si vous n'avez pas demandé un changement de mot de passe, veuillez ignorer ce courriel."
+      ignore_request: "Si vous n'avez pas demandé à changer de mot de passe, ignorez ce message."
   room:
     new_room_name: "Salle de %{username}"
