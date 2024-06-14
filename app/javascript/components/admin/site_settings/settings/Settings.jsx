@@ -16,12 +16,19 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Dropdown } from 'react-bootstrap';
 import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSiteSettings';
 import SettingsRow from '../SettingsRow';
+import SettingSelect from './SettingSelect';
+import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
+import useEnv from '../../../../hooks/queries/env/useEnv';
 
 export default function Settings() {
   const { t } = useTranslation();
-  const { data: siteSettings, isLoading } = useSiteSettings(['ShareRooms', 'PreuploadPresentation']);
+  const { data: siteSettings, isLoading } = useSiteSettings(['ShareRooms', 'PreuploadPresentation', 'DefaultRecordingVisibility', 'SessionTimeout']);
+  const updateDefaultRecordingVisibility = useUpdateSiteSetting('DefaultRecordingVisibility');
+  const updateSessionTimeout = useUpdateSiteSetting('SessionTimeout');
+  const { data: env } = useEnv();
 
   if (isLoading) return null;
 
@@ -47,6 +54,47 @@ export default function Settings() {
       )}
         value={siteSettings?.PreuploadPresentation}
       />
+      { env?.EXTERNAL_AUTH
+        && (
+        <SettingSelect
+          defaultValue={siteSettings?.SessionTimeout}
+          title={t('admin.site_settings.settings.session_timeout')}
+          description={t('admin.site_settings.settings.session_timeout_description')}
+        >
+          <Dropdown.Item key="default" value="1" onClick={() => updateSessionTimeout.mutate({ value: '1' })}>
+            {t('admin.site_settings.settings.default_session_timeout')}
+          </Dropdown.Item>
+          <Dropdown.Item key="extended" value="7" onClick={() => updateSessionTimeout.mutate({ value: '7' })}>
+            {t('admin.site_settings.settings.extended_session_timeout')}
+          </Dropdown.Item>
+        </SettingSelect>
+        )}
+
+      <SettingSelect
+        defaultValue={siteSettings?.DefaultRecordingVisibility}
+        title={t('admin.site_settings.settings.default_visibility')}
+        description={t('admin.site_settings.settings.default_visibility_description')}
+      >
+        <Dropdown.Item
+          key="Public/Protected"
+          value="Public/Protected"
+          onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Public/Protected' })}
+        >
+          {t('recording.public_protected')}
+        </Dropdown.Item>
+        <Dropdown.Item key="Public" value="Public" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Public' })}>
+          {t('recording.public')}
+        </Dropdown.Item>
+        <Dropdown.Item key="Protected" value="Protected" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Protected' })}>
+          {t('recording.protected')}
+        </Dropdown.Item>
+        <Dropdown.Item key="Published" value="Published" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Published' })}>
+          {t('recording.published')}
+        </Dropdown.Item>
+        <Dropdown.Item key="Unpublished" value="Unpublished" onClick={() => updateDefaultRecordingVisibility.mutate({ value: 'Unpublished' })}>
+          {t('recording.unpublished')}
+        </Dropdown.Item>
+      </SettingSelect>
     </>
   );
 }

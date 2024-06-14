@@ -125,19 +125,27 @@ module Api
             return render_error(status: :bad_request, errors: 'Provider does not exist')
           end
 
-          return render_data status: :created if Room.exists? friendly_id: room_hash[:friendly_id]
-
           user = User.find_by(email: room_hash[:owner_email], provider: room_hash[:provider])
 
           return render_error(status: :bad_request, errors: 'The room owner does not exist.') unless user
 
-          room = Room.new(room_hash.except(:owner_email, :provider, :room_settings, :shared_users_emails).merge({ user: }))
+          room = if Room.exists?(friendly_id: room_hash[:friendly_id])
+                   Room.find_by(friendly_id: room_hash[:friendly_id])
+                 else
+                   Room.new(room_hash.except(:owner_email, :provider, :room_settings, :shared_users_emails, :presentation).merge({ user: }))
+                 end
 
           # Redefines the validations method to do nothing
           # rubocop:disable Lint/EmptyBlock
           room.define_singleton_method(:set_friendly_id) {}
           room.define_singleton_method(:set_meeting_id) {}
           # rubocop:enable Lint/EmptyBlock
+
+          if room_hash[:presentation]
+            attachment_blob_io = StringIO.new(Base64.decode64(room_hash[:presentation][:blob]))
+            attachment = ActiveStorage::Blob.create_and_upload!(io: attachment_blob_io, filename: room_hash[:presentation][:filename])
+            room.presentation.attach(attachment)
+          end
 
           return render_error(status: :bad_request, errors: room&.errors&.to_a) unless room.save
 
@@ -146,13 +154,8 @@ module Api
             room_meeting_options_joined = RoomMeetingOption.includes(:meeting_option)
                                                            .where(room_id: room.id, 'meeting_options.name': room_hash[:room_settings].keys)
 
-            okay = true
-            room_meeting_options_joined.each do |room_meeting_option|
-              option_name = room_meeting_option.meeting_option.name
-              okay = false unless room_meeting_option.update(value: room_hash[:room_settings][option_name])
-            end
-
-            return render_error status: :bad_request, errors: 'Something went wrong when migrating the room settings.' unless okay
+            return render_error status: :bad_request, errors: 'Something went wrong when migrating the room settings.' unless
+              room_meeting_options_joined.collect { |o| o.update(value: room_hash[:room_settings][o.meeting_option.name]) }.all?
           end
 
           return render_data status: :created unless room_hash[:shared_users_emails].any?
@@ -160,12 +163,8 @@ module Api
           # Finds all the users that have a SharedAccess to the Room
           shared_with_users = User.where(email: room_hash[:shared_users_emails], provider: room_hash[:provider])
 
-          okay = true
-          shared_with_users.each do |shared_with_user|
-            okay = false unless SharedAccess.new(room_id: room.id, user_id: shared_with_user.id).save
-          end
-
-          return render_error status: :bad_request, errors: 'Something went wrong when sharing the room.' unless okay
+          return render_error status: :bad_request, errors: 'Something went wrong when sharing the room.' unless
+            shared_with_users.collect { |u| SharedAccess.new(room_id: room.id, user_id: u.id).save }.all?
 
           render_data status: :created
         end
@@ -231,7 +230,8 @@ module Api
           decrypted_params.require(:room).permit(:name, :friendly_id, :meeting_id, :last_session, :owner_email, :provider,
                                                  shared_users_emails: [],
                                                  room_settings: %w[record muteOnStart guestPolicy glAnyoneCanStart glAnyoneJoinAsModerator
-                                                                   glViewerAccessCode glModeratorAccessCode])
+                                                                   glViewerAccessCode glModeratorAccessCode],
+                                                 presentation: %w[blob filename])
         end
 
         def settings_params

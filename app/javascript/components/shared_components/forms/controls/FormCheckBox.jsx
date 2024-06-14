@@ -20,13 +20,14 @@ import { Form as BootstrapForm } from 'react-bootstrap';
 import FormControlGeneric from '../FormControlGeneric';
 
 export default function FormCheckBox({
-  field,
+  id, field,
 }) {
   return (
     <FormControlGeneric
       control={BootstrapForm.Check}
       field={field}
       label={field.label}
+      id={id}
       type="checkbox"
     />
   );
@@ -34,6 +35,7 @@ export default function FormCheckBox({
 
 FormCheckBox.propTypes = {
   // TODO: Amir - refactor propTypes to reduce duplication.
+  id: PropTypes.string.isRequired,
   field: PropTypes.shape(
     {
       label: PropTypes.string,

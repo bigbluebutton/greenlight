@@ -40,7 +40,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:session_expiry) }
     it { is_expected.to validate_presence_of(:language) }
 
-    it { is_expected.to validate_length_of(:name).is_at_least(2).is_at_most(255) }
+    it { is_expected.to validate_length_of(:name).is_at_least(1).is_at_most(255) }
     it { is_expected.to validate_length_of(:email).is_at_least(5).is_at_most(255) }
 
     context 'password complexity' do
@@ -350,6 +350,40 @@ RSpec.describe User, type: :model do
       expect(user).to be_invalid
       expect(user.provider).not_to eq(user.role.provider)
       expect(user.errors[:user_provider]).not_to be_empty
+    end
+  end
+
+  describe '#scan_avatar_for_virus' do
+    let(:user) { create(:user) }
+
+    before do
+      allow_any_instance_of(described_class).to receive(:virus_scan?).and_return(true)
+    end
+
+    it 'makes a call to ClamAV if CLAMAV_SCANNING=true' do
+      expect(Clamby).to receive(:safe?)
+
+      user.avatar.attach(fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+    end
+
+    it 'adds an error if the file is not safe' do
+      allow(Clamby).to receive(:safe?).and_return(false)
+      user.avatar.attach(fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
+      expect(user.errors[:avatar]).to eq(['MalwareDetected'])
+    end
+
+    it 'does not makes a call to ClamAV if the image is not changing' do
+      expect(Clamby).not_to receive(:safe?)
+
+      user.update(name: 'New Name')
+    end
+
+    it 'does not makes a call to ClamAV if CLAMAV_SCANNING=false' do
+      allow_any_instance_of(described_class).to receive(:virus_scan?).and_return(false)
+
+      expect(Clamby).not_to receive(:safe?)
+
+      user.avatar.attach(fixture_file_upload(file_fixture('default-avatar.png'), 'image/png'))
     end
   end
 end

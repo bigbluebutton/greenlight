@@ -18,16 +18,26 @@ import React from 'react';
 import { Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import LinksForm from './LinksForm';
+import TextForm from './TextForm';
 import useUpdateSiteSetting from '../../../../hooks/mutations/admin/site_settings/useUpdateSiteSetting';
 import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSiteSettings';
 
 export default function Administration() {
   const { t } = useTranslation();
-  const { data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy']);
+  const { data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy', 'HelpCenter', 'Maintenance']);
 
   return (
     <>
-      <Row className="mb-4">
+      <Row>
+        <h6> { t('admin.site_settings.administration.maintenance') } </h6>
+        <p className="text-muted"> { t('admin.site_settings.administration.change_maintenance_text') } </p>
+        <TextForm
+          id="maintenanceForm"
+          mutation={() => useUpdateSiteSetting('Maintenance')}
+          value={siteSettings?.Maintenance}
+        />
+      </Row>
+      <Row>
         <h6> { t('admin.site_settings.administration.terms') } </h6>
         <p className="text-muted"> { t('admin.site_settings.administration.change_term_links') } </p>
         <LinksForm
@@ -43,6 +53,15 @@ export default function Administration() {
           id="privacyForm"
           mutation={() => useUpdateSiteSetting('PrivacyPolicy')}
           value={siteSettings?.PrivacyPolicy}
+        />
+      </Row>
+      <Row>
+        <h6> { t('admin.site_settings.administration.helpcenter') } </h6>
+        <p className="text-muted"> { t('admin.site_settings.administration.change_helpcenter_link') } </p>
+        <LinksForm
+          id="helpForm"
+          mutation={() => useUpdateSiteSetting('HelpCenter')}
+          value={siteSettings?.HelpCenter}
         />
       </Row>
     </>

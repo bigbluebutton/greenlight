@@ -35,6 +35,7 @@ export default function RoomsList() {
   const [searchInput, setSearchInput] = useState('');
   const { isLoading, data: rooms } = useRooms(searchInput);
   const currentUser = useAuth();
+  const canCreate = currentUser?.permissions.CreateRoom;
   const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
 
   if (!isLoading && rooms?.length === 0 && !searchInput) {
@@ -47,17 +48,19 @@ export default function RoomsList() {
         <div>
           <SearchBar searchInput={searchInput} id="rooms-search" setSearchInput={setSearchInput} />
         </div>
-        <Modal
-          modalButton={(
-            <Button
-              variant="brand"
-              className="ms-auto me-xxl-1"
-            >{t('room.add_new_room')}
-            </Button>
-          )}
-          title={t('room.create_new_room')}
-          body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
-        />
+        { (canCreate === 'true') && (
+          <Modal
+            modalButton={(
+              <Button
+                variant="brand"
+                className="ms-auto me-xxl-1"
+              >{t('room.add_new_room')}
+              </Button>
+            )}
+            title={t('room.create_new_room')}
+            body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
+          />
+        )}
       </Stack>
       <Row className="g-4 mt-4">
         {

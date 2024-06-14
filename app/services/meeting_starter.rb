@@ -16,6 +16,8 @@
 
 # frozen_string_literal: true
 
+require 'uri'
+
 class MeetingStarter
   include Rails.application.routes.url_helpers
 
@@ -57,15 +59,17 @@ class MeetingStarter
 
   def computed_options(access_code:)
     room_url = "#{root_url(host: @base_url)}rooms/#{@room.friendly_id}/join"
-    moderator_message = "#{I18n.t('meeting.moderator_message')}<br>#{room_url}"
-    moderator_message += "<br>#{I18n.t('meeting.access_code', code: access_code)}" if access_code.present?
+    moderator_message = "#{I18n.t('meeting.moderator_message', locale: @current_user&.language&.to_sym)}<br>#{room_url}"
+    moderator_message += "<br>#{I18n.t('meeting.access_code', code: access_code, locale: @current_user&.language&.to_sym)}" if access_code.present?
     {
       moderatorOnlyMessage: moderator_message,
+      loginURL: room_url,
       logoutURL: room_url,
       meta_endCallbackUrl: meeting_ended_url(host: @base_url),
       'meta_bbb-recording-ready-url': recording_ready_url(host: @base_url),
       'meta_bbb-origin-version': ENV.fetch('VERSION_TAG', 'v3'),
-      'meta_bbb-origin': 'greenlight'
+      'meta_bbb-origin': 'greenlight',
+      'meta_bbb-origin-server-name': URI(@base_url).host
     }
   end
 

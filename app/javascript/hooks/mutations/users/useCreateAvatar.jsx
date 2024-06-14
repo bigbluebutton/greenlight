@@ -23,13 +23,14 @@ export default function useCreateAvatar(currentUser) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  async function createAvatar(avatar) {
+  async function createAvatar({ original, resized }) {
     // TODO - samuel: how to validate if toBlob() will transform any file into a png by default
     const avatarBlob = await new Promise((resolve) => {
-      avatar.toBlob(resolve);
+      resized.toBlob(resolve);
     });
     const formData = new FormData();
     formData.append('user[avatar]', avatarBlob);
+    formData.append('user[original_avatar]', original);
     return axios.patch(`/users/${currentUser.id}.json`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -45,8 +46,12 @@ export default function useCreateAvatar(currentUser) {
         queryClient.invalidateQueries('getUser');
         toast.success(t('toast.success.user.avatar_updated'));
       },
-      onError: () => {
-        toast.error(t('toast.error.problem_completing_action'));
+      onError: (error) => {
+        if (error.response.data.errors.includes('Avatar MalwareDetected')) {
+          toast.error(t('toast.error.malware_detected'));
+        } else {
+          toast.error(t('toast.error.problem_completing_action'));
+        }
       },
     },
   );

@@ -88,5 +88,8 @@ module Greenlight
 
     config.voice_bridge_phone_number = ENV.fetch('VOICE_BRIDGE_PHONE_NUMBER', nil)
     config.sip_pin_length = ENV.fetch('SIP_PIN_LENGTH', 5)
+    
+    config.i18n.fallbacks = %i[en]
+    config.i18n.enforce_available_locales = false
   end
 end

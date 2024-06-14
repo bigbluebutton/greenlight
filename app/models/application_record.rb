@@ -19,4 +19,8 @@
 class ApplicationRecord < ActiveRecord::Base
   primary_abstract_class
   self.implicit_order_column = 'created_at'
+
+  def virus_scan?
+    ENV.fetch('CLAMAV_SCANNING', 'false') == 'true'
+  end
 end

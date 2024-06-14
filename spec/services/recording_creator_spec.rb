@@ -230,11 +230,28 @@ describe RecordingCreator, type: :service do
         end
       end
 
-      describe 'Unkown cases' do
+      describe 'Unknown cases' do
         let(:bbb_recording) { unkown_visibility_recording }
 
         it 'sets a BBB with unkown recording visibility to "Unpublished"' do
           described_class.new(recording: bbb_recording).call
+
+          expect(room.recordings.first.visibility).to eq(Recording::VISIBILITIES[:unpublished])
+        end
+      end
+
+      describe 'DefaultRecordingVisibility' do
+        let(:bbb_recording) { public_recording }
+
+        before do
+          allow_any_instance_of(BigBlueButtonApi).to receive(:update_recording_visibility)
+          create(:site_setting, setting: create(:setting, name: 'DefaultRecordingVisibility'), value: 'Unpublished')
+        end
+
+        it 'sets a BBB public recording visibility to the DefaultRecordingVisibility' do
+          expect_any_instance_of(BigBlueButtonApi).to receive(:update_recording_visibility)
+
+          described_class.new(recording: bbb_recording, first_creation: true).call
 
           expect(room.recordings.first.visibility).to eq(Recording::VISIBILITIES[:unpublished])
         end
