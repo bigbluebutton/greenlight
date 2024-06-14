@@ -18,7 +18,7 @@
     "file-saver": "^2.0.5",
     "i18next": "^21.9.1",
     "i18next-http-backend": "^1.4.1",
-    "ics": "^3.1.0",
+    "ics": "^3.7.6",
     "lodash.debounce": "^4.0.8",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
