@@ -16,7 +16,7 @@
 
 import React from 'react';
 import {
-  Stack, Button, Col, Row, Dropdown,
+  Stack, Button, Col, Row,
 } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { HomeIcon, ShareIcon } from '@heroicons/react/24/outline';

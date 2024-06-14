@@ -176,4 +176,11 @@ ShareRoomForm.propTypes = {
     online: PropTypes.bool,
     participants: PropTypes.number,
   }).isRequired,
+
+  roomSettings: PropTypes.shape({
+    data: PropTypes.shape({
+      glModeratorAccessCode: PropTypes.string,
+      glViewerAccessCode: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
 };
