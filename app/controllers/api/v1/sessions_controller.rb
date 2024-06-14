@@ -20,6 +20,7 @@ module Api
   module V1
     class SessionsController < ApiController
       skip_before_action :ensure_authenticated, only: %i[index create]
+      before_action :ensure_unauthenticated, only: :create
 
       # GET /api/v1/sessions
       # Returns the current_user
@@ -36,13 +37,20 @@ module Api
         return render_error if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
 
         # Search for a user within the current provider and, if not found, search for a super admin within bn provider
-        user = User.find_by(email: session_params[:email], provider: current_provider) || User.find_by(email: session_params[:email], provider: 'bn')
+        user = User.find_by(email: session_params[:email].downcase, provider: current_provider) ||
+               User.find_by(email: session_params[:email].downcase, provider: 'bn')
 
         # Return an error if the user is not found
         return render_error if user.blank?
 
         # Will return an error if the user is NOT from the current provider and if the user is NOT a super admin
-        return render_error if user.provider != current_provider && !user.super_admin?
+        return render_error status: :forbidden if !user.super_admin? && (user.provider != current_provider || external_auth?)
+
+        # Password is not set (local user migrated from v2)
+        if user.external_id.blank? && user.password_digest.blank?
+          token = user.generate_reset_token!
+          return render_error data: token, errors: 'PasswordNotSet'
+        end
 
         # TODO: Add proper error logging for non-verified token hcaptcha
         if user.authenticate(session_params[:password])

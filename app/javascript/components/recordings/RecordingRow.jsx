@@ -35,7 +35,7 @@ import SimpleSelect from '../shared_components/utilities/SimpleSelect';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
-  recording, visibilityMutation: useVisibilityAPI, deleteMutation: useDeleteAPI, adminTable,
+  recording, visibilityMutation: useVisibilityAPI, deleteMutation: useDeleteAPI, adminTable, dropUp,
 }) {
   const { t } = useTranslation();
 
@@ -47,6 +47,7 @@ export default function RecordingRow({
   const currentUser = useAuth();
   const redirectRecordingUrl = useRedirectRecordingUrl();
   const copyRecordingUrl = useCopyRecordingUrl();
+  const allowedVisibilities = JSON.parse(currentUser.permissions?.AccessToVisibilities);
 
   const localizedTime = localizeDateTimeString(recording?.recorded_at, currentUser?.language);
   const formats = recording.formats.sort(
@@ -104,42 +105,57 @@ export default function RecordingRow({
       <td className="border-0">
         <SimpleSelect
           defaultValue={recording.visibility}
+          dropUp={dropUp}
         >
-          <Dropdown.Item
-            key="Public/Protected"
-            value="Public/Protected"
-            onClick={() => visibilityAPI.mutate({ visibility: 'Public/Protected', id: recording.record_id })}
-          >
-            {t('recording.public_protected')}
-          </Dropdown.Item>
-          <Dropdown.Item
-            key="Public"
-            value="Public"
-            onClick={() => visibilityAPI.mutate({ visibility: 'Public', id: recording.record_id })}
-          >
-            {t('recording.public')}
-          </Dropdown.Item>
-          <Dropdown.Item
-            key="Protected"
-            value="Protected"
-            onClick={() => visibilityAPI.mutate({ visibility: 'Protected', id: recording.record_id })}
-          >
-            {t('recording.protected')}
-          </Dropdown.Item>
-          <Dropdown.Item
-            key="Published"
-            value="Published"
-            onClick={() => visibilityAPI.mutate({ visibility: 'Published', id: recording.record_id })}
-          >
-            {t('recording.published')}
-          </Dropdown.Item>
-          <Dropdown.Item
-            key="Unpublished"
-            value="Unpublished"
-            onClick={() => visibilityAPI.mutate({ visibility: 'Unpublished', id: recording.record_id })}
-          >
-            {t('recording.unpublished')}
-          </Dropdown.Item>
+          { (allowedVisibilities.includes('Public/Protected') || recording.visibility === 'Public/Protected') && (
+            <Dropdown.Item
+              key="Public/Protected"
+              value="Public/Protected"
+              onClick={() => visibilityAPI.mutate({ visibility: 'Public/Protected', id: recording.record_id })}
+            >
+              {t('recording.public_protected')}
+            </Dropdown.Item>
+          )}
+
+          { (allowedVisibilities.includes('Public') || recording.visibility === 'Public') && (
+            <Dropdown.Item
+              key="Public"
+              value="Public"
+              onClick={() => visibilityAPI.mutate({ visibility: 'Public', id: recording.record_id })}
+            >
+              {t('recording.public')}
+            </Dropdown.Item>
+          )}
+
+          { (allowedVisibilities.includes('Protected') || recording.visibility === 'Protected') && (
+            <Dropdown.Item
+              key="Protected"
+              value="Protected"
+              onClick={() => visibilityAPI.mutate({ visibility: 'Protected', id: recording.record_id })}
+            >
+              {t('recording.protected')}
+            </Dropdown.Item>
+          )}
+
+          { (allowedVisibilities.includes('Published') || recording.visibility === 'Published') && (
+            <Dropdown.Item
+              key="Published"
+              value="Published"
+              onClick={() => visibilityAPI.mutate({ visibility: 'Published', id: recording.record_id })}
+            >
+              {t('recording.published')}
+            </Dropdown.Item>
+          )}
+
+          { (allowedVisibilities.includes('Unpublished') || recording.visibility === 'Unpublished') && (
+            <Dropdown.Item
+              key="Unpublished"
+              value="Unpublished"
+              onClick={() => visibilityAPI.mutate({ visibility: 'Unpublished', id: recording.record_id })}
+            >
+              {t('recording.unpublished')}
+            </Dropdown.Item>
+          )}
         </SimpleSelect>
       </td>
       <td className="border-0">
@@ -205,6 +221,7 @@ export default function RecordingRow({
 
 RecordingRow.defaultProps = {
   adminTable: false,
+  dropUp: false,
 };
 
 RecordingRow.propTypes = {
@@ -227,4 +244,5 @@ RecordingRow.propTypes = {
   visibilityMutation: PropTypes.func.isRequired,
   deleteMutation: PropTypes.func.isRequired,
   adminTable: PropTypes.bool,
+  dropUp: PropTypes.bool,
 };

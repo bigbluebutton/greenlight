@@ -16,7 +16,7 @@
 
 import React from 'react';
 import {
-  Stack, Button, Col, Row,
+  Stack, Button, Col, Row, Dropdown,
 } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { HomeIcon, ShareIcon } from '@heroicons/react/24/outline';
@@ -33,6 +33,7 @@ import RoomNamePlaceHolder from './RoomNamePlaceHolder';
 import Modal from '../../shared_components/modals/Modal';
 import ShareRoomForm from './forms/ShareRoomForm';
 import Title from '../../shared_components/utilities/Title';
+import useRoomSettings from '../../../hooks/queries/rooms/useRoomSettings';
 
 export default function Room() {
   const { t } = useTranslation();
@@ -43,6 +44,7 @@ export default function Room() {
   const startMeeting = useStartMeeting(friendlyId);
   const currentUser = useAuth();
   const localizedTime = localizeDayDateTimeString(room?.last_session, currentUser?.language);
+  const roomSettings = useRoomSettings(friendlyId);
 
   return (
     <>
@@ -56,7 +58,7 @@ export default function Room() {
           </Col>
         </Row>
         <Row className="py-5">
-          <Col className="col-xxl-8">
+          <Col className="col-4">
             {
               isRoomLoading
                 ? (
@@ -86,31 +88,78 @@ export default function Room() {
                   ? (
                     <RoomNamePlaceHolder />
                   ) : (
-                    <>
-            <Button variant="brand" className="start-meeting-btn mt-1 mx-2 float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
-              {startMeeting.isLoading && <Spinner className="me-2" />}
-              {room?.online ? (
-                t('room.meeting.join_meeting')
-              ) : (
-                t('room.meeting.start_meeting')
-              )}
-            </Button>
-            <Modal
-              size="lg"
-              modalButton={(
+                    <Stack className="room-header-wrapper">
+                      <Stack direction="horizontal" gap={2}>
+                        <h1>{room?.name}</h1>
+                        <Stack direction="horizontal" className="mb-1">
+                          { room?.online
+                            && <MeetingBadges count={room?.participants} />}
+                          { room?.shared && <SharedBadge ownerName={room?.owner_name} /> }
+                        </Stack>
+                      </Stack>
+                      { room?.last_session ? (
+                        <span className="text-muted"> { t('room.last_session', { localizedTime }) }  </span>
+                      ) : (
+                        <span className="text-muted"> { t('room.no_last_session') } </span>
+                      )}
+                    </Stack>
+                  )
+              }
+          </Col>
+          <Col>
+            <Row>
+              <Col className="col-12">
                 <Button
-                  variant="brand-outline"
-                  className="mt-1 mx-2 float-end"
+                  variant="brand"
+                  className="start-meeting-btn mt-1 mx-2 float-end"
+                  onClick={startMeeting.mutate}
+                  disabled={startMeeting.isLoading}
                 >
-                  <ShareIcon className="hi-s me-1" />
-                  {t('room.meeting.share_meeting')}
+                  {startMeeting.isLoading && <Spinner className="me-2" />}
+                  { room?.online ? (
+                    t('room.meeting.join_meeting')
+                  ) : (
+                    t('room.meeting.start_meeting')
+                  )}
                 </Button>
-              )}
-              title={t('room.meeting.share_meeting')}
-              body={<ShareRoomForm room={room} />}
-            />
-            </>
-            )}
+
+                <Dropdown className="btn-group mt-1 mx-2 float-end pb-5">
+                  <Modal
+                    size="lg"
+                    modalButton={(
+                      <Button
+                        variant="brand-outline" type="button" className="btn dropdown-main"
+                      >
+                        <ShareIcon className="hi-s me-1" />
+                        {t('room.meeting.share_meeting')}
+                      </Button>
+                    )}
+                    title={t('room.meeting.share_meeting')}
+                    body={<ShareRoomForm room={room} />}
+                  />
+                  { (roomSettings?.data?.glModeratorAccessCode || roomSettings?.data?.glViewerAccessCode) && (
+                    <Dropdown.Toggle
+                      variant="brand-outline"
+                      className="btn dropdown-toggle dropdown-toggle-split"
+                      id="dropdown-toggle"
+                    />
+                  )}
+
+                  <Dropdown.Menu className="dropdown-menu">
+                    { roomSettings?.data?.glModeratorAccessCode && (
+                      <Dropdown.Item onClick={() => copyInvite('moderator')}>
+                        { t('copy_moderator_code') }
+                      </Dropdown.Item>
+                    )}
+                    { roomSettings?.data?.glViewerAccessCode && (
+                      <Dropdown.Item onClick={() => copyInvite('viewer')}>
+                        { t('copy_viewer_code') }
+                      </Dropdown.Item>
+                    )}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </div>

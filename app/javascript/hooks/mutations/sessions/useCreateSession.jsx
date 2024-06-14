@@ -19,6 +19,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
+import { useAuth } from '../../../contexts/auth/AuthProvider';
 
 export default function useCreateSession() {
   const { t } = useTranslation();
@@ -26,11 +27,13 @@ export default function useCreateSession() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const redirect = searchParams.get('location');
+  const { setStateChanging } = useAuth();
 
   return useMutation(
     ({ session, token }) => axios.post('/sessions.json', { session, token }).then((resp) => resp.data.data),
     {
       onSuccess: async (response) => {
+        setStateChanging(true);
         await queryClient.refetchQueries('useSessions');
         // if the current user does NOT have the CreateRoom permission, then do not re-direct to rooms page
 
@@ -41,6 +44,7 @@ export default function useCreateSession() {
         } else {
           navigate('/rooms');
         }
+        setStateChanging(true);
       },
       onError: (err) => {
         if (err.response.data.errors === 'PendingUser') {
@@ -49,6 +53,8 @@ export default function useCreateSession() {
           toast.error(t('toast.error.users.banned'));
         } else if (err.response.data.errors === 'UnverifiedUser') {
           navigate(`/verify?id=${err.response.data.data}`);
+        } else if (err.response.data.errors === 'PasswordNotSet') {
+          navigate(`/reset_password/${err.response.data.data}`);
         } else {
           toast.error(t('toast.error.session.invalid_credentials'));
         }

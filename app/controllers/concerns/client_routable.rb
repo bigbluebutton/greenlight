@@ -33,4 +33,8 @@ module ClientRoutable
   def pending_path
     "#{root_path}pending"
   end
+
+  def admin_panel_url
+    "#{root_url}admin/users"
+  end
 end

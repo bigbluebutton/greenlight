@@ -23,7 +23,7 @@ module Api
 
       before_action :find_room, only: %i[show update destroy recordings recordings_processing purge_presentation public_show public_recordings]
 
-      before_action only: %i[create index] do
+      before_action only: %i[create] do
         ensure_authorized('CreateRoom')
       end
       before_action only: %i[create] do
@@ -133,7 +133,7 @@ module Api
       def recordings
         sort_config = config_sorting(allowed_columns: %w[name length visibility])
 
-        pagy, room_recordings = pagy(@room.recordings&.order(sort_config, recorded_at: :desc)&.search(params[:q]))
+        pagy, room_recordings = pagy(@room.recordings&.order(sort_config, recorded_at: :desc)&.search(params[:q]), items: 3)
         render_data data: room_recordings, meta: pagy_metadata(pagy), status: :ok
       end
 

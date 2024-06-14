@@ -47,30 +47,37 @@
 
 fa_IR:
   opengraph:
-    description: با استفاده از BigBlueButton بیاموزید؛ راه‌حل متن‌باز و قابل اعتماد کنفرانس تحت وب که همکاری مجازی یکپارچه و تجربیات یادگیری آنلاین را امکان‌پذیر می‌کند.
+    description: یادگیری با استفاده از BigBlueButton، راه‌حل متن‌باز کنفرانس وب قابل اعتماد است که همکاری مجازی یکپارچه و تجربیات یادگیری آنلاین را امکان پذیر می‌کند.
   meeting:
-    moderator_message: "برای دعوت از افراد دیگر به این جلسه، این پیوند را برای آن‌ها ارسال کنید:"
+    moderator_message: "برای دعوت از افراد دیگر به این جلسه، این پیوند را برای آنها ارسال کنید:"
     access_code: "کد دسترسی: %{code}"
   email:
     activation:
       account_activation: فعال‌سازی حساب کاربری
       welcome_to_bbb: به BigBlueButton خوش آمدید.
-      get_started: برای شروع، لطفا با کلیک بر روی دکمهٔ زیر حساب کاربری خود را فعال کنید.
-      activate_account: فعال‌کردن حساب کاربری
+      get_started: برای شروع، لطفا با کلیک بر روی دکمه زیر حساب کاربری خود را فعال کنید.
+      activate_account: فعال کردن حساب کاربری
       link_expires: این پیوند ۲۴ ساعت دیگر منقضی خواهد شد.
-      if_link_expires: در صورت منقضی‌شدن پیوند، لطفا وارد شوید و درخواست یک رایانامهٔ فعال‌سازی جدید کنید.
+      if_link_expires: در صورت منقضی شدن پیوند، لطفا در سیستم وارد شوید و درخواست فعال سازی ایمیل، جدید کنید.
     invitation:
-      invitation_to_join: دعوت‌نامهٔ BigBlueButton
+      invitation_to_join: دعوت به پیوستن به BigBlueButton
       you_have_been_invited: "شما توسط %{name} برای ایجاد حساب کاربری در BigBlueButton دعوت شده‌اید."
-      get_started: برای ثبت‌نام، لطفا روی دکمهٔ زیر کلیک کنید و گام‌ها را دنبال کنید.
-      valid_invitation: دعوت‌نامه فقط ۴۸ ساعت اعتبار دارد.
-      sign_up: ثبت‌نام
+      get_started: برای ثبت نام لطفا روی دکمه زیر کلیک کنید و مراحل را دنبال کنید.
+      valid_invitation: The invitation is valid for 24 hours.
+      sign_up: ثبت نام
+    new_user_signup:
+      new_user: ثبت نام کاربر جدید BigBlueButton
+      new_user_description: یک کاربر جدید برای استفاده از BigBlueButton ثبت نام کرده است.
+      name: "نام: %{name}"
+      email: "ایمیل: %{email}"
+      admin_panel: "پنل مدیریت"
+      take_action: "برای مشاهده کاربر جدید یا انجام اقدامات لازم، به پنل مدیریت مراجعه کنید"
     reset:
-      password_reset: بازنشانی گذرواژه
-      password_reset_requested: "بازنشانی گذرواژه برای %{email} درخواست شده‌است."
-      password_reset_confirmation: برای بازنشانی گذرواژه، لطفا روی دکمهٔ زیر کلیک کنید.
-      reset_password: بازنشانی گذرواژه
+      password_reset: بازنشانی رمز عبور
+      password_reset_requested: "بازنشانی رمز عبور برای %{email} درخواست شده است."
+      password_reset_confirmation: برای بازنشانی رمز عبور، لطفا روی دکمه زیر کلیک کنید.
+      reset_password: بازنشانی رمز عبور
       link_expires: این پیوند ۱ ساعت دیگر منقضی خواهد شد.
-      ignore_request: اگر درخواستی برای تغییر گذرواژه خود نکرده‌اید، لطفا این رایانامه را نادیده بگیرید.
+      ignore_request: اگر درخواستی برای تغییر رمز عبور خود نکرده‌اید، لطفا این ایمیل را نادیده بگیرید.
   room:
     new_room_name: "اتاق %{username}"

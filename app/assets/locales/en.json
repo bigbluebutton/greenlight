@@ -17,7 +17,9 @@
   "close": "Close",
   "delete": "Delete",
   "copy": "Copy Join Link",
-  "copy_voice_bridge": "Copy phone dialup",
+  "copy_voice_bridge": "Copy Phone Dialup",
+  "copy_viewer_code": "Copy Viewer Code",
+  "copy_moderator_code": "Copy Moderator Code",
   "or": "Or",
   "online": "Online",
   "help_center": "Help Center",
@@ -82,6 +84,7 @@
       "account_info": "Account Info",
       "delete_account": "Delete Account",
       "change_password": "Change Password",
+      "set_password": "Set Your New Password",
       "reset_password": "Reset Password",
       "update_account_info": "Update Account Info",
       "current_password": "Current Password",
@@ -137,6 +140,7 @@
       "click_to_upload": "Click to Upload",
       "drag_and_drop": " or drag and drop",
       "upload_description": "Upload any office document or PDF file (not larger than {{size}}). Depending on the size of the file, it may require additional time to upload before it can be used",
+      "delete_presentation": "Delete Presentation",
       "are_you_sure_delete_presentation": "Are you sure you want to delete this presentation?"
     },
     "shared_access": {
@@ -173,6 +177,7 @@
   "recording": {
     "recording": "Recording",
     "recordings": "Recordings",
+    "processing": "Recordings Processing...",
     "name": "Name",
     "length": "Length",
     "users": "Users",
@@ -279,7 +284,13 @@
         "privacy_policy": "Privacy Policy",
         "change_term_links": "Change the terms links that appears at the bottom of the page",
         "change_privacy_link": "Change the privacy link that appears at the bottom of the page",
+        "helpcenter": "Help Center",
+        "change_helpcenter_link": "Change the help center link that appears under the profile dropdown",
+        "maintenance": "Maintenance Banner",
+        "change_maintenance_text": "Change the maintenance banner text that appears in the header",
         "change_url": "Change URL",
+        "set_text": "Set Text",
+        "clear_banner": "Clear Banner",
         "enter_link": "Enter link here"
       },
       "settings": {
@@ -287,7 +298,13 @@
         "allow_users_to_share_rooms": "Allow Users to Share Rooms",
         "allow_users_to_share_rooms_description": "Setting to disabled will remove the button from the room options dropdown, preventing users from sharing rooms",
         "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",
-        "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room"
+        "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room",
+        "default_visibility": "Default Recording Visibility",
+        "default_visibility_description": "All newly created recordings will have this visibility by default",
+        "session_timeout": "Session Timeout",
+        "session_timeout_description": "You can configure the session timeout with a default cookie of 1 day or extended session cookie of 7 days",
+        "default_session_timeout": "Default (1 day)",
+        "extended_session_timeout": "Extended (7 days)"
       },
       "registration": {
         "registration": "Registration",
@@ -355,7 +372,9 @@
         "manage_site_settings": "Allow users with this role to manage site settings",
         "manage_roles": "Allow users with this role to edit other roles",
         "shared_list": "Include users with this role in the dropdown for sharing rooms",
-        "room_limit": "Room Limit"
+        "room_limit": "Room Limit",
+        "email_on_signup": "Receive an email when a new user signs up",
+        "allowed_recording_visibility": "Allowed recording visibilities"
       }
     }
   },
@@ -366,6 +385,7 @@
         "user_updated": "The user has been updated.",
         "user_deleted": "The user has been deleted.",
         "avatar_updated": "The avatar has been updated.",
+        "password_changed": "Successfully updated your password. Please sign in again.",
         "password_updated": "The password has been updated.",
         "account_activated": "Your account has been activated.",
         "activation_email_sent": "An email that contains the instructions to activate your account has been sent.",
@@ -392,7 +412,9 @@
         "access_code_deleted": "The access code has been deleted.",
         "copied_meeting_url": "The meeting URL has been copied. The link can be used to join the meeting.",
         "download_ics": "The .ics file has been created. Open it to edit and send it, to invite people to your Meeting.",
-        "copied_voice_bridge": "The phone number and pin have been copied. They can be used to join the conference."
+        "copied_voice_bridge": "The phone number and pin have been copied. They can be used to join the conference.",
+        "copied_viewer_code": "The viewer access code has been copied.",
+        "copied_moderator_code": "The moderator access code has been copied."
       },
       "site_settings": {
         "site_setting_updated": "The site setting has been updated.",
@@ -400,7 +422,9 @@
         "brand_image_updated": "The brand image has been updated.",
         "brand_image_deleted": "The brand image has been deleted.",
         "privacy_policy_updated": "The privacy policy has been updated.",
-        "terms_of_service_updated": "The terms of service have been updated."
+        "helpcenter_updated": "The help center link has been updated.",
+        "terms_of_service_updated": "The terms of service have been updated.",
+        "maintenance_updated": "The maintenance banner has been updated."
       },
       "recording": {
         "recording_visibility_updated": "The recording visibility has been updated.",
@@ -424,6 +448,7 @@
       "file_size_too_large": "The file size is too large.",
       "file_upload_error": "The file can't be uploaded.",
       "signin_required": "You must be signed in to access this page.",
+      "malware_detected": "Malware Detected! The file you uploaded may contain malware. Please check your file and try again.",
       "roles": {
         "role_assigned": "This role can't be deleted because it is assigned to at least one user."
       },
@@ -670,7 +695,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "Enter link here..."
+            "placeholder": "Enter link here...",
+            "text_placeholder": "Enter text here..."
           }
         }
       },

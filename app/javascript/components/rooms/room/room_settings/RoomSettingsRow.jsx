@@ -18,17 +18,19 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 export default function RoomSettingsRow({
-  settingName, config, value, description, updateMutation: useUpdateAPI,
+  settingName, config, value, description, updateMutation: useUpdateAPI, disabled,
 }) {
   const updateAPI = useUpdateAPI();
   const checkedValue = useMemo(() => {
-    if (value === 'true' || value === 'ASK_MODERATOR') {
+    if (disabled) {
+      return false;
+    } if (value === 'true' || value === 'ASK_MODERATOR') {
       return true;
     } if (value === 'false' || value === 'ALWAYS_ACCEPT') {
       return false;
     }
     return value;
-  }, [value]);
+  }, [value, disabled]);
 
   if (config === 'false') {
     return null;
@@ -49,7 +51,7 @@ export default function RoomSettingsRow({
           onChange={(event) => {
             updateAPI.mutate({ settingName, settingValue: event.target.checked });
           }}
-          disabled={updateAPI.isLoading || config === 'true'}
+          disabled={updateAPI.isLoading || config === 'true' || disabled}
         />
       </div>
     </div>
@@ -59,6 +61,7 @@ export default function RoomSettingsRow({
 RoomSettingsRow.defaultProps = {
   value: '',
   config: 'false',
+  disabled: false,
 };
 
 RoomSettingsRow.propTypes = {
@@ -67,4 +70,5 @@ RoomSettingsRow.propTypes = {
   value: PropTypes.string,
   config: PropTypes.string,
   description: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
 };

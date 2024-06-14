@@ -18,7 +18,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import {
-  Navigate, Link, useParams,
+  Navigate, Link, useParams, useLocation,
 } from 'react-router-dom';
 import {
   Button, Col, Row, Stack, Form as RegularForm,
@@ -42,6 +42,7 @@ import RoomJoinPlaceholder from './RoomJoinPlaceholder';
 import useRoomJoinForm from '../../../../hooks/forms/rooms/useRoomJoinForm';
 import ButtonLink from '../../../shared_components/utilities/ButtonLink';
 import Title from '../../../shared_components/utilities/Title';
+import useRoomConfigValue from '../../../../hooks/queries/rooms/useRoomConfigValue';
 
 export default function JoinCard() {
   const { t } = useTranslation();
@@ -54,10 +55,17 @@ export default function JoinCard() {
   const roomStatusAPI = useRoomStatus(friendlyId, joinInterval);
 
   const { data: env } = useEnv();
+  const { data: recordValue } = useRoomConfigValue('record');
 
   const { methods, fields } = useRoomJoinForm();
 
   const path = encodeURIComponent(document.location.pathname);
+
+  // get queryParams for JoinFormName
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const joinFormName = queryParams.get('joinFormName');
+  const viewerCode = queryParams.get('viewerCode');
 
   useEffect(() => { // set cookie to return to if needed
     const date = new Date();
@@ -77,17 +85,26 @@ export default function JoinCard() {
     }
 
     roomStatusAPI.mutate(data);
-    const interval = setInterval(() => roomStatusAPI.mutate(data), 5000);
+    const interval = setInterval(() => roomStatusAPI.mutate(data), 30000);
     setJoinInterval(interval);
   };
   const reset = () => { setHasStarted(false); };// Reset pipeline;
 
   useEffect(() => {
     // Default Join name to authenticated user full name.
-    if (currentUser?.name) {
+    if (joinFormName) {
+      methods.setValue('name', joinFormName);
+    } else if (currentUser?.name) {
       methods.setValue('name', currentUser.name);
     }
-  }, [currentUser?.name]);
+  }, [joinFormName, currentUser?.name]);
+
+  useEffect(() => {
+    // Default viewerCode if passed as query param
+    if (viewerCode) {
+      methods.setValue('access_code', viewerCode);
+    }
+  }, [viewerCode]);
 
   useEffect(() => {
     // Room channel subscription:
@@ -205,13 +222,15 @@ export default function JoinCard() {
             <h1 className="mt-2">
               {publicRoom?.data.name}
             </h1>
-            <ButtonLink
-              variant="brand-outline"
-              className="mt-3 mb-0 cursor-pointer"
-              to={`/rooms/${friendlyId}/public_recordings`}
-            >
-              <span> <VideoCameraIcon className="hi-s text-brand" /> {t('view_recordings')} </span>
-            </ButtonLink>
+            { (recordValue !== 'false') && (
+              <ButtonLink
+                variant="brand-outline"
+                className="mt-3 mb-0 cursor-pointer"
+                to={`/rooms/${friendlyId}/public_recordings`}
+              >
+                <span> <VideoCameraIcon className="hi-s text-brand" /> {t('view_recordings')} </span>
+              </ButtonLink>
+            )}
           </Col>
           <Col>
             <Stack direction="vertical" gap={3}>
@@ -252,7 +271,7 @@ export default function JoinCard() {
         </Row>
         <Row>
           {!currentUser?.signed_in && (
-            env?.OPENID_CONNECT ? (
+            env?.EXTERNAL_AUTH ? (
               <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> {t('authentication.already_have_account')}
                 <RegularForm action={process.env.OMNIAUTH_PATH} method="POST" data-turbo="false">
                   <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />

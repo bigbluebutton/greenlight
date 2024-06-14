@@ -17,6 +17,8 @@
   "close": "閉じる",
   "delete": "削除",
   "copy": "参加リンクをコピー",
+  "copy_viewer_code": "視聴者用コードをコピーする",
+  "copy_moderator_code": "司会者用コードをコピーする",
   "or": "もしくは",
   "online": "オンライン",
   "help_center": "ヘルプセンター",
@@ -81,6 +83,7 @@
       "account_info": "アカウント情報",
       "delete_account": "アカウント削除",
       "change_password": "パスワード変更",
+      "set_password": "新しいパスワードを入力",
       "reset_password": "パスワード再設定",
       "update_account_info": "アカウント情報の更新",
       "current_password": "現在のパスワード",
@@ -129,6 +132,7 @@
       "click_to_upload": "クリックしてアップロード",
       "drag_and_drop": "またはドラッグ＆ドロップ",
       "upload_description": "OfficeドキュメントかPDFファイル（サイズ{{size}}以下）をアップロードしてください。ファイルの大きさによっては、使用可能になるまでに少し時間がかかるかもしれません。",
+      "delete_presentation": "プレゼンファイルを削除",
       "are_you_sure_delete_presentation": "本当にこのプレゼンファイルを削除しますか？"
     },
     "shared_access": {
@@ -165,6 +169,7 @@
   "recording": {
     "recording": "録画",
     "recordings": "録画",
+    "processing": "録画を処理しています...",
     "name": "名前",
     "length": "長さ",
     "users": "参加者",
@@ -271,7 +276,13 @@
         "privacy_policy": "プライバシーポリシー",
         "change_term_links": "ページ下方の利用規約へのリンクを変更する",
         "change_privacy_link": "ページ下方のプライバシーポリシーへのリンクを変更する",
+        "helpcenter": "ヘルプセンター",
+        "change_helpcenter_link": "プロフィールのドロップダウンメニュー内に表示されるヘルプセンターのリンクを変更",
+        "maintenance": "メンテナンスバナー",
+        "change_maintenance_text": "ヘッダーに表示されるメンテナンスバナーの文章を変更する",
         "change_url": "URL変更",
+        "set_text": "文章を設定",
+        "clear_banner": "バナーを消去",
         "enter_link": "リンクをここに入力"
       },
       "settings": {
@@ -279,12 +290,18 @@
         "allow_users_to_share_rooms": "ユーザーに会議室の共有を許可",
         "allow_users_to_share_rooms_description": "無効に設定した場合、各会議室のドロップダウンからボタンが削除され、ユーザーが会議室を共有できなくなります",
         "allow_users_to_preupload_presentation": "ユーザーにプレゼンファイルの事前アップロードを許可",
-        "allow_users_to_preupload_presentation_description": "ユーザーがプレゼンファイルを事前にアップロードし、この会議室専用の標準プレゼンとして使用できるようになります"
+        "allow_users_to_preupload_presentation_description": "ユーザーがプレゼンファイルを事前にアップロードし、この会議室専用の標準プレゼンとして使用できるようになります",
+        "default_visibility": "デフォルトの録画公開度",
+        "default_visibility_description": "新しい録画は、まずは全てこの公開度となります。",
+        "session_timeout": "セッションの継続時間",
+        "session_timeout_description": "セッションの継続時間は、通常のクッキー設定では１日ですが、７日間の延長設定とすることもできます",
+        "default_session_timeout": "通常（１日）",
+        "extended_session_timeout": "延長（７日間）"
       },
       "registration": {
         "registration": "ユーザー登録",
         "role_mapping_by_email": "メールアドレスによる役割の割り当て",
-        "role_mapping_by_email_description": "メールアドレスを使ってユーザーに役割を割り当てます。役割1=メール1, 役割2=メール2、の形式にしてください。",
+        "role_mapping_by_email_description": "メールアドレスによって、割り当てられる役割を固定します。役割1=メール1, 役割2=メール2、の形式にしてください。",
         "enter_role_mapping_rule": "役割割り当てルールを入力",
         "resync_on_login": "サインインごとにユーザーのデーターを再同期",
         "resync_on_login_description": "サインインのたびにユーザーの情報を再同期し、外部の承認提供者の情報とGreenlightの情報とを常に一致させます",
@@ -347,7 +364,9 @@
         "manage_site_settings": "この役割のユーザーに、サイト全体の設定を許可する",
         "manage_roles": "この役割のユーザーに、他の役割の内容を変更することを許可する",
         "shared_list": "この役割のユーザーを、会議室を共有できるユーザーのリストに含める",
-        "room_limit": "作成できる会議室数の制限"
+        "room_limit": "作成できる会議室数の制限",
+        "email_on_signup": "新しいユーザーが登録したときメールを受け取る",
+        "allowed_recording_visibility": "許可する公開度"
       }
     }
   },
@@ -358,6 +377,7 @@
         "user_updated": "ユーザーが更新されました。",
         "user_deleted": "ユーザーが削除されました。",
         "avatar_updated": "アバターが更新されました。",
+        "password_changed": "パスワードが更新されました。もう一度サインインしてください。",
         "password_updated": "パスワードが更新されました。",
         "account_activated": "アカウントが有効化されました。サインインしてみてください。",
         "activation_email_sent": "アクチベーションメールが送信されました",
@@ -382,7 +402,9 @@
         "access_code_copied": "接続コードがコピーされました。",
         "access_code_generated": "接続コードが作成されました。",
         "access_code_deleted": "アクセスコードが消去されました。",
-        "copied_meeting_url": "会議のURLがコピーされました。このリンクを使用すると会議に参加できます。"
+        "copied_meeting_url": "会議のURLがコピーされました。このリンクを使用すると会議に参加できます。",
+        "copied_viewer_code": "視聴者用のアクセスコードがコピーされました。",
+        "copied_moderator_code": "司会者用のアクセスコードがコピーされました。"
       },
       "site_settings": {
         "site_setting_updated": "サイトの設定が更新されました。",
@@ -390,7 +412,9 @@
         "brand_image_updated": "ブランド画像がアップデートされました。",
         "brand_image_deleted": "ブランド画像が消去されました。",
         "privacy_policy_updated": "プライバシーポリシーがアップデートされました。",
-        "terms_of_service_updated": "利用規約がアップデートされました。"
+        "helpcenter_updated": "ヘルプセンターのリンクが更新されました。",
+        "terms_of_service_updated": "利用規約が更新されました。",
+        "maintenance_updated": "メンテナンスバナーが更新されました。"
       },
       "recording": {
         "recording_visibility_updated": "録画の公開度が更新されました。",
@@ -414,6 +438,7 @@
       "file_size_too_large": "ファイルが大きすぎます。",
       "file_upload_error": "ファイルがアップロードできません。",
       "signin_required": "このページに接続するにはサインインが必要です",
+      "malware_detected": "マルウェアが検出されました！アップロードしたファイルにはマルウェアが含まれている可能性があります。ファイルを確認して、もう一度試してください。",
       "roles": {
         "role_assigned": "この役割はすでにユーザーに割り当てられているため、削除できません。"
       },
@@ -660,7 +685,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "ここにリンクを入力..."
+            "placeholder": "ここにリンクを入力...",
+            "text_placeholder": "文章をここに入力..."
           }
         }
       },

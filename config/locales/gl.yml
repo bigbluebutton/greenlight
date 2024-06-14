@@ -65,6 +65,13 @@ gl:
       get_started: "Para rexistrarse, prema no seguinte botón e siga os pasos."
       valid_invitation: O convite é válido durante 24 horas.
       sign_up: Rexistrarse
+    new_user_signup:
+      new_user: Novo rexistro de usuario de BigBlueButton
+      new_user_description: Rexistrouse un novo usuario para usar BigBlueButton.
+      name: "Nome: %{name}"
+      email: "Correo-e: %{email}"
+      admin_panel: "Panel de administración"
+      take_action: "Para ver o novo usuario ou realizar a acción necesaria, visite o Panel de administración"
     reset:
       password_reset: Restabelecer o contrasinal
       password_reset_requested: "Solicitouse un restabelecemento de contrasinal para %{email}."

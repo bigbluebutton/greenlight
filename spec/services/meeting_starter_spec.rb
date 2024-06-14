@@ -18,6 +18,7 @@
 
 require 'rails_helper'
 require 'bigbluebutton_api'
+require 'uri'
 
 describe MeetingStarter, type: :service do
   let(:user) { create(:user) }
@@ -37,12 +38,14 @@ describe MeetingStarter, type: :service do
   let(:options) do
     url = File.join(base_url, '/rooms/', room.friendly_id, '/join')
     {
-      moderatorOnlyMessage: "To invite someone to the meeting, send them this link:<br>#{url}",
+      moderatorOnlyMessage: "#{I18n.t('meeting.moderator_message', locale: user.language.to_sym)}<br>#{url}",
+      loginURL: url,
       logoutURL: url,
       meta_endCallbackUrl: File.join(base_url, '/meeting_ended'),
       'meta_bbb-recording-ready-url': File.join(base_url, '/recording_ready'),
-      'meta_bbb-origin-version': 3,
+      'meta_bbb-origin-version': 'v3',
       'meta_bbb-origin': 'greenlight',
+      'meta_bbb-origin-server-name': URI(base_url).host,
       setting: 'value'
     }
   end

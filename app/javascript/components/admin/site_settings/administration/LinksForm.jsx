@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +28,11 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
   const { t } = useTranslation();
 
   const { methods, fields } = useLinksForm({ defaultValues: { value } });
+
+  useEffect(() => {
+    if (!methods) { return; }
+    methods.reset({ value });
+  }, [methods, value]);
 
   return (
     <Form id={id} methods={methods} onSubmit={updateSiteSettingsAPI.mutate}>
@@ -48,5 +53,9 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
 LinksForm.propTypes = {
   id: PropTypes.string.isRequired,
   mutation: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
+};
+
+LinksForm.defaultProps = {
+  value: '',
 };

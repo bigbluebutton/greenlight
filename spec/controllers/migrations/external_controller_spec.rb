@@ -133,7 +133,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
 
       describe 'because the ciphertext was not generated with the same configuration' do
         it 'returns :bad_request without creating a role' do
-          key = Rails.application.secrets.secret_key_base[1..32]
+          key = Rails.application.secret_key_base[1..32]
 
           encrypted_params = encrypt_params({ role: { name: 'CrazyRole', role_permissions: {} } }, key:, expires_in: 10.seconds)
           expect { post :create_role, params: { v2: { encrypted_params: } } }.not_to change(Role, :count)
@@ -150,6 +150,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
         name: 'user',
         email: 'user@users.com',
         provider: 'greenlight',
+        password_digest: 'fake_password_digest',
         language: 'language',
         role: valid_user_role.name
       }
@@ -185,8 +186,30 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
             expect(user.role).to eq(valid_user_role)
             expect(user.session_token).to be_present
             expect(user.provider).to eq('greenlight')
+            expect(user.password_digest).to eq(valid_user_params[:password_digest])
             expect(response).to have_http_status(:created)
-            expect(user.password_digest).to be_present
+          end
+
+          it 'creates the user without a password if provider is not greenlight' do
+            tenant = create(:tenant)
+            role = create(:role, name: valid_user_role.name, provider: tenant.name)
+            valid_user_params[:provider] = tenant.name
+
+            encrypted_params = encrypt_params({ user: valid_user_params }, expires_in: 10.seconds)
+
+            expect_any_instance_of(described_class).to receive(:generate_secure_pwd).and_call_original
+            expect { post :create_user, params: { v2: { encrypted_params: } } }.to change(User, :count).from(0).to(1)
+            expect(ActionMailer::MailDeliveryJob).not_to have_been_enqueued
+
+            user = User.take
+            expect(user.name).to eq(valid_user_params[:name])
+            expect(user.email).to eq(valid_user_params[:email])
+            expect(user.language).to eq(valid_user_params[:language])
+            expect(user.role).to eq(role)
+            expect(user.session_token).to be_present
+            expect(user.provider).to eq(tenant.name)
+            expect(response).to have_http_status(:created)
+            expect(user.password_digest).not_to be_present
           end
         end
 
@@ -229,8 +252,8 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
             expect(user.role).to eq(valid_user_role)
             expect(user.session_token).to be_present
             expect(user.provider).to eq('greenlight')
+            expect(user.password_digest).to eq(valid_user_params[:password_digest])
             expect(response).to have_http_status(:created)
-            expect(user.password_digest).to be_blank
           end
         end
 
@@ -274,14 +297,17 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
           end
         end
 
-        context 'when providing a :provider or a :password' do
-          before { valid_user_params.merge!(password: 'Password1!') }
+        context 'when providing a valid :password_digest' do
+          before do
+            temp_user = create(:user, password: 'Password1!')
+            valid_user_params.merge!(password_digest: temp_user.password_digest)
+          end
 
           it 'returns :created and creates a user while ignoring the extra values' do
             encrypted_params = encrypt_params({ user: valid_user_params }, expires_in: 10.seconds)
-            expect { post :create_user, params: { v2: { encrypted_params: } } }.to change(User, :count).from(0).to(1)
+            expect { post :create_user, params: { v2: { encrypted_params: } } }.to change(User, :count).by(1)
 
-            user = User.take
+            user = User.find_by(email: valid_user_params[:email])
             expect(user.name).to eq(valid_user_params[:name])
             expect(user.email).to eq(valid_user_params[:email])
             expect(user.language).to eq(valid_user_params[:language])
@@ -289,7 +315,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
             expect(user.session_token).to be_present
             expect(user.provider).to eq(valid_user_params[:provider])
             expect(response).to have_http_status(:created)
-            expect(user.authenticate('Password1!')).to be_falsy
+            expect(user.authenticate('Password1!')).to be_truthy
           end
         end
 
@@ -429,7 +455,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
 
       describe 'because the ciphertext was not generated with the same configuration' do
         it 'returns :bad_request without creating a user' do
-          key = Rails.application.secrets.secret_key_base[1..32]
+          key = Rails.application.secret_key_base[1..32]
 
           encrypted_params = encrypt_params({ user: valid_user_params }, key:, expires_in: 10.seconds)
           expect_any_instance_of(described_class).not_to receive(:generate_secure_pwd)
@@ -547,7 +573,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
 
       describe 'because the ciphertext was not generated with the same configuration' do
         it 'returns :bad_request without creating a room' do
-          key = Rails.application.secrets.secret_key_base[1..32]
+          key = Rails.application.secret_key_base[1..32]
           encrypted_params = encrypt_params({ room: valid_room_params }, key:, expires_in: 10.seconds)
           expect { post :create_room, params: { v2: { encrypted_params: } } }.not_to change(Room, :count)
           expect(response).to have_http_status(:bad_request)
@@ -647,7 +673,7 @@ RSpec.describe Api::V1::Migrations::ExternalController, type: :controller do
   private
 
   def encrypt_params(params, key: nil, expires_at: nil, expires_in: nil, purpose: nil)
-    key = Rails.application.secrets.secret_key_base[0..31] if key.nil?
+    key = Rails.application.secret_key_base[0..31] if key.nil?
     crypt = ActiveSupport::MessageEncryptor.new(key, cipher: 'aes-256-gcm', serializer: Marshal)
     crypt.encrypt_and_sign(params, expires_at:, expires_in:, purpose:)
   end

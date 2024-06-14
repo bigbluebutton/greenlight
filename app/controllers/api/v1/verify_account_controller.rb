@@ -29,9 +29,8 @@ module Api
       def create
         token = @user.generate_activation_token!
 
-        UserMailer.with(user: @user,
-                        activation_url: activate_account_url(token), base_url: request.base_url,
-                        provider: current_provider).activate_account_email.deliver_later
+        UserMailer.with(user: @user, activation_url: activate_account_url(token),
+                        base_url: request.base_url, provider: current_provider).activate_account_email.deliver_later
 
         render_data status: :ok
       end
@@ -61,7 +60,7 @@ module Api
       def find_user_and_authorize
         return render_error status: :bad_request unless params[:user]
 
-        @user = User.find_by id: params[:user][:id]
+        @user = User.find_by id: params[:user][:id], provider: current_provider
         render_data status: :ok unless @user && !@user.verified?
       end
     end

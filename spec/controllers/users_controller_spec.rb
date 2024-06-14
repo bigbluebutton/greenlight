@@ -25,7 +25,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
   before do
     ENV['SMTP_SERVER'] = 'test.com'
-    allow(controller).to receive(:external_authn_enabled?).and_return(false)
+    allow(controller).to receive(:external_auth?).and_return(false)
     request.headers['ACCEPT'] = 'application/json'
   end
 
@@ -64,6 +64,16 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it 'assigns the User role to the user' do
         post :create, params: user_params
         expect(User.find_by(email: user_params[:user][:email]).role.name).to eq('User')
+      end
+
+      context 'EmailOnSignup' do
+        it 'emails all admins that a new user has signed up' do
+          post :create, params: user_params
+
+          expect(ActionMailer::MailDeliveryJob).to have_been_enqueued
+                                               .at(:no_wait).exactly(:once)
+            .with('UserMailer', 'new_user_signup_email', 'deliver_now', Hash)
+        end
       end
 
       context 'User language' do
@@ -280,7 +290,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
     context 'External AuthN enabled' do
       before do
-        allow(controller).to receive(:external_authn_enabled?).and_return(true)
+        allow(controller).to receive(:external_auth?).and_return(true)
       end
 
       it 'returns :forbidden without creating the user account' do
@@ -472,9 +482,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   end
 
   context 'private methods' do
-    describe '#external_authn_enabled?' do
+    describe '#external_auth??' do
       before do
-        allow(controller).to receive(:external_authn_enabled?).and_call_original
+        allow(controller).to receive(:external_auth?).and_call_original
       end
 
       context 'OPENID_CONNECT_ISSUER is present?' do
@@ -483,7 +493,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
 
         it 'returns true' do
-          expect(controller).to be_external_authn_enabled
+          expect(controller).to be_external_auth
         end
       end
 
@@ -493,7 +503,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         end
 
         it 'returns false' do
-          expect(controller).not_to be_external_authn_enabled
+          expect(controller).not_to be_external_auth
         end
       end
     end

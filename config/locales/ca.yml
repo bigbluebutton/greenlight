@@ -47,28 +47,37 @@
 
 ca:
   opengraph:
-    description: "Aprèn amb BigBlueButton, la solució de videoconferència de codi obert que permet una col·laboració virtual perfecta i experiències d'aprenentatge en línia."
+    description: "Aprèn utilitzant BigBlueButton, la solució de conferències web de codi obert de confiança que permet una col·laboració virtual sense interrupcions i experiències d'aprenentatge en línia."
   meeting:
-    moderator_message: "Per a convidar a algú a la sessió, enveu-li aquest enllaç:"
-    access_code: "Codi d'activació: %{code}"
+    moderator_message: "Per convidar algú a la reunió, envia'ls aquest enllaç:"
+    access_code: "Codi d'accés: %{code}"
   email:
     activation:
-      account_activation: Activació del compte
-      welcome_to_bbb: Benvingut/da a BigBlueButton!
-      get_started: "Per començar, activa el teu compte clicant al següent botó."
-      activate_account: Activa el compte
-      link_expires: L'enllaç expirarà en 24 hores.
-      if_link_expires: "Si l'enllaç expira, valida't i sol·licita un nou email d'activació."
+      account_activation: Activació del Compte
+      welcome_to_bbb: Benvingut a BigBlueButton!
+      get_started: "Per començar, si us plau activa el teu compte fent clic al botó de sota."
+      activate_account: Activa el Compte
+      link_expires: L'enllaç caducarà en 24 hores.
+      if_link_expires: "Si l'enllaç caduca, si us plau inicia sessió i sol·licita un nou correu electrònic d'activació."
     invitation:
       invitation_to_join: Invitació a BigBlueButton
-      you_have_been_invited: "Has estat convidat a crear un compte de BigBlueButton per %{name}."
-      get_started: "Per accedir, fer clic al botó següent i segueix els passos."
-      valid_invitation: La invitació és vàlida durant les següents 24 hores.
+      you_have_been_invited: "Has estat convidat a crear un compte en BigBlueButton per %{name}."
+      get_started: "Per inscriure't, si us plau fes clic al botó de sota i segueix els passos."
+      valid_invitation: La invitació és vàlida durant 24 hores.
       sign_up: Registre
+    new_user_signup:
+      new_user: Nova Alta d'Usuari en BigBlueButton
+      new_user_description: Un nou usuari s'ha registrat per utilitzar BigBlueButton.
+      name: "Nom: %{name}"
+      email: "Correu electrònic: %{email}"
+      admin_panel: "Tauler d'Administrador"
+      take_action: "Per veure el nou usuari o per prendre les accions necessàries, visita el Tauler d'Administrador"
     reset:
-      password_reset: Restableix la contrasenya
-      password_reset_requested: "La renovació de la contrasenya has estat sol·licitada per %{email}."
-      password_reset_confirmation: "Per renovar la teva contrasenya, fes clic al següent botó."
-      reset_password: Restableix la contrasenya
-      link_expires: L'enllaç expirarà en 1 hora.
-      ignore_request: "Si no vas sol·licitar la renovació de la teva contrasenya, ignora aquest missatge."
+      password_reset: Restableix la Contrasenya
+      password_reset_requested: "S'ha sol·licitat un restabliment de contrasenya per %{email}."
+      password_reset_confirmation: "Per restablir la teva contrasenya, si us plau fes clic al botó de sota."
+      reset_password: Restableix la Contrasenya
+      link_expires: L'enllaç caducarà en 1 hora.
+      ignore_request: "Si no has sol·licitat canviar la teva contrasenya, si us plau ignora aquest correu electrònic."
+  room:
+    new_room_name: "Sala de %{username}"

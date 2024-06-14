@@ -17,6 +17,8 @@
   "close": "Kapat",
   "delete": "Sil",
   "copy": "Kopyala",
+  "copy_viewer_code": "İzleyici kodunu kopyala",
+  "copy_moderator_code": "Sorumlu kodunu kopyala",
   "or": "Veya",
   "online": "Çevrim içi",
   "help_center": "Yardım merkezi",
@@ -81,6 +83,7 @@
       "account_info": "Hesap bilgileri",
       "delete_account": "Hesabı sil",
       "change_password": "Parolayı değiştir",
+      "set_password": "Yeni parolanızı ayarlayın",
       "reset_password": "Parolayı sıfırla",
       "update_account_info": "Hesap bilgilerinizi güncelleyin",
       "current_password": "Geçerli parola",
@@ -111,7 +114,7 @@
     "create_new_room": "Yeni oda ekle",
     "enter_room_name": "Oda adını yazın",
     "shared_by": "şununla paylaşılmış",
-    "last_session": "Son oturum: {{ room.last_session }}",
+    "last_session": "Son oturum: {{ localizedTime }}",
     "no_last_session": "Daha önce bir oturum yapılmamış",
     "search_not_found": "Herhangi bir kullanıcı bulunamadı.",
     "rooms_list_is_empty": "Henüz bir oda oluşturmamışsınız!",
@@ -129,6 +132,7 @@
       "click_to_upload": "Yüklemek için tıklayın",
       "drag_and_drop": "ya da sürükleyip bırakın",
       "upload_description": "Herhangi bir Office belgesi ya da PDF dosyası ({{size}} boyutundan büyük olmayan) yükleyin. Dosyanın boyutuna bağlı olarak, kullanılmadan önce karşıya yüklenmesi biraz sürebilir.",
+      "delete_presentation": "Sunumu sil",
       "are_you_sure_delete_presentation": "Bu sunumu silmek istediğinize emin misiniz?"
     },
     "shared_access": {
@@ -165,6 +169,7 @@
   "recording": {
     "recording": "Kaydediliyor",
     "recordings": "Kayıtlar",
+    "processing": "Kayıtlar işleniyor...",
     "name": "Ad",
     "length": "Süre",
     "users": "Kullanıcılar",
@@ -211,7 +216,7 @@
       "create_account": "Hesap ekle",
       "create_room": "Oda ekle",
       "create_new_room": "Yeni oda ekle",
-      "user_created_at": "Oluşturulma: {{user.created_at}}",
+      "user_created_at": "Oluşturulma: {{localizedTime}}",
       "are_you_sure_delete_account": "{{user.name}} kullanıcısının hesabını silmek istediğinize emin misiniz?",
       "delete_account_warning": "Bu hesabı silmeyi seçerseniz, bu işlem geri alınamaz.",
       "empty_active_users": "Bu sunucuda henüz etkin bir kullanıcı yok!",
@@ -271,15 +276,27 @@
         "privacy_policy": "Gizlilik ilkesi",
         "change_term_links": "Sayfanın altında görüntülenecek koşullar bağlantısını değiştir",
         "change_privacy_link": "Sayfanın altında görüntülenecek gizlilik bağlantısını değiştir",
+        "helpcenter": "Yardım merkezi",
+        "change_helpcenter_link": "Profil açılır menüsünde görüntülenecek yardım merkezi bağlantısını değiştirin",
+        "maintenance": "Bakım duyurusu",
+        "change_maintenance_text": "Üst bilgide görüntülecek bakım duyurusu metnini değiştirin",
         "change_url": "Adresi değiştir",
+        "set_text": "Metni ayarla",
+        "clear_banner": "Duyuruyu temizle",
         "enter_link": "Bağlantıyı buraya yazın"
       },
       "settings": {
         "settings": "Ayarlar",
         "allow_users_to_share_rooms": "Kullanıcılar odayı paylaşabilsin",
-        "allow_users_to_share_rooms_description": "Bu seçenek devre dışı olarak ayarlandığında, düğme oda seçenekleri açılır menüsünden kaldırılır ve kullanıcıların odaları paylaşması engellenir.",
+        "allow_users_to_share_rooms_description": "Bu seçenek kapatıldığında, düğme oda seçenekleri açılır menüsünden kaldırılır ve kullanıcıların odaları paylaşması engellenir.",
         "allow_users_to_preupload_presentation": "Kullanıcılar önceden sunum yükleyebilsin",
-        "allow_users_to_preupload_presentation_description": "Kullanıcılar, bu odada varsayılan olarak kullanılacak bir sunumu önceden yükleyebilir"
+        "allow_users_to_preupload_presentation_description": "Kullanıcılar, bu odada varsayılan olarak kullanılacak bir sunumu önceden yükleyebilir",
+        "default_visibility": "Varsayılan kaydetme görünürlüğü",
+        "default_visibility_description": "Yeni oluşturulan tüm kayıtların varsayılan görünürlüğünü belirler",
+        "session_timeout": "Oturum zaman aşımı",
+        "session_timeout_description": "Oturum zaman aşımı süresini varsayılan çerez ile 1 gün ile uzatılmış çerez ile 7 gün arasında yapılandırabilirsiniz",
+        "default_session_timeout": "Varsayılan (1 gün)",
+        "extended_session_timeout": "Uzatılmış (7 gün)"
       },
       "registration": {
         "registration": "Hesap açma",
@@ -301,13 +318,13 @@
     },
     "room_configuration": {
       "room_configuration": "Oda yapılandırması",
-      "default": "İsteğe bağlı (varsayılan olarak etkin)",
-      "optional": "İsteğe bağlı (varsayılan olarak devre dışı)",
-      "enabled": "Zorla etkinleştirilsin",
-      "disabled": "Devre dışı",
+      "default": "İsteğe bağlı (varsayılan olarak açık)",
+      "optional": "İsteğe bağlı (varsayılan olarak kapalı)",
+      "enabled": "Zorla açılsın",
+      "disabled": "Kapalı",
       "configurations": {
         "allow_room_to_be_recorded": "Odanın kaydı alınabilsin",
-        "allow_room_to_be_recorded_description": "Oda sahiplerinin, bir odanın kaydedilmesi hakkında bir seçenek sunmak isteyip istemediklerini belirtmelerini sağlar. Bu seçenek etkinleştirilse bile, sorumlu, toplantı başladıktan sonra “Kaydet düğmesine tıklamalıdır.",
+        "allow_room_to_be_recorded_description": "Oda sahiplerinin, bir odanın kaydedilmesi hakkında bir seçenek sunmak isteyip istemediklerini belirtmelerini sağlar. Bu seçenek açılsa bile, sorumlu, toplantı başladıktan sonra “Kaydet düğmesine tıklamalıdır.",
         "require_user_signed_in": "Kullanıcıların katılmadan önce oturum açması zorunlu olsun",
         "require_user_signed_in_description": "Bu seçenek etkinleştirildiğinde, yalnızca Greenlight hesabı olan kullanıcılar toplantıya katılabilir. Oturum açmamış kullanıcılar, bir odaya katılmaya çalışırken oturum açma sayfasına yönlendirilir.",
         "require_mod_approval": "Katılmadan önce sorumlu onayı gereksin",
@@ -347,7 +364,9 @@
         "manage_site_settings": "Bu roldeki kullanıcılar site ayarlarını yönetebilsin",
         "manage_roles": "Bu roldeki kullanıcılar diğer kullanıcı rollerini düzenleyebilsin",
         "shared_list": "Bu roldeki kullanıcılar oda paylaşma açılan kutularında görüntülensin",
-        "room_limit": "Oda sayısı sınırı"
+        "room_limit": "Oda sayısı sınırı",
+        "email_on_signup": "Yeni bir kullanıcı hesap açtığında e-posta alın",
+        "allowed_recording_visibility": "İzin verilen kaydetme görünürlükleri"
       }
     }
   },
@@ -358,6 +377,7 @@
         "user_updated": "Kullanıcı güncellendi.",
         "user_deleted": "Kullanıcı silindi.",
         "avatar_updated": "Avatar güncellendi.",
+        "password_changed": "Parolanız güncellendi. Lütfen yeniden oturum açın.",
         "password_updated": "Parola güncellendi.",
         "account_activated": "Hesap etkinleştirildi. Lütfen hesabınızla oturum açın.",
         "activation_email_sent": "Etkinleştirme e-postası gönderildi.",
@@ -382,7 +402,9 @@
         "access_code_copied": "Erişim kodu kopyalandı.",
         "access_code_generated": "Erişim kodu oluşturuldu.",
         "access_code_deleted": "Erişim kodu silindi.",
-        "copied_meeting_url": "Toplantı adresi kopyalandı. Bu adres toplantıya katılmak için kullanılabilir."
+        "copied_meeting_url": "Toplantı adresi kopyalandı. Bu adres toplantıya katılmak için kullanılabilir.",
+        "copied_viewer_code": "İzleyici erişim kodu kopyalandı.",
+        "copied_moderator_code": "Sorumlu erişim kodu kopyalandı."
       },
       "site_settings": {
         "site_setting_updated": "Site ayarları güncellendi.",
@@ -390,7 +412,9 @@
         "brand_image_updated": "Marka görseli güncellendi.",
         "brand_image_deleted": "Marka görseli silindi.",
         "privacy_policy_updated": "Gizlilik ilkesi güncellendi.",
-        "terms_of_service_updated": "Hizmet koşulları güncellendi."
+        "helpcenter_updated": "Yardım merkezi bağlantısı güncellendi.",
+        "terms_of_service_updated": "Hizmet koşulları güncellendi.",
+        "maintenance_updated": "Bakım duyurusu güncellendi."
       },
       "recording": {
         "recording_visibility_updated": "Kayıt görünürlüğü güncellendi.",
@@ -414,6 +438,7 @@
       "file_size_too_large": "Dosya boyutu çok büyük.",
       "file_upload_error": "Dosya yüklenemedi.",
       "signin_required": "Bu sayfaya erişebilmek için oturum açmalısınız",
+      "malware_detected": "Zararlı yazılım algılandı! Yüklediğiniz dosyada zararlı yazılım bulunuyor. Lütfen dosyayı denetleyip yeniden deneyin.",
       "roles": {
         "role_assigned": "Bu rol, en az bir kullanıcıya atanmış olduğundan silinemez."
       },
@@ -526,7 +551,7 @@
           "placeholder": "Erişim kodunu yazın"
         },
         "recording_consent": {
-          "label": "Bu oturumun kaydedildiğini ve etkinleştirilmiş ise sesim ve görüntümün de kaydedileceğini anladım."
+          "label": "Bu oturumun kaydedildiğini ve açılmış ise sesim ve görüntümün de kaydedileceğini anladım."
         }
       }
     },
@@ -660,7 +685,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "Bağlantıyı buraya yazın..."
+            "placeholder": "Bağlantıyı buraya yazın...",
+            "text_placeholder": "Metni buraya yazın..."
           }
         }
       },

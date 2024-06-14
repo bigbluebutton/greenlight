@@ -67,10 +67,16 @@
   .dropdown-toggle::after {
     display: none !important;
   }
+
+  @include media-breakpoint-down(md) {
+    .dropdown-menu {
+      transform: none !important;
+    }
+  }
 }
 
 #manage-users-table {
-  @include media-breakpoint-down(xl) {
+  @include media-breakpoint-down(md) {
     td, tr {
       // Full name and creation date
       &:nth-child(1) {

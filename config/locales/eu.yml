@@ -65,6 +65,13 @@ eu:
       get_started: "Izena emateko, egin klik beheko botoian eta jarraitu urratsei."
       valid_invitation: Gonbita 24 ordukoa da.
       sign_up: Izena eman
+    new_user_signup:
+      new_user: BigBlueButton-en erabiltzaile berria
+      new_user_description: Erabiltzaile berri batek BigBlueButton erabiltzeko izena eman du.
+      name: "Izena: %{name}"
+      email: "Eposta: %{email}"
+      admin_panel: "Administratzaile-panela"
+      take_action: "Erabiltzaile berria ikusteko edo behar diren neurriak hartzeko, bisitatu Administratzaileen Panela"
     reset:
       password_reset: Berrezarri pasahitza
       password_reset_requested: "%{email}(e)k pasahitza berrezartzeko eskatu du."
@@ -72,3 +79,5 @@ eu:
       reset_password: Berrezarri pasahitza
       link_expires: Esteka ordubetean iraungiko da.
       ignore_request: "Zuk ez baduzu pasahitz-aldaketa eskaerarik egin, ez kasurik egin eposta mezu honi mesedez."
+  room:
+    new_room_name: "%{username}(e)ren Aretoa "

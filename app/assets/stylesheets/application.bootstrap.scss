@@ -197,8 +197,6 @@ input.search-bar {
 }
 
 #footer {
-  margin-top: $footer-buffer-height;
-
   #footer-container {
     border-top: 1px solid #d0d5dd;
   }
@@ -286,6 +284,21 @@ input.search-bar {
   }
 }
 
+.custom-select {
+  .select-brand-control {
+    border-color: var(--brand-color) !important;
+    box-shadow: 0 0 0 1px var(--brand-color) !important;
+  }
+
+  .select-brand-option {
+    background-color: whitesmoke;
+    color: var(--brand-color) !important;
+    &:active {
+      background-color: var(--brand-color-light) !important;
+    }
+  }
+}
+
 //Brand
 :root {
   --brand-color: '';
@@ -302,9 +315,17 @@ input.search-bar {
   border-color: var(--brand-color);
   color: white;
 
+  &:active {
+    background-color: var(--brand-color) !important;
+    border-color: var(--brand-color) !important;
+    color: white !important;
+  }
+
   &:hover {
-    box-shadow: inset 0 0 200px 200px rgba(0, 0, 0, 0.1);
+    background-color: var(--brand-color);
+    border-color: var(--brand-color);
     color: white;
+    box-shadow: inset 0 0 200px 200px rgba(0, 0, 0, 0.1);
   }
 
   &:focus {
@@ -318,8 +339,15 @@ input.search-bar {
   background-color: white;
   box-shadow: var(--brand-color-light);
 
+  &:active {
+    border-color: var(--brand-color) !important;
+    background-color: white !important;
+    color: var(--brand-color) !important;
+  }
+
   &:hover {
     border-color: var(--brand-color);
+    background-color: white;
     color: var(--brand-color);
   }
 
@@ -423,6 +451,14 @@ input.search-bar {
   }
 }
 
+.badge-brand-outline {
+  font-size: 0.8rem;
+  border: 2px solid gainsboro;
+  color: var(--brand-color);
+  background-color: white !important;
+  box-shadow: var(--brand-color-light);
+}
+
 .setting-select {
   button {
     background: white !important;
@@ -464,7 +500,7 @@ input.search-bar {
       box-shadow: 0 0 0 0.25rem var(--brand-color-light) !important;
     }
     &::after {
-      display: none;
+      display: none !important;
     }
   }
 

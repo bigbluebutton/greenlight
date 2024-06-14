@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import useSessions from '../../hooks/queries/users/useSessions';
 
@@ -30,6 +30,7 @@ export function useAuth() {
 
 export default function AuthProvider({ children }) {
   const { isLoading, data: currentUser } = useSessions();
+  const [stateChanging, setStateChanging] = useState(false);
 
   const user = {
     id: currentUser?.id,
@@ -44,8 +45,9 @@ export default function AuthProvider({ children }) {
     verified: currentUser?.verified,
     status: currentUser?.status,
     external_account: currentUser?.external_account,
-    stateChanging: false,
+    stateChanging,
     isSuperAdmin: currentUser?.super_admin,
+    setStateChanging,
   };
 
   const memoizedCurrentUser = useMemo(() => user, [user]);

@@ -26,16 +26,18 @@ export default function useUpdateSiteSetting(name) {
 
   const uploadPresentation = (data) => {
     let settings;
+    let headers = { 'Content-Type': 'application/json' };
 
     if (name === 'BrandingImage') {
       fileValidation(data, 'image');
       settings = new FormData();
       settings.append('site_setting[value]', data);
+      headers = { 'Content-Type': 'multipart/form-data' };
     } else {
       settings = data;
     }
 
-    return axios.patch(`/admin/site_settings/${name}.json`, settings);
+    return axios.patch(`/admin/site_settings/${name}.json`, settings, { headers });
   };
 
   const handleSuccess = () => {
@@ -52,8 +54,14 @@ export default function useUpdateSiteSetting(name) {
       case 'PrivacyPolicy':
         toast.success(t('toast.success.site_settings.privacy_policy_updated'));
         break;
+      case 'HelpCenter':
+        toast.success(t('toast.success.site_settings.helpcenter_updated'));
+        break;
       case 'TermsOfService':
         toast.success(t('toast.success.site_settings.terms_of_service_updated'));
+        break;
+      case 'Maintenance':
+        toast.success(t('toast.success.site_settings.maintenance_updated'));
         break;
       default:
         toast.success(t('toast.success.site_settings.site_setting_updated'));
@@ -69,7 +77,11 @@ export default function useUpdateSiteSetting(name) {
         handleSuccess();
       },
       onError: (error) => {
-        handleError(error, t, toast);
+        if (error.response.data.errors.includes('Image MalwareDetected')) {
+          toast.error(t('toast.error.malware_detected'));
+        } else {
+          handleError(error, t, toast);
+        }
       },
     },
   );

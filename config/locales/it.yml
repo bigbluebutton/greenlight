@@ -1,0 +1,83 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   "true": "foo"
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+it:
+  opengraph:
+    description: "Impara utilizzando BigBlueButton, la soluzione affidabile per conferenze Web open source che consente una collaborazione virtuale senza soluzione di continuità ed esperienze di apprendimento online."
+  meeting:
+    moderator_message: "Per invitare qualcuno a partecipare, inviagli questo collegamento: "
+    access_code: "Codice Accesso: %{code}"
+  email:
+    activation:
+      account_activation: Attivazione utente
+      welcome_to_bbb: Benvenuti su BigBlueButton!
+      get_started: "Per iniziare, attiva la tua utenza facendo clic sul pulsante in basso."
+      activate_account: Attiva utenza
+      link_expires: Il collegamento scadrà tra 24 ore.
+      if_link_expires: "Se il collegamento scade, effettua l'accesso e richiedi una nuova email di attivazione"
+    invitation:
+      invitation_to_join: Invito BigBlueButton
+      you_have_been_invited: "Sei stato invitato a creare un'utenza BigBlueButton da %{name}."
+      get_started: "Per iscriverti, fai clic sul pulsante qui sotto e segui i passaggi."
+      valid_invitation: L'invito è valido per 24 ore.
+      sign_up: Iscriviti
+    new_user_signup:
+      new_user: Nuova iscrizione utente BigBlueButton
+      new_user_description: Un nuovo utente si è iscritto per utilizzare BigBlueButton.
+      name: "Nome: %{name}"
+      email: "Email: %{email}"
+      admin_panel: "Pannello di amministrazione"
+      take_action: "Per visualizzare il nuovo utente o intraprendere l'azione necessaria, visitare il Pannello di amministrazione"
+    reset:
+      password_reset: Reimposta password
+      password_reset_requested: "È stata richiesta la reimpostazione della password %{email}."
+      password_reset_confirmation: "Per reimpostare la password, fare clic sul pulsante in basso."
+      reset_password: Reimposta password
+      link_expires: Il collegamento scadrà tra 1 ora.
+      ignore_request: "Se non hai effettuato una richiesta di modifica della password, ignora questa email."
+  room:
+    new_room_name: "Aula di %{username}"

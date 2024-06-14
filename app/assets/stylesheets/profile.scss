@@ -66,3 +66,9 @@
     display: none;
   }
 }
+
+#updateUserFormLanguage .dropdown-menu {
+  max-height: 20vh;
+  overflow-y: auto;
+  background-clip: border-box;
+}
