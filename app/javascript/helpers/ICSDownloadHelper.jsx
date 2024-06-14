@@ -29,7 +29,7 @@ const createICSContent = (name, room_name, url, voice_bridge, voice_bridge_phone
 const createICSWithoutHTML = (name, room_name, url, voice_bridge, voice_bridge_phone_number, t) => {
   let description = `\n\n${t('room.meeting.invite_to_meeting', { name })}\n\n${t('room.meeting.join_by_url')}:\n${url}\n`;
 
-  if (typeof voice_bridge !== 'undefined' && typeof voice_bridge_phone_number !== 'undefined') {
+  if (typeof voice_bridge !== 'undefined' || typeof voice_bridge_phone_number !== 'undefined') {
     description += `\n${t('room.meeting.join_by_phone')}: ${voice_bridge_phone_number},,${voice_bridge}\nPIN: ${voice_bridge}`;
   }
 

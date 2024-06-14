@@ -20,14 +20,8 @@ class RoomSerializer < ApplicationSerializer
   attributes :id, :name, :friendly_id, :online, :participants, :last_session
 
   attribute :shared_owner, if: -> { object.shared }
-  attribute :voice_bridge, if: -> { Rails.application.config.voice_bridge_phone_number }
-  attribute :voice_bridge_phone_number, if: -> { Rails.application.config.voice_bridge_phone_number }
 
   def shared_owner
     object.user.name
-  end
-
-  def voice_bridge_phone_number
-    Rails.application.config.voice_bridge_phone_number
   end
 end

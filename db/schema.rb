@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_05_183747) do
+ActiveRecord::Schema[7.1].define(version: 2023_07_05_183747) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -41,6 +41,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_183747) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "formats", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -129,11 +132,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_183747) do
     t.datetime "updated_at", null: false
     t.integer "recordings_processing", default: 0
     t.boolean "online", default: false
-    t.integer "voice_bridge"
     t.index ["friendly_id"], name: "index_rooms_on_friendly_id", unique: true
     t.index ["meeting_id"], name: "index_rooms_on_meeting_id", unique: true
     t.index ["user_id"], name: "index_rooms_on_user_id"
-    t.index ["voice_bridge"], name: "index_rooms_on_voice_bridge"
   end
 
   create_table "rooms_configurations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -192,12 +193,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_183747) do
     t.uuid "role_id"
     t.string "language", null: false
     t.string "reset_digest"
-    t.datetime "reset_sent_at", precision: nil
+    t.datetime "reset_sent_at"
     t.boolean "verified", default: false
     t.string "verification_digest"
-    t.datetime "verification_sent_at", precision: nil
+    t.datetime "verification_sent_at"
     t.string "session_token"
-    t.datetime "session_expiry", precision: nil
+    t.datetime "session_expiry"
     t.integer "status", default: 0
     t.index ["email", "provider"], name: "index_users_on_email_and_provider", unique: true
     t.index ["reset_digest"], name: "index_users_on_reset_digest", unique: true
