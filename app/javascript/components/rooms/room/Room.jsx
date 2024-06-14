@@ -121,7 +121,7 @@ export default function Room() {
                     <Square2StackIcon className="hi-s me-1" />
                     { t('copy') }
                   </Button>
-                  {typeof room.voice_bridge_phone_number !== 'undefined' && <Button variant="brand-outline" className="mt-1 mx-2 float-end" onClick={() => copyVoiceBridge(room?.voice_bridge, room?.voice_bridge_phone_number)}>
+                  {!isRoomLoading && typeof room.voice_bridge_phone_number !== 'undefined' && <Button variant="brand-outline" type="button" className="btn dropdown-main" onClick={() => copyVoiceBridge(room?.voice_bridge, room?.voice_bridge_phone_number)}>
                       <PhoneIcon className="hi-s me-1" />
                       {t('copy_voice_bridge')}
                     </Button>}
