@@ -30,7 +30,8 @@ class MeetingStarter
 
   def call
     # TODO: amir - Check the legitimately of the action.
-    options = RoomSettingsGetter.new(room_id: @room.id, provider: @room.user.provider, current_user: @current_user, only_bbb_options: true, voice_bridge: @room.voice_bridge).call
+    options = RoomSettingsGetter.new(room_id: @room.id, provider: @room.user.provider, current_user: @current_user, only_bbb_options: true,
+                                     voice_bridge: @room.voice_bridge).call
     viewer_code = RoomSettingsGetter.new(
       room_id: @room.id,
       provider: @room.user.provider,

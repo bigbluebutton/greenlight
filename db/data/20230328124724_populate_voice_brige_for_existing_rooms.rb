@@ -22,6 +22,8 @@ class PopulateVoiceBrigeForExistingRooms < ActiveRecord::Migration[7.0]
   end
 
   def down
+    # rubocop:disable Rails/SkipsModelValidations
     Room.update_all(voice_bridge: nil)
+    # rubocop:enable Rails/SkipsModelValidations
   end
 end

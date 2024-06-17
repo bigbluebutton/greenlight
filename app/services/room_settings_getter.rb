@@ -103,8 +103,8 @@ class RoomSettingsGetter
   end
 
   def set_voice_brige(room_settings:)
-    if @voice_bridge != nil
-      room_settings['voiceBridge'] = "#{@voice_bridge}"
-    end
+    return if @voice_bridge.nil?
+
+    room_settings['voiceBridge'] = @voice_bridge.to_s
   end
 end
