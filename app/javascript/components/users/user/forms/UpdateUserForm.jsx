@@ -85,7 +85,7 @@ export default function UpdateUserForm({ user }) {
         </FormSelect>
       )}
       <Stack direction="horizontal" gap={2} className="float-end">
-        <Button variant="neutral" onClick={reset}> { t('cancel') } </Button>
+        <Button variant="neutral" onClick={reset}> { t('reset') } </Button>
         <Button variant="brand" type="submit" disabled={updateUserAPI.isLoading}>
           { t('update') }
           {updateUserAPI.isLoading && <Spinner className="me-2" />}
