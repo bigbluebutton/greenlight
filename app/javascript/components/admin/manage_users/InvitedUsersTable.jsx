@@ -28,7 +28,6 @@ import EmptyUsersList from './EmptyUsersList';
 import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import ManageUsersInvitedRowPlaceHolder from './ManageUsersInvitedRowPlaceHolder';
-// import Modal from '../../shared_components/modals/Modal';
 import useRevokeUserInvite from '../../../hooks/mutations/admin/manage_users/useRevokeUserInvite';
 
 export default function InvitedUsersTable({ searchInput }) {
@@ -83,7 +82,7 @@ export default function InvitedUsersTable({ searchInput }) {
                               <Dropdown.Menu>
                                 <Dropdown.Item onClick={() => revokeUserInvite.mutate(invitation.id)}>
                                   <XCircleIcon className="hi-s me-2" />
-                                  {t('admin.manage_users.revoke_invite')}
+                                  {t('admin.manage_users.invited.revoke_invite')}
                                 </Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown>

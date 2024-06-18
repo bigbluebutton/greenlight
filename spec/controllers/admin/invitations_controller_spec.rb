@@ -108,8 +108,8 @@ RSpec.describe Api::V1::Admin::InvitationsController do
 
   describe 'invitation#destroy' do
     it 'deletes the invitation' do
-      invitation = create(:invitation, email: 'faker@faker.com')
-      expect { delete :destroy, params: { id: invitation.id } }
+      invitation = create(:invitation)
+      expect { delete :destroy, params: { id: invitation.id } }.to change(Invitation, :count).by(-1)
       expect(response).to have_http_status(:ok)
     end
 
