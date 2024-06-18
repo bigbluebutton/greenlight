@@ -63,11 +63,11 @@ module Api
 
         def destroy
           invitation = Invitation.find(params[:id])
-          invitation.destroy
-          render_data status: :ok
-        rescue StandardError => e
-          logger.error "Failed to revoke invite, error: #{e.message}"
-          render_error status: :bad_request
+          if invitation.destroy
+            render_data status: :ok
+          else
+            render_error status: :not_found
+          end
         end
       end
     end
