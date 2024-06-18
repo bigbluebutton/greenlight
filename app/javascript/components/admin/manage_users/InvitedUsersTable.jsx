@@ -16,9 +16,10 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'react-bootstrap';
+import { Table, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { CheckIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { CheckIcon, XMarkIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import SortBy from '../../shared_components/search/SortBy';
 import useInvitations from '../../../hooks/queries/admin/manage_users/useInvitations';
 import Pagination from '../../shared_components/Pagination';
@@ -27,12 +28,15 @@ import EmptyUsersList from './EmptyUsersList';
 import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import ManageUsersInvitedRowPlaceHolder from './ManageUsersInvitedRowPlaceHolder';
+// import Modal from '../../shared_components/modals/Modal';
+import useRevokeUserInvite from '../../../hooks/mutations/admin/manage_users/useRevokeUserInvite';
 
 export default function InvitedUsersTable({ searchInput }) {
   const { t } = useTranslation();
   const [page, setPage] = useState();
   const { isLoading, data: invitations } = useInvitations(searchInput, page);
   const currentUser = useAuth();
+  const revokeUserInvite = useRevokeUserInvite();
 
   if (!searchInput && invitations?.data?.length === 0) {
     return <EmptyUsersList text={t('admin.manage_users.empty_invited_users')} subtext={t('admin.manage_users.empty_invited_users_subtext')} />;
@@ -72,6 +76,17 @@ export default function InvitedUsersTable({ searchInput }) {
                           <td className="text-dark border-0">{localizeDateTimeString(invitation.updated_at, currentUser?.language)}</td>
                           <td className="text-dark border-0">
                             { invitation.valid ? <CheckIcon className="text-success hi-s" /> : <XMarkIcon className="text-danger hi-s" />}
+                          </td>
+                          <td className="text-dark border-0">
+                            <Dropdown className="float-end cursor-pointer">
+                              <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
+                              <Dropdown.Menu>
+                                <Dropdown.Item onClick={() => revokeUserInvite.mutate(invitation.id)}>
+                                  <XCircleIcon className="hi-s me-2" />
+                                  {t('admin.manage_users.revoke_invite')}
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
                           </td>
                         </tr>
                       ))

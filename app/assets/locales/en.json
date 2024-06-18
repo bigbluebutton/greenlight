@@ -230,7 +230,8 @@
       "invited": {
         "time_sent": "Time Sent",
         "valid": "Valid"
-      }
+      },
+      "revoke_invite": "Revoke Invite"
     },
     "server_rooms": {
       "server_rooms": "Server Rooms",
