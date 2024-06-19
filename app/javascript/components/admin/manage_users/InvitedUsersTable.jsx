@@ -18,7 +18,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { CheckIcon, XMarkIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import { CheckIcon, XMarkIcon, ArchiveBoxXMarkIcon } from '@heroicons/react/24/solid';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import SortBy from '../../shared_components/search/SortBy';
 import useInvitations from '../../../hooks/queries/admin/manage_users/useInvitations';
@@ -81,8 +81,8 @@ export default function InvitedUsersTable({ searchInput }) {
                               <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
                               <Dropdown.Menu>
                                 <Dropdown.Item onClick={() => revokeUserInvite.mutate(invitation.id)}>
-                                  <XCircleIcon className="hi-s me-2" />
-                                  {t('admin.manage_users.invited.revoke_invite')}
+                                  <ArchiveBoxXMarkIcon className="hi-s me-2" />
+                                  {t('admin.manage_users.invited.revoke')}
                                 </Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown>
