@@ -230,7 +230,8 @@
       "empty_invited_users_subtext": "When a user's status gets changed to invited, they will appear here.",
       "invited": {
         "time_sent": "Time Sent",
-        "valid": "Valid"
+        "valid": "Valid",
+        "revoke": "Revoke"
       }
     },
     "server_rooms": {
@@ -430,7 +431,8 @@
         "role_permission_updated": "The role permission has been updated."
       },
       "invitations": {
-        "invitation_sent": "An invitation has been sent."
+        "invitation_sent": "An invitation has been sent.",
+        "invitation_revoked": "An invitation has been revoked"
       }
     },
     "error": {

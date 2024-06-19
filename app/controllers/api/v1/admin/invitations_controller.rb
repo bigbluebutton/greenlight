@@ -60,6 +60,15 @@ module Api
           logger.error "Failed to send invitations to #{params[:invitations][:emails]} - #{e}"
           render_error status: :bad_request
         end
+
+        def destroy
+          invitation = Invitation.find(params[:id])
+          if invitation.destroy
+            render_data status: :ok
+          else
+            render_error status: :not_found
+          end
+        end
       end
     end
   end
