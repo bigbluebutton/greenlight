@@ -63,5 +63,6 @@ end
 
 group :production do
   gem 'lograge', '~> 0.14.0'
+  gem 'puma-metrics', '~> 1.2.0'
   gem 'remote_syslog_logger'
 end
