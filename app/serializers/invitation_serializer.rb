@@ -20,8 +20,6 @@ class InvitationSerializer < ApplicationSerializer
   attributes :id, :email, :updated_at, :valid
 
   def valid
-    expiration_time = object.updated_at + Invitation::INVITATION_VALIDITY_PERIOD
-
-    Time.current <= expiration_time
+    object.updated_at < Invitation::INVITATION_VALIDITY_PERIOD.ago
   end
 end
