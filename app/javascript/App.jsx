@@ -24,6 +24,7 @@ import { useAuth } from './contexts/auth/AuthProvider';
 import Footer from './components/shared_components/Footer';
 import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
 import Title from './components/shared_components/utilities/Title';
+import RTLSwitcher from './components/arabic/RTLSwitcher';
 
 export default function App() {
   const currentUser = useAuth();
@@ -71,9 +72,10 @@ export default function App() {
 
   return (
     <>
-      <Title>BigBlueButton</Title>
+      <Title>Saudi Sabura Site</Title>
       {(homePage || currentUser.signed_in) && <Header /> }
       <Container className={pageHeight}>
+      <RTLSwitcher />
         <Outlet />
       </Container>
       <ToastContainer

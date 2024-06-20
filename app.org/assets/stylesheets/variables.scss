@@ -1,0 +1,47 @@
+// BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+//
+// Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+//
+// This program is free software; you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software
+// Foundation; either version 3.0 of the License, or (at your option) any later
+// version.
+//
+// Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+// PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License along
+// with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+$secondary: #4B4B4B;
+
+$border-radius-sm: 8px;
+$border-radius: 8px;
+$border-radius-lg: 10px;
+$border-radius-pill: 8px;
+
+$muted: #6c757d;
+$black: #212529;
+
+$header-height: 70px;
+$footer-buffer-height: 15px;
+$footer-height: 57px;
+
+$table-hover-bg: #F8F8F8;
+
+$admin-card-height: 650px;
+
+$button-min-width: 120px;
+
+$column-xs-width: 50px;
+$column-sm-width: 100px;
+$column-md-width: 150px;
+$column-lg-width: 325px;
+
+$input-max-width: 300px;
+
+:root {
+  --toastify-color-error: #dc3545;
+  --toastify-font-family: "Inter";
+}

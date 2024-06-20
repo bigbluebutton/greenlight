@@ -8,8 +8,11 @@ services:
     volumes:
       - ./data/postgres/14/database_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=
+      - POSTGRES_USER=omar-admin
+      - POSTGRES_PASSWORD= 1Bd6OERbKprHusryNr1
+      - POSTGRES_DB=greenlight-v3-development
+    ports:
+      - 127.0.0.1:5432:5432
 
   redis:
     image: redis:6.2-alpine3.17
@@ -26,8 +29,9 @@ services:
     env_file: .env
     ports:
       - 127.0.0.1:5050:3000
-    logging:
-      driver: journald
+      
+    # logging:
+    #   driver: journald
     volumes:
       - ./data/greenlight-v3/storage:/usr/src/app/storage
     depends_on:

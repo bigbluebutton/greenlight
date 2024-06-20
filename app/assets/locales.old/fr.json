@@ -1,0 +1,703 @@
+{
+  "start": "Démarrer",
+  "search": "Rechercher",
+  "home": "Accueil",
+  "previous": "Précédent",
+  "back": "Retour",
+  "next": "Suivant",
+  "view": "Voir",
+  "join": "Rejoindre",
+  "edit": "Modifier",
+  "save": "Enregistrer",
+  "save_changes": "Enregistrer les modifications",
+  "update": "Mettre à jour",
+  "report": "Signaler",
+  "share": "Partager",
+  "cancel": "Annuler",
+  "close": "Fermer",
+  "delete": "Supprimer",
+  "copy": "Copier",
+  "copy_viewer_code": "Copie du code pour les participants",
+  "copy_moderator_code": "Copie du code pour les modérateurs",
+  "or": "Ou",
+  "online": "En ligne",
+  "help_center": "Aide",
+  "are_you_sure": "Etes-vous sûr?",
+  "return_home": "Retourner à l'accueil",
+  "created_at": "Créé à",
+  "view_recordings": "Voir les enregistrements",
+  "join_session": "Rejoindre une session.",
+  "no_result_search_input": "Aucun résultat trouvé pour {{ searchInput }}",
+  "action_permanent": "Cette action ne peut être annulée",
+  "homepage": {
+    "welcome_bbb": "Bienvenue sur BigBlueButton.",
+    "bigbluebutton_description": "BigBlueButton est un système de webconférence dont le code source ouvert et qui est destinée à l'enseignement en ligne. La plateforme permet de profiter au mieux du temps dédié à la formation en favorisant la collaboration et une supervision en temps réel. ",
+    "greenlight_description": "Créez vos salles et sessions ou rejoignez celles des autres grâce à un lien court et pratique.",
+    "learn_more": "En apprendre plus sur BigBlueButton",
+    "explore_features": "Découvrez les fonctionnalités",
+    "meeting_title": "Commencer une réunion",
+    "meeting_description": "Démarrez une classe virtuelles avec de la vidéo, de l'audio, du partage d'écran, un chat et tous les outils nécessaires à une formation.",
+    "recording_title": "Enregistrez vos réunions",
+    "recording_description": "Enregistrez des conférences dans BigBlueButton et partagez les avec les étudiants pour en étudier les contenus.",
+    "settings_title": "Gérez vos salles",
+    "settings_description": "Paramétrez vos salles et chaque réunion pour une salle de classe optimale",
+    "and_more_title": "Et plus encore!",
+    "and_more_description": "BigBlueButton propose de outils intégrés pour la formation et est conçu pour vous faire gagner du temps pendant le cours",
+    "enter_meeting_url": "Veuillez saisir l'URL de votre réunion sur BigBlueButton dans le champ ci-dessous",
+    "enter_meeting_url_instruction": "Veuillez saisir l'URL de votre réunion BigBlueButton dans le champ ci-dessous."
+  },
+  "authentication": {
+    "sign_in": "S'identifier",
+    "sign_up": "S'inscrire",
+    "sign_out": "Se déconnecter",
+    "email": "Courriel",
+    "password": "Mot de passe",
+    "confirm_password": "Confirmer le mot de passe",
+    "enter_email": "Saisissez votre courriel",
+    "enter_name": "Saisissez votre nom",
+    "remember_me": "Se souvenir de moi",
+    "forgot_password": "Mot de passe oublié ?",
+    "dont_have_account": "Vous n'avez pas de compte ?",
+    "create_account": "Créez un compte",
+    "create_an_account": "Création d'un compte",
+    "already_have_account": "Vous avez déjà un compte ?"
+  },
+  "user": {
+    "user": "Utilisateur",
+    "users": "Utilisateurs",
+    "name": "Nom",
+    "email_address": "Adresse de courriel",
+    "authenticator": "Authentifiant",
+    "full_name": "Nom complet",
+    "no_user_found": "Aucun utilisateur trouvé ",
+    "type_three_characters": "Veuillez taper trois (3) lettres ou plus pour voir d'autres utilisateurs",
+    "search_not_found": "Aucun utilisateur trouvé",
+    "profile": {
+      "profile": "Profil",
+      "language": "Langue",
+      "role": "Rôle",
+      "administrator": "Administrateur",
+      "guest": "Invité"
+    },
+    "account": {
+      "account_info": "Informations sur le compte",
+      "delete_account": "Supprimer le compte",
+      "change_password": "Changer de mot de passe",
+      "set_password": "Définissez votre nouveau mot de passe",
+      "reset_password": "Réinitialiser le mot de passe",
+      "update_account_info": "Mettre à jour les informations du compte",
+      "current_password": "Mot de passe actuel",
+      "new_password": "Nouveau mot de passe",
+      "confirm_password": "Confirmez le mot de passe",
+      "permanently_delete_account": "Supprimer définitivement votre compte",
+      "delete_account_description": "Si vous choisissez de supprimer votre compte, il NE pourra PAS être rétabli. Toutes les informations de votre compte, y compris les paramètres, les salles, et les enregistrements, seront effacés.",
+      "delete_account_confirmation": "Oui, je veux supprimer mon compte",
+      "are_you_sure_delete_account": "Etes-vous sûr de vouloir supprimer votre compte ?"
+    },
+    "avatar": {
+      "upload_avatar": "Téléverser un avatar",
+      "delete_avatar": "Effacer l'avatar",
+      "crop_avatar": "Recadrer votre avatar"
+    },
+    "pending": {
+      "title": "Inscription en attente",
+      "message": "Merci pour votre inscription! Votre compte et en attente d'approbation par un administrateur."
+    }
+  },
+  "room": {
+    "room": "Salle",
+    "rooms": "Salles",
+    "room_name": "Nom de la salle",
+    "add_new_room": "+ Nouvelle salle",
+    "create_room": "Créer une salle",
+    "delete_room": "Supprimer une salle",
+    "create_new_room": "Créer une nouvelle salle",
+    "enter_room_name": "Saisissez le nom de la salle",
+    "shared_by": "partagé par",
+    "last_session": "Dernière session : {{ localizedTime }}",
+    "no_last_session": "Il n'y a aucune session précédente",
+    "search_not_found": "Aucune salle trouvée",
+    "rooms_list_is_empty": "Vous n'avez pas encore de salles!",
+    "rooms_list_empty_create_room": "Créez votre première salle en cliquant sur le bouton ci-dessous puis en lui donnant un nom",
+    "meeting": {
+      "start_meeting": "Commencer la réunion",
+      "join_meeting": "Rejoindre la réunion",
+      "meeting_invitation": "Vous avez été invité à rejoindre la réunion",
+      "meeting_not_started": "La réunion n'a pas encore commencé.",
+      "join_meeting_automatically": "Vous rejoindrez automatiquement la réunion quand elle débutera",
+      "recording_consent": "Je reconnais savoir que cette session peut être enregistrée. Le cas échéant ma voix et mon image vidéo pourront apparaître lors de la captation."
+    },
+    "presentation": {
+      "presentation": "Documents",
+      "click_to_upload": "Cliquez pour téléverser",
+      "drag_and_drop": "ou glissez-déposez",
+      "upload_description": "Téléverser tout document Office ou fichier PDF (d'un volume inférieur à {{size}}). Le délai avant de pouvoir utiliser le fichier varie en fonction de son volume.",
+      "delete_presentation": "Effacer la présentation",
+      "are_you_sure_delete_presentation": "Etes-vous sûr de vouloir supprimer cet enregistrement ?"
+    },
+    "shared_access": {
+      "access": "Accès",
+      "add_share_access": "+ Partager l'accès",
+      "share_room_access": "Partager l'accès à la salle",
+      "add_some_users": "Il est temps d'ajouter quelques utilisateurs !",
+      "add_some_users_description": "Pour partager cette salle avec de nouveaux utilisateurs, cliquez sur le bouton ci-dessous pour les rechercher ou les sélectionner.",
+      "delete_shared_access": "Supprimer l'accès partagé",
+      "are_you_sure_delete_shared_access": "Êtes-vous sûr de vouloir supprimer cet accès partagé ?"
+    },
+    "settings": {
+      "settings": "Paramètres",
+      "room_name": "Nom de la salle",
+      "user_settings": "Paramètres de l'utilisateur",
+      "allow_room_to_be_recorded": "Permettre les enregistrements dans cette salle",
+      "require_signed_in": "Seuls les utilisateurs authentifiés peuvent rejoindre la salle",
+      "require_signed_in_message": "Vous devez vous identifier pour rejoindre la salle",
+      "require_mod_approval": "L'approbation d'un modérateur est nécessaire pour rejoindre la réunion.",
+      "allow_any_user_to_start": "Tout utilisateur peut démarrer la réunion",
+      "all_users_join_as_mods": "Tout utilisateur rejoint la salle en tant que modérateur",
+      "mute_users_on_join": "Les utilisateurs rejoignent la salle en mode silencieux",
+      "generate": "Générer",
+      "access_code": "Code d'accès",
+      "mod_access_code": "Code d'accès des modérateurs",
+      "mod_access_code_optional": "Code d'accès des modérateurs (facultatif)",
+      "access_code_required": "Veuillez saisir le code d'accès",
+      "wrong_access_code": "Code d'accès erroné",
+      "generate_viewers_access_code": "Générer un code d'accès pour les auditeurs",
+      "generate_mods_access_code": "Générer un code d'accès pour les modérateurs",
+      "are_you_sure_delete_room": "Êtes vous sur de vouloir supprimer cette salle?"
+    }
+  },
+  "recording": {
+    "recording": "Enregistrement",
+    "recordings": "Enregistrements",
+    "processing": "Enregistrements en cours de traitement...",
+    "name": "Nom",
+    "length": "Durée",
+    "users": "Utilisateurs",
+    "visibility": "État",
+    "formats": "Lecture",
+    "published": "Publiée",
+    "unpublished": "Non publiée",
+    "protected": "Protégée",
+    "public": "Public",
+    "public_protected": "Public/Protégé",
+    "length_in_minutes": "{{recording.length}} min.",
+    "processing_recording": "L'enregistrement est en cours de traitement, cela peu prendre quelques minutes...",
+    "copy_recording_urls": "Copier l'URL de l'enregistrement",
+    "recordings_list_empty": "Vous n'avez pas encore d'enregistrements!",
+    "public_recordings_list_empty": "Il n'y pas encore d'enregistrements publics !",
+    "recordings_list_empty_description": "Les enregistrements apparaîtront ici dès que vous aurez réalisé la captation d'une réunion",
+    "public_recordings_list_empty_description": "Les enregistrements apparaitront ici dès qu'ils seront disponibles.",
+    "delete_recording": "Effacer l'enregistrement",
+    "are_you_sure_delete_recording": "Etes-vous sûr·e de vouloir supprimer cet enregistrement ?",
+    "search_not_found": "Aucun enregistrement trouvé"
+  },
+  "admin": {
+    "admin_panel": "Panneau d'administration",
+    "manage_users": {
+      "manage_users": "Gestion des utilisateurs",
+      "active": "Actif",
+      "approve": "Approuver",
+      "decline": "Refuser",
+      "pending": "En attente",
+      "banned": "Exclu·e",
+      "ban": "Exclure",
+      "unban": "Autoriser le retour",
+      "deleted": "Révoqué",
+      "invited_tab": "Invité",
+      "invite_user": "Inviter un utilisateur",
+      "send_invitation": "Envoyer une invitation",
+      "enter_user_email": "Saisir le courriel de l'utilisateur",
+      "new_user": "Nouvel utilisateur",
+      "add_new_user": "Nouvel utilisateur",
+      "create_new_user": "Créer un compte utilisateur",
+      "edit_user": "Modifier le compte utilisateur",
+      "delete_user": "Supprimer le compte de l'utilisateur",
+      "users_edit_path": "Utilisateurs/Modifier",
+      "create_account": "Créer un compte",
+      "create_room": "Créer une salle",
+      "create_new_room": "Créer une nouvelle salle",
+      "user_created_at": "Créé: {{localizedTime}}",
+      "are_you_sure_delete_account": "Etes vous sûr de vouloir supprimer le compte de {{user.name}} ?",
+      "delete_account_warning": "Une fois ce compte supprimé il NE pourra PAS être rétabli",
+      "empty_active_users": "Il n'y pas encore d'utilisateur actif sur ce serveur!",
+      "empty_active_users_subtext": "Lorsque le statut d'un utilisateur passe à actif, il apparaîtra ici.",
+      "empty_pending_users": "Il n'y a pas encore d'utilisateur en attente sur ce serveur!",
+      "empty_pending_users_subtext": "Lorsque le statut d'un utilisateur passe à en attente, il apparaîtra ici.",
+      "empty_banned_users": "Il n'y pas encore d'utilisateur exclu sur ce serveur!",
+      "empty_banned_users_subtext": "Lorsque le statut d'un utilisateur passe à exclu, il apparaîtra ici.",
+      "empty_invited_users": "Il n'y pas encore d'utilisateur invité sur ce serveur!",
+      "empty_invited_users_subtext": "Lorsque le statut d'un utilisateur passe à invité, il apparaîtra ici.",
+      "invited": {
+        "time_sent": "Heure d'envoi",
+        "valid": "Valide"
+      }
+    },
+    "server_rooms": {
+      "server_rooms": "Salles serveur",
+      "name": "Nom",
+      "owner": "Propriétaire",
+      "room_id": "ID de la salle",
+      "participants": "Participants",
+      "status": "Statut",
+      "running": "En activité",
+      "not_running": "Inactif",
+      "active": "Actif",
+      "current_session": "Session en cours: {{lastSession}}",
+      "last_session": "Dernière Session: {{localizedTime}}",
+      "no_meeting_yet": "Pas de réunion pour l'instant",
+      "delete_server_rooms": "Supprimer la salle du serveur",
+      "resync_recordings": "Resynchronisation des enregistrements",
+      "empty_room_list": "Il n'y pas encore de salles sur le serveur!",
+      "empty_room_list_subtext": "Après leur création, les salles apparaîtront ici."
+    },
+    "server_recordings": {
+      "server_recordings": "Enregistrements du serveur",
+      "latest_recordings": "Derniers enregistrements",
+      "no_recordings_found": "Aucun enregistrement trouvé"
+    },
+    "site_settings": {
+      "site_settings": "Paramètres du site",
+      "customize_greenlight": "Personnaliser Greenlight",
+      "appearance": {
+        "appearance": "Aspect",
+        "brand_color": "Couleur du logo",
+        "regular": "Standard",
+        "lighten": "Plus clair",
+        "brand_image": "Logo",
+        "click_to_upload": "Cliquez pour téléverser",
+        "drag_and_drop": "ou glissez-déposez",
+        "upload_brand_image_description": "Téléversez tout fichier PNG, JPG ou SVG (d'un volume inférieur à {{size}}). Le délai avant de pouvoir utiliser le fichier varie en fonction de son volume.",
+        "remove_branding_image": "Retirer le logo"
+      },
+      "administration": {
+        "administration": "Administration",
+        "terms": "Conditions générales",
+        "privacy": "Règles de confidentialité",
+        "privacy_policy": "Règles de confidentialité",
+        "change_term_links": "Modifier les liens vers les conditions générales présentés en bas de page",
+        "change_privacy_link": "Modifier le lien vers les règles de confidentialité présenté en bas de page",
+        "helpcenter": "Centre d'aide",
+        "change_helpcenter_link": " Dans le menu déroulant du profil, modifier le lien vers le centre d'aide",
+        "maintenance": "Bandeau de maintenance",
+        "change_maintenance_text": "Modifier le texte du bandeau de maintenance qui apparaît en entête",
+        "change_url": "Modifier l'URL",
+        "set_text": "Définir le texte",
+        "clear_banner": "Effacer le bandeau",
+        "enter_link": "Saisir le lien ici"
+      },
+      "settings": {
+        "settings": "Paramètres",
+        "allow_users_to_share_rooms": "Permettre aux utilisateurs de partager les salles",
+        "allow_users_to_share_rooms_description": "En réglant sur inactivé, le bouton sera supprimé des options du menu paramètres de chaque salle et cela empêchera les utilisateurs de les partager.",
+        "allow_users_to_preupload_presentation": "Permettre aux utilisateurs de téléverser les documents de présentations en avance",
+        "allow_users_to_preupload_presentation_description": "Pour cette salle, les utilisateurs peuvent téléverser un document de présentation à l'avance et l'utiliser par défaut ",
+        "default_visibility": "Lisibilité par défaut des enregistrements",
+        "default_visibility_description": "La lisibilité choisie s'appliquera à tous les enregistrements ultérieurs",
+        "session_timeout": "Durée maximum d'une session",
+        "session_timeout_description": "Vous pouvez configurer la durée max d'une session avec un cookie de connexion de 1 jour, par défaut, ou l'étendre à 7 jours",
+        "default_session_timeout": "Défaut (1 jour)",
+        "extended_session_timeout": "Etendu (7 jours)"
+      },
+      "registration": {
+        "registration": "Inscription",
+        "role_mapping_by_email": "Configuration des rôles par courriel",
+        "role_mapping_by_email_description": "Configurer le rôle d'un utilisateur en se servant de son courriel. Doit être au format suivant: rôle1=courriel1, rôle2=courriel2",
+        "enter_role_mapping_rule": "Saisir une règle de configuration des rôles",
+        "resync_on_login": "Resynchroniser les données utilisateur à chaque authentification",
+        "resync_on_login_description": "Resynchroniser les données utilisateur de Greenlight à chacune de ses connexions, afin qu'elles correspondent toujours avec celles du service d'authentification",
+        "default_role": "Rôle par défaut",
+        "default_role_description": "Le rôle par défaut a été attribué aux nouveaux utilisateurs",
+        "registration_method": "Mode d'inscription",
+        "registration_method_description": "Modifier la façon dont les utilisateurs s'inscrivent  sur le site web",
+        "registration_methods" : {
+          "open": "Inscription libre",
+          "invite": "Rejoindre sur invitation",
+          "approval": "Approuver/Refuser"
+        }
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "Paramétrage de la salle",
+      "default": "Optionnel (par défaut: activé)",
+      "optional": "Optionnel (par défaut: désactivé)",
+      "enabled": "Forcer l'activation",
+      "disabled": "Désactivé",
+      "configurations": {
+        "allow_room_to_be_recorded": "Autoriser les enregistrements pour cette salle",
+        "allow_room_to_be_recorded_description": "Permettre aux propriétaires de la salle de préciser s'ils veulent ou non disposer de l'enregistrement. S'ils l'activent ils devront tout de même cliquer sur le bouton \"Enregistrer\" une fois que la session à débuté.",
+        "require_user_signed_in": "Demander l'identification des utilisateurs pour rejoindre une salle",
+        "require_user_signed_in_description": "Autoriser uniquement les utilisateurs disposant d'un compte Greenlight à se joindre à une réunion. S'ils ne sont pas authentifiés, ils seront redirigés vers la page d'identification quand ils essayent de rejoindre une salle",
+        "require_mod_approval": "L'approbation d'un modérateur est nécessaire pour se joindre à une réunion.",
+        "require_mod_approval_description": "Notifie le modérateur quand un utilisateur tente de rejoindre la salle. Après approbation, l'utilisateur pourra se joindre à la réunion",
+        "allow_any_user_to_start_meeting": "Permettre à tout utilisateur de lancer une réunion",
+        "allow_any_user_to_start_meeting_description": "Permettre tout utilisateur de commencer la réunion à tout  moment. Par défaut, seul le propriétaire de la salle peut commencer la réunion.",
+        "allow_users_to_join_as_mods": "Tous les utilisateurs rejoignent la réunion en tant que modérateurs",
+        "allow_users_to_join_as_mods_description": "Donne à tous les utilisateurs qui se joignent à la réunion les droits de modération",
+        "mute_users_on_join": "Les utilisateurs se joignent à la réunion en mode silencieux",
+        "mute_users_on_join_description": "L'utilisateur est mis automatiquement en mode silencieux quand il se joint à une réunion",
+        "viewer_access_code": "Code d'accès pour un auditeur",
+        "viewer_access_code_description": "Permet aux propriétaires d'une salle d'obtenir un code alphanumérique qu'ils peuvent partager avec les utilisateurs. S'il est généré, le code sera demandé aux utilisateurs lorsqu'il veulent rejoindre une salle",
+        "mod_access_code": "Code d'accès pour un modérateur",
+        "mod_access_code_description": "Autorise les propriétaires de salles à disposer d'un code alphanumérique aléatoire qui peut être partagé avec les utilisateurs. Ce code, s'il est créé, ne sera pas requis et lorsqu'il sera utilisé dans toute conférence de la salle permettra aux utilisateurs de rejoindre comme modérateur."
+      }
+    },
+    "roles": {
+      "role": "Rôle",
+      "roles": "Rôles",
+      "administrator": "Administrateur",
+      "guest": "Invité",
+      "manage_roles": "Gérer les rôles",
+      "delete_role": "Supprimer le rôle",
+      "are_you_sure_delete_role": "Êtes-vous sûr de vouloir supprimer ce rôle ?",
+      "enter_role_name": "Saisissez un nom pour le rôle",
+      "add_role": "+ Créer un rôle",
+      "create_role": "Créer un rôle",
+      "create_new_role": "Créer un nouveau rôle",
+      "no_role_found": "Aucun rôle trouvé.",
+      "search_not_found": "Aucun rôle trouvé",
+      "edit": {
+        "create_room": "Permettre aux utilisateurs avec ce rôle de créer des salles",
+        "record": "Permettre aux utilisateurs avec ce rôle d'enregistrer leurs réunions",
+        "manage_users": "Permettre aux utilisateurs avec ce rôle de gérer les autres utilisateurs",
+        "manage_rooms": "Permettre aux utilisateurs avec ce rôle de gérer les salles au serveur",
+        "manage_recordings": "Permettre aux utilisateurs avec ce rôle de gérer les enregistrements au serveur",
+        "manage_site_settings": "Permettre aux utilisateurs avec ce rôle de gérer les paramètres du site",
+        "manage_roles": "Permettre aux utilisateurs avec ce rôle de modifier les autres rôles",
+        "shared_list": "Inclure les utilisateurs avec ce rôle dans le menu déroulant du partage des salles",
+        "room_limit": "Limite pour la salle",
+        "email_on_signup": "Recevoir un email quand un nouvel utilisateur s'inscrit",
+        "allowed_recording_visibility": "Enregistrements autorisés pour la lecture"
+      }
+    }
+  },
+  "toast": {
+    "success": {
+      "user": {
+        "user_created": "Compte utilisateur créé ",
+        "user_updated": "L'utilisateur a été mis à jour.",
+        "user_deleted": "L'utilisateur a été supprimé.",
+        "avatar_updated": "L'avatar a été mis à jour.",
+        "password_changed": "Votre mot de passe a été mis à jour. Veuillez vous identifier à nouveau.",
+        "password_updated": "Le mot de passe a été changé.",
+        "account_activated": "Le compte a été activé avec succès. Veuillez vous connecter à votre compte.",
+        "activation_email_sent": "Un courriel d'activation a été envoyé.",
+        "reset_pwd_email_sent": "Un courriel a été envoyé pour une réinitialisation du mot de passe, vérifiez votre boîte de réception."
+      },
+      "session": {
+        "signed_out": "Vous vous êtes déconnecté avec succès."
+      },
+      "room": {
+        "room_created": "La salle a été créée.",
+        "room_updated": "La salle a été mise à jour.",
+        "room_deleted": "La salle a été supprimée.",
+        "room_shared": "La salle a été partagée",
+        "room_unshared": "La salle n'est plus partagée",
+        "recordings_synced": "Les enregistrements de la salle sont désormais synchronisés",
+        "room_configuration_updated": "La configuration de la salle a été mise à jour.",
+        "room_setting_updated": "La configuration de la salle a été mise à jour.",
+        "presentation_updated": "La présentation a été mise à jour.",
+        "presentation_deleted": "La présentation a été supprimée.",
+        "joining_meeting": "En cours de connexion à la conférence...",
+        "meeting_started": "La conférence a été démarrée.",
+        "access_code_copied": "Le code d'accès a été copié.",
+        "access_code_generated": "Le code d'accès a été créé.",
+        "access_code_deleted": "Le code d'accès a été supprimé.",
+        "copied_meeting_url": "L'URL de la réunion a été copiée. Le lien peut être utilisé pour rejoindre la réunion.",
+        "copied_viewer_code": "Le code d'accès du participant est copié",
+        "copied_moderator_code": "Le code d'accès des modérateurs est copié"
+      },
+      "site_settings": {
+        "site_setting_updated": "La configuration du site a été mise à jour.",
+        "brand_color_updated": "La couleur de la marque a été mise à jour.",
+        "brand_image_updated": "L'image de marque a été actualisée.",
+        "brand_image_deleted": "L'image de marque a été supprimée.",
+        "privacy_policy_updated": "La politique de confidentialité a été mise à jour.",
+        "helpcenter_updated": "Le lien vers le centre d'aide a été mis à jour",
+        "terms_of_service_updated": "Les conditions de service ont été mises à jour.",
+        "maintenance_updated": "Le bandeau de maintenance a été mis à jour"
+      },
+      "recording": {
+        "recording_visibility_updated": "La visibilité de l'enregistrement a été mise à jour.",
+        "recording_name_updated": "Le nom de l'enregistrement a été mis à jour.",
+        "recording_deleted": "L'enregistrement a été supprimé.",
+        "copied_urls": "Les URL d'enregistrement ont été copiés."
+      },
+      "role": {
+        "role_created": "Le rôle a été créé",
+        "role_updated": "Le rôle a été modifié",
+        "role_deleted": "Le rôle a été supprimé",
+        "role_permission_updated": "L'autorisation pour ce rôle a été modifiée"
+      },
+      "invitations": {
+        "invitation_sent": "L'invitation a été envoyée"
+      }
+    },
+    "error": {
+      "problem_completing_action": "L'action que vous voulez réaliser n'aboutit pas. Veuillez réessayer",
+      "file_type_not_supported": "Ce type de fichier n'est pas pris en charge",
+      "file_size_too_large": "La taille du fichier est trop importante",
+      "file_upload_error": "Le fichier ne peut pas être téléversé",
+      "signin_required": "Vous devez vous identifier pour avoir accès à cette page.",
+      "malware_detected": "Un programme malveillant a été détecté! Le fichier que vous avez téléversé pourrait contenir un programme malveillant. Veuillez vérifier le fichier avant de recommencer.",
+      "roles": {
+        "role_assigned": "Ce rôle ne peut être supprimé car il est assigné à au moins un utilisateur."
+      },
+      "users": {
+        "signup_error": "Une erreur est survenue lors de votre connexion. Veuillez contacter votre administrateur.",
+        "invalid_invite": "Votre jeton d'invitation est soit non valide soit erroné. Veuillez contacter votre administrateur pour en recevoir un nouveau",
+        "email_exists": "Il existe déjà un compte avec cette adresse. Veuillez réessayer avec une autre adresse de courriel.",
+        "old_password": "Le mot de passe que vous avez saisi est erroné",
+        "pending": "Votre inscription est en attente d'approbation par l'administrateur",
+        "banned": "Vous n'êtes pas autorisé à accéder à cette application. Veuillez contacter l'administrateur si vous pensez qu'il s'agit d'une erreur."
+      },
+      "rooms": {
+        "room_limit": "La salle ne peut être créée car la limite du nombre de salles a été atteint."
+      },
+      "session": {
+        "invalid_credentials": "Le nom d'utilisateur·rice ou le mot de passe sont incorrects. Veuillez vérifier vos identifiants et essayer à nouveau."
+      }
+    }
+  },
+  "global_error_page": {
+    "title": "Erreur",
+    "message": "Oups ! Quelque chose s'est mal passé. Si l'incident se réitère, veuillez contacter l'administrateur·rice."
+  },
+  "not_found_error_page": {
+    "title": "404",
+    "message": "Oups ! La page à laquelle vous voulez accéder n'a pas été trouvée"
+  },
+  "account_activation_page": {
+    "title": "Activation du compte",
+    "account_unverified": "Votre compte n'a pas encore été validé.",
+    "message": "Pour pouvoir utiliser Greenlight, veuillez valider votre compte en suivant les instructions présentes dans le courriel d'activation qui vous a été envoyé.",
+    "resend_activation_link": "Si vous n'avez pas reçu de courriel d'activation ou si son contenu pose problème, cliquez sur le bouton renvoyer pour le recevoir à nouveau",
+    "resend_btn_lbl": "Renvoyer la demande de validation"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Veuillez saisir un nom complet.",
+        "min": "Le nom doit comporter 2 caractères au minimum .",
+        "max": "Le nom ne doit pas comporter plus de 255 caractères."
+      },
+      "email": {
+        "required": "Veuillez saisir une adresse de courriel.",
+        "email": "La saisie ne correspond pas au format d'une adresse de courriel.",
+        "min": "L'adresse de courriel doit comporter 6 caractères au minimum.",
+        "max": "L'adresse de courriel ne peut contenir plus de 255 caractères."
+      },
+      "password": {
+        "required": "Veuillez saisir un mot de passe",
+        "match": "Le mot de passe doit contenir au minimum:",
+        "min": "- Huit caractères",
+        "lower": "- Une minuscule",
+        "upper": "- Une majuscule",
+        "digit": "- Un chiffre",
+        "symbol": "- Un caractère spécial",
+        "max": "Le mot de passe doit contenir 255 caractères au maximum"
+      },
+      "password_confirmation": {
+        "required": "Veuillez confirmer le mot de passe",
+        "match": "Les mots de passe sont erronés"
+      },
+      "emails": {
+        "required": "Veuillez saisir au minimum une adresse de courriel valide",
+        "list": "Veuillez saisir une liste d'adresses de courriel en séparant chaque adresse par une virgule  (utilisateur@utilisateurs.com,utilisateur1@utilisateurs.com,utilisateur2@utilisateurs.com)"
+      },
+      "role_name": {
+        "required": "Veuillez saisir la dénomination du rôle"
+      },
+      "role": {
+        "limit": {
+          "required": "Veuillez saisir le nombre limite pour la salle",
+          "min": "Le minimum autorisé est 0",
+          "max": "Le maximum autorisé est 100"
+        },
+        "type": {
+          "error": "Vous devez stipuler un nombre"
+        }
+      },
+      "room": {
+        "name": {
+          "required": "Veuillez saisir le nom de la salle",
+          "min": "Le nom doit comporter 2 caractères au minimum "
+        }
+      },
+      "room_join": {
+        "name": {
+          "required": "Veuillez saisir votre nom."
+        }
+      },
+      "url": {
+        "invalid": "URL non valide"
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Nom de la salle",
+          "placeholder": "Saisissez un nom pour la salle..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Nom",
+            "placeholder": "Saisissez votre nom"
+        },
+        "access_code": {
+          "label": "Code d'accès",
+          "placeholder": "Saisissez le code d'accès"
+        },
+        "recording_consent": {
+          "label": "Je reconnais savoir que cette session peut être enregistrée. Le cas échéant ma voix et mon image vidéo pourront apparaître lors de la captation."
+        }
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Nom complet",
+            "placeholder": "Saisissez votre nom complet"
+          },
+          "email": {
+            "label": "Courriel",
+            "placeholder": "Saisissez votre adresse de courriel"
+          },
+          "password": {
+            "label": "Mot de passe",
+            "placeholder": "Créer un mot de passe"
+          },
+          "password_confirmation": {
+            "label": "Confirmer le mot de passe",
+            "placeholder": "Confirmer le mot de passe"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "Courriel",
+            "placeholder": "Courriel"
+          },
+          "password": {
+            "label": "Mot de passe",
+            "placeholder": "Mot de passe"
+          },
+          "remember_me": {
+            "label": "Se souvenir de moi"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Mot de passe actuel",
+            "placeholder": "Saisissez votre mot de passe"
+          },
+          "new_password": {
+            "label": "Nouveau mot de passe",
+            "placeholder": "Saisissez votre nouveau de passe"
+          },
+          "password_confirmation": {
+            "label": "Confirmer le mot de passe",
+            "placeholder": "Confirmez votre nouveau mot de passe"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Veuillez saisir votre mot de passe actuel"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "Courriel",
+            "placeholder": "Saisissez l'adresse courriel du compte"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Veuillez saisir l'adresse courriel du compte"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Nouveau mot de passe.",
+            "placeholder": "Saisissez le nouveau mot de passe"
+          },
+          "password_confirmation": {
+            "label": "Confirmez le mot de passe",
+            "placeholder": "Confirmez votre nouveau mot de passe"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Nom complet"
+          },
+          "email": {
+            "label": "Courriel"
+          },
+          "language": {
+            "label": "Langue"
+          },
+          "role": {
+            "label": "Rôle"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Nom complet",
+            "placeholder": "Saisissez le nom complet de l'utilisateur"
+          },
+          "email": {
+            "label": "Courriel",
+            "placeholder": "Saisissez l'adresse de courriel de l'utilisateur"
+          },
+          "password": {
+            "label": "Mot de passe",
+            "placeholder": "Saisissez le mot de passe de l'utilisateur"
+          },
+          "password_confirmation": {
+            "label": "Confirmez le mot de passe",
+            "placeholder": "Confirmez le mot de passe"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "Courriels"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "Saisir le lien ici...",
+            "text_placeholder": "Saisissez le texte ici..."
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "Dénomination du rôle",
+            "placeholder": "Saisir une dénomination pour le rôle..."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,651 @@
+{
+  "start": "Start",
+  "search": "Sök",
+  "home": "Hem",
+  "previous": "Föregående",
+  "back": "Tillbaka",
+  "next": "Nästa",
+  "view": "Se",
+  "join": "Ansluta sig",
+  "edit": "Redigera",
+  "save": "Spara",
+  "save_changes": "Spara ändringar",
+  "update": "Uppdatera",
+  "report": "Rapportera",
+  "share": "Dela",
+  "cancel": "Avbryt",
+  "close": "Stänga",
+  "delete": "Radera",
+  "copy": "Kopiera möteslänk",
+  "or": "Eller",
+  "online": "Online",
+  "help_center": "Hjälpcenter",
+  "are_you_sure": "Är du säker?",
+  "return_home": "Återvända Hem",
+  "created_at": "Skapad vid",
+  "no_result_search_input": "Kunde inte hitta några resultat för \"{{ searchInput }}\"",
+  "action_permanent": "Denna åtgärd kan inte ångras.",
+  "homepage": {
+    "welcome_bbb": "Välkommen till BigBlueButton.",
+    "bigbluebutton_description": "BigBlueButton är ett webbkonferenssystem med öppen källkod för online klasser. Plattformen maximerar tiden för tillämpat lärande genom att göra det möjligt för studenter att samarbeta och få feedback i realtid.",
+    "greenlight_description": "Skapa dina egna rum för att hantera dina sessioner, eller gå med i andra med hjälp av en kort och bekväm länk.",
+    "learn_more": "Läs mer om BigBlueButton",
+    "explore_features": "Läs mer om BigBlueButton",
+    "meeting_title": "Starta ett möte",
+    "meeting_description": "Starta ett virtuellt klassrum med video, ljud, skärmdelning, chatt och alla verktyg som krävs för tillämpad inlärning.",
+    "recording_title": "Spela in dina möten",
+    "recording_description": "Spela in BigBlueButton-mötena och dela dem med eleverna för att granska och reflektera över materialet.",
+    "settings_title": "Hantera dina rum",
+    "settings_description": "Konfigurera dina rum och mötesinställningar för att ha kontroll över ett effektivt klassrum.",
+    "and_more_title": "Och mer!",
+    "and_more_description": "BigBlueButton erbjuder inbyggda verktyg för tillämpad inlärning och är designad för att spara tid under möten.",
+    "enter_meeting_url": "Ange mötes-URL",
+    "enter_meeting_url_instruction": "Ange länken till ditt BigBlueButton-möte i fältet nedan."
+  },
+  "authentication": {
+    "sign_in": "Logga in",
+    "sign_up": "Bli Medlem",
+    "sign_out": "Logga ut",
+    "email": "Email",
+    "password": "Lösenord",
+    "confirm_password": "Bekräfta lösenordet",
+    "enter_email": "Ange din e-postadress",
+    "enter_name": "Ange ditt namn",
+    "remember_me": "Kom ihåg mig",
+    "forgot_password": "Glömt ditt lösenord?",
+    "dont_have_account": "Har du inget konto?",
+    "create_account": "Skapa konto",
+    "create_an_account": "Skapa ett konto",
+    "already_have_account": "Har du redan ett konto?"
+  },
+  "user": {
+    "user": "Användare",
+    "users": "Användare",
+    "name": "Namn",
+    "email_address": "E-postadress",
+    "authenticator": "Autentisering",
+    "full_name": "Fullständiga namn",
+    "no_user_found": "Ingen användare hittades",
+    "type_three_characters": "Skriv tre (3) tecken eller fler för att visa de andra användarna.",
+    "search_not_found": "Inga användare hittades",
+    "profile": {
+      "profile": "Profil",
+      "language": "Språk",
+      "role": "Roll",
+      "administrator": "Administratör",
+      "guest": "Gäst"
+    },
+    "account": {
+      "account_info": "Konto information",
+      "delete_account": "Radera konto",
+      "change_password": "Ändra lösenordet",
+      "reset_password": "Återställ lösenordet",
+      "update_account_info": "Uppdatera kontouppgifter",
+      "current_password": "Nuvarande lösenord",
+      "new_password": "Nytt lösenord",
+      "confirm_password": "Bekräfta lösenordet",
+      "permanently_delete_account": "Ta bort ditt konto permanent",
+      "delete_account_description": "Om du väljer att ta bort ditt konto kommer det INTE att kunna återställas.\nAll information om ditt konto, inklusive inställningar, rum och inspelningar kommer att tas bort.",
+      "delete_account_confirmation": "Ja, jag skulle vilja ta bort mitt konto",
+      "are_you_sure_delete_account": "Är du säker på att du vill ta bort ditt konto?"
+    },
+    "avatar": {
+      "upload_avatar": "Ladda upp Avatar",
+      "delete_avatar": "Ta bort Avatar",
+      "crop_avatar": "Beskär din avatar"
+    },
+    "pending": {
+      "title": "Väntar på registrering",
+      "message": "Tack för din registrering! Ditt konto väntar för närvarande på godkännande av en administratör."
+    }
+  },
+  "room": {
+    "room": "Rum",
+    "rooms": "Rum",
+    "room_name": "Rumsnamn",
+    "add_new_room": "+ Nytt rum",
+    "create_room": "Skapa rum",
+    "delete_room": "Ta bort rum",
+    "create_new_room": "Skapa nytt rum",
+    "enter_room_name": "Ange rummets namn",
+    "shared_by": "delad av",
+    "last_session": "Senaste session: {{ localizedTime }}",
+    "no_last_session": "Ingen tidigare session skapad",
+    "search_not_found": "Inga rum hittades",
+    "rooms_list_is_empty": "Du har inga rum än!",
+    "rooms_list_empty_create_room": "Skapa ditt första rum genom att klicka på knappen nedan och ange ett rumsnamn.",
+    "meeting": {
+      "start_meeting": "Börja möte",
+      "join_meeting": "Gå med i mötet",
+      "meeting_invitation": "Du har blivit inbjuden att gå med",
+      "meeting_not_started": "Mötet har inte börjat än",
+      "join_meeting_automatically": "Du går automatiskt med när mötet startar",
+      "recording_consent": "Jag accepterar att denna session kan spelas in. Detta kan inkludera min röst och bild om de är aktiverade."
+    },
+    "presentation": {
+      "presentation": "Presentation",
+      "click_to_upload": "Klicka för att ladda upp",
+      "drag_and_drop": "eller dra och släpp",
+      "upload_description": "Du kan ladda upp alla typer av Office-dokument eller PDF-filer. Beroende på filens storlek kan det ta lite extra tid att ladda upp innan den kan användas",
+      "are_you_sure_delete_presentation": "Är du säker på att du vill ta bort den här presentationen?"
+    },
+    "shared_access": {
+      "access": "Tillgång",
+      "add_share_access": "+ Dela åtkomst",
+      "share_room_access": "Dela Rums Tillgång",
+      "add_some_users": "Dags att lägga till några användare!",
+      "add_some_users_description": "För att lägga till nya användare, klicka på knappen nedan och sök eller välj de användare du vill dela detta rum med.",
+      "delete_shared_access": "Ta bort delad åtkomst",
+      "are_you_sure_delete_shared_access": "Är du säker på att du vill ta bort denna delade åtkomst?"
+    },
+    "settings": {
+      "settings": "Inställningar",
+      "room_name": "Rumsnamn",
+      "user_settings": "Användarinställningar",
+      "allow_room_to_be_recorded": "Aktivera inspelning",
+      "require_signed_in": "Kräv att användare är inloggade innan de går med i mötet",
+      "require_signed_in_message": "Du måste vara inloggad för att gå med i det här rummet.",
+      "require_mod_approval": "Kräv moderatorgodkännande innan någon kan gå med i mötet",
+      "allow_any_user_to_start": "Tillåt vilken användare som helst att starta detta möte",
+      "all_users_join_as_mods": "Alla användare går med som moderatorer",
+      "mute_users_on_join": "Stäng automatiskt av användarnas mikrofoner när de går med i mötet",
+      "generate": "Generera",
+      "access_code": "Åtkomstkod",
+      "mod_access_code": "Moderator åtkomstkod",
+      "mod_access_code_optional": "Moderatoråtkomstkod (valfritt)",
+      "access_code_required": "Vänligen ange åtkomstkoden",
+      "wrong_access_code": "Fel åtkomstkod",
+      "generate_viewers_access_code": "Generera åtkomstkod för mötesdeltagare",
+      "generate_mods_access_code": "Generera åtkomstkod för moderatorer",
+      "are_you_sure_delete_room": "Är du säker på att du vill ta bort det här rummet?"
+    }
+  },
+  "recording": {
+    "recording": "Inspelning",
+    "recordings": "Inspelningar",
+    "name": "Namn",
+    "length": "Längd",
+    "users": "Användare",
+    "visibility": "Synlighet",
+    "formats": "Format",
+    "published": "Publicerad",
+    "unpublished": "Opublicerad",
+    "protected": "Skyddad",
+    "length_in_minutes": "{{recording.length}} min.",
+    "processing_recording": "Bearbetar inspelning, detta kan ta flera minuter...",
+    "copy_recording_urls": "Kopiera inspelningslänk(ar)",
+    "recordings_list_empty": "Du har inga inspelningar än!",
+    "recordings_list_empty_description": "Eventuella inspelningar av rummet kommer att delas här så snart de har bearbetats och publicerats.",
+    "delete_recording": "Ta bort inspelning",
+    "are_you_sure_delete_recording": "Är du säker på att du vill ta bort den här inspelningen?",
+    "search_not_found": "Inga inspelningar hittades"
+  },
+  "admin": {
+    "admin_panel": "Administratörspanel",
+    "manage_users": {
+      "manage_users": "Hantera användare",
+      "active": "Aktiva",
+      "approve": "Godkänna",
+      "decline": "Avvisa",
+      "pending": "Väntar",
+      "banned": "Förbjudna",
+      "ban": "Förbjuda",
+      "unban": "Förbjuda ej",
+      "deleted": "Raderade",
+      "invited_tab": "Inbjudna",
+      "invite_user": "Bjud in användare",
+      "send_invitation": "Skicka inbjudan",
+      "enter_user_email": "Ange användarens e-postadress",
+      "new_user": "Ny användare",
+      "add_new_user": "Ny användare",
+      "create_new_user": "Skapa ny användare",
+      "edit_user": "Redigera användare",
+      "delete_user": "Ta bort användare",
+      "users_edit_path": "Användare/Redigera",
+      "create_account": "Skapa konto",
+      "create_room": "Skapa rum",
+      "create_new_room": "Skapa nytt rum",
+      "user_created_at": "Skapad: {{localizedTime}}",
+      "are_you_sure_delete_account": "Är du säker på att du vill ta bort {{user.name}}s konto?",
+      "delete_account_warning": "Om du väljer att ta bort det här kontot kommer det INTE att kunna återställas.",
+      "empty_active_users": "Det finns inga aktiva användare på denna server än!",
+      "empty_active_users_subtext": "När en användares status ändras till aktiv visas de här.",
+      "empty_pending_users": "Det finns inga väntande användare på denna server än!",
+      "empty_pending_users_subtext": "När en användares status ändras till väntande visas de här.",
+      "empty_banned_users": "Det finns inga förbjudna användare på denna server än!",
+      "empty_banned_users_subtext": "När en användares status ändras till förbjuden kommer de att visas här.",
+      "empty_invited_users": "Det finns inga inbjudna användare på denna server än!",
+      "empty_invited_users_subtext": "När en användares status ändras till inbjuden kommer de att visas här.",
+      "invited": {
+        "time_sent": "Tid skickad",
+        "valid": "Giltig"
+      }
+    },
+    "server_rooms": {
+      "server_rooms": "Serverrum",
+      "name": "Namn",
+      "owner": "Ägare",
+      "room_id": "Rums-ID",
+      "participants": "Deltagare",
+      "status": "Status",
+      "running": "Pågående",
+      "not_running": "Pågår inte",
+      "active": "Aktiva",
+      "current_session": "Aktuell session: {{lastSession}}",
+      "last_session": "Senaste session: {{localizedTime}}",
+      "no_meeting_yet": "Inget möte ännu.",
+      "delete_server_rooms": "Ta bort serverrum",
+      "resync_recordings": "Synkronisera om inspelningar",
+      "empty_room_list": "Det finns inga serverrum än!",
+      "empty_room_list_subtext": "Rummen man skapar kommer att visas här."
+    },
+    "server_recordings": {
+      "server_recordings": "Serverinspelningar",
+      "latest_recordings": "Senaste inspelningarna",
+      "no_recordings_found": "Inga inspelningar hittades."
+    },
+    "site_settings": {
+      "site_settings": "Webbplatsinställningar",
+      "customize_greenlight": "Anpassa Greenlight",
+      "appearance": {
+        "appearance": "Utseende",
+        "brand_color": "Märkesfärg",
+        "regular": "Vanligt",
+        "lighten": "Ljusna",
+        "brand_image": "Märkesbild",
+        "click_to_upload": "Klicka för att ladda upp",
+        "drag_and_drop": " eller dra och släpp",
+        "upload_brand_image_description": "Man kan ladda upp vilken PNG-, JPG- eller SVG-fil som helst. Beroende på filens storlek kan det ta lite extra tid att ladda upp innan den kan användas",
+        "remove_branding_image": "Ta bort Märke Bild"
+      },
+      "administration": {
+        "administration": "Administrering",
+        "terms": "Allmänna villkor",
+        "privacy": "Integritetspolicy",
+        "privacy_policy": "Integritetspolicy",
+        "change_term_links": "Ändra länken till villkoren som visas längst ner på sidan",
+        "change_privacy_link": "Ändra länken till integritetspolicyn som visas längst ner på sidan",
+        "change_url": "Ändra URL",
+        "enter_link": "Ange länk här"
+      },
+      "settings": {
+        "settings": "Inställningar",
+        "allow_users_to_share_rooms": "Tillåt användare att dela rum",
+        "allow_users_to_share_rooms_description": "När den är inställd på \"inaktiverad\" kommer knappen från rumsalternativmenyn att tas bort, vilket förhindrar användare från att dela rum",
+        "allow_users_to_preupload_presentation": "Tillåt användare att ladda upp presentationer i förväg",
+        "allow_users_to_preupload_presentation_description": "Användare kan ladda upp en presentation i förväg för att användas som standardpresentation för det valda rummet"
+      },
+      "registration": {
+        "registration": "Registrering",
+        "role_mapping_by_email": "Role-Mapping via e-post",
+        "role_mapping_by_email_description": "Mappa användaren till en roll via deras e-post. Måste vara i formatet: role1=email1, role2=email2",
+        "enter_role_mapping_rule": "Ange en rollmappningsregel",
+        "resync_on_login": "Synkronisera om användardata vid varje inloggning",
+        "resync_on_login_description": "Synkronisera om en användares uppgifter varje gång de loggar in, vilket gör att den externa autentiseringsleverantören alltid matchar uppgifternai Greenlight",
+        "default_role": "Standardroll",
+        "default_role_description": "Standardrollen som ska tilldelas nyskapade användare",
+        "registration_method": "Registreringsmetod",
+        "registration_method_description": "Ändra hur användare registrerar sig på webbplatsen",
+        "registration_methods" : {
+          "open": "Öppen registering",
+          "invite": "Registrera via inbjudan",
+          "approval": "Godkänn/Neka"
+        }
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "Rumskonfiguration",
+      "default": "Valfritt (standard: aktiverat)",
+      "optional": "Valfritt (standard: inaktiverad)",
+      "enabled": "Tvinga Aktiverad",
+      "disabled": "Inaktiverad",
+      "configurations": {
+        "allow_room_to_be_recorded": "Gör rummet inspelningsbart",
+        "allow_room_to_be_recorded_description": "Tillåter rumsägare att göra ett rum inspelningsbart eller inte. Om det är aktiverat måste moderatorn fortfarande klicka på knappen \"Spela in\" när mötet har startat.",
+        "require_user_signed_in": "Kräv att användare är inloggade innan de kan gå med i mötet",
+        "require_user_signed_in_description": "Tillåter endast användare med ett Greenlight-konto att gå med i mötet. Om de inte är inloggade kommer de att omdirigeras till inloggningssidan när de försöker gå med i ett rum.",
+        "require_mod_approval": "Kräv moderators godkännande innan man kan gå med i mötet",
+        "require_mod_approval_description": "Moderatorn uppmanas att antingen tillåta eller neka en användare att gå med i mötet när ett försök görs.",
+        "allow_any_user_to_start_meeting": "Tillåt alla användare att starta ett möte",
+        "allow_any_user_to_start_meeting_description": "Tillåt alla användare att starta mötet när som helst. Som standard kan bara rumsägaren starta mötet.",
+        "allow_users_to_join_as_mods": "Alla användare går med som moderatorer",
+        "allow_users_to_join_as_mods_description": "Ger alla användare moderatorprivilegier i BigBlueButton när de går med i mötet",
+        "mute_users_on_join": "Stäng automatiskt av användarnas mikrofoner när de går med",
+        "mute_users_on_join_description": "Stäng automatiskt av användarnas mikrofoner när de går med i ett BigBlueButton-möte",
+        "viewer_access_code": "Åtkomstkod för tittare",
+        "viewer_access_code_description": "Tillåter rumsägare att ha en slumpmässig alfanumerisk kod som kan delas med användare. Koden, om den genereras, kommer att krävas för att användare ska gå med i rumsmötena.",
+        "mod_access_code": "Moderator åtkomstkod",
+        "mod_access_code_description": "Tillåter rumsägare att ha en slumpmässig alfanumerisk kod som kan delas med användare. När den här koden används tillåter den användaren att gå med i mötet med moderatorprivilegier."
+      }
+    },
+    "roles": {
+      "role": "Roll",
+      "roles": "Roller",
+      "administrator": "Administratör",
+      "guest": "Gäst",
+      "manage_roles": "Hantera roller",
+      "delete_role": "Ta bort roll",
+      "are_you_sure_delete_role": "Är du säker på att du vill ta bort den här rollen?",
+      "enter_role_name": "Ange ett rollnamn",
+      "add_role": "+ Skapa roll",
+      "create_role": "Skapa roll",
+      "create_new_role": "Skapa en ny roll",
+      "no_role_found": "Ingen roll hittades.",
+      "search_not_found": "Inga roller hittades",
+      "edit": {
+        "create_room": "Tillåt användare med den här rollen att skapa rum",
+        "record": "Tillåt användare med den här rollen att spela in sina möten",
+        "manage_users": "Tillåt användare med den här rollen att hantera användare",
+        "manage_rooms": "Tillåt användare med den här rollen att hantera serverrum",
+        "manage_recordings": "Tillåt användare med den här rollen att hantera serverinspelningar",
+        "manage_site_settings": "Tillåt användare med den här rollen att hantera webbplatsinställningar",
+        "manage_roles": "Tillåt användare med den här rollen att redigera andra roller",
+        "shared_list": "Inkludera användare med denna roll i rullgardinsmenyn för att dela rum",
+        "room_limit": "Rumsgräns"
+      }
+    }
+  },
+  "toast": {
+    "success": {
+      "user": {
+        "user_created": "En ny användare har skapats.",
+        "user_updated": "Användaren har uppdaterats.",
+        "user_deleted": "Användaren har tagits bort.",
+        "avatar_updated": "Avataren har uppdaterats.",
+        "password_updated": "Lösenordet har uppdaterats.",
+        "account_activated": "Ditt konto har aktiverats.",
+        "activation_email_sent": "Ett e-postmeddelande med instruktioner för att aktivera ditt konto har skickats.",
+        "reset_pwd_email_sent": "Ett e-postmeddelande med instruktioner för att återställa ditt lösenord har skickats."
+      },
+      "session": {
+        "signed_out": "Du har blivit utloggad."
+      },
+      "room": {
+        "room_created": "Ett nytt rum har skapats.",
+        "room_updated": "Rummet har uppdaterats.",
+        "room_deleted": "Rummet har tagits bort.",
+        "room_shared": "Rummet har delats.",
+        "room_unshared": "Rummet har slutat delats.",
+        "recordings_synced": "Rumsinspelningarna har synkroniserats.",
+        "room_configuration_updated": "Rumskonfigurationen har uppdaterats.",
+        "room_setting_updated": "Rumsinställningen har uppdaterats.",
+        "presentation_updated": "Presentationen har uppdaterats.",
+        "presentation_deleted": "Presentationen har tagits bort.",
+        "joining_meeting": "Anslutar...",
+        "meeting_started": "Mötet började.",
+        "access_code_copied": "Åtkomstkoden har kopierats.",
+        "access_code_generated": "En ny åtkomstkod har genererats.",
+        "access_code_deleted": "Åtkomstkoden har raderats.",
+        "copied_meeting_url": "Möteslänken har kopierats. Länken kan användas för att gå med i mötet."
+      },
+      "site_settings": {
+        "site_setting_updated": "Webbplatsinställningen har uppdaterats.",
+        "brand_color_updated": "Märkesfärgen har uppdaterats.",
+        "brand_image_updated": "Märkesbilden har uppdaterats.",
+        "brand_image_deleted": "Märkesbilden har tagits bort.",
+        "privacy_policy_updated": "Integritetspolicyn har uppdaterats.",
+        "terms_of_service_updated": "Användarvillkoren har uppdaterats."
+      },
+      "recording": {
+        "recording_visibility_updated": "Inspelningens synlighet har uppdaterats.",
+        "recording_name_updated": "Inspelningsnamnet har uppdaterats.",
+        "recording_deleted": "Inspelningen har raderats.",
+        "copied_urls": "Inspelningslänkarna har kopierats."
+      },
+      "role": {
+        "role_created": "En ny roll har skapats.",
+        "role_updated": "Rollen har uppdaterats.",
+        "role_deleted": "Rollen har tagits bort.",
+        "role_permission_updated": "Rollbehörigheten har uppdaterats."
+      },
+      "invitations": {
+        "invitation_sent": "En inbjudan har skickats."
+      }
+    },
+    "error": {
+      "problem_completing_action": "Åtgärden kan inte slutföras.\nVänligen försök igen.",
+      "file_type_not_supported": "Filtypen stöds inte.",
+      "file_size_too_large": "Filstorleken är för stor.",
+      "file_upload_error": "Filen kan inte laddas upp.",
+      "signin_required": "Du måste vara inloggad för att komma åt den här sidan.",
+      "roles": {
+        "role_assigned": "Den här rollen kan inte tas bort eftersom den är tilldelad till minst en användare."
+      },
+      "users": {
+        "signup_error": "Du kan inte autentiseras. Kontakta administratören.",
+        "invalid_invite": "Din inbjudanstoken är antingen ogiltig eller felaktig. Kontakta administratören för att få en ny token.",
+        "email_exists": "Ett konto med samma e-postadress finns redan. Försök igen med ett annat e-postmeddelande.",
+        "old_password": "Lösenordet du har angett är felaktigt.",
+        "pending": "Din registrering väntar på godkännande från administratören. Vänligen försök igen senare.",
+        "banned": "Du har inte tillgång till denna applikation. Kontakta administratören om du tror att detta är ett misstag."
+      },
+      "rooms": {
+        "room_limit": "Rummet kan inte skapas på grund av att rumsgränsen har nåtts."
+      },
+      "session": {
+        "invalid_credentials": "Användarnamnet eller lösenordet är ogiltigt. Verifiera dina uppgifter och försök igen."
+      }
+    }
+  },
+  "global_error_page": {
+    "title": "Fel",
+    "message": "Förlåt, något gick fel. Om incidenten inträffar igen, kontakta administratören."
+  },
+  "not_found_error_page": {
+    "title": "Sidan hittas inte",
+    "message": "Tyvärr, sidan du försöker komma åt kan inte hittas."
+  },
+  "account_activation_page": {
+    "title": "Kontoaktivering",
+    "account_unverified": "Ditt konto har inte verifierats ännu.",
+    "message": "För att använda Greenlight, vänligen verifiera ditt konto genom att följa instruktionerna i aktiveringsmailet som har skickats till dig.",
+    "resend_activation_link": "Om du inte har fått ett aktiveringsmail eller om du har problem med att använda det, klicka på knappen nedan för att begära ett nytt aktiveringsmail.",
+    "resend_btn_lbl": "Skicka Verifiering igen"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Vänligen ange ett fullständigt namn",
+        "min": "Namnet måste vara minst 2 tecken långt",
+        "max": "Namnet får vara högst 255 tecken långt"
+      },
+      "email": {
+        "required": "Vänligen ange en e-postadress",
+        "email": "Det angivna texten matchar inte e-postformatet",
+        "min": "E-postadressen måste vara minst 6 tecken lång",
+        "max": "E-postadressen får vara högst 255 tecken lång"
+      },
+      "password": {
+        "required": "Vänligen ange ett lösenord",
+        "match": "Lösenordet måste ha minst:",
+        "min": "- Åtta karaktärer",
+        "lower": "- En liten bokstav",
+        "upper": "- En stor bokstav",
+        "digit": "- En siffra",
+        "symbol": "- En symbol",
+        "max": "Lösenordet måste vara högst 255 tecken långt"
+      },
+      "password_confirmation": {
+        "required": "Vänligen ange en lösenordsbekräftelse",
+        "match": "Lösenorden stämmer inte överens"
+      },
+      "emails": {
+        "required": "Vänligen ange minst en giltig e-postadress",
+        "list": "Vänligen ange en lista över giltiga e-postadresser separerade med kommatecken (user@users.com, user1@users.com, user2@users.com)"
+      },
+      "role_name": {
+        "required": "Vänligen ange rollens namn"
+      },
+      "role": {
+        "limit": {
+          "required": "Vänligen ange gränsen för antal rum",
+          "min": "Tillåtet minimum är 0",
+          "max": "Tillåtet max är 100"
+        },
+        "type": {
+          "error": "Du måste ange ett nummer"
+        }
+      },
+      "room": {
+        "name": {
+          "required": "Vänligen ange rummets namn.",
+          "min": "Namnet måste vara minst 2 tecken långt"
+        }
+      },
+      "url": {
+        "invalid": "Ogiltig URL"
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Rumsnamn",
+          "placeholder": "Ange ett rumsnamn..."
+        }
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Fullständigt Namn",
+            "placeholder": "Ange ditt fullständiga namn"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Ange din e-postadress"
+          },
+          "password": {
+            "label": "Lösenord",
+            "placeholder": "Skapa ett lösenord"
+          },
+          "password_confirmation": {
+            "label": "Bekräfta lösenordet",
+            "placeholder": "Bekräfta lösenordet"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Email"
+          },
+          "password": {
+            "label": "Lösenord",
+            "placeholder": "Lösenord"
+          },
+          "remember_me": {
+            "label": "Kom ihåg mig"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Nuvarande lösenord",
+            "placeholder": "Ange ditt lösenord"
+          },
+          "new_password": {
+            "label": "Nytt lösenord",
+            "placeholder": "Ange ditt nya lösenord"
+          },
+          "password_confirmation": {
+            "label": "Bekräfta lösenordet",
+            "placeholder": "Bekräfta ditt nya lösenord"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Vänligen ange ditt nuvarande lösenord"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Vänligen ange kontots e-postadress"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Vänligen ange kontots e-postadress"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Nytt lösenord",
+            "placeholder": "Ange ditt nya lösenord"
+          },
+          "password_confirmation": {
+            "label": "Bekräfta lösenordet",
+            "placeholder": "Bekräfta ditt nya lösenord"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Fullständigt namn"
+          },
+          "email": {
+            "label": "Email"
+          },
+          "language": {
+            "label": "Språk"
+          },
+          "role": {
+            "label": "Roll"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Fullständigt namn",
+            "placeholder": "Ange användarens fullständiga namn"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Ange användarens e-postadress"
+          },
+          "password": {
+            "label": "Lösenord",
+            "placeholder": "Ange användarlösenordet"
+          },
+          "password_confirmation": {
+            "label": "Bekräfta lösenordet",
+            "placeholder": "Bekräfta lösenordet"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "Mejladresser"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "Ange länk här..."
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "Rollnamn",
+            "placeholder": "Ange ett rollnamn..."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,131 @@
+// BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+//
+// Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+//
+// This program is free software; you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software
+// Foundation; either version 3.0 of the License, or (at your option) any later
+// version.
+//
+// Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+// PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License along
+// with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+#user-recordings {
+  min-height: 699px;
+}
+
+#room-recordings {
+  min-height: 491px;
+}
+
+#user-recordings, #room-recordings {
+  table {
+    border-top-right-radius: $border-radius-lg;
+    border-top-left-radius: $border-radius-lg;
+    border-spacing: 0;
+    border-top-width: 0 !important;
+  }
+
+  tr {
+    border-color: whitesmoke !important;
+    border-right: 0 !important;
+    border-left: 0 !important;
+  }
+
+  tbody {
+    tr {
+      &:nth-child(10):not(.no-recordings-found) {
+        border-bottom: 4px solid whitesmoke !important;
+      }
+    }
+  }
+
+  .dropdown-item {
+    color: $muted;
+    &:hover {
+      color: var(--brand-color);
+    }
+    &:active {
+      background-color: white !important;
+    }
+  }
+
+  .pagination-wrapper {
+    border: 0 !important;
+  }
+
+  .no-recordings-found {
+    border-bottom: 0 !important;
+  }
+}
+
+#room-recordings {
+  .search-bar {
+    margin-top: 1rem;
+  }
+}
+
+#user-recordings {
+  padding-top: 0 !important;
+
+  .search-bar {
+    margin-top: 3rem;
+  }
+}
+
+.recordings-list {
+  .recording-icon-circle {
+    min-width: 40px;
+    min-height: 40px;
+    background-color: var(--brand-color-light);
+  }
+
+  .btn-format-presentation {
+    background-color: #f8f5fe;
+    color: #6941c6;
+  }
+  .btn-format-video {
+    background-color: #eff8ff;
+    color: #165dd3;
+  }
+
+  .btn-format-podcast {
+    background-color:#eff5ff;
+    color: #3539cc;
+  }
+  .btn-format-statistics {
+    background-color:#eff5ff;
+    color: #3539cc;
+  }
+  .btn-format-notes {
+    background-color: #f3f4f6;
+    color: #344154;
+  }
+  .btn-format-capture {
+    background-color: #f3f4f6;
+    color: #1e81b0;
+  }
+}
+
+.visibility-dropdown {
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.recordings-count-badge {
+  background-color: whitesmoke !important;
+}
+
+.recordings-icons:first-child {
+  .dropdown-item:hover, .dropdown-item:focus {
+    background-color: transparent !important;
+  }
+
+  svg:hover {
+    color: var(--brand-color) !important;
+  }
+}

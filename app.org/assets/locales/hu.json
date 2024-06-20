@@ -1,0 +1,693 @@
+{
+  "start": "Indítás",
+  "search": "Keresés",
+  "home": "Kezdőlap",
+  "previous": "Előző",
+  "back": "Vissza",
+  "next": "Következő",
+  "view": "Nézet",
+  "join": "Csatlakozás",
+  "edit": "Szerkesztés",
+  "save": "Mentés",
+  "save_changes": "Változások mentése",
+  "update": "Frissítés",
+  "report": "Jelentés",
+  "share": "Megosztás",
+  "cancel": "Mégse",
+  "close": "Bezárás",
+  "delete": "Törlés",
+  "copy": "Másolás",
+  "copy_viewer_code": "Megtekintési kód másolása",
+  "copy_moderator_code": "Moderátor kód másolása",
+  "or": "Vagy",
+  "online": "Online",
+  "help_center": "Súgóközpont",
+  "are_you_sure": "Biztos benne?",
+  "return_home": "Vissza a kezdőlapra",
+  "created_at": "Létrehozva:",
+  "view_recordings": "Felvételek megtekintése",
+  "join_session": "Csatlakozás a munkamenethez",
+  "no_result_search_input": "Nincs találat a következőre: „{{ searchInput }}”",
+  "action_permanent": "Ez a művelet nem vonható vissza.",
+  "homepage": {
+    "welcome_bbb": "Üdvözli a BigBlueButton.",
+    "bigbluebutton_description": "A BigBlueButton egy nyílt forráskódú webes konferencia-rendszer online órákhoz. A platform maximalizálja a tanulásra fordított időt azáltal, hogy lehetővé teszi, hogy a tanulók együttműködjenek és valós idejű visszajelzést kapjanak.",
+    "greenlight_description": "Hozza létre a saját szobáit, hogy munkameneteket hozzon létre, vagy csatlakozzon másokhoz egy rövid és kényelmes hivatkozással",
+    "learn_more": "Tudjon meg többet a BigBlueButtonről",
+    "explore_features": "Fedezze fel a funkcióinkat",
+    "meeting_title": "Indítson egy találkozót",
+    "meeting_description": "Indítson egy virtuális órát videóval, hanggal, képernyőmegosztással, csevegéssel és az alkalmazott tanuláshoz szükséges összes eszközzel.",
+    "recording_title": "Vegye fel a találkozóit",
+    "recording_description": "Vegye fel a BigBlueButton-találkozókat és ossza meg őket a tanulókkal, hogy átnézzék és átgondolják az anyagot.",
+    "settings_title": "Kezelje a szobáit",
+    "settings_description": "Állítsa be úgy a szobáit és a találkozókat, mintha egy valódi osztályterem vezetője legyen.",
+    "and_more_title": "És még sok más!",
+    "and_more_description": "A BigBlueButton az alkalmazott tanuláshoz használható beépített eszközöket tartalmaz, melyekkel időt spórolhat meg az órák során.",
+    "enter_meeting_url": "Adja meg a találkozó webcímét",
+    "enter_meeting_url_instruction": "Adja meg a BigBlueButton-találkozó webcímét a lenti mezőbe."
+  },
+  "authentication": {
+    "sign_in": "Bejelentkezés",
+    "sign_up": "Regisztráció",
+    "sign_out": "Kijelentkezés",
+    "email": "E-mail",
+    "password": "Jelszó",
+    "confirm_password": "Jelszó megerősítése",
+    "enter_email": "Adja meg az e-mail-címét",
+    "enter_name": "Adja meg a nevét",
+    "remember_me": "Bejelentkezés megjegyzése",
+    "forgot_password": "Elfelejtette a jelszavát?",
+    "dont_have_account": "Nincs fiókja?",
+    "create_account": "Fiók létrehozása",
+    "create_an_account": "Egy fiók létrehozása",
+    "already_have_account": "Már van fiókja?"
+  },
+  "user": {
+    "user": "Felhasználó",
+    "users": "Felhasználók",
+    "name": "Név",
+    "email_address": "E-mail-cím",
+    "authenticator": "Hitelesítő",
+    "full_name": "Teljes név",
+    "no_user_found": "Nem található felhasználó",
+    "type_three_characters": "Írjon be három (3) vagy annál több karaktert, hogy megjelenítse a többi felhasználót.",
+    "search_not_found": "Nem találhatók felhasználók",
+    "profile": {
+      "profile": "Profil",
+      "language": "Nyelv",
+      "role": "Szerepkör",
+      "administrator": "Adminisztrátor",
+      "guest": "Vendég"
+    },
+    "account": {
+      "account_info": "Fiókinformációk",
+      "delete_account": "Fiók törlése",
+      "change_password": "Jelszó módosítása",
+      "set_password": "Adja meg új jelszavát",
+      "reset_password": "Jelszó visszaállítása",
+      "update_account_info": "Saját fiókinformációk frissítése",
+      "current_password": "Jelenlegi jelszó",
+      "new_password": "Új jelszót",
+      "confirm_password": "Jelszó megerősítése",
+      "permanently_delete_account": "Saját fiók végleges törlése",
+      "delete_account_description": "Ha a fiókja törlését választja, akkor többé NEM állítható helyre. \n Az összes fiókkal kapcsolatos információja, a beállításokkal és szobákkal együtt, el lesz távolítva.",
+      "delete_account_confirmation": "Igen, törlöm a saját fiókomat",
+      "are_you_sure_delete_account": "Biztos, hogy törli a saját fiókját?"
+    },
+    "avatar": {
+      "upload_avatar": "Profilkép feltöltése",
+      "delete_avatar": "Profilkép törlése",
+      "crop_avatar": "Profilkép levágása"
+    },
+    "pending": {
+      "title": "Függőben lévő regisztráció",
+      "message": "Köszönjük, hogy regisztrált! A fiókja jelenleg adminisztrátori jóváhagyásra vár."
+    }
+  },
+  "room": {
+    "room": "Szoba",
+    "rooms": "Szobák",
+    "room_name": "Szoba neve",
+    "add_new_room": "+ Új szoba",
+    "create_room": "Szoba létrehozása",
+    "delete_room": "Szoba törlése",
+    "create_new_room": "Új szoba létrehozása",
+    "enter_room_name": "Adja meg a szoba nevét",
+    "shared_by": "megosztotta",
+    "last_session": "Legutóbbi munkamenet: {{ room.last_session }}",
+    "no_last_session": "Nem voltak munkamenetek létrehozva",
+    "search_not_found": "Nem találhatók szobák",
+    "rooms_list_is_empty": "Még nincs egy szobája sem.",
+    "rooms_list_empty_create_room": "Hozzá létre az első szobáját a lenti gombra kattintással és a szoba nevének megadásával.",
+    "meeting": {
+      "start_meeting": "Találkozó elindítása",
+      "join_meeting": "Csatlakozás a találkozóhoz",
+      "meeting_invitation": "Meghívták, hogy csatlakozzon",
+      "meeting_not_started": "A találkozó még nem indult el",
+      "join_meeting_automatically": "Automatikusan csatlakozni fog, amint a találkozó elkezdődik",
+      "recording_consent": "Tudomásul veszem, hogy a munkamenetet rögzíthetik. Ez tartalmazhatja a hangját és a képet, ha az engedélyezett."
+    },
+    "presentation": {
+      "presentation": "Bemutató",
+      "click_to_upload": "Kattintson a feltöltéshez",
+      "drag_and_drop": "vagy húzza és ejtse ide",
+      "upload_description": "Tetszőleges dokumentum- vagy PDF-fájl (nem nagyobb, mint {{size}}). A használata előtt a fájl méretétől függően idő szükséges a feltöltéséhez.",
+      "delete_presentation": "Bemutató törlése",
+      "are_you_sure_delete_presentation": "Biztos, hogy törli ezt a bemutatót?"
+    },
+    "shared_access": {
+      "access": "Hozzáférés",
+      "add_share_access": "+ Hozzáférés megosztása",
+      "share_room_access": "Szobahozzáférés megosztása",
+      "add_some_users": "Ideje hozzáadni néhány felhasználót!",
+      "add_some_users_description": "Az új felhasználók hozzáadásához kattintson a lenti gombra, és keresse ki vagy válassza ki azokat a felhasználókat, akikkel megosztja ezt a szobát.",
+      "delete_shared_access": "Megosztott hozzáférés törlése",
+      "are_you_sure_delete_shared_access": "Biztos, hogy törli a megosztott hozzáférést?"
+    },
+    "settings": {
+      "settings": "Beállítások",
+      "room_name": "Szoba neve",
+      "user_settings": "Felhasználói beállítások",
+      "allow_room_to_be_recorded": "A szoba felvételének engedélyezése",
+      "require_signed_in": "A felhasználóknak csatlakozás előtt be kell jelentkezniük",
+      "require_signed_in_message": "Be kell jelentkeznie, hogy a szobához csatlakozhasson.",
+      "require_mod_approval": "A csatlakozás előtt moderátori jóváhagyás szükség",
+      "allow_any_user_to_start": "Bármely felhasználó elindíthatja a találkozót",
+      "all_users_join_as_mods": "Az összes felhasználó moderátorként csatlakozik",
+      "mute_users_on_join": "A felhasználók némítása csatlakozáskor",
+      "generate": "Előállítás",
+      "access_code": "Hozzáférési kód",
+      "mod_access_code": "Moderátori hozzáférési kód",
+      "mod_access_code_optional": "Moderátori hozzáférési kód (nem kötelező)",
+      "access_code_required": "Adja meg a hozzáférési kódját",
+      "wrong_access_code": "Hibás hozzáférési kód",
+      "generate_viewers_access_code": "Hozzáférési kód előállítása a látogatók számára",
+      "generate_mods_access_code": "Hozzáférési kód előállítása a moderátorok számára",
+      "are_you_sure_delete_room": "Biztos, hogy törli ezt a szobát?"
+    }
+  },
+  "recording": {
+    "recording": "Felvétel",
+    "recordings": "Felvételek",
+    "processing": "Felvétel folyamatban...",
+    "name": "Név",
+    "length": "Hossz",
+    "users": "Felhasználók",
+    "visibility": "Láthatóság",
+    "formats": "Formátumok",
+    "published": "Közzétéve",
+    "unpublished": "Nincs közzétéve",
+    "protected": "Védett",
+    "public": "Nyilvános",
+    "public_protected": "Nyilvános /Védett",
+    "length_in_minutes": "{{recording.length}} perc",
+    "processing_recording": "A felvétel feldolgozása néhány percig eltarthat...",
+    "copy_recording_urls": "Felvételek webcímének másolása",
+    "recordings_list_empty": "Még nincs egy felvétele sem.",
+    "public_recordings_list_empty": "Még egy nyilvános felvétel sincs!",
+    "recordings_list_empty_description": "A felvételek itt fognak megjelenni, ha indít és felvesz egy találkozót.",
+    "public_recordings_list_empty_description": "Az elérhető felvételek itt jelennek meg.",
+    "delete_recording": "Felvétel törlése",
+    "are_you_sure_delete_recording": "Biztos, hogy törli ezt a felvételt?",
+    "search_not_found": "Nem található felvétel"
+  },
+  "admin": {
+    "admin_panel": "Üzemeltetői panel",
+    "manage_users": {
+      "manage_users": "Felhasználók kezelése",
+      "active": "Aktív",
+      "approve": "Elfogadás",
+      "decline": "Elutasítás",
+      "pending": "Függőben",
+      "banned": "Kitiltott",
+      "ban": "Kitiltás",
+      "unban": "Kitiltás visszavonása",
+      "deleted": "Törölve",
+      "invited_tab": "Meghívva",
+      "invite_user": "Felhasználó meghívása",
+      "send_invitation": "Meghívás küldése",
+      "enter_user_email": "Adja meg a felhasználó e-mail-címét",
+      "new_user": "Új felhasználó",
+      "add_new_user": "Új felhasználó",
+      "create_new_user": "Új felhasználó létrehozása",
+      "edit_user": "Felhasználó szerkesztése",
+      "delete_user": "Felhasználó törlése",
+      "users_edit_path": "Felhasználók/szerkesztés",
+      "create_account": "Fiók létrehozása",
+      "create_room": "Szoba létrehozása",
+      "create_new_room": "Új szoba létrehozása",
+      "user_created_at": "Létrehozva: {{user.created_at}}",
+      "are_you_sure_delete_account": "Biztos, hogy törli {{user.name}} fiókját?",
+      "delete_account_warning": "Ha a fiók törlését választja, akkor az NEM állítható helyre.",
+      "empty_active_users": "Még nincs aktív felhasználó ezen a kiszolgálón.",
+      "empty_active_users_subtext": "Ha egy felhasználó állapota aktívvá válik, akkor itt fog megjelenni.",
+      "empty_pending_users": "Még nincs függőben lévő felhasználó ezen a kiszolgálón.",
+      "empty_pending_users_subtext": "Ha egy felhasználó állapota függőben lévővé válik, akkor itt fog megjelenni.",
+      "empty_banned_users": "Még nincs kitiltott felhasználó ezen a kiszolgálón.",
+      "empty_banned_users_subtext": "Ha egy felhasználó állapota kitiltottá válik, akkor itt fog megjelenni.",
+      "empty_invited_users": "Még nincs meghívott felhasználó ezen a kiszolgálón.",
+      "empty_invited_users_subtext": "Ha egy felhasználó állapota meghívottá válik, akkor itt fog megjelenni.",
+      "invited": {
+        "time_sent": "Küldési idő",
+        "valid": "Érvényes"
+      }
+    },
+    "server_rooms": {
+      "server_rooms": "Kiszolgáló szobái",
+      "name": "Név",
+      "owner": "Tulajdonos",
+      "room_id": "Szobaazonosító",
+      "participants": "Résztvevők",
+      "status": "Állapot",
+      "running": "Fut",
+      "not_running": "Nem fut",
+      "active": "Aktív",
+      "current_session": "Jelenlegi munkamenet: {{lastSession}}",
+      "last_session": "Legutóbbi munkamenet: {{lastSession}}",
+      "no_meeting_yet": "Még nincsenek találkozók.",
+      "delete_server_rooms": "Kiszolgáló szobájának törlése",
+      "resync_recordings": "Felvételek újraszinkronizálása",
+      "empty_room_list": "Még nincs szoba a kiszolgálón.",
+      "empty_room_list_subtext": "A szobák itt fognak megjelenni az első szoba létrehozása után."
+    },
+    "server_recordings": {
+      "server_recordings": "Kiszolgáló felvételei",
+      "latest_recordings": "Legutóbbi felvételek",
+      "no_recordings_found": "Nem található felvétel."
+    },
+    "site_settings": {
+      "site_settings": "Oldalbeállítások",
+      "customize_greenlight": "A Greenlight testreszabása",
+      "appearance": {
+        "appearance": "Megjelenés",
+        "brand_color": "Márkaszín",
+        "regular": "Szokásos",
+        "lighten": "Világosítás",
+        "brand_image": "Márkakép",
+        "click_to_upload": "Kattintson a feltöltéshez",
+        "drag_and_drop": "vagy húzza és ejtse ide",
+        "upload_brand_image_description": "Tetszőleges PNG, JPG, vagy SVG fájl (nem nagyobb, mint {{size}}). A használata előtt a fájl méretétől függően idő szükséges a feltöltéséhez.",
+        "remove_branding_image": "Márkakép eltávolítása"
+      },
+      "administration": {
+        "administration": "Üzemeltetés",
+        "terms": "Felhasználási feltételek",
+        "privacy": "Adatvédelmi nyilatkozat",
+        "privacy_policy": "Adatvédelmi nyilatkozat",
+        "change_term_links": "A lap alján megjelenő felhasználási feltételek hivatkozásának módosítása",
+        "change_privacy_link": "A lap alján megjelenő adatvédelmi hivatkozás módosítása",
+        "helpcenter": "Súgóközpont",
+        "change_helpcenter_link": "A profil legördülő alatt megjelenő Súgóközpont link módosítsa",
+        "change_url": "Webcím módosítása",
+        "enter_link": "Itt adja meg a hivatkozást"
+      },
+      "settings": {
+        "settings": "Beállítások",
+        "allow_users_to_share_rooms": "A felhasználók megoszthatják a szobákat",
+        "allow_users_to_share_rooms_description": "A letiltása eltávolítja a gombot a szobák legördülő menüjében, így a felhasználók nem tudják megosztani a szobákat",
+        "allow_users_to_preupload_presentation": "A felhasználók előre feltöltheti a bemutatójukat",
+        "allow_users_to_preupload_presentation_description": "A felhasználók előre feltöltheti a használandó bemutatójukat az adott szoba alapértelmezett bemutatójaként",
+        "default_visibility": "Felvétel alapértelmezett láthatósága",
+        "default_visibility_description": "Alapértelmezés szerint minden újonnan létrehozott felvételnél ez lesz a láthatóság"
+      },
+      "registration": {
+        "registration": "Regisztráció",
+        "role_mapping_by_email": "Szerepkörkiosztás e-mail-cím alapján",
+        "role_mapping_by_email_description": "A felhasználó szerepkörhöz rendelése az e-mail-címe alapján. A következő formátumban kell lennie: szerepkör1=e-mail1,szerepkör2=e-mail2",
+        "enter_role_mapping_rule": "Adja meg a szerepkörkiosztási szabályt",
+        "resync_on_login": "Felhasználói adatok újraszinkronizálása minden bejelentkezéskor",
+        "resync_on_login_description": "Újraszinkronizálja a felhasználók adatait minden bejelentkezésnél, így a külső hitelesítésszolgáltató adatai mindig megegyeznek a Greenlightban találhatókkal",
+        "default_role": "Alapértelmezett szerepkör",
+        "default_role_description": "A frissen létrehozott felhasználókhoz rendelt alapértelmezett szerepkör",
+        "registration_method": "Regisztrációs mód",
+        "registration_method_description": "A felhasználók regisztrációs módjának módosítása",
+        "registration_methods" : {
+          "open": "Nyílt regisztráció",
+          "invite": "Csatlakozás meghívással",
+          "approval": "Engedélyezés/elutasítás"
+        }
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "Szoba beállításai",
+      "default": "Nem kötelező (alapértelmezett: engedélyezve)",
+      "optional": "Nem kötelező (alapértelmezett: letiltva)",
+      "enabled": "Kényszerített engedélyezés",
+      "disabled": "Letiltva",
+      "configurations": {
+        "allow_room_to_be_recorded": "A szoba felvételének engedélyezése",
+        "allow_room_to_be_recorded_description": "A szoba tulajdonosai adhatják meg, hogy az rögzíthető legyen-e vagy sem. Ha be van kapcsolva, egy moderátornak akkor is rá kell kattintania a „Felvétel” gombra a találkozó indulásakor.",
+        "require_user_signed_in": "A felhasználóknak csatlakozás előtt be kell jelentkezniük",
+        "require_user_signed_in_description": "Csak a Greenlight-fiókkal rendelkező felhasználókat engedi csatlakozni a találkozóhoz. Ha nincsenek bejelentkezve, akkor át lesznek irányítva a bejelentkezési oldalra, ha megpróbálnak csatlakozni a szobához.",
+        "require_mod_approval": "A csatlakozás előtt moderátori jóváhagyás szükséges",
+        "require_mod_approval_description": "Ha egy felhasználó megpróbál csatlakozni, akkor megkérdezi a BigBlueButton moderátorát. Ha engedélyezi, akkor csatlakozhat a találkozóhoz.",
+        "allow_any_user_to_start_meeting": "Bármely felhasználó elindíthat egy találkozót",
+        "allow_any_user_to_start_meeting_description": "Bármely felhasználó elindíthat egy találkozót, bármikor. Alapértelmezés szerint csak a szoba tulajdonosa tud elindítani egy találkozót.",
+        "allow_users_to_join_as_mods": "Az összes felhasználó moderátorként csatlakozik",
+        "allow_users_to_join_as_mods_description": "A találkozóhoz csatlakozáskor megadja a felhasználóknak az összes moderátori jogosultságot a BigBlueButtonban",
+        "mute_users_on_join": "A felhasználók némítása csatlakozáskor",
+        "mute_users_on_join_description": "A felhasználó automatikus némítása amikor csatlakozik a BigBlueButton találkozóhoz.",
+        "viewer_access_code": "Nézői hozzáférési kód",
+        "viewer_access_code_description": "A szoba tulajdonosai véletlenszerű alfanumerikus kódot kapnak, amely megosztható másokkal. Az előállított kódra lesz szükség, hogy a felhasználók csatlakozhassanak a szoba találkozóihoz",
+        "mod_access_code": "Moderátori hozzáférési kód",
+        "mod_access_code_description": "A szoba tulajdonosai véletlenszerű alfanumerikus kódot kapnak, amely megosztható másokkal. Az előállított kódra nem lesz szükség, és a felhasználók moderátorként fognak csatlakozni a szoba találkozóihoz."
+      }
+    },
+    "roles": {
+      "role": "Szerepkör",
+      "roles": "Szerepkörök",
+      "administrator": "Üzemeltető",
+      "guest": "Vendég",
+      "manage_roles": "Szerepkörök kezelése",
+      "delete_role": "Szerepkör törlése",
+      "are_you_sure_delete_role": "Biztos, hogy törli ezt a szerepkört?",
+      "enter_role_name": "Adja meg egy szerepkör nevét",
+      "add_role": "+ Szerepkör létrehozása",
+      "create_role": "Szerepkör létrehozása",
+      "create_new_role": "Új szerepkör létrehozása",
+      "no_role_found": "Nem található szerepkör.",
+      "search_not_found": "Nem található szerepkör",
+      "edit": {
+        "create_room": "Az ezzel a szerepkörrel rendelkező felhasználók létrehozhatnak szobákat",
+        "record": "Az ezzel a szerepkörrel rendelkező felhasználók felvehetik a találkozóikat",
+        "manage_users": "Az ezzel a szerepkörrel rendelkező felhasználók kezelhetik a felhasználókat",
+        "manage_rooms": "Az ezzel a szerepkörrel rendelkező felhasználók kezelhetik a kiszolgáló szobáit",
+        "manage_recordings": "Az ezzel a szerepkörrel rendelkező felhasználók kezelhetik a kiszolgáló felvételeit",
+        "manage_site_settings": "Az ezzel a szerepkörrel rendelkező felhasználók kezelhetik az oldal beállításait",
+        "manage_roles": "Az ezzel a szerepkörrel rendelkező felhasználók kezelhetik a többi szerepkört",
+        "shared_list": "Az ezzel a szerepkörrel rendelkezők felhasználók belevétele a szoba megosztásakor megjelenő legördülő listába",
+        "room_limit": "Szobakorlát",
+        "email_on_signup": "E-mail küldése új felhasználó regisztrációjakor",
+        "allowed_recording_visibility": "Felvétel engedélyezett láthatóságai"
+      }
+    }
+  },
+  "toast": {
+    "success": {
+      "user": {
+        "user_created": "Új felhasználó létrehozva.",
+        "user_updated": "Felhasználó frissítve.",
+        "user_deleted": "A felhasználót sikeresen törölte.",
+        "avatar_updated": "Profilkép frissítve.",
+        "password_changed": "Jelszavát sikeresen módosította, kérem, jelentkezzen be.",
+        "password_updated": "Jelszó frissítve.",
+        "account_activated": "A fiókját aktiválták.",
+        "activation_email_sent": "Aktiváló e-mail elküldve",
+        "reset_pwd_email_sent": "A jelszava visszaállítási utasításait tartalmazó e-mail elküldve."
+      },
+      "session": {
+        "signed_out": "Sikeresen kijelentkezett."
+      },
+      "room": {
+        "room_created": "Szoba létrehozva.",
+        "room_updated": "A szobát sikeresen módosította.",
+        "room_deleted": "A szobát sikeresen törölte.",
+        "room_shared": "A szobát sikeresen megosztotta.",
+        "room_unshared": "Szoba megosztása visszavonva",
+        "recordings_synced": "A szoba felvételei most már szinkronizálva vannak",
+        "room_configuration_updated": "Szoba beállításai frissítve.",
+        "room_setting_updated": "Szoba beállítása frissítve.",
+        "presentation_updated": "Bemutató frissítve.",
+        "presentation_deleted": "Bemutató törölve.",
+        "joining_meeting": "Csatlakozás a találkozóhoz…",
+        "meeting_started": "Találkozó elindítva.",
+        "access_code_copied": "A hozzáférési kódot sikeresen lemásolta.",
+        "access_code_generated": "Hozzáférési kód előállítva.",
+        "access_code_deleted": "Hozzáférési kódot sikeresen törölte.",
+        "copied_meeting_url": "A találkozó webcíme másolva. A hivatkozás a találkozóhoz csatlakozáshoz használható",
+        "copied_viewer_code": "A megtekintési kódot sikeresen lemásolta.",
+        "copied_moderator_code": "A moderátori hozzáférési kódot sikeresen lemásolta."
+      },
+      "site_settings": {
+        "site_setting_updated": "Oldalbeállítás frissítve.",
+        "brand_color_updated": "A márkaszín sikerese módosította.",
+        "brand_image_updated": "A márkaképet sikeresen módosította.",
+        "brand_image_deleted": "A márkakép sikeresen törölte.",
+        "privacy_policy_updated": "Adatvédelmi nyilatkozat frissítve.",
+        "helpcenter_updated": "A Súgóközpont linkjét sikeresen módosította.",
+        "terms_of_service_updated": "A szolgáltatási feltételek frissítésre kerültek."
+      },
+      "recording": {
+        "recording_visibility_updated": "Felvétel láthatósága frissítve.",
+        "recording_name_updated": "Felvétel neve frissítve.",
+        "recording_deleted": "A felvételt sikeresen törölte.",
+        "copied_urls": "A felvétel webcímei másolva."
+      },
+      "role": {
+        "role_created": "Szerepkör létrehozva.",
+        "role_updated": "A szerepkört sikeresen módosította.",
+        "role_deleted": "A szerepkört sikeresen törölte.",
+        "role_permission_updated": "Szerepkör jogosultsága frissítve"
+      },
+      "invitations": {
+        "invitation_sent": "Meghívó elküldve"
+      }
+    },
+    "error": {
+      "problem_completing_action": "Probléma lépett fel a művelet befejezése során. \n Próbálja újra.",
+      "file_type_not_supported": "A fájltípus nem támogatott.",
+      "file_size_too_large": "A fájl túl nagy.",
+      "file_upload_error": "A fájlt nem sikerült feltölteni.",
+      "signin_required": "Be kell jelentkeznie, hogy elérje ezt az oldalt",
+      "malware_detected": "Rosszindulatú kódot érzékeltünk! A feltöltött fájl valószínű Rosszindulatú kódot tartalmaz. Kérem, ellenőrizze a fájlt és próbálja újra feltölteni.",
+      "roles": {
+        "role_assigned": "Ez a szerepkör nem törölhető, mert legalább egy felhasználóhoz hozzá van rendelve."
+      },
+      "users": {
+        "signup_error": "Nem hitelesíthető. Lépjen kapcsolatba a rendszergazdával.",
+        "invalid_invite": "A meghívási token érvénytelen vagy helytelen. Lépjen kapcsolatba a rendszergazdával, hogy újat kapjon.",
+        "email_exists": "Már létezik fiók ezzel ez e-mail-címmel. Próbálja újra másik címmel.",
+        "old_password": "A megadott jelszó helytelen.",
+        "pending": "A fiókja adminisztrátori jóváhagyásra vár. Próbálja újra később.",
+        "banned": "Nincs hozzáférési jogosultsága ehhez az alkalmazáshoz. Ha úgy gondolja, hogy ez hiba, akkor lépjen kapcsolatba a rendszergazdával."
+      },
+      "rooms": {
+        "room_limit": "A szobakorlát miatt a szoba nem hozható létre"
+      },
+      "session": {
+        "invalid_credentials": "A felhasználónév és a jelszó helytelen. Ellenőrizze a hitelesítési adatait és próbálja újra."
+      }
+    }
+  },
+  "global_error_page": {
+    "title": "Hiba",
+    "message": "Hoppá! Valami nem sikerült. Ha ez az eset újra előfordul, akkor lépjen kapcsolatba a rendszergazdával."
+  },
+  "not_found_error_page": {
+    "title": "404",
+    "message": "Hoppá! A keresett oldal nem található."
+  },
+  "account_activation_page": {
+    "title": "Fiók aktiválása",
+    "account_unverified": "Fiókját még nem ellenőrizték.",
+    "message": "A Greenlight használatához kérem, a megküldött aktiváló e-mailben lévő utasítások alapján ellenőrizze a fiókját.",
+    "resend_activation_link": "Amennyiben nem kapta meg az aktiváló e-mailt vagy problémája akad annak használatával, kattintson az újraküldés gombra egy új aktiváló e-mail kéréséhez.",
+    "resend_btn_lbl": "Megerősítés újraküldése"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "Adja meg a teljes nevét",
+        "min": "A névnek legalább 2 karakteresnek kell lennie",
+        "max": "A név legfeljebb 255 karakteres lehet"
+      },
+      "email": {
+        "required": "Adja meg az e-mail-címét",
+        "email": "A megadott érték nem e-mail formátumú",
+        "min": "Az e-mail-címnek legalább 6 karakteresnek kell lennie",
+        "max": "Az e-mail-cím legfeljebb 255 karakteres lehet"
+      },
+      "password": {
+        "required": "Adja meg a jelszavát",
+        "match": "A jelszónak legalább az alábbi feltételeknek kell megfelelnie:",
+        "min": "- Nyolc karakter",
+        "lower": "- Egy kisbetű",
+        "upper": "- Egy nagybetű",
+        "digit": "- Egy számjegy",
+        "symbol": "- Egy szimbólum",
+        "max": "A jelszó legfeljebb 255 karakteres lehet"
+      },
+      "password_confirmation": {
+        "required": "Adja meg a jelszó megerősítését",
+        "match": "A jelszavak nem egyeznek"
+      },
+      "emails": {
+        "required": "Adjon meg legalább egy érvényes e-mail-címet",
+        "list": "Az e-mail-címeket vesszővel elválasztva adja meg (user@users.com,user1@users.com,user2@users.com)"
+      },
+      "role_name": {
+        "required": "Adja meg a szerepkör nevét"
+      },
+      "role": {
+        "limit": {
+          "required": "Adja meg a szobakorlátot",
+          "min": "A megengedett legkisebb érték 0",
+          "max": "A megengedett legnagyobb érték 100"
+        },
+        "type": {
+          "error": "Meg kell adnia egy számot"
+        }
+      },
+      "room": {
+        "name": {
+          "required": "Adja meg a szoba nevét.",
+          "min": "A névnek legalább 2 karakteresnek kell lennie"
+        }
+      },
+      "room_join": {
+        "name": {
+          "required": "Adja meg a nevét."
+        }
+      },
+      "url": {
+        "invalid": "Érvénytelen webcím"
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "Szoba neve",
+          "placeholder": "Adja meg a szoba nevét…"
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Név",
+            "placeholder": "Adja meg a nevét"
+        },
+        "access_code": {
+          "label": "Hozzáférési kód",
+          "placeholder": "Adja meg a hozzáférési kódot"
+        },
+        "recording_consent": {
+          "label": "Tudomásul veszem, hogy ez a munkamenet rögzíthető. Ez vonatkozik a hangomra és a videómra, ha be van kapcsolva."
+        }
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "Teljes név",
+            "placeholder": "Adja meg a teljes nevét"
+          },
+          "email": {
+            "label": "E-mail cím",
+            "placeholder": "Adja meg az e-mail-címét"
+          },
+          "password": {
+            "label": "Jelszó",
+            "placeholder": "Jelszó létrehozása"
+          },
+          "password_confirmation": {
+            "label": "Jelszó megerősítése",
+            "placeholder": "Jelszó megerősítése"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "E-mail-cím",
+            "placeholder": "E-mail-cím"
+          },
+          "password": {
+            "label": "Jelszó",
+            "placeholder": "Jelszó"
+          },
+          "remember_me": {
+            "label": "Emlékezzen rám"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "Jelenlegi jelszó",
+            "placeholder": "Adja meg a jelszavát"
+          },
+          "new_password": {
+            "label": "Új jelszó",
+            "placeholder": "Adja meg az új jelszavát"
+          },
+          "password_confirmation": {
+            "label": "Jelszó megerősítése",
+            "placeholder": "Az új jelszava megerősítése"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "Adja meg az új jelszavát"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "E-mail-cím",
+            "placeholder": "Adja meg a fiók e-mail-címét"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "Adja meg a fiók e-mail-címét"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "Új jelszó",
+            "placeholder": "Adja meg az új jelszót"
+          },
+          "password_confirmation": {
+            "label": "Jelszó megerősítése",
+            "placeholder": "Erősítse meg az új jelszavát"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "Teljes név"
+          },
+          "email": {
+            "label": "E-mail-cím"
+          },
+          "language": {
+            "label": "Nyelv"
+          },
+          "role": {
+            "label": "Szerepkör"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "Teljes név",
+            "placeholder": "Adja meg a felhasználó teljes nevét"
+          },
+          "email": {
+            "label": "E-mail-cím",
+            "placeholder": "Adja meg a felhasználó e-mail-címét "
+          },
+          "password": {
+            "label": "Jelszó",
+            "placeholder": "Adja meg a felhasználó jelszavát"
+          },
+          "password_confirmation": {
+            "label": "Jelszó megerősítése",
+            "placeholder": "Jelszó megerősítése"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "E-mailek"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "Adja meg a hivatkozást itt…"
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "Szerepkör neve",
+            "placeholder": "Adja meg a szerepkör nevét…"
+          }
+        }
+      }
+    }
+  }
+}

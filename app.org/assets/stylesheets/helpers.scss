@@ -1,0 +1,75 @@
+// BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+//
+// Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+//
+// This program is free software; you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software
+// Foundation; either version 3.0 of the License, or (at your option) any later
+// version.
+//
+// Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+// PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License along
+// with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+.text-link {
+  text-decoration: none !important;
+  color: var(--brand-color) !important;
+}
+
+.wide-white {
+  background: white;
+  box-shadow: 0 0 0 100vmax white;
+  clip-path: inset(0 -100vmax);
+}
+
+.vertical-center {
+  min-height: calc(100vh - $header-height - $footer-height - $footer-buffer-height);
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.no-header-height {
+  min-height: calc(100vh - $footer-height);
+}
+
+.regular-height {
+  min-height: calc(100vh - $header-height - $footer-height);
+
+  .vertical-center {
+    min-height: calc(100vh - $header-height - $header-height - $footer-height);
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.nav-tabs {
+  border-bottom: 0;
+  padding-bottom: 1px;
+
+  .nav-link {
+    transition: none;
+    border: 0;
+
+    &.active, &:hover {
+      color: var(--brand-color);
+      border-bottom: 1.5px solid var(--brand-color) !important;
+    }
+  }
+}
+
+.border-whitesmoke {
+  border-color: whitesmoke !important;
+}
+
+.background-whitesmoke {
+  background: whitesmoke !important;
+  box-shadow: 0 0 0 100vmax whitesmoke;
+  clip-path: inset(0 -100vmax);
+}

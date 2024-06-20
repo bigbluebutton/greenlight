@@ -1,0 +1,45 @@
+// BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+//
+// Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+//
+// This program is free software; you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software
+// Foundation; either version 3.0 of the License, or (at your option) any later
+// version.
+//
+// Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+// PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License along
+// with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+#shared-access-form {
+  .table-scrollbar-wrapper {
+    overflow: auto;
+    // Height of +/- 4 rows of users in xxl screen
+    max-height: 365px;
+  }
+
+  input.search-bar {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+}
+
+#shared-access-modal {
+  .modal-header {
+    margin-left: 0 !important;
+  }
+
+  // Height of Modal with 4 rows of users in xxl screen
+  .modal-content {
+    min-height: 554px;
+  }
+
+  #shared-access-modal-buttons {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+  }
+}

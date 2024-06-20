@@ -1,0 +1,74 @@
+// BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+//
+// Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+//
+// This program is free software; you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software
+// Foundation; either version 3.0 of the License, or (at your option) any later
+// version.
+//
+// Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+// PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License along
+// with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+#profile {
+
+  #profile-sidebar {
+    height: 100%;
+    border-right: 2px solid whitesmoke;
+    padding: 1rem;
+  }
+
+  #delete-account {
+    max-width: 500px;
+  }
+
+  .tab-content {
+    display: flex;
+  }
+
+  .tab-content > .tab-pane {
+    display: block;
+    visibility: hidden;
+    margin-right: -100%;
+    width: 100%;
+  }
+
+  .tab-content > .active {
+    visibility: visible;
+  }
+}
+
+#profile-avatar {
+  max-width: 200px;
+
+  .avatar-icon-circle {
+    top: 5px;
+    right: 5px;
+    width: 35px;
+    height: 35px;
+    color: gray;
+    background-color: whitesmoke;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+
+    svg {
+      margin-top: 5px;
+      margin-left: 5px;
+    }
+  }
+}
+
+#edit-user-dropdown {
+  &::after {
+    display: none;
+  }
+}
+
+#updateUserFormLanguage .dropdown-menu {
+  max-height: 20vh;
+  overflow-y: auto;
+  background-clip: border-box;
+}

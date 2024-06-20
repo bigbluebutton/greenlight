@@ -1,0 +1,230 @@
+// BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+//
+// Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+//
+// This program is free software; you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software
+// Foundation; either version 3.0 of the License, or (at your option) any later
+// version.
+//
+// Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+// PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License along
+// with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+#admin-panel {
+  #admin-sidebar {
+    height: 100%;
+    border-right: 2px solid whitesmoke;
+    padding: 1rem;
+    min-height: $admin-card-height;
+  }
+
+  .admin-panel-card {
+    min-height: $admin-card-height;
+  }
+
+  .tab-content {
+    display: flex;
+  }
+
+  .tab-content > .tab-pane {
+    display: block;
+    visibility: hidden;
+    margin-right: -100%;
+    width: 100%;
+  }
+
+  .tab-content > .active {
+    visibility: visible;
+  }
+
+  input.search-bar {
+    max-width: $input-max-width;
+  }
+
+  .admin-table {
+    table, td, tr {
+      border-color: whitesmoke !important;
+    }
+    .dropdown {
+      position: static;
+    }
+  }
+
+  .dropdown-item {
+    color: $muted;
+    &:hover {
+      color: var(--brand-color);
+    }
+    &:active {
+      background-color: white !important;
+    }
+  }
+
+  .dropdown-toggle::after {
+    display: none !important;
+  }
+
+  @include media-breakpoint-down(md) {
+    .dropdown-menu {
+      transform: none !important;
+    }
+  }
+}
+
+#manage-users-table {
+  @include media-breakpoint-down(md) {
+    td, tr {
+      // Full name and creation date
+      &:nth-child(1) {
+        min-width: $column-lg-width;
+      }
+      // Email address
+      &:nth-child(2) {
+        min-width: $column-lg-width;
+      }
+      // Role
+      &:nth-child(3) {
+        min-width: $column-md-width;
+      }
+      // Dropdown button
+      &:nth-child(4) {
+        min-width: $column-sm-width;
+      }
+    }
+  }
+}
+
+#server-rooms-table {
+  @include media-breakpoint-down(xl) {
+    td, tr {
+      // Full name and last meeting date
+      &:nth-child(1) {
+        min-width: $column-lg-width;
+      }
+      // Owner name
+      &:nth-child(2) {
+        min-width: $column-md-width;
+      }
+      // Room ID
+      &:nth-child(3) {
+        min-width: $column-md-width;
+      }
+      // # of participants
+      &:nth-child(4) {
+        min-width: $column-sm-width;
+      }
+      // Status
+      &:nth-child(5) {
+        min-width: $column-sm-width;
+      }
+      // Dropdown button
+      &:nth-child(6) {
+        min-width: $column-xs-width;
+      }
+    }
+  }
+}
+
+#recordings-table {
+  @include media-breakpoint-down(xl) {
+    td, tr {
+      // Name and recording date
+      &:nth-child(1) {
+        min-width: $column-lg-width;
+      }
+      // Length
+      &:nth-child(2) {
+        min-width: $column-sm-width;
+      }
+      // # of users
+      &:nth-child(3) {
+        min-width: $column-xs-width;
+      }
+      // Visibility dropdown
+      &:nth-child(4) {
+        min-width: $column-md-width;
+      }
+      // Format badges
+      &:nth-child(4) {
+        min-width: $column-lg-width;
+      }
+      // Dropdown button
+      &:nth-child(4) {
+        min-width: $column-xs-width;
+      }
+    }
+  }
+}
+
+.color-picker {
+  width: 200px;
+  min-height: 330px;
+
+  .react-colorful__hue {
+    border-radius: 0 !important;
+  }
+}
+
+.color-preview {
+  display: inline-block;
+  width: 50%;
+  height: 15px;
+}
+
+.popover-arrow {
+  display: none !important;
+}
+
+.room-limit{
+  width: 100px;
+}
+
+#edit-role-form {
+  .invalid-feedback{
+    width: 200px;
+  }
+}
+
+.role-badge {
+  background-color: whitesmoke !important;
+  height: 24px;
+  line-height: 18px;
+  color: gray;
+}
+
+.role-color-dot {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 100%;
+}
+
+#role-breadcrumb {
+  height: 8px;
+  a {
+    color: $muted;
+    text-decoration: none !important;
+  }
+}
+
+#edit-role-form {
+  input {
+    max-width: $input-max-width;
+  }
+}
+
+#server-recordings {
+  .card {
+    box-shadow: none !important;
+  }
+}
+
+#list-empty {
+  svg {
+    padding-top: 2rem;
+  }
+}

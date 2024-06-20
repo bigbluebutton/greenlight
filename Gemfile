@@ -17,7 +17,7 @@ gem 'data_migrate', '>= 9.4.0'
 gem 'dotenv-rails'
 gem 'google-cloud-storage', '~> 1.44', require: false
 gem 'hcaptcha'
-gem 'hiredis', '~> 0.6.0'
+gem 'hiredis', '~> 0.6.3'
 gem 'i18n-language-mapping'
 gem 'image_processing', '~> 1.2'
 gem 'jbuilder'
@@ -28,8 +28,8 @@ gem 'omniauth', '~> 2.1.2'
 gem 'omniauth_openid_connect', '>= 0.6.1'
 gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
 gem 'pagy', '~> 6.0', '>= 6.0.0'
-gem 'pg'
-gem 'puma', '~> 5.6'
+gem 'pg', '~> 1.5', '>= 1.5.4'
+gem 'puma', '~> 6.0'
 gem 'rails', '~> 7.1.3'
 gem 'redis', '~> 4.0'
 gem 'sprockets-rails'
@@ -65,3 +65,5 @@ group :production do
   gem 'lograge', '~> 0.14.0'
   gem 'remote_syslog_logger'
 end
+
+

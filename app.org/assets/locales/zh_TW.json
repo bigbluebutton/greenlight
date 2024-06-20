@@ -1,0 +1,677 @@
+{
+  "start": "開始",
+  "search": "搜尋",
+  "home": "首頁",
+  "previous": "上一頁",
+  "back": "返回",
+  "next": "下一頁",
+  "view": "檢視",
+  "join": "加入",
+  "edit": "編輯",
+  "save": "儲存",
+  "save_changes": "儲存變更",
+  "update": "更新",
+  "report": "回報",
+  "share": "分享",
+  "cancel": "取消",
+  "close": "關閉",
+  "delete": "刪除",
+  "copy": "複製參加連結",
+  "or": "或",
+  "online": "線上",
+  "help_center": "幫助中心",
+  "are_you_sure": "您確定嗎？",
+  "return_home": "返回首頁",
+  "created_at": "建立時間",
+  "view_recordings": "檢視錄影",
+  "join_session": "參加會議",
+  "no_result_search_input": "找不到\\\"{{ searchInput }}\\\"的任何結果",
+  "action_permanent": "此操作無法撤銷",
+  "homepage": {
+    "welcome_bbb": "歡迎使用 BigBlueButton",
+    "bigbluebutton_description": "BigBlueButton 是一個針對線上課程優化的開源網路會議系統。透過學生間的協作和即時的回饋，能夠將更多時間投入實際的學習中。",
+    "greenlight_description": "建立您自己的會議室，主持會議，或使用簡短便捷的連結加入其他人的會議。",
+    "learn_more": "了解更多關於 BigBlueButton",
+    "explore_features": "探索我們的功能",
+    "meeting_title": "開始會議",
+    "meeting_description": "啟動一個虛擬課堂，擁有視訊、音訊、畫面分享、聊天等工具，滿足實踐學習所需的一切。",
+    "recording_title": "錄製您的會議",
+    "recording_description": "錄製 BigBlueButton 的會議並與學生分享，以便回顧和反思教材。",
+    "settings_title": "管理您的會議室",
+    "settings_description": "配置您的會議室和會議設定，管理一個有效的課堂。",
+    "and_more_title": "還有更多！",
+    "and_more_description": "BigBlueButton 提供了實踐學習所需的內建工具，並設計節省您上課時間。",
+    "enter_meeting_url": "輸入會議網址",
+    "enter_meeting_url_instruction": "請在下方輸入您的 BigBlueButton 會議的網址。"
+  },
+  "authentication": {
+    "sign_in": "登入",
+    "sign_up": "註冊",
+    "sign_out": "登出",
+    "email": "電子郵件",
+    "password": "密碼",
+    "confirm_password": "確認密碼",
+    "enter_email": "輸入您的電子郵件",
+    "enter_name": "輸入您的姓名",
+    "remember_me": "記住我",
+    "forgot_password": "忘記密碼？",
+    "dont_have_account": "還沒有帳號？",
+    "create_account": "建立帳號",
+    "create_an_account": "建立帳號",
+    "already_have_account": "已經有帳號？"
+  },
+  "user": {
+    "user": "使用者",
+    "users": "使用者",
+    "name": "姓名",
+    "email_address": "電子郵件地址",
+    "authenticator": "認證者",
+    "full_name": "全名",
+    "no_user_found": "找不到使用者",
+    "type_three_characters": "請輸入（3個或以上的字元）以顯示其他使用者。",
+    "search_not_found": "找不到使用者",
+    "profile": {
+      "profile": "個人檔案",
+      "language": "語言",
+      "role": "角色",
+      "administrator": "管理員",
+      "guest": "訪客"
+    },
+    "account": {
+      "account_info": "帳號資訊",
+      "delete_account": "刪除帳號",
+      "change_password": "修改密碼",
+      "reset_password": "重設密碼",
+      "update_account_info": "更新帳號資訊",
+      "current_password": "目前密碼",
+      "new_password": "新密碼",
+      "confirm_password": "確認密碼",
+      "permanently_delete_account": "永久刪除您的帳號",
+      "delete_account_description": "如果您選擇刪除帳號，將無法恢復。\n您帳號的所有相關資訊，包括設定、房間和錄影將被刪除。",
+      "delete_account_confirmation": "是，我要刪除我的帳號",
+      "are_you_sure_delete_account": "您確定要刪除帳號嗎？"
+    },
+    "avatar": {
+      "upload_avatar": "上傳頭像",
+      "delete_avatar": "刪除頭像",
+      "crop_avatar": "裁剪您的頭像"
+    },
+    "pending": {
+      "title": "待審核註冊",
+      "message": "感謝您的註冊！您的帳號目前正在等待管理員的審核。"
+    }
+  },
+  "room": {
+    "room": "房間",
+    "rooms": "房間",
+    "room_name": "房間名稱",
+    "add_new_room": "+ 新增房間",
+    "create_room": "建立房間",
+    "delete_room": "刪除房間",
+    "create_new_room": "建立新房間",
+    "enter_room_name": "輸入房間名稱",
+    "shared_by": "分享者：",
+    "last_session": "上次會議：{{ localizedTime }}",
+    "no_last_session": "尚未建立先前的會議",
+    "search_not_found": "找不到房間",
+    "rooms_list_is_empty": "您尚未擁有任何房間！",
+    "rooms_list_empty_create_room": "請點擊下方的按鈕並輸入房間名稱來建立您的第一個房間。",
+    "meeting": {
+      "start_meeting": "開始會議",
+      "join_meeting": "加入會議",
+      "meeting_invitation": "您已被邀請加入",
+      "meeting_not_started": "會議尚未開始",
+      "join_meeting_automatically": "會議開始時，您將自動加入",
+      "recording_consent": "我確認此次會議可能會被錄製。若啟用，可能會包含我的語音和影像。"
+    },
+    "presentation": {
+      "presentation": "簡報",
+      "click_to_upload": "點擊上傳",
+      "drag_and_drop": " 或拖放",
+      "upload_description": "上傳任何辦公室文件或 PDF 檔案（不超過 {{size}}）。根據檔案大小，可能需要額外的時間上傳才能使用。",
+      "are_you_sure_delete_presentation": "您確定要刪除此簡報嗎？"
+    },
+    "shared_access": {
+      "access": "存取權限",
+      "add_share_access": "+ 分享存取權限",
+      "share_room_access": "分享房間存取權限",
+      "add_some_users": "該添加一些使用者了！",
+      "add_some_users_description": "要添加新使用者，請點擊下方的按鈕，搜尋或選擇您想與之分享此房間的使用者。",
+      "delete_shared_access": "刪除分享的存取權限",
+      "are_you_sure_delete_shared_access": "您確定要刪除此分享的存取權限嗎？"
+    },
+    "settings": {
+      "settings": "設定",
+      "room_name": "房間名稱",
+      "user_settings": "使用者設定",
+      "allow_room_to_be_recorded": "允許錄製房間",
+      "require_signed_in": "要求使用者在加入前登入",
+      "require_signed_in_message": "您必須先登入才能加入此房間。",
+      "require_mod_approval": "要求在加入前經過主持人批准",
+      "allow_any_user_to_start": "允許任何使用者開始會議",
+      "all_users_join_as_mods": "所有使用者以主持人身份加入",
+      "mute_users_on_join": "使用者加入時靜音",
+      "generate": "生成",
+      "access_code": "存取代碼",
+      "mod_access_code": "主持人存取代碼",
+      "mod_access_code_optional": "主持人存取代碼（選填）",
+      "access_code_required": "請輸入存取代碼",
+      "wrong_access_code": "存取代碼錯誤",
+      "generate_viewers_access_code": "為觀眾生成存取代碼",
+      "generate_mods_access_code": "為主持人生成存取代碼",
+      "are_you_sure_delete_room": "您確定要刪除此房間嗎？"
+    }
+  },
+  "recording": {
+    "recording": "錄製",
+    "recordings": "錄製",
+    "name": "名稱",
+    "length": "長度",
+    "users": "使用者",
+    "visibility": "可見性",
+    "formats": "格式",
+    "published": "已發佈",
+    "unpublished": "未發佈",
+    "protected": "受保護",
+    "public": "公開",
+    "public_protected": "公開/受保護",
+    "length_in_minutes": "{{recording.length}} 分鐘",
+    "processing_recording": "正在處理錄製，這可能需要幾分鐘時間...",
+    "copy_recording_urls": "複製錄製的 URL(s)",
+    "recordings_list_empty": "您尚未擁有任何錄製！",
+    "public_recordings_list_empty": "目前沒有公開的錄製！",
+    "recordings_list_empty_description": "在您開始會議並錄製後，錄製將出現在此處。",
+    "public_recordings_list_empty_description": "當錄製可用時，將在此處顯示。",
+    "delete_recording": "刪除錄製",
+    "are_you_sure_delete_recording": "您確定要刪除此錄製嗎？",
+    "search_not_found": "找不到錄製"
+  },
+  "admin": {
+    "admin_panel": "管理員面板",
+    "manage_users": {
+      "manage_users": "管理使用者",
+      "active": "啟用",
+      "approve": "批准",
+      "decline": "拒絕",
+      "pending": "待處理",
+      "banned": "已封禁",
+      "ban": "封禁",
+      "unban": "解封",
+      "deleted": "已刪除",
+      "invited_tab": "已邀請",
+      "invite_user": "邀請使用者",
+      "send_invitation": "發送邀請",
+      "enter_user_email": "輸入使用者的電子郵件",
+      "new_user": "新使用者",
+      "add_new_user": "新增使用者",
+      "create_new_user": "建立新使用者",
+      "edit_user": "編輯使用者",
+      "delete_user": "刪除使用者",
+      "users_edit_path": "Users/Edit",
+      "create_account": "建立帳號",
+      "create_room": "建立房間",
+      "create_new_room": "建立新房間",
+      "user_created_at": "建立於：{{localizedTime}}",
+      "are_you_sure_delete_account": "您確定要刪除{{user.name}}的帳號嗎？",
+      "delete_account_warning": "如果您選擇刪除此帳號，將無法恢復。",
+      "empty_active_users": "此伺服器上尚未有啟用的使用者！",
+      "empty_active_users_subtext": "當使用者的狀態更改為啟用時，他們將出現在這裡。",
+      "empty_pending_users": "此伺服器上尚未有待處理的使用者！",
+      "empty_pending_users_subtext": "當使用者的狀態更改為待處理時，他們將出現在這裡。",
+      "empty_banned_users": "此伺服器上尚未有封禁的使用者！",
+      "empty_banned_users_subtext": "當使用者的狀態更改為已封禁時，他們將出現在這裡。",
+      "empty_invited_users": "此伺服器上尚未有已邀請的使用者！",
+      "empty_invited_users_subtext": "當使用者的狀態更改為已邀請時，他們將出現在這裡。",
+      "invited": {
+        "time_sent": "發送時間",
+        "valid": "有效"
+      }
+    },
+    "server_rooms": {
+      "server_rooms": "伺服器房間",
+      "name": "名稱",
+      "owner": "擁有者",
+      "room_id": "房間 ID",
+      "participants": "參與者",
+      "status": "狀態",
+      "running": "運行中",
+      "not_running": "未運行",
+      "active": "啟用",
+      "current_session": "當前會議：{{lastSession}}",
+      "last_session": "上次會議：{{localizedTime}}",
+      "no_meeting_yet": "尚未有會議",
+      "delete_server_rooms": "刪除伺服器房間",
+      "resync_recordings": "重新同步錄製",
+      "empty_room_list": "目前沒有伺服器房間！",
+      "empty_room_list_subtext": "在建立您的第一個房間後，房間將顯示在此處。"
+    },
+    "server_recordings": {
+      "server_recordings": "伺服器錄製",
+      "latest_recordings": "最新錄製",
+      "no_recordings_found": "找不到錄製。"
+    },
+    "site_settings": {
+      "site_settings": "網站設定",
+      "customize_greenlight": "自訂 Greenlight",
+      "appearance": {
+        "appearance": "外觀",
+        "brand_color": "品牌顏色",
+        "regular": "常規",
+        "lighten": "變亮",
+        "brand_image": "品牌圖片",
+        "click_to_upload": "點擊上傳",
+        "drag_and_drop": "或拖放",
+        "upload_brand_image_description": "上傳任何 PNG、JPG 或 SVG 檔案（大小不超過 {{size}}）。根據檔案大小，可能需要額外的時間才能上傳並使用。",
+        "remove_branding_image": "移除品牌圖片"
+      },
+      "administration": {
+        "administration": "管理",
+        "terms": "條款與條件",
+        "privacy": "隱私政策",
+        "privacy_policy": "隱私政策",
+        "change_term_links": "更改顯示在頁面底部的條款連結",
+        "change_privacy_link": "更改顯示在頁面底部的隱私連結",
+        "change_url": "更改 URL",
+        "enter_link": "在此輸入連結"
+      },
+      "settings": {
+        "settings": "設定",
+        "allow_users_to_share_rooms": "允許使用者共享房間",
+        "allow_users_to_share_rooms_description": "禁用此設定將從房間選項下拉清單中移除按鈕，防止使用者共享房間",
+        "allow_users_to_preupload_presentation": "允許使用者預先上傳簡報",
+        "allow_users_to_preupload_presentation_description": "使用者可以預先上傳一份簡報，作為該特定房間的預設簡報"
+      },
+      "registration": {
+        "registration": "註冊",
+        "role_mapping_by_email": "使用電子郵件進行角色映射",
+        "role_mapping_by_email_description": "使用電子郵件將使用者映射到角色。必須使用以下格式：role1=email1, role2=email2",
+        "enter_role_mapping_rule": "輸入角色映射規則",
+        "resync_on_login": "每次登入時重新同步使用者資料",
+        "resync_on_login_description": "每次使用者登入時，重新同步其資訊，使外部身份驗證提供者始終與 Greenlight 中的資訊匹配",
+        "default_role": "預設角色",
+        "default_role_description": "新建立使用者時要分配的預設角色",
+        "registration_method": "註冊方法",
+        "registration_method_description": "更改使用者註冊網站的方式",
+        "registration_methods" : {
+          "open": "開放註冊",
+          "invite": "邀請加入",
+          "approval": "核准/拒絕"
+        }
+      }
+    },
+    "room_configuration": {
+      "room_configuration": "房間配置",
+      "default": "可選（默認：啟用）",
+      "optional": "可選（默認：禁用）",
+      "enabled": "強制啟用",
+      "disabled": "已禁用",
+      "configurations": {
+        "allow_room_to_be_recorded": "允許錄製房間",
+        "allow_room_to_be_recorded_description": "允許房間擁有者指定是否要啟用房間錄製功能。如果啟用，主持人在會議開始後仍需點擊「錄製」按鈕。",
+        "require_user_signed_in": "要求使用者在加入前登錄",
+        "require_user_signed_in_description": "只允許擁有 Greenlight 帳戶的使用者加入會議。如果使用者未登錄，嘗試加入房間時將被重定向到登錄頁面。",
+        "require_mod_approval": "要求主持人批准後才能加入",
+        "require_mod_approval_description": "當使用者嘗試加入 BigBlueButton 會議時，提示 BigBlueButton 會議的主持人。如果使用者獲准，他們將能夠加入會議。",
+        "allow_any_user_to_start_meeting": "允許任何使用者開始會議",
+        "allow_any_user_to_start_meeting_description": "允許任何使用者隨時開始會議。預設情況下，只有房間擁有者可以開始會議。",
+        "allow_users_to_join_as_mods": "所有使用者以主持人身份加入",
+        "allow_users_to_join_as_mods_description": "使所有使用者在加入會議時具有 BigBlueButton 的主持人權限",
+        "mute_users_on_join": "使用者加入時將其靜音",
+        "mute_users_on_join_description": "使用者加入 BigBlueButton 會議時自動將其靜音",
+        "viewer_access_code": "觀眾存取碼",
+        "viewer_access_code_description": "允許房間擁有者擁有一個隨機的英數字串碼，可與使用者共享。如果生成了存取碼，使用者必須在加入房間會議時輸入該碼。",
+        "mod_access_code": "主持人存取碼",
+        "mod_access_code_description": "允許房間擁有者擁有一個隨機的英數字串碼，可與使用者共享。如果生成了存取碼，使用該碼加入任何房間會議時，使用者將以主持人身份加入。"
+      }
+    },
+    "roles": {
+      "role": "角色",
+      "roles": "角色",
+      "administrator": "管理員",
+      "guest": "訪客",
+      "manage_roles": "管理角色",
+      "delete_role": "刪除角色",
+      "are_you_sure_delete_role": "您確定要刪除此角色嗎？",
+      "enter_role_name": "輸入角色名稱",
+      "add_role": "+ 建立角色",
+      "create_role": "建立角色",
+      "create_new_role": "建立新角色",
+      "no_role_found": "找不到角色。",
+      "search_not_found": "找不到角色",
+      "edit": {
+        "create_room": "允許擁有此角色的使用者建立房間",
+        "record": "允許擁有此角色的使用者錄製會議",
+        "manage_users": "允許擁有此角色的使用者管理使用者",
+        "manage_rooms": "允許擁有此角色的使用者管理伺服器房間",
+        "manage_recordings": "允許擁有此角色的使用者管理伺服器錄製",
+        "manage_site_settings": "允許擁有此角色的使用者管理網站設定",
+        "manage_roles": "允許擁有此角色的使用者編輯其他角色",
+        "shared_list": "將擁有此角色的使用者包含在共享房間的下拉清單中",
+        "room_limit": "房間限制數量"
+      }
+    }
+  },
+  "toast": {
+    "success": {
+      "user": {
+        "user_created": "已成功建立新使用者。",
+        "user_updated": "使用者已成功更新。",
+        "user_deleted": "使用者已成功刪除。",
+        "avatar_updated": "頭像已成功更新。",
+        "password_updated": "密碼已成功更新。",
+        "account_activated": "您的帳戶已成功啟用。",
+        "activation_email_sent": "已發送一封包含啟用帳戶指示的郵件。",
+        "reset_pwd_email_sent": "已發送一封包含重設密碼指示的郵件。"
+      },
+      "session": {
+        "signed_out": "您已成功登出"
+      },
+      "room": {
+        "room_created": "已成功建立新房間。",
+        "room_updated": "房間已成功更新",
+        "room_deleted": "房間已成功刪除。",
+        "room_shared": "房間已成功共享。",
+        "room_unshared": "房間已取消共享。",
+        "recordings_synced": "房間錄製已成功同步。",
+        "room_configuration_updated": "房間配置已成功更新。",
+        "room_setting_updated": "房間設定已成功更新。",
+        "presentation_updated": "簡報已成功更新。",
+        "presentation_deleted": "簡報已成功刪除。",
+        "joining_meeting": "正在加入會議...",
+        "meeting_started": "會議已開始。",
+        "access_code_copied": "存取碼已成功複製。",
+        "access_code_generated": "已成功生成新的存取碼",
+        "access_code_deleted": "存取碼已成功刪除。",
+        "copied_meeting_url": "會議連結已成功複製。該連結可用於加入會議"
+      },
+      "site_settings": {
+        "site_setting_updated": "網站設定已成功更新。",
+        "brand_color_updated": "品牌顏色已成功更新。",
+        "brand_image_updated": "品牌圖片已成功更新。",
+        "brand_image_deleted": "品牌圖片已成功刪除。",
+        "privacy_policy_updated": "隱私政策已成功更新。",
+        "terms_of_service_updated": "服務條款已成功更新。"
+      },
+      "recording": {
+        "recording_visibility_updated": "錄製的可見性已成功更新。",
+        "recording_name_updated": "錄製名稱已成功更新。",
+        "recording_deleted": "錄製已成功刪除。",
+        "copied_urls": "錄製連結已成功複製。"
+      },
+      "role": {
+        "role_created": "已成功建立新角色。",
+        "role_updated": "角色已成功更新。",
+        "role_deleted": "角色已成功刪除。",
+        "role_permission_updated": "角色權限已成功更新。"
+      },
+      "invitations": {
+        "invitation_sent": "已成功發送邀請。"
+      }
+    },
+    "error": {
+      "problem_completing_action": "無法完成動作。\n請重試。",
+      "file_type_not_supported": "不支援的檔案類型。",
+      "file_size_too_large": "檔案大小超過限制。",
+      "file_upload_error": "無法上傳檔案",
+      "signin_required": "您必須登入才能訪問此頁面。",
+      "roles": {
+        "role_assigned": "無法刪除此角色，因為它已分配給至少一個使用者。"
+      },
+      "users": {
+        "signup_error": "您無法通過驗證。請聯繫您的管理員。",
+        "invalid_invite": "您的邀請令牌無效或不正確。請聯繫您的管理員以獲取新的令牌。",
+        "email_exists": "使用該電子郵件的帳戶已存在。請嘗試使用其他電子郵件。",
+        "old_password": "您輸入的密碼不正確。",
+        "pending": "您的註冊正在等待管理員的批准。請稍後再試。",
+        "banned": "您無權訪問此應用程式。如果您認為這是一個錯誤，請聯繫您的管理員。"
+      },
+      "rooms": {
+        "room_limit": "無法建立房間，因為已達到房間數量限制。"
+      },
+      "session": {
+        "invalid_credentials": "使用者名稱或密碼無效。請驗證您的憑證並重試。"
+      }
+    }
+  },
+  "global_error_page": {
+    "title": "錯誤",
+    "message": "抱歉，發生了一些錯誤。如果這個問題再次發生，請聯繫管理員。"
+  },
+  "not_found_error_page": {
+    "title": "找不到頁面",
+    "message": "抱歉，無法找到您要訪問的頁面。"
+  },
+  "account_activation_page": {
+    "title": "帳戶啟用",
+    "account_unverified": "您的帳戶尚未驗證。",
+    "message": "為了使用Greenlight，請按照已發送給您的啟用郵件中的說明進行帳戶驗證。",
+    "resend_activation_link": "如果您未收到啟用郵件，或者無法使用它，請點擊下面的按鈕重新請求新的啟用郵件。",
+    "resend_btn_lbl": "重新發送驗證郵件"
+  },
+  "forms": {
+    "validations": {
+      "full_name": {
+        "required": "請輸入全名。",
+        "min": "名稱至少需含2個字元。",
+        "max": "名稱最多只能含255個字元。"
+      },
+      "email": {
+        "required": "請輸入電子郵件。",
+        "email": "輸入的值不符合電子郵件格式。",
+        "min": "電子郵件至少需含6個字元。",
+        "max": "電子郵件最多只能含255個字元。"
+      },
+      "password": {
+        "required": "請輸入密碼。",
+        "match": "密碼必須包含以下條件：",
+        "min": "- 至少八個字元",
+        "lower": "- 至少一個小寫字母",
+        "upper": "- 至少一個大寫字母",
+        "digit": "- 至少一個數字",
+        "symbol": "- 至少一個符號",
+        "max": "密碼最多只能含255個字元"
+      },
+      "password_confirmation": {
+        "required": "請輸入密碼確認。",
+        "match": "兩次輸入的密碼不相符。"
+      },
+      "emails": {
+        "required": "請輸入至少一個有效的電子郵件。",
+        "list": "請提供一個以逗號分隔的有效電子郵件列表（user@users.com，user1@users.com，user2@users.com）。"
+      },
+      "role_name": {
+        "required": "請輸入角色名稱。"
+      },
+      "role": {
+        "limit": {
+          "required": "請輸入房間數量限制。",
+          "min": "允許的最小值為0。",
+          "max": "允許的最大值為100。"
+        },
+        "type": {
+          "error": "您必須指定一個數字。"
+        }
+      },
+      "room": {
+        "name": {
+          "required": "請輸入房間名稱。",
+          "min": "名稱至少需含2個字元"
+        }
+      },
+      "room_join": {
+        "name": {
+          "required": "請輸入您的名稱"
+        }
+      },
+      "url": {
+        "invalid": "無效的網址。"
+      }
+    },
+    "room": {
+      "fields": {
+        "name": {
+          "label": "房間名稱",
+          "placeholder": "輸入房間名稱..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "名稱",
+            "placeholder": "輸入您的名稱"
+        },
+        "access_code": {
+          "label": "存取代碼",
+          "placeholder": "輸入存取代碼"
+        },
+        "recording_consent": {
+          "label": "我同意此次會議可能會被錄製。如果啟用，可能包含我的聲音和影像。"
+        }
+      }
+    },
+    "user": {
+      "signup": {
+        "fields": {
+          "full_name": {
+            "label": "全名",
+            "placeholder": "輸入您的全名"
+          },
+          "email": {
+            "label": "電子郵件",
+            "placeholder": "輸入您的電子郵件"
+          },
+          "password": {
+            "label": "密碼",
+            "placeholder": "建立一個密碼"
+          },
+          "password_confirmation": {
+            "label": "確認密碼",
+            "placeholder": "確認密碼"
+          }
+        }
+      },
+      "signin": {
+        "fields": {
+          "email": {
+            "label": "電子郵件",
+            "placeholder": "電子郵件"
+          },
+          "password": {
+            "label": "密碼",
+            "placeholder": "密碼"
+          },
+          "remember_me": {
+            "label": "記住我"
+          }
+        }
+      },
+      "change_password": {
+        "fields": {
+          "old_password": {
+            "label": "目前密碼",
+            "placeholder": "輸入您的密碼"
+          },
+          "new_password": {
+            "label": "新密碼",
+            "placeholder": "輸入您的新密碼"
+          },
+          "password_confirmation": {
+            "label": "確認新密碼",
+            "placeholder": "確認您的新密碼"
+          }
+        },
+        "validations": {
+          "old_password": {
+            "required": "請輸入您的目前密碼"
+          }
+        }
+      },
+      "forget_password": {
+        "fields": {
+          "email": {
+            "label": "電子郵件",
+            "placeholder": "輸入帳戶電子郵件"
+          }
+        },
+        "validations": {
+          "email": {
+            "required": "請輸入帳戶電子郵件"
+          }
+        }
+      },
+      "reset_password": {
+        "fields": {
+          "new_password": {
+            "label": "新密碼",
+            "placeholder": "輸入您的新密碼"
+          },
+          "password_confirmation": {
+            "label": "確認新密碼",
+            "placeholder": "確認您的新密碼"
+          }
+        }
+      },
+      "update_user": {
+        "fields": {
+          "full_name": {
+            "label": "全名"
+          },
+          "email": {
+            "label": "電子郵件"
+          },
+          "language": {
+            "label": "語言"
+          },
+          "role": {
+            "label": "角色"
+          }
+        }
+      }
+    },
+    "admin": {
+      "createUser": {
+        "fields": {
+          "full_name": {
+            "label": "全名",
+            "placeholder": "輸入使用者全名"
+          },
+          "email": {
+            "label": "電子郵件",
+            "placeholder": "輸入使用者電子郵件"
+          },
+          "password": {
+            "label": "密碼",
+            "placeholder": "輸入使用者密碼"
+          },
+          "password_confirmation": {
+            "label": "確認密碼",
+            "placeholder": "確認密碼"
+          }
+        }
+      },
+      "invite_user": {
+        "fields": {
+          "emails": {
+            "label": "電子郵件"
+          }
+        }
+      },
+      "site_settings": {
+        "fields": {
+          "value": {
+            "placeholder": "在此輸入連結..."
+          }
+        }
+      },
+      "roles": {
+        "fields": {
+          "name": {
+            "label": "角色名稱",
+            "placeholder": "輸入角色名稱..."
+          }
+        }
+      }
+    }
+  }
+}

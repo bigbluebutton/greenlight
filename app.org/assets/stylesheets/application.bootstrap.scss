@@ -1,0 +1,797 @@
+// BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+//
+// Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+//
+// This program is free software; you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software
+// Foundation; either version 3.0 of the License, or (at your option) any later
+// version.
+//
+// Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+// PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License along
+// with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+@import 'bootstrap/scss/bootstrap';
+@import 'react-toastify/dist/ReactToastify';
+@import 'variables';
+
+@import 'helpers';
+@import 'rooms';
+@import 'recordings';
+@import 'profile';
+@import 'shared_accesses';
+@import 'presentation';
+@import 'admin_panel';
+@import 'pagination';
+@import 'fonts';
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  background: whitesmoke;
+  font-family: "Inter";
+}
+
+#navbar {
+  height: $header-height;
+  background: white;
+
+  .navbar-toggler {
+    &:active {
+      outline: none !important;
+      box-shadow: none;
+    }
+    &:focus {
+      outline: none !important;
+      box-shadow: none;
+    }
+  }
+}
+
+#navbar-menu {
+  z-index: 10;
+  top: 100%;
+
+  a {
+    color: $black !important;
+  }
+}
+
+.bg-placeholder {
+  color: silver;
+}
+
+.btn {
+  white-space: nowrap;
+
+  @include media-breakpoint-up(sm) {
+    min-width: $button-min-width;
+  }
+}
+
+.btn-sm {
+  min-width: 0 !important;
+}
+
+.btn-xlg {
+  font-size: 1.5rem;
+  padding: 0.75rem 5rem;
+  border-radius: $border-radius-lg;
+}
+
+// Replace a button with a children icon
+.btn-icon {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  min-width: auto;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+// Bootstrap btn-link overwrite
+.btn-link {
+  font-weight: 400;
+  color: $black;
+  text-decoration: none !important;
+}
+.btn-link:hover {
+  color: $black !important;
+  text-decoration: underline !important;
+}
+.btn-link:disabled, .btn-link.disabled {
+  color: #6c757d;
+}
+.btn-link:focus {
+  box-shadow: none;
+}
+
+// aligns the "Copy Join" btn with the "Start Meeting" btn
+.start-meeting-btn {
+  min-height: 2.56rem;
+}
+
+// Smoothen bootstrap transition
+.fade {
+  transition: opacity 0.3s ease !important;
+
+  & .modal-dialog {
+    transition: opacity 0.3s ease !important;
+    transform: none !important;
+  }
+}
+
+.modal-open {
+  padding-right: 0 !important;
+}
+
+//TODO: samuel - need to confirm for Browsers compatibility (maybe Scope this a bit more?)
+input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px'%0Awidth='20' height='20'%0AviewBox='0 0 24 24'%0Astyle=' fill:%23747474;'%3E%3Cpath d='M 4.9902344 3.9902344 A 1.0001 1.0001 0 0 0 4.2929688 5.7070312 L 10.585938 12 L 4.2929688 18.292969 A 1.0001 1.0001 0 1 0 5.7070312 19.707031 L 12 13.414062 L 18.292969 19.707031 A 1.0001 1.0001 0 1 0 19.707031 18.292969 L 13.414062 12 L 19.707031 5.7070312 A 1.0001 1.0001 0 0 0 18.980469 3.9902344 A 1.0001 1.0001 0 0 0 18.292969 4.2929688 L 12 10.585938 L 5.7070312 4.2929688 A 1.0001 1.0001 0 0 0 4.9902344 3.9902344 z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+input.search-bar {
+  min-width: 19.5rem;
+  padding: 9px 9px 9px 40px;
+  background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px'%0Awidth='20' height='20'%0AviewBox='0 0 30 30'%0Astyle=' fill:%23747474;'%3E%3Cpath d='M 13 3 C 7.4889971 3 3 7.4889971 3 13 C 3 18.511003 7.4889971 23 13 23 C 15.396508 23 17.597385 22.148986 19.322266 20.736328 L 25.292969 26.707031 A 1.0001 1.0001 0 1 0 26.707031 25.292969 L 20.736328 19.322266 C 22.148986 17.597385 23 15.396508 23 13 C 23 7.4889971 18.511003 3 13 3 z M 13 5 C 17.430123 5 21 8.5698774 21 13 C 21 17.430123 17.430123 21 13 21 C 8.5698774 21 5 17.430123 5 13 C 5 8.5698774 8.5698774 5 13 5 z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+
+  @include media-breakpoint-down(sm) {
+    min-width: $button-min-width;
+  }
+
+  &:focus {
+    border-color: #DEE2E6 !important;
+  }
+}
+
+.icon-circle {
+  width: 100px;
+  height: 100px;
+  background-color: var(--brand-color-light);
+}
+
+//default Heroicon width
+.hi-xs {
+  width:16px;
+}
+
+.hi-s {
+  width: 24px;
+  padding-bottom: 1px;
+}
+
+.hi-m {
+  width: 32px;
+}
+
+.hi-l {
+  width: 48px;
+}
+
+.hi-xl {
+  width: 72px;
+}
+
+.hi-xxl {
+  width: 100px;
+}
+
+.card-shadow {
+  box-shadow: 0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06) !important;
+}
+
+#footer {
+  #footer-container {
+    border-top: 1px solid #d0d5dd;
+  }
+
+  a {
+    color: var(--brand-color) !important;
+    text-decoration: none !important;
+  }
+
+  @include media-breakpoint-up(sm) {
+    max-height: $footer-height;
+  }
+}
+
+.danger-light-button{
+  color: red;
+  background-color: white;
+  border: none;
+}
+
+.nav-pills .nav-link.active {
+  color: var(--brand-color) !important;
+  background-color: var(--brand-color-light);
+  font-weight: 600;
+
+  svg {
+    color: var(--brand-color) !important;
+  }
+}
+
+.nav-link {
+  color: $muted;
+
+  &:hover {
+    color: var(--brand-color);
+  }
+}
+
+#nav-user-dropdown {
+  padding: 6px 0px 6px 6px;
+  border-radius: $border-radius;
+
+  &:hover {
+    background-color: white;
+    color: black !important;
+  }
+  &:active {
+    background-color: white !important;
+  }
+  &:focus {
+    background-color: white !important;
+  }
+  &::after {
+    display: none;
+  }
+  #chevron-profile {
+    padding-top: 2px;
+  }
+}
+
+.dropdown-menu.show {
+  margin-top: 0px;
+}
+
+.dropdown {
+  a {
+    color: $black !important;
+    &:hover {
+      color: var(--brand-color) !important;
+    }
+    &:active {
+      background-color: whitesmoke !important;
+    }
+    &:focus {
+      background-color: whitesmoke !important;
+    }
+  }
+}
+
+// Custom Select component.
+.select{
+  .dropdown-item.active, .dropdown-item:active  {
+    background-color: var(--brand-color-light) !important;
+    color: var(--brand-color) !important;
+  }
+}
+
+.custom-select {
+  .select-brand-control {
+    border-color: var(--brand-color) !important;
+    box-shadow: 0 0 0 1px var(--brand-color) !important;
+  }
+
+  .select-brand-option {
+    background-color: whitesmoke;
+    color: var(--brand-color) !important;
+    &:active {
+      background-color: var(--brand-color-light) !important;
+    }
+  }
+}
+
+//Brand
+:root {
+  --brand-color: '';
+  --brand-color-light: '';
+}
+
+.text-brand {
+  color: var(--brand-color);
+}
+
+//Brand button
+.btn-brand {
+  background-color: var(--brand-color);
+  border-color: var(--brand-color);
+  color: white;
+
+  &:active {
+    background-color: var(--brand-color) !important;
+    border-color: var(--brand-color) !important;
+    color: white !important;
+  }
+
+  &:hover {
+    background-color: var(--brand-color);
+    border-color: var(--brand-color);
+    color: white;
+    box-shadow: inset 0 0 200px 200px rgba(0, 0, 0, 0.1);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem var(--brand-color-light);
+  }
+}
+
+.btn-brand-outline {
+  border: 2px solid gainsboro;
+  color: var(--brand-color);
+  background-color: white;
+  box-shadow: var(--brand-color-light);
+
+  &:active {
+    border-color: var(--brand-color) !important;
+    background-color: white !important;
+    color: var(--brand-color) !important;
+  }
+
+  &:hover {
+    border-color: var(--brand-color);
+    background-color: white;
+    color: var(--brand-color);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem var(--brand-color-light);
+  }
+
+  &:disabled {
+    color: gray !important;
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+  }
+}
+
+.btn-brand-outline-color {
+  border: 2px solid var(--brand-color);
+  color: var(--brand-color);
+  background-color: white;
+  box-shadow: var(--brand-color-light);
+
+  &:hover {
+    box-shadow: inset 0 0 200px 200px rgba(0, 0, 0, 0.03);
+    color: var(--brand-color);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem var(--brand-color-light);
+  }
+}
+
+.btn-brand-light {
+  background-color: var(--brand-color-light);
+  color: var(--brand-color);
+  border: 2px solid var(--brand-color-light);
+
+  &:hover {
+    box-shadow: inset 0 0 200px 200px rgba(0, 0, 0, 0.03);
+    color: var(--brand-color);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem var(--brand-color);
+  }
+}
+
+.btn-delete {
+  border: 2px solid $danger;
+  color: $danger;
+  background-color: white;
+
+  &:hover {
+    box-shadow: inset 0 0 200px 200px rgba(0, 0, 0, 0.03);
+    color: $danger;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.btn-neutral {
+  border: 2px solid gainsboro;
+  color: gray;
+  background-color: white;
+
+  &:hover {
+    box-shadow: inset 0 0 200px 200px rgba(0, 0, 0, 0.03);
+    color: gray;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.btn-link {
+  background-color: transparent;
+  border: 0;
+  color: #0d6efd;
+
+  &:hover {
+    color: #0a58ca !important;
+    text-decoration: none !important;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.btn-dropdown {
+  border: 2px solid gainsboro;
+  box-shadow: var(--brand-color-light);
+
+  &:hover {
+    border-color: gainsboro !important;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem var(--brand-color-light);
+  }
+}
+
+.badge-brand-outline {
+  font-size: 0.8rem;
+  border: 2px solid gainsboro;
+  color: var(--brand-color);
+  background-color: white !important;
+  box-shadow: var(--brand-color-light);
+}
+
+.setting-select {
+  button {
+    background: white !important;
+    color: black !important;
+    border-color: gainsboro !important;
+    text-align: left;
+
+    &:hover, &:focus, &:active {
+      background: white !important;
+      color: black !important;
+      border-color: gainsboro !important;
+    }
+    &:focus {
+      box-shadow: 0 0 0 0.25rem var(--brand-color-light) !important;
+    }
+  }
+
+  button, .dropdown-menu {
+    @include media-breakpoint-up(sm) {
+      min-width: 300px;
+    }
+  }
+}
+
+.simple-select {
+  button {
+    background: white !important;
+    color: black !important;
+    border-color: gainsboro !important;
+    text-align: left;
+    width: 220px;
+
+    &:hover, &:focus, &:active {
+      background: white !important;
+      color: black !important;
+      border-color: gainsboro !important;
+    }
+    &:focus {
+      box-shadow: 0 0 0 0.25rem var(--brand-color-light) !important;
+    }
+    &::after {
+      display: none !important;
+    }
+  }
+
+  .dropdown-menu {
+    min-width: 220px;
+  }
+}
+
+@media (max-width: 767px) {
+  .table-responsive .dropdown-menu {
+    position: static !important;
+  }
+}
+@media (min-width: 768px) {
+  .table-responsive {
+    overflow: visible;
+  }
+}
+
+input[type='text']:focus {
+  border-color: whitesmoke !important;
+  box-shadow: 0 0 0 2px var(--brand-color-light) !important;
+}
+
+input[type='checkbox'] {
+  &:checked {
+    background-color: var(--brand-color) !important;
+    border-color: var(--brand-color) !important;
+    color: white !important;
+  }
+
+  &:focus {
+    border-color: var(--brand-color) !important;
+    box-shadow: 0 0 0 0.25rem var(--brand-color-light) !important;
+  }
+
+}
+
+//Bootstrap overwrite
+.form-switch .form-check-input:focus {
+  border-color: rgba(0, 0, 0, 0.25);
+  outline: 0;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0,0,0,0.25)'/></svg>");
+}
+.form-switch .form-check-input:checked {
+  background-color: var(--brand-color) !important;;
+  border-color: var(--brand-color) !important;;
+  border: none;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,1.0)'/></svg>");
+}
+
+.form-check-input:hover {
+  cursor: pointer;
+}
+
+.form-control:focus {
+  border-color: whitesmoke !important;
+  box-shadow: 0 0 0 2px var(--brand-color-light) !important;
+}
+
+//Logo
+.small-logo {
+  max-width: 200px;
+  max-height: $header-height;
+}
+
+.logo {
+  max-width: 250px;
+  max-height: 125px;
+}
+
+.logo-wrapper {
+  width: 250px;
+  height: 125px;
+}
+
+/********** Range Input Styles **********/
+/*Range Reset*/
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 15rem;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/***** Chrome, Safari, Opera and Edge Chromium styles *****/
+/* slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+  background: var(--brand-color);
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: -12px; /* Centers thumb on the track */
+
+  /*custom styles*/
+  background: var(--brand-color);
+  height: 2rem;
+  width: 1rem;
+  border-radius: 4px;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  border: 1px solid var(--brand-color);
+  outline-offset: 0.125rem;
+}
+
+/******** Firefox styles ********/
+/* slider track */
+input[type="range"]::-moz-range-track {
+  background-color: var(--brand-color);
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+/* slider thumb */
+input[type="range"]::-moz-range-thumb {
+  border: none; /*Removes extra border that FF applies*/
+  border-radius: 0; /*Removes default border-radius that FF applies*/
+
+  /*custom styles*/
+  accent-color: var(--brand-color);
+  height: 2rem;
+  width: 1rem;
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+  border: 1px solid var(--brand-color);
+  outline-offset: 0.125rem;
+}
+
+.nav-tabs {
+  .nav-link.active {
+    border-bottom: 2px solid var(--brand-color) !important;
+  }
+
+  .nav-link {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    &:hover {
+      border-bottom: 2px solid var(--brand-color) !important;
+    }
+  }
+}
+
+//GG spinner
+.gg-spinner {
+  transform: scale(var(--ggs,1))
+}
+.gg-spinner,
+.gg-spinner::after,
+.gg-spinner::before {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 40px
+}
+.gg-spinner::after,
+.gg-spinner::before {
+  content: "";
+  position: absolute;
+  border-radius: 100px
+}
+.gg-spinner::before {
+  animation: spinner 1s
+  cubic-bezier(.6,0,.4,1) infinite;
+  border: 5px solid transparent;
+  border-top-color: var(--brand-color);
+}
+.gg-spinner::after {
+  border: 5px solid;
+  opacity: .2
+}
+@keyframes spinner {
+  0% { transform: rotate(0deg) }
+  to { transform: rotate(359deg) }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #c4c4c4;
+}
+
+.placeholder {
+  border-radius: 2px;
+}
+
+.placeholder-xlg {
+  border-radius: 3px;
+  min-height: 2.5em;
+}
+
+// Homepage
+#homepage-hero {
+  margin-top: 4.5rem;
+  margin-bottom: 4.5rem;
+
+  @include media-breakpoint-down(md) {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+}
+
+.homepage-card {
+  min-height: 16.5rem;
+  min-width: 16.5rem;
+}
+
+.homepage-card-icon-circle {
+  width: 50px;
+  height: 50px;
+  background-color: var(--brand-color);
+  box-shadow: 0 0 0 8px whitesmoke;
+}
+
+// Table Placeholders length
+.xs-td-placeholder {
+  min-width: $column-xs-width;
+}
+
+.sm-td-placeholder {
+  min-width: $column-sm-width;
+}
+
+.md-td-placeholder {
+  min-width: $column-md-width;
+}
+
+.lg-td-placeholder {
+  min-width: $column-lg-width
+}
+
+// Circles & Avatars
+.xs-circle {
+  width: 20px;
+  height: 20px;
+}
+
+.small-circle {
+  width: 40px;
+  height: 40px;
+}
+
+.medium-circle {
+  width: 100px;
+  height: 100px;
+}
+
+.large-circle {
+  width: 150px;
+  height: 150px;
+}
+
+.back-button {
+  &:hover {
+    color: var(--brand-color) !important;
+  }
+}
+
+.tenants-icons {
+  svg:hover {
+    color: var(--brand-color) !important;
+  }
+}
+
+.Toastify {
+  .Toastify__toast-icon {
+    width: 25px;
+  }
+}
+
+#rooms-list-empty, #recordings-list-empty {
+  .card-body {
+    min-height: 20rem;
+  }
+}
