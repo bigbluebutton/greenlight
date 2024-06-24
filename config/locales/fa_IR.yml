@@ -63,7 +63,7 @@ fa_IR:
       invitation_to_join: دعوت به پیوستن به BigBlueButton
       you_have_been_invited: "شما توسط %{name} برای ایجاد حساب کاربری در BigBlueButton دعوت شده‌اید."
       get_started: برای ثبت نام لطفا روی دکمه زیر کلیک کنید و مراحل را دنبال کنید.
-      valid_invitation: The invitation is valid for 24 hours.
+      valid_invitation: این پیوند ۷ روز دیگر منقضی خواهد شد.
       sign_up: ثبت نام
     new_user_signup:
       new_user: ثبت نام کاربر جدید BigBlueButton
