@@ -36,11 +36,18 @@ export default function ServerTagRow({
   }, {});
   /* eslint-enable no-param-reassign */
 
+  function getDefaultTagName() {
+    if (process.env.DEFAULT_TAG_NAME) {
+      return process.env.DEFAULT_TAG_NAME;
+    }
+    return t('room.settings.default_tag_name');
+  }
+
   function getTagName(tag) {
     if (tag in serverTagsMap) {
       return serverTagsMap[tag];
     }
-    return process.env.DEFAULT_TAG_NAME;
+    return getDefaultTagName();
   }
 
   const dropdownTags = process.env.SERVER_TAG_NAMES.split(',').map((pair) => {
@@ -64,11 +71,11 @@ export default function ServerTagRow({
           {[
             <Dropdown.Item
               key=""
-              value={process.env.DEFAULT_TAG_NAME}
+              value={getDefaultTagName()}
               disabled={updateAPI.isLoading}
               onClick={() => updateAPI.mutate({ settingName: 'serverTag', settingValue: '' })}
             >
-              {process.env.DEFAULT_TAG_NAME}
+              {getDefaultTagName()}
             </Dropdown.Item>,
           ].concat(dropdownTags)}
         </SimpleSelect>
