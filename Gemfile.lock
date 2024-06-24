@@ -286,7 +286,7 @@ GEM
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
       rack-protection
-    omniauth-rails_csrf_protection (1.0.1)
+    omniauth-rails_csrf_protection (1.0.2)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     omniauth_openid_connect (0.7.1)
@@ -529,7 +529,7 @@ DEPENDENCIES
   lograge (~> 0.14.0)
   mini_magick (>= 4.9.5)
   omniauth (~> 2.1.2)
-  omniauth-rails_csrf_protection (~> 1.0.1)
+  omniauth-rails_csrf_protection (~> 1.0.2)
   omniauth_openid_connect (>= 0.6.1)
   pagy (~> 6.0, >= 6.0.0)
   pg
