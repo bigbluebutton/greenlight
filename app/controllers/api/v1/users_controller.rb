@@ -49,8 +49,19 @@ module Api
 
         registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
 
-        if registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token && !admin_create
-          return render_error errors: Rails.configuration.custom_error_msgs[:invite_token_invalid]
+        if registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !admin_create
+          if create_user_params[:invite_token].blank?
+            return render_error errors: Rails.configuration.custom_error_msgs[:invite_token_invalid]
+          end
+
+          invite = Invitation.find_by(provider: current_provider, token: create_user_params[:invite_token])
+          if !invite.present?
+            return render_error errors: Rails.configuration.custom_error_msgs[:invite_token_invalid]
+          end
+
+          create_user_params[:email] = invite.email
+
+          invite.destroy
         end
 
         # TODO: Add proper error logging for non-verified token hcaptcha
@@ -175,14 +186,6 @@ module Api
 
       def change_password_params
         params.require(:user).permit(:old_password, :new_password)
-      end
-
-      def valid_invite_token
-        return false if create_user_params[:invite_token].blank?
-
-        # Try to delete the invitation and return true if it succeeds
-        Invitation.destroy_by(email: create_user_params[:email].downcase, provider: current_provider,
-                              token: create_user_params[:invite_token]).present?
       end
     end
   end

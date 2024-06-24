@@ -24,9 +24,9 @@ import useCreateUser from '../../../../hooks/mutations/users/useCreateUser';
 import useSignUpForm from '../../../../hooks/forms/users/authentication/useSignUpForm';
 import HCaptcha from '../../../shared_components/utilities/HCaptcha';
 
-export default function SignupForm() {
+export default function SignupForm({registrationMethod}) {
   const { t } = useTranslation();
-  const { fields, methods } = useSignUpForm();
+  const { fields, methods } = useSignUpForm(registrationMethod);
   const createUserAPI = useCreateUser();
   const captchaRef = useRef(null);
 
@@ -40,7 +40,9 @@ export default function SignupForm() {
   return (
     <Form methods={methods} onSubmit={handleSubmit}>
       <FormControl field={fields.name} type="text" autoFocus />
+      { registrationMethod !== 'invite' && (
       <FormControl field={fields.email} type="email" />
+      )}
       <FormControl field={fields.password} type="password" />
       <FormControl field={fields.password_confirmation} type="password" />
       <HCaptcha ref={captchaRef} />
