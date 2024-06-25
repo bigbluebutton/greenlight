@@ -14,6 +14,7 @@
   "report": "報告",
   "share": "共有",
   "cancel": "キャンセル",
+  "reset":   "リセット",
   "close": "閉じる",
   "delete": "削除",
   "copy": "参加リンクをコピー",
@@ -229,7 +230,8 @@
       "empty_invited_users_subtext": "ユーザーの状態が招待中に変わると、こちらに表示されます。",
       "invited": {
         "time_sent": "送付日時",
-        "valid": "有効"
+        "valid": "有効",
+        "revoke": "取り消す"
       }
     },
     "server_rooms": {
@@ -429,7 +431,8 @@
         "role_permission_updated": "この役割の権限が更新されました。"
       },
       "invitations": {
-        "invitation_sent": "招待状が送付されました"
+        "invitation_sent": "招待状が送付されました",
+        "invitation_revoked": "招待状を取り消しました"
       }
     },
     "error": {
