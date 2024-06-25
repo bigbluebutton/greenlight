@@ -33,6 +33,7 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import UpdateRoomNameForm from './forms/UpdateRoomNameForm';
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
 import UnshareRoom from './UnshareRoom';
+import ServerTagRow from './ServerTagRow';
 
 export default function RoomSettings() {
   const { t } = useTranslation();
@@ -66,6 +67,15 @@ export default function RoomSettings() {
                 config={roomConfigs?.glModeratorAccessCode}
                 description={t('room.settings.generate_mods_access_code')}
               />
+              {(process.env.SERVER_TAG_NAMES !== '') && (
+                <ServerTagRow
+                  updateMutation={updateMutationWrapper}
+                  currentTag={roomSetting?.data?.serverTag}
+                  tagRequired={roomSetting?.data?.serverTagRequired === 'true'}
+                  allowedTags={currentUser?.allowedTags}
+                  description={t('room.settings.server_tag')}
+                />
+              )}
             </Col>
             <Col className="ps-4">
               <Row> <h6 className="text-brand">{ t('room.settings.user_settings') }</h6> </Row>

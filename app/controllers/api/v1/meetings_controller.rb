@@ -31,7 +31,7 @@ module Api
         begin
           MeetingStarter.new(room: @room, base_url: request.base_url, current_user:, provider: current_provider).call
         rescue BigBlueButton::BigBlueButtonException => e
-          return render_error status: :bad_request unless e.key == 'idNotUnique'
+          return render_error status: :bad_request, errors: e.key unless e.key == 'idNotUnique'
         end
 
         render_data data: BigBlueButtonApi.new(provider: current_provider).join_meeting(

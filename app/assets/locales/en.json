@@ -164,6 +164,10 @@
       "wrong_access_code": "Wrong Access Code",
       "generate_viewers_access_code": "Generate access code for viewers",
       "generate_mods_access_code": "Generate access code for moderators",
+      "server_tag": "Select a server type for this room",
+      "default_tag_name": "Default",
+      "server_tag_desired": "Desired",
+      "server_tag_required": "Required",
       "are_you_sure_delete_room": "Are you sure you want to delete this room?"
     }
   },
@@ -437,6 +441,7 @@
     },
     "error": {
       "problem_completing_action": "The action can't be completed. \n Please try again.",
+      "server_type_unavailable": "The required server type is unavailable. Please select a different type in the room settings.",
       "file_type_not_supported": "The file type is not supported.",
       "file_size_too_large": "The file size is too large.",
       "file_upload_error": "The file can't be uploaded.",
