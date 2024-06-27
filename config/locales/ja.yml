@@ -63,7 +63,7 @@ ja:
       invitation_to_join: BigBlueButtonへの招待
       you_have_been_invited: "%{name}さんから、BigBlueButtonのアカウント作成に招待されています。"
       get_started: 登録するには下のボタンをクリックし、手順にしたがってください。
-      valid_invitation: 招待は７日間有効です。
+      valid_invitation: 招待は7日間有効です。
       sign_up: 登録
     new_user_signup:
       new_user: 新しいBigBlueButtonユーザーの登録
