@@ -70,7 +70,7 @@ export default function UpdateUserForm({ user }) {
 
   return (
     <Form methods={methods} onSubmit={updateUserAPI.mutate}>
-      <FormControl field={fields.name} type="text" />
+      <FormControl field={fields.name} type="text" readOnly={currentUser.external_account} />
       <FormControl field={fields.email} type="email" readOnly />
       <FormSelect field={fields.language} variant="dropdown">
         {
@@ -85,7 +85,7 @@ export default function UpdateUserForm({ user }) {
         </FormSelect>
       )}
       <Stack direction="horizontal" gap={2} className="float-end">
-        <Button variant="neutral" onClick={reset}> { t('cancel') } </Button>
+        <Button variant="neutral" onClick={reset}> { t('reset') } </Button>
         <Button variant="brand" type="submit" disabled={updateUserAPI.isLoading}>
           { t('update') }
           {updateUserAPI.isLoading && <Spinner className="me-2" />}

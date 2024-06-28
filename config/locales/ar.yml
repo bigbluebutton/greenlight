@@ -63,7 +63,7 @@ ar:
       invitation_to_join: دعوة  بك_بلو_بتن
       you_have_been_invited: "لقد تمت دعوتك لإنشاء حساب  بك_بلو_بتن بواسطة %{name}."
       get_started: للتسجيل ، يرجى النقر فوق الزر أدناه واتباع الخطوات.
-      valid_invitation: الدعوة صالحة لمدة 24 ساعة.
+      valid_invitation: الدعوة صالحة لمدة 7 أيام.
       sign_up: التسجيل
     new_user_signup:
       new_user: تسجيل مستخدم جديد في بك_بلو_بتن

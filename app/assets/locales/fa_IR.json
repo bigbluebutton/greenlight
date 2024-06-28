@@ -14,6 +14,7 @@
   "report": "گزارش",
   "share": "هم‌رسانی",
   "cancel": "انصراف",
+  "reset":   "بازنشانی",
   "close": "بستن",
   "delete": "حذف",
   "copy": "رونوشت پیوند عضویت",
@@ -229,7 +230,8 @@
       "empty_invited_users_subtext": "هنگامی که وضعیت یک کاربر به دعوت‌شده تغییر می‌کند، در اینجا نمایان می‌شوند.",
       "invited": {
         "time_sent": "زمان ارسال‌شده",
-        "valid": "معتبر"
+        "valid": "معتبر",
+        "revoke": "ابطال"
       }
     },
     "server_rooms": {
@@ -429,7 +431,8 @@
         "role_permission_updated": "دسترسی نقش به‌روز شده‌است."
       },
       "invitations": {
-        "invitation_sent": "دعوت‌نامه ارسال شده‌است."
+        "invitation_sent": "دعوت‌نامه ارسال شده‌است.",
+        "invitation_revoked": "یک دعوت‌نامه ابطال شده است"
       }
     },
     "error": {

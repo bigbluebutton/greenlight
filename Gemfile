@@ -26,13 +26,13 @@ gem 'jwt'
 gem 'mini_magick', '>= 4.9.5'
 gem 'omniauth', '~> 2.1.2'
 gem 'omniauth_openid_connect', '>= 0.6.1'
-gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
+gem 'omniauth-rails_csrf_protection', '~> 1.0.2'
 gem 'pagy', '~> 6.0', '>= 6.0.0'
 gem 'pg'
 gem 'puma', '~> 5.6'
-gem 'rails', '~> 7.1.3'
+gem 'rails', '~> 7.1.3', '>= 7.1.3.3'
 gem 'redis', '~> 4.0'
-gem 'sprockets-rails'
+gem 'sprockets-rails', '>= 3.5.0'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
