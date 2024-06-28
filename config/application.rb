@@ -79,11 +79,16 @@ module Greenlight
 
     config.bigbluebutton_secret = ENV.fetch('BIGBLUEBUTTON_SECRET', '8cd8ef52e8e101574e400365b55e11a6')
 
+    config.relative_url_root = ENV.fetch('RELATIVE_URL_ROOT', '/')
     # Fetch 'RELATIVE_URL_ROOT' ENV variable value while removing any trailing slashes.
     config.relative_url_root = ENV.fetch('RELATIVE_URL_ROOT', nil)&.sub(%r{/*\z}, '')
     config.relative_url_root = '/' if config.relative_url_root.blank?
 
     I18n.load_path += Dir[Rails.root.join('config/locales/*.{rb,yml}').to_s]
+
+    config.voice_bridge_phone_number = ENV.fetch('VOICE_BRIDGE_PHONE_NUMBER', nil)
+    config.sip_pin_length = ENV.fetch('SIP_PIN_LENGTH', 5)
+
     config.i18n.fallbacks = %i[en]
     config.i18n.enforce_available_locales = false
   end
