@@ -106,7 +106,7 @@ Rails.application.routes.draw do
         end
         resources :rooms_configurations, only: :update, param: :name
         resources :roles
-        resources :invitations, only: %i[index create]
+        resources :invitations, only: %i[index create destroy]
         resources :role_permissions, only: [:index] do
           collection do
             post '/', to: 'role_permissions#update'

@@ -63,7 +63,7 @@ el:
       invitation_to_join: Πρόσκληση στο BigBlueButton
       you_have_been_invited: "Έχετε προσκληθεί να δημιουργήσετε λογαριασμό στο BigBlueButton από τον/την %{name}."
       get_started: "Για εγγραφή, παρακαλούμε κάντε κλικ στο παρακάτω κουμπί και ακολουθήστε τα βήματα."
-      valid_invitation: Η πρόσκληση ισχύει για 24 ώρες.
+      valid_invitation: "Η πρόσκληση ισχύει για 7 ημέρες. "
       sign_up: Εγγραφή
     new_user_signup:
       new_user: Εγγραφή νέου χρήστη BigBlueButton
