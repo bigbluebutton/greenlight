@@ -22,5 +22,9 @@ test:
 
 production:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL", "") %>
+  url: <%= ENV.fetch("REDIS_URL", nil) || "redis://mymaster" %>
+  sentinels: <%= ENV.fetch("REDIS_SENTINEL", "") %>
+  name: mymaster
+  role: master
+  namespace: greenlight3
   channel_prefix: greenlight_production
