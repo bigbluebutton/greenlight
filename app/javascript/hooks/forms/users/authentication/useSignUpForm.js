@@ -20,15 +20,11 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { useCallback, useMemo } from 'react';
 
-export function useSignUpFormValidation() {
-  return useMemo(() => (yup.object({
+export function useSignUpFormValidation(registrationMethod) {
+  const spec = {
     name: yup.string().required('forms.validations.full_name.required')
       .min(2, 'forms.validations.full_name.min')
       .max(255, 'forms.validations.full_name.max'),
-
-    email: yup.string().required('forms.validations.email.required').email('forms.validations.email.email')
-      .min(6, 'forms.validations.email.min')
-      .max(255, 'forms.validations.email.max'),
 
     password: yup.string().max(255, 'forms.validations.password.max')
       .matches(
@@ -42,10 +38,18 @@ export function useSignUpFormValidation() {
       .test('oneSymbol', 'forms.validations.password.symbol', (pwd) => pwd.match(/[`@%~!#£$\\^&*()\][+={}/|:;"'<>\-,.?_ ]/)),
     password_confirmation: yup.string().required('forms.validations.password_confirmation.required')
       .oneOf([yup.ref('password')], 'forms.validations.password_confirmation.match'),
-  })), []);
+  }
+
+  if (registrationMethod !== 'invite') {
+    spec.email = yup.string().required('forms.validations.email.required').email('forms.validations.email.email')
+      .min(6, 'forms.validations.email.min')
+      .max(255, 'forms.validations.email.max')
+  }
+
+  return useMemo(() => (yup.object(spec)), []);
 }
 
-export default function useSignUpForm({ defaultValues: _defaultValues, ..._config } = {}) {
+export default function useSignUpForm(registrationMethod, { defaultValues: _defaultValues, ..._config } = {}) {
   const { t, i18n } = useTranslation();
 
   const fields = useMemo(() => ({
@@ -89,7 +93,7 @@ export default function useSignUpForm({ defaultValues: _defaultValues, ..._confi
     },
   }), [i18n.resolvedLanguage]);
 
-  const validationSchema = useSignUpFormValidation();
+  const validationSchema = useSignUpFormValidation(registrationMethod);
 
   const config = useMemo(() => ({
     ...{
