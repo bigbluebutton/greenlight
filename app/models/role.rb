@@ -22,7 +22,7 @@ class Role < ApplicationRecord
   has_many :permissions, through: :role_permissions
 
   validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :provider }
-  
+
   validates :provider, presence: true
 
   before_validation :set_role_color, on: :create
@@ -62,17 +62,17 @@ class Role < ApplicationRecord
   def set_role_color
     color = case name
             when 'Administrator'
-                '#228B22'
+              '#228B22'
             when 'User'
-                '#4169E1'
+              '#4169E1'
             when 'Guest'
-                '#FFA500'
+              '#FFA500'
             else
-                "##{SecureRandom.hex(3)}"
+              "##{SecureRandom.hex(3)}"
             end
-    
-    raise if Role.exists?(color: color) # Ensure uniqueness
-    
+
+    raise if Role.exists?(color:) # Ensure uniqueness
+
     self.color = color
   rescue StandardError
     retry
