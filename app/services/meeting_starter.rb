@@ -63,6 +63,7 @@ class MeetingStarter
     moderator_message += "<br>#{I18n.t('meeting.access_code', code: access_code, locale: @current_user&.language&.to_sym)}" if access_code.present?
     {
       moderatorOnlyMessage: moderator_message,
+      loginURL: room_url,
       logoutURL: room_url,
       meta_endCallbackUrl: meeting_ended_url(host: @base_url),
       'meta_bbb-recording-ready-url': recording_ready_url(host: @base_url),

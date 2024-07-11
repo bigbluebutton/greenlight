@@ -14,6 +14,7 @@
   "report": "Signaler",
   "share": "Partager",
   "cancel": "Annuler",
+  "reset":   "Réinitialiser",
   "close": "Fermer",
   "delete": "Supprimer",
   "copy": "Copier",
@@ -229,7 +230,8 @@
       "empty_invited_users_subtext": "Lorsque le statut d'un utilisateur passe à invité, il apparaîtra ici.",
       "invited": {
         "time_sent": "Heure d'envoi",
-        "valid": "Valide"
+        "valid": "Valide",
+        "revoke": "Révoquer"
       }
     },
     "server_rooms": {
@@ -429,7 +431,8 @@
         "role_permission_updated": "L'autorisation pour ce rôle a été modifiée"
       },
       "invitations": {
-        "invitation_sent": "L'invitation a été envoyée"
+        "invitation_sent": "L'invitation a été envoyée",
+        "invitation_revoked": "Une invitation a été révoquée."
       }
     },
     "error": {

@@ -18,7 +18,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
+RSpec.describe Api::V1::Admin::InvitationsController do
   let(:user) { create(:user) }
   let(:user_with_manage_users_permission) { create(:user, :with_manage_users_permission) }
 
@@ -103,6 +103,19 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
         expect { post :create, params: { invitations: valid_params } }.not_to change(Role, :count)
         expect(response).to have_http_status(:forbidden)
       end
+    end
+  end
+
+  describe 'invitation#destroy' do
+    it 'deletes the invitation' do
+      invitation = create(:invitation)
+      expect { delete :destroy, params: { id: invitation.id } }.to change(Invitation, :count).by(-1)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'fails to delete the invitation if the id does not exist' do
+      expect { delete :destroy, params: { id: 'invalid-id' } }.not_to change(Invitation, :count)
+      expect(response).to have_http_status(:not_found)
     end
   end
 end

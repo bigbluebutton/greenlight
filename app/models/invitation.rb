@@ -17,7 +17,7 @@
 # frozen_string_literal: true
 
 class Invitation < ApplicationRecord
-  INVITATION_VALIDITY_PERIOD = 48.hours
+  INVITATION_VALIDITY_PERIOD = 7.days
 
   has_secure_token :token
 
