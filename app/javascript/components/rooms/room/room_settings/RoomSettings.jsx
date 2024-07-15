@@ -69,12 +69,12 @@ export default function RoomSettings() {
                 config={roomConfigs?.glModeratorAccessCode}
                 description={t('room.settings.generate_mods_access_code')}
               />
-              {(!serverTags.isLoading && process.env.SERVER_TAG_NAMES !== '') && (
+              {(!serverTags.isLoading && Object.keys(serverTags?.data).length !== 0) && (
                 <ServerTagRow
                   updateMutation={updateMutationWrapper}
                   currentTag={roomSetting?.data?.serverTag}
                   tagRequired={roomSetting?.data?.serverTagRequired === 'true'}
-                  allowedTags={Object.keys(serverTags?.data)}
+                  serverTags={serverTags?.data}
                   description={t('room.settings.server_tag')}
                 />
               )}

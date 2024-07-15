@@ -23,36 +23,24 @@ import {
 import SimpleSelect from '../../../shared_components/utilities/SimpleSelect';
 
 export default function ServerTagRow({
-  updateMutation: useUpdateAPI, currentTag, tagRequired, allowedTags, description,
+  updateMutation: useUpdateAPI, currentTag, tagRequired, serverTags, description,
 }) {
   const updateAPI = useUpdateAPI();
   const { t } = useTranslation();
 
-  /* eslint-disable no-param-reassign */
-  const serverTagsMap = process.env.SERVER_TAG_NAMES.split(',').reduce((map, pair) => {
-    const [key, value] = pair.split(':');
-    map[key] = value;
-    return map;
-  }, {});
-  /* eslint-enable no-param-reassign */
-
   function getDefaultTagName() {
-    if (process.env.DEFAULT_TAG_NAME) {
-      return process.env.DEFAULT_TAG_NAME;
-    }
     return t('room.settings.default_tag_name');
   }
 
   function getTagName(tag) {
-    if (tag in serverTagsMap) {
-      return serverTagsMap[tag];
+    if (tag in serverTags) {
+      return serverTags[tag];
     }
     return getDefaultTagName();
   }
 
-  const dropdownTags = process.env.SERVER_TAG_NAMES.split(',').map((pair) => {
-    const [tagString, tagName] = pair.split(':');
-    return (allowedTags.includes(tagString) && (
+  const dropdownTags = Object.entries(serverTags).map(([tagString, tagName]) => (
+    (
       <Dropdown.Item
         key={tagString}
         value={tagName}
@@ -60,8 +48,8 @@ export default function ServerTagRow({
       >
         {tagName}
       </Dropdown.Item>
-    ));
-  });
+    )
+  ));
 
   return (
     <Row>
@@ -125,6 +113,6 @@ ServerTagRow.propTypes = {
   updateMutation: PropTypes.func.isRequired,
   currentTag: PropTypes.string,
   tagRequired: PropTypes.bool,
-  allowedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  serverTags: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   description: PropTypes.string.isRequired,
 };
