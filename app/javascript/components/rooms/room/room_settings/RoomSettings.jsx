@@ -33,6 +33,7 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import UpdateRoomNameForm from './forms/UpdateRoomNameForm';
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
 import UnshareRoom from './UnshareRoom';
+import useServerTags from '../../../../hooks/queries/rooms/useServerTags';
 import ServerTagRow from './ServerTagRow';
 
 export default function RoomSettings() {
@@ -42,6 +43,7 @@ export default function RoomSettings() {
   const roomSetting = useRoomSettings(friendlyId);
   const { data: roomConfigs } = useRoomConfigs();
   const { data: room } = useRoom(friendlyId);
+  const serverTags = useServerTags();
 
   const updateMutationWrapper = () => useUpdateRoomSetting(friendlyId);
   const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
@@ -67,12 +69,12 @@ export default function RoomSettings() {
                 config={roomConfigs?.glModeratorAccessCode}
                 description={t('room.settings.generate_mods_access_code')}
               />
-              {(process.env.SERVER_TAG_NAMES !== '') && (
+              {(!serverTags.isLoading && process.env.SERVER_TAG_NAMES !== '') && (
                 <ServerTagRow
                   updateMutation={updateMutationWrapper}
                   currentTag={roomSetting?.data?.serverTag}
                   tagRequired={roomSetting?.data?.serverTagRequired === 'true'}
-                  allowedTags={currentUser?.allowedTags}
+                  allowedTags={Object.keys(serverTags?.data)}
                   description={t('room.settings.server_tag')}
                 />
               )}

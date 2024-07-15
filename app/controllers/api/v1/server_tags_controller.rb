@@ -16,25 +16,18 @@
 
 # frozen_string_literal: true
 
-class CurrentUserSerializer < UserSerializer
-  attributes :signed_in, :permissions, :status, :external_account, :super_admin
+module Api
+  module V1
+    class ServerTagsController < ApiController
+      # GET /api/v1/server_tags.json
+      # Returns a list of all allowed tags for the current user
+      def index
+        tags = Rails.configuration.server_tag_names
+        tag_roles = Rails.configuration.server_tag_roles
+        tags.delete_if { |tag, _| tag_roles.key?(tag) && tag_roles[tag].exclude?(current_user.role_id) }
 
-  def signed_in
-    true
-  end
-
-  def external_account
-    object.external_id?
-  end
-
-  def permissions
-    RolePermission.joins(:permission)
-                  .where(role_id: object.role_id)
-                  .pluck(:name, :value)
-                  .to_h
-  end
-
-  def super_admin
-    object.super_admin?
+        render_data data: tags, status: :ok
+      end
+    end
   end
 end
