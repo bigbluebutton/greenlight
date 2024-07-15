@@ -79,7 +79,6 @@ module Greenlight
 
     config.bigbluebutton_secret = ENV.fetch('BIGBLUEBUTTON_SECRET', '8cd8ef52e8e101574e400365b55e11a6')
 
-    config.relative_url_root = ENV.fetch('RELATIVE_URL_ROOT', '/')
     # Fetch 'RELATIVE_URL_ROOT' ENV variable value while removing any trailing slashes.
     config.relative_url_root = ENV.fetch('RELATIVE_URL_ROOT', nil)&.sub(%r{/*\z}, '')
     config.relative_url_root = '/' if config.relative_url_root.blank?
