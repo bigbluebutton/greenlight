@@ -20,13 +20,13 @@ module Api
   module V1
     class ServerTagsController < ApiController
       # GET /api/v1/server_tags.json
-      # Returns a list of all allowed tags for the current user
+      # Returns a list of all allowed tags&names for the current user
       def index
-        tags = Rails.configuration.server_tag_names
+        tag_names = Rails.configuration.server_tag_names
         tag_roles = Rails.configuration.server_tag_roles
-        tags.delete_if { |tag, _| tag_roles.key?(tag) && tag_roles[tag].exclude?(current_user.role_id) }
+        tag_names.delete_if { |tag, _| tag_roles.key?(tag) && tag_roles[tag].exclude?(current_user.role_id) }
 
-        render_data data: tags, status: :ok
+        render_data data: tag_names, status: :ok
       end
     end
   end
