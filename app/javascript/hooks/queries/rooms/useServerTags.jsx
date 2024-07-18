@@ -17,9 +17,9 @@
 import { useQuery } from 'react-query';
 import axios from '../../../helpers/Axios';
 
-export default function useServerTags() {
+export default function useServerTags(friendlyId) {
   return useQuery(
-    'getServerTags',
-    () => axios.get('/server_tags.json').then((resp) => resp.data.data),
+    ['getServerTags', friendlyId],
+    () => axios.get(`/server_tags/${friendlyId}.json`).then((resp) => resp.data.data),
   );
 }

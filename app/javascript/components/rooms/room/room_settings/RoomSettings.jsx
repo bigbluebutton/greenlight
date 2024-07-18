@@ -43,7 +43,7 @@ export default function RoomSettings() {
   const roomSetting = useRoomSettings(friendlyId);
   const { data: roomConfigs } = useRoomConfigs();
   const { data: room } = useRoom(friendlyId);
-  const serverTags = useServerTags();
+  const serverTags = useServerTags(friendlyId);
 
   const updateMutationWrapper = () => useUpdateRoomSetting(friendlyId);
   const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
