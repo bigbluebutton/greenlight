@@ -22,11 +22,14 @@ module Api
       # GET /api/v1/server_tags/:friendly_id
       # Returns a list of all allowed tags&names for the room's owner
       def show
-        room = Room.find_by!(friendly_id: params[:friendly_id])
         tag_names = Rails.configuration.server_tag_names
         tag_roles = Rails.configuration.server_tag_roles
-        allowed_tag_names = tag_names.reject { |tag, _| tag_roles.key?(tag) && tag_roles[tag].exclude?(room.user.role_id) }
+        return render_data data: {}, status: :ok if tag_names.blank?
 
+        room = Room.find_by(friendly_id: params[:friendly_id])
+        return render_data data: {}, status: :ok if room.nil?
+
+        allowed_tag_names = tag_names.reject { |tag, _| tag_roles.key?(tag) && tag_roles[tag].exclude?(room.user.role_id) }
         render_data data: allowed_tag_names, status: :ok
       end
     end
