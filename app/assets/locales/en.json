@@ -538,6 +538,11 @@
       },
       "url": {
         "invalid": "Invalid URL"
+      },
+      "text_form": {
+        "value": {
+          "required": "Please enter some message"
+        }
       }
     },
     "room": {

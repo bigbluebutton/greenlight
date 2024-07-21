@@ -23,6 +23,8 @@ import { useCallback, useMemo } from 'react';
 export function useTextFormValidation() {
   return useMemo(() => (yup.object({
     // future add text validations
+    value: yup.string()
+      .required('forms.validations.text_form.value.required')
   })), []);
 }
 
