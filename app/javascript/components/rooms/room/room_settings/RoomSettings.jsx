@@ -43,7 +43,7 @@ export default function RoomSettings() {
   const roomSetting = useRoomSettings(friendlyId);
   const { data: roomConfigs } = useRoomConfigs();
   const { data: room } = useRoom(friendlyId);
-  const serverTags = useServerTags(friendlyId);
+  const { data: serverTags } = useServerTags(friendlyId);
 
   const updateMutationWrapper = () => useUpdateRoomSetting(friendlyId);
   const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
@@ -69,12 +69,12 @@ export default function RoomSettings() {
                 config={roomConfigs?.glModeratorAccessCode}
                 description={t('room.settings.generate_mods_access_code')}
               />
-              {(!serverTags.isLoading && Object.keys(serverTags?.data).length !== 0) && (
+              {serverTags && Object.keys(serverTags).length !== 0 && (
                 <ServerTagRow
                   updateMutation={updateMutationWrapper}
                   currentTag={roomSetting?.data?.serverTag}
                   tagRequired={roomSetting?.data?.serverTagRequired === 'true'}
-                  serverTags={serverTags?.data}
+                  serverTags={serverTags}
                   description={t('room.settings.server_tag')}
                 />
               )}
