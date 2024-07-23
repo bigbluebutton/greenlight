@@ -20,27 +20,26 @@ class CreateServerTagsOption < ActiveRecord::Migration[7.0]
   def up
     MeetingOption.create!(name: 'serverTag', default_value: '') unless MeetingOption.exists?(name: 'serverTag')
     tag_option = MeetingOption.find_by!(name: 'serverTag')
+    MeetingOption.create!(name: 'serverTagRequired', default_value: 'false') unless MeetingOption.exists?(name: 'serverTagRequired')
+    tag_required_option = MeetingOption.find_by!(name: 'serverTagRequired')
+
     unless RoomsConfiguration.exists?(meeting_option: tag_option, provider: 'greenlight')
       RoomsConfiguration.create!(meeting_option: tag_option, value: 'optional', provider: 'greenlight')
+    end
+    unless RoomsConfiguration.exists?(meeting_option: tag_required_option, provider: 'greenlight')
+      RoomsConfiguration.create!(meeting_option: tag_required_option, value: 'optional', provider: 'greenlight')
     end
     Tenant.all.each do |tenant|
       unless RoomsConfiguration.exists?(meeting_option: tag_option, provider: tenant.name)
         RoomsConfiguration.create!(meeting_option: tag_option, value: 'optional', provider: tenant.name)
       end
-    end
-    Room.find_each { |room| RoomMeetingOption.find_or_create_by!(room:, meeting_option: tag_option) }
-
-    MeetingOption.create!(name: 'serverTagRequired', default_value: 'false') unless MeetingOption.exists?(name: 'serverTagRequired')
-    tag_required_option = MeetingOption.find_by!(name: 'serverTagRequired')
-    unless RoomsConfiguration.exists?(meeting_option: tag_required_option, provider: 'greenlight')
-      RoomsConfiguration.create!(meeting_option: tag_required_option, value: 'optional', provider: 'greenlight')
-    end
-    Tenant.all.each do |tenant|
       unless RoomsConfiguration.exists?(meeting_option: tag_required_option, provider: tenant.name)
         RoomsConfiguration.create!(meeting_option: tag_required_option, value: 'optional', provider: tenant.name)
       end
     end
-    Room.find_each do |room|
+
+    Room.find_each(batch_size: 250) do |room|
+      RoomMeetingOption.find_or_create_by!(room:, meeting_option: tag_option)
       unless RoomMeetingOption.exists?(room:, meeting_option: tag_required_option)
         RoomMeetingOption.create!(room:, meeting_option: tag_required_option, value: 'false')
       end
