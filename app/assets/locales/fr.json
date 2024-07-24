@@ -178,7 +178,7 @@
     "formats": "Lecture",
     "published": "Publiée",
     "unpublished": "Non publiée",
-    "protected": "Protégé",
+    "protected": "Protégée",
     "public": "Public",
     "public_protected": "Public/Protégé",
     "length_in_minutes": "{{recording.length}} min.",
