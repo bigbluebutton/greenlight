@@ -38,10 +38,23 @@ class CreateServerTagsOption < ActiveRecord::Migration[7.0]
       end
     end
 
-    Room.find_each(batch_size: 250) do |room|
-      RoomMeetingOption.find_or_create_by!(room:, meeting_option: tag_option)
-      unless RoomMeetingOption.exists?(room:, meeting_option: tag_required_option)
-        RoomMeetingOption.create!(room:, meeting_option: tag_required_option, value: 'false')
+    if RoomMeetingOption.exists?(meeting_option: tag_option) || RoomMeetingOption.exists?(meeting_option: tag_required_option)
+      # slow variant that works with existing tag options
+      Room.find_each do |room|
+        RoomMeetingOption.find_or_create_by!(room:, meeting_option: tag_option)
+        unless RoomMeetingOption.exists?(room:, meeting_option: tag_required_option)
+          RoomMeetingOption.create!(room:, meeting_option: tag_required_option, value: 'false')
+        end
+      end
+    else
+      # much faster variant without checks/validation
+      Room.find_in_batches do |batch|
+        tag_options_batch = batch.map { |room| { room_id: room.id, meeting_option_id: tag_option.id } }
+        tag_required_options_batch = batch.map { |room| { room_id: room.id, meeting_option_id: tag_required_option.id, value: 'false' } }
+        # rubocop:disable Rails/SkipsModelValidations
+        RoomMeetingOption.insert_all!(tag_options_batch)
+        RoomMeetingOption.insert_all!(tag_required_options_batch)
+        # rubocop:enable Rails/SkipsModelValidations
       end
     end
   end
