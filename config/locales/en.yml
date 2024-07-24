@@ -63,7 +63,7 @@ en:
       invitation_to_join: BigBlueButton Invitation
       you_have_been_invited: You have been invited to create a BigBlueButton account by %{name}.
       get_started: To sign up, please click the button below and follow the steps.
-      valid_invitation: The invitation is valid for 24 hours.
+      valid_invitation: The invitation is valid for 7 days.
       sign_up: Sign Up
     new_user_signup:
       new_user: New BigBlueButton User Signup

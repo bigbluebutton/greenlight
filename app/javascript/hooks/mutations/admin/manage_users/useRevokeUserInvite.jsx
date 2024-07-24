@@ -14,16 +14,25 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../contexts/auth/AuthProvider';
+import { useMutation, useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+import axios from '../../../../helpers/Axios';
 
-export default function UnauthenticatedOnly() {
-  const currentUser = useAuth();
+export default function useRevokeUserInvite() {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
-  if (currentUser.signed_in && !currentUser.stateChanging) {
-    return <Navigate to="/" replace />;
-  }
-
-  return <Outlet />;
+  return useMutation(
+    (id) => axios.delete(`/admin/invitations/${id}.json`),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['getInvitations']);
+        toast.success(t('toast.success.invitations.invitation_revoked'));
+      },
+      onError: () => {
+        toast.error(t('toast.error.problem_completing_action'));
+      },
+    },
+  );
 }

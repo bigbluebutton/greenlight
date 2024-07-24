@@ -124,7 +124,10 @@ module Api
       end
 
       def authorized_to_start_meeting?(settings)
-        settings['glAnyoneCanStart'] == 'true' || @room.user_id == current_user&.id || current_user&.shared_rooms&.include?(@room)
+        settings['glAnyoneCanStart'] == 'true' ||
+          @room.user_id == current_user&.id ||
+          current_user&.shared_rooms&.include?(@room) ||
+          access_code_validator(access_code: settings['glModeratorAccessCode'])
       end
 
       def unauthorized_access?(settings)

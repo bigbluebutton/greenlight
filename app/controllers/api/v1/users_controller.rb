@@ -106,6 +106,12 @@ module Api
           return render_error errors: Rails.configuration.custom_error_msgs[:unauthorized], status: :forbidden
         end
 
+        original_avatar = params['user']['original_avatar']
+        if ENV.fetch('CLAMAV_SCANNING', 'false') == 'true' && original_avatar.present? && !Clamby.safe?(original_avatar.tempfile.path)
+          user.errors.add(:avatar, 'MalwareDetected')
+          return render_error errors: user.errors.to_a
+        end
+
         if user.update(update_user_params)
           create_default_room(user)
           render_data  status: :ok
@@ -160,7 +166,11 @@ module Api
       end
 
       def update_user_params
-        @update_user_params ||= params.require(:user).permit(:name, :password, :avatar, :language, :role_id, :invite_token)
+        @update_user_params ||= if external_auth?
+                                  params.require(:user).permit(:password, :avatar, :language, :role_id, :invite_token)
+                                else
+                                  params.require(:user).permit(:name, :password, :avatar, :language, :role_id, :invite_token)
+                                end
       end
 
       def change_password_params
