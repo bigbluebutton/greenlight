@@ -17,14 +17,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Container } from 'react-bootstrap';
-import PropTypes from 'prop-types';
 import useEnv from '../../hooks/queries/env/useEnv';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
+import { useAuth } from '../../contexts/auth/AuthProvider';
 
-export default function Footer({ currentUser = null }) {
+export default function Footer() {
   const { t } = useTranslation();
   const { data: env } = useEnv();
   const { data: links } = useSiteSetting(['Terms', 'PrivacyPolicy']);
+  const currentUser = useAuth();
   const isAdmin = currentUser && currentUser.role && currentUser?.role.name === 'Administrator';
 
   return (
@@ -48,7 +49,3 @@ export default function Footer({ currentUser = null }) {
     </footer>
   );
 }
-
-Footer.propTypes = {
-  currentUser: PropTypes.func.isRequired,
-};
