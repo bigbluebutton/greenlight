@@ -71,7 +71,7 @@ class Role < ApplicationRecord
               "##{SecureRandom.hex(3)}"
             end
 
-    raise if Role.exists?(color:) # Ensure uniqueness
+    raise if Role.exists?(color:, provider:) # Ensure uniqueness
 
     self.color = color
   rescue StandardError
