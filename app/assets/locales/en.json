@@ -164,6 +164,10 @@
       "wrong_access_code": "Wrong Access Code",
       "generate_viewers_access_code": "Generate access code for viewers",
       "generate_mods_access_code": "Generate access code for moderators",
+      "server_tag": "Select a server type for this room",
+      "default_tag_name": "Default",
+      "server_tag_desired": "Desired",
+      "server_tag_required": "Required",
       "are_you_sure_delete_room": "Are you sure you want to delete this room?"
     }
   },
@@ -274,8 +278,8 @@
       "administration": {
         "administration": "Administration",
         "terms": "Terms & Conditions",
-        "privacy": "Privacy Policy",
-        "privacy_policy": "Privacy Policy",
+        "privacy": "Privacy Notice",
+        "privacy_policy": "Privacy Notice",
         "change_term_links": "Change the terms links that appears at the bottom of the page",
         "change_privacy_link": "Change the privacy link that appears at the bottom of the page",
         "helpcenter": "Help Center",
@@ -413,7 +417,7 @@
         "brand_color_updated": "The brand color has been updated.",
         "brand_image_updated": "The brand image has been updated.",
         "brand_image_deleted": "The brand image has been deleted.",
-        "privacy_policy_updated": "The privacy policy has been updated.",
+        "privacy_policy_updated": "The privacy notice has been updated.",
         "helpcenter_updated": "The help center link has been updated.",
         "terms_of_service_updated": "The terms of service have been updated.",
         "maintenance_updated": "The maintenance banner has been updated."
@@ -437,6 +441,7 @@
     },
     "error": {
       "problem_completing_action": "The action can't be completed. \n Please try again.",
+      "server_type_unavailable": "The required server type is unavailable. Please select a different type in the room settings.",
       "file_type_not_supported": "The file type is not supported.",
       "file_size_too_large": "The file size is too large.",
       "file_upload_error": "The file can't be uploaded.",
@@ -533,6 +538,11 @@
       },
       "url": {
         "invalid": "Invalid URL"
+      },
+      "text_form": {
+        "value": {
+          "required": "Please enter some message"
+        }
       }
     },
     "room": {
