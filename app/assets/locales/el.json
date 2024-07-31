@@ -307,7 +307,7 @@
       "registration": {
         "registration": "Εγγραφή",
         "role_mapping_by_email": "Εκχώρηση ρόλου με email",
-        "role_mapping_by_email_description": "Εκχώρηση ρόλου σε χρήστη με χρήση του email του. Πρέπει να είναι όπως: role1=email1, role2=email2",
+        "role_mapping_by_email_description": "Κατανείμετε το ρόλο χρήστη σύμφωνα με το email. Πρέπει να έχει τη μορφή role1=email1,role2=email2",
         "enter_role_mapping_rule": "Εισαγάγετε ένα κανόνα εκχώρησης ρόλου",
         "resync_on_login": "Συγχρονισμός δεδομένων χρήστη σε κάθε σύνδεση",
         "resync_on_login_description": "Επανασυγχρονισμός των πληροφοριών χρήστη σε κάθε σύνδεση, υποχρεώνοντας τον εξωτερικό πάροχο αυθεντικοποίησης σε συνεχή επιβεβαίωση των πληροφοριών στο Greenlight",
