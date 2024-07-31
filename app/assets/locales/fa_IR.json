@@ -164,6 +164,10 @@
       "wrong_access_code": "کد دسترسی اشتباه است",
       "generate_viewers_access_code": "ایجاد کد دسترسی برای بینندگان",
       "generate_mods_access_code": "ایجاد کد دسترسی برای مدیران",
+      "server_tag": "نوع سرور برای این اتاق انتخاب کنید",
+      "default_tag_name": "پیش‌فرض",
+      "server_tag_desired": "دلخواه",
+      "server_tag_required": "الزامی است",
       "are_you_sure_delete_room": "آیا مطمئن هستید که می‌خواهید این اتاق را حذف کنید؟"
     }
   },
@@ -274,8 +278,8 @@
       "administration": {
         "administration": "مدیریت",
         "terms": "شرایط و ضوابط",
-        "privacy": "سیاست حفظ حریم خصوصی",
-        "privacy_policy": "سیاست حفظ حریم خصوصی",
+        "privacy": "اطلاعیه حفظ حریم خصوصی",
+        "privacy_policy": "اطلاعیه حفظ حریم خصوصی",
         "change_term_links": "تغییر پیوندهای مقررات که در پایین صفحه نمایان می‌شوند",
         "change_privacy_link": "پیوند حریم خصوصی که در پایین صفحه نمایان می‌شود را تغییر دهید",
         "helpcenter": "مرکز راهنمایی",
@@ -413,7 +417,7 @@
         "brand_color_updated": "رنگ برند به‌روز شده‌است.",
         "brand_image_updated": "تصویر برند به‌روز شده‌است.",
         "brand_image_deleted": "تصویر برند حذف شده‌است.",
-        "privacy_policy_updated": "سیاست حفظ حریم خصوصی به‌روز شده‌است.",
+        "privacy_policy_updated": "اطلاعیه حفظ حریم خصوصی به‌روز شده است.",
         "helpcenter_updated": "پیوند مرکز راهنمایی به‌روز شده است.",
         "terms_of_service_updated": "شرایط خدمات به‌روز شده‌است.",
         "maintenance_updated": "اعلامیهٔ حالت تعمیر به‌روز شده است."
@@ -437,6 +441,7 @@
     },
     "error": {
       "problem_completing_action": "این عمل نمی‌تواند تکمیل شود.\nلطفا دوباره تلاش کنید.",
+      "server_type_unavailable": "نوع سرور مورد نظر در دسترس نیست. لطفا نوع دیگری را در تنظیمات اتاق انتخاب کنید.",
       "file_type_not_supported": "نوع پرونده پشتیبانی نمی‌شود.",
       "file_size_too_large": "اندازهٔ پرونده خیلی بزرگ است.",
       "file_upload_error": "پرونده نمی‌تواند بارگذاری شود.",
@@ -533,6 +538,11 @@
       },
       "url": {
         "invalid": "نشانی اینترنتی معتبر نیست"
+      },
+      "text_form": {
+        "value": {
+          "required": "لطفا یک پیام وارد کنید"
+        }
       }
     },
     "room": {
