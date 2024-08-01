@@ -307,7 +307,7 @@
       "registration": {
         "registration": "Registration",
         "role_mapping_by_email": "Role Mapping By Email",
-        "role_mapping_by_email_description": "Map the user to a role using their email. Must be in the format: role1=email1, role2=email2",
+        "role_mapping_by_email_description": "Map the user to a role using their email. Must be in the format: role1=email1,role2=email2",
         "enter_role_mapping_rule": "Enter a role mapping rule",
         "resync_on_login": "Resync User Data On Every Sign In",
         "resync_on_login_description": "Resync a user's information every time they sign in, making the external authentication provider always match the information in Greenlight",
@@ -538,6 +538,11 @@
       },
       "url": {
         "invalid": "Invalid URL"
+      },
+      "text_form": {
+        "value": {
+          "required": "Please enter some message"
+        }
       }
     },
     "room": {
