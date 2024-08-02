@@ -90,5 +90,10 @@ module Greenlight
 
     config.i18n.fallbacks = %i[en]
     config.i18n.enforce_available_locales = false
+
+    # Handle server tag config
+    config.server_tag_names = ENV.fetch('SERVER_TAG_NAMES', '').split(',').to_h { |pair| pair.split(':') }
+    config.server_tag_roles = ENV.fetch('SERVER_TAG_ROLES', '').split(',').to_h { |pair| pair.split(':') }
+    config.server_tag_roles = config.server_tag_roles.transform_values! { |v| v.split('/') }
   end
 end
