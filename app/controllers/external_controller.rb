@@ -32,6 +32,13 @@ class ExternalController < ApplicationController
 
     user = User.find_by(external_id: credentials['uid'], provider:)
 
+    # Fallback mechanism to search by email
+    if user.blank? && ENV['USE_EMAIL_AS_EXTERNAL_ID_FALLBACK'].value(true)
+      user = User.find_by(email: credentials['info']['email'], provider:)
+      # Update the user's external id to the latest value to avoid using the fallback
+      user.update(external_id: credentials['uid']) if user.present? && credentials['uid'].present?
+    end
+
     new_user = user.blank?
 
     registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
