@@ -63,7 +63,7 @@ tr:
       invitation_to_join: BigBlueButton çağrısı
       you_have_been_invited: "%{name} tarafından bir BigBlueButton hesabı açmaya çağrıldınız."
       get_started: Hesap açmak için aşağıdaki düğmeye tıklayın ve yönergeleri izleyin.
-      valid_invitation: Çağrı 24 saat boyunca geçerlidir.
+      valid_invitation: Çağrı 7 gün boyunca geçerlidir.
       sign_up: Hesap aç
     new_user_signup:
       new_user: Yeni BigBlueButton kullanıcı hesabı açılışı
