@@ -56,7 +56,8 @@ class TenantSetup
       { setting: Setting.find_by(name: 'DefaultRole'), provider: @provider, value: 'User' },
       { setting: Setting.find_by(name: 'DefaultRecordingVisibility'), provider: @provider, value: 'Published' },
       { setting: Setting.find_by(name: 'Maintenance'), provider: @provider, value: '' },
-      { setting: Setting.find_by(name: 'SessionTimeout'), provider: @provider, value: '1' }
+      { setting: Setting.find_by(name: 'SessionTimeout'), provider: @provider, value: '1' },
+      { setting: Setting.find_by(name: 'SpecificEmailDomainSignUp'), value: '', provider: @provider },
     ]
   end
 
