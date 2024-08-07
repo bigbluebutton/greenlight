@@ -28,11 +28,12 @@ import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
 export default function Registration() {
   const { t } = useTranslation();
   const { data: env } = useEnv();
-  const { data: siteSettings } = useSiteSettings(['RoleMapping', 'DefaultRole', 'ResyncOnLogin', 'RegistrationMethod']);
+  const { data: siteSettings } = useSiteSettings(['RoleMapping', 'DefaultRole', 'ResyncOnLogin', 'RegistrationMethod', 'SpecificEmailDomainSignUp']);
   const { data: roles } = useRoles();
   const updateRegistrationMethod = useUpdateSiteSetting('RegistrationMethod');
   const updateDefaultRole = useUpdateSiteSetting('DefaultRole');
   const updateRoleMapping = useUpdateSiteSetting('RoleMapping');
+  const updateDomainSignUp = useUpdateSiteSetting('SpecificEmailDomainSignUp');
 
   return (
     <>
@@ -94,6 +95,25 @@ export default function Registration() {
             variant="brand"
             className="ms-2"
             onClick={(e) => updateRoleMapping.mutate({ value: e.target.previousSibling.value })}
+          >
+            {t('update')}
+          </Button>
+        </Stack>
+      </Row>
+
+      <Row className="mb-3">
+        <strong> {t('admin.site_settings.registration.specific_email_domain_signup')} </strong>
+        <p className="text-muted">{t('admin.site_settings.registration.specific_email_domain_signup_description')}</p>
+        <Stack direction="horizontal">
+          <input
+            className="form-control"
+            // TODO add proper placeholder and defultValue
+            placeholder={t('admin.site_settings.registration.enter_domain_signup_rule')}
+          />
+          <Button
+            variant="brand"
+            className="ms-2"
+            onClick={(e) => updateDomainSignUp.mutate({ value: e.target.previousSibling.value })}
           >
             {t('update')}
           </Button>

@@ -63,6 +63,9 @@ export default function useUpdateSiteSetting(name) {
       case 'Maintenance':
         toast.success(t('toast.success.site_settings.maintenance_updated'));
         break;
+      case 'SpecificEmailDomainSignUp':
+        toast.success(t('toast.success.site_settings.specific_email_domain_signup_updated'));
+        break;
       default:
         toast.success(t('toast.success.site_settings.site_setting_updated'));
     }
