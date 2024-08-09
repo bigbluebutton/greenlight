@@ -321,7 +321,7 @@
           "approval": "Approve/Decline"
         },
         "specific_email_domain_signup": "Specific Email Domain Signup",
-        "specific_email_domain_signup_description": "Allow specific email domains to sign up. Format must be: test.com,domain.com",
+        "specific_email_domain_signup_description": "Allow specific email domains to sign up. Format must be: @test.com,domain.com",
         "enter_domain_signup_rule" : "Enter a specific domain signup rule"
       }
     },

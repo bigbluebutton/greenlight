@@ -301,6 +301,66 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         expect(response.parsed_body['errors']).not_to be_nil
       end
     end
+
+    context 'Specific Email Domain Signup' do
+      context 'restricted domain not set' do
+        before do
+          site_settings = instance_double(SettingGetter)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'SpecificEmailDomainSignUp', provider: 'greenlight').and_return(site_settings)
+          allow(site_settings).to receive(:call).and_return('')
+        end
+
+        it 'creates the user' do
+          expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
+        end
+      end
+
+      context 'restricted domain set to 1 domain' do
+        before do
+          site_settings = instance_double(SettingGetter)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'SpecificEmailDomainSignUp', provider: 'greenlight').and_return(site_settings)
+          allow(site_settings).to receive(:call).and_return('@domain.com')
+        end
+
+        it 'creates the user if the domain is allowed' do
+          user_params[:user][:email] = 'test@domain.com'
+          expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
+        end
+
+        it 'does not create if the domain is not allowed' do
+          user_params[:user][:email] = 'test@invaliddomain.com'
+          expect { post :create, params: user_params }.not_to change(User, :count)
+        end
+      end
+
+      context 'restricted domain set to multiple domain' do
+        before do
+          site_settings = instance_double(SettingGetter)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'SpecificEmailDomainSignUp', provider: 'greenlight').and_return(site_settings)
+          allow(site_settings).to receive(:call).and_return('@example.com,@test.com,@domain.com')
+        end
+
+        it 'creates the user if the domain is allowed 1' do
+          user_params[:user][:email] = 'test@example.com'
+          expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
+        end
+
+        it 'creates the user if the domain is allowed 2' do
+          user_params[:user][:email] = 'test@test.com'
+          expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
+        end
+
+        it 'creates the user if the domain is allowed 3' do
+          user_params[:user][:email] = 'test@domain.com'
+          expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
+        end
+
+        it 'does not create if the domain is not allowed' do
+          user_params[:user][:email] = 'test@invaliddomain.com'
+          expect { post :create, params: user_params }.not_to change(User, :count)
+        end
+      end
+    end
   end
 
   describe '#show' do
