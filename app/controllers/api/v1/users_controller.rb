@@ -191,11 +191,12 @@ module Api
       def valid_domain?
         specific_domain_emails = SettingGetter.new(setting_name: 'SpecificEmailDomainSignUp', provider: current_provider).call
         return true if specific_domain_emails.blank?
+
         domains = specific_domain_emails.split(',')
         domains.each do |domain|
           return true if create_user_params[:email].end_with?(domain)
         end
-        return false
+        false
       end
     end
   end
