@@ -41,6 +41,8 @@ class ExternalController < ApplicationController
       return redirect_to root_path(error: Rails.configuration.custom_error_msgs[:invite_token_invalid])
     end
 
+    return render_error status: :forbidden unless valid_domain?(user_info[:email])
+
     # Create the user if they dont exist
     if new_user
       user = UserCreator.new(user_params: user_info, provider: current_provider, role: default_role).call
@@ -163,5 +165,16 @@ class ExternalController < ApplicationController
       external_id: credentials['uid'],
       verified: true
     }
+  end
+
+  def valid_domain?(email)
+    specific_domain_emails = SettingGetter.new(setting_name: 'SpecificEmailDomainSignUp', provider: current_provider).call
+    return true if specific_domain_emails.blank?
+
+    domains = specific_domain_emails.split(',')
+    domains.each do |domain|
+      return true if email.end_with?(domain)
+    end
+    false
   end
 end

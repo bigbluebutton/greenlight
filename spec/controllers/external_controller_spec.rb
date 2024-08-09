@@ -18,7 +18,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ExternalController, type: :controller do
+RSpec.describe ExternalController do
   let(:fake_setting_getter) { instance_double(SettingGetter) }
 
   describe '#create_user' do
@@ -80,7 +80,7 @@ RSpec.describe ExternalController, type: :controller do
 
       expect do
         get :create_user, params: { provider: 'openid_connect' }
-      end.to change(User, :count).by(0)
+      end.not_to change(User, :count)
     end
 
     it 'looks the user up based on email' do
@@ -90,7 +90,7 @@ RSpec.describe ExternalController, type: :controller do
 
       expect do
         get :create_user, params: { provider: 'openid_connect' }
-      end.to change(User, :count).by(0)
+      end.not_to change(User, :count)
     end
 
     context 'redirect' do
@@ -321,6 +321,79 @@ RSpec.describe ExternalController, type: :controller do
 
           expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email])).to be_pending
           expect(response).to redirect_to(controller.pending_path)
+        end
+      end
+    end
+
+    context 'Specific Email Domain Signup' do
+      context 'restricted domain not set' do
+        before do
+          site_settings = instance_double(SettingGetter)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'SpecificEmailDomainSignUp', provider: 'greenlight').and_return(site_settings)
+          allow(site_settings).to receive(:call).and_return('')
+        end
+
+        it 'creates the user' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.to change(User, :count).from(0).to(1)
+        end
+      end
+
+      context 'restricted domain set to 1 domain' do
+        before do
+          site_settings = instance_double(SettingGetter)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'SpecificEmailDomainSignUp', provider: 'greenlight').and_return(site_settings)
+          allow(site_settings).to receive(:call).and_return('@domain.com')
+        end
+
+        it 'creates the user if the domain is allowed' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+          request.env['omniauth.auth'][:info][:email] = 'email@domain.com'
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.to change(User, :count).from(0).to(1)
+        end
+
+        it 'does not create if the domain is not allowed' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.not_to change(User, :count)
+        end
+      end
+
+      context 'restricted domain set to multiple domain' do
+        before do
+          site_settings = instance_double(SettingGetter)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'SpecificEmailDomainSignUp', provider: 'greenlight').and_return(site_settings)
+          allow(site_settings).to receive(:call).and_return('@example.com,@test.com,@domain.com')
+        end
+
+        it 'creates the user if the domain is allowed 1' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+          request.env['omniauth.auth'][:info][:email] = 'email@example.com'
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.to change(User, :count).from(0).to(1)
+        end
+
+        it 'creates the user if the domain is allowed 2' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+          request.env['omniauth.auth'][:info][:email] = 'email@test.com'
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.to change(User, :count).from(0).to(1)
+        end
+
+        it 'creates the user if the domain is allowed 3' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+          request.env['omniauth.auth'][:info][:email] = 'email@domain.com'
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.to change(User, :count).from(0).to(1)
+        end
+
+        it 'does not create if the domain is not allowed' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+          request.env['omniauth.auth'][:info][:email] = 'test@invaliddomain.com'
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.not_to change(User, :count)
         end
       end
     end
