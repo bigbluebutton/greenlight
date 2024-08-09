@@ -44,12 +44,13 @@ class BigBlueButtonApi
     end
   end
 
-  def join_meeting(room:, role:, name: nil, avatar_url: nil)
+  def join_meeting(room:, role:, user_id:, name: nil, avatar_url: nil)
     bbb_server.join_meeting_url(
       room.meeting_id,
       name,
       '', # empty password -> use the role passed ing
       {
+        userId: user_id,
         role:,
         avatarURL: avatar_url,
         createTime: room.last_session&.to_datetime&.strftime('%Q')
