@@ -46,6 +46,8 @@ describe MeetingStarter, type: :service do
       'meta_bbb-origin-version': 'v3',
       'meta_bbb-origin': 'greenlight',
       'meta_bbb-origin-server-name': URI(base_url).host,
+      'meta_bbb-context-name': room.name,
+      'meta_bbb-context-id': room.friendly_id,
       setting: 'value'
     }
   end
