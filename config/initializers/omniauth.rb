@@ -47,11 +47,15 @@ Rails.application.config.middleware.use OmniAuth::Builder do
              issuer:,
              scope: %i[openid email profile],
              uid_field: ENV.fetch('OPENID_CONNECT_UID_FIELD', 'sub'),
-             discovery: true,
+             discovery: ActiveModel::Type::Boolean.new.cast(ENV.fetch('OPENID_CONNECT_DISCOVERY', 'true')),
              client_options: {
                identifier: ENV.fetch('OPENID_CONNECT_CLIENT_ID'),
                secret: ENV.fetch('OPENID_CONNECT_CLIENT_SECRET'),
-               redirect_uri: File.join(ENV.fetch('OPENID_CONNECT_REDIRECT', ''), 'auth', 'openid_connect', 'callback')
+               redirect_uri: File.join(ENV.fetch('OPENID_CONNECT_REDIRECT', ''), 'auth', 'openid_connect', 'callback'),
+               host: ENV.fetch('OPENID_CONNECT_HOST', nil),
+               authorization_endpoint: ENV.fetch('OPENID_CONNECT_AUTHORIZATION_ENDPOINT', '/authorize'),
+               token_endpoint: ENV.fetch('OPENID_CONNECT_TOKEN_ENDPOINT', '/token'),
+               userinfo_endpoint: ENV.fetch('OPENID_CONNECT_USERINFO_ENDPOINT', '/userinfo')
              }
   end
 end
