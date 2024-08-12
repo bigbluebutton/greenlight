@@ -148,7 +148,6 @@ RSpec.describe Api::V1::Admin::TenantsController do
     Setting.find_or_create_by(name: 'SessionTimeout')
     Setting.find_or_create_by(name: 'SpecificEmailDomainSignUp')
 
-
     Permission.find_or_create_by(name: 'CreateRoom')
     Permission.find_or_create_by(name: 'ManageUsers')
     Permission.find_or_create_by(name: 'ManageRooms')
