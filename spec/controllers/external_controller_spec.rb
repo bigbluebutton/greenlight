@@ -212,40 +212,52 @@ RSpec.describe ExternalController do
                email: 'email@example.com')
       end
 
-      it 'overwrites the saved values with the values from the authentication provider if true' do
-        allow_any_instance_of(SettingGetter).to receive(:call).and_return(true)
+      context 'value is true' do
+        before do
+          reg_method = instance_double(SettingGetter)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'ResyncOnLogin', provider: 'greenlight').and_return(reg_method)
+          allow(reg_method).to receive(:call).and_return(true)
+        end
 
-        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+        it 'overwrites the saved values with the values from the authentication provider if true' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
 
-        get :create_user, params: { provider: 'openid_connect' }
+          get :create_user, params: { provider: 'openid_connect' }
 
-        user.reload
-        expect(user.name).to eq(OmniAuth.config.mock_auth[:openid_connect]['info']['name'])
-        expect(user.email).to eq(OmniAuth.config.mock_auth[:openid_connect]['info']['email'])
+          user.reload
+          expect(user.name).to eq(OmniAuth.config.mock_auth[:openid_connect]['info']['name'])
+          expect(user.email).to eq(OmniAuth.config.mock_auth[:openid_connect]['info']['email'])
+        end
+
+        it 'does not overwrite the role even if true' do
+          allow_any_instance_of(SettingGetter).to receive(:call).and_return(true)
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+          new_role = create(:role)
+          user.update(role: new_role)
+
+          get :create_user, params: { provider: 'openid_connect' }
+
+          expect(user.reload.role).to eq(new_role)
+        end
       end
 
-      it 'does not overwrite the saved values with the values from the authentication provider if false' do
-        allow_any_instance_of(SettingGetter).to receive(:call).and_return(false)
+      context 'value is false' do
+        before do
+          reg_method = instance_double(SettingGetter)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'ResyncOnLogin', provider: 'greenlight').and_return(reg_method)
+          allow(reg_method).to receive(:call).and_return(false)
+        end
 
-        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+        it 'does not overwrite the saved values with the values from the authentication provider if false' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
 
-        get :create_user, params: { provider: 'openid_connect' }
+          get :create_user, params: { provider: 'openid_connect' }
 
-        user.reload
-        expect(user.name).to eq('Example Name')
-        expect(user.email).to eq('email@example.com')
-      end
-
-      it 'does not overwrite the role even if true' do
-        allow_any_instance_of(SettingGetter).to receive(:call).and_return(true)
-        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
-
-        new_role = create(:role)
-        user.update(role: new_role)
-
-        get :create_user, params: { provider: 'openid_connect' }
-
-        expect(user.reload.role).to eq(new_role)
+          user.reload
+          expect(user.name).to eq('Example Name')
+          expect(user.email).to eq('email@example.com')
+        end
       end
     end
 
