@@ -28,12 +28,12 @@ import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
 export default function Registration() {
   const { t } = useTranslation();
   const { data: env } = useEnv();
-  const { data: siteSettings } = useSiteSettings(['RoleMapping', 'DefaultRole', 'ResyncOnLogin', 'RegistrationMethod', 'SpecificEmailDomainSignUp']);
+  const { data: siteSettings } = useSiteSettings(['RoleMapping', 'DefaultRole', 'ResyncOnLogin', 'RegistrationMethod', 'AllowedDomains']);
   const { data: roles } = useRoles();
   const updateRegistrationMethod = useUpdateSiteSetting('RegistrationMethod');
   const updateDefaultRole = useUpdateSiteSetting('DefaultRole');
   const updateRoleMapping = useUpdateSiteSetting('RoleMapping');
-  const updateDomainSignUp = useUpdateSiteSetting('SpecificEmailDomainSignUp');
+  const updateDomainSignUp = useUpdateSiteSetting('AllowedDomains');
 
   return (
     <>
@@ -102,13 +102,12 @@ export default function Registration() {
       </Row>
 
       <Row className="mb-3">
-        <strong> {t('admin.site_settings.registration.specific_email_domain_signup')} </strong>
-        <p className="text-muted">{t('admin.site_settings.registration.specific_email_domain_signup_description')}</p>
+        <strong> {t('admin.site_settings.registration.allowed_domains')} </strong>
+        <p className="text-muted">{t('admin.site_settings.registration.allowed_domains_signup_description')}</p>
         <Stack direction="horizontal">
           <input
             className="form-control"
-            // TODO add proper placeholder and defultValue
-            placeholder={t('admin.site_settings.registration.enter_domain_signup_rule')}
+            placeholder={t('admin.site_settings.registration.enter_allowed_domains_rule')}
           />
           <Button
             variant="brand"

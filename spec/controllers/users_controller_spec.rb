@@ -302,11 +302,11 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
     end
 
-    context 'Specific Email Domain Signup' do
+    context 'Allowed Domains' do
       context 'restricted domain not set' do
         before do
           site_settings = instance_double(SettingGetter)
-          allow(SettingGetter).to receive(:new).with(setting_name: 'SpecificEmailDomainSignUp', provider: 'greenlight').and_return(site_settings)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'AllowedDomains', provider: 'greenlight').and_return(site_settings)
           allow(site_settings).to receive(:call).and_return('')
         end
 
@@ -318,7 +318,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       context 'restricted domain set to 1 domain' do
         before do
           site_settings = instance_double(SettingGetter)
-          allow(SettingGetter).to receive(:new).with(setting_name: 'SpecificEmailDomainSignUp', provider: 'greenlight').and_return(site_settings)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'AllowedDomains', provider: 'greenlight').and_return(site_settings)
           allow(site_settings).to receive(:call).and_return('@domain.com')
         end
 
@@ -336,7 +336,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       context 'restricted domain set to multiple domain' do
         before do
           site_settings = instance_double(SettingGetter)
-          allow(SettingGetter).to receive(:new).with(setting_name: 'SpecificEmailDomainSignUp', provider: 'greenlight').and_return(site_settings)
+          allow(SettingGetter).to receive(:new).with(setting_name: 'AllowedDomains', provider: 'greenlight').and_return(site_settings)
           allow(site_settings).to receive(:call).and_return('@example.com,@test.com,@domain.com')
         end
 

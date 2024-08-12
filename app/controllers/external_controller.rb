@@ -168,10 +168,10 @@ class ExternalController < ApplicationController
   end
 
   def valid_domain?(email)
-    specific_domain_emails = SettingGetter.new(setting_name: 'SpecificEmailDomainSignUp', provider: current_provider).call
-    return true if specific_domain_emails.blank?
+    allowed_domain_emails = SettingGetter.new(setting_name: 'AllowedDomains', provider: current_provider).call
+    return true if allowed_domain_emails.blank?
 
-    domains = specific_domain_emails.split(',')
+    domains = allowed_domain_emails.split(',')
     domains.each do |domain|
       return true if email.end_with?(domain)
     end

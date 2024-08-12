@@ -320,9 +320,9 @@
           "invite": "Join by Invitation",
           "approval": "Approve/Decline"
         },
-        "specific_email_domain_signup": "Specific Email Domain Signup",
-        "specific_email_domain_signup_description": "Allow specific email domains to sign up. Format must be: @test.com,domain.com",
-        "enter_domain_signup_rule" : "Enter a specific domain signup rule"
+        "allowed_domains": "Allow Specific Email Domains",
+        "allowed_domains_signup_description": "Allow specific email domains to sign up. Format must be: @test.com,domain.com",
+        "enter_allowed_domains_rule" : "Enter the allowed domains"
       }
     },
     "room_configuration": {
@@ -424,7 +424,7 @@
         "helpcenter_updated": "The help center link has been updated.",
         "terms_of_service_updated": "The terms of service have been updated.",
         "maintenance_updated": "The maintenance banner has been updated.",
-        "specific_email_domain_signup_updated": "The specific email domain sign up has been updated"
+        "allowed_domains_signup_updated": "The specific email domain sign up has been updated"
       },
       "recording": {
         "recording_visibility_updated": "The recording visibility has been updated.",

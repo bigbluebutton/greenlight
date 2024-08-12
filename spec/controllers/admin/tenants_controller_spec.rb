@@ -146,7 +146,7 @@ RSpec.describe Api::V1::Admin::TenantsController do
     Setting.find_or_create_by(name: 'HelpCenter')
     Setting.find_or_create_by(name: 'Maintenance')
     Setting.find_or_create_by(name: 'SessionTimeout')
-    Setting.find_or_create_by(name: 'SpecificEmailDomainSignUp')
+    Setting.find_or_create_by(name: 'AllowedDomains')
 
     Permission.find_or_create_by(name: 'CreateRoom')
     Permission.find_or_create_by(name: 'ManageUsers')
