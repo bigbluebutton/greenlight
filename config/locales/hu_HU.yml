@@ -63,7 +63,7 @@ hu_HU:
       invitation_to_join: BigBlueButton meghívó
       you_have_been_invited: "Meghívták, hogy készítsen egy BigblueButton fiókot %{name} e-mail címmel."
       get_started: A regisztrációhoz kattintson az alábbi gombra és hajtsa végre a lépéseket.
-      valid_invitation: A meghívás 24 óráig érvényes.
+      valid_invitation: A meghívás 7 napig érvényes.
       sign_up: Regisztráció
     new_user_signup:
       new_user: Új BigBlueButton felhasználó regisztráció
