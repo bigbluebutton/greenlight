@@ -70,9 +70,11 @@ class MeetingStarter
       logoutURL: room_url,
       meta_endCallbackUrl: meeting_ended_url(host: @base_url),
       'meta_bbb-recording-ready-url': recording_ready_url(host: @base_url),
-      'meta_bbb-origin-version': ENV.fetch('VERSION_TAG', 'v3'),
       'meta_bbb-origin': 'greenlight',
-      'meta_bbb-origin-server-name': URI(@base_url).host
+      'meta_bbb-origin-server-name': URI(@base_url).host,
+      'meta_bbb-origin-version': ENV.fetch('VERSION_TAG', 'v3'),
+      'meta_bbb-context-name': @room.name,
+      'meta_bbb-context-id': @room.friendly_id
     }
   end
 
