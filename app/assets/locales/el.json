@@ -319,7 +319,10 @@
           "open": "Ενεργοποίηση εγγραφών",
           "invite": "Συμμετοχή με πρόσκληση",
           "approval": "Έγκριση/Απόρριψη"
-        }
+        },
+        "allowed_domains": "Επιτρέπονται τα email ονομάτων τομεα",
+        "allowed_domains_signup_description": "Επιτρέπονται συγκεκριμένα email ονομάτων τομεα για εγγραφή. Η μορφή πρέπει να είναι @test.com,domain.com",
+        "enter_allowed_domains_rule" : "Προσθηκη επιτρεπόμενου ονόματος τομέα "
       }
     },
     "room_configuration": {
@@ -420,7 +423,8 @@
         "privacy_policy_updated": "Η πολιτική απορρήτου ενημερώθηκε.",
         "helpcenter_updated": "Ο σύνδεσμος για το Κέντρο βοήθειας ενημερώθηκε. ",
         "terms_of_service_updated": "Οι όριο χρήσης ενημερώθηκαν.",
-        "maintenance_updated": "Το μήνυμα της λειτουργίας συντήρησης ενημερώθηκε."
+        "maintenance_updated": "Το μήνυμα της λειτουργίας συντήρησης ενημερώθηκε.",
+        "allowed_domains_signup_updated": "Τα επιτρεπόμενα ονόματα τομέα ενημερώθηκαν"
       },
       "recording": {
         "recording_visibility_updated": "Η εμφάνιση καταγραφής ενημερώθηκε.",

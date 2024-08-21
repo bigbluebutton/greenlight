@@ -319,7 +319,10 @@
           "open": "誰でも自由に登録",
           "invite": "招待制",
           "approval": "承認制"
-        }
+        },
+        "allowed_domains": "許可するEmailのドメイン",
+        "allowed_domains_signup_description": "特定のEmailドメインのみからのサインアップを許可します。@test.com や domain.com のような形式で記入してください。",
+        "enter_allowed_domains_rule" : "許可するドメインを入力"
       }
     },
     "room_configuration": {
@@ -420,7 +423,8 @@
         "privacy_policy_updated": "プライバシーに関する告知がアップデートされました。",
         "helpcenter_updated": "ヘルプセンターのリンクが更新されました。",
         "terms_of_service_updated": "利用規約が更新されました。",
-        "maintenance_updated": "メンテナンスバナーが更新されました。"
+        "maintenance_updated": "メンテナンスバナーが更新されました。",
+        "allowed_domains_signup_updated": "許可するEmailのドメインが更新されました。"
       },
       "recording": {
         "recording_visibility_updated": "録画の公開度が更新されました。",

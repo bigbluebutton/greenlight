@@ -61,6 +61,9 @@ module Api
         # Users created by a user will have the creator language by default with a fallback to the server configured default_locale.
         create_user_params[:language] = current_user&.language || I18n.default_locale if create_user_params[:language].blank?
 
+        # renders an error if the user is signing up with an invalid domain based off site settings
+        return render_error errors: Rails.configuration.custom_error_msgs[:unauthorized], status: :forbidden unless valid_domain?
+
         user = UserCreator.new(user_params: create_user_params.except(:invite_token), provider: current_provider, role: default_role).call
 
         smtp_enabled = ENV['SMTP_SERVER'].present?
@@ -183,6 +186,17 @@ module Api
         # Try to delete the invitation and return true if it succeeds
         Invitation.destroy_by(email: create_user_params[:email].downcase, provider: current_provider,
                               token: create_user_params[:invite_token]).present?
+      end
+
+      def valid_domain?
+        allowed_domains_emails = SettingGetter.new(setting_name: 'AllowedDomains', provider: current_provider).call
+        return true if allowed_domains_emails.blank?
+
+        domains = allowed_domains_emails.split(',')
+        domains.each do |domain|
+          return true if create_user_params[:email].end_with?(domain)
+        end
+        false
       end
     end
   end
