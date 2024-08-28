@@ -63,7 +63,7 @@ gl:
       invitation_to_join: Convite a BigBlueButton
       you_have_been_invited: "Vde. foi convidado por %{name} a crear unha conta de BigBlueButton por."
       get_started: "Para rexistrarse, prema no seguinte botón e siga os pasos."
-      valid_invitation: O convite é válido durante 24 horas.
+      valid_invitation: O convite é válido durante 7 días.
       sign_up: Rexistrarse
     new_user_signup:
       new_user: Novo rexistro de usuario de BigBlueButton
