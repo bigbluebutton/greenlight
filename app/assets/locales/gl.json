@@ -14,6 +14,7 @@
   "report": "Informar",
   "share": "Compartir",
   "cancel": "Cancelar",
+  "reset":   "Restabelecer",
   "close": "Pechar",
   "delete": "Eliminar",
   "copy": "Copiar a ligazón para unirse",
@@ -163,6 +164,10 @@
       "wrong_access_code": "Código de acceso incorrecto",
       "generate_viewers_access_code": "Xerar un código de acceso para os espectadores",
       "generate_mods_access_code": "Xerar un código de acceso para os moderadores",
+      "server_tag": "Seleccione un tipo de servidor para esta sala",
+      "default_tag_name": "Predeterminado",
+      "server_tag_desired": "Desexado",
+      "server_tag_required": "Obrigatorio",
       "are_you_sure_delete_room": "Confirma que quere eliminar esta sala?"
     }
   },
@@ -229,7 +234,8 @@
       "empty_invited_users_subtext": "Cando o estado dun usuario cambia a convidado, aparece aquí.",
       "invited": {
         "time_sent": "Hora de envío",
-        "valid": "Valida"
+        "valid": "Valida",
+        "revoke": "Revogar"
       }
     },
     "server_rooms": {
@@ -272,8 +278,8 @@
       "administration": {
         "administration": "Administración",
         "terms": "Terms & Conditions",
-        "privacy": "Directiva de privacidade",
-        "privacy_policy": "Directiva de privacidade",
+        "privacy": "Aviso de privacidade",
+        "privacy_policy": "Aviso de privacidade",
         "change_term_links": "Cambiar as ligazóns das condicións que aparecen na parte inferior da páxina",
         "change_privacy_link": "Cambiar a ligazón de privacidade  que aparece na parte inferior da páxina",
         "helpcenter": "Centro de axuda",
@@ -301,7 +307,7 @@
       "registration": {
         "registration": "Rexistro",
         "role_mapping_by_email": "Asignación de roles por correo",
-        "role_mapping_by_email_description": "Asigne o usuario a un rol usando o seu correo electrónico. Debe ter o formato: rol1=correo-e1, rol2=correo-e2",
+        "role_mapping_by_email_description": "Asigne o usuario a un rol usando o seu correo-e. Debe ter o formato: rol1=correo-e1, rol2=correo-e2",
         "enter_role_mapping_rule": "Introduza unha regra de asignación de roles",
         "resync_on_login": "Volver sincronizar os datos do usuario en cada acceso",
         "resync_on_login_description": "Volver sincronizar a información dun usuario cada vez que acceda, facendo que o provedor de autenticación externo coincida sempre coa información en Greenlight",
@@ -313,7 +319,10 @@
           "open": "Rexistro aberto",
           "invite": "Unirse por convite",
           "approval": "Aceptar/declinar"
-        }
+        },
+        "allowed_domains": "Dominios de correo-e permitidos",
+        "allowed_domains_signup_description": "Permitir o rexistro con dominios de correo-e específicos. O formato debe ser: @proba.com,dominio.com",
+        "enter_allowed_domains_rule" : "Introduza os dominios permitidos"
       }
     },
     "room_configuration": {
@@ -411,10 +420,11 @@
         "brand_color_updated": "A cor corporativa foi actualizada.",
         "brand_image_updated": "A imaxe corporativa foi actualizada.",
         "brand_image_deleted": "A imaxe corporativa foi eliminada.",
-        "privacy_policy_updated": "A directiva de pivacidade foi actualizada.",
+        "privacy_policy_updated": "O aviso de pivacidade foi actualizado.",
         "helpcenter_updated": "Actualizouse a ligazón do centro de axuda.",
         "terms_of_service_updated": "Actualizáronse as condicións do servizo.",
-        "maintenance_updated": "Actualizouse o báner de mantemento."
+        "maintenance_updated": "Actualizouse o báner de mantemento.",
+        "allowed_domains_signup_updated": "Foron actualizados os dominios de correo-e permitidos."
       },
       "recording": {
         "recording_visibility_updated": "Foi actualizada a visibilidade da gravación.",
@@ -429,11 +439,13 @@
         "role_permission_updated": "Foron actualizados os permisos de rol."
       },
       "invitations": {
-        "invitation_sent": "Enviouse un convite"
+        "invitation_sent": "Enviouse un convite",
+        "invitation_revoked": "Foi revogado un convite"
       }
     },
     "error": {
       "problem_completing_action": "Non é posíbel completar a acción.\n Tenteo de novo.",
+      "server_type_unavailable": "O tipo de servidor requirido non está dispoñíbel. Seleccione un tipo diferente nos axustes da sala.",
       "file_type_not_supported": "O tipo de ficheiro non é compatible.",
       "file_size_too_large": "O ficheiro é demasiado grande.",
       "file_upload_error": "Non é posíbel enviar o ficheiro.",
@@ -530,6 +542,11 @@
       },
       "url": {
         "invalid": "URL incorrecto"
+      },
+      "text_form": {
+        "value": {
+          "required": "Introduza algunha mensaxe"
+        }
       }
     },
     "room": {
