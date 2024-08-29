@@ -1,0 +1,83 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   "true": "foo"
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+cs:
+  opengraph:
+    description: Učte pomocí BigBlueButton - důvěryhodné open-source web videokonferenční platformy.
+  meeting:
+    moderator_message: "Další osoby pozvete na konferenci tím, že jim zašlete následující odkaz:"
+    access_code: "Přístupový kód: %{code}"
+  email:
+    activation:
+      account_activation: Aktivace účtu
+      welcome_to_bbb: Vítejte v BigBlueButton!
+      get_started: Začněte prosím aktivací účtu kliknutím na tlačítko níže.
+      activate_account: Aktivuj účet
+      link_expires: Odkaz má platnost 24 hodin.
+      if_link_expires: V případě vypršení odlkazu se přihlašte a požádejte o nový aktivační email.
+    invitation:
+      invitation_to_join: BigBlueButton pozvánka
+      you_have_been_invited: "%{name} Vás pozval k vytvoření účtu v BigBlueButton platformě."
+      get_started: Pro registraci nového účtu prosím klikněte na tlačítko níže a postupujte podle instrukcí.
+      valid_invitation: Pozvánka má platnost 7 dní.
+      sign_up: Registrace
+    new_user_signup:
+      new_user: Nová registrace uživatele BigBlueButton
+      new_user_description: Nový uživatel se registroval do platformy BigBlueButton.
+      name: "Jméno: %{name}"
+      email: "Email: %{email}"
+      admin_panel: "Administrační panel"
+      take_action: "Pro kontrolu nebo provedení potřebných akcí přejděte do administračního panelu"
+    reset:
+      password_reset: Resetovat heslo
+      password_reset_requested: "Reset hesla byl požadován pro %{email}."
+      password_reset_confirmation: Pro reset hesla prosím klikněte na tlačítko níže.
+      reset_password: Resetovat heslo
+      link_expires: Platnost odkazu vyprší za 1 hodinu.
+      ignore_request: "Pokud jste nežádali o reset hesla, ignorujte prosím tento email."
+  room:
+    new_room_name: "Místnost uživatele%{username}"
