@@ -32,6 +32,12 @@ module Api
         allowed_tag_names = tag_names.reject { |tag, _| tag_roles.key?(tag) && tag_roles[tag].exclude?(room.user.role_id) }
         render_data data: allowed_tag_names, status: :ok
       end
+
+      # GET /api/v1/server_tags/fallback_mode
+      # Returns global tag fallback mode (user config or global desired/required)
+      def fallback_mode
+        render_data data: Rails.configuration.server_tag_fallback_mode, status: :ok
+      end
     end
   end
 end

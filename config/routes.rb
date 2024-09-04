@@ -86,6 +86,7 @@ Rails.application.routes.draw do
       resources :rooms_configurations, only: %i[index show], param: :name
       resources :locales, only: %i[index show], param: :name
       resources :server_tags, only: :show, param: :friendly_id
+      resources :server_tags, only: :fallback_mode
 
       namespace :admin do
         resources :users, only: %i[update] do
