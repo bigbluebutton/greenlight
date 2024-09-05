@@ -33,7 +33,7 @@ module Api
         render_data data: allowed_tag_names, status: :ok
       end
 
-      # GET /api/v1/server_tags/fallback_mode
+      # GET /api/v1/server_tags/fallback_mode.json
       # Returns global tag fallback mode (user config or global desired/required)
       def fallback_mode
         render_data data: Rails.configuration.server_tag_fallback_mode, status: :ok

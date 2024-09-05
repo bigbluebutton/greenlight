@@ -45,7 +45,7 @@ export default function RoomSettings() {
   const { data: roomConfigs } = useRoomConfigs();
   const { data: room } = useRoom(friendlyId);
   const { data: serverTags } = useServerTags(friendlyId);
-  const { serverTagsFallbackMode } = useServerTagsFallbackMode();
+  const { data: serverTagsFallbackMode } = useServerTagsFallbackMode();
 
   const updateMutationWrapper = () => useUpdateRoomSetting(friendlyId);
   const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });

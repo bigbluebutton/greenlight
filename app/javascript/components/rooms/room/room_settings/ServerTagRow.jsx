@@ -109,7 +109,6 @@ export default function ServerTagRow({
 ServerTagRow.defaultProps = {
   currentTag: '',
   tagRequired: false,
-  fallbackMode: 'config',
 };
 
 ServerTagRow.propTypes = {
@@ -117,6 +116,6 @@ ServerTagRow.propTypes = {
   currentTag: PropTypes.string,
   tagRequired: PropTypes.bool,
   serverTags: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  fallbackMode: PropTypes.string,
+  fallbackMode: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
 };
