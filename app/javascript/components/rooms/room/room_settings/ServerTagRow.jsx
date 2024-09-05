@@ -68,7 +68,7 @@ export default function ServerTagRow({
           ].concat(dropdownTags)}
         </SimpleSelect>
       </Col>
-      {(fallbackMode === 'config') && (
+      {(fallbackMode !== 'desired' && fallbackMode !== 'required') && (
         <Col>
           <ButtonGroup>
             <ToggleButton
