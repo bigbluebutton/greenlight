@@ -312,7 +312,7 @@
         "resync_on_login": "サインインごとにユーザーのデーターを再同期",
         "resync_on_login_description": "サインインのたびにユーザーの情報を再同期し、外部の承認提供者の情報とGreenlightの情報とを常に一致させます",
         "default_role": "標準の役割",
-        "default_role_description": "新しく作成されたユーザーに自動的に割り当てられる役割",
+        "default_role_description": "新しく作成されたユーザーにはこの役割が自動的に割り当てられます",
         "registration_method": "登録方法",
         "registration_method_description": "ユーザーがこのサイトに登録する方法を変更します",
         "registration_methods" : {
