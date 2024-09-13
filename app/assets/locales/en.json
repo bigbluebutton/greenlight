@@ -28,7 +28,7 @@
   "no_result_search_input": "Could not find any results for \"{{ searchInput }}\"",
   "action_permanent": "This action cannot be undone.",
   "homepage": {
-    "welcome_bbb": "Welcome to BigBlueButton.",
+    "welcome_bbb": "Welcome to MyWorld.",
     "bigbluebutton_description": "BigBlueButton is an open source web conferencing system for online classes. The platform maximizes time for applied learning by enabling students to collaborate and receive feedback in real-time.",
     "greenlight_description": "Create your own rooms to host sessions, or join others using a short and convenient link.",
     "learn_more": "Learn more about BigBlueButton",
