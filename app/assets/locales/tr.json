@@ -319,7 +319,10 @@
           "open": "Serbest hesap açma",
           "invite": "Çağrı ile katılma",
           "approval": "Onayla/Reddet"
-        }
+        },
+        "allowed_domains": "İzin verilen e-posta etki alanları",
+        "allowed_domains_signup_description": "Belirli e-posta etki alanlarından hesap açılmasına izin verir. Şu biçimde yazılmalıdır: @deneme.com,etkialani.com",
+        "enter_allowed_domains_rule" : "İzin verilen etki alanlarını yazın"
       }
     },
     "room_configuration": {
@@ -420,7 +423,8 @@
         "privacy_policy_updated": "Gizlilik bildirimi güncellendi.",
         "helpcenter_updated": "Yardım merkezi bağlantısı güncellendi.",
         "terms_of_service_updated": "Hizmet koşulları güncellendi.",
-        "maintenance_updated": "Bakım duyurusu güncellendi."
+        "maintenance_updated": "Bakım duyurusu güncellendi.",
+        "allowed_domains_signup_updated": "İzin verilen e-posta etki alanları güncellendi."
       },
       "recording": {
         "recording_visibility_updated": "Kayıt görünürlüğü güncellendi.",
