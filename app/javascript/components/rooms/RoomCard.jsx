@@ -30,7 +30,6 @@ import Modal from '../shared_components/modals/Modal';
 import ShareRoomForm from './room/forms/ShareRoomForm';
 import useRoomSettings from '../../hooks/queries/rooms/useRoomSettings';
 
-
 export default function RoomCard({ room }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -39,7 +38,6 @@ export default function RoomCard({ room }) {
   const currentUser = useAuth();
   const localizedTime = localizeDateTimeString(room?.last_session, currentUser?.language);
   const roomSettings = useRoomSettings(room.friendly_id);
-
 
   return (
     <Card id="room-card" className="h-100 card-shadow border-0">

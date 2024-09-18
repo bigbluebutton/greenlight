@@ -104,7 +104,7 @@ export default function Room() {
                     <Button
                       variant="brand-outline"
                       className="mt-1 mx-2 float-end"
-                      type='button'
+                      type="button"
                     >
                       <ShareIcon className="hi-s me-1" />
                       {t('room.meeting.share_meeting')}

@@ -18,12 +18,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Square2StackIcon, CalendarIcon } from '@heroicons/react/24/outline';
-import { useAuth } from '../../../../contexts/auth/AuthProvider';
-import { Form, InputGroup, Button, Row, Col } from 'react-bootstrap';
+import {
+  Form, InputGroup, Button, Row, Col,
+} from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import { downloadICS } from '../../../../helpers/ICSDownloadHelper';
+import { useAuth } from '../../../../contexts/auth/AuthProvider';
+import downloadICS from '../../../../helpers/ICSDownloadHelper';
 import useEnv from '../../../../hooks/queries/env/useEnv';
-
 
 export default function ShareRoomForm({ room, roomSettings }) {
   const { t } = useTranslation();
@@ -31,8 +32,9 @@ export default function ShareRoomForm({ room, roomSettings }) {
   const currentUser = useAuth();
 
   function roomJoinUrl() {
-    if (room.friendly_id !== undefined)
+    if (room.friendly_id !== undefined) {
       return `${window.location}/${room.friendly_id}/join`;
+    }
     return `${window.location}/join`;
   }
 
@@ -80,7 +82,8 @@ export default function ShareRoomForm({ room, roomSettings }) {
         </InputGroup>
       </Form.Group>
 
-      {typeof room.voice_bridge_phone_number !== 'undefined' && typeof room.voice_bridge !== 'undefined' && <Form.Group className="mb-3">
+      {typeof room.voice_bridge_phone_number !== 'undefined' && typeof room.voice_bridge !== 'undefined' && (
+      <Form.Group className="mb-3">
         <Form.Label>{t('copy_voice_bridge')}</Form.Label>
         <InputGroup>
           <Form.Control
@@ -97,7 +100,8 @@ export default function ShareRoomForm({ room, roomSettings }) {
             <Square2StackIcon className="hi-s mt-0 text-muted" />
           </Button>
         </InputGroup>
-      </Form.Group>}
+      </Form.Group>
+      )}
 
       <Form.Group className="mb-3">
         <Form.Label>{t('room.meeting.download_ics')}</Form.Label>
@@ -119,8 +123,10 @@ export default function ShareRoomForm({ room, roomSettings }) {
         </InputGroup>
       </Form.Group>
 
-      {(roomSettings?.data?.glModeratorAccessCode || roomSettings?.data?.glViewerAccessCode) && <Row className='mb-3'>
-        {(roomSettings?.data?.glModeratorAccessCode) && <Form.Group as={Col}>
+      {(roomSettings?.data?.glModeratorAccessCode || roomSettings?.data?.glViewerAccessCode) && (
+      <Row className="mb-3">
+        {(roomSettings?.data?.glModeratorAccessCode) && (
+        <Form.Group as={Col}>
           <Form.Label>{t('copy_moderator_code')}</Form.Label>
           <InputGroup>
             <Form.Control
@@ -138,9 +144,11 @@ export default function ShareRoomForm({ room, roomSettings }) {
               <Square2StackIcon className="hi-s mt-0 text-muted" />
             </Button>
           </InputGroup>
-        </Form.Group>}
+        </Form.Group>
+        )}
 
-        {(roomSettings?.data?.glViewerAccessCode) && <Form.Group as={Col}>
+        {(roomSettings?.data?.glViewerAccessCode) && (
+        <Form.Group as={Col}>
           <Form.Label>{t('copy_viewer_code')}</Form.Label>
           <InputGroup>
             <Form.Control
@@ -158,8 +166,10 @@ export default function ShareRoomForm({ room, roomSettings }) {
               <Square2StackIcon className="hi-s mt-0 text-muted" />
             </Button>
           </InputGroup>
-        </Form.Group>}
-      </Row>}
+        </Form.Group>
+        )}
+      </Row>
+      )}
     </Form>
   );
 }

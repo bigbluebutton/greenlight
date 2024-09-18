@@ -14,42 +14,34 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import { createEvent } from "ics";
-import { saveAs } from "file-saver";
+import { createEvent } from 'ics';
+import { saveAs } from 'file-saver';
 
-
-const createICSContent = (name, room_name, url, voice_bridge, voice_bridge_phone_number, t, use_html) => {
-  if (use_html) {
-    return createICSWithHtml(name, room_name, url, voice_bridge, voice_bridge_phone_number, t);
-  } else {
-    return createICSWithoutHTML(name, room_name, url, voice_bridge, voice_bridge_phone_number, t);
-  }
-}
-
-const createICSWithoutHTML = (name, room_name, url, voice_bridge, voice_bridge_phone_number, t) => {
+const createICSWithoutHTML = (name, roomName, url, voiceBridge, voiceBridgePhoneNumber, t) => {
   let description = `\n\n${t('room.meeting.invite_to_meeting', { name })}\n\n${t('room.meeting.join_by_url')}:\n${url}\n`;
 
-  if (typeof voice_bridge !== 'undefined' && typeof voice_bridge_phone_number !== 'undefined') {
-    description += `\n${t('room.meeting.join_by_phone')}: ${voice_bridge_phone_number},,${voice_bridge}\nPIN: ${voice_bridge}`;
+  if (typeof voiceBridge !== 'undefined' && typeof voiceBridgePhoneNumber !== 'undefined') {
+    description += `\n${t('room.meeting.join_by_phone')}: ${voiceBridgePhoneNumber},,${voiceBridge}\nPIN: ${voiceBridge}`;
   }
 
   const date = new Date();
 
   return {
     start: [date.getFullYear(), date.getMonth() + 1, date.getDate(), 12, 0],
-    url: url,
-    description: description,
-    title: room_name,
-    location: t('room.meeting.location')
+    url,
+    description,
+    title: roomName,
+    location: t('room.meeting.location'),
   };
-}
+};
 
-const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phone_number, t) => {
-  let phone_data = "";
+const createICSWithHtml = (name, roomName, url, voiceBridge, voiceBridgePhoneNumber, t) => {
+  let phoneData = '';
 
-  if (typeof voice_bridge !== 'undefined' && typeof voice_bridge_phone_number !== 'undefined') {
-    phone_data = `<h6 style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 16px; line-height: 19.2px; margin: 0;" align="left">${t('room.meeting.join_by_phone')}:</h6>
-        <p style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">${voice_bridge_phone_number},,${voice_bridge}</p>`;
+  /* eslint-disable max-len */
+  if (typeof voiceBridge !== 'undefined' && typeof voiceBridgePhoneNumber !== 'undefined') {
+    phoneData = `<h6 style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 16px; line-height: 19.2px; margin: 0;" align="left">${t('room.meeting.join_by_phone')}:</h6>
+        <p style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">${voiceBridgePhoneNumber},,${voiceBridge}</p>`;
   }
 
   const HTML = `
@@ -117,7 +109,7 @@ const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phon
                     <h6 style="padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 16px; line-height: 19.2px; margin: 0;" align="left">${t('room.meeting.join_by_url')}</h6>
                     <p style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left"><a style="color: #0d6efd;">${url}</a></p>
                     <br>
-                    ${phone_data}
+                    ${phoneData}
                   </td>
                 </tr>
               </tbody>
@@ -132,19 +124,28 @@ const createICSWithHtml = (name, room_name, url, voice_bridge, voice_bridge_phon
 
   return {
     start: [date.getFullYear(), date.getMonth() + 1, date.getDate(), 12, 0],
-    url: url,
+    url,
     htmlContent: HTML,
-    title: room_name,
-    location: t('room.meeting.location')
+    title: roomName,
+    location: t('room.meeting.location'),
   };
-}
+};
 
-export const downloadICS = (name, room, url, voice_bridge, voice_bridge_phone_number, t, use_html) => {
-  createEvent(createICSContent(name, room, url, voice_bridge, voice_bridge_phone_number, t, use_html), (error, value) => {
-    if (error !== undefined && error != null){
-      throw new Error('Error creating ICS: ' + error);
+const createICSContent = (name, roomName, url, voiceBridge, voiceBridgePhoneNumber, t, useHtml) => {
+  if (useHtml) {
+    return createICSWithHtml(name, roomName, url, voiceBridge, voiceBridgePhoneNumber, t);
+  }
+  return createICSWithoutHTML(name, roomName, url, voiceBridge, voiceBridgePhoneNumber, t);
+};
+
+const downloadICS = (name, room, url, voiceBridge, voiceBridgePhoneNumber, t, useHtml) => {
+  createEvent(createICSContent(name, room, url, voiceBridge, voiceBridgePhoneNumber, t, useHtml), (error, value) => {
+    if (error !== undefined && error != null) {
+      throw new Error(`Error creating ICS: ${error}`);
     }
-    const blob = new Blob([value], { type: "text/plain;charset=utf-8" });
+    const blob = new Blob([value], { type: 'text/plain;charset=utf-8' });
     saveAs(blob, `bbb-meeting-${room.replace(/[/\\?%*:|"<>]/g, '')}.ics`);
   });
 };
+
+export default downloadICS;
