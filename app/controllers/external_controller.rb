@@ -32,6 +32,13 @@ class ExternalController < ApplicationController
 
     user = User.find_by(external_id: credentials['uid'], provider:)
 
+    # Fallback mechanism to search by email
+    if user.blank? && ENV.fetch('USE_EMAIL_AS_EXTERNAL_ID_FALLBACK', 'false') == 'true'
+      user = User.find_by(email: credentials['info']['email'], provider:)
+      # Update the user's external id to the latest value to avoid using the fallback
+      user.update(external_id: credentials['uid']) if user.present? && credentials['uid'].present?
+    end
+
     new_user = user.blank?
 
     registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
@@ -40,6 +47,8 @@ class ExternalController < ApplicationController
     if new_user && registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token(email: user_info[:email])
       return redirect_to root_path(error: Rails.configuration.custom_error_msgs[:invite_token_invalid])
     end
+
+    return render_error status: :forbidden unless valid_domain?(user_info[:email])
 
     # Create the user if they dont exist
     if new_user
@@ -163,5 +172,16 @@ class ExternalController < ApplicationController
       external_id: credentials['uid'],
       verified: true
     }
+  end
+
+  def valid_domain?(email)
+    allowed_domain_emails = SettingGetter.new(setting_name: 'AllowedDomains', provider: current_provider).call
+    return true if allowed_domain_emails.blank?
+
+    domains = allowed_domain_emails.split(',')
+    domains.each do |domain|
+      return true if email.end_with?(domain)
+    end
+    false
   end
 end

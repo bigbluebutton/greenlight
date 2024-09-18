@@ -63,7 +63,7 @@ ru:
       invitation_to_join: Приглашение присоединиться к BigBlueButton
       you_have_been_invited: "Вы получили приглашение создать учетную запись BigBlueButton от %{name}."
       get_started: "Чтобы зарегистрироваться, нажмите кнопку ниже и следуйте инструкциям."
-      valid_invitation: Приглашение действительно в течение 24 часов.
+      valid_invitation: Приглашение действительно в течение 7 дней
       sign_up: Зарегистрироваться
     new_user_signup:
       new_user: Новая регистрация пользователя
