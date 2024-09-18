@@ -41,8 +41,8 @@ export default function RoomCard({ room }) {
     toast.success(t('toast.success.room.copied_meeting_url'));
   }
 
-  function copyVoiceBridge(voice_bridge, voice_bridge_phone_number) {
-    navigator.clipboard.writeText(`Tel.: ${voice_bridge_phone_number} Pin: ${voice_bridge}`);
+  function copyVoiceBridge(voiceBridge, voiceBridgePhoneNumber) {
+    navigator.clipboard.writeText(`Tel.: ${voiceBridgePhoneNumber} Pin: ${voiceBridge}`);
     toast.success(t('toast.success.room.copied_voice_bridge'));
   }
 
@@ -78,12 +78,14 @@ export default function RoomCard({ room }) {
         >
           <DocumentDuplicateIcon className="hi-m mt-1 text-muted" />
         </Button>
-        {typeof room.voice_bridge_phone_number !== 'undefined' && <Button
+        {typeof room.voice_bridge_phone_number !== 'undefined' && (
+        <Button
           variant="icon"
           onClick={() => copyVoiceBridge(room.voice_bridge, room.voice_bridge_phone_number)}
         >
           <PhoneIcon className="hi-m mt-1 text-muted" />
-        </Button>}
+        </Button>
+        )}
         <Button variant="brand-outline" className="btn btn-md float-end" onClick={startMeeting.mutate} disabled={startMeeting.isLoading}>
           {startMeeting.isLoading && <Spinner className="me-2" />}
           {room.online ? (

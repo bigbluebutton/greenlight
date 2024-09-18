@@ -58,8 +58,8 @@ export default function Room() {
     }
   }
 
-  function copyVoiceBridge(voice_bridge, voice_bridge_phone_number) {
-    navigator.clipboard.writeText(`Tel.: ${voice_bridge_phone_number} Pin: ${voice_bridge}`);
+  function copyVoiceBridge(voiceBridge, voiceBridgePhoneNumber) {
+    navigator.clipboard.writeText(`Tel.: ${voiceBridgePhoneNumber} Pin: ${voiceBridge}`);
     toast.success(t('toast.success.room.copied_voice_bridge'));
   }
 
@@ -121,10 +121,17 @@ export default function Room() {
                     <Square2StackIcon className="hi-s me-1" />
                     { t('copy') }
                   </Button>
-                  {!isRoomLoading && typeof room.voice_bridge_phone_number !== 'undefined' && <Button variant="brand-outline" type="button" className="btn dropdown-main" onClick={() => copyVoiceBridge(room?.voice_bridge, room?.voice_bridge_phone_number)}>
-                      <PhoneIcon className="hi-s me-1" />
-                      {t('copy_voice_bridge')}
-                    </Button>}
+                  {!isRoomLoading && typeof room.voice_bridge_phone_number !== 'undefined' && (
+                  <Button
+                    variant="brand-outline"
+                    type="button"
+                    className="btn dropdown-main"
+                    onClick={() => copyVoiceBridge(room?.voice_bridge, room?.voice_bridge_phone_number)}
+                  >
+                    <PhoneIcon className="hi-s me-1" />
+                    {t('copy_voice_bridge')}
+                  </Button>
+                  )}
                   { (roomSettings?.data?.glModeratorAccessCode || roomSettings?.data?.glViewerAccessCode) && (
                     <Dropdown.Toggle
                       variant="brand-outline"
