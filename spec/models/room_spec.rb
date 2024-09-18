@@ -93,13 +93,6 @@ RSpec.describe Room, type: :model do
           expect(room.voice_bridge).to be_present
         end
       end
-
-      it 'prevents duplicate voice_briges' do
-        duplicate_room = create(:room)
-        unless Rails.application.config.voice_bridge_phone_number.nil?
-          expect { duplicate_room.voice_bridge = room.voice_bridge }.to change { duplicate_room.valid? }.to false
-        end
-      end
     end
   end
 
