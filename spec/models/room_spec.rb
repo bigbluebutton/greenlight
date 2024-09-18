@@ -30,7 +30,7 @@ RSpec.describe Room, type: :model do
     it { is_expected.to validate_length_of(:name).is_at_least(1).is_at_most(255) }
     it { is_expected.to validate_numericality_of(:recordings_processing).only_integer.is_greater_than_or_equal_to(0) }
 
-    # Can't test validation on friendly_id and meeting_id due to before_validations
+    # Can't test validation on friendly_id, meeting_id and voice_brige due to before_validations
 
     context 'presentation validations' do
       it 'fails if the presentation is not a valid extension' do
@@ -82,6 +82,23 @@ RSpec.describe Room, type: :model do
       it 'prevents duplicate meeting_ids' do
         duplicate_room = create(:room)
         expect { duplicate_room.meeting_id = room.meeting_id }.to change { duplicate_room.valid? }.to false
+      end
+    end
+
+    describe '#set_voice_brige' do
+      it 'sets a rooms voice_brige before creating' do
+        if Rails.application.config.voice_bridge_phone_number.nil?
+          expect(room.voice_bridge).to be_nil
+        else
+          expect(room.voice_bridge).to be_present
+        end
+      end
+
+      it 'prevents duplicate voice_briges' do
+        duplicate_room = create(:room)
+        unless Rails.application.config.voice_bridge_phone_number.nil?
+          expect { duplicate_room.voice_bridge = room.voice_bridge }.to change { duplicate_room.valid? }.to false
+        end
       end
     end
   end
