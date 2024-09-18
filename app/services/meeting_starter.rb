@@ -39,6 +39,8 @@ class MeetingStarter
       settings: 'glViewerAccessCode'
     ).call
 
+    handle_server_tag(meeting_options: options)
+
     options.merge!(computed_options(access_code: viewer_code['glViewerAccessCode']))
 
     retries = 0
@@ -67,10 +69,29 @@ class MeetingStarter
       logoutURL: room_url,
       meta_endCallbackUrl: meeting_ended_url(host: @base_url),
       'meta_bbb-recording-ready-url': recording_ready_url(host: @base_url),
-      'meta_bbb-origin-version': ENV.fetch('VERSION_TAG', 'v3'),
       'meta_bbb-origin': 'greenlight',
-      'meta_bbb-origin-server-name': URI(@base_url).host
+      'meta_bbb-origin-server-name': URI(@base_url).host,
+      'meta_bbb-origin-version': ENV.fetch('VERSION_TAG', 'v3'),
+      'meta_bbb-context-name': @room.name,
+      'meta_bbb-context-id': @room.friendly_id
     }
+  end
+
+  def handle_server_tag(meeting_options:)
+    if meeting_options['serverTag'].present?
+      tag_names = Rails.configuration.server_tag_names
+      tag_roles = Rails.configuration.server_tag_roles
+      tag = meeting_options.delete('serverTag')
+      tag_required = meeting_options.delete('serverTagRequired')
+
+      if tag_names.key?(tag) && !(tag_roles.key?(tag) && tag_roles[tag].exclude?(@room.user.role_id))
+        tag_param = tag_required == 'true' ? "#{tag}!" : tag
+        meeting_options.store('meta_server-tag', tag_param)
+      end
+    else
+      meeting_options.delete('serverTag')
+      meeting_options.delete('serverTagRequired')
+    end
   end
 
   def presentation_url

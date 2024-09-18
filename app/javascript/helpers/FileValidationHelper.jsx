@@ -68,6 +68,6 @@ export const handleError = (error, t, toast) => {
       toast.error(t('toast.error.file_type_not_supported'));
       break;
     default:
-      toast.error(t('toast.error.file_upload_error'));
+      toast.error(t('toast.error.problem_completing_action'));
   }
 };

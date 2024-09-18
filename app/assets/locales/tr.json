@@ -14,6 +14,7 @@
   "report": "Bildir",
   "share": "Paylaş",
   "cancel": "İptal",
+  "reset":   "Sıfırla",
   "close": "Kapat",
   "delete": "Sil",
   "copy": "Kopyala",
@@ -163,6 +164,10 @@
       "wrong_access_code": "Erişim kodu yanlış",
       "generate_viewers_access_code": "İzleyiciler için erişim kodu oluştur",
       "generate_mods_access_code": "Sorumlular için erişim kodu oluştur",
+      "server_tag": "Bu oda için bir sunucu türü seçin",
+      "default_tag_name": "Varsayılan",
+      "server_tag_desired": "İstenilen",
+      "server_tag_required": "Zorunlu",
       "are_you_sure_delete_room": "Bu odayı silmek istediğinize emin misiniz?"
     }
   },
@@ -229,7 +234,8 @@
       "empty_invited_users_subtext": "Durumu çağrılmış olarak değiştirilen kullanıcılar burada görüntülenir.",
       "invited": {
         "time_sent": "Gönderilme zamanı",
-        "valid": "Geçerli"
+        "valid": "Geçerli",
+        "revoke": "Geçersiz kıl"
       }
     },
     "server_rooms": {
@@ -272,8 +278,8 @@
       "administration": {
         "administration": "Yönetim",
         "terms": "Hüküm ve koşullar",
-        "privacy": "Gizlilik ilkesi",
-        "privacy_policy": "Gizlilik ilkesi",
+        "privacy": "Gizlilik bildirimi",
+        "privacy_policy": "Gizlilik bildirimi",
         "change_term_links": "Sayfanın altında görüntülenecek koşullar bağlantısını değiştir",
         "change_privacy_link": "Sayfanın altında görüntülenecek gizlilik bağlantısını değiştir",
         "helpcenter": "Yardım merkezi",
@@ -301,7 +307,7 @@
       "registration": {
         "registration": "Hesap açma",
         "role_mapping_by_email": "Roller e-postaya göre eşleştirilsin",
-        "role_mapping_by_email_description": "Kullanıcı rollerini e-postalarına göre belirler. rol1?e-posta1, rol2=e-posta2 biçiminde olmalıdır",
+        "role_mapping_by_email_description": "Kullanıcı rollerini e-postalarına göre belirler. rol1?e-posta1,rol2=e-posta2 biçiminde olmalıdır",
         "enter_role_mapping_rule": "Bir rol eşleştirme kuralı yazın",
         "resync_on_login": "Kullanıcı verileri her oturum açıldığında eşitlensin",
         "resync_on_login_description": "Bir kullanıcının bilgilerini her oturum açtığından yeniden eşitleyerek, Greenlight üzerindeki bilgilerin her zaman dış kimlik doğrulama hizmeti sağlayıcısındakiler ile aynı olmasını sağlar",
@@ -313,7 +319,10 @@
           "open": "Serbest hesap açma",
           "invite": "Çağrı ile katılma",
           "approval": "Onayla/Reddet"
-        }
+        },
+        "allowed_domains": "İzin verilen e-posta etki alanları",
+        "allowed_domains_signup_description": "Belirli e-posta etki alanlarından hesap açılmasına izin verir. Şu biçimde yazılmalıdır: @deneme.com,etkialani.com",
+        "enter_allowed_domains_rule" : "İzin verilen etki alanlarını yazın"
       }
     },
     "room_configuration": {
@@ -411,10 +420,11 @@
         "brand_color_updated": "Marka rengi güncellendi.",
         "brand_image_updated": "Marka görseli güncellendi.",
         "brand_image_deleted": "Marka görseli silindi.",
-        "privacy_policy_updated": "Gizlilik ilkesi güncellendi.",
+        "privacy_policy_updated": "Gizlilik bildirimi güncellendi.",
         "helpcenter_updated": "Yardım merkezi bağlantısı güncellendi.",
         "terms_of_service_updated": "Hizmet koşulları güncellendi.",
-        "maintenance_updated": "Bakım duyurusu güncellendi."
+        "maintenance_updated": "Bakım duyurusu güncellendi.",
+        "allowed_domains_signup_updated": "İzin verilen e-posta etki alanları güncellendi."
       },
       "recording": {
         "recording_visibility_updated": "Kayıt görünürlüğü güncellendi.",
@@ -429,11 +439,13 @@
         "role_permission_updated": "Rol yetkileri güncellendi."
       },
       "invitations": {
-        "invitation_sent": "Çağrı gönderildi"
+        "invitation_sent": "Çağrı gönderildi",
+        "invitation_revoked": "Bir çağrı geçersiz kılındı"
       }
     },
     "error": {
       "problem_completing_action": "Bu işlem yapılırken bir sorun çıktı.\nLütfen yeniden deneyin.",
+      "server_type_unavailable": "İstenilen sunucu türü kullanılamıyor. Lütfen oda ayarlarında başka bir tür seçin.",
       "file_type_not_supported": "Dosya türü desteklenmiyor.",
       "file_size_too_large": "Dosya boyutu çok büyük.",
       "file_upload_error": "Dosya yüklenemedi.",
@@ -530,6 +542,11 @@
       },
       "url": {
         "invalid": "Adres geçersiz"
+      },
+      "text_form": {
+        "value": {
+          "required": "Lütfen bir ileti yazın"
+        }
       }
     },
     "room": {
