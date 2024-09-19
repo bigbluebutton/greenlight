@@ -96,6 +96,12 @@ class ExternalController < ApplicationController
     redirect_to root_path(error: Rails.configuration.custom_error_msgs[:external_signup_error])
   end
 
+  # GET /auth/failure
+  # Provide the user with a proper error message in case of external authentication failure
+  def auth_failure
+    redirect_to root_path(error: Rails.configuration.custom_error_msgs[:external_signup_error])
+  end
+
   # POST /recording_ready
   # Creates the recording in Greenlight using information received from BigBlueButton
   def recording_ready
