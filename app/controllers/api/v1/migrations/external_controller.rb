@@ -81,8 +81,8 @@ module Api
         def create_user
           user_hash = user_params.to_h
 
-          # Re-write LDAP and Google to greenlight
-          user_hash[:provider] = %w[greenlight ldap google openid_connect].include?(user_hash[:provider]) ? 'greenlight' : user_hash[:provider]
+          # Re-write list of providers to greenlight
+          user_hash[:provider] = %w[greenlight ldap google openid_connect saml].include?(user_hash[:provider]) ? 'greenlight' : user_hash[:provider]
 
           # Returns an error if the provider does not exist
           unless user_hash[:provider] == 'greenlight' || Tenant.exists?(name: user_hash[:provider])
