@@ -21,11 +21,13 @@ desc 'Server Recordings sync with BBB server'
 task :server_recordings_sync, %i[provider] => :environment do |_task, args|
   args.with_defaults(provider: 'greenlight')
 
-  Room.includes(:user).select(:id, :meeting_id).with_provider(args[:provider]).in_batches(of: 25) do |rooms|
-    room_recordings = rooms.recordings
+  Room.select do |room|
+    room_recordings = room.recordings
     Format.where(recording: room_recordings).delete_all
     room_recordings.delete_all
+  end
 
+  Room.includes(:user).select(:id, :meeting_id).with_provider(args[:provider]).in_batches(of: 25) do |rooms|
     meeting_ids = rooms.pluck(:meeting_id)
 
     recordings = BigBlueButtonApi.new(provider: args[:provider]).get_recordings(meeting_ids:)
