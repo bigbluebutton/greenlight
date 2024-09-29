@@ -66,7 +66,7 @@ module Api
         # Deletes a role
         def destroy
           undeletable_roles = %w[User Administrator Guest]
-          return render_error errors: @role.errors.to_a, status: :method_not_allowed if undeletable_roles.include?(@role.name)
+          return render_error errors: @role.errors.to_a, status: :method_not_allowed if undeletable_roles.include?(@role.name) || User.find_by(role_id: @role.id)
 
           @role.destroy!
 
