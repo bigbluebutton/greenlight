@@ -57,7 +57,14 @@ module Api
         # POST /api/v1/:id/roles.json
         # Updates a role
         def update
+          old_role_name = @role.name
+
           return render_error errors: @role.errors.to_a, status: :bad_request unless @role.update role_params
+
+          # update the 'DefaultRole' site setting value, if it used to be the current role.
+          default_role_site_setting = SiteSetting.joins(:setting).find_by(provider: current_provider, setting: { name: 'DefaultRole'})
+
+          default_role_site_setting.update(value: @role.name) if default_role_site_setting.value == old_role_name
 
           render_data status: :ok
         end
@@ -68,6 +75,10 @@ module Api
           undeletable_roles = %w[User Administrator Guest]
           return render_error errors: @role.errors.to_a, status: :method_not_allowed if undeletable_roles.include?(@role.name) || User.find_by(role_id: @role.id)
 
+          # prevent role from being deleted if its the default role in site setting
+          default_role_site_setting = SiteSetting.joins(:setting).find_by(provider: current_provider, setting: { name: 'DefaultRole'})
+
+          return render_error status: :forbidden if default_role_site_setting.value == @role.name
           @role.destroy!
 
           render_data status: :ok
