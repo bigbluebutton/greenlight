@@ -102,7 +102,8 @@ class Room < ApplicationRecord
     retry
   end
 
-  # Create unique pin for voice brige max 10^x - 10^(x-1) unique ids (x = len of pin)
+  # Create unique pin for voice brige max 10^x - 10^(x-1) unique ids (x = length of the pin)
+  # x can be set in the .env to create a larger range for server with more rooms
   # No leading Zeros
   def set_voice_bridge
     self.voice_bridge = nil
