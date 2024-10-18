@@ -45,7 +45,11 @@ class HealthChecksController < ApplicationController
   end
 
   def check_redis
-    Redis.new.ping
+    if Greenlight::Application.config.cache_store == :null_store
+      Redis.new.ping
+    else
+      Redis.new(Greenlight::Application.config.cache_store[1].except(:adapter, :channel_prefix)).ping
+    end
   rescue StandardError => e
     raise "Unable to connect to Redis - #{e}"
   end
