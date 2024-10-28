@@ -106,7 +106,7 @@ GEM
       aws-sigv4 (~> 1.4)
     aws-sigv4 (1.5.2)
       aws-eventstream (~> 1, >= 1.0.2)
-    base64 (0.1.2)
+    base64 (0.2.0)
     bcrypt (3.1.18)
     bigbluebutton-api-ruby (1.9.1)
       childprocess (>= 1.0.1)
@@ -231,7 +231,7 @@ GEM
     jmespath (1.6.2)
     jsbundling-rails (1.2.2)
       railties (>= 6.0.0)
-    json (2.6.3)
+    json (2.7.4)
     json-jwt (1.16.6)
       activesupport (>= 4.2)
       aes_key_wrap
@@ -307,8 +307,8 @@ GEM
       webfinger (~> 2.0)
     os (1.1.4)
     pagy (6.0.4)
-    parallel (1.23.0)
-    parser (3.2.2.3)
+    parallel (1.26.3)
+    parser (3.3.5.0)
       ast (~> 2.4.1)
       racc
     pg (1.4.5)
@@ -370,7 +370,7 @@ GEM
     rdoc (6.7.0)
       psych (>= 4.0.0)
     redis (4.8.0)
-    regexp_parser (2.8.1)
+    regexp_parser (2.9.2)
     reline (0.5.10)
       io-console (~> 0.5)
     remote_syslog_logger (1.0.4)
@@ -382,7 +382,7 @@ GEM
     request_store (1.5.1)
       rack (>= 1.4)
     retriable (3.1.2)
-    rexml (3.2.6)
+    rexml (3.3.9)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
     rspec-expectations (3.12.3)
@@ -400,20 +400,18 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.12.1)
-    rubocop (1.56.1)
-      base64 (~> 0.1.1)
+    rubocop (1.67.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
-      parser (>= 3.2.2.3)
+      parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
-      regexp_parser (>= 1.8, < 3.0)
-      rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.28.1, < 2.0)
+      regexp_parser (>= 2.4, < 3.0)
+      rubocop-ast (>= 1.32.2, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.29.0)
-      parser (>= 3.2.1.0)
+    rubocop-ast (1.32.3)
+      parser (>= 3.3.1.0)
     rubocop-capybara (2.19.0)
       rubocop (~> 1.41)
     rubocop-factory_bot (2.24.0)
@@ -462,7 +460,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
-    unicode-display_width (2.4.2)
+    unicode-display_width (2.6.0)
     uri (0.13.0)
     validate_email (0.1.6)
       activemodel (>= 3.0)
@@ -538,7 +536,7 @@ DEPENDENCIES
   redis (~> 4.0)
   remote_syslog_logger
   rspec-rails (>= 6.0.4)
-  rubocop (~> 1.26)
+  rubocop (~> 1.66, >= 1.66.0)
   rubocop-capybara (~> 2.19.0)
   rubocop-factory_bot (~> 2.24.0)
   rubocop-performance (~> 1.13)
@@ -551,3 +549,9 @@ DEPENDENCIES
   web-console (>= 4.2.1)
   webdrivers
   webmock
+
+RUBY VERSION
+   ruby 3.0.0p0
+
+BUNDLED WITH
+   2.2.3

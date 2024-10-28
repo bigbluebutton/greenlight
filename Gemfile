@@ -40,7 +40,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'rubocop', '~> 1.26', require: false
+  gem 'rubocop', '~> 1.66', '>= 1.66.0', require: false
   gem 'rubocop-capybara', '~> 2.19.0', require: false
   gem 'rubocop-factory_bot', '~> 2.24.0', require: false
   gem 'rubocop-performance', '~> 1.13', require: false
