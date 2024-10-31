@@ -67,7 +67,7 @@ describe MeetingStarter, type: :service do
 
       expect(RoomSettingsGetter)
         .to receive(:new)
-        .with(room_id: room.id, provider: 'greenlight', current_user: user, only_bbb_options: true)
+        .with(room_id: room.id, provider: 'greenlight', current_user: user, only_bbb_options: true, voice_bridge: room.voice_bridge)
 
       expect(room_setting_getter_service)
         .to receive(:call)
