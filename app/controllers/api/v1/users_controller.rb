@@ -169,7 +169,9 @@ module Api
       end
 
       def update_user_params
-        @update_user_params ||= if external_auth?
+        @update_user_params ||= if external_auth? && current_user.role.name.eql?('Administrator')
+                                  params.require(:user).permit(:name)
+                                elsif external_auth?
                                   params.require(:user).permit(:password, :avatar, :language, :role_id, :invite_token)
                                 else
                                   params.require(:user).permit(:name, :password, :avatar, :language, :role_id, :invite_token)
