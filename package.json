@@ -9,7 +9,7 @@
     "@hookform/resolvers": "^2.8.8",
     "@popperjs/core": "^2.11.5",
     "@rails/actioncable": "^7.0.2",
-    "axios": "^1.6.0",
+    "axios": "^1.7.4",
     "bootstrap": "5.3.2",
     "bootstrap-icons": "^1.8.3",
     "esbuild": "^0.19.9",

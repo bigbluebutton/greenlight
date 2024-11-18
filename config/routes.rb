@@ -85,6 +85,7 @@ Rails.application.routes.draw do
       resources :site_settings, only: :index
       resources :rooms_configurations, only: %i[index show], param: :name
       resources :locales, only: %i[index show], param: :name
+      resources :server_tags, only: :show, param: :friendly_id
 
       namespace :admin do
         resources :users, only: %i[update] do
@@ -106,7 +107,7 @@ Rails.application.routes.draw do
         end
         resources :rooms_configurations, only: :update, param: :name
         resources :roles
-        resources :invitations, only: %i[index create]
+        resources :invitations, only: %i[index create destroy]
         resources :role_permissions, only: [:index] do
           collection do
             post '/', to: 'role_permissions#update'

@@ -18,7 +18,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::Admin::TenantsController, type: :controller do
+RSpec.describe Api::V1::Admin::TenantsController do
   let(:user) { create(:user, :with_super_admin) }
   let(:valid_tenant_params) do
     {
@@ -142,6 +142,11 @@ RSpec.describe Api::V1::Admin::TenantsController, type: :controller do
     Setting.find_or_create_by(name: 'PreuploadPresentation')
     Setting.find_or_create_by(name: 'RoleMapping')
     Setting.find_or_create_by(name: 'DefaultRole')
+    Setting.find_or_create_by(name: 'DefaultRecordingVisibility')
+    Setting.find_or_create_by(name: 'HelpCenter')
+    Setting.find_or_create_by(name: 'Maintenance')
+    Setting.find_or_create_by(name: 'SessionTimeout')
+    Setting.find_or_create_by(name: 'AllowedDomains')
 
     Permission.find_or_create_by(name: 'CreateRoom')
     Permission.find_or_create_by(name: 'ManageUsers')

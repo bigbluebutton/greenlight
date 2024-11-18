@@ -14,6 +14,7 @@
   "report": "Report",
   "share": "Share",
   "cancel": "Cancel",
+  "reset":   "Reset",
   "close": "Close",
   "delete": "Delete",
   "copy": "Copy Join Link",
@@ -163,6 +164,10 @@
       "wrong_access_code": "Wrong Access Code",
       "generate_viewers_access_code": "Generate access code for viewers",
       "generate_mods_access_code": "Generate access code for moderators",
+      "server_tag": "Select a server type for this room",
+      "default_tag_name": "Default",
+      "server_tag_desired": "Desired",
+      "server_tag_required": "Required",
       "are_you_sure_delete_room": "Are you sure you want to delete this room?"
     }
   },
@@ -229,7 +234,8 @@
       "empty_invited_users_subtext": "When a user's status gets changed to invited, they will appear here.",
       "invited": {
         "time_sent": "Time Sent",
-        "valid": "Valid"
+        "valid": "Valid",
+        "revoke": "Revoke"
       }
     },
     "server_rooms": {
@@ -272,8 +278,8 @@
       "administration": {
         "administration": "Administration",
         "terms": "Terms & Conditions",
-        "privacy": "Privacy Policy",
-        "privacy_policy": "Privacy Policy",
+        "privacy": "Privacy Notice",
+        "privacy_policy": "Privacy Notice",
         "change_term_links": "Change the terms links that appears at the bottom of the page",
         "change_privacy_link": "Change the privacy link that appears at the bottom of the page",
         "helpcenter": "Help Center",
@@ -301,7 +307,7 @@
       "registration": {
         "registration": "Registration",
         "role_mapping_by_email": "Role Mapping By Email",
-        "role_mapping_by_email_description": "Map the user to a role using their email. Must be in the format: role1=email1, role2=email2",
+        "role_mapping_by_email_description": "Map the user to a role using their email. Must be in the format: role1=email1,role2=email2",
         "enter_role_mapping_rule": "Enter a role mapping rule",
         "resync_on_login": "Resync User Data On Every Sign In",
         "resync_on_login_description": "Resync a user's information every time they sign in, making the external authentication provider always match the information in Greenlight",
@@ -313,7 +319,10 @@
           "open": "Open Registration",
           "invite": "Join by Invitation",
           "approval": "Approve/Decline"
-        }
+        },
+        "allowed_domains": "Allowed Email Domains",
+        "allowed_domains_signup_description": "Allow specific email domains to sign up. Format must be: @test.com,domain.com",
+        "enter_allowed_domains_rule" : "Enter the allowed domains"
       }
     },
     "room_configuration": {
@@ -411,10 +420,11 @@
         "brand_color_updated": "The brand color has been updated.",
         "brand_image_updated": "The brand image has been updated.",
         "brand_image_deleted": "The brand image has been deleted.",
-        "privacy_policy_updated": "The privacy policy has been updated.",
+        "privacy_policy_updated": "The privacy notice has been updated.",
         "helpcenter_updated": "The help center link has been updated.",
         "terms_of_service_updated": "The terms of service have been updated.",
-        "maintenance_updated": "The maintenance banner has been updated."
+        "maintenance_updated": "The maintenance banner has been updated.",
+        "allowed_domains_signup_updated": "The allowed email domains have been updated."
       },
       "recording": {
         "recording_visibility_updated": "The recording visibility has been updated.",
@@ -429,11 +439,13 @@
         "role_permission_updated": "The role permission has been updated."
       },
       "invitations": {
-        "invitation_sent": "An invitation has been sent."
+        "invitation_sent": "An invitation has been sent.",
+        "invitation_revoked": "An invitation has been revoked"
       }
     },
     "error": {
       "problem_completing_action": "The action can't be completed. \n Please try again.",
+      "server_type_unavailable": "The required server type is unavailable. Please select a different type in the room settings.",
       "file_type_not_supported": "The file type is not supported.",
       "file_size_too_large": "The file size is too large.",
       "file_upload_error": "The file can't be uploaded.",
@@ -530,6 +542,11 @@
       },
       "url": {
         "invalid": "Invalid URL"
+      },
+      "text_form": {
+        "value": {
+          "required": "Please enter some message"
+        }
       }
     },
     "room": {

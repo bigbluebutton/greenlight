@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -29,8 +29,28 @@ export default function LinksForm({ id, value, mutation: useUpdateSiteSettingsAP
 
   const { methods, fields } = useLinksForm({ defaultValues: { value } });
 
+  const formText = useRef('');
+
+  useEffect(() => {
+    if (methods) {
+      methods.reset({ value });
+      formText.current = value;
+    }
+  }, [methods, value]);
+
+  const handleSubmit = useCallback(
+    (formData) => {
+      if (formText.current !== formData[`${fields.value.hookForm.id}`]) {
+        formText.current = formData[`${fields.value.hookForm.id}`];
+        return updateSiteSettingsAPI.mutate(formData);
+      }
+      return null;
+    },
+    [updateSiteSettingsAPI.mutate],
+  );
+
   return (
-    <Form id={id} methods={methods} onSubmit={updateSiteSettingsAPI.mutate}>
+    <Form id={id} methods={methods} onSubmit={handleSubmit}>
       <FormControl
         field={fields.value}
         aria-describedby={`${id}-submit-btn`}

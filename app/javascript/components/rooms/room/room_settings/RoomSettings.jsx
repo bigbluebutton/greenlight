@@ -33,6 +33,8 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import UpdateRoomNameForm from './forms/UpdateRoomNameForm';
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
 import UnshareRoom from './UnshareRoom';
+import useServerTags from '../../../../hooks/queries/rooms/useServerTags';
+import ServerTagRow from './ServerTagRow';
 
 export default function RoomSettings() {
   const { t } = useTranslation();
@@ -41,6 +43,7 @@ export default function RoomSettings() {
   const roomSetting = useRoomSettings(friendlyId);
   const { data: roomConfigs } = useRoomConfigs();
   const { data: room } = useRoom(friendlyId);
+  const { data: serverTags } = useServerTags(friendlyId);
 
   const updateMutationWrapper = () => useUpdateRoomSetting(friendlyId);
   const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
@@ -66,6 +69,15 @@ export default function RoomSettings() {
                 config={roomConfigs?.glModeratorAccessCode}
                 description={t('room.settings.generate_mods_access_code')}
               />
+              {serverTags && Object.keys(serverTags).length !== 0 && (
+                <ServerTagRow
+                  updateMutation={updateMutationWrapper}
+                  currentTag={roomSetting?.data?.serverTag}
+                  tagRequired={roomSetting?.data?.serverTagRequired === 'true'}
+                  serverTags={serverTags}
+                  description={t('room.settings.server_tag')}
+                />
+              )}
             </Col>
             <Col className="ps-4">
               <Row> <h6 className="text-brand">{ t('room.settings.user_settings') }</h6> </Row>
@@ -85,13 +97,16 @@ export default function RoomSettings() {
                 config={roomConfigs?.glRequireAuthentication}
                 description={t('room.settings.require_signed_in')}
               />
+
               <RoomSettingsRow
                 settingName="guestPolicy"
                 updateMutation={updateMutationWrapper}
                 value={roomSetting?.data?.guestPolicy}
                 config={roomConfigs?.guestPolicy}
                 description={t('room.settings.require_mod_approval')}
+                disabled={roomSetting?.data?.glAnyoneJoinAsModerator === 'true'}
               />
+
               <RoomSettingsRow
                 settingName="glAnyoneCanStart"
                 updateMutation={updateMutationWrapper}

@@ -39,12 +39,15 @@ describe MeetingStarter, type: :service do
     url = File.join(base_url, '/rooms/', room.friendly_id, '/join')
     {
       moderatorOnlyMessage: "#{I18n.t('meeting.moderator_message', locale: user.language.to_sym)}<br>#{url}",
+      loginURL: url,
       logoutURL: url,
       meta_endCallbackUrl: File.join(base_url, '/meeting_ended'),
       'meta_bbb-recording-ready-url': File.join(base_url, '/recording_ready'),
       'meta_bbb-origin-version': 'v3',
       'meta_bbb-origin': 'greenlight',
       'meta_bbb-origin-server-name': URI(base_url).host,
+      'meta_bbb-context-name': room.name,
+      'meta_bbb-context-id': room.friendly_id,
       setting: 'value'
     }
   end

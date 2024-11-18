@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -25,34 +25,80 @@ import FormControl from '../../../shared_components/forms/FormControl';
 import useTextForm from '../../../../hooks/forms/admin/site_settings/useTextForm';
 
 export default function TextForm({ id, value, mutation: useUpdateSiteSettingsAPI }) {
-  const updateSiteSettingsAPI = useUpdateSiteSettingsAPI();
+  const updateSiteSettingsAPISetText = useUpdateSiteSettingsAPI();
+  const updateSiteSettingsAPIClearText = useUpdateSiteSettingsAPI();
+
   const { t } = useTranslation();
-  const maintenanceBannerId = localStorage.getItem('maintenanceBannerId');
 
   const { methods, fields } = useTextForm({ defaultValues: { value } });
+
+  const formText = useRef('');
+
+  useEffect(() => {
+    if (methods) {
+      methods.reset({ value });
+      formText.current = value;
+    }
+  }, [methods, value]);
+
+  const dismissMaintenanceBannerToast = () => {
+    const maintenanceBannerId = localStorage.getItem('maintenanceBannerId');
+    if (maintenanceBannerId) {
+      toast.dismiss(maintenanceBannerId);
+      localStorage.removeItem('maintenanceBannerId');
+    }
+  };
 
   // Function to clear the form
   const clearForm = () => {
     methods.reset({ value: '' });
-    toast.dismiss(maintenanceBannerId);
-    updateSiteSettingsAPI.mutate('');
+    dismissMaintenanceBannerToast();
+    if (formText.current) {
+      formText.current = '';
+      updateSiteSettingsAPIClearText.mutate('');
+    }
   };
 
+  const handleSubmit = useCallback((formData) => {
+    if (formText.current !== formData[`${fields.value.hookForm.id}`]) {
+      dismissMaintenanceBannerToast();
+      formText.current = formData[`${fields.value.hookForm.id}`];
+      return updateSiteSettingsAPISetText.mutate(formData);
+    }
+    return null;
+  }, [updateSiteSettingsAPISetText.mutate]);
+
   return (
-    <Form id={id} methods={methods} onSubmit={updateSiteSettingsAPI.mutate}>
+    <Form id={id} methods={methods} onSubmit={handleSubmit}>
       <FormControl
         field={fields.value}
         aria-describedby={`${id}-submit-btn`}
         type="text"
+        as="textarea"
+        rows={3}
         noLabel
       />
-      <Button id={`${id}-clear-btn`} className="mb-2 float-end" variant="brand" onClick={clearForm} disabled={updateSiteSettingsAPI.isLoading}>
-        {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
-        { t('admin.site_settings.administration.clear_banner') }
+      <Button
+        id={`${id}-clear-btn`}
+        className="mb-2 float-end"
+        variant="danger"
+        onClick={clearForm}
+        disabled={updateSiteSettingsAPIClearText.isLoading}
+      >
+        {updateSiteSettingsAPIClearText.isLoading && (
+          <Spinner className="me-2" />
+        )}
+        {t('admin.site_settings.administration.clear_banner')}
       </Button>
-      <Button id={`${id}-submit-btn`} className="mb-2 float-end me-2" variant="brand" type="submit" disabled={updateSiteSettingsAPI.isLoading}>
-        {updateSiteSettingsAPI.isLoading && <Spinner className="me-2" />}
-        { t('admin.site_settings.administration.set_text') }
+      <Button
+        id={`${id}-submit-btn`}
+        className="mb-2 float-end me-2"
+        variant="brand"
+        type="submit"
+        disabled={updateSiteSettingsAPISetText.isLoading}
+      >
+        {updateSiteSettingsAPISetText.isLoading && <Spinner className="me-2" />}
+        {t('admin.site_settings.administration.set_text')}
       </Button>
     </Form>
   );

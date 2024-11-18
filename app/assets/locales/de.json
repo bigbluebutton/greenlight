@@ -17,6 +17,8 @@
   "close": "Schließen",
   "delete": "Löschen",
   "copy": "Einladungslink kopieren",
+  "copy_viewer_code": "Zugangscode für Zuhörerende kopieren",
+  "copy_moderator_code": "Zugangscode für Moderation kopieren",
   "or": "oder",
   "online": "Online",
   "help_center": "Hilfe",
@@ -61,15 +63,15 @@
     "already_have_account": "Konto bereits vorhanden?"
   },
   "user": {
-    "user": "Nutzer:in",
-    "users": "Nutzer:innen",
+    "user": "Nutzer",
+    "users": "Nutzende",
     "name": "Name",
     "email_address": "E-Mail-Adresse",
     "authenticator": "Authentifizierungsanbieter",
     "full_name": "Vollständiger Name",
-    "no_user_found": "Keine Nutzer:innen gefunden",
-    "type_three_characters": "Bitte gib mindestens drei (3) Zeichen ein, um andere Nutzer:innen anzuzeigen.",
-    "search_not_found": "Keine Nutzer:innen gefunden",
+    "no_user_found": "Keine Nutzenden gefunden",
+    "type_three_characters": "Bitte gib mindestens drei (3) Zeichen ein, um andere Nutzende anzuzeigen.",
+    "search_not_found": "Keine Nutzenden gefunden",
     "profile": {
       "profile": "Profil",
       "language": "Sprache",
@@ -137,7 +139,7 @@
       "access": "Zugriff",
       "add_share_access": "Zugriff teilen",
       "share_room_access": "Teile Raumzugriff",
-      "add_some_users": "Füge jetzt ein paar Nutzer:innen hinzu!",
+      "add_some_users": "Füge jetzt ein paar Nutzende hinzu!",
       "add_some_users_description": "Um jemanden hinzuzufügen, klicke den Knopf unten und suche beziehungsweise wähle aus, mit wem du den Raum teilen möchtest.",
       "delete_shared_access": "Freigegebenen Raumzugriff löschen",
       "are_you_sure_delete_shared_access": "Freigegebenen Raumzugriff wirklich löschen?"
@@ -147,19 +149,19 @@
       "room_name": "Raumname",
       "user_settings": "Nutzer-Einstellungen",
       "allow_room_to_be_recorded": "Raum darf aufgezeichnet werden",
-      "require_signed_in": "Nutzer:innen müssen vor dem Beitritt eingeloggt sein",
+      "require_signed_in": "Nutzende müssen vor dem Beitritt eingeloggt sein",
       "require_signed_in_message": "Login erforderlich um beizutreten.",
       "require_mod_approval": "Moderation muss dem Beitritt zustimmen",
-      "allow_any_user_to_start": "Jede:r kann die Konferenz starten",
-      "all_users_join_as_mods": "Jede:r nimmt als Moderation teil",
-      "mute_users_on_join": "Nutzer:innen anfangs stummschalten",
+      "allow_any_user_to_start": "Alle Nutzenden können die Konferenz starten",
+      "all_users_join_as_mods": "Alle Nutzenden nehmen als Moderation teil",
+      "mute_users_on_join": "Nutzende anfangs stummschalten",
       "generate": "Generieren",
       "access_code": "Zugangscode",
       "mod_access_code": "Zugangscode für Moderation",
       "mod_access_code_optional": "Zugangscode für Moderation (optional)",
       "access_code_required": "Bitte den Zugangscode eingeben",
       "wrong_access_code": "Falscher Zugangscode",
-      "generate_viewers_access_code": "Zugangscode für Zuhörer:innen generieren",
+      "generate_viewers_access_code": "Zugangscode für Zuhörende generieren",
       "generate_mods_access_code": "Zugangscode für die Moderation generieren",
       "are_you_sure_delete_room": "Diesen Raum wirklich löschen?"
     }
@@ -170,7 +172,7 @@
     "processing": "Aufzeichnungen werden erstellt...",
     "name": "Name",
     "length": "Länge",
-    "users": "Nutzer:innen",
+    "users": "Nutzende",
     "visibility": "Sichtbarkeit",
     "formats": "Formate",
     "published": "Veröffentlicht",
@@ -192,7 +194,7 @@
   "admin": {
     "admin_panel": "Administration",
     "manage_users": {
-      "manage_users": "Nutzer:in verwalten",
+      "manage_users": "Nutzende verwalten",
       "active": "Aktiv",
       "approve": "Zulassen",
       "decline": "Ablehnen",
@@ -202,7 +204,7 @@
       "unban": "Entsperren",
       "deleted": "Gelöscht",
       "invited_tab": "Eingeladen",
-      "invite_user": "Nutzer:in einladen",
+      "invite_user": "Nutzende einladen",
       "send_invitation": "Einladung senden",
       "enter_user_email": "E-Mail eingeben",
       "new_user": "Neue Nutzer:in",
@@ -210,20 +212,20 @@
       "create_new_user": "Neue Nutzer:in erstellen",
       "edit_user": "Nutzer:in ändern",
       "delete_user": "Nutzer:in löschen",
-      "users_edit_path": "Nutzer:innen/Bearbeiten",
+      "users_edit_path": "Nutzer/Bearbeiten",
       "create_account": "Konto erstellen",
       "create_room": "Raum erstellen",
       "create_new_room": "Neuen Raum erstellen",
       "user_created_at": "Erstellt am: {{localizedTime}}",
       "are_you_sure_delete_account": "Wirklich das Konto von {{user.name}} löschen?",
       "delete_account_warning": "Wenn dieses Konto gelöscht wird, kann es NICHT wiederhergestellt werden.",
-      "empty_active_users": "Es gibt noch keine aktiven Nutzer:innen auf diesem Server!",
+      "empty_active_users": "Es gibt noch keine aktiven Nutzenden auf diesem Server!",
       "empty_active_users_subtext": "Wenn der Status eines Nutzers/einer Nutzerin auf \"aktiv\" geändert wird, wird er hier angezeigt.",
-      "empty_pending_users": "Es sind noch keine freizugebenden Nutzer:innen auf diesem Server!",
+      "empty_pending_users": "Es sind noch keine freizugebenden Nutzenden auf diesem Server!",
       "empty_pending_users_subtext": "Wenn der Status eines Nutzers/einer Nutzerin auf \"ausstehend\" geändert wird, erscheint er hier.",
-      "empty_banned_users": "Es gibt noch keine gesperrten Nutzer:innen auf diesem Server!",
+      "empty_banned_users": "Es gibt noch keine gesperrten Nutzenden auf diesem Server!",
       "empty_banned_users_subtext": "Wenn der Status eines Nutzers/einer Nutzerin auf \"gesperrt\" geändert wird, erscheint er hier.",
-      "empty_invited_users": "Es sind noch keine eingeladenen Nutzer:innen auf diesem Server!",
+      "empty_invited_users": "Es sind noch keine eingeladenen Nutzenden auf diesem Server!",
       "empty_invited_users_subtext": "Wenn der Status eines Nutzers/einer Nutzerin auf \"eingeladen\" geändert wird, erscheint er hier.",
       "invited": {
         "time_sent": "Sendezeitpunkt",
@@ -235,7 +237,7 @@
       "name": "Name",
       "owner": "Besitzer:in",
       "room_id": "Raum-ID",
-      "participants": "Teilnehmer:innen",
+      "participants": "Teilnehmende",
       "status": "Status",
       "running": "Laufend",
       "not_running": "Nicht laufend",
@@ -274,7 +276,13 @@
         "privacy_policy": "Datenschutzerklärung",
         "change_term_links": "Ändere den Link zu den Nutzungsbedingungen, der unten auf der Seite erscheint.",
         "change_privacy_link": "Ändere den Link zur Datenschutzerklärung, der unten auf der Seite erscheint.",
+        "helpcenter": "Hilfeseite",
+        "change_helpcenter_link": "Ändern Sie den Link zur Hilfeseite, der unter dem Profil-Dropdown erscheint",
+        "maintenance": "Wartungshinweis",
+        "change_maintenance_text": "Ändern Sie den Text des Wartungshinweises, der in der Kopfzeile erscheint",
         "change_url": "URL ändern",
+        "set_text": "Text eingeben",
+        "clear_banner": "Banner entfernen",
         "enter_link": "Link eingeben"
       },
       "settings": {
@@ -282,7 +290,13 @@
         "allow_users_to_share_rooms": "Räume können geteilt werden",
         "allow_users_to_share_rooms_description": "Wenn dies deaktiviert ist, dann wird der Knopf zum Teilen eines Raums von den Raumeinstellungen entfernt.",
         "allow_users_to_preupload_presentation": "Präsentationen können hochgeladen werden",
-        "allow_users_to_preupload_presentation_description": "Nutzer:innen können eine Präsentation im Voraus hochladen, die dann als Standard für diesen Raum genutzt wird."
+        "allow_users_to_preupload_presentation_description": "Nutzende können eine Präsentation im Voraus hochladen, die dann als Standard für diesen Raum genutzt wird.",
+        "default_visibility": "Standard-Sichtbarkeit der Aufnahmen",
+        "default_visibility_description": "Alle neu erstellten Aufnahmen haben standardmäßig diese Sichtbarkeit",
+        "session_timeout": "Timeout der Sitzung",
+        "session_timeout_description": "Sie können das Sitzungs-Timeout mit einem Standard-Cookie von 1 Tag oder einem erweiterten Sitzungs-Cookie von 7 Tagen konfigurieren",
+        "default_session_timeout": "Standard (1 Tag)",
+        "extended_session_timeout": "Erweitert (7 Tage)"
       },
       "registration": {
         "registration": "Registrierung",
@@ -292,7 +306,7 @@
         "resync_on_login": "Daten bei jedem Login aktualisieren",
         "resync_on_login_description": "Daten bei jedem Login aktualisieren, so dass Greenlight immer dieselben Informationen hat, wie der externe Authentifizierungsanbieter",
         "default_role": "Standard-Rolle",
-        "default_role_description": "Standard-Rolle, die neuen Nutzer:innen zugeteilt wird",
+        "default_role_description": "Standard-Rolle, die neuen Nutzenden zugeteilt wird",
         "registration_method": "Registrierungs-Methode",
         "registration_method_description": "Registrierungs-Methoden ändern",
         "registration_methods" : {
@@ -311,20 +325,20 @@
       "configurations": {
         "allow_room_to_be_recorded": "Raum kann aufgezeichnet werden",
         "allow_room_to_be_recorded_description": "Aufzeichnungen erlauben. Wenn aktiviert, muss die Moderation immer noch den \"Aufnahme\"-Knopf drücken, nachdem die Konferenz begonnen hat.",
-        "require_user_signed_in": "Nutzer:innen müssen eingeloggt sein, um teilzunehmen",
+        "require_user_signed_in": "Nutzende müssen eingeloggt sein, um teilzunehmen",
         "require_user_signed_in_description": "Teilnahme an der Konferenz ist nur mit einem Konto in Greenlight möglich. Wer nicht eingeloggt ist, wird auf die Login-Seite weitergeleitet.",
         "require_mod_approval": "Moderation muss der Teilnahme zustimmen",
         "require_mod_approval_description": "Fragt die Moderation der Konferenz an, wenn eine Nutzer:in teilnehmen möchte. Wenn die Moderation das erlaubt, kann die Nutzer:in teilnehmen.",
-        "allow_any_user_to_start_meeting": "Jede:r kann die Konferenz starten",
-        "allow_any_user_to_start_meeting_description": "Erlaubt Nutzer:innen die Konferenz jederzeit zu starten. Standardmäßig kann nur die Raumbesitzer:in die Konferenz starten.",
-        "allow_users_to_join_as_mods": "Jede:r kann moderieren",
+        "allow_any_user_to_start_meeting": "Alle Nutzenden die Konferenz starten",
+        "allow_any_user_to_start_meeting_description": "Erlaubt Nutzenden die Konferenz jederzeit zu starten. Standardmäßig können nur Raumbesitzende die Konferenz starten.",
+        "allow_users_to_join_as_mods": "Alle Nutzenden können moderieren",
         "allow_users_to_join_as_mods_description": "Gibt allen Moderationsrechte, wenn sie der Konferenz beitreten.",
-        "mute_users_on_join": "Nutzer:innen anfangs stummschalten",
+        "mute_users_on_join": "Nutzende anfangs stummschalten",
         "mute_users_on_join_description": "Automatisch stummenschalten, wenn man die Konferenz betritt.",
-        "viewer_access_code": "Zugriffscode für Zuhörer:innen",
-        "viewer_access_code_description": "Erlaubt Raumbesitzer:innen einen zufälligen alphanumerischen Zugriffscode zu generieren, der mit Nutzer:innen geteilt werden kann. Falls ein solcher Zugriffscode generiert wird, ist dieser notwendig damit Nutzer:innen an der Konferenz teilnehmen können.",
+        "viewer_access_code": "Zugriffscode für Zuhörende",
+        "viewer_access_code_description": "Erlaubt Raumbesitzenden einen zufälligen alphanumerischen Zugriffscode zu generieren, der mit Nutzenden geteilt werden kann. Falls ein solcher Zugriffscode generiert wird, ist dieser notwendig damit Nutzende an der Konferenz teilnehmen können.",
         "mod_access_code": "Zugangscode für Moderation",
-        "mod_access_code_description": "Erlaubt Raumbesitzer:innen einen zufälligen alphanumerischen Zugriffscode zu generieren, der mit Nutzer:innen geteilt werden kann. Falls ein solcher Zugriffscode generiert wird, ist dieser nicht notwendig damit Nutzer:innen an der Konferenz teilnehmen können - wird er benutzt, wird die Nutzer:in zur Moderation."
+        "mod_access_code_description": "Erlaubt Raumbesitzenden einen zufälligen alphanumerischen Zugriffscode zu generieren, der mit Nutzenden geteilt werden kann. Falls ein solcher Zugriffscode generiert wird, ist dieser nicht notwendig damit Nutzende an der Konferenz teilnehmen können - wird er benutzt, wird die Nutzer:in zur Moderation."
       }
     },
     "roles": {
@@ -342,16 +356,17 @@
       "no_role_found": "Keine Rolle gefunden.",
       "search_not_found": "Keine Rollen gefunden",
       "edit": {
-        "create_room": "Nutzer:innen mit dieser Rolle das Anlegen von Räumen gestatten",
-        "record": "Nutzer:innen mit dieser Rolle die Aufzeichnung ihrer Konferenzen ermöglichen",
-        "manage_users": "Nutzer:innen mit dieser Rolle erlauben, Benutzer zu verwalten",
-        "manage_rooms": "Nutzer:innen mit dieser Rolle erlauben, Serverräumen zu verwalten",
-        "manage_recordings": "Nutzer:innen mit dieser Rolle erlauben, Aufzeichnungen zu verwalten",
-        "manage_site_settings": "Nutzer:innen mit dieser Rolle erlauben, die Webseiteneinstellungen zu verwalten",
-        "manage_roles": "Nutzer:innen mit dieser Rolle erlauben, andere Rollen zu bearbeiten",
-        "shared_list": "Nutzer:innen mit dieser Rolle in die Auswahlliste für die gemeinsame Nutzung von Räumen aufnehmen",
+        "create_room": "Nutzende mit dieser Rolle das Anlegen von Räumen gestatten",
+        "record": "Nutzenden mit dieser Rolle die Aufzeichnung ihrer Konferenzen ermöglichen",
+        "manage_users": "Nutzenden mit dieser Rolle erlauben, Benutzer zu verwalten",
+        "manage_rooms": "Nutzenden mit dieser Rolle erlauben, Serverräumen zu verwalten",
+        "manage_recordings": "Nutzenden mit dieser Rolle erlauben, Aufzeichnungen zu verwalten",
+        "manage_site_settings": "Nutzende mit dieser Rolle erlauben, die Webseiteneinstellungen zu verwalten",
+        "manage_roles": "Nutzende mit dieser Rolle erlauben, andere Rollen zu bearbeiten",
+        "shared_list": "Nutzende mit dieser Rolle in die Auswahlliste für die gemeinsame Nutzung von Räumen aufnehmen",
         "room_limit": "Raumlimit",
-        "email_on_signup": "Bei Anmeldung neuer Nutzer E-Mail erhalten"
+        "email_on_signup": "Bei Anmeldung neuer Nutzer E-Mail erhalten",
+        "allowed_recording_visibility": "Erlaubte Sichtbarkeit der Aufnahmen"
       }
     }
   },
@@ -387,7 +402,9 @@
         "access_code_copied": "Zugangscode kopiert.",
         "access_code_generated": "Zugangscode generiert.",
         "access_code_deleted": "Zugriffcode wurde gelöscht.",
-        "copied_meeting_url": "Die URL der Konferenz wurde kopiert. Der Link kann verwendet werden, um an der Konferenz teilzunehmen."
+        "copied_meeting_url": "Die URL der Konferenz wurde kopiert. Der Link kann verwendet werden, um an der Konferenz teilzunehmen.",
+        "copied_viewer_code": "Zugangscode für Zuhörende wurde in die Zwischenablage kopiert.",
+        "copied_moderator_code": "Zugangscode für Moderation wurde in die Zwischenablage kopiert."
       },
       "site_settings": {
         "site_setting_updated": "Grundeinstellungen aktualisiert.",
@@ -395,7 +412,9 @@
         "brand_image_updated": "Das Logo wurde aktualisiert.",
         "brand_image_deleted": "Das Logo wurde entfernt.",
         "privacy_policy_updated": "Die Datenschutzrichtlinie wurde aktualisiert.",
-        "terms_of_service_updated": "Die Nutzungsbedingungen wurden aktualisiert."
+        "helpcenter_updated": "Der Link zur Hilfeseite wurde aktualisiert.",
+        "terms_of_service_updated": "Die Nutzungsbedingungen wurden aktualisiert.",
+        "maintenance_updated": "Der Wartungshinweis wurde aktualisiert."
       },
       "recording": {
         "recording_visibility_updated": "Aufzeichnungssichtbarkeit aktualisiert.",
@@ -419,6 +438,7 @@
       "file_size_too_large": "Datei ist zu groß.",
       "file_upload_error": "Die Datei kann nicht hochgeladen werden.",
       "signin_required": "Bitte einloggen um diese Seite anzuzeigen.",
+      "malware_detected": "Schadsoftware gefunden! Die Datei, die Sie hochgeladen haben, könnte Schadsoftware enthalten. Bitte überprüfen Sie Ihre Datei und versuchen Sie es erneut.",
       "roles": {
         "role_assigned": "Diese Rolle kann nicht gelöscht werden, da sie mindestens einer Person zugeordnet ist."
       },
@@ -665,7 +685,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "Link eingeben..."
+            "placeholder": "Link eingeben...",
+            "text_placeholder": "Text eingeben..."
           }
         }
       },

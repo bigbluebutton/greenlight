@@ -28,8 +28,12 @@ export default function useStartMeeting(friendlyId) {
       onSuccess: (joinUrl) => {
         window.location.href = joinUrl;
       },
-      onError: () => {
-        toast.error(t('toast.error.problem_completing_action'));
+      onError: (error) => {
+        if (error.response.data.errors !== 'serverTagUnavailable') {
+          toast.error(t('toast.error.problem_completing_action'));
+        } else {
+          toast.error(t('toast.error.server_type_unavailable'));
+        }
       },
     },
   );

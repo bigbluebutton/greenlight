@@ -31,12 +31,13 @@ module Api
         begin
           MeetingStarter.new(room: @room, base_url: request.base_url, current_user:, provider: current_provider).call
         rescue BigBlueButton::BigBlueButtonException => e
-          return render_error status: :bad_request unless e.key == 'idNotUnique'
+          return render_error status: :bad_request, errors: e.key unless e.key == 'idNotUnique'
         end
 
         render_data data: BigBlueButtonApi.new(provider: current_provider).join_meeting(
           room: @room,
           name: current_user.name,
+          user_id: fetch_bbb_user_id,
           avatar_url: current_user.avatar.attached? ? url_for(current_user.avatar) : nil,
           role: 'Moderator'
         ), status: :created
@@ -67,7 +68,7 @@ module Api
         }
 
         # Starts meeting if meeting is not running and glAnyoneCanStart is enabled or user is a moderator
-        if !data[:status] && authorized_to_start_meeting?(settings, bbb_role)
+        if !data[:status] && authorized_to_start_meeting?(settings)
           begin
             MeetingStarter.new(room: @room, base_url: request.base_url, current_user:, provider: current_provider).call
           rescue BigBlueButton::BigBlueButtonException => e
@@ -81,6 +82,7 @@ module Api
           data[:joinUrl] = BigBlueButtonApi.new(provider: current_provider).join_meeting(
             room: @room,
             name: current_user ? current_user.name : params[:name],
+            user_id: fetch_bbb_user_id,
             avatar_url: current_user&.avatar&.attached? ? url_for(current_user.avatar) : nil,
             role: bbb_role
           )
@@ -123,8 +125,11 @@ module Api
           (anyone_join_as_mod && (access_code_validator(access_code: mod_code) || access_code_validator(access_code: viewer_code)))
       end
 
-      def authorized_to_start_meeting?(settings, bbb_role)
-        settings['glAnyoneCanStart'] == 'true' || bbb_role == 'Moderator'
+      def authorized_to_start_meeting?(settings)
+        settings['glAnyoneCanStart'] == 'true' ||
+          @room.user_id == current_user&.id ||
+          current_user&.shared_rooms&.include?(@room) ||
+          access_code_validator(access_code: settings['glModeratorAccessCode'])
       end
 
       def unauthorized_access?(settings)
@@ -141,6 +146,21 @@ module Api
         elsif authorized_as_viewer?(viewer_code:) && !anyone_join_as_mod
           'Viewer'
         end
+      end
+
+      def fetch_bbb_user_id
+        return "gl-#{current_user.id}" if current_user
+
+        return cookies[:guest_id] if cookies[:guest_id].present?
+
+        guest_id = "gl-guest-#{SecureRandom.hex(12)}"
+
+        cookies[:guest_id] = {
+          value: guest_id,
+          expires: 1.day.from_now
+        }
+
+        guest_id
       end
     end
   end

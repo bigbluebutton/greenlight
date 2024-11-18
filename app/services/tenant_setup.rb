@@ -53,7 +53,11 @@ class TenantSetup
       { setting: Setting.find_by(name: 'ShareRooms'), value: 'true', provider: @provider },
       { setting: Setting.find_by(name: 'PreuploadPresentation'), value: 'true', provider: @provider },
       { setting: Setting.find_by(name: 'RoleMapping'), value: '', provider: @provider },
-      { setting: Setting.find_by(name: 'DefaultRole'), provider: @provider, value: 'User' }
+      { setting: Setting.find_by(name: 'DefaultRole'), provider: @provider, value: 'User' },
+      { setting: Setting.find_by(name: 'DefaultRecordingVisibility'), provider: @provider, value: 'Published' },
+      { setting: Setting.find_by(name: 'Maintenance'), provider: @provider, value: '' },
+      { setting: Setting.find_by(name: 'SessionTimeout'), provider: @provider, value: '1' },
+      { setting: Setting.find_by(name: 'AllowedDomains'), value: '', provider: @provider }
     ]
   end
 
