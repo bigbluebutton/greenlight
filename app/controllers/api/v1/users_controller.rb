@@ -169,15 +169,7 @@ module Api
       end
 
       def update_user_params
-        is_admin = PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call
-
-        @update_user_params ||= if external_auth? && is_admin
-                                  params.require(:user).permit(:name)
-                                elsif external_auth?
-                                  params.require(:user).permit(:password, :avatar, :language, :role_id, :invite_token)
-                                else
-                                  params.require(:user).permit(:name, :password, :avatar, :language, :role_id, :invite_token)
-                                end
+        @update_user_params ||= params.require(:user).permit(permitted_params)
       end
 
       def change_password_params
@@ -201,6 +193,14 @@ module Api
           return true if create_user_params[:email].end_with?(domain)
         end
         false
+      end
+
+      def permitted_params
+        is_admin = PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call
+
+        return %i[password avatar language role_id invite_token] if external_auth? && !is_admin
+
+        %i[name password avatar language role_id invite_token]
       end
     end
   end
