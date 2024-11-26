@@ -17,14 +17,10 @@
 # frozen_string_literal: true
 
 class CurrentUserSerializer < UserSerializer
-  attributes :signed_in, :permissions, :status, :external_account, :super_admin
+  attributes :signed_in, :permissions, :status, :super_admin
 
   def signed_in
     true
-  end
-
-  def external_account
-    object.external_id?
   end
 
   def permissions
