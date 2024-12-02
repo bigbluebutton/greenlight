@@ -249,7 +249,7 @@
       "not_running": "Yapılmıyor",
       "active": "Etkin",
       "current_session": "Geçerli oturum: {{lastSession}}",
-      "last_session": "Son oturum: {{lastSession}}",
+      "last_session": "Son oturum: {{localizedTime}}",
       "no_meeting_yet": "Henüz bir toplantı yok.",
       "delete_server_rooms": "Sunucu odasını sil",
       "resync_recordings": "Kayıtları yeniden eşitle",
