@@ -113,6 +113,8 @@ class ExternalController < ApplicationController
     RecordingCreator.new(recording:, first_creation: true).call
 
     render json: {}, status: :ok
+  rescue JWT::DecodeError
+    render json: {}, status: :unauthorized
   end
 
   # GET /meeting_ended
