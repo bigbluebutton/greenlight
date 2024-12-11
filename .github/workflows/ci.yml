@@ -1,5 +1,5 @@
 env:
-  RUBY_VERSION: 3.1.0
+  RUBY_VERSION: 3.3
   DATABASE_URL: postgres://postgres:postgres@localhost/greenlight-actions
   RAILS_ENV: test
 
@@ -11,7 +11,7 @@ on:
 jobs:
   test:
     name: Rubocop + RSpec + ESLint + License Header Check
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     services:
       postgres:
