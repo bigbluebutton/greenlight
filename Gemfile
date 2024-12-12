@@ -13,7 +13,7 @@ gem 'bigbluebutton-api-ruby', '1.9.1'
 gem 'bootsnap', require: false
 gem 'clamby', '~> 1.6.10'
 gem 'cssbundling-rails', '>= 1.3.3'
-gem 'data_migrate', '>= 9.4.0'
+gem 'data_migrate', '>= 11.2'
 gem 'dotenv-rails'
 gem 'google-cloud-storage', '~> 1.44', require: false
 gem 'hcaptcha'
