@@ -59,7 +59,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'webdrivers'
-  gem 'webmock'
+  gem 'webmock', '>= 3.23.1'
 end
 
 group :production do
