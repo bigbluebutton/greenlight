@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '>= 3.3'
 
-gem 'active_model_serializers', '>= 0.10.14'
+gem 'active_model_serializers', '>= 0.10.15'
 gem 'active_storage_validations', '>= 1.3.4'
 gem 'aws-sdk-s3', require: false
 gem 'bcrypt', '~> 3.1.7'
@@ -17,10 +17,9 @@ gem 'data_migrate', '>= 11.2'
 gem 'dotenv-rails'
 gem 'google-cloud-storage', '~> 1.44', require: false
 gem 'hcaptcha'
-gem 'hiredis', '~> 0.6.0'
 gem 'i18n-language-mapping'
 gem 'image_processing', '~> 1.2'
-gem 'jbuilder'
+gem 'jbuilder', '>= 2.12'
 gem 'jsbundling-rails', '>= 1.2.2'
 gem 'jwt'
 gem 'mini_magick', '>= 4.9.5'
@@ -30,9 +29,9 @@ gem 'omniauth_openid_connect', '>= 0.6.1'
 gem 'omniauth-rails_csrf_protection', '~> 1.0.2'
 gem 'pagy', '~> 6.0', '>= 6.0.0'
 gem 'pg'
-gem 'puma', '~> 5.6'
+gem 'puma', '~> 6.4'
 gem 'rails', '~> 7.2.2'
-gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.8.0'
 gem 'sprockets-rails', '>= 3.5.0'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
