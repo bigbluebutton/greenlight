@@ -1,4 +1,5 @@
 FROM amazonlinux:2 AS amazonlinux
+SHELL ["/bin/bash", "-c"]
 
 ARG RAILS_ROOT=/usr/src/app
 ENV RAILS_ROOT=${RAILS_ROOT}
@@ -18,20 +19,24 @@ WORKDIR $RAILS_ROOT
 # Install Node.js (needed for yarn)
 RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash -
 RUN yum -y install nodejs
-RUN yum -y install yarn gcc-c++ make
+RUN yum -y install yarn gcc-c++ make libyaml-devel libffi-devel glibc-devel readline-devel openssl-devel
 
-# Install Ruby & Rails
+# Install basic packages
 RUN curl -sL -o /etc/yum.repos.d/yarn.repo https://dl.yarnpkg.com/rpm/yarn.repo
-RUN amazon-linux-extras enable ruby3.0
-
-RUN yum -y install git tar gzip yarn shared-mime-info libxslt zlib-devel ruby-devel rubygems-devel rubygem-bundler rubygem-io-console rubygem-irb rubygem-json rubygem-minitest rubygem-net-http-persistent rubygem-net-telnet rubygem-power_assert rubygem-rake rubygem-test-unit rubygem-thor rubygem-xmlrpc rubygem-bigdecimal
-RUN yum -y install python3 python3-pip shadow-utils
-RUN gem install rails
-
+RUN yum -y install git tar gzip yarn shared-mime-info libxslt zlib-devel python3 python3-pip shadow-utils python3 python3-pip shadow-utils
 RUN amazon-linux-extras install postgresql13
 RUN yum -y install postgresql-devel
 
-RUN amazon-linux-extras list | grep ruby
+# Install Ruby & Rails
+RUN git clone https://github.com/rbenv/rbenv.git /root/.rbenv && \
+    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> /root/.bashrc && \
+    echo 'eval "$(rbenv init -)"' >> /root/.bashrc && \
+    git clone https://github.com/rbenv/ruby-build.git /root/.rbenv/plugins/ruby-build && \
+    /root/.rbenv/bin/rbenv install 3.3.6 && \
+    /root/.rbenv/bin/rbenv global 3.3.6 && \
+    /root/.rbenv/bin/rbenv rehash
+ENV PATH="/root/.rbenv/shims:/root/.rbenv/bin:$PATH"
+RUN gem install bundler -v '~> 2.5'
 
 COPY . ./
 RUN bundle install -j4 \
