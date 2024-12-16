@@ -71,7 +71,7 @@ export default function JoinCard() {
 
   useEffect(() => { // set cookie to return to if needed
     const date = new Date();
-    date.setTime(date.getTime() + (60 * 1000)); // expire the cookie in 1min
+    date.setTime(date.getTime() + (60 * 10000)); // expire the cookie in 10min
     document.cookie = `location=${path};path=/;expires=${date.toGMTString()}`;
 
     return () => { // delete redirect location when unmounting
