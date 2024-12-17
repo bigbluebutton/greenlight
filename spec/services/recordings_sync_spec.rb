@@ -43,7 +43,7 @@ describe RecordingsSync, type: :service do
         allow_any_instance_of(BigBlueButtonApi).to receive(:get_recordings).and_return(no_recording_response)
       end
 
-      it 'does not call RecordingsCreator service' do
+      it 'does not call RecordingsCreator service and delete all recordings' do
         expect_any_instance_of(BigBlueButtonApi).to receive(:get_recordings).with(meeting_ids: room.meeting_id)
         expect(RecordingCreator).not_to receive(:new)
 
