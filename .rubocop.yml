@@ -14,7 +14,7 @@ AllCops:
     - 'vendor/bundle/**/*'
     - 'config/routes.rb'
   DisabledByDefault: false
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.3
   NewCops: enable
 
 # Document classes and non-namespace modules.
