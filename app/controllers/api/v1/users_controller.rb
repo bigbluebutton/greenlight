@@ -35,7 +35,7 @@ module Api
         render_data data: user, status: :ok
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:disable Metrics/AbcSize
       # POST /api/v1/users.json
       # Creates and saves a new user record in the database with the provided parameters
       def create
@@ -97,7 +97,7 @@ module Api
           render_error errors: Rails.configuration.custom_error_msgs[:record_invalid], status: :bad_request
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/AbcSize
 
       # PATCH /api/v1/users/:id.json
       # Updates the values of a user
