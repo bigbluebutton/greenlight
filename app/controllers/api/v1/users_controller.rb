@@ -62,7 +62,7 @@ module Api
         create_user_params[:language] = current_user&.language || I18n.default_locale if create_user_params[:language].blank?
 
         # renders an error if the user is signing up with an invalid domain based off site settings
-        return render_error errors: Rails.configuration.custom_error_msgs[:unauthorized], status: :forbidden unless valid_domain?
+        return render_error errors: Rails.configuration.custom_error_msgs[:banned_user], status: :forbidden unless valid_domain?
 
         user = UserCreator.new(user_params: create_user_params.except(:invite_token), provider: current_provider, role: default_role).call
 
