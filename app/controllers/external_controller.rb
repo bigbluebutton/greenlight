@@ -49,9 +49,10 @@ class ExternalController < ApplicationController
       return redirect_to root_path(error: Rails.configuration.custom_error_msgs[:invite_token_invalid])
     end
 
-    return render_error status: :forbidden unless valid_domain?(user_info[:email])
+    # Redirect to root if the user doesn't exist and has an invalid domain
+    return redirect_to root_path(error: Rails.configuration.custom_error_msgs[:banned_user]) if new_user && !valid_domain?(user_info[:email])
 
-    # Create the user if they dont exist
+    # Create the user if they don't exist
     if new_user
       user = UserCreator.new(user_params: user_info, provider: current_provider, role: default_role).call
       user.save!
@@ -114,6 +115,8 @@ class ExternalController < ApplicationController
     RecordingCreator.new(recording:, first_creation: true).call
 
     render json: {}, status: :ok
+  rescue JWT::DecodeError
+    render json: {}, status: :unauthorized
   end
 
   # GET /meeting_ended
