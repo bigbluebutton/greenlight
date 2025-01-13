@@ -463,6 +463,21 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       expect(user.role_id).to eq(updated_params[:role_id])
     end
+
+    it 'allows a user with ManageUser permissions to edit an external users name' do
+      sign_in_user(user_with_manage_users_permission)
+
+      external_user = create(:user, external_id: 'external-id')
+      updated_params = {
+        name: 'New External Name'
+      }
+
+      patch :update, params: { id: external_user.id, user: updated_params }
+
+      external_user.reload
+
+      expect(external_user.name).to eq(updated_params[:name])
+    end
   end
 
   describe '#destroy' do

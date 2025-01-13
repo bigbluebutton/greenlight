@@ -51,6 +51,8 @@ export default function useCreateUser() {
           toast.error(t('toast.error.users.invalid_invite'));
         } else if (err.response.data.errors === 'EmailAlreadyExists') {
           toast.error(t('toast.error.users.email_exists'));
+        } else if (err.response.data.errors === 'BannedUser') {
+          toast.error(t('toast.error.users.banned'));
         } else {
           toast.error(t('toast.error.problem_completing_action'));
         }

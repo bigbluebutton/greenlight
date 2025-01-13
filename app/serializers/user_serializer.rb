@@ -19,12 +19,16 @@
 class UserSerializer < ApplicationSerializer
   include Avatarable
 
-  attributes :id, :name, :email, :provider, :language, :avatar, :verified, :created_at
+  attributes :id, :name, :email, :provider, :language, :avatar, :verified, :created_at, :external_account
 
   belongs_to :role
 
   def language
     object.language.tr('_', '-')
+  end
+
+  def external_account
+    object.external_id?
   end
 
   def avatar
