@@ -2,7 +2,7 @@ version: '3'
 
 services:
   postgres:
-    image: postgres:14.6-alpine3.17
+    image: postgres:14-alpine3.20
     container_name: postgres
     restart: unless-stopped
     volumes:
@@ -12,7 +12,7 @@ services:
       - POSTGRES_PASSWORD=
 
   redis:
-    image: redis:6.2-alpine3.17
+    image: redis:6.2-alpine3.20
     container_name: redis
     restart: unless-stopped
     volumes:
