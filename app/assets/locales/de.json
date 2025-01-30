@@ -307,7 +307,7 @@
       "registration": {
         "registration": "Registrierung",
         "role_mapping_by_email": "Rollenzuordnung anhand von Email-Adressen",
-        "role_mapping_by_email_description": "Benutzer anhand ihrer Email-Adresse zu einer Rolle hinzufügen, Angabe im Format: rolle1=email1,rolle2=email2",
+        "role_mapping_by_email_description": "Rollen anhand der Mail-Adresse zuordnen, Angabe im Format: rolle1=email1,rolle2=email2",
         "enter_role_mapping_rule": "Eine Regel für Rollenzuordnung eingeben",
         "resync_on_login": "Daten bei jedem Login aktualisieren",
         "resync_on_login_description": "Daten bei jedem Login aktualisieren, so dass Greenlight immer dieselben Informationen hat, wie der externe Authentifizierungsanbieter",
