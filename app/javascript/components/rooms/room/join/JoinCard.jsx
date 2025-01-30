@@ -44,8 +44,7 @@ import ButtonLink from '../../../shared_components/utilities/ButtonLink';
 import Title from '../../../shared_components/utilities/Title';
 import useRoomConfigValue from '../../../../hooks/queries/rooms/useRoomConfigValue';
 import usePublicRecordings from '../../../../hooks/queries/recordings/usePublicRecordings';
-import useSiteSettings from "../../../../hooks/queries/admin/site_settings/useSiteSettings";
-import useSiteSetting from "../../../../hooks/queries/site_settings/useSiteSetting";
+import useSiteSetting from '../../../../hooks/queries/site_settings/useSiteSetting';
 
 export default function JoinCard() {
   const { t } = useTranslation();
