@@ -28,7 +28,7 @@ import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
 export default function Registration() {
   const { t } = useTranslation();
   const { data: env } = useEnv();
-  const { data: siteSettings } = useSiteSettings(['RoleMapping', 'DefaultRole', 'ResyncOnLogin', 'RegistrationMethod', 'AllowedDomains']);
+  const { data: siteSettings } = useSiteSettings(['RoleMapping', 'DefaultRole', 'ResyncOnLogin', 'SignInOnRoomJoin', 'RegistrationMethod', 'AllowedDomains']);
   const { data: roles } = useRoles();
   const updateRegistrationMethod = useUpdateSiteSetting('RegistrationMethod');
   const updateDefaultRole = useUpdateSiteSetting('DefaultRole');
@@ -81,6 +81,17 @@ export default function Registration() {
           ))
         }
       </SettingSelect>
+
+      <SettingsRow
+        name="SignInOnRoomJoin"
+        title={t('admin.site_settings.settings.show_sign_in_on_room_join')}
+        description={(
+          <p className="text-muted">
+            {t('admin.site_settings.settings.show_sign_in_on_room_join_description')}
+          </p>
+        )}
+        value={siteSettings?.SignInOnRoomJoin}
+      />
 
       <Row className="mb-3">
         <strong> { t('admin.site_settings.registration.role_mapping_by_email') } </strong>
