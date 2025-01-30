@@ -28,7 +28,9 @@ import useRoles from '../../../../hooks/queries/admin/roles/useRoles';
 export default function Registration() {
   const { t } = useTranslation();
   const { data: env } = useEnv();
-  const { data: siteSettings } = useSiteSettings(['RoleMapping', 'DefaultRole', 'ResyncOnLogin', 'SignInOnRoomJoin', 'RegistrationMethod', 'AllowedDomains']);
+  const { data: siteSettings } = useSiteSettings(
+    ['RoleMapping', 'DefaultRole', 'ResyncOnLogin', 'SignInOnRoomJoin', 'RegistrationMethod', 'AllowedDomains'],
+  );
   const { data: roles } = useRoles();
   const updateRegistrationMethod = useUpdateSiteSetting('RegistrationMethod');
   const updateDefaultRole = useUpdateSiteSetting('DefaultRole');
