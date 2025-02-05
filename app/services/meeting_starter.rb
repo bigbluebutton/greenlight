@@ -91,7 +91,7 @@ class MeetingStarter
       end
 
       if tag_names.key?(tag) && !(tag_roles.key?(tag) && tag_roles[tag].exclude?(@room.user.role_id))
-        tag_param = tag_required == 'true' ? "#{tag} !" : tag
+        tag_param = tag_required == 'true' ? "#{tag}!" : tag
         meeting_options.store('meta_server-tag', tag_param)
       end
     else

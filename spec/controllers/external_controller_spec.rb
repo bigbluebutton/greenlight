@@ -371,6 +371,15 @@ RSpec.describe ExternalController do
 
           expect { get :create_user, params: { provider: 'openid_connect' } }.not_to change(User, :count)
         end
+
+        it 'does not affect existing users with different domains' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+          create(:user, external_id: OmniAuth.config.mock_auth[:openid_connect][:uid])
+
+          get :create_user, params: { provider: 'openid_connect' }
+          expect(response).not_to redirect_to(root_path(error: Rails.configuration.custom_error_msgs[:banned_user]))
+        end
       end
 
       context 'restricted domain set to multiple domain' do

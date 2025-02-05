@@ -32,6 +32,13 @@ class ExternalController < ApplicationController
 
     user = User.find_by(external_id: credentials['uid'], provider:)
 
+    # Fallback mechanism to search by email
+    if user.blank? && ENV.fetch('USE_EMAIL_AS_EXTERNAL_ID_FALLBACK', 'false') == 'true'
+      user = User.find_by(email: credentials['info']['email'], provider:)
+      # Update the user's external id to the latest value to avoid using the fallback
+      user.update(external_id: credentials['uid']) if user.present? && credentials['uid'].present?
+    end
+
     new_user = user.blank?
 
     registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
@@ -41,9 +48,10 @@ class ExternalController < ApplicationController
       return redirect_to root_path(error: Rails.configuration.custom_error_msgs[:invite_token_invalid])
     end
 
-    return render_error status: :forbidden unless valid_domain?(user_info[:email])
+    # Redirect to root if the user doesn't exist and has an invalid domain
+    return redirect_to root_path(error: Rails.configuration.custom_error_msgs[:banned_user]) if new_user && !valid_domain?(user_info[:email])
 
-    # Create the user if they dont exist
+    # Create the user if they don't exist
     if new_user
       user = UserCreator.new(user_params: user_info, provider: current_provider, role: default_role).call
       user.save!
@@ -106,6 +114,8 @@ class ExternalController < ApplicationController
     RecordingCreator.new(recording:, first_creation: true).call
 
     render json: {}, status: :ok
+  rescue JWT::DecodeError
+    render json: {}, status: :unauthorized
   end
 
   # GET /meeting_ended

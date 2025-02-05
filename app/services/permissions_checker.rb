@@ -16,7 +16,6 @@
 
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/CyclomaticComplexity
 class PermissionsChecker
   def initialize(current_user:, permission_names:, current_provider:, user_id: nil, friendly_id: nil, record_id: nil)
     @current_user = current_user
@@ -152,4 +151,3 @@ class PermissionsChecker
     true
   end
 end
-# rubocop:enable Metrics/CyclomaticComplexity

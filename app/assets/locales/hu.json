@@ -14,6 +14,7 @@
   "report": "Jelentés",
   "share": "Megosztás",
   "cancel": "Mégse",
+  "reset":   "Reszetelés",
   "close": "Bezárás",
   "delete": "Törlés",
   "copy": "Másolás",
@@ -163,6 +164,10 @@
       "wrong_access_code": "Hibás hozzáférési kód",
       "generate_viewers_access_code": "Hozzáférési kód előállítása a látogatók számára",
       "generate_mods_access_code": "Hozzáférési kód előállítása a moderátorok számára",
+      "server_tag": "Válasszon szervertípust a szobához",
+      "default_tag_name": "Alapértelmezett",
+      "server_tag_desired": "Kívánt",
+      "server_tag_required": "Kötelező",
       "are_you_sure_delete_room": "Biztos, hogy törli ezt a szobát?"
     }
   },
@@ -229,7 +234,8 @@
       "empty_invited_users_subtext": "Ha egy felhasználó állapota meghívottá válik, akkor itt fog megjelenni.",
       "invited": {
         "time_sent": "Küldési idő",
-        "valid": "Érvényes"
+        "valid": "Érvényes",
+        "revoke": "Visszavonás"
       }
     },
     "server_rooms": {
@@ -272,13 +278,17 @@
       "administration": {
         "administration": "Üzemeltetés",
         "terms": "Felhasználási feltételek",
-        "privacy": "Adatvédelmi nyilatkozat",
-        "privacy_policy": "Adatvédelmi nyilatkozat",
+        "privacy": "Adatvédelmi közlemény",
+        "privacy_policy": "Adatvédelmi közlemény",
         "change_term_links": "A lap alján megjelenő felhasználási feltételek hivatkozásának módosítása",
         "change_privacy_link": "A lap alján megjelenő adatvédelmi hivatkozás módosítása",
         "helpcenter": "Súgóközpont",
         "change_helpcenter_link": "A profil legördülő alatt megjelenő Súgóközpont link módosítsa",
+        "maintenance": "Karbantartási szalaghirdetés",
+        "change_maintenance_text": "A fejlécben megjelenő karbantartási szalaghirdetés szövegének módosítása.",
         "change_url": "Webcím módosítása",
+        "set_text": "Szöveg beállítása",
+        "clear_banner": "Szalaghirdetés törlése",
         "enter_link": "Itt adja meg a hivatkozást"
       },
       "settings": {
@@ -288,7 +298,11 @@
         "allow_users_to_preupload_presentation": "A felhasználók előre feltöltheti a bemutatójukat",
         "allow_users_to_preupload_presentation_description": "A felhasználók előre feltöltheti a használandó bemutatójukat az adott szoba alapértelmezett bemutatójaként",
         "default_visibility": "Felvétel alapértelmezett láthatósága",
-        "default_visibility_description": "Alapértelmezés szerint minden újonnan létrehozott felvételnél ez lesz a láthatóság"
+        "default_visibility_description": "Alapértelmezés szerint minden újonnan létrehozott felvételnél ez lesz a láthatóság",
+        "session_timeout": "Munkamenet időtúllépése",
+        "session_timeout_description": "A munkamenet időtúllépését az alapértelmezett 1 napos vagy a kiterjesztett 7 napos munkamenet sütire konfigurálhatja",
+        "default_session_timeout": "Alapértelmezett (1 nap)",
+        "extended_session_timeout": "Kiterjesztett (7 nap)"
       },
       "registration": {
         "registration": "Regisztráció",
@@ -305,7 +319,10 @@
           "open": "Nyílt regisztráció",
           "invite": "Csatlakozás meghívással",
           "approval": "Engedélyezés/elutasítás"
-        }
+        },
+        "allowed_domains": "Engedélyezett e-mail domainek",
+        "allowed_domains_signup_description": "Meghatározott e-mail domainek regisztrációjának engedélyezése. A helyes formátum: @test.hu, domain.hu",
+        "enter_allowed_domains_rule" : "Adja meg az engedélyezett domaineket"
       }
     },
     "room_configuration": {
@@ -403,9 +420,11 @@
         "brand_color_updated": "A márkaszín sikerese módosította.",
         "brand_image_updated": "A márkaképet sikeresen módosította.",
         "brand_image_deleted": "A márkakép sikeresen törölte.",
-        "privacy_policy_updated": "Adatvédelmi nyilatkozat frissítve.",
+        "privacy_policy_updated": "Az adatvédelmi közleményt frissítették.",
         "helpcenter_updated": "A Súgóközpont linkjét sikeresen módosította.",
-        "terms_of_service_updated": "A szolgáltatási feltételek frissítésre kerültek."
+        "terms_of_service_updated": "A szolgáltatási feltételek frissítésre kerültek.",
+        "maintenance_updated": "A karbantartási szalaghirdetést frissítettük.",
+        "allowed_domains_signup_updated": "Az engedélyezett email domaineket sikeresen módosította."
       },
       "recording": {
         "recording_visibility_updated": "Felvétel láthatósága frissítve.",
@@ -420,11 +439,13 @@
         "role_permission_updated": "Szerepkör jogosultsága frissítve"
       },
       "invitations": {
-        "invitation_sent": "Meghívó elküldve"
+        "invitation_sent": "Meghívó elküldve",
+        "invitation_revoked": "A meghívást visszautasították"
       }
     },
     "error": {
       "problem_completing_action": "Probléma lépett fel a művelet befejezése során. \n Próbálja újra.",
+      "server_type_unavailable": "A kiválasztott szervertípus nem érhető el. Kérem, válasszon másikat.",
       "file_type_not_supported": "A fájltípus nem támogatott.",
       "file_size_too_large": "A fájl túl nagy.",
       "file_upload_error": "A fájlt nem sikerült feltölteni.",
@@ -521,6 +542,11 @@
       },
       "url": {
         "invalid": "Érvénytelen webcím"
+      },
+      "text_form": {
+        "value": {
+          "required": "Írjon egy üzenetet"
+        }
       }
     },
     "room": {
@@ -676,7 +702,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "Adja meg a hivatkozást itt…"
+            "placeholder": "Adja meg a hivatkozást itt…",
+            "text_placeholder": "Ide írjon..."
           }
         }
       },

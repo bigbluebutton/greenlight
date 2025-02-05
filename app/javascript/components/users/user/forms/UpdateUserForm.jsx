@@ -70,7 +70,7 @@ export default function UpdateUserForm({ user }) {
 
   return (
     <Form methods={methods} onSubmit={updateUserAPI.mutate}>
-      <FormControl field={fields.name} type="text" readOnly={currentUser.external_account} />
+      <FormControl field={fields.name} type="text" readOnly={user.external_account && !PermissionChecker.hasManageUsers(currentUser)} />
       <FormControl field={fields.email} type="email" readOnly />
       <FormSelect field={fields.language} variant="dropdown">
         {
@@ -102,6 +102,7 @@ UpdateUserForm.propTypes = {
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     provider: PropTypes.string.isRequired,
+    external_account: PropTypes.bool.isRequired,
     role: PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,

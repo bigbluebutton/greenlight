@@ -14,15 +14,20 @@
   "report": "보고서",
   "share": "공유",
   "cancel": "취소",
+  "reset":   "리셋",
   "close": "닫기",
   "delete": "삭제",
   "copy": "참여 링크 복사",
+  "copy_viewer_code": "뷰어 코드 복사",
+  "copy_moderator_code": "모데라토 코드 복사",
   "or": "또는",
   "online": "온라인",
   "help_center": "도움말 센터",
   "are_you_sure": "확실합니까?",
   "return_home": "홈으로 돌아가기",
   "created_at": "에서 생성",
+  "view_recordings": "레코딩 보기",
+  "join_session": "세션에 참여",
   "no_result_search_input": "\"{{ searchInput }}\"에 대한 결과를 찾을 수 없습니다.",
   "action_permanent": "이 작업은 실행 취소할 수 없습니다.",
   "homepage": {
@@ -79,6 +84,7 @@
       "account_info": "계정 정보",
       "delete_account": "계정 삭제",
       "change_password": "패스워드 변경",
+      "set_password": "새로운 패스워드 설정",
       "reset_password": "패스워드 초기화",
       "update_account_info": "계정 정보 업데이트",
       "current_password": "현재 패스워드",
@@ -127,6 +133,7 @@
       "click_to_upload": "업로드하려면 클릭하세요.",
       "drag_and_drop": "또는 드래그 앤 드롭",
       "upload_description": "사무실 문서 또는 PDF 파일({{size}}이하)을 업로드합니다. 파일 크기에 따라 파일을 사용하려면 업로드하는 데 추가 시간이 필요할 수 있습니다",
+      "delete_presentation": "프레젠테이션 삭제",
       "are_you_sure_delete_presentation": "이 프레젠테이션을 삭제하시겠습니까?"
     },
     "shared_access": {
@@ -157,12 +164,17 @@
       "wrong_access_code": "잘못된 액세스 코드입니다.",
       "generate_viewers_access_code": "참여자용 액세스 코드 생성",
       "generate_mods_access_code": "진행자용 액세스 코드 생성",
+      "server_tag": "이 방에 대한 서버 유형 선택",
+      "default_tag_name": "기본",
+      "server_tag_desired": "요청",
+      "server_tag_required": "필수",
       "are_you_sure_delete_room": "이 Room을 삭제 하시겠습니까?"
     }
   },
   "recording": {
     "recording": "녹화",
     "recordings": "녹화",
+    "processing": "레코딩 처리 중...",
     "name": "이름",
     "length": "길이",
     "users": "사용자",
@@ -171,11 +183,15 @@
     "published": "게시됨",
     "unpublished": "게시되지 않음",
     "protected": "보호",
+    "public": "공개",
+    "public_protected": "공개/보호",
     "length_in_minutes": "{{recording.length}} 분.",
     "processing_recording": "녹화를 인코딩 중입니다. 몇 분 정도 걸릴 수 있습니다...",
     "copy_recording_urls": "녹화 Url(S) 복사",
     "recordings_list_empty": "아직 녹화되지 않았습니다!",
+    "public_recordings_list_empty": "아직 공개된 녹음이 없습니다!",
     "recordings_list_empty_description": "미팅을 중 녹화된 기록이 여기에 나타납니다.",
+    "public_recordings_list_empty_description": "사용 가능할 때 녹음이 여기에 나타납니다.",
     "delete_recording": "녹화 삭제",
     "are_you_sure_delete_recording": "이 녹화를 삭제하시겠습니까?",
     "search_not_found": "녹화된 기록을 찾을 수 없음"
@@ -218,7 +234,8 @@
       "empty_invited_users_subtext": "사용자의 상태가 초대됨으로 변경되면 여기에 나타납니다.",
       "invited": {
         "time_sent": "보낸 시간",
-        "valid": "유효한"
+        "valid": "유효한",
+        "revoke": "취소"
       }
     },
     "server_rooms": {
@@ -265,7 +282,13 @@
         "privacy_policy": "개인 정보 보호 정책",
         "change_term_links": "페이지 하단에 나타나는 용어 링크 변경",
         "change_privacy_link": "페이지 하단에 나타나는 용어 링크 변경",
+        "helpcenter": "도움말 센터",
+        "change_helpcenter_link": "프로필 드롭다운 아래에 표시되는 도움말 센터 링크 변경",
+        "maintenance": "유지 관리 배너",
+        "change_maintenance_text": "헤더에 표시되는 유지 관리 배너 텍스트 변경",
         "change_url": "URL 변경",
+        "set_text": "텍스트 설정",
+        "clear_banner": "배너 삭제",
         "enter_link": "링크 입력"
       },
       "settings": {
@@ -273,7 +296,13 @@
         "allow_users_to_share_rooms": "사용자의 Room 공유 허용",
         "allow_users_to_share_rooms_description": "사용 불가능으로 설정하면 Room 선택사항 드롭다운 메뉴에서 버튼이 제거되어 사용자가 Room을 공유할 수 없습니다",
         "allow_users_to_preupload_presentation": "사용자에게 프레젠테이션 발표자료 사전 업로드 허용",
-        "allow_users_to_preupload_presentation_description": "사용자는 특정 Room에서 발표자료로 사용할 프리젠테이션을 미리 업로드할 수 있습니다"
+        "allow_users_to_preupload_presentation_description": "사용자는 특정 Room에서 발표자료로 사용할 프리젠테이션을 미리 업로드할 수 있습니다",
+        "default_visibility": "기본 녹음 가시성",
+        "default_visibility_description": "새로 생성된 모든 녹음은 기본적으로 이 가시성을 갖습니다.",
+        "session_timeout": "세션 타임아웃",
+        "session_timeout_description": "기본 쿠키 1일 또는 확장 세션 쿠키 7일로 세션 타임아웃을 구성할 수 있습니다",
+        "default_session_timeout": "기본 (1일)",
+        "extended_session_timeout": "확장 (7일)"
       },
       "registration": {
         "registration": "등록",
@@ -290,7 +319,10 @@
           "open": "공개 등록",
           "invite": "초대로 참여",
           "approval": "승인/거부"
-        }
+        },
+        "allowed_domains": "허용된 이메일 도메인",
+        "allowed_domains_signup_description": "특정 이메일 도메인이 가입할 수 있도록 허용합니다. 형식은 @test.com,domain.com 이어야 합니다",
+        "enter_allowed_domains_rule" : "허용된 도메인을 입력하세요"
       }
     },
     "room_configuration": {
@@ -341,7 +373,9 @@
         "manage_site_settings": "이 역할을 가진 사용자에게 사이트 설정 관리 허용",
         "manage_roles": "이 역할을 가진 사용자가 다른 역할을 편집하도록 허용",
         "shared_list": "Room 공유 드롭다운 메뉴에 이 역할을 가진 사용자 포함",
-        "room_limit": "Room 제한"
+        "room_limit": "Room 제한",
+        "email_on_signup": "새 사용자가 가입하면 이메일을 받습니다.",
+        "allowed_recording_visibility": "허용된 녹음 가시성"
       }
     }
   },
@@ -352,6 +386,7 @@
         "user_updated": "사용자가 업데이트되었습니다.",
         "user_deleted": "사용자가 삭제되었습니다.",
         "avatar_updated": "아바타가 업데이트되었습니다.",
+        "password_changed": "비밀번호가 성공적으로 업데이트되었습니다. 다시 로그인하십시오.",
         "password_updated": "암호가 업데이트되었습니다.",
         "account_activated": "계정이 활성화되었습니다.",
         "activation_email_sent": "계정을 활성화하기 위한 지침이 포함된 이메일이 전송되었습니다.",
@@ -376,7 +411,9 @@
         "access_code_copied": "액세스 코드가 복사되었습니다.",
         "access_code_generated": "새 액세스 코드가 생성되었습니다.",
         "access_code_deleted": "액세스 코드가 삭제되었습니다.",
-        "copied_meeting_url": "미팅 URL이 복사되었습니다. 링크를 통하여 미팅에 참여할 수 있습니다."
+        "copied_meeting_url": "미팅 URL이 복사되었습니다. 링크를 통하여 미팅에 참여할 수 있습니다.",
+        "copied_viewer_code": "뷰어 액세스 코드가 복사되었습니다.",
+        "copied_moderator_code": "모데라토의 액세스 코드가 복사되었습니다."
       },
       "site_settings": {
         "site_setting_updated": "사이트 설정이 업데이트되었습니다.",
@@ -384,7 +421,10 @@
         "brand_image_updated": "브랜드 이미지가 업데이트되었습니다.",
         "brand_image_deleted": "브랜드 이미지가 삭제되었습니다.",
         "privacy_policy_updated": "개인 정보 보호 정책이 업데이트되었습니다.",
-        "terms_of_service_updated": "서비스 약관이 업데이트되었습니다."
+        "helpcenter_updated": "도움말 센터 링크가 업데이트되었습니다.",
+        "terms_of_service_updated": "서비스 약관이 업데이트되었습니다.",
+        "maintenance_updated": "유지 관리 배너가 업데이트되었습니다.",
+        "allowed_domains_signup_updated": "허용된 이메일 도메인이 업데이트되었습니다."
       },
       "recording": {
         "recording_visibility_updated": "녹화 가시성이 업데이트되었습니다.",
@@ -399,15 +439,18 @@
         "role_permission_updated": "역할의 권한이 업데이트되었습니다."
       },
       "invitations": {
-        "invitation_sent": "초대장을 보냈습니다."
+        "invitation_sent": "초대장을 보냈습니다.",
+        "invitation_revoked": "초대가 취소되었습니다."
       }
     },
     "error": {
       "problem_completing_action": "작업을 완료할 수 없습니다. \n다시 시도하십시오.",
+      "server_type_unavailable": "요구된 서버 유형을 사용할 수 없습니다. room 설정에서 다른 유형을 선택하십시오.",
       "file_type_not_supported": "파일 형식이 지원되지 않습니다.",
       "file_size_too_large": "파일 크기가 너무 큽니다.",
       "file_upload_error": "파일을 업로드할 수 없습니다.",
       "signin_required": "이 페이지에 액세스하려면 로그인해야 합니다.",
+      "malware_detected": "악성 소프트웨어가 감지됨! 업로드한 파일에 악성 소프트웨어가 포함될 수 있습니다. 파일을 확인하고 다시 시도하십시오.",
       "roles": {
         "role_assigned": "이 역할은 적어도 한 명의 사용자에게 할당되어 있으므로 삭제할 수 없습니다."
       },
@@ -499,6 +542,11 @@
       },
       "url": {
         "invalid": "잘못된 URL"
+      },
+      "text_form": {
+        "value": {
+          "required": "메시지를 입력해주세요"
+        }
       }
     },
     "room": {
@@ -654,7 +702,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "링크 입력..."
+            "placeholder": "링크 입력...",
+            "text_placeholder": "여기에 텍스트를 입력하세요."
           }
         }
       },
