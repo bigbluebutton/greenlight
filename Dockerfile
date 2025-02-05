@@ -39,8 +39,7 @@ RUN apk update \
     && yarn cache clean
 COPY . ./
 RUN apk update \
-    && apk upgrade \
-    && update-ca-certificates
+    && apk upgrade
 
 EXPOSE ${PORT}
 ENTRYPOINT [ "./bin/start" ]
