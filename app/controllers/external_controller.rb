@@ -158,6 +158,19 @@ class ExternalController < ApplicationController
     meeting_id
   end
 
+  def extract_role(credentials)
+    custom_claim = ENV.fetch('OPENID_CONNECT_CUSTOM_CLAIM', 'org_details')
+    roles = ENV.fetch('OPENID_CONNECT_CUSTOM_CLAIM_ROLE', 'roles')
+    if credentials.dig('extra', 'raw_info', custom_claim)&.key?(roles)
+      role_name = credentials['extra']['raw_info'][custom_claim][roles]
+      if !role_name.blank?
+        role = Role.find_by(name: role_name, provider: current_provider)
+        return role if !role.blank?
+      end
+    end
+    return default_role
+  end
+
   def valid_invite_token(email:)
     token = cookies[:inviteToken]
 
@@ -171,6 +184,7 @@ class ExternalController < ApplicationController
     {
       name: credentials['info']['name'],
       email: credentials['info']['email'],
+      role: extract_role(credentials),
       language: extract_language_code(credentials['info']['locale']),
       external_id: credentials['uid'],
       verified: true

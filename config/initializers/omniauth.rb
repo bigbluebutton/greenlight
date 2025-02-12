@@ -18,6 +18,7 @@
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   issuer = ENV.fetch('OPENID_CONNECT_ISSUER', '')
+  custom_scope = ENV.fetch('OPENID_CONNECT_CUSTOM_SCOPE', '')
   lb = ENV.fetch('LOADBALANCER_ENDPOINT', '')
 
   if lb.present?
@@ -28,7 +29,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       issuer_url = File.join issuer.to_s, "/#{current_provider}"
 
       env['omniauth.strategy'].options[:issuer] = issuer_url
-      env['omniauth.strategy'].options[:scope] = %i[openid email profile]
+      env['omniauth.strategy'].options[:scope] = %i[openid email profile] + (!custom_scope.empty? ? [custom_scope.to_sym] : [])
       env['omniauth.strategy'].options[:uid_field] = ENV.fetch('OPENID_CONNECT_UID_FIELD', 'sub')
       env['omniauth.strategy'].options[:discovery] = true
       env['omniauth.strategy'].options[:client_options].identifier = ENV.fetch('OPENID_CONNECT_CLIENT_ID')
@@ -45,7 +46,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   elsif issuer.present?
     provider :openid_connect,
              issuer:,
-             scope: %i[openid email profile],
+             scope: %i[openid email profile] + (!custom_scope.empty? ? [custom_scope.to_sym] : []),
              uid_field: ENV.fetch('OPENID_CONNECT_UID_FIELD', 'sub'),
              discovery: true,
              client_options: {
