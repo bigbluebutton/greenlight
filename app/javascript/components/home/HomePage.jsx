@@ -59,6 +59,9 @@ export default function HomePage() {
       case 'SignupError':
         toast.error(t('toast.error.users.signup_error'));
         break;
+      case 'BannedUser':
+        toast.error(t('toast.error.users.banned'));
+        break;
       default:
     }
     if (error) { setSearchParams(searchParams.delete('error')); }

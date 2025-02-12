@@ -1,4 +1,4 @@
-FROM ruby:alpine3.17 AS base
+FROM ruby:3.3.6-alpine3.20 AS base
 
 ARG RAILS_ROOT=/usr/src/app
 ENV RAILS_ROOT=${RAILS_ROOT}
@@ -39,8 +39,7 @@ RUN apk update \
     && yarn cache clean
 COPY . ./
 RUN apk update \
-    && apk upgrade \
-    && update-ca-certificates
+    && apk upgrade
 
 EXPOSE ${PORT}
 ENTRYPOINT [ "./bin/start" ]
