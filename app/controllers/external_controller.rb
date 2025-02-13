@@ -54,6 +54,7 @@ class ExternalController < ApplicationController
     # Create the user if they don't exist
     if new_user
       user = UserCreator.new(user_params: user_info, provider: current_provider, role: default_role).call
+      handle_avatar(user, credentials['info']['image'])
       user.save!
       create_default_room(user)
 
@@ -64,8 +65,9 @@ class ExternalController < ApplicationController
       end
     end
 
-    if SettingGetter.new(setting_name: 'ResyncOnLogin', provider:).call
+    if !new_user && SettingGetter.new(setting_name: 'ResyncOnLogin', provider:).call
       user.assign_attributes(user_info.except(:language)) # Don't reset the user's language
+      handle_avatar(user, credentials['info']['image'])
       user.save! if user.changed?
     end
 
@@ -175,6 +177,24 @@ class ExternalController < ApplicationController
       external_id: credentials['uid'],
       verified: true
     }
+  end
+
+  # Downloads the image and correctly attaches it to the user
+  def handle_avatar(user, image)
+    return if image.blank? || !user.valid? # return if no image passed or user isnt valid
+
+    profile_file = URI.parse(image)
+
+    filename = File.basename(profile_file.path)
+    return if user.avatar&.filename&.to_s == filename # return if the filename is the same
+
+    file = profile_file.open
+    user.avatar.attach(
+      io: file, filename:, content_type: file.content_type
+    )
+  rescue StandardError => e
+    Rails.logger.error("Failed to upload avatar for #{user.id}: #{e}")
+    nil
   end
 
   def valid_domain?(email)
