@@ -221,7 +221,7 @@
       "create_account": "Fiók létrehozása",
       "create_room": "Szoba létrehozása",
       "create_new_room": "Új szoba létrehozása",
-      "user_created_at": "Létrehozva: {{user.created_at}}",
+      "user_created_at": "Létrehozva: {{localizedTime}}",
       "are_you_sure_delete_account": "Biztos, hogy törli {{user.name}} fiókját?",
       "delete_account_warning": "Ha a fiók törlését választja, akkor az NEM állítható helyre.",
       "empty_active_users": "Még nincs aktív felhasználó ezen a kiszolgálón.",
