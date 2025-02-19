@@ -145,7 +145,7 @@ GEM
     data_migrate (11.2.0)
       activerecord (>= 6.1)
       railties (>= 6.1)
-    date (3.3.4)
+    date (3.4.1)
     debug (1.7.1)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
@@ -260,13 +260,13 @@ GEM
     memoist (0.16.2)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.7)
+    mini_portile2 (2.8.8)
     minitest (5.25.1)
     msgpack (1.6.0)
     multi_json (1.15.0)
     net-http (0.4.1)
       uri
-    net-imap (0.4.17)
+    net-imap (0.4.19)
       date
       net-protocol
     net-pop (0.1.2)
@@ -277,10 +277,10 @@ GEM
       net-protocol
     nio4r (2.7.3)
     nkf (0.2.0)
-    nokogiri (1.16.7)
+    nokogiri (1.18.3)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.16.7-x86_64-linux)
+    nokogiri (1.18.3-x86_64-linux-gnu)
       racc (~> 1.4)
     omniauth (2.1.2)
       hashie (>= 3.4.6)
@@ -318,7 +318,7 @@ GEM
     puma (6.5.0)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (2.2.10)
+    rack (2.2.11)
     rack-oauth2 (2.2.0)
       activesupport
       attr_required
@@ -458,7 +458,7 @@ GEM
       faraday-follow_redirects
     syslog_protocol (0.9.2)
     thor (1.3.2)
-    timeout (0.4.1)
+    timeout (0.4.3)
     trailblazer-option (0.1.2)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
