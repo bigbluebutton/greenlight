@@ -34,6 +34,7 @@ export default function RolePermissionRow({
           className="form-check-input fs-5"
           type="checkbox"
           defaultChecked={defaultValue}
+          disabled={updateAPI.isLoading}
           onClick={(event) => {
             updateAPI.mutate({ role_id: roleId, name: permissionName, value: event.target.checked });
           }}
