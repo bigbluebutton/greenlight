@@ -58,7 +58,7 @@ class User < ApplicationRecord
             on: %i[create update], if: :password_digest_changed?, unless: :external_id?
 
   validates :avatar,
-            dimension: { width: 300, height: 300 },
+            dimension: { width: { in: 1..300 }, height: { in: 1..300 } },
             content_type: Rails.configuration.uploads[:images][:formats],
             size: { less_than: Rails.configuration.uploads[:images][:max_size] }
 
