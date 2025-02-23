@@ -249,7 +249,7 @@
       "not_running": "Nem fut",
       "active": "Aktív",
       "current_session": "Jelenlegi munkamenet: {{lastSession}}",
-      "last_session": "Legutóbbi munkamenet: {{lastSession}}",
+      "last_session": "Legutóbbi munkamenet: {{localizedTime}}",
       "no_meeting_yet": "Még nincsenek találkozók.",
       "delete_server_rooms": "Kiszolgáló szobájának törlése",
       "resync_recordings": "Felvételek újraszinkronizálása",
