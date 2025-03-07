@@ -14,7 +14,7 @@ jobs:
       DOCKER_REPOSITORY: ${{ secrets.DOCKER_REPOSITORY }}
       DOCKER_BUILD_ENABLED: ${{ secrets.DOCKER_BUILD_ENABLED }}
       DOCKER_BUILD_ALTERNATE_ENABLED: ${{ secrets.DOCKER_BUILD_ALTERNATE_ENABLED }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
@@ -26,7 +26,7 @@ jobs:
 
       - name: Cache Docker layers
         if: contains(env.DOCKER_BUILD_ENABLED, 'true')
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
