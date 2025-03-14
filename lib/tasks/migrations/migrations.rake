@@ -55,6 +55,7 @@ namespace :migrations do
         puts red "Errors: #{JSON.parse(response.body.to_s)['errors']}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
+      puts
     end
 
     puts
@@ -101,6 +102,7 @@ namespace :migrations do
         puts red "Errors: #{JSON.parse(response.body.to_s)['errors']}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
+      puts
     end
 
     puts
@@ -183,6 +185,7 @@ namespace :migrations do
         puts red "Errors: #{JSON.parse(response.body.to_s)['errors']}"
         has_encountred_issue = 1 # At least one of the migrations failed.
       end
+      puts
     end
 
     puts
