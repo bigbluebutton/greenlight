@@ -26,7 +26,7 @@ export default function Footer() {
   const { data: env } = useEnv();
   const { data: links } = useSiteSetting(['Terms', 'PrivacyPolicy']);
   const currentUser = useAuth();
-  const isAdmin = currentUser?.role.name === 'Administrator';
+  const isAdmin = currentUser?.role?.name === 'Administrator';
 
   return (
     <footer id="footer" className="footer background-whitesmoke text-center">
