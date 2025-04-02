@@ -35,7 +35,6 @@ module Api
         render_data data: user, status: :ok
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       # POST /api/v1/users.json
       # Creates and saves a new user record in the database with the provided parameters
       def create
@@ -62,7 +61,7 @@ module Api
         create_user_params[:language] = current_user&.language || I18n.default_locale if create_user_params[:language].blank?
 
         # renders an error if the user is signing up with an invalid domain based off site settings
-        return render_error errors: Rails.configuration.custom_error_msgs[:unauthorized], status: :forbidden unless valid_domain?
+        return render_error errors: Rails.configuration.custom_error_msgs[:banned_user], status: :forbidden unless valid_domain?
 
         user = UserCreator.new(user_params: create_user_params.except(:invite_token), provider: current_provider, role: default_role).call
 
@@ -97,7 +96,6 @@ module Api
           render_error errors: Rails.configuration.custom_error_msgs[:record_invalid], status: :bad_request
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # PATCH /api/v1/users/:id.json
       # Updates the values of a user

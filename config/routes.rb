@@ -85,7 +85,11 @@ Rails.application.routes.draw do
       resources :site_settings, only: :index
       resources :rooms_configurations, only: %i[index show], param: :name
       resources :locales, only: %i[index show], param: :name
-      resources :server_tags, only: :show, param: :friendly_id
+      resources :server_tags, only: :show, param: :friendly_id do
+        collection do
+          get '/fallback_mode', to: 'server_tags#fallback_mode'
+        end
+      end
 
       namespace :admin do
         resources :users, only: %i[update] do

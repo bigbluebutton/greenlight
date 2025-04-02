@@ -44,6 +44,7 @@ import ButtonLink from '../../../shared_components/utilities/ButtonLink';
 import Title from '../../../shared_components/utilities/Title';
 import useRoomConfigValue from '../../../../hooks/queries/rooms/useRoomConfigValue';
 import usePublicRecordings from '../../../../hooks/queries/recordings/usePublicRecordings';
+import useSiteSetting from '../../../../hooks/queries/site_settings/useSiteSetting';
 
 export default function JoinCard() {
   const { t } = useTranslation();
@@ -58,6 +59,7 @@ export default function JoinCard() {
 
   const { data: env } = useEnv();
   const { data: recordValue } = useRoomConfigValue('record');
+  const { data: signInOnRoomJoin } = useSiteSetting('SignInOnRoomJoin');
 
   const { methods, fields } = useRoomJoinForm();
 
@@ -272,7 +274,7 @@ export default function JoinCard() {
           )}
         </Row>
         <Row>
-          {!currentUser?.signed_in && (
+          { signInOnRoomJoin && !currentUser?.signed_in && (
             env?.EXTERNAL_AUTH ? (
               <Stack direction="horizontal" className="d-flex justify-content-center text-muted mt-3"> {t('authentication.already_have_account')}
                 <RegularForm action={process.env.OMNIAUTH_PATH} method="POST" data-turbo="false">
