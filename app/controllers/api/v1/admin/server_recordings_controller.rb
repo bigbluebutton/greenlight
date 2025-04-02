@@ -24,7 +24,7 @@ module Api
           ensure_authorized('ManageRecordings')
         end
 
-        # POST /api/v1/admin/server_recordings.json
+        # GET /api/v1/admin/server_recordings.json
         # Fetches and returns the list of all server recordings
         def index
           sort_config = config_sorting(allowed_columns: %w[name length visibility])
