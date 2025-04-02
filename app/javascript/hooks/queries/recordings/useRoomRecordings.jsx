@@ -15,13 +15,18 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import { useQuery } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
 import axios from '../../../helpers/Axios';
 
-export default function useRoomRecordings(friendlyId, input, page) {
-  const params = {
-    q: input,
+export default function useRoomRecordings(friendlyId, search, page) {
+ const [searchParams] = useSearchParams();
+ const params = {
+    'sort[column]': searchParams.get('sort[column]'),
+    'sort[direction]': searchParams.get('sort[direction]'),
+    search,
     page,
   };
+
   return useQuery(
     ['getRoomRecordings', { ...params, friendlyId }],
     () => axios.get(`/rooms/${friendlyId}/recordings.json`, { params }).then((resp) => resp.data),
