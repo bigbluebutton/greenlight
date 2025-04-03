@@ -31,7 +31,7 @@ module ClientRoutable
 
   # Generates a client side pending url.
   def pending_path
-    "#{root_path}pending"
+    "#{root_url}pending"
   end
 
   def admin_panel_url
