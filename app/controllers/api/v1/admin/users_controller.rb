@@ -51,13 +51,13 @@ module Api
         end
 
         # GET /api/v1/admin/users/verified.json
-        # Fetches all active users
+        # Fetches all verified users
         def verified
           sort_config = config_sorting(allowed_columns: %w[name roles.name])
 
           users = User.includes(:role)
                       .with_provider(current_provider)
-                      .where(status: 'active')
+                      .where(verified: true)
                       .with_attached_avatar
                       .order(sort_config, created_at: :desc)&.search(params[:search])
 
