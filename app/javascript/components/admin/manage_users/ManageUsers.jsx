@@ -34,6 +34,7 @@ import PendingUsers from './PendingUsers';
 import BannedUsers from './BannedUsers';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import useEnv from '../../../hooks/queries/env/useEnv';
+import UnverifiedUsers from "./UnverifiedUsers";
 
 export default function ManageUsers() {
   const { t } = useTranslation();
@@ -98,6 +99,9 @@ export default function ManageUsers() {
                     <Tabs defaultActiveKey="active" unmountOnExit>
                       <Tab eventKey="active" title={t('admin.manage_users.active')}>
                         <VerifiedUsers searchInput={searchInput} />
+                      </Tab>
+                      <Tab eventKey="unverified" title={t('admin.manage_users.unverified')} >
+                        <UnverifiedUsers searchInput={searchInput} />
                       </Tab>
                       {registrationMethod === 'approval'
                         && (
