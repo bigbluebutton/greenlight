@@ -66,6 +66,22 @@ module Api
           render_data data: users, meta: pagy_metadata(pagy), serializer: UserSerializer, status: :ok
         end
 
+        # GET /api/v1/admin/users/unverified.json
+        # Fetches all unverified users
+        def unverified
+          sort_config = config_sorting(allowed_columns: %w[name roles.name])
+
+          users = User.includes(:role)
+                      .with_provider(current_provider)
+                      .where(verified: false)
+                      .with_attached_avatar
+                      .order(sort_config, created_at: :desc)&.search(params[:search])
+
+          pagy, users = pagy(users)
+
+          render_data data: users, meta: pagy_metadata(pagy), serializer: UserSerializer, status: :ok
+        end
+
         # GET /api/v1/admin/users/banned.json
         # Fetches all banned users
         def banned
