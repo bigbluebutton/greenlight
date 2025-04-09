@@ -28,12 +28,6 @@ export default function BannedPendingUsersTable({
 }) {
   const { t } = useTranslation();
 
-  // if (!isLoading && users.length === 0) {
-  //   if (pendingTable) {
-  //     return <EmptyUsersList text={t('admin.manage_users.empty_pending_users')} subtext={t('admin.manage_users.empty_pending_users_subtext')} />;
-  //   }
-  //   return <EmptyUsersList text={t('admin.manage_users.empty_banned_users')} subtext={t('admin.manage_users.empty_banned_users_subtext')} />;
-  // }
   if (!isLoading && users.length === 0) {
     if (tableType === 'pending') {
       return <EmptyUsersList text={t('admin.manage_users.empty_pending_users')} subtext={t('admin.manage_users.empty_pending_users_subtext')} />;

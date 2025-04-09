@@ -26,7 +26,6 @@ import {
   EllipsisVerticalIcon,
   XCircleIcon,
 } from '@heroicons/react/24/outline';
-import { render } from 'react-dom';
 import Avatar from '../../users/user/Avatar';
 import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
 import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
@@ -107,5 +106,5 @@ BannedPendingRow.propTypes = {
     created_at: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
   }).isRequired,
-  tableType: PropTypes.string.isRequired
+  tableType: PropTypes.string.isRequired,
 };

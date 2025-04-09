@@ -18,9 +18,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import useUnverifiedUsers from '../../../hooks/queries/admin/manage_users/useUnverifiedUsers';
-import ManageUsersTable from './ManageUsersTable';
 import NoSearchResults from '../../shared_components/search/NoSearchResults';
-import BannedPendingUsersTable from "./BannedPendingUsersTable";
+import BannedPendingUsersTable from './BannedPendingUsersTable';
 
 export default function UnverifiedUsers({ searchInput }) {
   const [page, setPage] = useState();
@@ -37,8 +36,13 @@ export default function UnverifiedUsers({ searchInput }) {
               <NoSearchResults text={t('user.search_not_found')} searchInput={searchInput} />
             </div>
           ) : (
-            // <ManageUsersTable users={unverifiedUsers?.data} isLoading={isLoading} pagination={unverifiedUsers?.meta} setPage={setPage} />
-          <BannedPendingUsersTable users={unverifiedUsers?.data} tableType={tableType} isLoading={isLoading} pagination={unverifiedUsers?.meta} setPage={setPage}/>
+            <BannedPendingUsersTable
+              users={unverifiedUsers?.data}
+              tableType={tableType}
+              isLoading={isLoading}
+              pagination={unverifiedUsers?.meta}
+              setPage={setPage}
+            />
           )
       }
     </div>
