@@ -30,10 +30,12 @@ import Avatar from '../../users/user/Avatar';
 import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
 import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
+import useUpdateUserVerification from "../../../hooks/mutations/admin/manage_users/useUpdateUserVerification";
 
 export default function BannedPendingRow({ user, tableType }) {
   const { t } = useTranslation();
   const updateUserStatus = useUpdateUserStatus();
+  const updateUserVerification = useUpdateUserVerification();
   const currentUser = useAuth();
   const localizedTime = localizeDateTimeString(user?.created_at, currentUser?.language);
 
@@ -62,7 +64,7 @@ export default function BannedPendingRow({ user, tableType }) {
     }
     if (tableType === 'unverified') {
       return (
-        <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, verified: true })}>
+        <Dropdown.Item onClick={() => updateUserVerification.mutate({ id: user.id, verified: true })}>
           <CheckIcon className="hi-s me-2" />
           {t('admin.manage_users.verify')}
         </Dropdown.Item>

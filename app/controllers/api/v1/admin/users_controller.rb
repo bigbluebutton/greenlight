@@ -99,7 +99,7 @@ module Api
         private
 
         def user_params
-          params.require(:user).permit(:status)
+          params.require(:user).permit(:status, :verified)
         end
       end
     end

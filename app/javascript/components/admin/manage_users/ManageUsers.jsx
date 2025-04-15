@@ -100,7 +100,7 @@ export default function ManageUsers() {
                       <Tab eventKey="active" title={t('admin.manage_users.active')}>
                         <VerifiedUsers searchInput={searchInput} />
                       </Tab>
-                      <Tab eventKey="unverified" title="Test Tab">
+                      <Tab eventKey="unverified" title={t('admin.manage_users.unverified')}>
                         <UnverifiedUsers searchInput={searchInput} />
                       </Tab>
                       {registrationMethod === 'approval'
