@@ -28,8 +28,8 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
   end
 
   describe '#verified_users' do
-    it 'returns the list of active users' do
-      users = create_list(:user, 3, status: 'active') + [user, user_with_manage_users_permission]
+    it 'returns the list of verified users' do
+      users = create_list(:user, 3, verified: true) + [user, user_with_manage_users_permission]
       get :verified
       expect(response).to have_http_status(:ok)
       response_user_ids = response.parsed_body['data'].pluck('id')
@@ -43,6 +43,24 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
 
       get :verified
 
+      expect(response.parsed_body['data'].pluck('id')).to match_array(greenlight_users.pluck(:id))
+    end
+  end
+
+  describe '#unverified_users' do
+    it 'returns the list of unverified users' do
+      users = create_list(:user, 3, verified: false)
+      get :unverified
+      expect(response).to have_http_status(:ok)
+      response_user_ids = response.parsed_body['data'].pluck('id')
+      expect(response_user_ids).to match_array(users.pluck(:id))
+    end
+
+    it 'excludes users with a different provider' do
+      greenlight_users = create_list(:user, 3, provider: 'greenlight', verified: false)
+      role_with_provider_test = create(:role, provider: 'test')
+      create(:user, provider: 'test', role: role_with_provider_test, verified: false)
+      get :unverified
       expect(response.parsed_body['data'].pluck('id')).to match_array(greenlight_users.pluck(:id))
     end
   end
@@ -97,9 +115,17 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
         sign_in_user(super_admin)
       end
 
-      it 'returns the list of active users' do
-        users = create_list(:user, 3, status: 'active') + [user, user_with_manage_users_permission]
+      it 'returns the list of verified users' do
+        users = create_list(:user, 3, verified: true) + [user, user_with_manage_users_permission]
         get :verified
+        expect(response).to have_http_status(:ok)
+        response_user_ids = response.parsed_body['data'].pluck('id')
+        expect(response_user_ids).to match_array(users.pluck(:id))
+      end
+
+      it 'returns the list of unverified users' do
+        users = create_list(:user, 3, verified: false)
+        get :unverified
         expect(response).to have_http_status(:ok)
         response_user_ids = response.parsed_body['data'].pluck('id')
         expect(response_user_ids).to match_array(users.pluck(:id))
@@ -128,6 +154,14 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
       post :update, params: { id: user.id, user: { status: 'banned' } }
 
       expect(user.reload.status).to eq('banned')
+    end
+
+    it 'verifies an unverified user' do
+      unverified_user = create(:user, verified: false)
+      post :update, params: { id: unverified_user.id, user: { verified: true } }
+      unverified_user.reload
+      expect(response).to have_http_status(:ok)
+      expect(unverified_user.verified).to be(true)
     end
 
     context 'user without ManageUsers permission' do
