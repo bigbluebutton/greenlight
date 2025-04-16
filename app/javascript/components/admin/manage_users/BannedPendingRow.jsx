@@ -30,7 +30,7 @@ import Avatar from '../../users/user/Avatar';
 import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
 import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
-import useUpdateUserVerification from "../../../hooks/mutations/admin/manage_users/useUpdateUserVerification";
+import useUpdateUserVerification from '../../../hooks/mutations/admin/manage_users/useUpdateUserVerification';
 
 export default function BannedPendingRow({ user, tableType }) {
   const { t } = useTranslation();
@@ -70,6 +70,7 @@ export default function BannedPendingRow({ user, tableType }) {
         </Dropdown.Item>
       );
     }
+    return null;
   };
 
   return (
