@@ -27,9 +27,8 @@ export default function useUpdateUserVerification() {
     (data) => axios.patch(`/admin/users/${data.id}.json`, { user: { verified: data.verified } }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(['getPendingUsers']);
-        queryClient.invalidateQueries(['getBannedUsers']);
         queryClient.invalidateQueries(['getAdminUsers']);
+        queryClient.invalidateQueries(['getUnverifiedUsers']);
 
         toast.success(t('toast.success.user.user_updated'));
       },

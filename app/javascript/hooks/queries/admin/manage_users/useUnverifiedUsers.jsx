@@ -29,7 +29,7 @@ export default function useUnverifiedUsers(input, page) {
   };
 
   return useQuery(
-    ['getAdminUsers', { ...params }],
+    ['getUnverifiedUsers', { ...params }],
     () => axios.get('/admin/users/unverified.json', { params }).then((resp) => resp.data),
     {
       keepPreviousData: true,

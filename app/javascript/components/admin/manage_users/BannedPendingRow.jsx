@@ -53,16 +53,14 @@ export default function BannedPendingRow({ user, tableType }) {
           </Dropdown.Item>
         </>
       );
-    }
-    if (tableType === 'banned') {
+    } if (tableType === 'banned') {
       return (
         <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'active' })}>
           <CheckIcon className="hi-s me-2" />
           {t('admin.manage_users.unban')}
         </Dropdown.Item>
       );
-    }
-    if (tableType === 'unverified') {
+    } if (tableType === 'unverified') {
       return (
         <Dropdown.Item onClick={() => updateUserVerification.mutate({ id: user.id, verified: true })}>
           <CheckIcon className="hi-s me-2" />

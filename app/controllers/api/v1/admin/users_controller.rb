@@ -57,7 +57,7 @@ module Api
 
           users = User.includes(:role)
                       .with_provider(current_provider)
-                      .where(verified: true)
+                      .where(status: 'active', verified: true)
                       .with_attached_avatar
                       .order(sort_config, created_at: :desc)&.search(params[:search])
 

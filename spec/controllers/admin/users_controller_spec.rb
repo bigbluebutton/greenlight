@@ -28,8 +28,8 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
   end
 
   describe '#verified_users' do
-    it 'returns the list of verified users' do
-      users = create_list(:user, 3, verified: true) + [user, user_with_manage_users_permission]
+    it 'returns the list of active users' do
+      users = create_list(:user, 3, status: 'active') + [user, user_with_manage_users_permission]
       get :verified
       expect(response).to have_http_status(:ok)
       response_user_ids = response.parsed_body['data'].pluck('id')
@@ -115,8 +115,8 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
         sign_in_user(super_admin)
       end
 
-      it 'returns the list of verified users' do
-        users = create_list(:user, 3, verified: true) + [user, user_with_manage_users_permission]
+      it 'returns the list of active users' do
+        users = create_list(:user, 3, status: 'active') + [user, user_with_manage_users_permission]
         get :verified
         expect(response).to have_http_status(:ok)
         response_user_ids = response.parsed_body['data'].pluck('id')
