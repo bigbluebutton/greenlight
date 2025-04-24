@@ -28,7 +28,7 @@
     "react-hook-form": "<7.52",
     "react-i18next": "^11.18.5",
     "react-query": "^3.34.16",
-    "react-router-dom": "^6.4.3",
+    "react-router-dom": "^7.5.2",
     "react-select": "^5.8.0",
     "react-test-renderer": "^17.0.2",
     "react-toastify": "^9.1.1",
