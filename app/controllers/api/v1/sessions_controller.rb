@@ -68,8 +68,25 @@ module Api
       # DELETE /api/v1/sessions/signout
       # Clears the session cookie and signs the user out
       def destroy
-        sign_out
-        render_data status: :ok
+        id_token = session.delete(:oidc_id_token)
+
+        # Build RP-initiated logout URL
+        if id_token.present? && ENV['OPENID_CONNECT_ISSUER'].present?
+          end_session = File.join(
+            ENV.fetch('OPENID_CONNECT_ISSUER', nil),
+            'protocol', 'openid-connect', 'logout'
+          )
+          url = "#{end_session}?client_id=#{ENV.fetch('OPENID_CONNECT_CLIENT_ID', nil)}" \
+                "&id_token_hint=#{id_token}" \
+                "&post_logout_redirect_uri=#{CGI.escape(root_url(success: 'LogoutSuccessful'))}" \
+
+          # also revoke local session so SPA state is consistent
+          sign_out
+          render_data data: url, status: :ok
+        else
+          sign_out
+          render_data status: :ok
+        end
       end
 
       private

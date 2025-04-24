@@ -30,12 +30,19 @@ export default function useDeleteSession({ showToast = true }) {
   return useMutation(
     () => axios.delete('/sessions/signout.json'),
     {
-      onSuccess: async () => {
-        setStateChanging(true);
-        queryClient.refetchQueries('useSessions');
-        await navigate('/');
-        if (showToast) { toast.success(t('toast.success.session.signed_out')); }
-        setStateChanging(false);
+      onSuccess: async ({ data }) => {
+        const logoutUrl = data?.data;
+
+        if (typeof logoutUrl === 'string') {
+          window.location.href = logoutUrl;
+        } else {
+          setStateChanging(true);
+          queryClient.refetchQueries('useSessions');
+
+          await navigate('/');
+          if (showToast) { toast.success(t('toast.success.session.signed_out')); }
+          setStateChanging(false);
+        }
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));
