@@ -101,7 +101,7 @@ export default function HomePage() {
       } else if (inviteToken && !env?.EXTERNAL_AUTH) {
         const buttons = document.querySelectorAll('.btn');
         buttons.forEach((button) => {
-          if (button.textContent === 'Sign In') {
+          if (button.textContent === 'Sign Up') {
             button.click();
           }
         });
