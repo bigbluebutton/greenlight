@@ -60,7 +60,7 @@ export default function AuthButtons({ direction }) {
               {t('authentication.sign_up')}
             </ButtonLink>
           ) }
-      <ButtonLink id="signInButton" to="/signin" variant="brand" className="btn">{t('authentication.sign_in')}</ButtonLink>
+      <ButtonLink to="/signin" variant="brand" className="btn">{t('authentication.sign_in')}</ButtonLink>
     </Stack>
   );
 }

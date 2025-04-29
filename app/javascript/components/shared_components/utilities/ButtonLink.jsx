@@ -22,13 +22,12 @@ import PropTypes from 'prop-types';
 export default function ButtonLink(props) {
   const navigate = useNavigate();
   const {
-    id, to, className, variant, children,
+    to, className, variant, children,
   } = props;
   const handleClick = useCallback(() => { navigate(to); }, [to]);
 
   return (
     <Button
-      id={id}
       onClick={handleClick}
       className={className}
       variant={variant}
@@ -39,13 +38,11 @@ export default function ButtonLink(props) {
 }
 
 ButtonLink.defaultProps = {
-  id: null,
   className: '',
   variant: 'primary',
 };
 
 ButtonLink.propTypes = {
-  id: PropTypes.string,
   to: PropTypes.string.isRequired,
   className: PropTypes.string,
   variant: PropTypes.string,
