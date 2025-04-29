@@ -51,24 +51,6 @@ export default function HomePage() {
     [currentUser.signed_in],
   );
 
-  // useEffect for inviteToken
-  useEffect(
-    () => {
-      const autoSignIn = searchParams.get('sso');
-
-      // Environment settings not loaded
-      if (!env) { return; }
-
-      if (autoSignIn && env?.EXTERNAL_AUTH) {
-        const signInForm = document.querySelector('form[action="/auth/openid_connect"]');
-        signInForm.submit();
-      } else if (autoSignIn && !env?.EXTERNAL_AUTH) {
-        document.querySelector('#signInButton').click();
-      }
-    },
-    [searchParams, env],
-  );
-
   useEffect(() => {
     switch (error) {
       case 'InviteInvalid':
