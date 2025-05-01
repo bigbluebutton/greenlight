@@ -162,6 +162,10 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
         ENV['OPENID_CONNECT_ISSUER'] = 'https://openid.example'
       end
 
+      after do
+        ENV['OPENID_CONNECT_ISSUER'] = nil
+      end
+
       it 'returns the OIDC logout url' do
         delete :destroy
 
@@ -185,6 +189,10 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
           sign_in_user(mt_user)
           ENV['LOADBALANCER_ENDPOINT'] = 'http://test.com/'
           allow(controller).to receive(:current_provider).and_return('test-provider')
+        end
+
+        after do
+          ENV['LOADBALANCER_ENDPOINT'] = nil
         end
 
         it 'returns the OIDC logout url' do
