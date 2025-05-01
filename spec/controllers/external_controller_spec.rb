@@ -30,6 +30,9 @@ RSpec.describe ExternalController do
         info: {
           email: Faker::Internet.email,
           name: Faker::Name.name
+        },
+        credentials: {
+          id_token: 'sample_id_token'
         }
       )
 
@@ -53,7 +56,6 @@ RSpec.describe ExternalController do
 
       get :create_user, params: { provider: 'openid_connect' }
 
-      expect(session[:session_token]).to eq(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).session_token)
       expect(response).to redirect_to(root_path)
     end
 
@@ -91,6 +93,15 @@ RSpec.describe ExternalController do
       expect do
         get :create_user, params: { provider: 'openid_connect' }
       end.not_to change(User, :count)
+    end
+
+    it 'sets the correct session variables' do
+      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+      get :create_user, params: { provider: 'openid_connect' }
+
+      expect(session[:session_token]).to eq(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).session_token)
+      expect(session[:oidc_id_token]).to eq(OmniAuth.config.mock_auth[:openid_connect][:credentials][:id_token])
     end
 
     context 'redirect' do
