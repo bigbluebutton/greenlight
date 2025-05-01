@@ -28,6 +28,10 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
   end
 
   describe '#create' do
+    before do
+      allow(controller).to receive(:external_auth?).and_return(false)
+    end
+
     it 'creates a regular session if the remember me checkbox is not selected' do
       post :create, params: {
         session: {
@@ -140,13 +144,55 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
   end
 
   describe '#destroy' do
-    it 'signs off the user' do
+    before do
       sign_in_user(user)
+    end
 
+    it 'signs off the user' do
       delete :destroy
 
       expect(cookies.encrypted[:_extended_session]).to be_nil
       expect(session[:session_token]).to be_nil
+    end
+
+    context 'external auth' do
+      before do
+        session[:oidc_id_token] = 'sample_id_token'
+        allow(controller).to receive(:external_auth?).and_return(true)
+        ENV['OPENID_CONNECT_ISSUER'] = 'https://openid.example'
+      end
+
+      it 'returns the OIDC logout url' do
+        delete :destroy
+
+        expect(response.parsed_body['data']).to match('protocol/openid-connect/logout')
+        expect(response.parsed_body['data']).to match('id_token_hint=sample_id_token')
+        expect(response.parsed_body['data']).to match("post_logout_redirect_uri=#{CGI.escape(root_url(success: 'LogoutSuccessful'))}")
+      end
+
+      it 'removes both session tokens' do
+        delete :destroy
+
+        expect(session[:session_token]).to be_nil
+        expect(session[:oidc_id_token]).to be_nil
+      end
+
+      context 'LB is set' do
+        let!(:role_with_provider_test) { create(:role, provider: 'test-provider') }
+        let!(:mt_user) { create(:user, provider: 'test-provider', role: role_with_provider_test) }
+
+        before do
+          sign_in_user(mt_user)
+          ENV['LOADBALANCER_ENDPOINT'] = 'http://test.com/'
+          allow(controller).to receive(:current_provider).and_return('test-provider')
+        end
+
+        it 'returns the OIDC logout url' do
+          delete :destroy
+
+          expect(response.parsed_body['data']).to start_with(File.join(ENV.fetch('OPENID_CONNECT_ISSUER', nil), "/#{controller.current_provider}"))
+        end
+      end
     end
   end
 end

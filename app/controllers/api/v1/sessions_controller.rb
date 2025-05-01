@@ -70,17 +70,20 @@ module Api
       def destroy
         id_token = session.delete(:oidc_id_token)
 
-        # Build RP-initiated logout URL
-        if id_token.present? && ENV['OPENID_CONNECT_ISSUER'].present?
-          end_session = File.join(
-            ENV.fetch('OPENID_CONNECT_ISSUER', nil),
-            'protocol', 'openid-connect', 'logout'
-          )
+        # Make logout request to OIDC
+        if id_token.present? && external_auth?
+          issuer_url = if ENV.fetch('LOADBALANCER_ENDPOINT', nil).present?
+                         File.join(ENV.fetch('OPENID_CONNECT_ISSUER'), "/#{current_provider}")
+                       else
+                         ENV.fetch('OPENID_CONNECT_ISSUER')
+                       end
+
+          end_session = File.join(issuer_url, 'protocol', 'openid-connect', 'logout')
+
           url = "#{end_session}?client_id=#{ENV.fetch('OPENID_CONNECT_CLIENT_ID', nil)}" \
                 "&id_token_hint=#{id_token}" \
-                "&post_logout_redirect_uri=#{CGI.escape(root_url(success: 'LogoutSuccessful'))}" \
+                "&post_logout_redirect_uri=#{CGI.escape(root_url(success: 'LogoutSuccessful'))}"
 
-          # also revoke local session so SPA state is consistent
           sign_out
           render_data data: url, status: :ok
         else

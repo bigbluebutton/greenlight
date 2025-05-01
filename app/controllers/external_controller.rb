@@ -28,8 +28,6 @@ class ExternalController < ApplicationController
 
     credentials = request.env['omniauth.auth']
 
-    session[:oidc_id_token] = credentials.dig('credentials', 'id_token')
-
     user_info = build_user_info(credentials)
 
     user = User.find_by(external_id: credentials['uid'], provider:)
@@ -85,6 +83,7 @@ class ExternalController < ApplicationController
     handle_session_timeout(session_timeout.to_i, user) if session_timeout
 
     session[:session_token] = user.session_token
+    session[:oidc_id_token] = credentials.dig('credentials', 'id_token')
 
     # TODO: - Ahmad: deal with errors
 
