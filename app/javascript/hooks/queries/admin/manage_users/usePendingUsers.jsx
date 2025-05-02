@@ -20,7 +20,7 @@ import axios from '../../../../helpers/Axios';
 
 export default function usePendingUsers(input, page) {
   const [searchParams] = useSearchParams();
-  
+
   const params = {
     'sort[column]': searchParams.get('sort[column]'),
     'sort[direction]': searchParams.get('sort[direction]'),
