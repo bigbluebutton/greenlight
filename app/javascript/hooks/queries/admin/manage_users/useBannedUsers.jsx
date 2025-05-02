@@ -15,10 +15,15 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import { useQuery } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
 import axios from '../../../../helpers/Axios';
 
 export default function useBannedUsers(input, page) {
+  const [searchParams] = useSearchParams();
+  
   const params = {
+    'sort[column]': searchParams.get('sort[column]'),
+    'sort[direction]': searchParams.get('sort[direction]'),
     search: input,
     page,
   };
