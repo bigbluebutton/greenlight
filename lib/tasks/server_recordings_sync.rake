@@ -21,6 +21,12 @@ desc 'Server Recordings sync with BBB server'
 task :server_recordings_sync, %i[provider] => :environment do |_task, args|
   args.with_defaults(provider: 'greenlight')
 
+  Room.select do |room|
+    room_recordings = room.recordings
+    Format.where(recording: room_recordings).delete_all
+    room_recordings.delete_all
+  end
+
   Room.includes(:user).select(:id, :meeting_id).with_provider(args[:provider]).in_batches(of: 25) do |rooms|
     meeting_ids = rooms.pluck(:meeting_id)
 
@@ -30,14 +36,7 @@ task :server_recordings_sync, %i[provider] => :environment do |_task, args|
 
     next if recordings[:recordings].blank?
 
-    # Skip the entire batch if the first and last recordings exist
-    if Recording.exists?(record_id: recordings[:recordings][0][:recordID]) && Recording.exists?(record_id: recordings[:recordings][-1][:recordID])
-      next
-    end
-
     recordings[:recordings].each do |recording|
-      next if Recording.exists?(record_id: recording[:recordID])
-
       RecordingCreator.new(recording:).call
       success 'Successfully migrated Recording:'
       info "RecordID: #{recording[:recordID]}"
