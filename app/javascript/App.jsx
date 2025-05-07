@@ -14,9 +14,11 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React, { useEffect } from 'react';
-import { Container } from 'react-bootstrap';
-import { Outlet, useLocation } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { Container, Form, Spinner } from 'react-bootstrap';
+import {
+  Outlet, useLocation, useNavigate, useSearchParams,
+} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
 import Header from './components/shared_components/Header';
@@ -24,10 +26,16 @@ import { useAuth } from './contexts/auth/AuthProvider';
 import Footer from './components/shared_components/Footer';
 import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
 import Title from './components/shared_components/utilities/Title';
+import useEnv from './hooks/queries/env/useEnv';
 
 export default function App() {
   const currentUser = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const { data: env } = useEnv();
+  const autoSignIn = searchParams.get('sso');
+  const formRef = useRef(null);
 
   // check for the maintenance banner
   const maintenanceBanner = useSiteSetting(['Maintenance']);
@@ -49,6 +57,18 @@ export default function App() {
       localStorage.setItem('maintenanceBannerId', toastId);
     }
   }, [maintenanceBanner.data]);
+
+  // Handle sso login through parameter
+  useEffect(() => {
+    if (!env || currentUser.signed_in || !autoSignIn) return;
+
+    if (env.EXTERNAL_AUTH) {
+      // eslint-disable-next-line no-unused-expressions
+      formRef.current?.requestSubmit?.() || formRef.current?.submit();
+    } else {
+      navigate('/signin', { replace: true });
+    }
+  }, [autoSignIn, env, formRef.current]);
 
   // Pages that do not need a header: SignIn, SignUp and JoinMeeting (if the user is not signed in)
   const homePage = location.pathname === '/';
@@ -72,16 +92,32 @@ export default function App() {
   return (
     <>
       <Title>BigBlueButton</Title>
-      {(homePage || currentUser.signed_in) && <Header /> }
-      <Container className={pageHeight}>
-        <Outlet />
-      </Container>
-      <ToastContainer
-        position="bottom-right"
-        newestOnTop
-        autoClose={3000}
-      />
-      <Footer />
+      { autoSignIn
+        ? (
+          <Container fluid className="d-flex vh-100 justify-content-center align-items-center">
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Signing you in…</span>
+            </Spinner>
+
+            <Form id="sso-form" ref={formRef} action={process.env.OMNIAUTH_PATH} method="POST" data-turbo="false" className="d-none">
+              <input type="hidden" name="authenticity_token" value={document.querySelector('meta[name="csrf-token"]').content} />
+              <input type="hidden" name="current_provider" value={env?.CURRENT_PROVIDER} />
+            </Form>
+          </Container>
+        ) : (
+          <>
+            {(homePage || currentUser.signed_in) && <Header />}
+            <Container className={pageHeight}>
+              <Outlet />
+            </Container>
+            <ToastContainer
+              position="bottom-right"
+              newestOnTop
+              autoClose={3000}
+            />
+            <Footer />
+          </>
+        )}
     </>
   );
 }
