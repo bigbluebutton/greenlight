@@ -83,6 +83,7 @@ class ExternalController < ApplicationController
     handle_session_timeout(session_timeout.to_i, user) if session_timeout
 
     session[:session_token] = user.session_token
+    session[:oidc_id_token] = credentials.dig('credentials', 'id_token')
 
     # TODO: - Ahmad: deal with errors
 
