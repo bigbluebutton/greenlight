@@ -65,7 +65,7 @@ class TenantSetup
   def create_rooms_configs_options
     RoomsConfiguration.create! [
       { meeting_option: MeetingOption.find_by(name: 'record'), value: 'default_enabled', provider: @provider },
-      { meeting_option: MeetingOption.find_by(name: 'muteOnStart'), value: 'optional', provider: @provider },
+      { meeting_option: MeetingOption.find_by(name: 'muteOnStart'), value: 'default_enabled', provider: @provider },
       { meeting_option: MeetingOption.find_by(name: 'guestPolicy'), value: 'optional', provider: @provider },
       { meeting_option: MeetingOption.find_by(name: 'glAnyoneCanStart'), value: 'optional', provider: @provider },
       { meeting_option: MeetingOption.find_by(name: 'glAnyoneJoinAsModerator'), value: 'optional', provider: @provider },
