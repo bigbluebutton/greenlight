@@ -16,33 +16,21 @@
 
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import axios from '../../../helpers/Axios';
-import { useAuth } from '../../../contexts/auth/AuthProvider';
+import axios from '../../../../helpers/Axios';
 
-export default function useDeleteSession({ showToast = true }) {
+export default function useUpdateUserVerification() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  const { setStateChanging } = useAuth();
 
   return useMutation(
-    () => axios.delete('/sessions/signout.json'),
+    (data) => axios.patch(`/admin/users/${data.id}.json`, { user: { verified: data.verified } }),
     {
-      onSuccess: async ({ data }) => {
-        const logoutUrl = data?.data;
+      onSuccess: () => {
+        queryClient.invalidateQueries(['getAdminUsers']);
+        queryClient.invalidateQueries(['getUnverifiedUsers']);
 
-        if (typeof logoutUrl === 'string') {
-          window.location.href = logoutUrl;
-        } else {
-          setStateChanging(true);
-          queryClient.refetchQueries('useSessions');
-
-          await navigate('/');
-          if (showToast) { toast.success(t('toast.success.session.signed_out')); }
-          setStateChanging(false);
-        }
+        toast.success(t('toast.success.user.user_updated'));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

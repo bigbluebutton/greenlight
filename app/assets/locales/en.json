@@ -207,6 +207,8 @@
       "banned": "Banned",
       "ban": "Ban",
       "unban": "Unban",
+      "unverified": "Unverified",
+      "verify": "Verify",
       "deleted": "Deleted",
       "invited_tab": "Invited",
       "invite_user": "Invite User",
@@ -230,6 +232,8 @@
       "empty_pending_users_subtext": "When a user's status gets changed to pending, they will appear here.",
       "empty_banned_users": "There are no banned users on this server yet!",
       "empty_banned_users_subtext": "When a user's status gets changed to banned, they will appear here.",
+      "empty_unverified_users": "There are no unverified users on this server yet!",
+      "empty_unverified_users_subtext": "When a user's status gets changed to unverified, they will appear here.",
       "empty_invited_users": "There are no invited users on this server yet!",
       "empty_invited_users_subtext": "When a user's status gets changed to invited, they will appear here.",
       "invited": {

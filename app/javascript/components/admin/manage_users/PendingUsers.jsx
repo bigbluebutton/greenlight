@@ -25,6 +25,7 @@ export default function PendingUsers({ searchInput }) {
   const [page, setPage] = useState();
   const { isLoading, data: users } = usePendingUsers(searchInput, page);
   const { t } = useTranslation();
+  const tableType = 'pending';
 
   return (
     <div>
@@ -35,7 +36,7 @@ export default function PendingUsers({ searchInput }) {
             <NoSearchResults text={t('user.search_not_found')} searchInput={searchInput} />
           </div>
         ) : (
-          <BannedPendingUsersTable users={users?.data} pendingTable isLoading={isLoading} pagination={users?.meta} setPage={setPage} />
+          <BannedPendingUsersTable users={users?.data} tableType={tableType} isLoading={isLoading} pagination={users?.meta} setPage={setPage} />
         )
       }
     </div>
