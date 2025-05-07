@@ -95,6 +95,7 @@ Rails.application.routes.draw do
         resources :users, only: %i[update] do
           collection do
             get '/verified', to: 'users#verified'
+            get '/unverified', to: 'users#unverified'
             get '/pending', to: 'users#pending'
             get '/banned', to: 'users#banned'
             post '/:user_id/create_server_room', to: 'users#create_server_room'

@@ -17,42 +17,42 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import useBannedUsers from '../../../hooks/queries/admin/manage_users/useBannedUsers';
-import BannedPendingUsersTable from './BannedPendingUsersTable';
+import useUnverifiedUsers from '../../../hooks/queries/admin/manage_users/useUnverifiedUsers';
 import NoSearchResults from '../../shared_components/search/NoSearchResults';
+import BannedPendingUsersTable from './BannedPendingUsersTable';
 
-export default function BannedUsers({ searchInput }) {
+export default function UnverifiedUsers({ searchInput }) {
   const [page, setPage] = useState();
-  const { isLoading, data: bannedUsers } = useBannedUsers(searchInput, page);
+  const { isLoading, data: unverifiedUsers } = useUnverifiedUsers(searchInput, page);
   const { t } = useTranslation();
-  const tableType = 'banned';
+  const tableType = 'unverified';
 
   return (
     <div>
       {
-      (searchInput && bannedUsers?.data.length === 0)
-        ? (
-          <div className="mt-5">
-            <NoSearchResults text={t('user.search_not_found')} searchInput={searchInput} />
-          </div>
-        ) : (
-          <BannedPendingUsersTable
-            users={bannedUsers?.data}
-            tableType={tableType}
-            isLoading={isLoading}
-            pagination={bannedUsers?.meta}
-            setPage={setPage}
-          />
-        )
+        (searchInput && unverifiedUsers?.data.length === 0)
+          ? (
+            <div className="mt-5">
+              <NoSearchResults text={t('user.search_not_found')} searchInput={searchInput} />
+            </div>
+          ) : (
+            <BannedPendingUsersTable
+              users={unverifiedUsers?.data}
+              tableType={tableType}
+              isLoading={isLoading}
+              pagination={unverifiedUsers?.meta}
+              setPage={setPage}
+            />
+          )
       }
     </div>
   );
 }
 
-BannedUsers.propTypes = {
+UnverifiedUsers.propTypes = {
   searchInput: PropTypes.string,
 };
 
-BannedUsers.defaultProps = {
+UnverifiedUsers.defaultProps = {
   searchInput: '',
 };

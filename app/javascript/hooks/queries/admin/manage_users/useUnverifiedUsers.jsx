@@ -16,20 +16,21 @@
 
 import { useQuery } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
-import axios from '../../../helpers/Axios';
+import axios from '../../../../helpers/Axios';
 
-export default function useRoomRecordings(friendlyId, search, page) {
+export default function useUnverifiedUsers(input, page) {
   const [searchParams] = useSearchParams();
+
   const params = {
     'sort[column]': searchParams.get('sort[column]'),
     'sort[direction]': searchParams.get('sort[direction]'),
-    search,
+    search: input,
     page,
   };
 
   return useQuery(
-    ['getRoomRecordings', { ...params, friendlyId }],
-    () => axios.get(`/rooms/${friendlyId}/recordings.json`, { params }).then((resp) => resp.data),
+    ['getUnverifiedUsers', { ...params }],
+    () => axios.get('/admin/users/unverified.json', { params }).then((resp) => resp.data),
     {
       keepPreviousData: true,
     },
