@@ -68,8 +68,28 @@ module Api
       # DELETE /api/v1/sessions/signout
       # Clears the session cookie and signs the user out
       def destroy
-        sign_out
-        render_data status: :ok
+        id_token = session.delete(:oidc_id_token)
+
+        # Make logout request to OIDC
+        if id_token.present? && external_auth?
+          issuer_url = if ENV.fetch('LOADBALANCER_ENDPOINT', nil).present?
+                         File.join(ENV.fetch('OPENID_CONNECT_ISSUER'), "/#{current_provider}")
+                       else
+                         ENV.fetch('OPENID_CONNECT_ISSUER')
+                       end
+
+          end_session = File.join(issuer_url, 'protocol', 'openid-connect', 'logout')
+
+          url = "#{end_session}?client_id=#{ENV.fetch('OPENID_CONNECT_CLIENT_ID', nil)}" \
+                "&id_token_hint=#{id_token}" \
+                "&post_logout_redirect_uri=#{CGI.escape(root_url(success: 'LogoutSuccessful'))}"
+
+          sign_out
+          render_data data: url, status: :ok
+        else
+          sign_out
+          render_data status: :ok
+        end
       end
 
       private
