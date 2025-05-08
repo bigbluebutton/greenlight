@@ -39,7 +39,7 @@ export default function SharedAccess() {
   const deleteSharedAccess = useDeleteSharedAccess(friendlyId);
   const { data: room } = useRoom(friendlyId);
   const currentUser = useAuth();
-  const isAdmin = currentUser?.role.name === 'Administrator';
+  const isAdmin = currentUser?.role.name === 'Administrator' || currentUser?.role.name === 'SuperAdmin';
 
   if (sharedUsers?.length || searchInput) {
     return (
