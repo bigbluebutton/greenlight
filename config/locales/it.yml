@@ -80,4 +80,4 @@ it:
       link_expires: Il collegamento scadrà tra 1 ora.
       ignore_request: "Se non hai effettuato una richiesta di modifica della password, ignora questa email."
   room:
-    new_room_name: "Aula di %{username}"
+    new_room_name: "Stanza di %{username}"
