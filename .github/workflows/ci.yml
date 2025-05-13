@@ -38,7 +38,7 @@ jobs:
           ruby-version: ${{ env.RUBY_VERSION }}
 
       - name: Install imagemagick
-        run: sudo apt-get install -y imagemagick
+        run: sudo apt-get clean && sudo apt-get update && sudo apt-get install -y imagemagick
 
       - name: Bundle cache
         uses: actions/cache@v4
