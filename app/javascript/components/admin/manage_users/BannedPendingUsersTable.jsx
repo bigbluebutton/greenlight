@@ -33,10 +33,15 @@ export default function BannedPendingUsersTable({
       return <EmptyUsersList text={t('admin.manage_users.empty_pending_users')} subtext={t('admin.manage_users.empty_pending_users_subtext')} />;
     }
     if (tableType === 'unverified') {
-      return <EmptyUsersList text={t('admin.manage_users.empty_pending_users')} subtext={t('admin.manage_users.empty_unverified_users_subtext')} />;
+      return (
+        <EmptyUsersList
+          text={t('admin.manage_users.empty_unverified_users')}
+          subtext={t('admin.manage_users.empty_unverified_users_subtext')}
+        />
+      );
     }
 
-    return <EmptyUsersList text={t('admin.manage_users.empty_pending_users')} subtext={t('admin.manage_users.empty_banned_users_subtext')} />;
+    return <EmptyUsersList text={t('admin.manage_users.empty_banned_users')} subtext={t('admin.manage_users.empty_banned_users_subtext')} />;
   }
 
   return (
