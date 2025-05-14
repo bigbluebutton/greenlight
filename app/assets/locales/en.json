@@ -164,11 +164,12 @@
       "wrong_access_code": "Wrong Access Code",
       "generate_viewers_access_code": "Generate access code for viewers",
       "generate_mods_access_code": "Generate access code for moderators",
-      "server_tag": "Select a server type for this room",
+      "server_tag": "Server Tag",
       "default_tag_name": "Default",
       "server_tag_desired": "Desired",
       "server_tag_required": "Required",
-      "are_you_sure_delete_room": "Are you sure you want to delete this room?"
+      "are_you_sure_delete_room": "Are you sure you want to delete this room?",
+      "generate_recordings_access_code": "Generate Recordings Access Code"
     }
   },
   "recording": {
@@ -194,7 +195,12 @@
     "public_recordings_list_empty_description": "Recordings will appear here when available.",
     "delete_recording": "Delete Recording",
     "are_you_sure_delete_recording": "Are you sure you want to delete this recording?",
-    "search_not_found": "No Recordings Found"
+    "search_not_found": "No Recordings Found",
+    "access_code_required": "Access Code Required",
+    "enter_access_code_description": "Please enter the access code to view the public recordings for this room.",
+    "access_code_placeholder": "Enter access code",
+    "submit_access_code": "Submit Access Code",
+    "invalid_access_code": "Invalid access code. Please try again."
   },
   "admin": {
     "admin_panel": "Administrator Panel",
