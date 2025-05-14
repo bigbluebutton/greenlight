@@ -300,7 +300,7 @@
         "allow_users_to_share_rooms": "Allow Users to Share Rooms",
         "allow_users_to_share_rooms_description": "Setting to disabled will remove the button from the room options dropdown, preventing users from sharing rooms",
         "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",
-        "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room",        "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",
+        "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room",
         "show_sign_in_on_room_join": "Show Sign In Link on Room Join",
         "show_sign_in_on_room_join_description": "If the user is not signed in, a sign-in link appears at the bottom of the card when entering a room",
         "default_visibility": "Default Recording Visibility",
