@@ -69,16 +69,17 @@ module Api
       # Clears the session cookie and signs the user out
       def destroy
         id_token = session.delete(:oidc_id_token)
+        logout_path = ENV.fetch('OPENID_CONNECT_LOGOUT_PATH', '')
 
         # Make logout request to OIDC
-        if id_token.present? && external_auth?
+        if logout_path.present? && id_token.present? && external_auth?
           issuer_url = if ENV.fetch('LOADBALANCER_ENDPOINT', nil).present?
                          File.join(ENV.fetch('OPENID_CONNECT_ISSUER'), "/#{current_provider}")
                        else
                          ENV.fetch('OPENID_CONNECT_ISSUER')
                        end
 
-          end_session = File.join(issuer_url, 'protocol', 'openid-connect', 'logout')
+          end_session = File.join(issuer_url, logout_path)
 
           url = "#{end_session}?client_id=#{ENV.fetch('OPENID_CONNECT_CLIENT_ID', nil)}" \
                 "&id_token_hint=#{id_token}" \

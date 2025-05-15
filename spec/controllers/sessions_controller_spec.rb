@@ -160,10 +160,12 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
         session[:oidc_id_token] = 'sample_id_token'
         allow(controller).to receive(:external_auth?).and_return(true)
         ENV['OPENID_CONNECT_ISSUER'] = 'https://openid.example'
+        ENV['OPENID_CONNECT_LOGOUT_PATH'] = '/protocol/openid-connect/logout'
       end
 
       after do
         ENV['OPENID_CONNECT_ISSUER'] = nil
+        ENV['OPENID_CONNECT_LOGOUT_PATH'] = nil
       end
 
       it 'returns the OIDC logout url' do
