@@ -24,7 +24,7 @@ import UserBoardIcon from '../../UserBoardIcon';
 export default function AccessCodeForm({ onAccessCodeSubmit, error, friendlyId }) {
   const { t } = useTranslation();
   const [accessCode, setAccessCode] = useState('');
-  const [validated, setValidated] = useState(false);
+  const [validated] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [emptyCodeError, setEmptyCodeError] = useState(false);
 
@@ -35,7 +35,7 @@ export default function AccessCodeForm({ onAccessCodeSubmit, error, friendlyId }
     setEmptyCodeError(false);
     
     // Check for empty access code first
-    if (!accessCode || !accessCode.trim()) {
+    if (!accessCode?.trim()) {
       setEmptyCodeError(true);
       return;
     }
@@ -92,7 +92,7 @@ export default function AccessCodeForm({ onAccessCodeSubmit, error, friendlyId }
             type="submit" 
             disabled={isSubmitting}
           >
-            {isSubmitting ? t('common.submitting') || 'Submitting...' : t('recording.submit_access_code')}
+            {isSubmitting ? t('common.submitting') ?? 'Submitting...' : t('recording.submit_access_code')}
           </Button>
         </Stack>
       </Form>

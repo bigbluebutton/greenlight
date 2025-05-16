@@ -57,11 +57,6 @@ export default function PublicRecordingsCard({
     }
   };
 
-  const handleAccessCodeError = () => {
-    setRequiresAccessCode(true);
-    onAccessCodeError();
-  };
-
   // Reset requiresAccessCode when accessCode changes
   useEffect(() => {
     if (accessCode) {
