@@ -34,7 +34,7 @@ export default function CreateRoomForm({ mutation: useCreateRoomAPI, userId, han
 
   return (
     <Form methods={methods} onSubmit={createRoomAPI.mutate}>
-      <FormControl field={fields.name} type="text" />
+      <FormControl field={fields.name} type="text" autoFocus />
       <Stack className="mt-1" direction="horizontal" gap={1}>
         <Button variant="neutral" className="ms-auto" onClick={handleClose}>
           { t('close') }
