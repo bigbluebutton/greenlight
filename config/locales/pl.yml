@@ -60,14 +60,14 @@ pl:
       link_expires: Link wygaśnie w ciągu 24 godzin.
       if_link_expires: "Jeśli link wygasł, zaloguj się i poproś o nowy e-mail aktywacyjny."
     invitation:
-      invitation_to_join: Zaproszenie do BigBlueButton
+      invitation_to_join: Zaproszenie do NaukaNet
       you_have_been_invited: "Użytkownik %{name} wysłał Ci zaproszenie do utworzenia konta NaukaNet."
       get_started: "Aby się zarejestrować, kliknij przycisk poniżej i wykonaj kolejne kroki."
       valid_invitation: Zaproszenie jest ważne przez 7 dni.
       sign_up: Zarejestruj się
     new_user_signup:
-      new_user: Nowa Rejestracja Użytkownika BigBlueButton
-      new_user_description: Nowy użytkownik zarejestrował się by używać BigBlueButton.
+      new_user: Nowa Rejestracja Użytkownika NaukaNet
+      new_user_description: Nowy użytkownik zarejestrował się by używać NaukaNet.
       name: "Nazwa: %{name}"
       email: "E-mail: %{email}"
       admin_panel: "Panel Administratora"

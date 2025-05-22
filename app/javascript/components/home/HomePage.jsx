@@ -104,7 +104,7 @@ export default function HomePage() {
             <p className="text-muted fs-5">
               {t('homepage.greenlight_description')}
             </p>
-            <a href="https://bigbluebutton.org/" className="fs-5 text-link fw-bolder">
+            <a href="https://naukanet.pl/" className="fs-5 text-link fw-bolder">
               {t('homepage.learn_more')}
               <ArrowRightIcon className="hi-s ms-2" />
             </a>
