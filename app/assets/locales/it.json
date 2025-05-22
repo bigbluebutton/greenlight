@@ -31,7 +31,7 @@
   "no_result_search_input": "Nessun risultato per \"{{ searchInput }}\"",
   "action_permanent": "Questa azione non può essere annullata.",
   "homepage": {
-    "welcome_bbb": "Benvenuto in BigBlueButton.",
+    "welcome_bbb": "Benvenuto su BigBlueButton.",
     "bigbluebutton_description": "BigBlueButton è un sistema di aule virtuali open source per lezioni online. La piattaforma ottimizza il tempo dedicato all'apprendimento applicato, consentendo ai discenti di collaborare e ricevere feedback in tempo reale.",
     "greenlight_description": "Crea aule per ospitare le tue sessioni, oppure unisciti a quelle degli altri utilizzando un pratico link.",
     "learn_more": "Per saperne di più su BigBlueButton",
