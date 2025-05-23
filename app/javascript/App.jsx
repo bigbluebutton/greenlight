@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React, { useEffect, useRef } from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import { Container, Form, Spinner } from 'react-bootstrap';
 import {
   Outlet, useLocation, useNavigate, useSearchParams,
@@ -35,7 +35,7 @@ export default function App() {
   const [searchParams] = useSearchParams();
   const { data: env } = useEnv();
   const autoSignIn = searchParams.get('sso');
-  const formRef = useRef(null);
+  const [formElement, setFormElement] = useState(null);
 
   // check for the maintenance banner
   const maintenanceBanner = useSiteSetting(['Maintenance']);
@@ -58,17 +58,26 @@ export default function App() {
     }
   }, [maintenanceBanner.data]);
 
+
+  const formRef = useCallback((node) => {
+    if (node) {
+      setFormElement(node);
+    }
+  }, []);
+
+
   // Handle sso login through parameter
   useEffect(() => {
-    if (!env || currentUser.signed_in || !autoSignIn) return;
+    if (autoSignIn && currentUser.signed_in) { navigate('/', { replace: true });}
+    if (!env || !autoSignIn || !formElement) return;
 
     if (env.EXTERNAL_AUTH) {
       // eslint-disable-next-line no-unused-expressions
-      formRef.current?.requestSubmit?.() || formRef.current?.submit();
+      formElement.requestSubmit?.() || formElement.submit();
     } else {
       navigate('/signin', { replace: true });
     }
-  }, [autoSignIn, env, formRef.current]);
+  }, [autoSignIn, env, formElement]);
 
   // Pages that do not need a header: SignIn, SignUp and JoinMeeting (if the user is not signed in)
   const homePage = location.pathname === '/';
