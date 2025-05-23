@@ -203,6 +203,11 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(response).to have_http_status(:created)
     end
 
+    it 'returns the link to the room' do
+      post :create, params: room_params
+      expect(response.parsed_body['data']).to eq("/rooms/#{Room.last.friendly_id}")
+    end
+
     it 'cannot create a room for another user' do
       room_params[:room][:user_id] = new_user.id
       expect { post :create, params: room_params }.not_to(change { new_user.rooms.count })

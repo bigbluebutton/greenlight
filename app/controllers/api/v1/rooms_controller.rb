@@ -94,7 +94,7 @@ module Api
 
         if room.save
           logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
-          render_data status: :created
+          render_data data: "/rooms/#{room.friendly_id}", status: :created
         else
           render_error errors: room.errors.to_a, status: :bad_request
         end
