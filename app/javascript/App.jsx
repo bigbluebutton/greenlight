@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Container, Form, Spinner } from 'react-bootstrap';
 import {
   Outlet, useLocation, useNavigate, useSearchParams,
@@ -58,17 +58,15 @@ export default function App() {
     }
   }, [maintenanceBanner.data]);
 
-
   const formRef = useCallback((node) => {
     if (node) {
       setFormElement(node);
     }
   }, []);
 
-
   // Handle sso login through parameter
   useEffect(() => {
-    if (autoSignIn && currentUser.signed_in) { navigate('/', { replace: true });}
+    if (autoSignIn && currentUser.signed_in) { navigate('/', { replace: true }); }
     if (!env || !autoSignIn || !formElement) return;
 
     if (env.EXTERNAL_AUTH) {
