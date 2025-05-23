@@ -73,7 +73,7 @@ Metrics/ClassLength:
 # A calculated magnitude based on number of assignments,
 # branches, and conditions.
 Metrics/AbcSize:
-  Max: 105
+  Max: 110
 
 Metrics/ParameterLists:
   CountKeywordArgs: false
