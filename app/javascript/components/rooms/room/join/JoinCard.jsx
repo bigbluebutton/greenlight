@@ -226,7 +226,7 @@ export default function JoinCard() {
             <h1 className="mt-2">
               {publicRoom?.data.name}
             </h1>
-            { (recordValue !== 'false') && recordings?.data?.length > 0 && (
+            { (recordValue !== 'false') && (recordings?.data?.length > 0 || recordings?.meta?.requires_access_code === true) && (
               <ButtonLink
                 variant="brand-outline"
                 className="mt-3 mb-0 cursor-pointer"

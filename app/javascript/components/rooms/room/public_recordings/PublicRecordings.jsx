@@ -14,20 +14,56 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-/* eslint-disable consistent-return */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
+import { useSearchParams } from 'react-router-dom';
 import Logo from '../../../shared_components/Logo';
 import PublicRecordingsCard from './PublicRecordingsCard';
 
-export default function RoomJoin() {
+export default function PublicRecordings() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [accessCode, setAccessCode] = useState('');
+  const [accessCodeError, setAccessCodeError] = useState(false);
+
+  useEffect(() => {
+    // Check if there's an access code in the URL
+    const code = searchParams.get('access_code');
+    if (code) {
+      setAccessCode(code);
+    }
+  }, [searchParams]);
+
+  const handleAccessCodeSubmit = (code) => {
+    // Update state and reset any previous errors
+    setAccessCode(code);
+    setAccessCodeError(false);
+    
+    // Persist access code in URL for bookmarking and page refreshes
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set('access_code', code);
+    setSearchParams(newSearchParams);
+    
+    // Explicitly return a Promise for await in PublicRecordingsCard
+    return Promise.resolve();
+  };
+
+  const handleAccessCodeError = () => {
+    setAccessCodeError(true);
+    // Error message remains until the user enters a correct code
+  };
+
   return (
     <div className="vertical-center">
       <Row className="text-center pb-4">
         <Logo />
       </Row>
       <Row>
-        <PublicRecordingsCard />
+        <PublicRecordingsCard 
+          accessCode={accessCode} 
+          onAccessCodeError={handleAccessCodeError} 
+          onAccessCodeSubmit={handleAccessCodeSubmit}
+          accessCodeError={accessCodeError}
+        />
       </Row>
     </div>
   );
