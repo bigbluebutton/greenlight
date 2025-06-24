@@ -43,6 +43,7 @@ min_threads_count = ENV.fetch('RAILS_MIN_THREADS') { max_threads_count }
 threads min_threads_count, max_threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
+# HTTP
 port ENV.fetch('PORT', 3000)
 
 # Allow puma to be restarted by `bin/rails restart` command.
@@ -70,3 +71,9 @@ environment ENV.fetch('RAILS_ENV', 'development')
 # process behavior so workers use less memory.
 #
 # preload_app!
+# HTTPS
+ssl_bind '0.0.0.0', '3443', {
+  key: "../key.pem",
+  cert: "../cert.pem",
+  verify_mode: "none"
+}

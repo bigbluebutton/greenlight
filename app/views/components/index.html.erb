@@ -15,3 +15,7 @@
 <!--with Greenlight; if not, see <http://www.gnu.org/licenses/>.-->
 
 <div id="root"></div>
+<nav>
+  <%= link_to 'כל ההקלטות', api_v1_recordings_path %> |
+  <%= link_to 'סל המחזור', api_v1_recordings_path(show_deleted: true) %>
+</nav>

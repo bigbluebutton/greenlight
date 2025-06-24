@@ -5,31 +5,27 @@ services:
     image: postgres:14-alpine3.20
     container_name: postgres
     restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "5698"
     volumes:
       - ./data/postgres/14/database_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=
+    # tmpfs:
+      # - /var/lib/postgresql/data
 
   redis:
     image: redis:6.2-alpine3.20
     container_name: redis
     restart: unless-stopped
-    volumes:
-      - ./data/redis/database_data:/data
 
   greenlight-v3:
-    entrypoint: [bin/start]
     image: bigbluebutton/greenlight:v3
     container_name: greenlight-v3
+    entrypoint: [bin/start]
     restart: unless-stopped
     env_file: .env
     ports:
-      - 127.0.0.1:5050:3000
-    logging:
-      driver: journald
-    volumes:
-      - ./data/greenlight-v3/storage:/usr/src/app/storage
+      - "3000:3000"
     depends_on:
       - postgres
       - redis

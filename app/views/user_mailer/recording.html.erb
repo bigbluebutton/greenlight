@@ -1,0 +1,57 @@
+<% @recordings.each do |recording| %>
+  <div class="recording mb-4 p-3 border rounded">
+    
+    <!-- כותרת ההקלטה -->
+    <p class="fw-bold mb-1"><%= recording.display_title %></p>
+
+    <!-- תגיות מצב הרשאות -->
+    <div class="mb-2">
+      <% if recording.downloadable? %>
+        <span class="badge bg-success">ניתן להורדה</span>
+      <% else %>
+        <span class="badge bg-secondary">הורדה אינה זמינה</span>
+      <% end %>
+
+      <% if recording.online_only? %>
+        <span class="badge bg-info">צפייה אונליין בלבד</span>
+      <% end %>
+    </div>
+
+    <!-- כפתורים לפעולות -->
+    <div class="d-flex gap-2 flex-wrap mb-3">
+      <% if recording.downloadable? %>
+        <%= button_to 'הורד', api_v1_recording_download_path(recording), method: :post, class: 'btn btn-primary', data: { turbo: false } %>
+      <% end %>
+
+      <%= link_to 'ערוך', edit_api_v1_recording_path(recording), class: 'btn btn-outline-secondary' %>
+
+      <% if recording.recycle_bin_at.present? %>
+        <%= button_to 'שחזר', restore_from_recycle_bin_api_v1_recording_path(recording), method: :patch, class: 'btn btn-success', data: { turbo_confirm: 'האם לשחזר הקלטה זו?' } %>
+        <%= button_to 'מחק לצמיתות', destroy_permanently_api_v1_recording_path(recording), method: :delete, class: 'btn btn-danger', data: { turbo_confirm: 'האם למחוק הקלטה זו לצמיתות?' } %>
+      <% else %>
+        <%= button_to 'העבר לפח', move_to_recycle_bin_api_v1_recording_path(recording), method: :patch, class: 'btn btn-warning', data: { turbo_confirm: 'האם אתה בטוח שברצונך להעביר לפח?' } %>
+      <% end %>
+    </div>
+
+    <!-- טופס לעדכון תיקייה והרשאות -->
+    <%= form_with model: recording, url: update_folder_recording_path(recording), method: :patch, local: true do |f| %>
+      <div class="mb-3">
+        <%= f.label :folder_path, "עדכן מסלול תיקייה" %>
+        <%= f.text_field :folder_path, class: 'form-control mb-2' %>
+      </div>
+
+      <div class="form-check mb-2">
+        <%= f.check_box :downloadable, class: 'form-check-input' %>
+        <%= f.label :downloadable, "אפשר להוריד את ההקלטה", class: 'form-check-label' %>
+      </div>
+
+      <div class="form-check mb-3">
+        <%= f.check_box :online_only, class: 'form-check-input' %>
+        <%= f.label :online_only, "צפייה מקוונת בלבד", class: 'form-check-label' %>
+      </div>
+
+      <%= f.submit "שמור שינויים", class: 'btn btn-secondary' %>
+    <% end %>
+
+  </div>
+<% end %>

@@ -35,8 +35,19 @@ class Recording < ApplicationRecord
   validates :length, presence: true
   validates :participants, presence: true
   validates :visibility, inclusion: VISIBILITIES.values
+  validates :folder_path, length: { maximum: 255 }, allow_blank: true #הוספה שלי בשביל ניתוב ההקלטה
+
+
+    # הוספת פונקציה display_title
+    def display_title
+      display_name.presence || name
+    end  
+
 
   scope :with_provider, ->(current_provider) { where(user: { provider: current_provider }) }
+  scope :active, -> { where(recycle_bin_at: nil) }  # מחזיר הקלטות שעדיין לא הועברו לסל המחזור
+  scope :expired_in_recycle_bin, -> { in_recycle_bin.where('recycle_bin_at <= ?', 30.days.ago) } #סקופ למחיקת הקלטות מהסל מחזור לאחר 30 יום
+  scope :in_recycle_bin, -> { where.not(recycle_bin_at: nil) } #מחזיר הקלטות שנמצאות בתוך סל המחזור
 
   after_destroy :destroy_bbb_recording
 

@@ -22,20 +22,30 @@
 #
 default: &default
   adapter: postgresql
+  host: postgres
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 3 } %>
   timeout: 5000
 
 development:
   <<: *default
   database: greenlight-v3-development
+  username: postgres
+  password: 5698
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
   <<: *default
   database: greenlight-v3-test
+  username: postgres
+  password: 5698
 
 production:
   <<: *default
   database: greenlight-v3-production
+  username: postgres
+  password: 5698
+
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+

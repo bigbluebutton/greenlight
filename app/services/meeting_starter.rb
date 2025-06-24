@@ -45,6 +45,8 @@ class MeetingStarter
 
     retries = 0
     begin
+      options[:metadata] ||= {}
+      options[:metadata]["meta_context-id"] = @room.friendly_id
       meeting = BigBlueButtonApi.new(provider: @provider).start_meeting(room: @room, options:, presentation_url:)
 
       @room.update!(online: true, last_session: DateTime.strptime(meeting[:createTime].to_s, '%Q'))
@@ -73,7 +75,7 @@ class MeetingStarter
       'meta_bbb-origin-server-name': URI(@base_url).host,
       'meta_bbb-origin-version': ENV.fetch('VERSION_TAG', 'v3'),
       'meta_bbb-context-name': @room.name,
-      'meta_bbb-context-id': @room.friendly_id
+      'meta_bbb-context-id'=> @room.friendly_id
     }
   end
 

@@ -1,4 +1,3 @@
-
   keycloak:
     command: start
     image: quay.io/keycloak/keycloak:20.0
@@ -6,12 +5,12 @@
     restart: unless-stopped
     environment:
       - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=
+      - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_DB=postgres
       - KC_DB_URL_HOST=postgres
       - KC_DB_USERNAME=postgres
       - KC_DB_URL_DATABASE=keycloakdb
-      - KC_DB_PASSWORD=
+      - KC_DB_PASSWORD=5698
       - KC_HOSTNAME_STRICT=false
       - KC_HTTP_RELATIVE_PATH=/keycloak
       - KC_PROXY=edge

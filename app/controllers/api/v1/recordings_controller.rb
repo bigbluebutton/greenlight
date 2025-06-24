@@ -29,13 +29,77 @@ module Api
         ensure_authorized(%w[ManageRecordings SharedRoom PublicRecordings], record_id: params[:id])
       end
 
-      # GET /api/v1/recordings.json
-      # Returns all of the current_user's recordings
-      def index
-        sort_config = config_sorting(allowed_columns: %w[name length visibility])
+      # POST /api/v1/recordings/:id/download.json
+      def download
+        return render_error status: :forbidden unless current_user.can_download_recordings?
+        recording = Recording.find_by(id: params[:id])
+        return render_error(status: :not_found, message: "ההקלטה לא נמצאה") unless recording
+        # בדיקה אם ההקלטה אכן מורשית להורדה
+        return render_error(status: :forbidden, message: "ההקלטה לא זמינה להורדה") unless recording.downloadable?
+        bbb_server = ENV['BBB_SERVER_BASE_URL'] || 'https://185-241-4-251.cloud-xip.com'
+        download_url = "#{bbb_server}playback/download/#{recording.id}"
+        render_data data: { download_url: download_url }, status: :ok
+      end
 
-        pagy, recordings = pagy(current_user.recordings&.order(sort_config, recorded_at: :desc)&.search(params[:search]), items: 5)
+      # Returns all of the current_user's recordings
+      # def index
+      #   sort_config = config_sorting(allowed_columns: %w[name length visibility])
+
+      #   pagy, recordings = pagy(current_user.recordings&.order(sort_config, recorded_at: :desc)&.search(params[:search]), items: 5)
+      #   render_data data: recordings, meta: pagy_metadata(pagy), status: :ok
+      # end
+
+      # GET /api/v1/recordings.json
+      def index # שינוי שלי לפעולה הזו, הפעולה המקורית מוסלשת למעלה 
+        sort_config = config_sorting(allowed_columns: %w[name length visibility])
+        base = current_user.recordings
+        base = params[:show_deleted] == 'true' ? base.in_recycle_bin : base.active
+      
+        pagy, recordings = pagy(
+          base.order(sort_config, recorded_at: :desc).search(params[:search]),
+          items: 5
+        )
         render_data data: recordings, meta: pagy_metadata(pagy), status: :ok
+      end
+
+      #העברה לאשפה
+      # PATCH /api/v1/recordings/:id/move_to_recycle_bin
+      def move_to_recycle_bin
+        recording = Recording.find(params[:id])
+        recording.update(recycle_bin_at: Time.current)
+        render json: { message: 'Recording moved to recycle bin' }, status: :ok
+      end
+
+      #מחיקה לצמיתות
+      # DELETE /api/v1/recordings/:id/destroy_permanently
+      def destroy_permanently
+        recording = Recording.find(params[:id])
+        recording.destroy
+        render json: { message: 'Recording permanently deleted' }, status: :ok
+      end 
+
+      #אפשרות שחזור מהאשפה
+      # PATCH /api/v1/recordings/:id/restore_from_recycle_bin
+      def restore_from_recycle_bin
+        recording = Recording.find(params[:id])
+        recording.update!(recycle_bin_at: nil)
+        render json: { message: 'Recording restored from recycle bin' }, status: :ok
+      end
+
+      def edit
+        @recording = Recording.find_by!(record_id: params[:id])
+        render_data data: @recording, status: :ok
+      end   
+      
+      def update_folder#פעולה לעדכון הניתוב של ההקלטה
+        new_folder = recording_params[:folder_path]
+        return render_error errors: [Rails.configuration.custom_error_msgs[:missing_params]] if new_folder.blank?
+      
+        if @recording.update(folder_path: new_folder)
+          render_data data: @recording, status: :ok
+        else
+          render_error errors: @recording.errors.full_messages, status: :unprocessable_entity
+        end
       end
 
       # PUT/PATCH /api/v1/recordings/:id.json
@@ -43,10 +107,10 @@ module Api
       def update
         new_name = recording_params[:name]
         return render_error errors: [Rails.configuration.custom_error_msgs[:missing_params]] if new_name.blank?
-
+    
         BigBlueButtonApi.new(provider: current_provider).update_recordings record_id: @recording.record_id, meta_hash: { meta_name: new_name }
-        @recording.update! name: new_name
-
+        @recording.update!(name: new_name)
+    
         render_data data: @recording, status: :ok
       end
 
@@ -115,7 +179,7 @@ module Api
       private
 
       def recording_params
-        params.require(:recording).permit(:name)
+        params.require(:recording).permit(:name, :display_name, :folder_pathת, :downloadable, :online_only)
       end
 
       def find_recording

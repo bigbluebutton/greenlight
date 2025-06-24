@@ -65,6 +65,13 @@ Rails.application.routes.draw do
           get '/recordings_count', to: 'recordings#recordings_count'
           post '/recording_url', to: 'recordings#recording_url'
         end
+        member do # member do מגדיר פעולות שפועלות על פריט בודד (recording) לפי ה-ID שלו.
+          patch :move_to_recycle_bin #מחיקה לאשפה
+          delete :destroy_permanently #מחיקה לצמיתות
+          patch :restore_from_recycle_bin #שחזור מהאשפה
+          post 'download' # יפנה לפעולה download ב- RecordingsController
+          patch :update_folder # עדכון תיקיית ההקלטה
+        end
       end
       resources :shared_accesses, only: %i[create show destroy], param: :friendly_id do
         member do
