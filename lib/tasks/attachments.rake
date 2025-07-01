@@ -14,28 +14,20 @@
 # You should have received a copy of the GNU Lesser General Public License along
 # with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-# SQLite. Versions 3.8.0 and up are supported.
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem "sqlite3"
-#
-default: &default
-  adapter: postgresql
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 3 } %>
-  timeout: 5000
+# frozen_string_literal: true
 
-development:
-  <<: *default
-  database: greenlight-v3-development
+require_relative 'task_helpers'
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test:
-  <<: *default
-  database: greenlight-v3-test
+namespace :attachments do
+  desc 'Checks that the application was configured correctly'
+  task start: :environment do
+    ActiveStorage::Blob.update_all(service_name: 'mirror') # rubocop:disable Rails/SkipsModelValidations
+    ActiveStorage::Blob.find_each(&:mirror_later)
+    success('Started mirroring process...')
+  end
 
-production:
-  <<: *default
-  database: greenlight-v3-production
+  task :finish, %i[new_service] => :environment do |_task, args|
+    ActiveStorage::Blob.update_all(service_name: args[:new_service]) # rubocop:disable Rails/SkipsModelValidations
+    success('Finished mirroring process...')
+  end
+end

@@ -17,10 +17,12 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import axios from '../../../helpers/Axios';
 
 export default function useCreateRoom({ userId, onSettled }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const ROOMSLISTQUERYKEY = ['getRooms', { search: '' }]; // TODO: amir - create a central store for query keys.
   const queryClient = useQueryClient();
@@ -48,9 +50,14 @@ export default function useCreateRoom({ userId, onSettled }) {
     (room) => axios.post('/rooms.json', { room, user_id: userId }),
     { // Mutation config.
       onMutate: optimisticCreateRoom,
-      onSuccess: () => { toast.success(t('toast.success.room.room_created')); },
-      // If the mutation fails, use the context returned from onMutate to roll back
+      onSuccess: (url) => {
+        if (url?.data?.data) {
+          navigate(url.data.data);
+        }
 
+        toast.success(t('toast.success.room.room_created'));
+      },
+      // If the mutation fails, use the context returned from onMutate to roll back
       onError: (err, newRoom, context) => {
         queryClient.setQueryData(ROOMSLISTQUERYKEY, context.oldRooms);
         // specifc toast for room limit being met

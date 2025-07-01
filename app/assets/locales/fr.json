@@ -164,6 +164,10 @@
       "wrong_access_code": "Code d'accès erroné",
       "generate_viewers_access_code": "Générer un code d'accès pour les auditeurs",
       "generate_mods_access_code": "Générer un code d'accès pour les modérateurs",
+      "server_tag": "Choisir un type de serveur pour cette salle",
+      "default_tag_name": "Par défaut",
+      "server_tag_desired": "Demandé",
+      "server_tag_required": "Exigé",
       "are_you_sure_delete_room": "Êtes vous sur de vouloir supprimer cette salle?"
     }
   },
@@ -178,7 +182,7 @@
     "formats": "Lecture",
     "published": "Publiée",
     "unpublished": "Non publiée",
-    "protected": "Protégée",
+    "protected": "Protégé",
     "public": "Public",
     "public_protected": "Public/Protégé",
     "length_in_minutes": "{{recording.length}} min.",
@@ -303,7 +307,7 @@
       "registration": {
         "registration": "Inscription",
         "role_mapping_by_email": "Configuration des rôles par courriel",
-        "role_mapping_by_email_description": "Configurer le rôle d'un utilisateur en se servant de son courriel. Doit être au format suivant: rôle1=courriel1, rôle2=courriel2",
+        "role_mapping_by_email_description": "Configurer le rôle d'un utilisateur en se servant de son courriel. Doit être au format suivant: role1=email1, role2=email2",
         "enter_role_mapping_rule": "Saisir une règle de configuration des rôles",
         "resync_on_login": "Resynchroniser les données utilisateur à chaque authentification",
         "resync_on_login_description": "Resynchroniser les données utilisateur de Greenlight à chacune de ses connexions, afin qu'elles correspondent toujours avec celles du service d'authentification",
@@ -315,7 +319,10 @@
           "open": "Inscription libre",
           "invite": "Rejoindre sur invitation",
           "approval": "Approuver/Refuser"
-        }
+        },
+        "allowed_domains": "Domaines de courriels autorisés",
+        "allowed_domains_signup_description": "Pour les connexions, autoriser des domaines de courriels spécifiques",
+        "enter_allowed_domains_rule" : "Saisissez les domaines autorisés"
       }
     },
     "room_configuration": {
@@ -413,10 +420,11 @@
         "brand_color_updated": "La couleur de la marque a été mise à jour.",
         "brand_image_updated": "L'image de marque a été actualisée.",
         "brand_image_deleted": "L'image de marque a été supprimée.",
-        "privacy_policy_updated": "La politique de confidentialité a été mise à jour.",
+        "privacy_policy_updated": "Les règles de confidentialité ont été mises à jour",
         "helpcenter_updated": "Le lien vers le centre d'aide a été mis à jour",
         "terms_of_service_updated": "Les conditions de service ont été mises à jour.",
-        "maintenance_updated": "Le bandeau de maintenance a été mis à jour"
+        "maintenance_updated": "Le bandeau de maintenance a été mis à jour",
+        "allowed_domains_signup_updated": "Les noms de domaines autorisés ont été mis à jour"
       },
       "recording": {
         "recording_visibility_updated": "La visibilité de l'enregistrement a été mise à jour.",
@@ -437,6 +445,7 @@
     },
     "error": {
       "problem_completing_action": "L'action que vous voulez réaliser n'aboutit pas. Veuillez réessayer",
+      "server_type_unavailable": "Le type de serveur demandé n'est pas disponible. Veuillez choisir un type de serveur différent dans les paramètres de la salle.",
       "file_type_not_supported": "Ce type de fichier n'est pas pris en charge",
       "file_size_too_large": "La taille du fichier est trop importante",
       "file_upload_error": "Le fichier ne peut pas être téléversé",
@@ -533,6 +542,11 @@
       },
       "url": {
         "invalid": "URL non valide"
+      },
+      "text_form": {
+        "value": {
+          "required": "Veuillez saisir un message"
+        }
       }
     },
     "room": {

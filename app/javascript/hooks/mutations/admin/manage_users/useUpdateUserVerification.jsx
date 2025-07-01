@@ -14,26 +14,26 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import axios from '../../../helpers/Axios';
+import axios from '../../../../helpers/Axios';
 
-export default function useStartMeeting(friendlyId) {
+export default function useUpdateUserVerification() {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   return useMutation(
-    () => axios.post(`meetings/${friendlyId}/start.json`).then((resp) => resp.data.data),
+    (data) => axios.patch(`/admin/users/${data.id}.json`, { user: { verified: data.verified } }),
     {
-      onSuccess: (joinUrl) => {
-        window.location.href = joinUrl;
+      onSuccess: () => {
+        queryClient.invalidateQueries(['getAdminUsers']);
+        queryClient.invalidateQueries(['getUnverifiedUsers']);
+
+        toast.success(t('toast.success.user.user_updated'));
       },
-      onError: (error) => {
-        if (error.response.data.errors === 'serverTagUnavailable') {
-          toast.error(t('toast.error.server_type_unavailable'));
-        } else {
-          toast.error(t('toast.error.problem_completing_action'));
-        }
+      onError: () => {
+        toast.error(t('toast.error.problem_completing_action'));
       },
     },
   );
