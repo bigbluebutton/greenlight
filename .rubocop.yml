@@ -14,7 +14,7 @@ AllCops:
     - 'vendor/bundle/**/*'
     - 'config/routes.rb'
   DisabledByDefault: false
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.3
   NewCops: enable
 
 # Document classes and non-namespace modules.
@@ -73,7 +73,7 @@ Metrics/ClassLength:
 # A calculated magnitude based on number of assignments,
 # branches, and conditions.
 Metrics/AbcSize:
-  Max: 90
+  Max: 110
 
 Metrics/ParameterLists:
   CountKeywordArgs: false
@@ -82,10 +82,10 @@ RSpec/AnyInstance:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
-  Max: 20
+  Max: 25
 
 Metrics/PerceivedComplexity:
-  Max: 20
+  Max: 25
 
 Rails/Exit:
   Exclude:

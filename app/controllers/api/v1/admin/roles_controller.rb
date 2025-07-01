@@ -28,7 +28,7 @@ module Api
           ensure_authorized('ManageRoles')
         end
 
-        # POST /api/v1/admin/roles.json
+        # GET /api/v1/admin/roles.json
         # Fetches and returns the list of roles
         def index
           sort_config = config_sorting(allowed_columns: %w[name])

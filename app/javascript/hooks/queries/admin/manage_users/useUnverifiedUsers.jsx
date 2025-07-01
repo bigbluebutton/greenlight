@@ -14,27 +14,25 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import { useMutation } from 'react-query';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
-import axios from '../../../helpers/Axios';
+import { useQuery } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
+import axios from '../../../../helpers/Axios';
 
-export default function useStartMeeting(friendlyId) {
-  const { t } = useTranslation();
+export default function useUnverifiedUsers(input, page) {
+  const [searchParams] = useSearchParams();
 
-  return useMutation(
-    () => axios.post(`meetings/${friendlyId}/start.json`).then((resp) => resp.data.data),
+  const params = {
+    'sort[column]': searchParams.get('sort[column]'),
+    'sort[direction]': searchParams.get('sort[direction]'),
+    search: input,
+    page,
+  };
+
+  return useQuery(
+    ['getUnverifiedUsers', { ...params }],
+    () => axios.get('/admin/users/unverified.json', { params }).then((resp) => resp.data),
     {
-      onSuccess: (joinUrl) => {
-        window.location.href = joinUrl;
-      },
-      onError: (error) => {
-        if (error.response.data.errors === 'serverTagUnavailable') {
-          toast.error(t('toast.error.server_type_unavailable'));
-        } else {
-          toast.error(t('toast.error.problem_completing_action'));
-        }
-      },
+      keepPreviousData: true,
     },
   );
 }

@@ -14,27 +14,12 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import { useMutation } from 'react-query';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+import { useQuery } from 'react-query';
 import axios from '../../../helpers/Axios';
 
-export default function useStartMeeting(friendlyId) {
-  const { t } = useTranslation();
-
-  return useMutation(
-    () => axios.post(`meetings/${friendlyId}/start.json`).then((resp) => resp.data.data),
-    {
-      onSuccess: (joinUrl) => {
-        window.location.href = joinUrl;
-      },
-      onError: (error) => {
-        if (error.response.data.errors === 'serverTagUnavailable') {
-          toast.error(t('toast.error.server_type_unavailable'));
-        } else {
-          toast.error(t('toast.error.problem_completing_action'));
-        }
-      },
-    },
+export default function useServerTagsFallbackMode() {
+  return useQuery(
+    'getFallbackMode',
+    () => axios.get('/server_tags/fallback_mode.json').then((resp) => resp.data.data),
   );
 }

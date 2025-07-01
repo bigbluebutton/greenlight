@@ -34,6 +34,7 @@ import PendingUsers from './PendingUsers';
 import BannedUsers from './BannedUsers';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import useEnv from '../../../hooks/queries/env/useEnv';
+import UnverifiedUsers from './UnverifiedUsers';
 
 export default function ManageUsers() {
   const { t } = useTranslation();
@@ -99,6 +100,12 @@ export default function ManageUsers() {
                       <Tab eventKey="active" title={t('admin.manage_users.active')}>
                         <VerifiedUsers searchInput={searchInput} />
                       </Tab>
+                      {(!envAPI.isLoading && !envAPI.data?.EXTERNAL_AUTH)
+                      && (
+                        <Tab eventKey="unverified" title={t('admin.manage_users.unverified')}>
+                          <UnverifiedUsers searchInput={searchInput} />
+                        </Tab>
+                      )}
                       {registrationMethod === 'approval'
                         && (
                           <Tab eventKey="pending" title={t('admin.manage_users.pending')}>
