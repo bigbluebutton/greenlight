@@ -62,7 +62,7 @@ export default function JoinCard() {
   const { data: signInOnRoomJoin } = useSiteSetting('SignInOnRoomJoin');
 
   const { methods, fields } = useRoomJoinForm();
-  
+
   // get queryParams for JoinFormName
   const location = useLocation();
 

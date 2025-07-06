@@ -33,7 +33,9 @@ module Api
       # POST /api/v1/sessions
       # Signs a user in and updates the session cookie
       def create
-        return render_error errors: Rails.configuration.custom_error_msgs[:hcaptcha_invalid] if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+        if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+          return render_error errors: Rails.configuration.custom_error_msgs[:hcaptcha_invalid]
+        end
 
         # Search for a user within the current provider and, if not found, search for a super admin within bn provider
         user = User.find_by(email: session_params[:email].downcase, provider: current_provider) ||

@@ -31,7 +31,7 @@ module Api
           initial_status = user.status
 
           if user.update(user_params)
-            user.generate_session_token! if (user.status == 'banned' && initial_status == 'active')
+            user.generate_session_token! if user.status == 'banned' && initial_status == 'active'
             render_data status: :ok
           else
             render_error errors: user.errors.to_a
