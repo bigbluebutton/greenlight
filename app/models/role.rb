@@ -75,6 +75,6 @@ class Role < ApplicationRecord
 
     self.color = color
   rescue StandardError
-    retry
+    retry unless Role.exists?(name:, provider:) # Ensure uniqueness for name
   end
 end
