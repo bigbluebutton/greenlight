@@ -27,7 +27,7 @@ export default function useDeleteUser(userId) {
     (data) => axios.delete(`/users/${userId}.json`, data),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('getAdminUsers');
+        queryClient.invalidateQueries('getVerifiedUsers');
         toast.success(t('toast.success.user.user_deleted'));
       },
       onError: () => {
