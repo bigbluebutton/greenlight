@@ -207,6 +207,8 @@
       "banned": "مسدودشده",
       "ban": "مسدود",
       "unban": "لغو مسدودیت",
+      "unverified": "تاییدنشده",
+      "verify": "تایید کنید",
       "deleted": "حذف‌شده",
       "invited_tab": "دعوت‌شده",
       "invite_user": "دعوت از کاربر",
@@ -230,6 +232,8 @@
       "empty_pending_users_subtext": "هنگامی که وضعیت یک کاربر به در انتظارِ تأیید تغییر می‌کند، در اینجا نمایان می‌شوند.",
       "empty_banned_users": "هنوز هیچ کاربر مسدودشده‌ای در این سرور وجود ندارد!",
       "empty_banned_users_subtext": "هنگامی که وضعیت یک کاربر به مسدودشده تغییر می‌کند، در اینجا نمایان می‌شوند.",
+      "empty_unverified_users": "هنوز هیچ کاربر تاییدنشده‌ای در این سرور وجود ندارد!",
+      "empty_unverified_users_subtext": "هر کاربر تاییدنشده‌ای در اینجا ظاهر خواهد شد.",
       "empty_invited_users": "هنوز هیچ کاربر دعوت‌شده‌ای در این سرور وجود ندارد!",
       "empty_invited_users_subtext": "هنگامی که وضعیت یک کاربر به دعوت‌شده تغییر می‌کند، در اینجا نمایان می‌شوند.",
       "invited": {
@@ -297,6 +301,8 @@
         "allow_users_to_share_rooms_description": "تنظیم برروی غیرفعال، دکمه را از فهرست کشویی گزینه‌های اتاق حذف می‌کند و از هم‌رسانی اتاق‌ها توسط کاربران جلوگیری می‌کند",
         "allow_users_to_preupload_presentation": "به کاربران اجازه دهید تا ارائه‌ها را از قبل بارگذاری کنند",
         "allow_users_to_preupload_presentation_description": "کاربران می‌توانند یک ارائه را از قبل بارگذاری کنند تا به عنوان ارائهٔ پیش‌فرض برای آن اتاق خاص استفاده شود",
+        "show_sign_in_on_room_join": "نمایش پیوند ورود هنگام پیوستن به اتاق",
+        "show_sign_in_on_room_join_description": "اگر کاربر وارد نشده باشد، یک پیوند ورود در پایین کارت هنگام ورود به اتاق ظاهر می‌شود",
         "default_visibility": "قابلیت مشاهدهٔ پیش‌فرض ضبط‌شده‌ها",
         "default_visibility_description": "همه ضبط‌هایی که به‌تازگی ایجاد شده، به طور پیش‌فرض این قابلیت مشاهده را خواهند داشت",
         "session_timeout": "مهلت نشست",
@@ -319,7 +325,10 @@
           "open": "بازکردن ثبت‌نام",
           "invite": "پیوستن با دعوت‌نامه",
           "approval": "تأیید/رد"
-        }
+        },
+        "allowed_domains": "دامنه‌های رایانامه مجاز",
+        "allowed_domains_signup_description": "به دامنه‌های رایانامه خاص اجازه دهید تا نام‌نویسی کنند. قالب باید به این صورت باشد: ‎@test.com,domain.com",
+        "enter_allowed_domains_rule" : "دامنه‌های مجاز را وارد کنید"
       }
     },
     "room_configuration": {
@@ -420,7 +429,8 @@
         "privacy_policy_updated": "اطلاعیه حفظ حریم خصوصی به‌روز شده است.",
         "helpcenter_updated": "پیوند مرکز راهنمایی به‌روز شده است.",
         "terms_of_service_updated": "شرایط خدمات به‌روز شده‌است.",
-        "maintenance_updated": "اعلامیهٔ حالت تعمیر به‌روز شده است."
+        "maintenance_updated": "اعلامیهٔ حالت تعمیر به‌روز شده است.",
+        "allowed_domains_signup_updated": "دامنه‌های رایانامه مجاز به‌روزرسانی شده‌اند."
       },
       "recording": {
         "recording_visibility_updated": "قابلیت مشاهدهٔ ضبط به‌روز شده‌است.",
