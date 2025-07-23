@@ -313,7 +313,7 @@
       "registration": {
         "registration": "Erregistratzea",
         "role_mapping_by_email": "Profilen mapatzea Eposta bidez",
-        "role_mapping_by_email_description": "Erabiltzailea rol batera mapatu bere posta elektronikoa erabiliz. Formatua: role1=email1,role2=email2",
+        "role_mapping_by_email_description": "Erabiltzailea profil batera mapatu bere posta elektronikoa erabiliz. Formatua: role1=email1,role2=email2",
         "enter_role_mapping_rule": "Sartu roleen mapatze arau bat",
         "resync_on_login": "Saio hasiera bakoitzean erabiltzailearen datuan bersinkronizatu",
         "resync_on_login_description": "Bersinkronizatu erabiltzaile baten informazioa izena ematen duen bakoitzean, kanpo-egiaztatze hornitzailea beti bat etorriz Greenlight-en informazioarekin.",
