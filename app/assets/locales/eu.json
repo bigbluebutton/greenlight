@@ -574,7 +574,7 @@
           "placeholder": "Idatzi sarbide kodea"
         },
         "recording_consent": {
-          "label": "Onartzen dut bilkura hau erregistra daitekeela. Honek nire ahotsa eta bideoa barnehartu ditzake, aktibatuta egonez gero."
+          "label": "Onartzen dut bilkura hau grabatua izan daitekeela. Honek nire ahotsa eta bideoa barne har ditzake, gaituta egonez gero."
         }
       }
     },
