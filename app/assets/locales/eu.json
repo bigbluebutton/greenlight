@@ -458,7 +458,7 @@
       "signin_required": "Saioa hasi behar duzu orri honetara sartzeko.",
       "malware_detected": "Malwarea detektatu da! Igo duzun fitxategiak malware bat izan dezake. Mesedez, berrikusi zure fitxategia eta saiatu berriro.",
       "roles": {
-        "role_assigned": "Role hau ezin da ezabatu gutxienez erabiltzaile bati egokitu bait zaio."
+        "role_assigned": "Profil hau ezin da ezabatu gutxienez erabiltzaile bati egokitu bait zaio."
       },
       "users": {
         "signup_error": "Ezin zara egizatatua izan. Jarri harremanetan zure kudeatzailearekin.",
