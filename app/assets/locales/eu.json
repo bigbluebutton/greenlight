@@ -369,7 +369,7 @@
       "create_role": "Sortu Profila",
       "create_new_role": "Sortu profil berri bat",
       "no_role_found": "Ez da profilik aurkitu",
-      "search_not_found": "Ez dire rolerik aurkitu",
+      "search_not_found": "Ez da profilik aurkitu",
       "edit": {
         "create_room": "Role hau duten erabiltzaileek aretoak sortzea ahalbidetu",
         "record": "Role hau duten erabiltzaileek beraien bilerak grabatzea ahalbidetu",
