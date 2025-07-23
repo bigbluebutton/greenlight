@@ -361,7 +361,7 @@
       "roles": "Profilak",
       "administrator": "Kudeatzailea",
       "guest": "Gonbidatua",
-      "manage_roles": "Kudeatu Roleak",
+      "manage_roles": "Kudeatu Profilak",
       "delete_role": "Ezabatu Rolea",
       "are_you_sure_delete_role": "Ziur role hau ezabatu nahi duzula?",
       "enter_role_name": "Sartu rolearen izen bat",
