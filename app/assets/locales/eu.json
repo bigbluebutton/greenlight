@@ -716,7 +716,7 @@
       "roles": {
         "fields": {
           "name": {
-            "label": "Rolearen izena",
+            "label": "Profilaren izena",
             "placeholder": "Sartu rolearentzat izen bat..."
           }
         }
