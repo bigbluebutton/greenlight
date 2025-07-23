@@ -717,7 +717,7 @@
         "fields": {
           "name": {
             "label": "Profilaren izena",
-            "placeholder": "Sartu rolearentzat izen bat..."
+            "placeholder": "Sartu profilarentzat izen bat..."
           }
         }
       }
