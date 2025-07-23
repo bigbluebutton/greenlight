@@ -371,7 +371,7 @@
       "no_role_found": "Ez da profilik aurkitu",
       "search_not_found": "Ez da profilik aurkitu",
       "edit": {
-        "create_room": "Role hau duten erabiltzaileek aretoak sortzea ahalbidetu",
+        "create_room": "Profil hau duten erabiltzaileek aretoak sortzea ahalbidetu",
         "record": "Role hau duten erabiltzaileek beraien bilerak grabatzea ahalbidetu",
         "manage_users": "Role hau duten erabiltzaileek erabiltzaileak kudeatzea ahalbidetu",
         "manage_rooms": "Role hau duten erabiltzaileek zerbitzariko aretoak kudeatzea ahalbidetu",
