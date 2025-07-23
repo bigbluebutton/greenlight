@@ -543,7 +543,7 @@
       },
       "room_join": {
         "name": {
-          "required": "Idatzi zure izena, mesedez"
+          "required": "Idatzi zure izena, mesedez."
         }
       },
       "url": {
