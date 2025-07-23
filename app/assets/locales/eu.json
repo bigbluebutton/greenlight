@@ -14,15 +14,20 @@
   "report": "Jakinarazi",
   "share": "Elkarbanatu",
   "cancel": "Utzi",
+  "reset":   "Garbitu",
   "close": "Itxi",
   "delete": "Ezabatu",
   "copy": "Kopiatu bileraren esteka",
+  "copy_viewer_code": "Kopiatu ikusle-kodea",
+  "copy_moderator_code": "Kopiatu moderatzaile-kodea",
   "or": "Edo",
   "online": "Linean",
   "help_center": "Laguntza-gunea",
   "are_you_sure": "Ziur?",
   "return_home": "Itzuli Hasierara",
   "created_at": "Noiz sortua:",
+  "view_recordings": "Ikusi grabaketak",
+  "join_session": "Hasi saioa",
   "no_result_search_input": "Ez da emaitzarik aurkitu \"{{ searchInput }}\"(e)rentzat",
   "action_permanent": "Ezin da ekintza hau desegin.",
   "homepage": {
@@ -79,6 +84,7 @@
       "account_info": "Kontuaren infomrazioa",
       "delete_account": "Ezabatu kontua",
       "change_password": "Aldatu pasahitza",
+      "set_password": "Jarri zure pasahitz berria",
       "reset_password": "Berrezarri pasahitza",
       "update_account_info": "Eguneratu kontuaren informazioa",
       "current_password": "Egungo pasahitza",
@@ -108,7 +114,7 @@
     "delete_room": "Ezabatu Aretoa",
     "create_new_room": "Sortu Areto Berria",
     "enter_room_name": "Sartu aretoaren izena",
-    "shared_by": "Honek partekatua:",
+    "shared_by": "honek partekatua",
     "last_session": "Azken saioa: {{ localizedTime }}",
     "no_last_session": "Ez da aurreko saiorik sortu",
     "search_not_found": "Ez da Aretorik Aurkitu",
@@ -126,7 +132,8 @@
       "presentation": "Aurkezpena",
       "click_to_upload": "Egin klik Kargatzeko",
       "drag_and_drop": "edo arrastatu eta jaregin",
-      "upload_description": "Kargatu bulegoko edozein dokumentu edo PDF fitxategi. Fitxategiaren tamainaren arabera, baliteke kargatzeko denbora gehiago behar izatea erabili aurretik",
+      "upload_description": "Kargatu office edozein dokumentu edo PDF fitxategi (ez {{size}} baino handiagoa). Fitxategiaren tamainaren arabera, baliteke kargatzeko denbora gehiago behar izatea erabili aurretik",
+      "delete_presentation": "Ezabatu aurkezpena",
       "are_you_sure_delete_presentation": "Ziur aurkezpen hau ezabatu nahi duzula?"
     },
     "shared_access": {
@@ -157,12 +164,17 @@
       "wrong_access_code": "Sarbide-kode okerra",
       "generate_viewers_access_code": "Sortu sarbide-kodea ikusleentzat",
       "generate_mods_access_code": "Sortu sarbide-kodea moderatzaileentzat",
+      "server_tag": "Aukeratu zerbitzari mota bat gela honetarako",
+      "default_tag_name": "Lehenetsia",
+      "server_tag_desired": "Gogokoa",
+      "server_tag_required": "Beharrezkoa",
       "are_you_sure_delete_room": "Ziur areto hau ezabatu nahi duzula?"
     }
   },
   "recording": {
     "recording": "Grabaketa",
     "recordings": "Grabaketak",
+    "processing": "Grabaketak prozesatzen...",
     "name": "Izena",
     "length": "Iraupena",
     "users": "Erabiltzaileak",
@@ -171,11 +183,15 @@
     "published": "Argitaratua",
     "unpublished": "Argitaratu gabea",
     "protected": "Babestua",
+    "public": "Publikoa",
+    "public_protected": "Publikoa/Babestua",
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Grabaketa prozesatzen...",
     "copy_recording_urls": "Kopiatu grabaketa esteka(k)",
     "recordings_list_empty": "Oraindik ez duzu grabaketarik!",
+    "public_recordings_list_empty": "Oraindik ez dago grabaketa publikorik hemen!",
     "recordings_list_empty_description": "Grabaketak hemen agertuko dira bilera bat hasi eta grabatu ondoren.",
+    "public_recordings_list_empty_description": "Grabaketak hemen agertuko dira eskuragarri daudenean.",
     "delete_recording": "Ezabatu grabaketa",
     "are_you_sure_delete_recording": "Ziur grabaketa ezabatu nahi duzula?",
     "search_not_found": "Ez da grabaketarik aurkitu"
@@ -191,6 +207,8 @@
       "banned": "Galerazia",
       "ban": "Galerazi",
       "unban": "Desgalerazi",
+      "unverified": "Egiaztatu gabe",
+      "verify": "Egiaztatuta",
       "deleted": "Ezabatua",
       "invited_tab": "Gonbidatua",
       "invite_user": "Gonbidatu erabiltzailea",
@@ -214,11 +232,14 @@
       "empty_pending_users_subtext": "Erabiltzaile bat zain egoerara pasatzen denean hemen agertuko da.",
       "empty_banned_users": "Oraindiok ez dago galerazitako erabiltzailerik zerbitzari honetan!",
       "empty_banned_users_subtext": "Erabiltzaile bat galerazia egoerara pasatzen denean hemen agertuko da.",
+      "empty_unverified_users": "Ez dago egiaztatu gabeko erabiltzailerik zerbitzari honetan!",
+      "empty_unverified_users_subtext": "Hemen agertuko dira egiaztatu gabeko erabiltzaileak.",
       "empty_invited_users": "Oraindik ez dago gonbidatutako erabiltzailerik zerbitzari honetan!",
       "empty_invited_users_subtext": "Erabiltzaile bat gonbidatua egoerara pasatzen denean hemen agertuko da.",
       "invited": {
         "time_sent": "Bidalketa-ordua",
-        "valid": "Baliagarria"
+        "valid": "Baliagarria",
+        "revoke": "Baliogabetu"
       }
     },
     "server_rooms": {
@@ -255,17 +276,23 @@
         "brand_image": "Markaren Irudia",
         "click_to_upload": "Egin klik Kargatzeko",
         "drag_and_drop": "edo arrastatu eta jaregin",
-        "upload_brand_image_description": "Kargatu edozein PNG, JPG edo SVG fitxategi. Fitxategiaren tamainaren arabera, baliteke kargatzeko denbora gehiago behar izatea erabili aurretik",
+        "upload_brand_image_description": "Kargatu edozein PNG, JPG edo SVG fitxategi ({{size}} baino handiagorik ez). Fitxategiaren tamainaren arabera, baliteke denbora gehiago behar izatea erabili aurretik igotzeko",
         "remove_branding_image": "Ezabatu Markaren Irudia"
       },
       "administration": {
         "administration": "Kudeaketa",
         "terms": "Baldintzak",
-        "privacy": " Pribatutasun Politika",
-        "privacy_policy": " Pribatutasun Politika",
+        "privacy": "Pribatutasun Oharra",
+        "privacy_policy": "Pribatutasun Oharra",
         "change_term_links": "Aldatu orrialdearen amaieran agertzen diren baldintzen estekak",
         "change_privacy_link": " Aldatu orrialdearen amaieran agertzen diren pribatutasun esteka",
+        "helpcenter": "Laguntza Gunea",
+        "change_helpcenter_link": "Aldatu profileko goitibeherako menuan agertzen den laguntza-zentroaren esteka",
+        "maintenance": "Mantenu-lanetarako bannerra",
+        "change_maintenance_text": "Aldatu goiburuan agertzen den mantentze-lanen bannerraren testua",
         "change_url": "Aldatu Esteka",
+        "set_text": "Idatzi testua",
+        "clear_banner": "Garbitu bannerra",
         "enter_link": "Sartu esteka hemen"
       },
       "settings": {
@@ -273,12 +300,20 @@
         "allow_users_to_share_rooms": "Ahalbidetu Erabiltzaileak Aretoak Elkarbanatzera",
         "allow_users_to_share_rooms_description": "Desgaitu gisa konfiguratzean botoia kenduko da goitibeherako menutik, erabiltzaileak aretoak elkarbanatzea sahiestuz",
         "allow_users_to_preupload_presentation": "Ahalbidetu erabiltzaileak aurkezpenak aurrekargatzea",
-        "allow_users_to_preupload_presentation_description": "Erabiltzaileek aurkezpenak aurrekargatu ditzakete areto zehatz horretako lehenetsitako aurkezpen gisa erabiltzeko"
+        "allow_users_to_preupload_presentation_description": "Erabiltzaileek aurkezpenak aurrekargatu ditzakete areto zehatz horretako lehenetsitako aurkezpen gisa erabiltzeko",
+        "show_sign_in_on_room_join": "Erakutsi Saioa Hasteko Esteka Gelan Sartzean",
+        "show_sign_in_on_room_join_description": "Erabiltzailea saioa hasi gabe badago, saioa hasteko esteka bat agertuko da txartelaren beheko aldean, gela batera sartzean.",
+        "default_visibility": "Grabazioaren ikusgaitasun lehenetsia",
+        "default_visibility_description": "Sortu berri diren grabazio guztiek izango dute ikusgaitasun hori lehenetsita",
+        "session_timeout": "Saioaren denbora-muga",
+        "session_timeout_description": "Saioaren denbora-muga konfigura dezakezu 1 eguneko cookie lehenetsi batekin edo 7 eguneko hedatutako cookie saio batekin.",
+        "default_session_timeout": "Lehenetsia (1 egun)",
+        "extended_session_timeout": "Hedatua (7 egun)"
       },
       "registration": {
         "registration": "Erregistratzea",
         "role_mapping_by_email": "Roleen mapatzea Eposta bidez",
-        "role_mapping_by_email_description": "Erabiltzaile bat role bat egokitu bere eposta erabiliz. Role1=eposta1, role2=eposta2, role3=eposta3 formatua izan behar du.",
+        "role_mapping_by_email_description": "Erabiltzailea rol batera mapatu bere posta elektronikoa erabiliz. Formatua: role1=email1,role2=email2",
         "enter_role_mapping_rule": "Sartu roleen mapatze arau bat",
         "resync_on_login": "Saio hasiera bakoitzean erabiltzailearen datuan bersinkronizatu",
         "resync_on_login_description": "Bersinkronizatu erabiltzaile baten informazioa izena ematen duen bakoitzean, kanpo-egiaztatze hornitzailea beti bat etorriz Greenlight-en informazioarekin.",
@@ -290,7 +325,10 @@
           "open": "Erregistratze irekia",
           "invite": "Batu gonbidapen bidez",
           "approval": "Onartu/Baztertu"
-        }
+        },
+        "allowed_domains": "Baimendutako e-posta domeinuak",
+        "allowed_domains_signup_description": "Posta elektronikoko domeinu zehatzei alta ematen baimendu. Formatua: @test.com,domain.com",
+        "enter_allowed_domains_rule" : "Sartu baimendutako domeinuak"
       }
     },
     "room_configuration": {
@@ -341,7 +379,9 @@
         "manage_site_settings": "Role hau duten erabiltzaileek guneraren ezarpenak kudeatzea ahalbidetu",
         "manage_roles": "Role hau duten erabiltzaileek beste roleak editatzea ahalbidetu",
         "shared_list": "Role hau duten erabiltzaileak aretoak partekatzeko goitibeherako zerrendan sartu",
-        "room_limit": "Aretoen Muga"
+        "room_limit": "Aretoen Muga",
+        "email_on_signup": "Mezu elektroniko bat jaso erabiltzaile berri batek alta ematen duenean",
+        "allowed_recording_visibility": "Grabazioen ikusgaitasun baimenduak"
       }
     }
   },
@@ -352,6 +392,7 @@
         "user_updated": "Erabiltzailea eguneratu da.",
         "user_deleted": "Erabiltzailea ezabatu da.",
         "avatar_updated": "Profil-irudia eguneratu da.",
+        "password_changed": "Zure pasahitza ongi eguneratu da. Hasi saioa berriro mesedez.",
         "password_updated": "Pasahitza eguneratu da.",
         "account_activated": "Zure kontua gaitu da.",
         "activation_email_sent": "Eposta mezu bat bidali da zure kontua gaitzeko argibideekin.",
@@ -376,15 +417,20 @@
         "access_code_copied": "Sarbide-kodea kopiatu da.",
         "access_code_generated": "Sarbide-kode berri bat sortu da.",
         "access_code_deleted": "Sarbide-kodea ezabatu da.",
-        "copied_meeting_url": "Bilearen URLa kopiatu da. Esteka bilerara batzeko erabili daiteke."
+        "copied_meeting_url": "Bilearen URLa kopiatu da. Esteka bilerara batzeko erabili daiteke.",
+        "copied_viewer_code": "Ikuslearen sarbide-kodea kopiatu egin da.",
+        "copied_moderator_code": "Moderatzailearen sarbide-kodea kopiatu da."
       },
       "site_settings": {
         "site_setting_updated": "Gunearen ezarpenak eguneratu dira.",
         "brand_color_updated": "Markaren kolorea eguneratu da.",
         "brand_image_updated": "Markaren irudia eguneratu da.",
         "brand_image_deleted": "Markaren irudia ezabatu da.",
-        "privacy_policy_updated": "Pribatutasun politika eguneratu da.",
-        "terms_of_service_updated": "Zerbitzuaren baldintzak eguneratu dira."
+        "privacy_policy_updated": "Pribatutasun oharra eguneratu da.",
+        "helpcenter_updated": "Laguntza-gunearen esteka eguneratu da",
+        "terms_of_service_updated": "Zerbitzuaren baldintzak eguneratu dira.",
+        "maintenance_updated": "Mantentze-lanen bannerra eguneratu da.",
+        "allowed_domains_signup_updated": "Baimendutako e-posta domeinuak eguneratu dira."
       },
       "recording": {
         "recording_visibility_updated": "Grabaketaren ikuspena eguneratu da.",
@@ -399,15 +445,18 @@
         "role_permission_updated": "Rolearen baimenak eguneratu dira."
       },
       "invitations": {
-        "invitation_sent": "Gonbidapen bat bidali da."
+        "invitation_sent": "Gonbidapen bat bidali da.",
+        "invitation_revoked": "Gonbidapen bat ezeztatu da"
       }
     },
     "error": {
       "problem_completing_action": "Ezin da ekintza burutu. \nSaiatu berriro mesedez.",
+      "server_type_unavailable": "Eskatutako zerbitzari-mota ez dago erabilgarri. Mesedez, hautatu beste mota bat gelaren konfigurazioan.",
       "file_type_not_supported": "Fitxategi mota ez da bateragarria.",
       "file_size_too_large": "Fitxategiaren tamaina handiegia da.",
       "file_upload_error": "Fitxategia ezin da kargatu.",
       "signin_required": "Saioa hasi behar duzu orri honetara sartzeko.",
+      "malware_detected": "Malwarea detektatu da! Igo duzun fitxategiak malware bat izan dezake. Mesedez, berrikusi zure fitxategia eta saiatu berriro.",
       "roles": {
         "role_assigned": "Role hau ezin da ezabatu gutxienez erabiltzaile bati egokitu bait zaio."
       },
@@ -492,8 +541,18 @@
           "min": "Izenak gutxienez 2 karaktere izen behar ditu"
         }
       },
+      "room_join": {
+        "name": {
+          "required": "Idatzi zure izena, mesedez"
+        }
+      },
       "url": {
         "invalid": "Esteka baliogabea"
+      },
+      "text_form": {
+        "value": {
+          "required": "Mezuren bat idatzi, mesedez"
+        }
       }
     },
     "room": {
@@ -501,6 +560,21 @@
         "name": {
           "label": "Aretoaren izena",
           "placeholder": "Sartu aretoaren izena..."
+        }
+      }
+    },
+    "room_join": {
+      "fields": {
+        "name": {
+            "label": "Izena",
+            "placeholder": "Idatzi zure izena"
+        },
+        "access_code": {
+          "label": "Sarbide kodea",
+          "placeholder": "Idatzi sarbide kodea"
+        },
+        "recording_consent": {
+          "label": "Onartzen dut bilkura hau erregistra daitekeela. Honek nire ahotsa eta bideoa barnehartu ditzake, aktibatuta egonez gero."
         }
       }
     },
@@ -634,7 +708,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "Sartu hemen esteka..."
+            "placeholder": "Sartu hemen esteka...",
+            "text_placeholder": "Sartu testua hemen..."
           }
         }
       },
