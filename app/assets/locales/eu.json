@@ -318,7 +318,7 @@
         "resync_on_login": "Saio hasiera bakoitzean erabiltzailearen datuan bersinkronizatu",
         "resync_on_login_description": "Bersinkronizatu erabiltzaile baten informazioa izena ematen duen bakoitzean, kanpo-egiaztatze hornitzailea beti bat etorriz Greenlight-en informazioarekin.",
         "default_role": "Profil Lehenetsia",
-        "default_role_description": "Erabiltzaile sortu berriei egokituko zaien role lehenetsia",
+        "default_role_description": "Erabiltzaile sortu berriei egokituko zaien profil lehenetsia",
         "registration_method": "Erregistratze Modua",
         "registration_method_description": "Aldatu erabiltzaileak webgunean izena ematen duten modua",
         "registration_methods" : {
