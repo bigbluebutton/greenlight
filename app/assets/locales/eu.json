@@ -442,7 +442,7 @@
         "role_created": "Profil berri bat sortu da.",
         "role_updated": "Profila eguneratu da.",
         "role_deleted": "Profila ezabatu da.",
-        "role_permission_updated": "Rolearen baimenak eguneratu dira."
+        "role_permission_updated": "Profilaren baimenak eguneratu dira."
       },
       "invitations": {
         "invitation_sent": "Gonbidapen bat bidali da.",
