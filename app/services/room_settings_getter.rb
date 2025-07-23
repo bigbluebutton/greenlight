@@ -23,13 +23,14 @@ class RoomSettingsGetter
   # Hash(`<option_name> => {'true' => <Postive>, 'false' => <Negative>})`
   SPECIAL_OPTIONS = { 'guestPolicy' => { 'true' => 'ASK_MODERATOR', 'false' => 'ALWAYS_ACCEPT' } }.freeze
 
-  def initialize(room_id:, provider:, current_user:, settings: [], show_codes: false, only_enabled: false, only_bbb_options: false)
+  def initialize(room_id:, provider:, current_user:, settings: [], show_codes: false, only_enabled: false, only_bbb_options: false, voice_bridge: nil)
     @current_user = current_user
     @room_id = room_id
     @only_bbb_options = only_bbb_options # When used only BBB options (not prefixed with 'gl') will be returned.
     @only_enabled = only_enabled # When used only optional and force enabled options will be returned.
     @show_codes = show_codes # When used access code values will be returned.
     @settings = settings # When given only the settings contained in the Array<String> will be returned.
+    @voice_bridge = voice_bridge
 
     # Fetching only rooms configs that are not optional to overwrite the settings values.
     @rooms_configs = MeetingOption.joins(:rooms_configurations)
@@ -54,6 +55,8 @@ class RoomSettingsGetter
     infer_specials(room_settings:) # Special options should map their forced values to what was configured in `SPECIAL_OPTIONS` registry.
     infer_codes(room_settings:, access_codes:) # Access codes should map their forced values as intended.
     infer_can_record(room_settings:) if room_settings['record'] && @rooms_configs['record'].nil?
+
+    set_voice_brige(room_settings:)
 
     room_settings
   end
@@ -97,5 +100,11 @@ class RoomSettingsGetter
     return if RolePermission.joins(:permission).find_by(role_id: @current_user&.role_id, permission: { name: 'CanRecord' })&.value == 'true'
 
     room_settings['record'] = 'false'
+  end
+
+  def set_voice_brige(room_settings:)
+    return if @voice_bridge.nil?
+
+    room_settings['voiceBridge'] = @voice_bridge.to_s
   end
 end
