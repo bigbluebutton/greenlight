@@ -523,7 +523,7 @@
         "list": "Eman komaz bereizitako baliozko eposta zerrenda bat, mesedez (erabiltzailea@erabiltzaileak.com,erabiltzailea1@erabiltzaileak.com,erabiltzailea2@erabiltzaileak.com)"
       },
       "role_name": {
-        "required": "Sartu rolearen izena, mesedez."
+        "required": "Sartu profilaren izena, mesedez."
       },
       "role": {
         "limit": {
@@ -672,7 +672,7 @@
             "label": "Hizkuntza"
           },
           "role": {
-            "label": "Rolea"
+            "label": "Profila"
           }
         }
       }
