@@ -440,8 +440,8 @@
       },
       "role": {
         "role_created": "Profil berri bat sortu da.",
-        "role_updated": "Rolea eguneratu da.",
-        "role_deleted": "Rolea ezabatu da.",
+        "role_updated": "Profila eguneratu da.",
+        "role_deleted": "Profila ezabatu da.",
         "role_permission_updated": "Rolearen baimenak eguneratu dira."
       },
       "invitations": {
