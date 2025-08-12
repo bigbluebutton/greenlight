@@ -19,7 +19,7 @@ gem 'google-cloud-storage', '~> 1.44', require: false
 gem 'hcaptcha'
 gem 'i18n-language-mapping'
 gem 'image_processing', '~> 1.2'
-gem 'jbuilder', '>= 2.12'
+gem 'jbuilder', '>= 2.14.0'
 gem 'jsbundling-rails', '>= 1.2.2'
 gem 'jwt'
 gem 'mini_magick', '>= 4.9.5'
