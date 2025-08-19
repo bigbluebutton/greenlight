@@ -6,14 +6,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '>= 3.3'
 
 gem 'active_model_serializers', '>= 0.10.15'
-gem 'active_storage_validations', '>= 1.3.4'
+gem 'active_storage_validations', '>= 1.4.0'
 gem 'aws-sdk-s3', require: false
 gem 'bcrypt', '~> 3.1.7'
 gem 'bigbluebutton-api-ruby', '1.9.1'
 gem 'bootsnap', require: false
 gem 'clamby', '~> 1.6.10'
 gem 'cssbundling-rails', '>= 1.3.3'
-gem 'data_migrate', '>= 11.2'
+gem 'data_migrate', '>= 11.3.0'
 gem 'dotenv-rails'
 gem 'google-cloud-storage', '~> 1.44', require: false
 gem 'hcaptcha'
@@ -30,7 +30,7 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0.2'
 gem 'pagy', '~> 6.0', '>= 6.0.0'
 gem 'pg'
 gem 'puma', '~> 6.4'
-gem 'rails', '~> 7.2.2'
+gem 'rails', '~> 7.2.2', '>= 7.2.2.2'
 gem 'redis', '~> 4.8.0'
 gem 'sprockets-rails', '>= 3.5.0'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
