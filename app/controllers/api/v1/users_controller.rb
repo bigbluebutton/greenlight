@@ -163,7 +163,7 @@ module Api
       private
 
       def create_user_params
-        @create_user_params ||= params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id, :invite_token)
+        @create_user_params ||= params.require(:user).permit(:name, :email, :password, :avatar, :language, :invite_token)
       end
 
       def update_user_params
