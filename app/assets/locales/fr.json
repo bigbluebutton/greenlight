@@ -567,7 +567,7 @@
       "fields": {
         "name": {
             "label": "Nom",
-            "placeholder": "Saisissez votre nom"
+            "placeholder": "Saisissez votre nom complet"
         },
         "access_code": {
           "label": "Code d'accès",
