@@ -9,13 +9,13 @@ gem 'active_model_serializers', '>= 0.10.15'
 gem 'active_storage_validations', '>= 1.3.4'
 gem 'aws-sdk-s3', require: false
 gem 'bcrypt', '~> 3.1.7'
-gem 'bigbluebutton-api-ruby', '1.9.1'
+gem 'bigbluebutton-api-ruby', '2.0.0'
 gem 'bootsnap', require: false
 gem 'clamby', '~> 1.6.10'
 gem 'cssbundling-rails', '>= 1.3.3'
 gem 'data_migrate', '>= 11.2'
 gem 'dotenv-rails'
-gem 'google-cloud-storage', '~> 1.44', require: false
+gem 'google-cloud-storage', '~> 1.45', '>= 1.45.0', require: false
 gem 'hcaptcha'
 gem 'i18n-language-mapping'
 gem 'image_processing', '~> 1.2'
@@ -40,12 +40,12 @@ group :development, :test do
 end
 
 group :development do
-  gem 'rubocop', '~> 1.26', require: false
-  gem 'rubocop-capybara', '~> 2.19.0', require: false
-  gem 'rubocop-factory_bot', '~> 2.24.0', require: false
-  gem 'rubocop-performance', '~> 1.13', require: false
-  gem 'rubocop-rails', '~> 2.18', '>= 2.18.0', require: false
-  gem 'rubocop-rspec', '~> 2.9.0', require: false
+  gem 'rubocop', '~> 1.56', '>= 1.56.2', require: false
+  gem 'rubocop-capybara', '~> 2.20.0', require: false
+  gem 'rubocop-factory_bot', '~> 2.25.0', require: false
+  gem 'rubocop-performance', '~> 1.17', '>= 1.17.0', require: false
+  gem 'rubocop-rails', '~> 2.21', '>= 2.21.0', require: false
+  gem 'rubocop-rspec', '~> 2.10.0', require: false
   gem 'web-console', '>= 4.2.1'
 end
 
@@ -55,10 +55,10 @@ group :test do
   gem 'factory_bot_rails', '>= 6.4.3'
   gem 'faker'
   gem 'rspec-rails', '~> 7.1'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '>= 4.8.1'
   gem 'shoulda-matchers', '~> 5.0'
-  gem 'webdrivers'
-  gem 'webmock', '>= 3.23.1'
+  gem 'webdrivers', '>= 5.3.0'
+  gem 'webmock', '>= 3.25.0'
 end
 
 group :production do
