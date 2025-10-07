@@ -15,7 +15,7 @@ gem 'clamby', '~> 1.6.10'
 gem 'cssbundling-rails', '>= 1.3.3'
 gem 'data_migrate', '>= 11.2'
 gem 'dotenv-rails'
-gem 'google-cloud-storage', '~> 1.44', require: false
+gem 'google-cloud-storage', '~> 1.45', '>= 1.45.0', require: false
 gem 'hcaptcha'
 gem 'i18n-language-mapping'
 gem 'image_processing', '~> 1.2'
@@ -40,12 +40,12 @@ group :development, :test do
 end
 
 group :development do
-  gem 'rubocop', '~> 1.26', require: false
-  gem 'rubocop-capybara', '~> 2.19.0', require: false
-  gem 'rubocop-factory_bot', '~> 2.24.0', require: false
-  gem 'rubocop-performance', '~> 1.13', require: false
-  gem 'rubocop-rails', '~> 2.18', '>= 2.18.0', require: false
-  gem 'rubocop-rspec', '~> 2.9.0', require: false
+  gem 'rubocop', '~> 1.66', '>= 1.66.0', require: false
+  gem 'rubocop-capybara', '~> 2.20.0', require: false
+  gem 'rubocop-factory_bot', '~> 2.25.0', require: false
+  gem 'rubocop-performance', '~> 1.17', '>= 1.17.0', require: false
+  gem 'rubocop-rails', '~> 2.21', '>= 2.21.0', require: false
+  gem 'rubocop-rspec', '~> 2.10.0', require: false
   gem 'web-console', '>= 4.2.1'
 end
 
