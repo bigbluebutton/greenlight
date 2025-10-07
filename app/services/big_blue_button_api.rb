@@ -50,7 +50,7 @@ class BigBlueButtonApi
       name,
       '', # empty password -> use the role passed ing
       {
-        userId: user_id,
+        userID: user_id,
         role:,
         avatarURL: avatar_url,
         createTime: room.last_session&.to_datetime&.strftime('%Q')
