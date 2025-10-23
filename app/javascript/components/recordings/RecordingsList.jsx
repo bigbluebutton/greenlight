@@ -19,7 +19,10 @@ import PropTypes from 'prop-types';
 import {
   Badge, Card, Stack, Table,
 } from 'react-bootstrap';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import { useTranslation } from 'react-i18next';
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import SortBy from '../shared_components/search/SortBy';
 import RecordingsListRowPlaceHolder from './RecordingsListRowPlaceHolder';
 import NoSearchResults from '../shared_components/search/NoSearchResults';
@@ -32,6 +35,25 @@ export default function RecordingsList({
   recordings, isLoading, setPage, searchInput, setSearchInput, recordingsProcessing, adminTable, numPlaceholders,
 }) {
   const { t } = useTranslation();
+
+  const visibilityTooltip = (
+    <Tooltip id="recordings-visibility-tooltip" className="text-start">
+      <div className="fw-semibold mb-1">{t('recording.visibility_help.title')}</div>
+      <ul className="mb-0 ps-3">
+        <li>{t('recording.visibility_help.public')}</li>
+        <li>{t('recording.visibility_help.public_protected')}</li>
+        <li>{t('recording.visibility_help.protected')}</li>
+        <li>{t('recording.visibility_help.published')}</li>
+        <li>{t('recording.visibility_help.unpublished')}</li>
+      </ul>
+    </Tooltip>
+  );
+
+  const formatsTooltip = (
+    <Tooltip id="recordings-formats-tooltip" className="text-start">
+      {t('recording.formats_help')}
+    </Tooltip>
+  );
 
   if (!isLoading && recordings?.data?.length === 0 && !searchInput && recordingsProcessing === 0) {
     return <EmptyRecordingsList />;
@@ -68,8 +90,35 @@ export default function RecordingsList({
                     <th className="fw-normal border-end-0">{t('recording.name')}<SortBy fieldName="name" /></th>
                     <th className="fw-normal border-0">{t('recording.length')}<SortBy fieldName="length" /></th>
                     <th className="fw-normal border-0">{t('recording.users')}</th>
-                    <th className="fw-normal border-0">{t('recording.visibility')}<SortBy fieldName="visibility" /></th>
-                    <th className="fw-normal border-0">{t('recording.formats')}</th>
+                    <th className="fw-normal border-0">
+                      <Stack direction="horizontal" gap={1} className="align-items-center">
+                        <span>{t('recording.visibility')}</span>
+                        <SortBy fieldName="visibility" />
+                        <OverlayTrigger
+                          placement="top"
+                          trigger={['hover', 'focus']}
+                          overlay={visibilityTooltip}
+                        >
+                          <span role="button" tabIndex={0} className="d-inline-flex text-muted cursor-pointer">
+                            <QuestionMarkCircleIcon className="hi-xs" />
+                          </span>
+                        </OverlayTrigger>
+                      </Stack>
+                    </th>
+                    <th className="fw-normal border-0">
+                      <Stack direction="horizontal" gap={1} className="align-items-center">
+                        <span>{t('recording.formats')}</span>
+                        <OverlayTrigger
+                          placement="top"
+                          trigger={['hover', 'focus']}
+                          overlay={formatsTooltip}
+                        >
+                          <span role="button" tabIndex={0} className="d-inline-flex text-muted cursor-pointer">
+                            <QuestionMarkCircleIcon className="hi-xs" />
+                          </span>
+                        </OverlayTrigger>
+                      </Stack>
+                    </th>
                     <th className="border-start-0" aria-label="options" />
                   </tr>
                 </thead>
