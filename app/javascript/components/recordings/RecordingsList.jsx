@@ -40,8 +40,8 @@ export default function RecordingsList({
     <Tooltip id="recordings-visibility-tooltip" className="text-start">
       <div className="fw-semibold mb-1">{t('recording.visibility_help.title')}</div>
       <ul className="mb-0 ps-3">
-        <li>{t('recording.visibility_help.public')}</li>
         <li>{t('recording.visibility_help.public_protected')}</li>
+        <li>{t('recording.visibility_help.public')}</li>
         <li>{t('recording.visibility_help.protected')}</li>
         <li>{t('recording.visibility_help.published')}</li>
         <li>{t('recording.visibility_help.unpublished')}</li>
