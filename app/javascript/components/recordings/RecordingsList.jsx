@@ -124,10 +124,10 @@ export default function RecordingsList({
                 </thead>
                 <tbody className="border-top-0">
                   {
-                    (isLoading && [...Array(numPlaceholders)].map((val, idx) => (
+                    isLoading && Array.from({ length: numPlaceholders }).map((_, idx) => (
                       // eslint-disable-next-line react/no-array-index-key
                       <RecordingsListRowPlaceHolder key={idx} />
-                    )))
+                    ))
                   }
                   {
                     (recordings?.data?.length > 0 && recordings?.data?.map((recording, idx) => (
