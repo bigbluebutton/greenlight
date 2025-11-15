@@ -99,9 +99,9 @@ export default function RecordingsList({
                           trigger={['hover', 'focus']}
                           overlay={visibilityTooltip}
                         >
-                          <span role="button" tabIndex={0} className="d-inline-flex text-muted cursor-pointer">
+                          <button type="button" className="btn btn-link p-0 border-0 d-inline-flex text-muted cursor-pointer">
                             <QuestionMarkCircleIcon className="hi-xs" />
-                          </span>
+                          </button>
                         </OverlayTrigger>
                       </Stack>
                     </th>
@@ -113,9 +113,9 @@ export default function RecordingsList({
                           trigger={['hover', 'focus']}
                           overlay={formatsTooltip}
                         >
-                          <span role="button" tabIndex={0} className="d-inline-flex text-muted cursor-pointer">
+                          <button type="button" className="btn btn-link p-0 border-0 d-inline-flex text-muted cursor-pointer">
                             <QuestionMarkCircleIcon className="hi-xs" />
-                          </span>
+                          </button>
                         </OverlayTrigger>
                       </Stack>
                     </th>
