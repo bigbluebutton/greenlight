@@ -18,7 +18,7 @@
   "close": "Cerrar",
   "delete": "Borrar",
   "copy": "Copiar enlace de reunión",
-  "copy_viewer_code": "Copiar código del visitante",
+  "copy_viewer_code": "Copiar código del espectador",
   "copy_moderator_code": "Copiar código del moderador",
   "or": "O",
   "online": "En Línea",
