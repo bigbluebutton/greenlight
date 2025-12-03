@@ -38,7 +38,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
 
       get :index
       expect(response.parsed_body['data'].pluck('friendly_id'))
-        .to match_array(Room.all.pluck(:friendly_id))
+        .to match_array(Room.pluck(:friendly_id))
     end
 
     context 'SuperAdmin accessing rooms for provider other than current provider' do
@@ -57,7 +57,7 @@ RSpec.describe Api::V1::Admin::ServerRoomsController, type: :controller do
 
         get :index
         expect(response.parsed_body['data'].pluck('friendly_id'))
-          .to match_array(Room.all.pluck(:friendly_id))
+          .to match_array(Room.pluck(:friendly_id))
       end
     end
 

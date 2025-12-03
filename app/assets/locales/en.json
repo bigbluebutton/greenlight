@@ -466,7 +466,8 @@
         "email_exists": "An account under this email already exists. Please try again with another email.",
         "old_password": "The password you have entered is incorrect.",
         "pending": "Your registration is pending approval from the administrator. Please try again later.",
-        "banned": "You do not have access to this application. Please contact your administrator if you believe this is a mistake."
+        "banned": "You do not have access to this application. Please contact your administrator if you believe this is a mistake.",
+        "hcaptcha_invalid": "The CAPTCHA verification failed. Please try again."
       },
       "rooms": {
         "room_limit": "The room can't be created due to reaching the room limit."

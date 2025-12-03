@@ -28,8 +28,10 @@ module Api
         # Updates the specified user's status
         def update
           user = User.find(params[:id])
+          initial_status = user.status
 
           if user.update(user_params)
+            user.generate_session_token! if user.status == 'banned' && initial_status == 'active'
             render_data status: :ok
           else
             render_error errors: user.errors.to_a
