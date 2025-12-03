@@ -74,7 +74,7 @@ RSpec.describe Recording, type: :model do
 
     it 'returns all recordings if input is empty' do
       create_list(:recording, 5)
-      expect(described_class.all.search('').pluck(:id)).to match_array(described_class.all.pluck(:id))
+      expect(described_class.all.search('').pluck(:id)).to match_array(described_class.pluck(:id))
     end
   end
 

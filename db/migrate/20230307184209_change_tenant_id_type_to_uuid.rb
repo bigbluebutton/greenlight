@@ -23,7 +23,7 @@ class ChangeTenantIdTypeToUuid < ActiveRecord::Migration[7.0]
 
     change_table :tenants do |t|
       t.remove :id
-      t.rename :uuid, :id
+      t.rename :uuid, :id # rubocop:disable Rails/DangerousColumnNames
     end
     execute 'ALTER TABLE tenants ADD PRIMARY KEY (id);'
   end
