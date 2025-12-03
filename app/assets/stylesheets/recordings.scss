@@ -76,11 +76,15 @@
   }
 }
 
-.recordings-list {
+.recordings-list, .popover-body {
   .recording-icon-circle {
     min-width: 40px;
     min-height: 40px;
     background-color: var(--brand-color-light);
+  }
+
+  [class*="btn-format-"]:hover {
+    background-image: linear-gradient(rgb(0 0 0/5%) 0 0);
   }
 
   .btn-format-presentation {

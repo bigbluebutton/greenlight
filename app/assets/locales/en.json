@@ -436,7 +436,7 @@
         "recording_visibility_updated": "The recording visibility has been updated.",
         "recording_name_updated": "The recording name has been updated.",
         "recording_deleted": "The recording has been deleted.",
-        "copied_urls": "The recording URLs have been copied."
+        "copied_urls": "The recording URL has been copied."
       },
       "role": {
         "role_created": "A new role has been created.",
