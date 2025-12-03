@@ -1,9 +1,11 @@
 require:
   - rubocop-performance
-  - rubocop-rails
   - rubocop-rspec
   - rubocop-factory_bot
   - rubocop-capybara
+
+plugins:
+  - rubocop-rails
 
 AllCops:
   Exclude:
@@ -101,3 +103,8 @@ Rails/RootPathnameMethods:
 Rails/ThreeStateBooleanColumn:
   Enabled: false
 
+Naming/PredicateMethod:
+  Enabled: false
+
+Style/SafeNavigationChainLength:
+  Enabled: false
