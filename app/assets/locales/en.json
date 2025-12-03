@@ -188,11 +188,11 @@
     "formats_help": "Shows the available playback types (for example, Presentation or Video). Clicking a format opens the BigBlueButton recording in a new tab.",
     "visibility_help": {
       "title": "Recording visibility options",
-      "public": "Public: Listed on the public recordings page and viewable without signing in.",
-      "public_protected": "Public/Protected: Listed publicly but uses protected playback links; anyone can watch if they have the page.",
-      "protected": "Protected: Hidden from the public page; only signed-in owners or shared users can access it.",
-      "published": "Published: Unlisted, but owners and shared users can watch it after signing in.",
-      "unpublished": "Unpublished: Hidden from everyone else until you change the visibility."
+      "public_protected": "Public/Protected - The recording is available on the Public Recordings page that can be reached from the Room Join page. The link can only be viewed from within Greenlight",
+      "public": "Public - The recording is available on the Public Recordings page that can be reached from the Room Join page. The link can be shared with anyone",
+      "protected": "Protected - The recording must be viewed from within Greenlight",
+      "published": "Published - The recording is accessible to anyone with the link",
+      "unpublished": "Unpublished - The recording is not accessible to anyone"
     },
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Processing recording, this may take several minutes...",

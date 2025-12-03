@@ -188,11 +188,11 @@
     "public_protected": "Public/Protégé",
     "visibility_help": {
       "title": "Options de visibilité de l'enregistrement",
-      "public": "Public : Apparaît sur la page des enregistrements publics et se visionne sans connexion.",
-      "public_protected": "Public/Protégé : Apparaît publiquement mais utilise des liens protégés ; toute personne ayant la page peut le visionner.",
-      "protected": "Protégé : Masqué de la page publique ; seul le propriétaire ou les utilisateurs partagés peuvent y accéder après connexion.",
-      "published": "Publiée : Non listée publiquement, mais le propriétaire et les utilisateurs partagés peuvent la visionner une fois connectés.",
-      "unpublished": "Non publiée : Masquée pour tous jusqu'à ce que vous changiez la visibilité."
+      "public_protected": "Public/Protégé - L'enregistrement est disponible sur la page des enregistrements publics accessible depuis la page Rejoindre la salle. Le lien ne peut être consulté que depuis Greenlight",
+      "public": "Public - L'enregistrement est disponible sur la page des enregistrements publics accessible depuis la page Rejoindre la salle. Le lien peut être partagé avec n'importe qui",
+      "protected": "Protégé - L'enregistrement doit être consulté depuis Greenlight",
+      "published": "Publiée - L'enregistrement est accessible à toute personne disposant du lien",
+      "unpublished": "Non publiée - L'enregistrement n'est accessible à personne"
     },
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "L'enregistrement est en cours de traitement, cela peu prendre quelques minutes...",
