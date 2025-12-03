@@ -46,7 +46,7 @@ class Recording < ApplicationRecord
                                    input: "%#{input}%").includes(:formats)
     end
 
-    all.includes(:formats)
+    includes(:formats)
   end
 
   def self.public_search(input)
@@ -55,7 +55,7 @@ class Recording < ApplicationRecord
                                    input: "%#{input}%").includes(:formats)
     end
 
-    all.includes(:formats)
+    includes(:formats)
   end
 
   def self.server_search(input)
@@ -68,7 +68,7 @@ class Recording < ApplicationRecord
              .includes(:formats)
     end
 
-    all.includes(:formats)
+    includes(:formats)
   end
 
   private

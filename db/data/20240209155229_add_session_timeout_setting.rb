@@ -7,13 +7,13 @@ class AddSessionTimeoutSetting < ActiveRecord::Migration[7.1]
 
     SiteSetting.create!(setting:, value: default_value, provider: 'greenlight') unless SiteSetting.exists?(setting:, provider: 'greenlight')
 
-    Tenant.all.each do |tenant|
+    Tenant.find_each do |tenant|
       SiteSetting.create!(setting:, value: default_value, provider: tenant.name) unless SiteSetting.exists?(setting:, provider: tenant.name)
     end
   end
 
   def down
-    Tenant.all.each do |tenant|
+    Tenant.find_each do |tenant|
       SiteSetting.find_by(setting: Setting.find_by(name: 'SessionTimeout'), provider: tenant.name)&.destroy
     end
 
