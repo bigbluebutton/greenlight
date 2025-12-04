@@ -5,8 +5,8 @@
     container_name: keycloak
     restart: unless-stopped
     environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=
       - KC_DB=postgres
       - KC_DB_URL_HOST=postgres
       - KC_DB_USERNAME=postgres
