@@ -101,6 +101,14 @@ RSpec.describe ExternalController do
       get :create_user, params: { provider: 'openid_connect' }
 
       expect(session[:session_token]).to eq(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).session_token)
+    end
+
+    it 'sets oidc id token if OPENID_CONNECT_LOGOUT_PATH is set' do
+      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+      ENV['OPENID_CONNECT_LOGOUT_PATH'] = '/logout'
+
+      get :create_user, params: { provider: 'openid_connect' }
+
       expect(session[:oidc_id_token]).to eq(OmniAuth.config.mock_auth[:openid_connect][:credentials][:id_token])
     end
 

@@ -16,23 +16,18 @@
 
 # frozen_string_literal: true
 
-class AddEmailOnSignUpPermission < ActiveRecord::Migration[7.1]
-  def up
-    email_permission = Permission.create!(name: 'EmailOnSignup')
-    admin = Role.where(name: 'Administrator')
+require_relative 'task_helpers'
 
-    values = admin.map do |adm|
-      { role: adm, permission: email_permission, value: 'true' }
-    end
-
-    Role.where.not(name: 'Administrator').find_each do |role|
-      values.push({ role:, permission: email_permission, value: 'false' })
-    end
-
-    RolePermission.create! values
+namespace :attachments do
+  desc 'Checks that the application was configured correctly'
+  task start: :environment do
+    ActiveStorage::Blob.update_all(service_name: 'mirror') # rubocop:disable Rails/SkipsModelValidations
+    ActiveStorage::Blob.find_each(&:mirror_later)
+    success('Started mirroring process...')
   end
 
-  def down
-    raise ActiveRecord::IrreversibleMigration
+  task :finish, %i[new_service] => :environment do |_task, args|
+    ActiveStorage::Blob.update_all(service_name: args[:new_service]) # rubocop:disable Rails/SkipsModelValidations
+    success('Finished mirroring process...')
   end
 end

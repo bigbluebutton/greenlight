@@ -186,6 +186,15 @@
     "protected": "Protected",
     "public": "Public",
     "public_protected": "Public/Protected",
+    "formats_help": "Shows the available playback types (for example, Presentation or Video). Clicking a format opens the BigBlueButton recording in a new tab.",
+    "visibility_help": {
+      "title": "Recording visibility options",
+      "public_protected": "Public/Protected - The recording is available on the Public Recordings page that can be reached from the Room Join page. The link can only be viewed from within Greenlight",
+      "public": "Public - The recording is available on the Public Recordings page that can be reached from the Room Join page. The link can be shared with anyone",
+      "protected": "Protected - The recording must be viewed from within Greenlight",
+      "published": "Published - The recording is accessible to anyone with the link",
+      "unpublished": "Unpublished - The recording is not accessible to anyone"
+    },
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Processing recording, this may take several minutes...",
     "copy_recording_urls": "Copy Recording Url(s)",
@@ -442,7 +451,7 @@
         "recording_visibility_updated": "The recording visibility has been updated.",
         "recording_name_updated": "The recording name has been updated.",
         "recording_deleted": "The recording has been deleted.",
-        "copied_urls": "The recording URLs have been copied."
+        "copied_urls": "The recording URL has been copied."
       },
       "role": {
         "role_created": "A new role has been created.",
@@ -472,7 +481,8 @@
         "email_exists": "An account under this email already exists. Please try again with another email.",
         "old_password": "The password you have entered is incorrect.",
         "pending": "Your registration is pending approval from the administrator. Please try again later.",
-        "banned": "You do not have access to this application. Please contact your administrator if you believe this is a mistake."
+        "banned": "You do not have access to this application. Please contact your administrator if you believe this is a mistake.",
+        "hcaptcha_invalid": "The CAPTCHA verification failed. Please try again."
       },
       "rooms": {
         "room_limit": "The room can't be created due to reaching the room limit."

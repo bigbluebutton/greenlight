@@ -27,7 +27,7 @@ export default function useAdminCreateUser({ onSettled }) {
     (user) => axios.post('/users.json', { user }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('getAdminUsers');
+        queryClient.invalidateQueries('getVerifiedUsers');
         toast.success(t('toast.success.user.user_created'));
       },
       onError: (err) => {

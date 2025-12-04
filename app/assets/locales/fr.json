@@ -55,7 +55,7 @@
     "password": "Mot de passe",
     "confirm_password": "Confirmer le mot de passe",
     "enter_email": "Saisissez votre courriel",
-    "enter_name": "Saisissez votre nom",
+    "enter_name": "Saisissez votre nom complet",
     "remember_me": "Se souvenir de moi",
     "forgot_password": "Mot de passe oublié ?",
     "dont_have_account": "Vous n'avez pas de compte ?",
@@ -180,11 +180,20 @@
     "users": "Utilisateurs",
     "visibility": "État",
     "formats": "Lecture",
+    "formats_help": "Affiche les types de lecture disponibles (par exemple Présentation ou Vidéo). Cliquer sur un format ouvre l'enregistrement BigBlueButton dans un nouvel onglet.",
     "published": "Publiée",
     "unpublished": "Non publiée",
     "protected": "Protégé",
     "public": "Public",
     "public_protected": "Public/Protégé",
+    "visibility_help": {
+      "title": "Options de visibilité de l'enregistrement",
+      "public_protected": "Public/Protégé - L'enregistrement est disponible sur la page des enregistrements publics accessible depuis la page Rejoindre la salle. Le lien ne peut être consulté que depuis Greenlight",
+      "public": "Public - L'enregistrement est disponible sur la page des enregistrements publics accessible depuis la page Rejoindre la salle. Le lien peut être partagé avec n'importe qui",
+      "protected": "Protégé - L'enregistrement doit être consulté depuis Greenlight",
+      "published": "Publiée - L'enregistrement est accessible à toute personne disposant du lien",
+      "unpublished": "Non publiée - L'enregistrement n'est accessible à personne"
+    },
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "L'enregistrement est en cours de traitement, cela peu prendre quelques minutes...",
     "copy_recording_urls": "Copier l'URL de l'enregistrement",
@@ -207,6 +216,8 @@
       "banned": "Exclu·e",
       "ban": "Exclure",
       "unban": "Autoriser le retour",
+      "unverified": "Non vérifié",
+      "verify": "Vérifier",
       "deleted": "Révoqué",
       "invited_tab": "Invité",
       "invite_user": "Inviter un utilisateur",
@@ -230,6 +241,8 @@
       "empty_pending_users_subtext": "Lorsque le statut d'un utilisateur passe à en attente, il apparaîtra ici.",
       "empty_banned_users": "Il n'y pas encore d'utilisateur exclu sur ce serveur!",
       "empty_banned_users_subtext": "Lorsque le statut d'un utilisateur passe à exclu, il apparaîtra ici.",
+      "empty_unverified_users": "Pour l'instant il n'y a aucun utilisateur non vérifié sur ce serveur",
+      "empty_unverified_users_subtext": "Les utilisateurs non vérifiés apparaîtront ici",
       "empty_invited_users": "Il n'y pas encore d'utilisateur invité sur ce serveur!",
       "empty_invited_users_subtext": "Lorsque le statut d'un utilisateur passe à invité, il apparaîtra ici.",
       "invited": {
@@ -297,6 +310,8 @@
         "allow_users_to_share_rooms_description": "En réglant sur inactivé, le bouton sera supprimé des options du menu paramètres de chaque salle et cela empêchera les utilisateurs de les partager.",
         "allow_users_to_preupload_presentation": "Permettre aux utilisateurs de téléverser les documents de présentations en avance",
         "allow_users_to_preupload_presentation_description": "Pour cette salle, les utilisateurs peuvent téléverser un document de présentation à l'avance et l'utiliser par défaut ",
+        "show_sign_in_on_room_join": "Apposer le lien S'identifier dans Rejoindre la salle",
+        "show_sign_in_on_room_join_description": "Si l'utilisateur ne s'est pas identifié, un lien pour ce faire apparaît en entrant dans la salle",
         "default_visibility": "Lisibilité par défaut des enregistrements",
         "default_visibility_description": "La lisibilité choisie s'appliquera à tous les enregistrements ultérieurs",
         "session_timeout": "Durée maximum d'une session",
@@ -561,7 +576,7 @@
       "fields": {
         "name": {
             "label": "Nom",
-            "placeholder": "Saisissez votre nom"
+            "placeholder": "Saisissez votre nom complet"
         },
         "access_code": {
           "label": "Code d'accès",

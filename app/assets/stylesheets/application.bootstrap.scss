@@ -790,6 +790,17 @@ input[type="range"]:focus::-moz-range-thumb {
   }
 }
 
+.Toastify__toast.maintenance-toast {
+  width: 1000px;
+  max-width: 1000px;
+}
+
+.Toastify__toast-container--top-center {
+  .Toastify__toast.maintenance-toast {
+    margin-left: calc((var(--toastify-toast-width) - 1000px) / 2);
+  }
+}
+
 #rooms-list-empty, #recordings-list-empty {
   .card-body {
     min-height: 20rem;

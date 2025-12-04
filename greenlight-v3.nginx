@@ -24,6 +24,10 @@ location @bbb-fe {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_set_header Connection "";
+
+    proxy_buffer_size 128k;
+    proxy_buffers 4 256k;
+    proxy_busy_buffers_size 256k;
 }
 
 location ~ '/api/v1/rooms/\w{3}-\w{3}-\w{3}-\w{3}.json$' {

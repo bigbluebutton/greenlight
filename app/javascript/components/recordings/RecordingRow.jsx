@@ -15,7 +15,7 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import {
-  VideoCameraIcon, TrashIcon, PencilSquareIcon, ClipboardDocumentIcon, EllipsisVerticalIcon,
+  VideoCameraIcon, TrashIcon, PencilSquareIcon, ClipboardDocumentIcon,
 } from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -23,6 +23,7 @@ import {
   Button, Stack, Dropdown,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import Spinner from '../shared_components/utilities/Spinner';
 import UpdateRecordingForm from './forms/UpdateRecordingForm';
@@ -30,8 +31,8 @@ import DeleteRecordingForm from './forms/DeleteRecordingForm';
 import Modal from '../shared_components/modals/Modal';
 import { localizeDateTimeString } from '../../helpers/DateTimeHelper';
 import useRedirectRecordingUrl from '../../hooks/mutations/recordings/useRedirectRecordingUrl';
-import useCopyRecordingUrl from '../../hooks/mutations/recordings/useCopyRecordingUrl';
 import SimpleSelect from '../shared_components/utilities/SimpleSelect';
+import CopyRecordingPopover from './CopyRecordingPopover';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
@@ -43,10 +44,10 @@ export default function RecordingRow({
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [display, setDisplay] = useState('invisible');
+  const [showCopyPopover, setShowCopyPopover] = useState(false);
 
   const currentUser = useAuth();
   const redirectRecordingUrl = useRedirectRecordingUrl();
-  const copyRecordingUrl = useCopyRecordingUrl();
   const allowedVisibilities = JSON.parse(currentUser.permissions?.AccessToVisibilities);
 
   const localizedTime = localizeDateTimeString(recording?.recorded_at, currentUser?.language);
@@ -170,50 +171,36 @@ export default function RecordingRow({
         ))}
       </td>
       <td className="border-start-0">
-        {adminTable
-          ? (
-            <Dropdown className="float-end cursor-pointer">
-              <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
-              <Dropdown.Menu>
-                <Dropdown.Item onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}>
-                  <ClipboardDocumentIcon className="hi-s me-2" />
-                  {t('recording.copy_recording_urls')}
-                </Dropdown.Item>
-                <Modal
-                  modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{t('delete')}</Dropdown.Item>}
-                  body={(
-                    <DeleteRecordingForm
-                      mutation={useDeleteAPI}
-                      recordId={recording.record_id}
-                    />
-                  )}
+        <Stack direction="horizontal" className="float-end recordings-icons">
+          { recording?.visibility !== 'Unpublished' && (
+            <OverlayTrigger
+              trigger="click"
+              show={showCopyPopover}
+              onToggle={(show) => setShowCopyPopover(show)}
+              rootClose
+              overlay={(
+                <CopyRecordingPopover
+                  recording={recording}
+                  formats={formats}
+                  onCopied={() => setShowCopyPopover(false)}
                 />
-              </Dropdown.Menu>
-            </Dropdown>
-          )
-          : (
-            <Stack direction="horizontal" className="float-end recordings-icons">
-              { recording?.visibility !== 'Unpublished' && (
-                <Button
-                  variant="icon"
-                  className="mt-1 me-3"
-                  title={t('recording.copy_recording_urls')}
-                  onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}
-                >
-                  <ClipboardDocumentIcon className="hi-s text-muted" />
-                </Button>
               )}
-              <Modal
-                modalButton={<Dropdown.Item className="btn btn-icon"><TrashIcon className="hi-s me-2" title={t('delete')} /></Dropdown.Item>}
-                body={(
-                  <DeleteRecordingForm
-                    mutation={useDeleteAPI}
-                    recordId={recording.record_id}
-                  />
-                )}
-              />
-            </Stack>
+            >
+              <Button variant="icon" className="mt-1 me-3" title={t('recording.copy_recording_urls')}>
+                <ClipboardDocumentIcon className="hi-s text-muted" />
+              </Button>
+            </OverlayTrigger>
           )}
+          <Modal
+            modalButton={<Dropdown.Item className="btn btn-icon"><TrashIcon className="hi-s me-2" title={t('delete')} /></Dropdown.Item>}
+            body={(
+              <DeleteRecordingForm
+                mutation={useDeleteAPI}
+                recordId={recording.record_id}
+              />
+            )}
+          />
+        </Stack>
       </td>
     </tr>
   );

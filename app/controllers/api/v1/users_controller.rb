@@ -52,7 +52,6 @@ module Api
           return render_error errors: Rails.configuration.custom_error_msgs[:invite_token_invalid]
         end
 
-        # TODO: Add proper error logging for non-verified token hcaptcha
         if !admin_create && hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
           return render_error errors: Rails.configuration.custom_error_msgs[:hcaptcha_invalid]
         end
@@ -163,7 +162,7 @@ module Api
       private
 
       def create_user_params
-        @create_user_params ||= params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id, :invite_token)
+        @create_user_params ||= params.require(:user).permit(:name, :email, :password, :avatar, :language, :invite_token)
       end
 
       def update_user_params
