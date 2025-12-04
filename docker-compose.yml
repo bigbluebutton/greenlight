@@ -33,3 +33,4 @@ services:
     depends_on:
       - postgres
       - redis
+    command: bash -c "rm -f /usr/src/app/tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
