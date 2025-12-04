@@ -103,7 +103,7 @@ module Api
       # PATCH /api/v1/rooms/:friendly_id.json
       # Updates the values of the specified room
       def update
-        if @room.update(room_params)
+        if @room.update(room_params.except(:user_id))
           render_data status: :ok
         else
           render_error errors: @room.errors.to_a, status: :bad_request
