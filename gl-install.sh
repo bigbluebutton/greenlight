@@ -481,7 +481,7 @@ install_greenlight_v3(){
       say "added Keycloak to compose file"
 
       KCPASSWORD=$(openssl rand -hex 12) # Keycloak admin password.
-      sed -i "s|^\([ \t-]*KEYCLOAK_ADMIN_PASSWORD\)\(=[ \t]*\)$|\1=$KCPASSWORD|g" $GL3_DIR/docker-compose.yml # Do not overwrite the value if not empty.
+      sed -i "s|^\([ \t-]*KC_BOOTSTRAP_ADMIN_PASSWORD\)\(=[ \t]*\)$|\1=$KCPASSWORD|g" $GL3_DIR/docker-compose.yml # Do not overwrite the value if not empty.
       sed -i "s|^\([ \t-]*KC_DB_PASSWORD\)\(=[ \t]*\)$|\1=$PGPASSWORD|g" $GL3_DIR/docker-compose.yml # Do not overwrite the value if not empty.
 
       # Updating Keycloak nginx file.
