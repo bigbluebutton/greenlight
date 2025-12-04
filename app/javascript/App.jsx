@@ -52,7 +52,7 @@ export default function App() {
         draggable: true,
         progress: undefined,
         theme: 'light',
-        className: 'text-center',
+        className: 'text-center maintenance-toast',
       });
       localStorage.setItem('maintenanceBannerId', toastId);
     }

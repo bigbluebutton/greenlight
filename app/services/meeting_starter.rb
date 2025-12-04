@@ -42,6 +42,7 @@ class MeetingStarter
     handle_server_tag(meeting_options: options)
 
     options.merge!(computed_options(access_code: viewer_code['glViewerAccessCode']))
+    options.delete('muteOnStart') unless options['muteOnStart'] == 'true'
 
     retries = 0
     begin

@@ -20,7 +20,6 @@ import React, { useState } from 'react';
 import {
   Button, Form, Stack, Table,
 } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -31,16 +30,31 @@ import useShareableUsers from '../../../../../hooks/queries/shared_accesses/useS
 
 export default function SharedAccessForm({ handleClose }) {
   const { t } = useTranslation();
-  const { register, handleSubmit } = useForm();
   const { friendlyId } = useParams();
   const createSharedUser = useShareAccess({ friendlyId, closeModal: handleClose });
   const [searchInput, setSearchInput] = useState();
+  const [selectedUsers, setSelectedUsers] = useState([]);
   const { data: shareableUsers } = useShareableUsers(friendlyId, searchInput);
+
+  const toggleUserSelection = (userId) => {
+    setSelectedUsers((prev) => {
+      if (prev.includes(userId)) {
+        return prev.filter((id) => id !== userId);
+      }
+      return [...prev, userId];
+    });
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    if (!selectedUsers.length) return;
+    createSharedUser.mutate({ shared_users: selectedUsers });
+  };
 
   return (
     <div id="shared-access-form">
       <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
-      <Form onSubmit={handleSubmit(createSharedUser.mutate)}>
+      <Form onSubmit={onSubmit}>
         <div className="table-scrollbar-wrapper">
           <Table hover responsive className="text-secondary my-3">
             <thead>
@@ -66,7 +80,8 @@ export default function SharedAccessForm({ handleClose }) {
                                   type="checkbox"
                                   value={user.id}
                                   className="d-inline-block"
-                                  {...register('shared_users')}
+                                  checked={selectedUsers.includes(user.id)}
+                                  onChange={() => toggleUserSelection(user.id)}
                                 />
                                 <Avatar avatar={user.avatar} size="small" className="d-inline-block px-3" />
                                 {user.name}
@@ -88,7 +103,7 @@ export default function SharedAccessForm({ handleClose }) {
           <Button variant="neutral" className="ms-auto" onClick={handleClose}>
             { t('close') }
           </Button>
-          <Button variant="brand" type="submit">
+          <Button variant="brand" type="submit" disabled={!selectedUsers.length}>
             { t('share') }
           </Button>
         </Stack>
