@@ -445,7 +445,7 @@
         "recording_visibility_updated": "La visibilità della registrazione è stata aggiornata.",
         "recording_name_updated": "Il nome della registrazione è stato aggiornato.",
         "recording_deleted": "La registrazione è stata cancellata.",
-        "copied_urls": "L'URL della registrazione è stata copiata."
+        "copied_urls": "L'URL della registrazione è stato copiato."
       },
       "role": {
         "role_created": "È stato creato un nuovo ruolo.",
