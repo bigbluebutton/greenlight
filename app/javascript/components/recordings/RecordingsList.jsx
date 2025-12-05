@@ -20,9 +20,9 @@ import {
   Badge, Card, Stack, Table,
 } from 'react-bootstrap';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
 import { useTranslation } from 'react-i18next';
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import Popover from 'react-bootstrap/Popover';
 import SortBy from '../shared_components/search/SortBy';
 import RecordingsListRowPlaceHolder from './RecordingsListRowPlaceHolder';
 import NoSearchResults from '../shared_components/search/NoSearchResults';
@@ -36,23 +36,12 @@ export default function RecordingsList({
 }) {
   const { t } = useTranslation();
 
-  const visibilityTooltip = (
-    <Tooltip id="recordings-visibility-tooltip" className="text-start">
-      <div className="fw-semibold mb-1">{t('recording.visibility_help.title')}</div>
-      <ul className="mb-0 ps-3">
-        <li>{t('recording.visibility_help.public_protected')}</li>
-        <li>{t('recording.visibility_help.public')}</li>
-        <li>{t('recording.visibility_help.protected')}</li>
-        <li>{t('recording.visibility_help.published')}</li>
-        <li>{t('recording.visibility_help.unpublished')}</li>
-      </ul>
-    </Tooltip>
-  );
-
   const formatsTooltip = (
-    <Tooltip id="recordings-formats-tooltip" className="text-start">
-      {t('recording.formats_help')}
-    </Tooltip>
+    <Popover>
+      <Popover.Body>
+        <p className="mb-0">{t('recording.formats_help')}</p>
+      </Popover.Body>
+    </Popover>
   );
 
   if (!isLoading && recordings?.data?.length === 0 && !searchInput && recordingsProcessing === 0) {
@@ -90,21 +79,7 @@ export default function RecordingsList({
                     <th className="fw-normal border-end-0">{t('recording.name')}<SortBy fieldName="name" /></th>
                     <th className="fw-normal border-0">{t('recording.length')}<SortBy fieldName="length" /></th>
                     <th className="fw-normal border-0">{t('recording.users')}</th>
-                    <th className="fw-normal border-0">
-                      <Stack direction="horizontal" gap={1} className="align-items-center">
-                        <span>{t('recording.visibility')}</span>
-                        <SortBy fieldName="visibility" />
-                        <OverlayTrigger
-                          placement="top"
-                          trigger={['hover', 'focus']}
-                          overlay={visibilityTooltip}
-                        >
-                          <button type="button" className="btn btn-link p-0 border-0 d-inline-flex text-muted cursor-pointer">
-                            <QuestionMarkCircleIcon className="hi-xs" />
-                          </button>
-                        </OverlayTrigger>
-                      </Stack>
-                    </th>
+                    <th className="fw-normal border-0">{t('recording.visibility')}<SortBy fieldName="visibility" /></th>
                     <th className="fw-normal border-0">
                       <Stack direction="horizontal" gap={1} className="align-items-center">
                         <span>{t('recording.formats')}</span>

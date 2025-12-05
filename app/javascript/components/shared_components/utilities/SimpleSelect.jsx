@@ -25,9 +25,11 @@ export default function SimpleSelect({ defaultValue, dropUp, children }) {
 
   return (
     <Dropdown className="simple-select" drop={dropUp ? 'up' : undefined}>
-      <Dropdown.Toggle>
-        { defaultString?.props?.children }
-        <ChevronDownIcon className="hi-s float-end" />
+      <Dropdown.Toggle className="d-inline-flex justify-content-between">
+        <span className="d-inline-flex">
+          { defaultString?.props?.children }
+        </span>
+        <ChevronDownIcon className="hi-s" />
       </Dropdown.Toggle>
       <Dropdown.Menu>
         {children}
