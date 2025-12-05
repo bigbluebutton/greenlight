@@ -185,6 +185,15 @@
     "protected": "Protetta",
     "public": "Pubblica",
     "public_protected": "Pubblica/Protetta",
+    "formats_help": "Mostra i tipi di riproduzione disponibili (ad esempio, Presentazione o Video). Facendo clic su un formato, la registrazione di BigBlueButton si apre in una nuova scheda.",
+    "visibility_help": {
+      "title": "Opzioni di visibilità della registrazione",
+      "public_protected": "Pubblico/Protetto - La registrazione è disponibile nella pagina Registrazioni Pubbliche, accessibile dalla pagina di Accesso alla Sala. Il link può essere visualizzato solo da Greenlight.",
+      "public": "Pubblica - La registrazione è disponibile nella pagina Registrazioni pubbliche, accessibile dalla pagina Partecipa alla sala. Il link può essere condiviso con chiunque.",
+      "protected": "Protetta - La registrazione deve essere visualizzata da Greenlight",
+      "published": "Pubblicata - La registrazione è accessibile a chiunque abbia il link",
+      "unpublished": "Non pubblicata - La registrazione non è accessibile a nessuno"
+    },
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Registrazione in elaborazione, può richiedere del tempo...",
     "copy_recording_urls": "Copia URL Registrazione",
@@ -436,7 +445,7 @@
         "recording_visibility_updated": "La visibilità della registrazione è stata aggiornata.",
         "recording_name_updated": "Il nome della registrazione è stato aggiornato.",
         "recording_deleted": "La registrazione è stata cancellata.",
-        "copied_urls": "Gli URL delle registrazioni sono stati copiati."
+        "copied_urls": "L'URL della registrazione è stata copiata."
       },
       "role": {
         "role_created": "È stato creato un nuovo ruolo.",
@@ -466,7 +475,8 @@
         "email_exists": "È già presente un'utenza con l'email specificata. Si prega di riprovare con un'altra email.",
         "old_password": "La password inserita non è corretta.",
         "pending": "La tua iscrizione deve essere verificata da un amministratore. Si prega di riprovare più tardi.",
-        "banned": "Non hai accesso a questo servizio. Si prega di contattare un amministratore se ritieni si tratti di un errore."
+        "banned": "Non hai accesso a questo servizio. Si prega di contattare un amministratore se ritieni si tratti di un errore.",
+        "hcaptcha_invalid": "La verifica CAPTCHA non è riuscita. Riprova."
       },
       "rooms": {
         "room_limit": "Non è possibile creare l'aula perché il limite aule è stato raggiunto."
