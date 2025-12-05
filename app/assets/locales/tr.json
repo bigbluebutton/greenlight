@@ -185,6 +185,15 @@
     "protected": "Korunmuş",
     "public": "Herkese açık",
     "public_protected": "Herkese açık / Korunmuş",
+    "formats_help": "Kullanılabilecek oynatma türlerini gösterir (sunum veya video gibi). Bir biçime tıklandığında yeni bir sekmede BigBlueButton kaydı açılır.",
+    "visibility_help": {
+      "title": "Kayıt görünürlüğü seçenekleri",
+      "public_protected": "Herkese açık/Korunmuş - Kayıt, odaya katılma sayfasından ulaşılabilen herkese açık kayıtlar sayfasında bulunur. Bağlantı yalnızca Greenlight içinden görüntülenebilir",
+      "public": "Herkese açık - Kayıt, odaya katılma sayfasından ulaşılabilen herkese açık kayıtlar sayfasında bulunur. Bağlantı herkesle paylaşılabilir",
+      "protected": "Korunmış - Kayıt yalnızca Greenlight içinden görüntülenebilir",
+      "published": "Yayınlanmış - Kayıda, herkes bağlantısı ile erişebilir",
+      "unpublished": "Yayınlanmamış - Kayıda kimse erişemez"
+    },
     "length_in_minutes": "{{recording.length}} dakika",
     "processing_recording": "Kayıt işleniyor. Bu işlem birkaç dakika sürebilir...",
     "copy_recording_urls": "Kayıt adreslerini kopyala",
@@ -466,7 +475,8 @@
         "email_exists": "Bu e-posta adresi ile açılmış bir hesap zaten vafr. Lütfen başka bir e-posta adresi ile yeniden deneyin",
         "old_password": "Yazdığınız geçerli parola doğru değil",
         "pending": "Hesabınız yöneticiniz tarafından onaylanmayı bekliyor",
-        "banned": "Bu uygulamaya erişme izniniz yok. Bir yanlışlık olduğunu düşünüyorsanız yöneticiniz ile görüşün."
+        "banned": "Bu uygulamaya erişme izniniz yok. Bir yanlışlık olduğunu düşünüyorsanız yöneticiniz ile görüşün.",
+        "hcaptcha_invalid": "Güvenlik kodu doğrulanamadı. Lütfen yeniden deneyin."
       },
       "rooms": {
         "room_limit": "Oda sayısı sınırına ulaşıldığından oda eklenemedi"
