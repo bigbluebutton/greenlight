@@ -15,7 +15,7 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import {
-  VideoCameraIcon, TrashIcon, PencilSquareIcon, ClipboardDocumentIcon,
+  VideoCameraIcon, TrashIcon, PencilSquareIcon, ClipboardDocumentIcon, QuestionMarkCircleIcon,
 } from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -24,6 +24,7 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import Spinner from '../shared_components/utilities/Spinner';
 import UpdateRecordingForm from './forms/UpdateRecordingForm';
@@ -53,6 +54,22 @@ export default function RecordingRow({
   const localizedTime = localizeDateTimeString(recording?.recorded_at, currentUser?.language);
   const formats = recording.formats.sort(
     (a, b) => (a.recording_type.toLowerCase() > b.recording_type.toLowerCase() ? 1 : -1),
+  );
+
+  const visibilityHelpText = {
+    'Public/Protected': t('recording.visibility_help.public_protected'),
+    Public: t('recording.visibility_help.public'),
+    Protected: t('recording.visibility_help.protected'),
+    Published: t('recording.visibility_help.published'),
+    Unpublished: t('recording.visibility_help.unpublished'),
+  };
+
+  const visibilityPopover = (visibilityKey) => (
+    <Popover className="ms-3">
+      <Popover.Body>
+        <p className="mb-0">{visibilityHelpText[visibilityKey]}</p>
+      </Popover.Body>
+    </Popover>
   );
 
   return (
@@ -114,7 +131,14 @@ export default function RecordingRow({
               value="Public/Protected"
               onClick={() => visibilityAPI.mutate({ visibility: 'Public/Protected', id: recording.record_id })}
             >
-              {t('recording.public_protected')}
+              <Stack direction="horizontal" className="justify-content-between">
+                <span>{t('recording.public_protected')}</span>
+                <span className="recording-info">
+                  <OverlayTrigger placement="right" trigger={['hover', 'focus']} overlay={visibilityPopover('Public/Protected')}>
+                    <QuestionMarkCircleIcon className="hi-xs" />
+                  </OverlayTrigger>
+                </span>
+              </Stack>
             </Dropdown.Item>
           )}
 
@@ -124,7 +148,14 @@ export default function RecordingRow({
               value="Public"
               onClick={() => visibilityAPI.mutate({ visibility: 'Public', id: recording.record_id })}
             >
-              {t('recording.public')}
+              <Stack direction="horizontal" className="justify-content-between">
+                <span>{t('recording.public')}</span>
+                <span className="recording-info">
+                  <OverlayTrigger placement="right" trigger={['hover', 'focus']} overlay={visibilityPopover('Public')}>
+                    <QuestionMarkCircleIcon className="hi-xs" />
+                  </OverlayTrigger>
+                </span>
+              </Stack>
             </Dropdown.Item>
           )}
 
@@ -134,7 +165,14 @@ export default function RecordingRow({
               value="Protected"
               onClick={() => visibilityAPI.mutate({ visibility: 'Protected', id: recording.record_id })}
             >
-              {t('recording.protected')}
+              <Stack direction="horizontal" className="justify-content-between">
+                <span>{t('recording.protected')}</span>
+                <span className="recording-info">
+                  <OverlayTrigger placement="right" trigger={['hover', 'focus']} overlay={visibilityPopover('Protected')}>
+                    <QuestionMarkCircleIcon className="hi-xs" />
+                  </OverlayTrigger>
+                </span>
+              </Stack>
             </Dropdown.Item>
           )}
 
@@ -144,7 +182,14 @@ export default function RecordingRow({
               value="Published"
               onClick={() => visibilityAPI.mutate({ visibility: 'Published', id: recording.record_id })}
             >
-              {t('recording.published')}
+              <Stack direction="horizontal" className="justify-content-between">
+                <span>{t('recording.published')}</span>
+                <span className="recording-info">
+                  <OverlayTrigger placement="right" trigger={['hover', 'focus']} overlay={visibilityPopover('Published')}>
+                    <QuestionMarkCircleIcon className="hi-xs" />
+                  </OverlayTrigger>
+                </span>
+              </Stack>
             </Dropdown.Item>
           )}
 
@@ -154,7 +199,14 @@ export default function RecordingRow({
               value="Unpublished"
               onClick={() => visibilityAPI.mutate({ visibility: 'Unpublished', id: recording.record_id })}
             >
-              {t('recording.unpublished')}
+              <Stack direction="horizontal" className="justify-content-between">
+                <span>{t('recording.unpublished')}</span>
+                <span className="recording-info">
+                  <OverlayTrigger placement="right" trigger={['hover', 'focus']} overlay={visibilityPopover('Unpublished')}>
+                    <QuestionMarkCircleIcon className="hi-xs" />
+                  </OverlayTrigger>
+                </span>
+              </Stack>
             </Dropdown.Item>
           )}
         </SimpleSelect>

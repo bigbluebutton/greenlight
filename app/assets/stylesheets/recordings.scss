@@ -133,3 +133,22 @@
     color: var(--brand-color) !important;
   }
 }
+
+.simple-select {
+  .recording-info {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .dropdown-toggle .recording-info {
+    visibility: hidden;
+    pointer-events: none;
+    min-width: 1.25rem;
+    justify-content: center;
+  }
+
+  .dropdown-menu .recording-info {
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
