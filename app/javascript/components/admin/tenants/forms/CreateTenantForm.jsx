@@ -35,6 +35,7 @@ export default function CreateRoleForm({ handleClose }) {
     <Form methods={methods} onSubmit={createTenant.mutate}>
       <FormControl field={fields.name} type="text" />
       <FormControl field={fields.client_secret} type="text" />
+      <FormControl field={fields.region} type="text" />
       <Stack className="mt-1" direction="horizontal" gap={1}>
         <Button variant="neutral" className="ms-auto" onClick={handleClose}>
           {t('close')}

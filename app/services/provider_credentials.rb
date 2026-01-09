@@ -19,9 +19,9 @@
 class ProviderCredentials
   def initialize(provider:)
     @provider = provider
-    @endpoint = File.join(ENV.fetch('LOADBALANCER_ENDPOINT'), '/api/')
-    @secret = ENV.fetch('LOADBALANCER_SECRET')
     @route = 'getUser'
+
+    set_regional_credentials
   end
 
   def call
@@ -41,6 +41,30 @@ class ProviderCredentials
       return false unless response['returncode'] == 'SUCCESS'
 
       [response['user']['apiURL'], response['user']['secret']]
+    end
+  end
+
+  private
+
+  def set_regional_credentials
+    tenant = Tenant.find_by(name: @provider)
+
+    case tenant&.region&.downcase
+    when 'rna1'
+      @endpoint = File.join(ENV.fetch('LOADBALANCER_ENDPOINT_RNA1'), '/api/')
+      @secret = ENV.fetch('LOADBALANCER_SECRET_RNA1')
+    when 'reu1'
+      @endpoint = File.join(ENV.fetch('LOADBALANCER_ENDPOINT_REU1'), '/api/')
+      @secret = ENV.fetch('LOADBALANCER_SECRET_REU1')
+    when 'rna2'
+      @endpoint = File.join(ENV.fetch('LOADBALANCER_ENDPOINT_RNA2'), '/api/')
+      @secret = ENV.fetch('LOADBALANCER_SECRET_RNA2')
+    when 'roc2'
+      @endpoint = File.join(ENV.fetch('LOADBALANCER_ENDPOINT_ROC2'), '/api/')
+      @secret = ENV.fetch('LOADBALANCER_SECRET_ROC2')
+    else
+      @endpoint = File.join(ENV.fetch('LOADBALANCER_ENDPOINT'), '/api/')
+      @secret = ENV.fetch('LOADBALANCER_SECRET')
     end
   end
 end
