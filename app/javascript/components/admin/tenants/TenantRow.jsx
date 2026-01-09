@@ -52,5 +52,6 @@ TenantRow.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
     client_secret: PropTypes.string,
+    region: PropTypes.string,
   }).isRequired,
 };
