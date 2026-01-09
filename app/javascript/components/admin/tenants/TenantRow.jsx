@@ -30,6 +30,9 @@ export default function TenantRow({ tenant }) {
       <td className="py-4 border-0">
         {tenant?.client_secret}
       </td>
+      <td className="py-4 border-0">
+        {tenant?.region}
+      </td>
       <td className="border-start-0 text-end tenants-icons">
         <Modal
           modalButton={<Button variant="icon"><TrashIcon className="hi-s" /></Button>}
