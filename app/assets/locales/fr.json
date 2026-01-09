@@ -180,23 +180,23 @@
     "users": "Utilisateurs",
     "visibility": "État",
     "formats": "Lecture",
+    "formats_help": "Affiche les types de lecture disponibles (par exemple Présentation ou Vidéo). Cliquer sur un format ouvre l'enregistrement BigBlueButton dans un nouvel onglet.",
     "published": "Publiée",
     "unpublished": "Non publiée",
     "protected": "Protégé",
     "public": "Public",
     "public_protected": "Public/Protégé",
-    "formats_help": "Affiche les différentes restitutions disponibles (par exemple, Présentation complète ou Vidéo). En cliquant, l'enregistrement de BigBlueButton s'ouvre dans un nouvel onglet.",
     "visibility_help": {
-      "title": "Options de visibilité des enregistrements",
-      "public_protected": "Public/Protégé - L'enregistrement est disponible sous l'onglet  Enregistrements de la page d'accueil de BBB. Visible uniquement par le public authentifié dans BBB.",
-      "public": "Public - L'enregistrement est disponible sous l'onglet Enregistrements de la page d'accueil de BBB. Le liien pourra être partagé avec quiconque.",
-      "protected": "Protégé - L'enregistrement ne peut être visionné que par des personnes authentifiées dans BBB",
-      "published": "Publié - L'enregistrement est accessible à toute personne détenant le lien vers la vidéo.",
+      "title": "Options de visibilité de l'enregistrement",
+      "public_protected": "Public/Protégé - L'enregistrement est disponible sur la page des enregistrements publics accessible depuis la page Rejoindre la salle. Le lien ne peut être consulté que depuis Greenlight",
+      "public": "Public - L'enregistrement est disponible sur la page des enregistrements publics accessible depuis la page Rejoindre la salle. Le lien peut être partagé avec n'importe qui",
+      "protected": "Protégé - L'enregistrement doit être consulté depuis Greenlight",
+      "published": "Publiée - L'enregistrement est accessible à toute personne disposant du lien",
       "unpublished": "Non publiée - L'enregistrement n'est accessible à personne"
     },
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "L'enregistrement est en cours de traitement, cela peu prendre quelques minutes...",
-    "copy_recording_urls": "Copier l'URL(s) de l'enregistrement",
+    "copy_recording_urls": "Copier l'URL de l'enregistrement",
     "recordings_list_empty": "Vous n'avez pas encore d'enregistrements!",
     "public_recordings_list_empty": "Il n'y pas encore d'enregistrements publics !",
     "recordings_list_empty_description": "Les enregistrements apparaîtront ici dès que vous aurez réalisé la captation d'une réunion",
@@ -445,7 +445,7 @@
         "recording_visibility_updated": "La visibilité de l'enregistrement a été mise à jour.",
         "recording_name_updated": "Le nom de l'enregistrement a été mis à jour.",
         "recording_deleted": "L'enregistrement a été supprimé.",
-        "copied_urls": "L'adresse URL de l'enregistrement a été copiée"
+        "copied_urls": "Les URL d'enregistrement ont été copiés."
       },
       "role": {
         "role_created": "Le rôle a été créé",
@@ -475,8 +475,7 @@
         "email_exists": "Il existe déjà un compte avec cette adresse. Veuillez réessayer avec une autre adresse de courriel.",
         "old_password": "Le mot de passe que vous avez saisi est erroné",
         "pending": "Votre inscription est en attente d'approbation par l'administrateur",
-        "banned": "Vous n'êtes pas autorisé à accéder à cette application. Veuillez contacter l'administrateur si vous pensez qu'il s'agit d'une erreur.",
-        "hcaptcha_invalid": "La vérification CAPTCHA a échouée. Veuillez essayer à nouveau."
+        "banned": "Vous n'êtes pas autorisé à accéder à cette application. Veuillez contacter l'administrateur si vous pensez qu'il s'agit d'une erreur."
       },
       "rooms": {
         "room_limit": "La salle ne peut être créée car la limite du nombre de salles a été atteint."
