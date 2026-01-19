@@ -136,6 +136,7 @@ RSpec.describe Api::V1::Admin::TenantsController do
     Setting.find_or_create_by(name: 'BrandingImage')
     Setting.find_or_create_by(name: 'Terms')
     Setting.find_or_create_by(name: 'PrivacyPolicy')
+    Setting.find_or_create_by(name: 'AccessibilityStatement')
     Setting.find_or_create_by(name: 'HelpCenter')
     Setting.find_or_create_by(name: 'RegistrationMethod')
     Setting.find_or_create_by(name: 'ShareRooms')

@@ -54,6 +54,9 @@ export default function useUpdateSiteSetting(name) {
       case 'PrivacyPolicy':
         toast.success(t('toast.success.site_settings.privacy_policy_updated'));
         break;
+      case 'AccessibilityStatement':
+        toast.success(t('toast.success.site_settings.accessibility_updated'));
+        break;
       case 'HelpCenter':
         toast.success(t('toast.success.site_settings.helpcenter_updated'));
         break;
