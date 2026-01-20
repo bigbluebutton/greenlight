@@ -18,9 +18,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
-export default function Title({ children: title }) {
+export default function Title({ children: title, lang, dir }) {
   return (
-    <Helmet>
+    <Helmet htmlAttributes={{ lang, dir }}>
       <title>{title}</title>
       <meta property="og:title" content={title} />
     </Helmet>
@@ -29,4 +29,6 @@ export default function Title({ children: title }) {
 
 Title.propTypes = {
   children: PropTypes.node.isRequired,
+  lang: PropTypes.string.isRequired,
+  dir: PropTypes.string.isRequired,
 };
