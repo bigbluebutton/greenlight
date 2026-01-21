@@ -31,6 +31,8 @@ export default function useDeleteRole({ role, onSettled }) {
       onError: (error) => {
         if (error.response?.status === 405) {
           toast.error(t('toast.error.roles.role_assigned'));
+        } else if (error.response?.status === 403) {
+          toast.error(t('toast.error.roles.role_set_as_default'));
         } else {
           toast.error(t('toast.error.problem_completing_action'));
         }
