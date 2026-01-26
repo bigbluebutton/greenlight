@@ -185,6 +185,14 @@
     "protected": "Védett",
     "public": "Nyilvános",
     "public_protected": "Nyilvános /Védett",
+    "formats_help": "Az elérhető lejátszási formátumok megjelenítése. Formátum kiválasztása új lapon nyitja meg a BigBlueButton Felvételek oldalt.",
+    "visibility_help": {
+      "public_protected": "A felvétel a Nyilvános felvételek oldalon található, amely a Teremhez csatlakozás oldalról érhető el. Egyszeri hozzáférési hivatkozással másokkal is megosztható.",
+      "public": "A felvétel a Nyilvános felvételek oldalon található, amely a Szobához csatlakozás oldalról érhető el, és a linkje bárkivel megosztható.",
+      "protected": "A felvételhez csak a terem tulajdonosa férhet hozzá, és egy egyszeri hozzáférési hivatkozás segítségével megosztható másokkal.",
+      "published": "A felvétel a link birtokában bárkinek elérhető",
+      "unpublished": "A felvétel nem mindenkinek érhető el"
+    },
     "length_in_minutes": "{{recording.length}} perc",
     "processing_recording": "A felvétel feldolgozása néhány percig eltarthat...",
     "copy_recording_urls": "Felvételek webcímének másolása",
@@ -436,7 +444,7 @@
         "recording_visibility_updated": "Felvétel láthatósága frissítve.",
         "recording_name_updated": "Felvétel neve frissítve.",
         "recording_deleted": "A felvételt sikeresen törölte.",
-        "copied_urls": "A felvétel webcímei másolva."
+        "copied_urls": "The recording URL has been copied."
       },
       "role": {
         "role_created": "Szerepkör létrehozva.",
@@ -466,7 +474,8 @@
         "email_exists": "Már létezik fiók ezzel ez e-mail-címmel. Próbálja újra másik címmel.",
         "old_password": "A megadott jelszó helytelen.",
         "pending": "A fiókja adminisztrátori jóváhagyásra vár. Próbálja újra később.",
-        "banned": "Nincs hozzáférési jogosultsága ehhez az alkalmazáshoz. Ha úgy gondolja, hogy ez hiba, akkor lépjen kapcsolatba a rendszergazdával."
+        "banned": "Nincs hozzáférési jogosultsága ehhez az alkalmazáshoz. Ha úgy gondolja, hogy ez hiba, akkor lépjen kapcsolatba a rendszergazdával.",
+        "hcaptcha_invalid": "A CAPTCHA-ellenőrzés sikertelen. Kérjük, próbáld újra."
       },
       "rooms": {
         "room_limit": "A szobakorlát miatt a szoba nem hozható létre"
