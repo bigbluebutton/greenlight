@@ -193,11 +193,13 @@ module Api
       end
 
       def permitted_params
-        is_admin = PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call
+        is_user_manager = PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call
 
-        return %i[password avatar language role_id invite_token] if external_auth? && !is_admin
+        permitted = %i[password avatar language role_id invite_token]
+        permitted.push(:name) if is_user_manager || !external_auth?
+        permitted.push(:email) if is_user_manager
 
-        %i[name password avatar language role_id invite_token]
+        permitted
       end
     end
   end
