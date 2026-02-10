@@ -148,7 +148,7 @@ GEM
       reline (>= 0.3.8)
     declarative (0.0.20)
     diff-lcs (1.6.2)
-    digest-crc (0.6.5)
+    digest-crc (0.7.0)
       rake (>= 12.0.0, < 14.0.0)
     dotenv (3.2.0)
     dotenv-rails (3.2.0)
@@ -166,7 +166,7 @@ GEM
       railties (>= 6.1.0)
     faker (3.1.1)
       i18n (>= 1.8.11, < 2)
-    faraday (2.14.0)
+    faraday (2.14.1)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -178,37 +178,40 @@ GEM
     ffi (1.17.2-x86_64-linux-gnu)
     globalid (1.3.0)
       activesupport (>= 6.1)
-    google-apis-core (0.11.0)
-      addressable (~> 2.5, >= 2.5.1)
-      googleauth (>= 0.16.2, < 2.a)
-      httpclient (>= 2.8.1, < 3.a)
-      mini_mime (~> 1.0)
+    google-apis-core (1.0.2)
+      addressable (~> 2.8, >= 2.8.7)
+      faraday (~> 2.13)
+      faraday-follow_redirects (~> 0.3)
+      googleauth (~> 1.14)
+      mini_mime (~> 1.1)
       representable (~> 3.0)
-      retriable (>= 2.0, < 4.a)
-      rexml
-      webrick
-    google-apis-iamcredentials_v1 (0.17.0)
-      google-apis-core (>= 0.11.0, < 2.a)
-    google-apis-storage_v1 (0.19.0)
-      google-apis-core (>= 0.9.0, < 2.a)
-    google-cloud-core (1.6.0)
-      google-cloud-env (~> 1.0)
+      retriable (~> 3.1)
+    google-apis-iamcredentials_v1 (0.26.0)
+      google-apis-core (>= 0.15.0, < 2.a)
+    google-apis-storage_v1 (0.60.0)
+      google-apis-core (>= 0.15.0, < 2.a)
+    google-cloud-core (1.8.0)
+      google-cloud-env (>= 1.0, < 3.a)
       google-cloud-errors (~> 1.0)
-    google-cloud-env (1.6.0)
-      faraday (>= 0.17.3, < 3.0)
-    google-cloud-errors (1.3.1)
-    google-cloud-storage (1.44.0)
+    google-cloud-env (2.3.1)
+      base64 (~> 0.2)
+      faraday (>= 1.0, < 3.a)
+    google-cloud-errors (1.5.0)
+    google-cloud-storage (1.58.0)
       addressable (~> 2.8)
       digest-crc (~> 0.4)
-      google-apis-iamcredentials_v1 (~> 0.1)
-      google-apis-storage_v1 (~> 0.19.0)
+      google-apis-core (>= 0.18, < 2)
+      google-apis-iamcredentials_v1 (~> 0.18)
+      google-apis-storage_v1 (>= 0.42)
       google-cloud-core (~> 1.6)
-      googleauth (>= 0.16.2, < 2.a)
+      googleauth (~> 1.9)
       mini_mime (~> 1.0)
-    googleauth (1.6.0)
-      faraday (>= 0.17.3, < 3.a)
-      jwt (>= 1.4, < 3.0)
-      memoist (~> 0.16)
+    google-logging-utils (0.2.0)
+    googleauth (1.16.1)
+      faraday (>= 1.0, < 3.a)
+      google-cloud-env (~> 2.2)
+      google-logging-utils (~> 0.1)
+      jwt (>= 1.4, < 4.0)
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (>= 0.16, < 2.a)
@@ -216,8 +219,6 @@ GEM
     hashie (5.0.0)
     hcaptcha (7.1.0)
       json
-    httpclient (2.9.0)
-      mutex_m
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     i18n-language-mapping (0.1.3.1)
@@ -235,7 +236,7 @@ GEM
     jmespath (1.6.2)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.17.0)
+    json (2.18.1)
     json-jwt (1.17.0)
       activesupport (>= 4.2)
       aes_key_wrap
@@ -244,7 +245,8 @@ GEM
       faraday (~> 2.0)
       faraday-follow_redirects
     jsonapi-renderer (0.2.2)
-    jwt (2.7.0)
+    jwt (3.1.2)
+      base64
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -264,15 +266,13 @@ GEM
       net-smtp
     marcel (1.1.0)
     matrix (0.4.3)
-    memoist (0.16.2)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (5.26.2)
     msgpack (1.6.0)
-    multi_json (1.15.0)
-    mutex_m (0.3.0)
-    net-http (0.8.0)
+    multi_json (1.19.1)
+    net-http (0.9.1)
       uri (>= 0.11.1)
     net-imap (0.5.12)
       date
@@ -328,7 +328,7 @@ GEM
     psych (5.2.6)
       date
       stringio
-    public_suffix (7.0.0)
+    public_suffix (7.0.2)
     puma (6.5.0)
       nio4r (~> 2.0)
     racc (1.8.1)
@@ -459,10 +459,10 @@ GEM
       websocket (~> 1.0)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
-    signet (0.17.0)
+    signet (0.21.0)
       addressable (~> 2.8)
       faraday (>= 0.17.5, < 3.a)
-      jwt (>= 1.5, < 3.0)
+      jwt (>= 1.5, < 4.0)
       multi_json (~> 1.10)
     sprockets (4.2.2)
       concurrent-ruby (~> 1.0)
@@ -511,7 +511,6 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webrick (1.8.2)
     websocket (1.2.9)
     websocket-driver (0.8.0)
       base64
@@ -543,7 +542,7 @@ DEPENDENCIES
   factory_bot (>= 6.4.1)
   factory_bot_rails (>= 6.4.4)
   faker
-  google-cloud-storage (~> 1.44)
+  google-cloud-storage (~> 1.45, >= 1.45.0)
   hcaptcha
   i18n-language-mapping
   image_processing (~> 1.2)
@@ -576,3 +575,9 @@ DEPENDENCIES
   web-console (>= 4.2.1)
   webdrivers
   webmock (>= 3.23.1)
+
+RUBY VERSION
+   ruby 3.3.9p170
+
+BUNDLED WITH
+   2.5.22
