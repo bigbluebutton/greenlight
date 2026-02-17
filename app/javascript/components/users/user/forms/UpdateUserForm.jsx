@@ -71,7 +71,7 @@ export default function UpdateUserForm({ user }) {
   return (
     <Form methods={methods} onSubmit={updateUserAPI.mutate}>
       <FormControl field={fields.name} type="text" readOnly={user.external_account && !PermissionChecker.hasManageUsers(currentUser)} />
-      <FormControl field={fields.email} type="email" readOnly />
+      <FormControl field={fields.email} type="email" readOnly={!PermissionChecker.hasManageUsers(currentUser)} />
       <FormSelect field={fields.language} variant="dropdown">
         {
           Object.keys(locales || {}).map((code) => <Option key={code} value={code}>{locales[code]}</Option>)
