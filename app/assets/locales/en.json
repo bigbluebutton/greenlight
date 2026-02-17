@@ -468,7 +468,8 @@
       "signin_required": "You must be signed in to access this page.",
       "malware_detected": "Malware Detected! The file you uploaded may contain malware. Please check your file and try again.",
       "roles": {
-        "role_assigned": "This role can't be deleted because it is assigned to at least one user."
+        "role_assigned": "This role can't be deleted because it is assigned to at least one user.",
+        "role_set_as_default": "This role can't be deleted because it is set as Default Role in Site Setting."
       },
       "users": {
         "signup_error": "You can't be authenticated. Please contact your administrator.",
