@@ -31,6 +31,7 @@ import Option from '../../../shared_components/utilities/Option';
 import useLocales from '../../../../hooks/queries/locales/useLocales';
 import useUpdateUserForm from '../../../../hooks/forms/users/user/useUpdateUserForm';
 import PermissionChecker from '../../../../helpers/PermissionChecker';
+import useCreateResetPwd from '../../../../hooks/mutations/users/useCreateResetPwd';
 
 export default function UpdateUserForm({ user }) {
   const { t } = useTranslation();
@@ -42,6 +43,7 @@ export default function UpdateUserForm({ user }) {
   const { data: roles } = useRoles({ enabled: canUpdateRole });
   const { data: locales } = useLocales();
   const updateUserAPI = useUpdateUser(user?.id);
+  const resetPasswordAPI = useCreateResetPwd({ shouldNavigate: false });
 
   function currentLanguage() {
     const language = user?.language;
@@ -85,6 +87,13 @@ export default function UpdateUserForm({ user }) {
         </FormSelect>
       )}
       <Stack direction="horizontal" gap={2} className="float-end">
+        {(canUpdateRole && !user.external_account) && (
+        <Button
+          variant="outline-secondary"
+          onClick={() => resetPasswordAPI.mutate({ email: user.email })}
+        >{ t('reset_password')}
+        </Button>
+        )}
         <Button variant="neutral" onClick={reset}> { t('reset') } </Button>
         <Button variant="brand" type="submit" disabled={updateUserAPI.isLoading}>
           { t('update') }
