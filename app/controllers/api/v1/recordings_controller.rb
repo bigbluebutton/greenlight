@@ -69,6 +69,9 @@ module Api
 
         return render_error status: :forbidden unless allowed_visibilities.include?(new_visibility)
 
+        protected_visibilities = [Recording::VISIBILITIES[:protected], Recording::VISIBILITIES[:public_protected]]
+        return render_error status: :forbidden if protected_visibilities.include?(new_visibility) && !@recording.protectable
+
         BigBlueButtonApi.new(provider: current_provider).update_recording_visibility(record_id: @recording.record_id, visibility: new_visibility)
 
         @recording.update!(visibility: new_visibility)
