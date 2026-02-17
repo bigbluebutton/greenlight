@@ -125,7 +125,7 @@ export default function RecordingRow({
           defaultValue={recording.visibility}
           dropUp={dropUp}
         >
-          { (allowedVisibilities.includes('Public/Protected') || recording.visibility === 'Public/Protected') && (
+          { recording.protectable && (allowedVisibilities.includes('Public/Protected') || recording.visibility === 'Public/Protected') && (
             <Dropdown.Item
               key="Public/Protected"
               value="Public/Protected"
@@ -159,7 +159,7 @@ export default function RecordingRow({
             </Dropdown.Item>
           )}
 
-          { (allowedVisibilities.includes('Protected') || recording.visibility === 'Protected') && (
+          { recording.protectable && (allowedVisibilities.includes('Protected') || recording.visibility === 'Protected') && (
             <Dropdown.Item
               key="Protected"
               value="Protected"
