@@ -168,7 +168,8 @@
       "default_tag_name": "Standard",
       "server_tag_desired": "Erwünscht",
       "server_tag_required": "Notwendig",
-      "are_you_sure_delete_room": "Diesen Raum wirklich löschen?"
+      "are_you_sure_delete_room": "Diesen Raum wirklich löschen?",
+      "generate_recordings_access_code": "Zugangscode für Aufzeichnungen generieren"
     }
   },
   "recording": {
@@ -194,7 +195,12 @@
     "public_recordings_list_empty_description": "Hier werden Aufzeichnungen angezeigt,sobald sie verfügbar sind.",
     "delete_recording": "Aufzeichnung löschen",
     "are_you_sure_delete_recording": "Diese Aufzeichnung wirklich löschen?",
-    "search_not_found": "Keine Aufzeichnungen gefunden"
+    "search_not_found": "Keine Aufzeichnungen gefunden",
+    "access_code_required": "Zugangscode erforderlich",
+    "enter_access_code_description": "Bitte gebe den Zugangscode ein, um die öffentlichen Aufzeichnungen für diesen Raum anzusehen.",
+    "access_code_placeholder": "Zugangscode eingeben",
+    "submit_access_code": "Zugangscode senden",
+    "invalid_access_code": "Falscher Zugangscode"
   },
   "admin": {
     "admin_panel": "Administration",
