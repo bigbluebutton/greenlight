@@ -89,6 +89,10 @@ module Greenlight
     config.relative_url_root = '/' if config.relative_url_root.blank?
 
     I18n.load_path += Dir[Rails.root.join('config/locales/*.{rb,yml}').to_s]
+
+    config.voice_bridge_phone_number = ENV.fetch('VOICE_BRIDGE_PHONE_NUMBER', nil)
+    config.sip_pin_length = ENV.fetch('SIP_PIN_LENGTH', 5)
+
     config.i18n.fallbacks = %i[en]
     config.i18n.enforce_available_locales = false
 

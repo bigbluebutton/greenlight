@@ -18,6 +18,7 @@
   "close": "Close",
   "delete": "Delete",
   "copy": "Copy Join Link",
+  "copy_voice_bridge": "Copy Phone Dialup",
   "copy_viewer_code": "Copy Viewer Code",
   "copy_moderator_code": "Copy Moderator Code",
   "or": "Or",
@@ -126,7 +127,13 @@
       "meeting_invitation": "You have been invited to join",
       "meeting_not_started": "The meeting has not started yet",
       "join_meeting_automatically": "You will automatically join when the meeting starts",
-      "recording_consent": "I acknowledge that this session may be recorded. This may include my voice and video if enabled."
+      "recording_consent": "I acknowledge that this session may be recorded. This may include my voice and video if enabled.",
+      "invite_to_meeting": "{{ name }} invites you to join a meeting.",
+      "join_by_url": "Join room by URL",
+      "alternative_options": "Alternative options to join",
+      "download_ics": "Download .ics calender file",
+      "share_meeting": "Share Room",
+      "join_by_phone": "join with telephone dial-up"
     },
     "presentation": {
       "presentation": "Presentation",
@@ -428,6 +435,7 @@
         "access_code_generated": "A new access code has been generated.",
         "access_code_deleted": "The access code has been deleted.",
         "copied_meeting_url": "The meeting URL has been copied. The link can be used to join the meeting.",
+        "copied_voice_bridge": "The phone number and pin have been copied. They can be used to join the conference.",
         "copied_viewer_code": "The viewer access code has been copied.",
         "copied_moderator_code": "The moderator access code has been copied."
       },
