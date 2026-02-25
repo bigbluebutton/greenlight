@@ -185,6 +185,14 @@
     "protected": "Korunmuş",
     "public": "Herkese açık",
     "public_protected": "Herkese açık / Korunmuş",
+    "formats_help": "Kullanılabilecek oynatma biçimlerini gösterir. Bir biçim seçildiğinde yeni bir sekmede BigBlueButton kaydı açılır.",
+    "visibility_help": {
+      "public_protected": "Kayıt, odaya katıl sayfasından erişilebilen herkese açık kayıtlar sayfasında bulunur. Tek seferlik bir erişim bağlantısı ile başkalarıyla da paylaşılabilir",
+      "public": "Kayıt, odaya katıl sayfasından erişilebilen herkese açık kayıtlar sayfasında bulunur ve bağlantısı herkesle paylaşılabilir.",
+      "protected": "Kayıt, yalnızca oda sahibi tarafından erişebilir ve tek seferlik bir erişim bağlantısı ile başkalarıyla paylaşılabilir",
+      "published": "Kayıt, elinde bağlantı olan herkes tarafından erişilebilir",
+      "unpublished": "Kayıda kimse erişemez"
+    },
     "length_in_minutes": "{{recording.length}} dakika",
     "processing_recording": "Kayıt işleniyor. Bu işlem birkaç dakika sürebilir...",
     "copy_recording_urls": "Kayıt adreslerini kopyala",
@@ -284,12 +292,14 @@
         "terms": "Hüküm ve koşullar",
         "privacy": "Gizlilik bildirimi",
         "privacy_policy": "Gizlilik bildirimi",
-        "change_term_links": "Sayfanın altında görüntülenecek koşullar bağlantısını değiştir",
-        "change_privacy_link": "Sayfanın altında görüntülenecek gizlilik bağlantısını değiştir",
+        "accessibility_statement": "Erişilebilirlik durumu",
+        "change_term_links": "Sayfanın altında görüntülenecek koşullar bağlantısını değiştirir",
+        "change_privacy_link": "Sayfanın altında görüntülenecek gizlilik bağlantısını değiştirir",
+        "change_accessibility_statement_link": "Sayfanın altında görüntülenecek erişilebilirlik bildirimi bağlantısını değiştirir",
         "helpcenter": "Yardım merkezi",
-        "change_helpcenter_link": "Profil açılır menüsünde görüntülenecek yardım merkezi bağlantısını değiştirin",
+        "change_helpcenter_link": "Profil açılır menüsünde görüntülenecek yardım merkezi bağlantısını değiştirir",
         "maintenance": "Bakım duyurusu",
-        "change_maintenance_text": "Üst bilgide görüntülecek bakım duyurusu metnini değiştirin",
+        "change_maintenance_text": "Üst bilgide görüntülecek bakım duyurusu metnini değiştirir",
         "change_url": "Adresi değiştir",
         "set_text": "Metni ayarla",
         "clear_banner": "Duyuruyu temizle",
@@ -466,7 +476,8 @@
         "email_exists": "Bu e-posta adresi ile açılmış bir hesap zaten vafr. Lütfen başka bir e-posta adresi ile yeniden deneyin",
         "old_password": "Yazdığınız geçerli parola doğru değil",
         "pending": "Hesabınız yöneticiniz tarafından onaylanmayı bekliyor",
-        "banned": "Bu uygulamaya erişme izniniz yok. Bir yanlışlık olduğunu düşünüyorsanız yöneticiniz ile görüşün."
+        "banned": "Bu uygulamaya erişme izniniz yok. Bir yanlışlık olduğunu düşünüyorsanız yöneticiniz ile görüşün.",
+        "hcaptcha_invalid": "Güvenlik kodu doğrulanamadı. Lütfen yeniden deneyin."
       },
       "rooms": {
         "room_limit": "Oda sayısı sınırına ulaşıldığından oda eklenemedi"
