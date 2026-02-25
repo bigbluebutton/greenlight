@@ -71,6 +71,7 @@ export default function JoinCard() {
   const queryParams = new URLSearchParams(location.search);
   const joinFormName = queryParams.get('joinFormName');
   const viewerCode = queryParams.get('viewerCode');
+  const disableFormControls = queryParams.get('disableFormControls') === 'true';
 
   useEffect(() => { // set cookie to return to if needed
     const date = new Date();
@@ -249,8 +250,20 @@ export default function JoinCard() {
         <Row>
           {(roomStatusAPI.isSuccess && !roomStatusAPI.data.status) ? WaitingPage : (
             <Form methods={methods} onSubmit={handleJoin}>
-              <FormControl field={fields.name} type="text" disabled={currentUser?.signed_in} autoFocus={!currentUser?.signed_in} />
-              {hasAccessCode && <FormControl field={fields.accessCode} type="text" autoFocus={currentUser?.signed_in} />}
+              <FormControl
+                field={fields.name}
+                type="text"
+                disabled={currentUser?.signed_in || disableFormControls}
+                autoFocus={!currentUser?.signed_in}
+              />
+              {hasAccessCode && (
+                <FormControl
+                  field={fields.accessCode}
+                  type="text"
+                  disabled={disableFormControls}
+                  autoFocus={currentUser?.signed_in}
+                />
+              )}
               {publicRoom?.data?.recording_consent === 'true' && (
                 <FormControlGeneric
                   id={fields.recordingConsent.controlId}
