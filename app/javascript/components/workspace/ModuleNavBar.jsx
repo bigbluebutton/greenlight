@@ -106,16 +106,6 @@ export default function ModuleNavBar() {
   return (
     <div className="ak-module-nav-wrap">
       <div className="ak-module-nav-shell">
-        <div className="ak-module-nav-search">
-          <MagnifyingGlassIcon className="ak-module-nav-search-icon" aria-hidden="true" />
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder={language === 'tr' ? 'Modul ara' : 'Search modules'}
-            aria-label={language === 'tr' ? 'Modul ara' : 'Search modules'}
-          />
-        </div>
         <Nav className="ak-module-nav" as="nav" aria-label="Application Modules">
           {filteredModules.map((item) => {
             const Icon = item.icon;
@@ -132,6 +122,16 @@ export default function ModuleNavBar() {
             );
           })}
         </Nav>
+        <div className="ak-module-nav-search">
+          <MagnifyingGlassIcon className="ak-module-nav-search-icon" aria-hidden="true" />
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={language === 'tr' ? 'Modul ara' : 'Search modules'}
+            aria-label={language === 'tr' ? 'Modul ara' : 'Search modules'}
+          />
+        </div>
       </div>
     </div>
   );
