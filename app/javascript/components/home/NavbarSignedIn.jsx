@@ -14,82 +14,45 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import {
-  Button, Nav, Navbar, NavDropdown, Stack,
+  Button, Dropdown, Nav, Navbar, NavDropdown, Stack,
 } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
-import { IdentificationIcon, QuestionMarkCircleIcon, StarIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import {
+  GlobeAltIcon,
+  IdentificationIcon,
+  QuestionMarkCircleIcon,
+  StarIcon,
+} from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
 import Avatar from '../users/user/Avatar';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
-import useRoomConfigValue from '../../hooks/queries/rooms/useRoomConfigValue';
 
-const MODULE_LABELS = {
-  en: {
-    home: 'Home',
-    rooms: 'Rooms',
-    sessions: 'Sessions',
-    recordings: 'Recordings',
-    engagement: 'Engagement',
-    files: 'Files',
-    reports: 'Reports',
-    admin: 'Admin',
-  },
-  tr: {
-    home: 'Ana Sayfa',
-    rooms: 'Odalar',
-    sessions: 'Oturumlar',
-    recordings: 'Kayitlar',
-    engagement: 'Etkilesim',
-    files: 'Dosyalar',
-    reports: 'Raporlar',
-    admin: 'Yonetim',
-  },
-};
+const LanguageToggle = React.forwardRef(({ children, onClick, className }, ref) => (
+  <button
+    type="button"
+    ref={ref}
+    className={className}
+    onClick={(event) => {
+      event.preventDefault();
+      onClick(event);
+    }}
+  >
+    {children}
+  </button>
+));
 
-function SignedInModuleNav({ modules, mobile = false }) {
-  return (
-    <Nav className={mobile ? 'ak-signedin-mobile-nav' : 'ak-signedin-nav d-none d-lg-flex'}>
-      {modules.map((item) => (
-        <Nav.Link
-          key={item.key}
-          as={Link}
-          to={item.to}
-          className={`ak-signedin-nav-link ${item.active ? 'is-active' : ''} ${mobile ? 'ak-signedin-mobile-link' : ''}`}
-        >
-          {item.label}
-        </Nav.Link>
-      ))}
-    </Nav>
-  );
-}
-
-SignedInModuleNav.propTypes = {
-  mobile: PropTypes.bool,
-  modules: PropTypes.arrayOf(PropTypes.shape({
-    active: PropTypes.bool.isRequired,
-    key: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    to: PropTypes.string.isRequired,
-  })).isRequired,
-};
-
-SignedInModuleNav.defaultProps = {
-  mobile: false,
-};
+LanguageToggle.displayName = 'LanguageToggle';
 
 export default function NavbarSignedIn({ currentUser }) {
   const { t, i18n } = useTranslation();
   const deleteSession = useDeleteSession({ showToast: true });
   const { data: helpCenter } = useSiteSetting('HelpCenter');
-  const { data: recordValue } = useRoomConfigValue('record');
-  const location = useLocation();
   const language = (i18n.resolvedLanguage || i18n.language || 'en').toLowerCase().startsWith('tr') ? 'tr' : 'en';
-  const labels = MODULE_LABELS[language];
 
   const adminAccess = () => {
     const { permissions } = currentUser;
@@ -110,42 +73,22 @@ export default function NavbarSignedIn({ currentUser }) {
   };
 
   const hasAdminAccess = adminAccess();
-  const canViewRecordings = recordValue !== 'false';
-
-  const modules = useMemo(() => {
-    const moduleList = [
-      { key: 'home', label: labels.home, to: '/home', active: location.pathname === '/home' },
-      { key: 'rooms', label: labels.rooms, to: '/rooms', active: location.pathname === '/rooms' || location.pathname.startsWith('/rooms/') },
-      { key: 'sessions', label: labels.sessions, to: '/sessions', active: location.pathname === '/sessions' },
-    ];
-
-    if (canViewRecordings) {
-      moduleList.push({ key: 'recordings', label: labels.recordings, to: '/recordings', active: location.pathname === '/recordings' });
-    }
-
-    moduleList.push(
-      { key: 'engagement', label: labels.engagement, to: '/engagement', active: location.pathname === '/engagement' },
-      { key: 'files', label: labels.files, to: '/files', active: location.pathname === '/files' },
-      { key: 'reports', label: labels.reports, to: '/reports', active: location.pathname === '/reports' },
-    );
-
-    if (hasAdminAccess) {
-      moduleList.push({ key: 'admin', label: labels.admin, to: '/admin', active: location.pathname.startsWith('/admin') });
-    }
-
-    return moduleList;
-  }, [labels, location.pathname, canViewRecordings, hasAdminAccess]);
 
   return (
     <>
-      <SignedInModuleNav modules={modules} />
-
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" className="border-0 ak-navbar-toggle">
+      <Navbar.Toggle aria-controls="navbar-menu" className="border-0 ak-navbar-toggle">
         <Avatar avatar={currentUser?.avatar} size="small" />
       </Navbar.Toggle>
       <Navbar.Collapse id="navbar-menu" className="bg-white w-100 position-absolute">
         <Nav className="d-block d-sm-none text-black px-2">
-          <SignedInModuleNav modules={modules} mobile />
+          <div className="ak-lang-mobile-group">
+            <button type="button" className={`ak-lang-mobile-option ${language === 'en' ? 'active' : ''}`} onClick={() => { i18n.changeLanguage('en'); }}>
+              EN
+            </button>
+            <button type="button" className={`ak-lang-mobile-option ${language === 'tr' ? 'active' : ''}`} onClick={() => { i18n.changeLanguage('tr'); }}>
+              TR
+            </button>
+          </div>
           <NavDropdown.Divider />
           <Nav.Link eventKey={1} as={Link} to="/profile">
             <IdentificationIcon className="hi-s me-3" />
@@ -179,47 +122,67 @@ export default function NavbarSignedIn({ currentUser }) {
         </Nav>
       </Navbar.Collapse>
 
-      <div className="justify-content-end d-none d-sm-block">
-        <NavDropdown
-          title={(
-            <Stack direction="horizontal" gap={2}>
-              <Avatar avatar={currentUser?.avatar} size="small" />
-              <span className="ms-1">{currentUser?.name}</span>
-              <ChevronDownIcon id="chevron-profile" className="hi-s text-muted" />
-            </Stack>
-          )}
-          id="nav-user-dropdown"
-          className="d-inline-block"
-          align="end"
-        >
+      <div className="justify-content-end d-none d-sm-flex align-items-center ak-navbar-shell">
+        <Dropdown align="end" className="ak-lang-dropdown-shell">
+          <Dropdown.Toggle as={LanguageToggle} className="ak-lang-toggle ak-lang-dropdown-toggle" id="ak-app-lang-dropdown-toggle">
+            <GlobeAltIcon className="ak-lang-icon" aria-hidden="true" />
+            <span>{language.toUpperCase()}</span>
+            <ChevronDownIcon className="ak-lang-chevron" aria-hidden="true" />
+          </Dropdown.Toggle>
+          <Dropdown.Menu className="ak-lang-dropdown-menu">
+            <Dropdown.Item active={language === 'en'} onClick={() => { i18n.changeLanguage('en'); }}>
+              <span>English</span>
+              <small>EN</small>
+            </Dropdown.Item>
+            <Dropdown.Item active={language === 'tr'} onClick={() => { i18n.changeLanguage('tr'); }}>
+              <span>Turkce</span>
+              <small>TR</small>
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
 
-          <NavDropdown.Item as={Link} to="/profile">
-            <IdentificationIcon className="hi-s me-3" />
-            { t('user.profile.profile') }
-          </NavDropdown.Item>
-          {
-            helpCenter
-            && (
-              <NavDropdown.Item href={helpCenter} target="_blank">
-                <QuestionMarkCircleIcon className="hi-s me-3" />
-                {t('help_center')}
-              </NavDropdown.Item>
-            )
-          }
-          {
-            hasAdminAccess
-            && (
-              <NavDropdown.Item as={Link} to="/admin">
-                <StarIcon className="hi-s me-3 mb-1" />
-                { t('admin.admin_panel') }
-              </NavDropdown.Item>
-            )
-          }
-          <NavDropdown.Divider />
-          <div className="px-2">
-            <Button onClick={deleteSession.mutate} variant="brand" className="btn btn-sm w-100 my-2">{t('authentication.sign_out')}</Button>
-          </div>
-        </NavDropdown>
+        <div className="justify-content-end d-none d-sm-block">
+          <NavDropdown
+            title={(
+              <Stack direction="horizontal" gap={2}>
+                <Avatar avatar={currentUser?.avatar} size="small" />
+                <span className="ms-1">{currentUser?.name}</span>
+                <ChevronDownIcon id="chevron-profile" className="hi-s text-muted" />
+              </Stack>
+            )}
+            id="nav-user-dropdown"
+            className="d-inline-block"
+            align="end"
+          >
+
+            <NavDropdown.Item as={Link} to="/profile">
+              <IdentificationIcon className="hi-s me-3" />
+              { t('user.profile.profile') }
+            </NavDropdown.Item>
+            {
+              helpCenter
+              && (
+                <NavDropdown.Item href={helpCenter} target="_blank">
+                  <QuestionMarkCircleIcon className="hi-s me-3" />
+                  {t('help_center')}
+                </NavDropdown.Item>
+              )
+            }
+            {
+              hasAdminAccess
+              && (
+                <NavDropdown.Item as={Link} to="/admin">
+                  <StarIcon className="hi-s me-3 mb-1" />
+                  { t('admin.admin_panel') }
+                </NavDropdown.Item>
+              )
+            }
+            <NavDropdown.Divider />
+            <div className="px-2">
+              <Button onClick={deleteSession.mutate} variant="brand" className="btn btn-sm w-100 my-2">{t('authentication.sign_out')}</Button>
+            </div>
+          </NavDropdown>
+        </div>
       </div>
     </>
   );
