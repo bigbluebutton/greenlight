@@ -323,6 +323,17 @@
   justify-content: center;
 }
 
+.ak-app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.ak-page-body {
+  flex: 1 0 auto;
+  width: 100%;
+}
+
 .ak-landing {
   width: 100%;
   max-width: 1240px;
@@ -1763,15 +1774,6 @@
     top: 76px;
   }
 
-  .ak-module-nav-shell {
-    grid-template-columns: 1fr;
-    gap: 0.55rem;
-  }
-
-  .ak-module-nav-search input {
-    min-height: 42px;
-    font-size: 0.84rem;
-  }
 
   .ak-home-hero-shell {
     min-height: auto;
@@ -2226,10 +2228,6 @@
   max-width: 1240px;
   margin: 0 auto;
   padding: 0.55rem 0.65rem;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
-  gap: 0.85rem;
-  align-items: center;
 }
 
 .ak-module-nav {
@@ -2280,43 +2278,6 @@
   height: 1rem;
   margin-right: 0.42rem;
   flex: 0 0 auto;
-}
-
-.ak-module-nav-search {
-  position: relative;
-}
-
-.ak-module-nav-search input {
-  width: 100%;
-  min-height: 44px;
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.86);
-  color: #0f172a;
-  font-size: 0.88rem;
-  font-weight: 700;
-  padding: 0.7rem 0.95rem 0.7rem 2.55rem;
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.04);
-}
-
-.ak-module-nav-search input::placeholder {
-  color: #94a3b8;
-}
-
-.ak-module-nav-search input:focus {
-  outline: none;
-  border-color: #fecaca;
-  box-shadow: 0 0 0 4px rgba(254, 226, 226, 0.8);
-}
-
-.ak-module-nav-search-icon {
-  position: absolute;
-  left: 0.9rem;
-  top: 50%;
-  width: 1rem;
-  height: 1rem;
-  color: #94a3b8;
-  transform: translateY(-50%);
 }
 
 .ak-module-shell {
@@ -3369,6 +3330,112 @@
 .ak-workspace-rooms #room-card .card-footer {
   padding: 0.9rem 1rem 1rem;
   border-top: 1px solid #eef2f7;
+}
+
+.ak-room-toolbar-search {
+  min-width: min(100%, 260px);
+}
+
+.ak-room-table-wrap {
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 1.35rem;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.05);
+  overflow: hidden;
+}
+
+.ak-room-table {
+  margin: 0;
+}
+
+.ak-room-table thead th {
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  background: #f8fafc;
+  color: #475569;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  padding: 0.95rem 1rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ak-room-table tbody td {
+  border-color: rgba(241, 245, 249, 0.95);
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.ak-room-table-room-name {
+  color: #0f172a;
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.ak-room-table-room-id,
+.ak-room-table-muted {
+  color: #64748b;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.ak-room-table-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ak-room-table-status.is-live {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.ak-room-table-status.is-idle {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.ak-room-table-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #0f172a;
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.ak-room-table-count svg {
+  width: 1rem;
+  height: 1rem;
+  color: #64748b;
+}
+
+.ak-room-table-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.ak-room-table-actions .btn {
+  min-height: 38px;
+  border-radius: 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.ak-room-table-loading {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
 }
 
 .ak-workspace-rooms #room-card .card-title {

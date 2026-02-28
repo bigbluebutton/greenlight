@@ -125,16 +125,18 @@ export default function App() {
         ) : (
           <>
             {showHeader && <Header />}
-            {showModuleNav && <ModuleNavBar />}
-            <Container className={pageHeight}>
-              <Outlet />
-            </Container>
-            <ToastContainer
-              position="bottom-right"
-              newestOnTop
-              autoClose={3000}
-            />
-            <Footer />
+            <div className="ak-app-shell">
+              {showModuleNav && <ModuleNavBar />}
+              <Container className={`${pageHeight} ak-page-body`}>
+                <Outlet />
+              </Container>
+              <ToastContainer
+                position="bottom-right"
+                newestOnTop
+                autoClose={3000}
+              />
+              <Footer />
+            </div>
           </>
         )}
     </>

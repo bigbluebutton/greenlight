@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +6,6 @@ import {
   ChartBarIcon,
   FolderIcon,
   HomeIcon,
-  MagnifyingGlassIcon,
   PresentationChartLineIcon,
   RectangleStackIcon,
   Squares2X2Icon,
@@ -68,7 +67,6 @@ export default function ModuleNavBar() {
   const location = useLocation();
   const { i18n } = useTranslation();
   const { data: recordValue } = useRoomConfigValue('record');
-  const [query, setQuery] = useState('');
   const language = (i18n.resolvedLanguage || i18n.language || 'en').toLowerCase().startsWith('tr') ? 'tr' : 'en';
   const labels = MODULE_LABELS[language];
   const canViewRecordings = recordValue !== 'false';
@@ -98,16 +96,11 @@ export default function ModuleNavBar() {
     return list;
   }, [labels, canViewRecordings, isAdmin]);
 
-  const normalizedQuery = query.trim().toLowerCase();
-  const filteredModules = normalizedQuery
-    ? modules.filter((item) => item.label.toLowerCase().includes(normalizedQuery))
-    : modules;
-
   return (
     <div className="ak-module-nav-wrap">
       <div className="ak-module-nav-shell">
         <Nav className="ak-module-nav" as="nav" aria-label="Application Modules">
-          {filteredModules.map((item) => {
+          {modules.map((item) => {
             const Icon = item.icon;
             return (
             <Nav.Link
@@ -122,16 +115,6 @@ export default function ModuleNavBar() {
             );
           })}
         </Nav>
-        <div className="ak-module-nav-search">
-          <MagnifyingGlassIcon className="ak-module-nav-search-icon" aria-hidden="true" />
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder={language === 'tr' ? 'Modul ara' : 'Search modules'}
-            aria-label={language === 'tr' ? 'Modul ara' : 'Search modules'}
-          />
-        </div>
       </div>
     </div>
   );
