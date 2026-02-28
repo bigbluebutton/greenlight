@@ -30,12 +30,7 @@ export default function Header() {
   const location = useLocation();
   const isMarketingHome = location.pathname === '/';
 
-  let homePath = '/';
-  if (currentUser?.permissions?.CreateRoom === 'true') {
-    homePath = '/rooms';
-  } else if (currentUser?.permissions?.CreateRoom === 'false') {
-    homePath = '/home';
-  }
+  const homePath = currentUser?.signed_in ? '/home' : '/';
 
   return (
     <Navbar collapseOnSelect id="navbar" expand="sm" className={`ak-header ${isMarketingHome ? 'ak-header-home' : 'ak-header-app'}`}>

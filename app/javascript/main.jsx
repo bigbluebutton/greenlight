@@ -29,7 +29,6 @@ import AuthProvider from './contexts/auth/AuthProvider';
 import Profile from './components/users/user/Profile';
 import Room from './components/rooms/room/Room';
 import Rooms from './components/rooms/Rooms';
-import HomePage from './components/home/HomePage';
 import RoomJoin from './components/rooms/room/join/RoomJoin';
 import ForgetPassword from './components/users/password_management/ForgetPassword';
 import ManageUsers from './components/admin/manage_users/ManageUsers';
@@ -41,7 +40,6 @@ import Roles from './components/admin/roles/Roles';
 import ResetPassword from './components/users/password_management/ResetPassword';
 import EditUser from './components/admin/manage_users/EditUser';
 import EditRole from './components/admin/roles/EditRole';
-import CantCreateRoom from './components/rooms/CantCreateRoom';
 import ActivateAccount from './components/users/account_activation/ActivateAccount';
 import VerifyAccount from './components/users/account_activation/VerifyAccount';
 import AdminPanel from './components/admin/AdminPanel';
@@ -52,6 +50,15 @@ import RootBoundary from './RootBoundary';
 import Tenants from './components/admin/tenants/Tenants';
 import RoomIdRouter from './routes/RoomIdRouter';
 import PublicRecordings from './components/rooms/room/public_recordings/PublicRecordings';
+import IndexRouter from './routes/IndexRouter';
+import {
+  DashboardModule,
+  EngagementModule,
+  FilesModule,
+  RecordingsModule,
+  ReportsModule,
+  SessionsModule,
+} from './components/workspace/ModulePages';
 
 const queryClientConfig = {
   defaultOptions: {
@@ -70,7 +77,7 @@ const router = createBrowserRouter(
       element={<App />}
       errorElement={<RootBoundary />}
     >
-      <Route index element={<HomePage />} />
+      <Route index element={<IndexRouter />} />
 
       <Route element={<UnauthenticatedOnly />}>
         <Route path="/signup" element={<Signup />} />
@@ -85,9 +92,14 @@ const router = createBrowserRouter(
       <Route element={<AuthenticatedOnly />}>
         <Route path="/profile" element={<Profile />} />
 
+        <Route path="/home" element={<DashboardModule />} />
         <Route path="/rooms" element={<Rooms />} />
+        <Route path="/sessions" element={<SessionsModule />} />
+        <Route path="/recordings" element={<RecordingsModule />} />
+        <Route path="/engagement" element={<EngagementModule />} />
+        <Route path="/files" element={<FilesModule />} />
+        <Route path="/reports" element={<ReportsModule />} />
         <Route path="/rooms/:friendlyId" element={<Room />} />
-        <Route path="/home" element={<CantCreateRoom />} />
 
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/admin/users" element={<ManageUsers />} />

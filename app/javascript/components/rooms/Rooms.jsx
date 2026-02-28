@@ -34,7 +34,7 @@ import {
   Card,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import PermissionChecker from '../../helpers/PermissionChecker';
 import useRecordingsCount from '../../hooks/queries/recordings/useRecordingsCount';
@@ -2023,9 +2023,10 @@ function RecordingsWorkspace({ copy, language }) {
   );
 }
 
-export default function Rooms() {
+export default function Rooms({ forcedView = null, hideTabs = false }) {
   const currentUser = useAuth();
   const { i18n } = useTranslation();
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const { data: recordingsCount } = useRecordingsCount();
   const { data: recordValue } = useRoomConfigValue('record');
@@ -2044,7 +2045,7 @@ export default function Rooms() {
 
   const persona = isAdmin ? 'admin' : canCreateRoom ? 'instructor' : 'user';
   const roomTabLabel = persona === 'user' ? copy.tabs.courses : copy.tabs.rooms;
-  const activeView = searchParams.get('view') || 'overview';
+  const activeView = forcedView || searchParams.get('view') || 'rooms';
 
   const workspaceTabs = useMemo(() => {
     const tabs = [
@@ -2069,14 +2070,29 @@ export default function Rooms() {
   }, [copy.tabs, roomTabLabel, canViewRecordings, isAdmin]);
 
   useEffect(() => {
+    if (forcedView) return;
+
     if (!workspaceTabs.find((tab) => tab.key === activeView)) {
       const nextParams = new URLSearchParams(searchParams);
       nextParams.delete('view');
       setSearchParams(nextParams, { replace: true });
     }
-  }, [activeView, searchParams, setSearchParams, workspaceTabs]);
+  }, [activeView, forcedView, searchParams, setSearchParams, workspaceTabs]);
 
   const setActiveView = (view) => {
+    if (forcedView) {
+      const routeMap = {
+        overview: '/home',
+        rooms: '/rooms',
+        recordings: '/recordings',
+        schedule: '/sessions',
+        analytics: '/engagement',
+        admin: '/admin',
+      };
+      navigate(routeMap[view] || '/rooms');
+      return;
+    }
+
     const nextParams = new URLSearchParams(searchParams);
 
     if (view === 'overview') {
@@ -2248,17 +2264,19 @@ export default function Rooms() {
   return (
     <div className="ak-workspace">
       <div className="ak-workspace-shell">
-        <div className="ak-workspace-tabs" role="tablist" aria-label="Workspace Sections">
-          {workspaceTabs.map((tab) => (
-            <WorkspaceTab
-              key={tab.key}
-              active={activeView === tab.key}
-              icon={tab.icon}
-              label={tab.label}
-              onClick={() => setActiveView(tab.key)}
-            />
-          ))}
-        </div>
+        {!hideTabs && (
+          <div className="ak-workspace-tabs" role="tablist" aria-label="Workspace Sections">
+            {workspaceTabs.map((tab) => (
+              <WorkspaceTab
+                key={tab.key}
+                active={activeView === tab.key}
+                icon={tab.icon}
+                label={tab.label}
+                onClick={() => setActiveView(tab.key)}
+              />
+            ))}
+          </div>
+        )}
         {renderPanel()}
       </div>
     </div>
