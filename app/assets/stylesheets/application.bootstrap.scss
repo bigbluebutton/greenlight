@@ -778,6 +778,8 @@ input[type="range"]:focus::-moz-range-thumb {
   }
 }
 
+@import 'akademio_theme';
+
 .tenants-icons {
   svg:hover {
     color: var(--brand-color) !important;

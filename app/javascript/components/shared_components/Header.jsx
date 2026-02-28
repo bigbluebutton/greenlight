@@ -19,7 +19,7 @@ import Container from 'react-bootstrap/Container';
 import {
   Navbar,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import Logo from './Logo';
 import NavbarSignedIn from '../home/NavbarSignedIn';
@@ -27,6 +27,8 @@ import NavbarNotSignedIn from '../home/NavbarNotSignedIn';
 
 export default function Header() {
   const currentUser = useAuth();
+  const location = useLocation();
+  const isMarketingHome = location.pathname === '/';
 
   let homePath = '/';
   if (currentUser?.permissions?.CreateRoom === 'true') {
@@ -36,9 +38,9 @@ export default function Header() {
   }
 
   return (
-    <Navbar collapseOnSelect id="navbar" expand="sm">
-      <Container className="ps-0">
-        <Navbar.Brand as={Link} to={homePath} className="ps-2">
+    <Navbar collapseOnSelect id="navbar" expand="sm" className={`ak-header ${isMarketingHome ? 'ak-header-home' : 'ak-header-app'}`}>
+      <Container className="ak-header-container">
+        <Navbar.Brand as={Link} to={homePath} className="ak-navbar-brand">
           <Logo size="small" />
         </Navbar.Brand>
         {

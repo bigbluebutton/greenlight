@@ -27,17 +27,18 @@ export default function SignIn() {
   const { data: registrationMethod } = useSiteSetting('RegistrationMethod');
 
   return (
-    <div className="vertical-center">
-      <div className="text-center pb-4">
-        <Logo />
-      </div>
-      <Card className="col-xl-5 col-lg-6 col-md-8 col-10 mx-auto p-4 border-0 card-shadow">
-        <Card.Title className="text-center pb-2"> { t('authentication.sign_in') } </Card.Title>
+    <div className="vertical-center ak-auth-shell">
+      <Card className="ak-auth-card col-xl-5 col-lg-6 col-md-8 col-11 mx-auto p-4 border-0 card-shadow">
+        <div className="ak-auth-brand">
+          <Logo />
+        </div>
+        <Card.Title className="text-center pb-2">{t('authentication.sign_in')}</Card.Title>
         <SigninForm />
         { registrationMethod !== 'invite' && (
-        <span className="text-center text-muted small"> { t('authentication.dont_have_account') }
-          <Link to="/signup" className="text-link"> { t('authentication.sign_up') } </Link>
-        </span>
+          <span className="text-center text-muted small">
+            {t('authentication.dont_have_account')}
+            <Link to="/signup" className="text-link"> {t('authentication.sign_up')} </Link>
+          </span>
         )}
       </Card>
     </div>

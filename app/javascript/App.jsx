@@ -77,18 +77,25 @@ export default function App() {
     }
   }, [autoSignIn, env, formElement]);
 
-  // Pages that do not need a header: SignIn, SignUp and JoinMeeting (if the user is not signed in)
-  const homePage = location.pathname === '/';
-  const pageHeight = (homePage || currentUser.signed_in) ? 'regular-height' : 'no-header-height';
+  const marketingHeaderPages = ['/', '/signin', '/signup'].includes(location.pathname);
+  const showHeader = marketingHeaderPages || currentUser.signed_in;
+  const pageHeight = showHeader ? 'regular-height' : 'no-header-height';
 
   // i18n
   const { i18n } = useTranslation();
   useEffect(() => {
-    i18n.changeLanguage(currentUser?.language);
+    if (currentUser?.language) {
+      i18n.changeLanguage(currentUser.language);
+    }
   }, [currentUser?.language]);
 
   // Greenlight V3 brand-color theming
   const { isLoading, data: brandColors } = useSiteSetting(['PrimaryColor', 'PrimaryColorLight']);
+
+  useEffect(() => {
+    const isMarketingPage = location.pathname === '/' || location.pathname === '/signin' || location.pathname === '/signup';
+    document.body.classList.toggle('akademio-bg', isMarketingPage);
+  }, [location.pathname]);
 
   if (isLoading) return null;
 
@@ -98,7 +105,7 @@ export default function App() {
 
   return (
     <>
-      <Title>BigBlueButton</Title>
+      <Title>Akademio Live</Title>
       { autoSignIn
         ? (
           <Container fluid className="d-flex vh-100 justify-content-center align-items-center">
@@ -113,7 +120,7 @@ export default function App() {
           </Container>
         ) : (
           <>
-            {(homePage || currentUser.signed_in) && <Header />}
+            {showHeader && <Header />}
             <Container className={pageHeight}>
               <Outlet />
             </Container>

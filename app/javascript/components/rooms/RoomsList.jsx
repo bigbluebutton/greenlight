@@ -30,7 +30,7 @@ import SearchBar from '../shared_components/search/SearchBar';
 import EmptyRoomsList from './EmptyRoomsList';
 import NoSearchResults from '../shared_components/search/NoSearchResults';
 
-export default function RoomsList() {
+export default function RoomsList({ topSpacingClass = 'pt-5' }) {
   const { t } = useTranslation();
   const [searchInput, setSearchInput] = useState('');
   const { isLoading, data: rooms } = useRooms(searchInput);
@@ -44,7 +44,7 @@ export default function RoomsList() {
 
   return (
     <>
-      <Stack direction="horizontal" className="pt-5" gap={3}>
+      <Stack direction="horizontal" className={topSpacingClass} gap={3}>
         <div>
           <SearchBar searchInput={searchInput} id="rooms-search" setSearchInput={setSearchInput} />
         </div>

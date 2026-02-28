@@ -18,13 +18,13 @@ import React, { useState } from 'react';
 import useRecordings from '../../hooks/queries/recordings/useRecordings';
 import RecordingsList from './RecordingsList';
 
-export default function UserRecordings() {
+export default function UserRecordings({ topSpacingClass = 'pt-5' }) {
   const [page, setPage] = useState();
   const [searchInput, setSearchInput] = useState();
   const { isLoading, data: recordings } = useRecordings(searchInput, page);
 
   return (
-    <div id="user-recordings" className="pt-5">
+    <div id="user-recordings" className={topSpacingClass}>
       <RecordingsList
         recordings={recordings}
         isLoading={isLoading}
