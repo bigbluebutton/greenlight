@@ -1,7 +1,18 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import {
+  ChartBarIcon,
+  FolderIcon,
+  HomeIcon,
+  MagnifyingGlassIcon,
+  PresentationChartLineIcon,
+  RectangleStackIcon,
+  Squares2X2Icon,
+  VideoCameraIcon,
+  WrenchScrewdriverIcon,
+} from '@heroicons/react/24/outline';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import PermissionChecker from '../../helpers/PermissionChecker';
 import useRoomConfigValue from '../../hooks/queries/rooms/useRoomConfigValue';
@@ -57,6 +68,7 @@ export default function ModuleNavBar() {
   const location = useLocation();
   const { i18n } = useTranslation();
   const { data: recordValue } = useRoomConfigValue('record');
+  const [query, setQuery] = useState('');
   const language = (i18n.resolvedLanguage || i18n.language || 'en').toLowerCase().startsWith('tr') ? 'tr' : 'en';
   const labels = MODULE_LABELS[language];
   const canViewRecordings = recordValue !== 'false';
@@ -64,42 +76,61 @@ export default function ModuleNavBar() {
 
   const modules = useMemo(() => {
     const list = [
-      { key: 'home', label: labels.home, to: '/home' },
-      { key: 'rooms', label: labels.rooms, to: '/rooms' },
-      { key: 'sessions', label: labels.sessions, to: '/sessions' },
+      { key: 'home', label: labels.home, to: '/home', icon: HomeIcon },
+      { key: 'rooms', label: labels.rooms, to: '/rooms', icon: Squares2X2Icon },
+      { key: 'sessions', label: labels.sessions, to: '/sessions', icon: RectangleStackIcon },
     ];
 
     if (canViewRecordings) {
-      list.push({ key: 'recordings', label: labels.recordings, to: '/recordings' });
+      list.push({ key: 'recordings', label: labels.recordings, to: '/recordings', icon: VideoCameraIcon });
     }
 
     list.push(
-      { key: 'engagement', label: labels.engagement, to: '/engagement' },
-      { key: 'files', label: labels.files, to: '/files' },
-      { key: 'reports', label: labels.reports, to: '/reports' },
+      { key: 'engagement', label: labels.engagement, to: '/engagement', icon: ChartBarIcon },
+      { key: 'files', label: labels.files, to: '/files', icon: FolderIcon },
+      { key: 'reports', label: labels.reports, to: '/reports', icon: PresentationChartLineIcon },
     );
 
     if (isAdmin) {
-      list.push({ key: 'admin', label: labels.admin, to: '/admin' });
+      list.push({ key: 'admin', label: labels.admin, to: '/admin', icon: WrenchScrewdriverIcon });
     }
 
     return list;
   }, [labels, canViewRecordings, isAdmin]);
 
+  const normalizedQuery = query.trim().toLowerCase();
+  const filteredModules = normalizedQuery
+    ? modules.filter((item) => item.label.toLowerCase().includes(normalizedQuery))
+    : modules;
+
   return (
     <div className="ak-module-nav-wrap">
       <div className="ak-module-nav-shell">
+        <div className="ak-module-nav-search">
+          <MagnifyingGlassIcon className="ak-module-nav-search-icon" aria-hidden="true" />
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={language === 'tr' ? 'Modul ara' : 'Search modules'}
+            aria-label={language === 'tr' ? 'Modul ara' : 'Search modules'}
+          />
+        </div>
         <Nav className="ak-module-nav" as="nav" aria-label="Application Modules">
-          {modules.map((item) => (
+          {filteredModules.map((item) => {
+            const Icon = item.icon;
+            return (
             <Nav.Link
               key={item.key}
               as={Link}
               to={item.to}
               className={`ak-module-nav-link ${moduleIsActive(location.pathname, item.key) ? 'is-active' : ''}`}
             >
+              <Icon className="ak-module-nav-link-icon" aria-hidden="true" />
               {item.label}
             </Nav.Link>
-          ))}
+            );
+          })}
         </Nav>
       </div>
     </div>

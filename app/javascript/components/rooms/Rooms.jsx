@@ -212,9 +212,9 @@ const WORKSPACE_COPY = {
       body: 'Privileged controls and audits.',
       cards: [
         {
-          title: 'Admin Panel',
+          title: 'User Management',
           body: '',
-          href: '/admin',
+          href: '/admin/users',
         },
         {
           title: 'Server Rooms',
@@ -417,9 +417,9 @@ const WORKSPACE_COPY = {
       body: 'Yetkili kontroller ve denetim.',
       cards: [
         {
-          title: 'Yonetim Paneli',
+          title: 'Kullanici Yonetimi',
           body: '',
-          href: '/admin',
+          href: '/admin/users',
         },
         {
           title: 'Sunucu Odalari',

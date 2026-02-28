@@ -28,7 +28,6 @@ import SignIn from './components/users/authentication/SignIn';
 import AuthProvider from './contexts/auth/AuthProvider';
 import Profile from './components/users/user/Profile';
 import Room from './components/rooms/room/Room';
-import Rooms from './components/rooms/Rooms';
 import RoomJoin from './components/rooms/room/join/RoomJoin';
 import ForgetPassword from './components/users/password_management/ForgetPassword';
 import ManageUsers from './components/admin/manage_users/ManageUsers';
@@ -42,7 +41,6 @@ import EditUser from './components/admin/manage_users/EditUser';
 import EditRole from './components/admin/roles/EditRole';
 import ActivateAccount from './components/users/account_activation/ActivateAccount';
 import VerifyAccount from './components/users/account_activation/VerifyAccount';
-import AdminPanel from './components/admin/AdminPanel';
 import UnauthenticatedOnly from './routes/UnauthenticatedOnly';
 import AuthenticatedOnly from './routes/AuthenticatedOnly';
 import PendingRegistration from './components/users/registration/PendingRegistration';
@@ -52,9 +50,11 @@ import RoomIdRouter from './routes/RoomIdRouter';
 import PublicRecordings from './components/rooms/room/public_recordings/PublicRecordings';
 import IndexRouter from './routes/IndexRouter';
 import {
+  AdminModule,
   DashboardModule,
   EngagementModule,
   FilesModule,
+  RoomsModule,
   RecordingsModule,
   ReportsModule,
   SessionsModule,
@@ -93,7 +93,7 @@ const router = createBrowserRouter(
         <Route path="/profile" element={<Profile />} />
 
         <Route path="/home" element={<DashboardModule />} />
-        <Route path="/rooms" element={<Rooms />} />
+        <Route path="/rooms" element={<RoomsModule />} />
         <Route path="/sessions" element={<SessionsModule />} />
         <Route path="/recordings" element={<RecordingsModule />} />
         <Route path="/engagement" element={<EngagementModule />} />
@@ -101,7 +101,7 @@ const router = createBrowserRouter(
         <Route path="/reports" element={<ReportsModule />} />
         <Route path="/rooms/:friendlyId" element={<Room />} />
 
-        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/admin" element={<AdminModule />} />
         <Route path="/admin/users" element={<ManageUsers />} />
         <Route path="/admin/users/edit/:userId" element={<EditUser />} />
         <Route path="/admin/server_recordings" element={<ServerRecordings />} />

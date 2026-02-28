@@ -61,6 +61,10 @@ export function DashboardModule() {
   return <Rooms forcedView="overview" hideTabs />;
 }
 
+export function RoomsModule() {
+  return <Rooms forcedView="rooms" hideTabs />;
+}
+
 export function SessionsModule() {
   return <Rooms forcedView="schedule" hideTabs />;
 }
@@ -71,6 +75,10 @@ export function RecordingsModule() {
 
 export function EngagementModule() {
   return <Rooms forcedView="analytics" hideTabs />;
+}
+
+export function AdminModule() {
+  return <Rooms forcedView="admin" hideTabs />;
 }
 
 export function FilesModule() {

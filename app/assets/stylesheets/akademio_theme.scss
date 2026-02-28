@@ -1763,6 +1763,16 @@
     top: 76px;
   }
 
+  .ak-module-nav-shell {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+
+  .ak-module-nav-search input {
+    min-height: 42px;
+    font-size: 0.84rem;
+  }
+
   .ak-home-hero-shell {
     min-height: auto;
     background-position: 72% center;
@@ -2216,6 +2226,10 @@
   max-width: 1240px;
   margin: 0 auto;
   padding: 0.55rem 0.65rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+  gap: 0.85rem;
+  align-items: center;
 }
 
 .ak-module-nav {
@@ -2239,21 +2253,70 @@
   min-height: 42px;
   padding: 0.55rem 0.8rem !important;
   border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
   color: #475569 !important;
   font-size: 0.82rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .ak-module-nav-link:hover {
   color: #b91c1c !important;
+  border-color: #fecaca;
+  transform: translateY(-1px);
 }
 
 .ak-module-nav-link.is-active {
   background: #fee2e2;
   color: #b91c1c !important;
+  border-color: #fecaca;
+}
+
+.ak-module-nav-link-icon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.42rem;
+  flex: 0 0 auto;
+}
+
+.ak-module-nav-search {
+  position: relative;
+}
+
+.ak-module-nav-search input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  color: #0f172a;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 0.7rem 0.95rem 0.7rem 2.55rem;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.04);
+}
+
+.ak-module-nav-search input::placeholder {
+  color: #94a3b8;
+}
+
+.ak-module-nav-search input:focus {
+  outline: none;
+  border-color: #fecaca;
+  box-shadow: 0 0 0 4px rgba(254, 226, 226, 0.8);
+}
+
+.ak-module-nav-search-icon {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  width: 1rem;
+  height: 1rem;
+  color: #94a3b8;
+  transform: translateY(-50%);
 }
 
 .ak-module-shell {
