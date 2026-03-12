@@ -29,7 +29,7 @@ module Api
         def index
           roles_permissions = RolePermission.joins(:permission, :role)
                                             .where(role_id: params[:role_id], roles: { provider: current_provider })
-                                            .pluck(:name, :value)
+                                            .pluck('permissions.name', 'role_permissions.value')
                                             .to_h
 
           render_data data: roles_permissions, status: :ok

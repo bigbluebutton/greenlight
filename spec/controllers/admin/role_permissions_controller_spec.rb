@@ -73,7 +73,7 @@ RSpec.describe Api::V1::Admin::RolePermissionsController, type: :controller do
     it 'does not update RolePermissions for a role belonging to another provider' do
       other_role = create(:role, provider: 'other-provider')
       permission = create(:permission)
-      role_permission = create(:role_permission, role: other_role, permission:, value: true)
+      role_permission = create(:role_permission, role: other_role, permission:, value: 'true')
 
       get :update, params: { role: { name: permission.name, role_id: other_role.id, value: false } }
 
