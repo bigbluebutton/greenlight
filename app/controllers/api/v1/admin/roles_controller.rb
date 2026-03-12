@@ -1,4 +1,4 @@
-# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+  # BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
 #
 # Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
 #
@@ -80,7 +80,7 @@ module Api
         end
 
         def find_role
-          @role = Role.find params[:id]
+          @role = Role.with_provider(current_provider).find(params[:id])
         end
       end
     end
