@@ -37,6 +37,11 @@
     width: 100%;
   }
 
+  .tab-content > .tab-pane:dir(rtl) {
+    margin-right: 0;
+    margin-left: -100%;
+  }
+
   .tab-content > .active {
     visibility: visible;
   }

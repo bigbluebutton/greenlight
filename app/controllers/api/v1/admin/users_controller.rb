@@ -27,7 +27,7 @@ module Api
         # GET /api/v1/admin/users/:id.json
         # Updates the specified user's status
         def update
-          user = User.find(params[:id])
+          user = User.with_provider(current_provider).find(params[:id])
           initial_status = user.status
 
           if user.update(user_params)
