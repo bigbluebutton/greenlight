@@ -47,12 +47,6 @@ module Api
         # Will return an error if the user is NOT from the current provider and if the user is NOT a super admin
         return render_error status: :forbidden if !user.super_admin? && (user.provider != current_provider || external_auth?)
 
-        # Password is not set (local user migrated from v2)
-        if user.external_id.blank? && user.password_digest.blank?
-          token = user.generate_reset_token!
-          return render_error data: token, errors: 'PasswordNotSet'
-        end
-
         if user.authenticate(session_params[:password])
           return render_error data: user.id, errors: Rails.configuration.custom_error_msgs[:unverified_user] unless user.verified?
           return render_error errors: Rails.configuration.custom_error_msgs[:pending_user] if user.pending?
