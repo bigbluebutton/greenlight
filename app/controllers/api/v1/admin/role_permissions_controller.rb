@@ -27,9 +27,9 @@ module Api
         # GET /api/v1/admin/role_permissions
         # Returns a hash of all Role Permissions
         def index
-          roles_permissions = RolePermission.joins(:permission)
-                                            .where(role_id: params[:role_id])
-                                            .pluck(:name, :value)
+          roles_permissions = RolePermission.joins(:permission, :role)
+                                            .where(role_id: params[:role_id], roles: { provider: current_provider })
+                                            .pluck('permissions.name', 'role_permissions.value')
                                             .to_h
 
           render_data data: roles_permissions, status: :ok
@@ -38,7 +38,8 @@ module Api
         # POST /api/v1/admin/role_permissions
         # Updates the permission for the specified role
         def update
-          role_permission = RolePermission.joins(:permission).find_by(role_id: role_params[:role_id], permission: { name: role_params[:name] })
+          role_permission = RolePermission.joins(:permission, :role).find_by(role_id: role_params[:role_id], roles: { provider: current_provider },
+                                                                             permission: { name: role_params[:name] })
 
           return render_error status: :not_found unless role_permission
           return render_error status: :bad_request unless role_permission.update(value: role_params[:value].to_s)
