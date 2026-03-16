@@ -62,8 +62,9 @@ module Api
         end
 
         def destroy
-          invitation = Invitation.find(params[:id])
-          if invitation.destroy
+          invitation = Invitation.find_by(id: params[:id], provider: current_provider)
+
+          if invitation&.destroy
             render_data status: :ok
           else
             render_error status: :not_found
