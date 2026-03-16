@@ -49,7 +49,7 @@ zh_TW:
   opengraph:
     description: 使用 BigBlueButton 學習，這是一個值得信賴的開源網絡會議解決方案，提供無縫的虛擬協作和線上學習體驗。
   meeting:
-    moderator_message: "邀請他人參加會議，請發送以下連結："
+    moderator_message: "若要邀請某人參加會議，請發送此連結："
     access_code: "連結代碼：%{code}"
   email:
     activation:
@@ -63,13 +63,20 @@ zh_TW:
       invitation_to_join: BigBlueButton 邀請
       you_have_been_invited: "您已獲得 %{name} 邀請建立 BigBlueButton 帳號。"
       get_started: 要註冊，請點擊下方按鈕並按照步驟進行。
-      valid_invitation: 邀請有效期為 24 小時。
+      valid_invitation: 邀請函有效期限為7天。
       sign_up: 註冊
+    new_user_signup:
+      new_user: BigBlueButton 新用戶註冊
+      new_user_description: 一位新用戶註冊使用 BigBlueButton。
+      name: "姓名：%{name}"
+      email: "電子郵件：%{email}"
+      admin_panel: "管理員面板"
+      take_action: "若要查看新使用者或執行必要操作，請造訪管理員面板。"
     reset:
-      password_reset: 重置密碼
+      password_reset: 重設密碼
       password_reset_requested: "已對 %{email} 提出重設密碼的請求。"
       password_reset_confirmation: 要重設密碼，請點擊下方按鈕。
-      reset_password: 重置密碼
+      reset_password: 重設密碼
       link_expires: 連結將在 1 小時後失效。
       ignore_request: 如果您沒有提出更改密碼的請求，請忽略此郵件。
   room:
