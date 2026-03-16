@@ -117,5 +117,12 @@ RSpec.describe Api::V1::Admin::InvitationsController do
       expect { delete :destroy, params: { id: 'invalid-id' } }.not_to change(Invitation, :count)
       expect(response).to have_http_status(:not_found)
     end
+
+    it 'does not delete invitations from another provider' do
+      invitation = create(:invitation, provider: 'other-provider')
+
+      expect { delete :destroy, params: { id: invitation.id } }.not_to change(Invitation, :count)
+      expect(response).to have_http_status(:not_found)
+    end
   end
 end

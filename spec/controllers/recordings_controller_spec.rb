@@ -175,6 +175,17 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
 
+    it 'user cannot update the name of a public recording they do not own' do
+      other_user = create(:user)
+      room = create(:room, user: other_user)
+      recording = create(:recording, room:, visibility: Recording::VISIBILITIES[:public])
+
+      expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+
+      expect { post :update, params: { recording: { name: 'Tampered Name' }, id: recording.record_id } }.not_to(change { recording.reload.name })
+      expect(response).to have_http_status(:forbidden)
+    end
+
     context 'user has ManageRecordings permission' do
       before do
         sign_in_user(user_with_manage_recordings_permission)
@@ -319,6 +330,20 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
 
         expect(response).to have_http_status(:forbidden)
       end
+    end
+
+    it 'user cannot update the visibility of a public recording they do not own' do
+      other_user = create(:user)
+      room = create(:room, user: other_user)
+      recording = create(:recording, room:, visibility: Recording::VISIBILITIES[:public])
+
+      expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recording_visibility)
+
+      expect do
+        post :update_visibility, params: { visibility: Recording::VISIBILITIES[:unpublished], id: recording.record_id }
+      end.not_to(change { recording.reload.visibility })
+
+      expect(response).to have_http_status(:forbidden)
     end
 
     # TODO: samuel - add tests for user_with_manage_recordings_permission
