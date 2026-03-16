@@ -15,7 +15,7 @@ gem 'clamby', '~> 1.6.10'
 gem 'cssbundling-rails', '>= 1.4.0'
 gem 'data_migrate', '>= 11.3.0'
 gem 'dotenv-rails', '>= 3.0.0'
-gem 'google-cloud-storage', '~> 1.44', require: false
+gem 'google-cloud-storage', '~> 1.45', '>= 1.45.0', require: false
 gem 'hcaptcha'
 gem 'i18n-language-mapping'
 gem 'image_processing', '~> 1.2'
