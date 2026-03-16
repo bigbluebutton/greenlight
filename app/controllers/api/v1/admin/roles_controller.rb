@@ -80,7 +80,7 @@ module Api
         end
 
         def find_role
-          @role = Role.find params[:id]
+          @role = Role.with_provider(current_provider).find(params[:id])
         end
       end
     end
