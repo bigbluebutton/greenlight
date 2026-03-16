@@ -156,7 +156,7 @@ module Api
       private
 
       def find_room
-        @room = Room.find_by!(friendly_id: params[:friendly_id])
+        @room = Room.includes(:user).with_provider(current_provider).find_by!(friendly_id: params[:friendly_id])
       end
 
       def room_params

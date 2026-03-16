@@ -47,6 +47,7 @@ class TenantSetup
         provider: @provider },
       { setting: Setting.find_by(name: 'Terms'), value: '', provider: @provider },
       { setting: Setting.find_by(name: 'PrivacyPolicy'), value: '', provider: @provider },
+      { setting: Setting.find_by(name: 'AccessibilityStatement'), value: '', provider: @provider },
       { setting: Setting.find_by(name: 'HelpCenter'), value: '', provider: @provider },
       { setting: Setting.find_by(name: 'RegistrationMethod'), value: SiteSetting::REGISTRATION_METHODS[:open],
         provider: @provider },

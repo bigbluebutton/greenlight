@@ -153,6 +153,39 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
     end
   end
 
+  describe 'roles#show' do
+    it 'returns the role for valid params' do
+      role = create(:role)
+      get :show, params: { id: role.id }
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['data']['id']).to eq(role.id)
+    end
+
+    it 'returns :not_found for unfound roles' do
+      create(:role)
+      get :show, params: { id: 'Invalid' }
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'does not return a role belonging to another provider' do
+      role = create(:role, provider: 'other-provider')
+      get :show, params: { id: role.id }
+      expect(response).to have_http_status(:not_found)
+    end
+
+    context 'user without ManageRoles permission' do
+      before do
+        sign_in_user(user)
+      end
+
+      it 'user without ManageRoles permission cannot return the role' do
+        role = create(:role)
+        get :show, params: { id: role.id }
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
+
   describe 'roles#update' do
     let!(:role) { create(:role) }
 
@@ -177,6 +210,12 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
       expect(response.parsed_body['errors']).not_to be_empty
     end
 
+    it 'does not update a role belonging to another provider' do
+      other_role = create(:role, provider: 'other-provider')
+      expect { post :update, params: { id: other_role.id, role: { name: 'Tampered' } } }.not_to(change { other_role.reload.name })
+      expect(response).to have_http_status(:not_found)
+    end
+
     context 'user without ManageRoles permission' do
       before do
         sign_in_user(user)
@@ -186,33 +225,6 @@ RSpec.describe Api::V1::Admin::RolesController, type: :controller do
         valid_params = { name: 'CrazyRole' }
         post :update, params: { id: role.id, role: valid_params }
         expect(role.reload.name).not_to eq(valid_params[:name])
-        expect(response).to have_http_status(:forbidden)
-      end
-    end
-  end
-
-  describe 'roles#show' do
-    it 'returns the role for valid params' do
-      role = create(:role)
-      get :show, params: { id: role.id }
-      expect(response).to have_http_status(:ok)
-      expect(response.parsed_body['data']['id']).to eq(role.id)
-    end
-
-    it 'returns :not_found for unfound roles' do
-      create(:role)
-      get :show, params: { id: 'Invalid' }
-      expect(response).to have_http_status(:not_found)
-    end
-
-    context 'user without ManageRoles permission' do
-      before do
-        sign_in_user(user)
-      end
-
-      it 'user without ManageRoles permission cannot return the role' do
-        role = create(:role)
-        get :show, params: { id: role.id }
         expect(response).to have_http_status(:forbidden)
       end
     end
