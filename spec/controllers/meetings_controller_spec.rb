@@ -416,6 +416,16 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
       end
     end
 
+    it 'returns not_found for a room belonging to another provider' do
+      other_role = create(:role, provider: 'other-provider')
+      other_user = create(:user, provider: 'other-provider', role: other_role)
+      other_room = create(:room, user: other_user)
+
+      post :status, params: { friendly_id: other_room.friendly_id }
+
+      expect(response).to have_http_status(:not_found)
+    end
+
     it 'allows access to an unauthenticated user' do
       allow(SecureRandom).to receive(:hex).and_return('abc123456789')
 
