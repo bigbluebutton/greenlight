@@ -18,6 +18,7 @@
   "close": "Schließen",
   "delete": "Löschen",
   "copy": "Einladungslink kopieren",
+  "copy_voice_bridge": "Telefoneinwahl kopieren",
   "copy_viewer_code": "Zugangscode für Zuhörerende kopieren",
   "copy_moderator_code": "Zugangscode für Moderation kopieren",
   "or": "oder",
@@ -126,7 +127,14 @@
       "meeting_invitation": "Du wurdest zur Teilnahme eingeladen",
       "meeting_not_started": "Die Konferenz hat noch nicht begonnen",
       "join_meeting_automatically": "Beitritt erfolgt automatisch, sobald die Konferenz beginnt",
-      "recording_consent": "Ich nehme zur Kenntnis, dass die Sitzung aufgezeichnet werden kann. Dies wird meine Stimme und mein Bild einschließen, wenn dies aktiviert ist."
+      "recording_consent": "Ich nehme zur Kenntnis, dass die Sitzung aufgezeichnet werden kann. Dies wird meine Stimme und mein Bild einschließen, wenn dies aktiviert ist.",
+      "invite_to_meeting": "{{ name }} lädt Sie ein, an einem Meeting teilzunehmen.",
+      "join_by_url": "An Besprechung per URL teilnehmen",
+      "alternative_options": "Alternative Optionen zur Teilnahme",
+      "download_ics": ".ics-Kalenderdatei herunterladen",
+      "share_meeting": "Raum teilen",
+      "join_by_phone": "Mit Telefoneinwahl beitreten",
+      "location": "Videokonferenz, siehe Details im Termin"
     },
     "presentation": {
       "presentation": "Präsentation",
@@ -420,6 +428,8 @@
         "access_code_generated": "Zugangscode generiert.",
         "access_code_deleted": "Zugriffcode wurde gelöscht.",
         "copied_meeting_url": "Die URL der Konferenz wurde kopiert. Der Link kann verwendet werden, um an der Konferenz teilzunehmen.",
+        "download_ics": "Die .ics-Datei wurde erstellt. Öffnen Sie sie, um sie zu bearbeiten und zu versenden, um Personen zu Ihrem Meeting einzuladen.",
+        "copied_voice_bridge": "Die Telefonnummer und der Pin wurden kopiert. Diese können genutzt werden um an der Konferenz teilzunehmen.",
         "copied_viewer_code": "Zugangscode für Zuhörende wurde in die Zwischenablage kopiert.",
         "copied_moderator_code": "Zugangscode für Moderation wurde in die Zwischenablage kopiert."
       },
