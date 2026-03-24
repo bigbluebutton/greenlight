@@ -49,6 +49,7 @@ Rails.application.routes.draw do
           get '/recordings_processing', to: 'rooms#recordings_processing'
           get '/public', to: 'rooms#public_show'
           delete :purge_presentation
+          post '/transfer_ownership', to: 'rooms#transfer_ownership'
         end
       end
       resources :meetings, only: %i[], param: :friendly_id do
@@ -69,6 +70,7 @@ Rails.application.routes.draw do
       resources :shared_accesses, only: %i[create show destroy], param: :friendly_id do
         member do
           get '/shareable_users', to: 'shared_accesses#shareable_users'
+          get '/transferable_users', to: 'shared_accesses#transferable_users'
           post '/unshare_room', to: 'shared_accesses#unshare_room'
         end
       end

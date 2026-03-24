@@ -56,7 +56,7 @@ export default function SharedAccess() {
                   className="ms-auto"
                 >{t('room.shared_access.add_share_access')}
                 </Button>
-)}
+              )}
               title={t('room.shared_access.share_room_access')}
               body={<SharedAccessForm />}
               size="lg"

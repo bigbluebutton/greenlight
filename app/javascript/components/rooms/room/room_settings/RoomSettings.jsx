@@ -26,6 +26,7 @@ import useDeleteRoom from '../../../../hooks/mutations/rooms/useDeleteRoom';
 import RoomSettingsRow from './RoomSettingsRow';
 import Modal from '../../../shared_components/modals/Modal';
 import DeleteRoomForm from '../forms/DeleteRoomForm';
+import TransferOwnershipForm from '../shared_access/forms/TransferOwnershipForm';
 import useRoomConfigs from '../../../../hooks/queries/rooms/useRoomConfigs';
 import AccessCodeRow from './AccessCodeRow';
 import useUpdateRoomSetting from '../../../../hooks/mutations/room_settings/useUpdateRoomSetting';
@@ -151,16 +152,31 @@ export default function RoomSettings() {
                   {
                     (!room.shared || currentUser?.permissions?.ManageRooms === 'true')
                       && (
-                        <Modal
-                          modalButton={(
-                            <Button
-                              variant="delete"
-                              className="mt-1 mx-2 float-end"
-                            >{t('room.delete_room')}
-                            </Button>
-                          )}
-                          body={<DeleteRoomForm mutation={deleteMutationWrapper} />}
-                        />
+                        <>
+                          <Modal
+                            modalButton={(
+                              <Button
+                                variant="brand-outline"
+                                className="mt-1 mx-2 float-end"
+                              >{t('room.shared_access.transfer_ownership')}
+                              </Button>
+                            )}
+                            title={t('room.shared_access.transfer_room_ownership')}
+                            body={<TransferOwnershipForm />}
+                            size="lg"
+                            id="transfer-ownership-modal"
+                          />
+                          <Modal
+                            modalButton={(
+                              <Button
+                                variant="delete"
+                                className="mt-1 mx-2 float-end"
+                              >{t('room.delete_room')}
+                              </Button>
+                            )}
+                            body={<DeleteRoomForm mutation={deleteMutationWrapper} />}
+                          />
+                        </>
                       )
                   }
                 </Stack>

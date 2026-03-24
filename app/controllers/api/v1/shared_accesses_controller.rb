@@ -21,7 +21,7 @@ module Api
     class SharedAccessesController < ApiController
       before_action :find_room
 
-      before_action only: %i[create destroy shareable_users] do
+      before_action only: %i[create destroy shareable_users transferable_users] do
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
       before_action only: %i[show unshare_room] do
@@ -80,6 +80,18 @@ module Api
                               .where(role_id: [role_ids])
                               .shared_access_search(params[:search])
         render_data data: shareable_users, serializer: SharedAccessSerializer, status: :ok
+      end
+
+      # GET /api/v1/shared_accesses/friendly_id/transferable_users.json
+      # Returns a list of users who can receive room ownership
+      def transferable_users
+        return render_data data: [], status: :ok unless params[:search].present? && params[:search].length >= 3
+
+        users = User.with_attached_avatar
+                    .with_provider(current_provider)
+                    .where.not(id: @room.user_id)
+                    .shared_access_search(params[:search])
+        render_data data: users, serializer: SharedAccessSerializer, status: :ok
       end
 
       private

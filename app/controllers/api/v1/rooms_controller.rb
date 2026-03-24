@@ -21,7 +21,7 @@ module Api
     class RoomsController < ApiController
       skip_before_action :ensure_authenticated, only: %i[public_show public_recordings]
 
-      before_action :find_room, only: %i[show update destroy recordings recordings_processing purge_presentation public_show public_recordings]
+      before_action :find_room, only: %i[show update destroy recordings recordings_processing purge_presentation public_show public_recordings transfer_ownership]
 
       before_action only: %i[create] do
         ensure_authorized('CreateRoom')
@@ -32,7 +32,7 @@ module Api
       before_action only: %i[show update recordings recordings_processing purge_presentation] do
         ensure_authorized(%w[ManageRooms SharedRoom], friendly_id: params[:friendly_id])
       end
-      before_action only: %i[destroy] do
+      before_action only: %i[destroy transfer_ownership] do
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
 
@@ -151,6 +151,20 @@ module Api
       # Returns the total number of processing recordings for a specific room
       def recordings_processing
         render_data data: @room.recordings_processing, status: :ok
+      end
+
+      # POST /api/v1/rooms/:friendly_id/transfer_ownership.json
+      # Transfers room ownership to a different user
+      def transfer_ownership
+        new_owner = User.with_provider(current_provider).find_by(id: params[:new_owner_id])
+        return render_error status: :not_found unless new_owner
+        return render_error status: :unprocessable_entity if new_owner.id == @room.user_id
+
+        if @room.update(user_id: new_owner.id)
+          render_data status: :ok
+        else
+          render_error errors: @room.errors.to_a, status: :bad_request
+        end
       end
 
       private
