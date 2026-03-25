@@ -93,7 +93,7 @@ module Api
         room = Room.new(name: room_params[:name], user_id: room_params[:user_id])
 
         if room.save
-          logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
+          logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id} with voice brige: #{room.voice_bridge}"
           render_data data: "/rooms/#{room.friendly_id}", status: :created
         else
           render_error errors: room.errors.to_a, status: :bad_request
@@ -160,7 +160,7 @@ module Api
       end
 
       def room_params
-        params.require(:room).permit(:name, :user_id, :presentation)
+        params.require(:room).permit(:name, :user_id, :voice_bridge, :presentation)
       end
     end
   end
