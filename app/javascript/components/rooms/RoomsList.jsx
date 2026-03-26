@@ -42,10 +42,6 @@ export default function RoomsList() {
     return <EmptyRoomsList />;
   }
 
-  console.log(rooms?.length )
-  console.log(Number(currentUser?.permissions.RoomLimit))
-  console.log(rooms?.length < Number(currentUser?.permissions.RoomLimit))
-
   return (
     <>
       <Stack direction="horizontal" className="pt-5" gap={3}>
