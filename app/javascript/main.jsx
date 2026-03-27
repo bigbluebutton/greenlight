@@ -18,7 +18,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import {
-  Route, RouterProvider, createBrowserRouter, createRoutesFromElements,
+  Navigate, Route, RouterProvider, createBrowserRouter, createRoutesFromElements,
 } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import './i18n';
@@ -52,7 +52,6 @@ import IndexRouter from './routes/IndexRouter';
 import {
   AdminModule,
   DashboardModule,
-  EngagementModule,
   FilesModule,
   RoomsModule,
   RecordingsModule,
@@ -96,7 +95,7 @@ const router = createBrowserRouter(
         <Route path="/rooms" element={<RoomsModule />} />
         <Route path="/sessions" element={<SessionsModule />} />
         <Route path="/recordings" element={<RecordingsModule />} />
-        <Route path="/engagement" element={<EngagementModule />} />
+        <Route path="/engagement" element={<Navigate to="/reports" replace />} />
         <Route path="/files" element={<FilesModule />} />
         <Route path="/reports" element={<ReportsModule />} />
         <Route path="/rooms/:friendlyId" element={<Room />} />

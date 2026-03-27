@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   CalendarDaysIcon,
-  ChartBarIcon,
   DocumentTextIcon,
   FolderIcon,
   PresentationChartLineIcon,
@@ -73,10 +72,6 @@ export function RecordingsModule() {
   return <Rooms forcedView="recordings" hideTabs />;
 }
 
-export function EngagementModule() {
-  return <Rooms forcedView="analytics" hideTabs />;
-}
-
 export function AdminModule() {
   return <Rooms forcedView="admin" hideTabs />;
 }
@@ -125,12 +120,6 @@ export function ReportsModule() {
           body: 'Review recordings, past sessions, and per-user evidence.',
           href: '/recordings',
           icon: PresentationChartLineIcon,
-        },
-        {
-          title: 'Engagement Metrics',
-          body: 'Open the engagement and compliance widgets.',
-          href: '/engagement',
-          icon: ChartBarIcon,
         },
         {
           title: 'Learning Analytics',

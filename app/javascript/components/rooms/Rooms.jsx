@@ -983,6 +983,15 @@ function safeNumber(value) {
   return Number.isFinite(parsed) ? parsed : 0;
 }
 
+function isActiveFlag(value) {
+  if (value === true || value === 1) return true;
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase();
+    return ['true', 't', '1', 'yes', 'y', 'on'].includes(normalized);
+  }
+  return false;
+}
+
 function scoreBadgeClass(score) {
   if (safeNumber(score) >= 80) return 'is-ok';
   if (safeNumber(score) >= 60) return 'is-warn';
@@ -1107,7 +1116,7 @@ function AttributeTable({ rows, copy }) {
 
 function getRoomName(roomId, roomDirectory) {
   if (!roomId) return '-';
-  return roomDirectory?.get(roomId)?.name || roomId;
+  return roomDirectory?.get(roomId)?.name || '-';
 }
 
 function buildRoomOptions(primaryRooms = [], roomDirectory, mode = 'friendly') {
@@ -1147,14 +1156,10 @@ function getPreferredRecordingUrl(recording) {
 }
 
 function getScheduledSessionState(meeting, copy, now = Date.now()) {
-  const status = `${meeting?.status || ''}`.toLowerCase();
   const metadata = meeting?.metadata && typeof meeting.metadata === 'object' ? meeting.metadata : {};
-  const metadataStatus = `${metadata?.status || metadata?.meeting_status || ''}`.toLowerCase();
   const hasLiveEvidence = (
-    meeting?.is_active === true
-    || metadata?.is_active === true
-    || ['live', 'ongoing', 'started'].includes(status)
-    || ['live', 'ongoing', 'started'].includes(metadataStatus)
+    isActiveFlag(meeting?.is_active)
+    || isActiveFlag(metadata?.is_active)
   );
 
   const end = new Date(meeting?.end_at || '').getTime();
@@ -1505,7 +1510,7 @@ function ScheduleWorkspace({
   const sessionRows = useMemo(() => {
     const activeActualRooms = new Set(
       recentMeetings
-        .filter((meeting) => meeting.is_active && meeting.meeting_ext_id)
+        .filter((meeting) => isActiveFlag(meeting.is_active) && meeting.meeting_ext_id)
         .map((meeting) => meeting.meeting_ext_id),
     );
 
@@ -1564,7 +1569,7 @@ function ScheduleWorkspace({
       const roomId = meeting.meeting_ext_id || '';
       const roomName = getRoomName(roomId, roomDirectory);
       const roomRouteId = getFriendlyRoomId(roomId, roomDirectory);
-      const isLive = !!meeting.is_active;
+      const isLive = isActiveFlag(meeting.is_active);
 
       return {
         id: `actual-${meeting.meeting_int_id}`,

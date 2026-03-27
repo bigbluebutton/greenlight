@@ -619,15 +619,20 @@ function SelectFilter({
   );
 }
 
-function getFutureStatus(meeting, copy) {
-  const status = `${meeting?.status || ''}`.toLowerCase();
+function isActiveFlag(value) {
+  if (value === true || value === 1) return true;
+  if (typeof value === 'string') {
+    const normalized = value.trim().toLowerCase();
+    return ['true', 't', '1', 'yes', 'y', 'on'].includes(normalized);
+  }
+  return false;
+}
+
+function getFutureStatus(meeting, copy, now = Date.now()) {
   const metadata = meeting?.metadata && typeof meeting.metadata === 'object' ? meeting.metadata : {};
-  const metadataStatus = `${metadata?.status || metadata?.meeting_status || ''}`.toLowerCase();
   const hasLiveEvidence = (
-    meeting?.is_active === true
-    || metadata?.is_active === true
-    || ['live', 'ongoing', 'started'].includes(status)
-    || ['live', 'ongoing', 'started'].includes(metadataStatus)
+    isActiveFlag(meeting?.is_active)
+    || isActiveFlag(metadata?.is_active)
   );
 
   if (hasLiveEvidence) {
@@ -635,6 +640,15 @@ function getFutureStatus(meeting, copy) {
       key: 'ongoing',
       label: copy.ongoing,
       className: 'is-ongoing',
+    };
+  }
+
+  const endAt = new Date(meeting?.end_at || '').getTime();
+  if (!Number.isNaN(endAt) && endAt < now) {
+    return {
+      key: 'completed',
+      label: copy.completed,
+      className: 'is-complete',
     };
   }
 
@@ -1029,9 +1043,17 @@ export default function FeatureTabs({ room }) {
     [pastMeetings, selectedMeeting],
   );
 
+  const futureMeetingRows = useMemo(() => (
+    futureMeetings
+      .map((meeting) => ({
+        meeting,
+        status: getFutureStatus(meeting, copy.sessions),
+      }))
+      .filter((item) => item.status.key !== 'completed')
+  ), [copy.sessions, futureMeetings]);
+
   const allSessions = useMemo(() => {
-    const mappedFuture = futureMeetings.map((meeting) => {
-      const status = getFutureStatus(meeting, copy.sessions);
+    const mappedFuture = futureMeetingRows.map(({ meeting, status }) => {
       return {
         key: `future-${meeting.id}`,
         scheduleId: String(meeting.id || ''),
@@ -1074,7 +1096,7 @@ export default function FeatureTabs({ room }) {
       const rightTime = new Date(right.createdAt || 0).getTime();
       return rightTime - leftTime;
     });
-  }, [copy.sessions, friendlyId, futureMeetings, language, pastMeetings]);
+  }, [copy.sessions, friendlyId, futureMeetingRows, language, pastMeetings]);
 
   const filteredSessions = useMemo(() => (
     allSessionsFilter === 'all'
@@ -1094,8 +1116,8 @@ export default function FeatureTabs({ room }) {
 
   const pagedFutureMeetings = useMemo(() => {
     const start = (futurePage - 1) * futureRowsPerPage;
-    return futureMeetings.slice(start, start + futureRowsPerPage);
-  }, [futureMeetings, futurePage, futureRowsPerPage]);
+    return futureMeetingRows.slice(start, start + futureRowsPerPage);
+  }, [futureMeetingRows, futurePage, futureRowsPerPage]);
 
   const recordingHref = selectedMeetingData?.recording?.playback?.url || '';
   const exportCsvHref = selectedMeeting ? `/ext/export/attendance.csv?meeting_int_id=${encodeURIComponent(selectedMeeting)}&includeChecks=1` : '';
@@ -1441,7 +1463,7 @@ export default function FeatureTabs({ room }) {
             accent={room?.online ? 'good' : 'default'}
           />
           <MetricTile label={copy.overview.attendees} value={room?.participants || 0} helper={room?.name} accent="blue" />
-          <MetricTile label={copy.overview.upcoming} value={futureMeetings.length} helper={copy.future.title} accent="accent" />
+          <MetricTile label={copy.overview.upcoming} value={futureMeetingRows.length} helper={copy.future.title} accent="accent" />
           <MetricTile label={copy.overview.completed} value={pastMeetings.length} helper={copy.history.title} accent="dark" />
         </div>
 
@@ -2058,8 +2080,7 @@ export default function FeatureTabs({ room }) {
             <tbody>
               {sessionsLoading && <tr><td colSpan="5">{copy.common.loading}</td></tr>}
               {!sessionsLoading && !pagedFutureMeetings.length && <tr><td colSpan="5">{copy.future.noFuture}</td></tr>}
-              {!sessionsLoading && pagedFutureMeetings.map((meeting) => {
-                const status = getFutureStatus(meeting, copy.sessions);
+              {!sessionsLoading && pagedFutureMeetings.map(({ meeting, status }) => {
                 return (
                   <tr key={meeting.id}>
                     <td>{formatDateTime(meeting.start_at, language)}</td>
@@ -2094,11 +2115,11 @@ export default function FeatureTabs({ room }) {
             </tbody>
           </table>
         </div>
-        {!sessionsLoading && !!futureMeetings.length && (
+        {!sessionsLoading && !!futureMeetingRows.length && (
           <TableFooter
             page={futurePage}
             rowsPerPage={futureRowsPerPage}
-            totalItems={futureMeetings.length}
+            totalItems={futureMeetingRows.length}
             onPageChange={setFuturePage}
             onRowsChange={setFutureRowsPerPage}
             copy={copy.common}
