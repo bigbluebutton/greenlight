@@ -17,7 +17,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'components#index', via: :all
+  root to: redirect('/signin', status: 302), via: :all
   mount ActionCable.server => '/cable'
 
   # External requests
