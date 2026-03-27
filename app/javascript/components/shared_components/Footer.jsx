@@ -18,7 +18,6 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import useEnv from '../../hooks/queries/env/useEnv';
-import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import Logo from './Logo';
 
@@ -39,6 +38,10 @@ const FOOTER_COPY = {
       ['Sign In', '/signin'],
     ],
     legal: 'Legal',
+    legalLinks: [
+      ['Terms', '/terms'],
+      ['Privacy Policy', '/privacy-policy'],
+    ],
     version: 'Version',
     copyright: (year) => `© ${year} Akademio Live`,
   },
@@ -58,6 +61,10 @@ const FOOTER_COPY = {
       ['Giris Yap', '/signin'],
     ],
     legal: 'Yasal',
+    legalLinks: [
+      ['Kullanim Kosullari', '/terms'],
+      ['Gizlilik Politikasi', '/privacy-policy'],
+    ],
     version: 'Surum',
     copyright: (year) => `© ${year} Akademio Live`,
   },
@@ -65,7 +72,6 @@ const FOOTER_COPY = {
 
 export default function Footer() {
   const { data: env } = useEnv();
-  const { data: links } = useSiteSetting(['Terms', 'PrivacyPolicy']);
   const currentUser = useAuth();
   const { i18n } = useTranslation();
   const isAdmin = currentUser?.role?.name === 'Administrator' || currentUser?.role?.name === 'SuperAdmin';
@@ -103,26 +109,9 @@ export default function Footer() {
           <div className="ak-footer-column">
             <span className="ak-footer-heading">{copy.legal}</span>
             <nav className="ak-footer-link-list">
-              <a
-                href={links?.Terms || '#'}
-                target={links?.Terms ? '_blank' : undefined}
-                rel={links?.Terms ? 'noreferrer' : undefined}
-                onClick={(event) => {
-                  if (!links?.Terms) event.preventDefault();
-                }}
-              >
-                Terms
-              </a>
-              <a
-                href={links?.PrivacyPolicy || '#'}
-                target={links?.PrivacyPolicy ? '_blank' : undefined}
-                rel={links?.PrivacyPolicy ? 'noreferrer' : undefined}
-                onClick={(event) => {
-                  if (!links?.PrivacyPolicy) event.preventDefault();
-                }}
-              >
-                Privacy Policy
-              </a>
+              {copy.legalLinks.map(([label, href]) => (
+                <a key={label} href={href}>{label}</a>
+              ))}
             </nav>
           </div>
         </div>

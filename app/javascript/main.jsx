@@ -49,6 +49,7 @@ import Tenants from './components/admin/tenants/Tenants';
 import RoomIdRouter from './routes/RoomIdRouter';
 import PublicRecordings from './components/rooms/room/public_recordings/PublicRecordings';
 import IndexRouter from './routes/IndexRouter';
+import LegalPage from './components/home/LegalPage';
 import {
   AdminModule,
   DashboardModule,
@@ -77,6 +78,9 @@ const router = createBrowserRouter(
       errorElement={<RootBoundary />}
     >
       <Route index element={<IndexRouter />} />
+      <Route path="/terms" element={<LegalPage page="terms" />} />
+      <Route path="/privacy-policy" element={<LegalPage page="privacy" />} />
+      <Route path="/privacy" element={<Navigate to="/privacy-policy" replace />} />
 
       <Route element={<UnauthenticatedOnly />}>
         <Route path="/signup" element={<Signup />} />

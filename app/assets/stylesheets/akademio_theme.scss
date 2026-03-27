@@ -1627,6 +1627,106 @@ body,
   border-color: #dc2626;
 }
 
+.ak-legal-page {
+  width: min(980px, 100%);
+  margin-inline: auto;
+  padding-top: 1.2rem;
+}
+
+.ak-legal-hero {
+  display: grid;
+  gap: 0.9rem;
+  padding: 2.2rem;
+  border-radius: 1.6rem;
+  background: linear-gradient(135deg, #0f172a, #1e293b 64%, #334155);
+  color: #ffffff;
+  box-shadow: 0 26px 70px rgba(15, 23, 42, 0.22);
+}
+
+.ak-legal-badge {
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.73rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(248, 250, 252, 0.16);
+  color: #f8fafc;
+}
+
+.ak-legal-hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4.2vw, 2.8rem);
+  line-height: 1.08;
+  font-weight: 900;
+}
+
+.ak-legal-hero p {
+  margin: 0;
+  max-width: 72ch;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #cbd5e1;
+}
+
+.ak-legal-updated {
+  display: inline-flex;
+  width: fit-content;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #e2e8f0;
+}
+
+.ak-legal-card {
+  margin-top: 1.15rem;
+  border-radius: 1.45rem;
+  border: 1px solid #e2e8f0;
+  background: linear-gradient(180deg, #ffffff, #f8fafc);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  padding: 1.8rem;
+}
+
+.ak-legal-section + .ak-legal-section {
+  margin-top: 1.45rem;
+  padding-top: 1.45rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.ak-legal-section h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.ak-legal-section p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.75;
+}
+
+.ak-legal-section p + p {
+  margin-top: 0.7rem;
+}
+
+.ak-legal-section ul {
+  margin: 0.9rem 0 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.ak-legal-section li {
+  color: #334155;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
 .ak-footer {
   margin-top: 3.4rem;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -1823,6 +1923,16 @@ body,
   .ak-home-compare-table td {
     padding: 0.95rem 1rem;
     font-size: 0.88rem;
+  }
+
+  .ak-legal-hero,
+  .ak-legal-card {
+    padding: 1.35rem;
+    border-radius: 1.15rem;
+  }
+
+  .ak-legal-section h2 {
+    font-size: 1.08rem;
   }
 
   .ak-footer-grid {

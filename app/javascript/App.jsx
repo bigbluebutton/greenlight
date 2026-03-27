@@ -29,6 +29,8 @@ import Title from './components/shared_components/utilities/Title';
 import useEnv from './hooks/queries/env/useEnv';
 import ModuleNavBar from './components/workspace/ModuleNavBar';
 
+const MARKETING_ROUTES = ['/', '/signin', '/signup', '/terms', '/privacy-policy', '/privacy'];
+
 export default function App() {
   const currentUser = useAuth();
   const location = useLocation();
@@ -78,7 +80,7 @@ export default function App() {
     }
   }, [autoSignIn, env, formElement]);
 
-  const marketingHeaderPages = ['/', '/signin', '/signup'].includes(location.pathname);
+  const marketingHeaderPages = MARKETING_ROUTES.includes(location.pathname);
   const showHeader = marketingHeaderPages || currentUser.signed_in;
   const showModuleNav = currentUser.signed_in;
   const pageHeight = showHeader
@@ -97,7 +99,7 @@ export default function App() {
   const { isLoading, data: brandColors } = useSiteSetting(['PrimaryColor', 'PrimaryColorLight']);
 
   useEffect(() => {
-    const isMarketingPage = location.pathname === '/' || location.pathname === '/signin' || location.pathname === '/signup';
+    const isMarketingPage = MARKETING_ROUTES.includes(location.pathname);
     document.body.classList.toggle('akademio-bg', isMarketingPage);
   }, [location.pathname]);
 
