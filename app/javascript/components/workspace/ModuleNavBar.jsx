@@ -3,7 +3,6 @@ import { Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
-  ChartBarIcon,
   FolderIcon,
   HomeIcon,
   PresentationChartLineIcon,
@@ -22,7 +21,6 @@ const MODULE_LABELS = {
     rooms: 'Rooms',
     sessions: 'Sessions',
     recordings: 'Recordings',
-    engagement: 'Engagement',
     files: 'Files',
     reports: 'Reports',
     admin: 'Admin',
@@ -32,7 +30,6 @@ const MODULE_LABELS = {
     rooms: 'Odalar',
     sessions: 'Oturumlar',
     recordings: 'Kayitlar',
-    engagement: 'Etkilesim',
     files: 'Dosyalar',
     reports: 'Raporlar',
     admin: 'Yonetim',
@@ -49,8 +46,6 @@ function moduleIsActive(pathname, key) {
       return pathname === '/sessions';
     case 'recordings':
       return pathname === '/recordings';
-    case 'engagement':
-      return pathname === '/engagement';
     case 'files':
       return pathname === '/files';
     case 'reports':
@@ -84,7 +79,6 @@ export default function ModuleNavBar() {
     }
 
     list.push(
-      { key: 'engagement', label: labels.engagement, to: '/engagement', icon: ChartBarIcon },
       { key: 'files', label: labels.files, to: '/files', icon: FolderIcon },
       { key: 'reports', label: labels.reports, to: '/reports', icon: PresentationChartLineIcon },
     );

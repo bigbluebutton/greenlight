@@ -357,13 +357,11 @@ export default function HomePage() {
 
   useEffect(
     () => {
-      if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'true') {
-        navigate('/rooms');
-      } else if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'false') {
+      if (!currentUser.stateChanging && currentUser.signed_in) {
         navigate('/home');
       }
     },
-    [currentUser.signed_in],
+    [currentUser.signed_in, currentUser.stateChanging, navigate],
   );
 
   useEffect(() => {

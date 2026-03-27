@@ -24,10 +24,17 @@ export default function useUpdateRoom({ friendlyId }) {
   const queryClient = useQueryClient();
 
   return useMutation(
-    (data) => axios.patch(`/rooms/${friendlyId}.json`, data),
+    (payload = {}) => {
+      if (payload && Object.prototype.hasOwnProperty.call(payload, 'data')) {
+        return axios.patch(`/rooms/${friendlyId}.json`, payload.data, payload.config || {});
+      }
+
+      return axios.patch(`/rooms/${friendlyId}.json`, payload);
+    },
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['getRoom', { friendlyId }]);
+        queryClient.invalidateQueries(['getRooms']);
         toast.success(t('toast.success.room.room_updated'));
       },
       onError: () => {

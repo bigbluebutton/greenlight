@@ -19,7 +19,23 @@
 class CurrentRoomSerializer < ApplicationSerializer
   include Presentable
 
-  attributes :id, :name, :presentation_name, :thumbnail, :online, :participants, :shared, :owner_name
+  attributes :id,
+             :name,
+             :meeting_id,
+             :icon_key,
+             :room_thumbnail_url,
+             :presentation_name,
+             :presentation_url,
+             :presentation_content_type,
+             :presentation_byte_size,
+             :presentation_created_at,
+             :thumbnail,
+             :online,
+             :participants,
+             :shared,
+             :owner_name,
+             :owner_email,
+             :owner_role_name
 
   attribute :last_session, if: -> { object.last_session }
 
@@ -27,11 +43,51 @@ class CurrentRoomSerializer < ApplicationSerializer
     presentation_file_name(object)
   end
 
+  def icon_key
+    object.icon_key
+  end
+
   def thumbnail
     presentation_thumbnail(object)
   end
 
+  def room_thumbnail_url
+    room_thumbnail_image(object)
+  end
+
+  def presentation_url
+    return unless object.presentation.attached?
+
+    view_context.url_for(object.presentation)
+  end
+
+  def presentation_content_type
+    return unless object.presentation.attached?
+
+    object.presentation.blob.content_type
+  end
+
+  def presentation_byte_size
+    return unless object.presentation.attached?
+
+    object.presentation.blob.byte_size
+  end
+
+  def presentation_created_at
+    return unless object.presentation.attached?
+
+    object.presentation.attachment&.created_at
+  end
+
   def owner_name
     object.user.name
+  end
+
+  def owner_email
+    object.user.email
+  end
+
+  def owner_role_name
+    object.user.role&.name
   end
 end

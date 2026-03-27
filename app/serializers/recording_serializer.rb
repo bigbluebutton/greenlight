@@ -17,7 +17,15 @@
 # frozen_string_literal: true
 
 class RecordingSerializer < ApplicationSerializer
-  attributes :id, :record_id, :name, :length, :participants, :visibility, :protectable, :created_at, :recorded_at
+  attributes :id, :record_id, :name, :length, :participants, :visibility, :protectable, :created_at, :recorded_at, :room_name, :room_friendly_id
 
   has_many :formats
+
+  def room_name
+    object.room&.name
+  end
+
+  def room_friendly_id
+    object.room&.friendly_id
+  end
 end

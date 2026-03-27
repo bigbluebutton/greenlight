@@ -26,18 +26,24 @@ class Room < ApplicationRecord
   has_many :room_meeting_options, dependent: :destroy
 
   has_one_attached :presentation
+  has_one_attached :thumbnail_image
 
   validates :name, presence: true
   validates :friendly_id, presence: true, uniqueness: true
   validates :meeting_id, presence: true, uniqueness: true
+  validates :icon_key, presence: true, length: { maximum: 64 }
   validates :presentation,
             content_type: Rails.configuration.uploads[:presentations][:formats],
             size: { less_than: Rails.configuration.uploads[:presentations][:max_size] }
+  validates :thumbnail_image,
+            content_type: Rails.configuration.uploads[:images][:formats],
+            size: { less_than: Rails.configuration.uploads[:images][:max_size] }
 
   validates :name, length: { minimum: 1, maximum: 255 }
   validates :recordings_processing, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   before_validation :set_friendly_id, :set_meeting_id, on: :create
+  before_validation :set_default_icon_key
   before_save :scan_presentation_for_virus
 
   after_create :create_meeting_options
@@ -45,6 +51,19 @@ class Room < ApplicationRecord
   attr_accessor :shared, :active, :participants
 
   scope :with_provider, ->(current_provider) { where(user: { provider: current_provider }) }
+
+  def icon_key
+    value = has_attribute?(:icon_key) ? self[:icon_key] : @icon_key
+    value.presence || 'general'
+  end
+
+  def icon_key=(value)
+    if has_attribute?(:icon_key)
+      self[:icon_key] = value
+    else
+      @icon_key = value
+    end
+  end
 
   def self.search(input)
     return where('rooms.name ILIKE ?', "%#{input}%") if input
@@ -111,5 +130,9 @@ class Room < ApplicationRecord
 
     errors.add(:presentation, 'MalwareDetected')
     throw :abort
+  end
+
+  def set_default_icon_key
+    self.icon_key = 'general' if icon_key.blank?
   end
 end

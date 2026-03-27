@@ -17,11 +17,62 @@
 # frozen_string_literal: true
 
 class RoomSerializer < ApplicationSerializer
-  attributes :id, :name, :friendly_id, :online, :participants, :last_session
+  include Presentable
+
+  attributes :id,
+             :name,
+             :friendly_id,
+             :meeting_id,
+             :icon_key,
+             :room_thumbnail_url,
+             :online,
+             :participants,
+             :last_session,
+             :presentation_name,
+             :presentation_url,
+             :presentation_content_type,
+             :presentation_byte_size,
+             :presentation_created_at
 
   attribute :shared_owner, if: -> { object.shared }
 
   def shared_owner
     object.user.name
+  end
+
+  def icon_key
+    object.icon_key
+  end
+
+  def room_thumbnail_url
+    room_thumbnail_image(object)
+  end
+
+  def presentation_name
+    presentation_file_name(object)
+  end
+
+  def presentation_url
+    return unless object.presentation.attached?
+
+    view_context.url_for(object.presentation)
+  end
+
+  def presentation_content_type
+    return unless object.presentation.attached?
+
+    object.presentation.blob.content_type
+  end
+
+  def presentation_byte_size
+    return unless object.presentation.attached?
+
+    object.presentation.blob.byte_size
+  end
+
+  def presentation_created_at
+    return unless object.presentation.attached?
+
+    object.presentation.attachment&.created_at
   end
 end

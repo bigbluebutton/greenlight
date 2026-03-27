@@ -28,6 +28,9 @@ export default function useDeletePresentation(friendlyId) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(['getRoom', { friendlyId }]);
+        queryClient.invalidateQueries(['getRoomPresentationLibrary', { friendlyId }]);
+        queryClient.invalidateQueries(['getUserPresentationLibrary']);
+        queryClient.invalidateQueries(['getRooms']);
         toast.success(t('toast.success.room.presentation_deleted'));
       },
       onError: () => {
