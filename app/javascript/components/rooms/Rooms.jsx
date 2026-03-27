@@ -262,7 +262,7 @@ const WORKSPACE_COPY = {
       allRooms: 'All rooms',
       selectRoom: 'Select room',
       loadingRooms: 'Loading rooms...',
-      status: 'Status',
+      statusFilter: 'Status',
       allStatuses: 'All statuses',
       search: 'Search',
       searchPlaceholder: 'Search title, description, creator',
@@ -346,7 +346,7 @@ const WORKSPACE_COPY = {
       detailAction: 'Detail',
       participantDetailTitle: 'Participant detail',
       participantDetailSubtitle: 'Detailed participation, attention, and attendance evidence for this session.',
-      status: 'Status',
+      statusLabel: 'Status',
       statusStrong: 'Strong',
       statusWatch: 'Watch',
       statusRisk: 'At Risk',
@@ -611,7 +611,7 @@ const WORKSPACE_COPY = {
       allRooms: 'Tum odalar',
       selectRoom: 'Oda secin',
       loadingRooms: 'Odalar yukleniyor...',
-      status: 'Durum',
+      statusFilter: 'Durum',
       allStatuses: 'Tum durumlar',
       search: 'Ara',
       searchPlaceholder: 'Baslik, aciklama, olusturan',
@@ -695,7 +695,7 @@ const WORKSPACE_COPY = {
       detailAction: 'Detay',
       participantDetailTitle: 'Katilimci detayi',
       participantDetailSubtitle: 'Bu oturum icin ayrintili katilim, dikkat ve devam kanitlari.',
-      status: 'Durum',
+      statusLabel: 'Durum',
       statusStrong: 'Guclu',
       statusWatch: 'Izle',
       statusRisk: 'Riskli',
@@ -1979,7 +1979,7 @@ function ScheduleWorkspace({
     { label: scheduleCopy.sessionId, value: reportMeeting?.sessionId || '-' },
     { label: scheduleCopy.creator, value: reportMeeting?.creator || '-' },
     { label: copy.recordingsDetail.user, value: selectedParticipantRow.user || '-' },
-    { label: scheduleCopy.status, value: selectedParticipantRow.statusLabel || '-' },
+    { label: scheduleCopy.statusLabel, value: selectedParticipantRow.statusLabel || '-' },
     { label: scheduleCopy.start, value: formatDateTime(selectedParticipantRow.firstJoinAt, language) },
     { label: scheduleCopy.end, value: formatDateTime(selectedParticipantRow.lastLeaveAt, language) },
     { label: scheduleCopy.onlineTime, value: formatDuration(selectedParticipantRow.onlineSeconds, language) },
@@ -2038,7 +2038,7 @@ function ScheduleWorkspace({
             </label>
 
             <label className="ak-workspace-field">
-              <span>{scheduleCopy.status}</span>
+              <span>{scheduleCopy.statusFilter}</span>
               <select className="ak-workspace-select" value={statusFilter} onChange={(event) => setStatusFilter(event.target.value)}>
                 <option value="all">{scheduleCopy.allStatuses}</option>
                 <option value="scheduled">{scheduleCopy.scheduled}</option>
@@ -2334,7 +2334,7 @@ function ScheduleWorkspace({
                       <tr>
                         <th>{copy.recordingsDetail.user}</th>
                         <th>{copy.recordingsDetail.role}</th>
-                        <th>{scheduleCopy.status}</th>
+                        <th>{scheduleCopy.statusLabel}</th>
                         <th>{scheduleCopy.start}</th>
                         <th>{scheduleCopy.end}</th>
                         <th>{scheduleCopy.onlineTime}</th>
@@ -2422,7 +2422,7 @@ function ScheduleWorkspace({
                   {scheduleCopy.activityMetric}: {selectedParticipantRow.activityScore}%
                 </span>
                 <span className={`ak-room-badge ${selectedParticipantRow.statusClass}`}>
-                  {scheduleCopy.status}: {selectedParticipantRow.statusLabel}
+                  {scheduleCopy.statusLabel}: {selectedParticipantRow.statusLabel}
                 </span>
               </div>
 
