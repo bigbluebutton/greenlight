@@ -3961,7 +3961,7 @@ function RecordingsWorkspace({
   );
 }
 
-export default function Rooms({ forcedView = null, hideTabs = false }) {
+export default function Rooms({ forcedView = null, hideTabs = false, embedded = false }) {
   const currentUser = useAuth();
   const { i18n } = useTranslation();
   const navigate = useNavigate();
@@ -4041,6 +4041,7 @@ export default function Rooms({ forcedView = null, hideTabs = false }) {
         rooms: '/rooms',
         recordings: '/recordings',
         schedule: '/sessions',
+        analytics: '/reports',
         admin: '/admin',
       };
       navigate(routeMap[view] || '/rooms');
@@ -4101,6 +4102,10 @@ export default function Rooms({ forcedView = null, hideTabs = false }) {
             availableRooms={rooms}
             roomDirectory={roomDirectoryByMeetingId}
           />
+        );
+      case 'analytics':
+        return (
+          <AnalyticsWorkspace copy={copy} language={language} />
         );
       case 'admin':
         return (
@@ -4212,23 +4217,33 @@ export default function Rooms({ forcedView = null, hideTabs = false }) {
     }
   };
 
+  const content = (
+    <>
+      {!hideTabs && (
+        <div className="ak-workspace-tabs" role="tablist" aria-label="Workspace Sections">
+          {workspaceTabs.map((tab) => (
+            <WorkspaceTab
+              key={tab.key}
+              active={activeView === tab.key}
+              icon={tab.icon}
+              label={tab.label}
+              onClick={() => setActiveView(tab.key)}
+            />
+          ))}
+        </div>
+      )}
+      {renderPanel()}
+    </>
+  );
+
+  if (embedded) {
+    return content;
+  }
+
   return (
     <div className="ak-workspace">
       <div className="ak-workspace-shell">
-        {!hideTabs && (
-          <div className="ak-workspace-tabs" role="tablist" aria-label="Workspace Sections">
-            {workspaceTabs.map((tab) => (
-              <WorkspaceTab
-                key={tab.key}
-                active={activeView === tab.key}
-                icon={tab.icon}
-                label={tab.label}
-                onClick={() => setActiveView(tab.key)}
-              />
-            ))}
-          </div>
-        )}
-        {renderPanel()}
+        {content}
       </div>
     </div>
   );

@@ -2404,6 +2404,15 @@ body,
   margin-bottom: 1.15rem;
 }
 
+.ak-module-inline-tabs {
+  margin-top: 0;
+}
+
+.ak-module-panel-stack {
+  display: grid;
+  gap: 1rem;
+}
+
 .ak-workspace-tab {
   appearance: none;
   border: 1px solid #dbe4f0;
@@ -3134,6 +3143,14 @@ body,
 
 .ak-workspace-tool-card-tight {
   margin-bottom: 1rem;
+}
+
+.ak-workspace-files-library .ak-room-files {
+  padding-top: 0;
+}
+
+.ak-workspace-files-library .ak-room-files-card:first-child {
+  margin-top: 0;
 }
 
 .ak-workspace-tool-head {

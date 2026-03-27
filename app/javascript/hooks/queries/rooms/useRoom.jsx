@@ -22,6 +22,7 @@ export default function useRoom(friendlyId) {
     ['getRoom', { friendlyId }],
     () => axios.get(`/rooms/${friendlyId}.json`).then((resp) => resp.data.data),
     {
+      enabled: !!friendlyId,
       retry: 1,
     },
   );

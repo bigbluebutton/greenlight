@@ -230,8 +230,9 @@ function FolderTable({
   );
 }
 
-export default function Presentation() {
-  const { friendlyId } = useParams();
+export default function Presentation({ friendlyId: friendlyIdProp = '' }) {
+  const { friendlyId: routeFriendlyId } = useParams();
+  const friendlyId = friendlyIdProp || routeFriendlyId;
   const { data: room } = useRoom(friendlyId);
   const { data: accessibleRooms, isLoading: roomsLoading } = useRoomPresentationLibrary(friendlyId);
   const { data: globalTemplates = [], isLoading: globalTemplatesLoading } = useGlobalPresentationTemplates();

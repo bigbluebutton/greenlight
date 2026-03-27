@@ -22,6 +22,7 @@ export default function useRoomPresentationLibrary(friendlyId) {
     ['getRoomPresentationLibrary', { friendlyId }],
     () => axios.get(`/rooms/${friendlyId}/presentation_library.json`).then((resp) => resp.data.data),
     {
+      enabled: !!friendlyId,
       keepPreviousData: true,
     },
   );
