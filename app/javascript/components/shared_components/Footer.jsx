@@ -35,7 +35,6 @@ const FOOTER_COPY = {
     resources: 'Operations',
     resourceLinks: [
       ['Operations Workspace', '/home'],
-      ['Learning Analytics', '/learning-analytics-dashboard/'],
       ['Scheduling', '/sessions'],
       ['Sign In', '/signin'],
     ],
@@ -55,7 +54,6 @@ const FOOTER_COPY = {
     resources: 'Operasyonlar',
     resourceLinks: [
       ['Operasyon Alani', '/home'],
-      ['Ogrenim Analitigi', '/learning-analytics-dashboard/'],
       ['Planlama', '/sessions'],
       ['Giris Yap', '/signin'],
     ],
@@ -105,8 +103,26 @@ export default function Footer() {
           <div className="ak-footer-column">
             <span className="ak-footer-heading">{copy.legal}</span>
             <nav className="ak-footer-link-list">
-              {links?.Terms && <a href={links.Terms} target="_blank" rel="noreferrer">Terms</a>}
-              {links?.PrivacyPolicy && <a href={links.PrivacyPolicy} target="_blank" rel="noreferrer">Privacy Policy</a>}
+              <a
+                href={links?.Terms || '#'}
+                target={links?.Terms ? '_blank' : undefined}
+                rel={links?.Terms ? 'noreferrer' : undefined}
+                onClick={(event) => {
+                  if (!links?.Terms) event.preventDefault();
+                }}
+              >
+                Terms
+              </a>
+              <a
+                href={links?.PrivacyPolicy || '#'}
+                target={links?.PrivacyPolicy ? '_blank' : undefined}
+                rel={links?.PrivacyPolicy ? 'noreferrer' : undefined}
+                onClick={(event) => {
+                  if (!links?.PrivacyPolicy) event.preventDefault();
+                }}
+              >
+                Privacy Policy
+              </a>
             </nav>
           </div>
         </div>
