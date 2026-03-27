@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import HomePage from '../components/home/HomePage';
 import { useAuth } from '../contexts/auth/AuthProvider';
 
 export default function IndexRouter() {
@@ -10,5 +9,5 @@ export default function IndexRouter() {
     return <Navigate to="/home" replace />;
   }
 
-  return <HomePage />;
+  return <Navigate to="/signin" replace />;
 }
