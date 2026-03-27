@@ -34,9 +34,9 @@ const FOOTER_COPY = {
     ],
     resources: 'Operations',
     resourceLinks: [
-      ['Operations Workspace', '/rooms?view=overview'],
+      ['Operations Workspace', '/home'],
       ['Learning Analytics', '/learning-analytics-dashboard/'],
-      ['Scheduling', '/rooms?view=schedule'],
+      ['Scheduling', '/sessions'],
       ['Sign In', '/signin'],
     ],
     legal: 'Legal',
@@ -54,9 +54,9 @@ const FOOTER_COPY = {
     ],
     resources: 'Operasyonlar',
     resourceLinks: [
-      ['Operasyon Alani', '/rooms?view=overview'],
+      ['Operasyon Alani', '/home'],
       ['Ogrenim Analitigi', '/learning-analytics-dashboard/'],
-      ['Planlama', '/rooms?view=schedule'],
+      ['Planlama', '/sessions'],
       ['Giris Yap', '/signin'],
     ],
     legal: 'Yasal',

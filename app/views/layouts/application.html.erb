@@ -17,8 +17,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>BigBlueButton</title>
+    <title>Akademio Live</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= favicon_link_tag '/favicon.png', type: 'image/png' %>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-precomposed.png">
     <!-- Open Graph Attributes -->
     <meta property="og:title" content="<%= page_title %>" />
     <meta property="og:description" content="<%= t('opengraph.description') %>" />
@@ -35,4 +38,3 @@
     <%= yield %>
   </body>
 </html>
-

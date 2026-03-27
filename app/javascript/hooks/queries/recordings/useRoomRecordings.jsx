@@ -18,13 +18,14 @@ import { useQuery } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
 import axios from '../../../helpers/Axios';
 
-export default function useRoomRecordings(friendlyId, search, page) {
+export default function useRoomRecordings(friendlyId, search, page, items) {
   const [searchParams] = useSearchParams();
   const params = {
     'sort[column]': searchParams.get('sort[column]'),
     'sort[direction]': searchParams.get('sort[direction]'),
     search,
     page,
+    items,
   };
 
   return useQuery(

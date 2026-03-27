@@ -33,8 +33,20 @@ module Api
       # Returns all of the current_user's recordings
       def index
         sort_config = config_sorting(allowed_columns: %w[name length visibility])
+        items = params[:items].to_i
+        items = 5 if items <= 0
+        items = items.clamp(5, 100)
 
-        pagy, recordings = pagy(current_user.recordings&.order(sort_config, recorded_at: :desc)&.search(params[:search]), items: 5)
+        recordings_scope = current_user.recordings
+        recordings_scope = recordings_scope.joins(:room).where(room: { friendly_id: params[:room] }) if params[:room].present?
+        recordings_scope = recordings_scope.where(visibility: params[:visibility]) if params[:visibility].present?
+        recordings_scope = if params[:search].present?
+                           recordings_scope.merge(Recording.search(params[:search])).includes(:room)
+                         else
+                           recordings_scope.includes(:formats, :room)
+                         end
+
+        pagy, recordings = pagy(recordings_scope.order(sort_config, recorded_at: :desc), items: items)
         render_data data: recordings, meta: pagy_metadata(pagy), status: :ok
       end
 

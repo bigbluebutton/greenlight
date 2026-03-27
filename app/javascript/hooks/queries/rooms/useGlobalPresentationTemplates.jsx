@@ -15,24 +15,13 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import { useQuery } from 'react-query';
-import { useSearchParams } from 'react-router-dom';
-import axios from '../../../../helpers/Axios';
+import axios from '../../../helpers/Axios';
 
-export default function useServerRooms(input, page, enabled = true) {
-  const [searchParams] = useSearchParams();
-
-  const params = {
-    'sort[column]': searchParams.get('sort[column]'),
-    'sort[direction]': searchParams.get('sort[direction]'),
-    search: input,
-    page,
-  };
-
+export default function useGlobalPresentationTemplates() {
   return useQuery(
-    ['getServerRooms', { ...params }],
-    () => axios.get('/admin/server_rooms.json', { params }).then((resp) => resp.data),
+    ['getGlobalPresentationTemplates'],
+    () => axios.get('/rooms/global_presentation_templates.json').then((resp) => resp.data.data),
     {
-      enabled,
       keepPreviousData: true,
     },
   );

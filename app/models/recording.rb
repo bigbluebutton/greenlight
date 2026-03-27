@@ -42,11 +42,17 @@ class Recording < ApplicationRecord
 
   def self.search(input)
     if input
-      return joins(:formats).where('recordings.name ILIKE :input OR recordings.visibility ILIKE :input OR formats.recording_type ILIKE :input',
-                                   input: "%#{input}%").includes(:formats)
+      return left_outer_joins(:formats, :room)
+             .where('recordings.name ILIKE :input OR ' \
+                    'recordings.record_id ILIKE :input OR ' \
+                    'recordings.visibility ILIKE :input OR ' \
+                    'formats.recording_type ILIKE :input OR ' \
+                    'rooms.name ILIKE :input',
+                    input: "%#{input}%")
+             .includes(:formats, :room)
     end
 
-    all.includes(:formats)
+    all.includes(:formats, :room)
   end
 
   def self.public_search(input)

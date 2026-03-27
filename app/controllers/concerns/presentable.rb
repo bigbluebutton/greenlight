@@ -28,4 +28,34 @@ module Presentable
 
     view_context.rails_representation_url(room.presentation.representation(resize: ['225x125']).processed)
   end
+
+  def presentation_url(room)
+    return unless room.presentation.attached?
+
+    view_context.url_for(room.presentation)
+  end
+
+  def presentation_content_type(room)
+    return unless room.presentation.attached?
+
+    room.presentation.blob.content_type
+  end
+
+  def presentation_byte_size(room)
+    return unless room.presentation.attached?
+
+    room.presentation.blob.byte_size
+  end
+
+  def presentation_created_at(room)
+    return unless room.presentation.attached?
+
+    room.presentation.attachment&.created_at
+  end
+
+  def room_thumbnail_image(room)
+    return unless room.thumbnail_image.attached?
+
+    view_context.url_for(room.thumbnail_image)
+  end
 end

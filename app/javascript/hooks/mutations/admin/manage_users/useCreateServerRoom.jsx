@@ -18,23 +18,42 @@ import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../../helpers/Axios';
+import { handleError } from '../../../../helpers/FileValidationHelper';
+import { applyRoomDefaults, buildCreatePayload } from '../../rooms/useCreateRoom';
 
 export default function useCreateServerRoom({ userId, onSettled }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   return useMutation(
-    (room) => axios.post('/rooms.json', { room, user_id: userId }),
+    (room) => {
+      const { data, config } = buildCreatePayload(room, userId);
+      return axios.post('/rooms.json', data, config);
+    },
     {
-      onSuccess: () => {
+      onSuccess: async (response, room) => {
+        const createdPath = response?.data?.data;
+
+        if (createdPath) {
+          const segments = createdPath.split('/').filter(Boolean);
+          const friendlyId = segments[segments.length - 1];
+
+          if (friendlyId) {
+            await applyRoomDefaults(friendlyId, room);
+          }
+        }
+
         queryClient.invalidateQueries('getServerRooms');
+        queryClient.invalidateQueries(['getRooms']);
+        queryClient.invalidateQueries(['getUserPresentationLibrary']);
+        queryClient.invalidateQueries(['getRoomPresentationLibrary']);
         toast.success(t('toast.success.room.room_created'));
       },
       onError: (err) => {
-        if (err.response.data.errors === 'RoomLimitError') {
+        if (err?.response?.data?.errors === 'RoomLimitError') {
           toast.error(t('toast.error.rooms.room_limit'));
         } else {
-          toast.error(t('toast.error.problem_completing_action'));
+          handleError(err, t, toast);
         }
       },
       onSettled,

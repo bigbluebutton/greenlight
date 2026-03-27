@@ -26,8 +26,9 @@ import UserBoardIcon from './UserBoardIcon';
 export default function EmptyRoomsList() {
   const { t } = useTranslation();
   const currentUser = useAuth();
-  const canCreate = currentUser?.permissions.CreateRoom;
-  const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
+  const currentUserId = currentUser?.id;
+  const canCreate = currentUser?.permissions?.CreateRoom;
+  const mutationWrapper = (args) => useCreateRoom({ userId: currentUserId, ...args });
 
   return (
     <div id="rooms-list-empty" className="pt-3">
@@ -44,7 +45,7 @@ export default function EmptyRoomsList() {
             <Modal
               modalButton={<Button variant="brand" className="ms-auto me-xxl-1">{ t('room.add_new_room') }</Button>}
               title={t('room.create_new_room')}
-              body={<CreateRoomForm mutation={mutationWrapper} userId={currentUser.id} />}
+              body={<CreateRoomForm mutation={mutationWrapper} userId={currentUserId} />}
             />
           )}
         </Card.Body>

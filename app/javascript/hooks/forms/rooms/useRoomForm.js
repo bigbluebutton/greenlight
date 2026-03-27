@@ -23,6 +23,18 @@ import { useCallback, useMemo } from 'react';
 export function useRoomFormValidation() {
   return useMemo(() => (yup.object({
     name: yup.string().required('forms.validations.room.name.required').min(2, 'forms.validations.room.name.min'),
+    icon_key: yup.string().nullable(),
+    post_create_tab: yup.string().nullable(),
+    record: yup.boolean().nullable(),
+    glRequireAuthentication: yup.boolean().nullable(),
+    guestPolicy: yup.boolean().nullable(),
+    glAnyoneCanStart: yup.boolean().nullable(),
+    glAnyoneJoinAsModerator: yup.boolean().nullable(),
+    muteOnStart: yup.boolean().nullable(),
+    presentation: yup.mixed().nullable(),
+    presentation_source_friendly_id: yup.string().nullable(),
+    presentation_global_source_key: yup.string().nullable(),
+    thumbnail_image: yup.mixed().nullable(),
   })), []);
 }
 
@@ -49,6 +61,18 @@ export default function useRoomForm({ defaultValues: _defaultValues, ..._config 
         ...{
           name: '',
           user_id: '',
+          icon_key: 'general',
+          post_create_tab: 'default',
+          record: false,
+          glRequireAuthentication: false,
+          guestPolicy: false,
+          glAnyoneCanStart: false,
+          glAnyoneJoinAsModerator: false,
+          muteOnStart: false,
+          presentation: null,
+          presentation_source_friendly_id: '',
+          presentation_global_source_key: '',
+          thumbnail_image: null,
         },
         ..._defaultValues,
       },

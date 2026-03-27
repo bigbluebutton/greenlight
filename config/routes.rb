@@ -43,12 +43,21 @@ Rails.application.routes.draw do
         end
       end
       resources :rooms, param: :friendly_id do
+        collection do
+          get :presentation_library_for_user
+          get :global_presentation_templates
+          get '/global_presentation_templates/:template_key/file', to: 'rooms#global_presentation_template_file'
+        end
         member do
           get '/recordings', to: 'rooms#recordings'
           get '/public_recordings', to: 'rooms#public_recordings'
           get '/recordings_processing', to: 'rooms#recordings_processing'
+          get :presentation_library
           get '/public', to: 'rooms#public_show'
+          post :use_presentation_template
+          post :use_global_presentation_template
           delete :purge_presentation
+          delete :purge_thumbnail_image
         end
       end
       resources :meetings, only: %i[], param: :friendly_id do

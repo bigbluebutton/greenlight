@@ -18,9 +18,13 @@
 
 class SharedAccessSerializer < ApplicationSerializer
   include Avatarable
-  attributes :name, :id, :avatar
+  attributes :name, :id, :avatar, :email, :role_name
 
   def avatar
     user_avatar(object)
+  end
+
+  def role_name
+    object.role&.name
   end
 end

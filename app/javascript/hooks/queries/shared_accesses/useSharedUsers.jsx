@@ -22,7 +22,7 @@ export default function useSharedUsers(friendlyId, input) {
     search: input,
   };
   return useQuery(
-    ['getSharedUsers', input],
+    ['getSharedUsers', { friendlyId, input }],
     () => axios.get(`/shared_accesses/${friendlyId}.json`, { params }).then((resp) => resp.data.data),
     {
       keepPreviousData: true,

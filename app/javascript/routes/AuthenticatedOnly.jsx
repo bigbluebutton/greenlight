@@ -25,7 +25,6 @@ export default function AuthenticatedOnly() {
   const { t } = useTranslation();
   const currentUser = useAuth();
   const roomsMatch = useMatch('/rooms/:friendlyId');
-  const superAdminMatch = useMatch('/admin/*');
   const deleteSession = useDeleteSession({ showToast: false });
 
   // User is either pending or banned
@@ -44,10 +43,6 @@ export default function AuthenticatedOnly() {
   // Custom logic to redirect from Rooms page to join page if the user isn't signed in
   if (!currentUser.signed_in && roomsMatch) {
     return <Navigate to={`${roomsMatch.pathnameBase}/join`} />;
-  }
-
-  if (currentUser.signed_in && currentUser.isSuperAdmin && !superAdminMatch) {
-    return <Navigate to="/admin/users" />;
   }
 
   if (!currentUser.signed_in) {

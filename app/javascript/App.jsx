@@ -27,6 +27,7 @@ import Footer from './components/shared_components/Footer';
 import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
 import Title from './components/shared_components/utilities/Title';
 import useEnv from './hooks/queries/env/useEnv';
+import ModuleNavBar from './components/workspace/ModuleNavBar';
 
 export default function App() {
   const currentUser = useAuth();
@@ -79,7 +80,10 @@ export default function App() {
 
   const marketingHeaderPages = ['/', '/signin', '/signup'].includes(location.pathname);
   const showHeader = marketingHeaderPages || currentUser.signed_in;
-  const pageHeight = showHeader ? 'regular-height' : 'no-header-height';
+  const showModuleNav = currentUser.signed_in;
+  const pageHeight = showHeader
+    ? (showModuleNav ? 'module-nav-height' : 'regular-height')
+    : 'no-header-height';
 
   // i18n
   const { i18n } = useTranslation();
@@ -121,15 +125,18 @@ export default function App() {
         ) : (
           <>
             {showHeader && <Header />}
-            <Container className={pageHeight}>
-              <Outlet />
-            </Container>
-            <ToastContainer
-              position="bottom-right"
-              newestOnTop
-              autoClose={3000}
-            />
-            <Footer />
+            <div className="ak-app-shell">
+              {showModuleNav && <ModuleNavBar />}
+              <Container className={`${pageHeight} ak-page-body`}>
+                <Outlet />
+              </Container>
+              <ToastContainer
+                position="bottom-right"
+                newestOnTop
+                autoClose={3000}
+              />
+              <Footer />
+            </div>
           </>
         )}
     </>
