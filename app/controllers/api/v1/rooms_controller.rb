@@ -73,12 +73,14 @@ module Api
         recordings
         recordings_processing
         presentation_library
-        purge_presentation
         purge_thumbnail_image
         use_presentation_template
         use_global_presentation_template
       ] do
         ensure_authorized(%w[ManageRooms SharedRoom], friendly_id: params[:friendly_id])
+      end
+      before_action only: %i[purge_presentation] do
+        ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
       end
       before_action only: %i[destroy] do
         ensure_authorized('ManageRooms', friendly_id: params[:friendly_id])
