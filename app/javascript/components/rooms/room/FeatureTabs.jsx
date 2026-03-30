@@ -146,6 +146,8 @@ const ROOM_COPY = {
       joinTime: 'Join',
       leaveTime: 'Leave',
       onlineTime: 'Online Time',
+      talkTime: 'Talk time',
+      webcamTime: 'Webcam time',
       checksOkLabel: 'ATT OK',
       checksMissedLabel: 'ATT MISSED',
       checksLateLabel: 'Late',
@@ -157,7 +159,12 @@ const ROOM_COPY = {
       quizMissedLabel: 'QUIZ Missed',
       pollAnswers: 'Polls',
       chatMessages: 'Messages',
+      reactionsLabel: 'Reactions',
       raiseHands: 'Hands',
+      whiteboardAnnotationsLabel: 'Whiteboard Annotations',
+      sharedNotesLabel: 'Shared Notes',
+      attnLabel: 'ATTN',
+      riskLabel: 'RISK',
       firstCheck: 'First Check',
       lastCheck: 'Last Check',
       idleActive: 'Idle / Active',
@@ -337,6 +344,8 @@ const ROOM_COPY = {
       joinTime: 'Giris',
       leaveTime: 'Cikis',
       onlineTime: 'Cevrimici Sure',
+      talkTime: 'Konusma suresi',
+      webcamTime: 'Webcam suresi',
       checksOkLabel: 'ATT OK',
       checksMissedLabel: 'ATT MISSED',
       checksLateLabel: 'Gec',
@@ -348,7 +357,12 @@ const ROOM_COPY = {
       quizMissedLabel: 'QUIZ Kacirildi',
       pollAnswers: 'Anket',
       chatMessages: 'Mesaj',
+      reactionsLabel: 'Tepkiler',
       raiseHands: 'El Kaldirma',
+      whiteboardAnnotationsLabel: 'Beyaz Tahta Notlari',
+      sharedNotesLabel: 'Paylasilan Notlar',
+      attnLabel: 'ATTN',
+      riskLabel: 'RISK',
       firstCheck: 'Ilk Kontrol',
       lastCheck: 'Son Kontrol',
       idleActive: 'Pasif / Aktif',
@@ -1190,6 +1204,9 @@ export default function FeatureTabs({ room }) {
         pollAnswers: 0,
         raiseHands: 0,
         lowerHands: 0,
+        reactionCount: 0,
+        whiteboardAnnotationsCount: 0,
+        sharedNotesCount: 0,
         eventCount: 0,
       };
       const eventAt = normalizeDate(event.event_at);
@@ -1201,6 +1218,9 @@ export default function FeatureTabs({ room }) {
       if (eventType === 'poll_answered') bucket.pollAnswers += 1;
       if (eventType === 'raise_hand') bucket.raiseHands += 1;
       if (eventType === 'lower_hand') bucket.lowerHands += 1;
+      if (eventType === 'reaction') bucket.reactionCount += 1;
+      if (eventType === 'whiteboard_annotation') bucket.whiteboardAnnotationsCount += 1;
+      if (eventType === 'shared_notes') bucket.sharedNotesCount += 1;
       if (eventType) bucket.eventCount += 1;
 
       timelineByUser.set(key, bucket);
@@ -1232,6 +1252,8 @@ export default function FeatureTabs({ room }) {
         blurCount: 0,
         idleCount: 0,
         activeCount: 0,
+        talkSeconds: 0,
+        webcamSeconds: 0,
         score: 0,
         firstCheckAt: user.first_check_at || '',
         lastCheckAt: user.last_check_at || '',
@@ -1262,6 +1284,8 @@ export default function FeatureTabs({ room }) {
         blurCount: 0,
         idleCount: 0,
         activeCount: 0,
+        talkSeconds: 0,
+        webcamSeconds: 0,
         score: 0,
         firstCheckAt: '',
         lastCheckAt: '',
@@ -1276,6 +1300,20 @@ export default function FeatureTabs({ room }) {
       existing.genericChecksMissed = safeNumber(user.checks_missed) || existing.genericChecksMissed;
       existing.firstCheckAt = user.first_check_at || existing.firstCheckAt;
       existing.lastCheckAt = user.last_check_at || existing.lastCheckAt;
+      existing.talkSeconds = safeNumber(
+        user.talk_seconds
+        || user.talk_time_seconds
+        || user.talk_time
+        || user.talkTimeSeconds
+        || user.talkTime,
+      );
+      existing.webcamSeconds = safeNumber(
+        user.webcam_seconds
+        || user.webcam_time_seconds
+        || user.webcam_time
+        || user.webcamTimeSeconds
+        || user.webcamTime,
+      );
       rowMap.set(key, existing);
     });
 
@@ -1303,6 +1341,8 @@ export default function FeatureTabs({ room }) {
         blurCount: 0,
         idleCount: 0,
         activeCount: 0,
+        talkSeconds: 0,
+        webcamSeconds: 0,
         score: 0,
       };
 
@@ -1318,6 +1358,20 @@ export default function FeatureTabs({ room }) {
       existing.idleCount = safeNumber(user.idle_count);
       existing.activeCount = safeNumber(user.active_count);
       existing.score = safeNumber(user.compliance_score);
+      existing.talkSeconds = safeNumber(
+        user.talk_seconds
+        || user.talk_time_seconds
+        || user.talk_time
+        || user.talkTimeSeconds
+        || user.talkTime,
+      ) || existing.talkSeconds;
+      existing.webcamSeconds = safeNumber(
+        user.webcam_seconds
+        || user.webcam_time_seconds
+        || user.webcam_time
+        || user.webcamTimeSeconds
+        || user.webcamTime,
+      ) || existing.webcamSeconds;
       rowMap.set(key, existing);
     });
 
@@ -1329,6 +1383,9 @@ export default function FeatureTabs({ room }) {
         pollAnswers: 0,
         raiseHands: 0,
         lowerHands: 0,
+        reactionCount: 0,
+        whiteboardAnnotationsCount: 0,
+        sharedNotesCount: 0,
         eventCount: 0,
       };
       const firstJoinAt = timeline.joins.length
@@ -1419,10 +1476,15 @@ export default function FeatureTabs({ room }) {
         pollAnswers: timeline.pollAnswers,
         raiseHands: timeline.raiseHands,
         lowerHands: timeline.lowerHands,
+        reactionCount: timeline.reactionCount,
+        whiteboardAnnotationsCount: timeline.whiteboardAnnotationsCount,
+        sharedNotesCount: timeline.sharedNotesCount,
         activityEvents: timeline.eventCount,
         activityScore,
         engagementScore,
         checkPassRate,
+        talkSeconds: row.talkSeconds,
+        webcamSeconds: row.webcamSeconds,
         statusLabel,
         statusClass,
         meetingDurationSeconds,
@@ -1766,12 +1828,23 @@ export default function FeatureTabs({ room }) {
       { label: copy.history.userIdLabel, value: selectedParticipantRow.userId || '-' },
       { label: copy.history.role, value: selectedParticipantRow.role || '-' },
       { label: copy.history.status, value: selectedParticipantRow.statusLabel || '-' },
+      {
+        label: copy.history.riskLabel,
+        value: selectedParticipantRow.statusClass === 'is-bad'
+          ? copy.history.statusRisk
+          : selectedParticipantRow.statusClass === 'is-warn'
+            ? copy.history.statusWatch
+            : copy.history.statusStrong,
+      },
       { label: copy.history.joinTime, value: formatDateTime(selectedParticipantRow.firstJoinAt, language) },
       { label: copy.history.leaveTime, value: formatDateTime(selectedParticipantRow.lastLeaveAt, language) },
       { label: copy.history.onlineTime, value: formatDuration(selectedParticipantRow.onlineSeconds, language) },
+      { label: copy.history.talkTime, value: formatDuration(selectedParticipantRow.talkSeconds, language) },
+      { label: copy.history.webcamTime, value: formatDuration(selectedParticipantRow.webcamSeconds, language) },
       { label: copy.history.firstCheck, value: formatDateTime(selectedParticipantRow.firstCheckAt, language) },
       { label: copy.history.lastCheck, value: formatDateTime(selectedParticipantRow.lastCheckAt, language) },
       { label: copy.history.idleActive, value: `${selectedParticipantRow.idleCount}/${selectedParticipantRow.activeCount}` },
+      { label: copy.history.attnLabel, value: `${participantAttentionScore}%` },
       { label: copy.history.attendanceScore, value: `${selectedParticipantRow.attendanceScore}%` },
       { label: copy.history.attentionScore, value: `${participantAttentionScore}%` },
       { label: copy.history.engagementScore, value: `${selectedParticipantRow.engagementScore}%` },
@@ -1779,6 +1852,8 @@ export default function FeatureTabs({ room }) {
     ] : [];
 
     const checksRows = selectedParticipantRow ? [
+      { label: copy.history.talkTime, value: formatDuration(selectedParticipantRow.talkSeconds, language) },
+      { label: copy.history.webcamTime, value: formatDuration(selectedParticipantRow.webcamSeconds, language) },
       { label: copy.history.attendanceTotalLabel, value: selectedParticipantRow.attendanceTotal },
       { label: copy.history.checksOkLabel, value: selectedParticipantRow.attendanceOk },
       { label: copy.history.checksLateLabel, value: selectedParticipantRow.attendanceLate },
@@ -1789,11 +1864,14 @@ export default function FeatureTabs({ room }) {
       { label: copy.history.quizLateLabel, value: selectedParticipantRow.quizLate },
       { label: copy.history.quizMissedLabel, value: selectedParticipantRow.quizMissed },
       { label: copy.history.chatMessages, value: selectedParticipantRow.chatCount },
+      { label: copy.history.reactionsLabel, value: safeNumber(selectedParticipantRow.reactionCount) },
       { label: copy.history.pollAnswers, value: selectedParticipantRow.pollAnswers },
       { label: copy.history.focusBlur, value: `${selectedParticipantRow.focusCount}/${selectedParticipantRow.blurCount}` },
       { label: copy.history.focusRate, value: `${selectedParticipantRow.focusRate}%` },
       { label: copy.history.checkPass, value: `${selectedParticipantRow.checkPassRate}%` },
       { label: copy.history.raiseHands, value: `${selectedParticipantRow.raiseHands}/${selectedParticipantRow.lowerHands}` },
+      { label: copy.history.whiteboardAnnotationsLabel, value: safeNumber(selectedParticipantRow.whiteboardAnnotationsCount) },
+      { label: copy.history.sharedNotesLabel, value: safeNumber(selectedParticipantRow.sharedNotesCount) },
       { label: copy.history.events, value: selectedParticipantRow.activityEvents },
     ] : [];
 
