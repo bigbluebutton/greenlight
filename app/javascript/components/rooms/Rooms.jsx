@@ -352,9 +352,18 @@ const WORKSPACE_COPY = {
       statusRisk: 'At Risk',
       statusNoEvidence: 'No Evidence',
       attentionScore: 'Attention score',
+      attnLabel: 'ATTN',
+      riskLabel: 'RISK',
       engagementScore: 'Engagement score',
       activityMetric: 'Activity score',
       onlineTime: 'Online time',
+      talkTime: 'Talk time',
+      webcamTime: 'Webcam time',
+      messagesLabel: 'Messages',
+      reactionsLabel: 'Reactions',
+      raiseHandsLabel: 'Raise Hands',
+      whiteboardAnnotationsLabel: 'Whiteboard Annotations',
+      sharedNotesLabel: 'Shared Notes',
       analyticsTab: 'Analytics',
       checksTab: 'Checks',
       attributeName: 'Attribute',
@@ -701,9 +710,18 @@ const WORKSPACE_COPY = {
       statusRisk: 'Riskli',
       statusNoEvidence: 'Kanit Yok',
       attentionScore: 'Dikkat skoru',
+      attnLabel: 'ATTN',
+      riskLabel: 'RISK',
       engagementScore: 'Etkilesim skoru',
       activityMetric: 'Aktivite skoru',
       onlineTime: 'Cevrimici sure',
+      talkTime: 'Konusma suresi',
+      webcamTime: 'Webcam suresi',
+      messagesLabel: 'Mesajlar',
+      reactionsLabel: 'Tepkiler',
+      raiseHandsLabel: 'El Kaldirma',
+      whiteboardAnnotationsLabel: 'Beyaz Tahta Notlari',
+      sharedNotesLabel: 'Paylasilan Notlar',
       analyticsTab: 'Analitik',
       checksTab: 'Kontroller',
       attributeName: 'Ozellik',
@@ -1699,6 +1717,9 @@ function ScheduleWorkspace({
         pollAnswers: 0,
         raiseHands: 0,
         lowerHands: 0,
+        reactionCount: 0,
+        whiteboardAnnotationsCount: 0,
+        sharedNotesCount: 0,
         eventCount: 0,
       };
       const eventAt = event.event_at ? new Date(event.event_at) : null;
@@ -1710,6 +1731,9 @@ function ScheduleWorkspace({
       if (eventType === 'poll_answered') bucket.pollAnswers += 1;
       if (eventType === 'raise_hand') bucket.raiseHands += 1;
       if (eventType === 'lower_hand') bucket.lowerHands += 1;
+      if (eventType === 'reaction') bucket.reactionCount += 1;
+      if (eventType === 'whiteboard_annotation') bucket.whiteboardAnnotationsCount += 1;
+      if (eventType === 'shared_notes') bucket.sharedNotesCount += 1;
       if (eventType) bucket.eventCount += 1;
 
       timelineByUser.set(key, bucket);
@@ -1741,6 +1765,8 @@ function ScheduleWorkspace({
         blurCount: 0,
         idleCount: 0,
         activeCount: 0,
+        talkSeconds: 0,
+        webcamSeconds: 0,
         score: 0,
         firstCheckAt: user.first_check_at || '',
         lastCheckAt: user.last_check_at || '',
@@ -1771,6 +1797,8 @@ function ScheduleWorkspace({
         blurCount: 0,
         idleCount: 0,
         activeCount: 0,
+        talkSeconds: 0,
+        webcamSeconds: 0,
         score: 0,
         firstCheckAt: '',
         lastCheckAt: '',
@@ -1785,6 +1813,20 @@ function ScheduleWorkspace({
       existing.genericChecksMissed = safeNumber(user.checks_missed);
       existing.firstCheckAt = user.first_check_at || existing.firstCheckAt;
       existing.lastCheckAt = user.last_check_at || existing.lastCheckAt;
+      existing.talkSeconds = safeNumber(
+        user.talk_seconds
+        || user.talk_time_seconds
+        || user.talk_time
+        || user.talkTimeSeconds
+        || user.talkTime,
+      );
+      existing.webcamSeconds = safeNumber(
+        user.webcam_seconds
+        || user.webcam_time_seconds
+        || user.webcam_time
+        || user.webcamTimeSeconds
+        || user.webcamTime,
+      );
       rowMap.set(key, existing);
     });
 
@@ -1812,6 +1854,8 @@ function ScheduleWorkspace({
         blurCount: 0,
         idleCount: 0,
         activeCount: 0,
+        talkSeconds: 0,
+        webcamSeconds: 0,
         score: 0,
         firstCheckAt: '',
         lastCheckAt: '',
@@ -1829,6 +1873,20 @@ function ScheduleWorkspace({
       existing.idleCount = safeNumber(user.idle_count);
       existing.activeCount = safeNumber(user.active_count);
       existing.score = safeNumber(user.compliance_score);
+      existing.talkSeconds = safeNumber(
+        user.talk_seconds
+        || user.talk_time_seconds
+        || user.talk_time
+        || user.talkTimeSeconds
+        || user.talkTime,
+      ) || existing.talkSeconds;
+      existing.webcamSeconds = safeNumber(
+        user.webcam_seconds
+        || user.webcam_time_seconds
+        || user.webcam_time
+        || user.webcamTimeSeconds
+        || user.webcamTime,
+      ) || existing.webcamSeconds;
       rowMap.set(key, existing);
     });
 
@@ -1841,6 +1899,9 @@ function ScheduleWorkspace({
           pollAnswers: 0,
           raiseHands: 0,
           lowerHands: 0,
+          reactionCount: 0,
+          whiteboardAnnotationsCount: 0,
+          sharedNotesCount: 0,
           eventCount: 0,
         };
         const firstJoinAt = timeline.joins.length
@@ -1924,7 +1985,12 @@ function ScheduleWorkspace({
           pollAnswers: timeline.pollAnswers,
           raiseHands: timeline.raiseHands,
           lowerHands: timeline.lowerHands,
+          reactionCount: timeline.reactionCount,
+          whiteboardAnnotationsCount: timeline.whiteboardAnnotationsCount,
+          sharedNotesCount: timeline.sharedNotesCount,
           activityEvents: timeline.eventCount,
+          talkSeconds: row.talkSeconds,
+          webcamSeconds: row.webcamSeconds,
           statusLabel,
           statusClass,
           finalScore,
@@ -1980,14 +2046,27 @@ function ScheduleWorkspace({
     { label: scheduleCopy.creator, value: reportMeeting?.creator || '-' },
     { label: copy.recordingsDetail.user, value: selectedParticipantRow.user || '-' },
     { label: scheduleCopy.statusLabel, value: selectedParticipantRow.statusLabel || '-' },
+    {
+      label: scheduleCopy.riskLabel,
+      value: selectedParticipantRow.statusClass === 'is-bad'
+        ? scheduleCopy.statusRisk
+        : selectedParticipantRow.statusClass === 'is-warn'
+          ? scheduleCopy.statusWatch
+          : scheduleCopy.statusStrong,
+    },
     { label: scheduleCopy.start, value: formatDateTime(selectedParticipantRow.firstJoinAt, language) },
     { label: scheduleCopy.end, value: formatDateTime(selectedParticipantRow.lastLeaveAt, language) },
     { label: scheduleCopy.onlineTime, value: formatDuration(selectedParticipantRow.onlineSeconds, language) },
+    { label: scheduleCopy.talkTime, value: formatDuration(selectedParticipantRow.talkSeconds, language) },
+    { label: scheduleCopy.webcamTime, value: formatDuration(selectedParticipantRow.webcamSeconds, language) },
+    { label: scheduleCopy.attnLabel, value: `${selectedParticipantRow.attentionScore}%` },
     { label: scheduleCopy.attentionScore, value: `${selectedParticipantRow.attentionScore}%` },
     { label: scheduleCopy.engagementScore, value: `${selectedParticipantRow.engagementScore}%` },
     { label: scheduleCopy.activityMetric, value: `${selectedParticipantRow.activityScore}%` },
   ] : [];
   const participantChecksRows = selectedParticipantRow ? [
+    { label: scheduleCopy.talkTime, value: formatDuration(selectedParticipantRow.talkSeconds, language) },
+    { label: scheduleCopy.webcamTime, value: formatDuration(selectedParticipantRow.webcamSeconds, language) },
     { label: 'ATT Total', value: selectedParticipantRow.attendanceTotal },
     { label: 'ATT OK', value: selectedParticipantRow.attendanceOk },
     { label: 'ATT LATE', value: selectedParticipantRow.attendanceLate },
@@ -1995,9 +2074,12 @@ function ScheduleWorkspace({
     { label: 'QUIZ Total', value: selectedParticipantRow.quizTotal },
     { label: 'QUIZ OK', value: selectedParticipantRow.quizOk },
     { label: 'QUIZ NOK', value: selectedParticipantRow.quizNok },
-    { label: 'Messages', value: selectedParticipantRow.chatCount },
+    { label: scheduleCopy.messagesLabel, value: selectedParticipantRow.chatCount },
+    { label: scheduleCopy.reactionsLabel, value: safeNumber(selectedParticipantRow.reactionCount) },
     { label: 'Polls', value: selectedParticipantRow.pollAnswers },
-    { label: 'Hands', value: `${selectedParticipantRow.raiseHands}/${selectedParticipantRow.lowerHands}` },
+    { label: scheduleCopy.raiseHandsLabel, value: `${selectedParticipantRow.raiseHands}/${selectedParticipantRow.lowerHands}` },
+    { label: scheduleCopy.whiteboardAnnotationsLabel, value: safeNumber(selectedParticipantRow.whiteboardAnnotationsCount) },
+    { label: scheduleCopy.sharedNotesLabel, value: safeNumber(selectedParticipantRow.sharedNotesCount) },
     { label: 'Focus / Blur', value: `${selectedParticipantRow.focusCount}/${selectedParticipantRow.blurCount}` },
     { label: scheduleCopy.reportAttendance, value: `${selectedParticipantRow.attendanceScore}%` },
   ] : [];
