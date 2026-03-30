@@ -7,9 +7,11 @@ import {
   FolderIcon,
   LinkIcon,
 } from '@heroicons/react/24/outline';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import useRooms from '../../hooks/queries/rooms/useRooms';
 import Presentation from '../rooms/room/presentation/Presentation';
+import { getCurrentLanguage } from '../../helpers/LanguageHelper';
 
 const FILES_MODULE_COPY = {
   en: {
@@ -31,20 +33,20 @@ const FILES_MODULE_COPY = {
   },
   tr: {
     eyebrow: 'Dosyalar',
-    title: 'Oturum ve Oda Dosyalari',
-    body: 'Sunum kutuphanenizi, paylasilan sablonlari ve oda varsayilanlarini tek bir yerden yonetin.',
-    roomScope: 'Dosya kapsami',
-    roomScopeBody: 'Yukleme ve varsayilan yonetimi icin bir oda secin. Degisiklikler secilen odaya aninda uygulanir.',
+    title: 'Oturum ve Oda Dosyaları',
+    body: 'Sunum kütüphanenizi, paylaşılan şablonları ve oda varsayılanlarını tek bir yerden yönetin.',
+    roomScope: 'Dosya kapsamı',
+    roomScopeBody: 'Yükleme ve varsayılan yönetimi için bir oda seçin. Değişiklikler seçilen odaya anında uygulanır.',
     room: 'Oda',
-    selectRoom: 'Oda secin',
-    loadingRooms: 'Odalar yukleniyor...',
+    selectRoom: 'Oda seçin',
+    loadingRooms: 'Odalar yükleniyor...',
     owner: 'Sahip',
-    roomType: 'Tur',
+    roomType: 'Tür',
     ownedRoom: 'Sahip olunan oda',
-    sharedRoom: 'Paylasilan oda',
-    openRoom: 'Oda detayini ac',
-    noRooms: 'Dosya yonetimi icin kullanilabilir oda yok.',
-    sharedOwner: 'Paylasim sahibi',
+    sharedRoom: 'Paylaşılan oda',
+    openRoom: 'Oda detayını aç',
+    noRooms: 'Dosya yönetimi için kullanılabilir oda yok.',
+    sharedOwner: 'Paylaşım sahibi',
   },
 };
 
@@ -71,8 +73,9 @@ function normalizeRoomOptions(rooms = [], currentUserName = '') {
 }
 
 export default function FilesWorkspace() {
+  const { i18n } = useTranslation();
   const currentUser = useAuth();
-  const language = currentUser?.language === 'tr' ? 'tr' : 'en';
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
   const copy = FILES_MODULE_COPY[language];
   const { data: rooms = [], isLoading: roomsLoading } = useRooms('');
 

@@ -1743,7 +1743,7 @@ body,
   padding-top: 2rem;
   padding-bottom: 1.6rem;
   display: grid;
-  grid-template-columns: minmax(260px, 1.25fr) minmax(420px, 1.9fr);
+  grid-template-columns: 1fr;
   gap: 1.5rem;
   align-items: start;
 }
@@ -1757,9 +1757,7 @@ body,
 }
 
 .ak-footer-columns {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  display: none !important;
 }
 
 .ak-footer-column {
@@ -1841,9 +1839,7 @@ body,
     padding: 2.4rem 1.5rem;
   }
 
-  .ak-footer-columns {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  .ak-footer-columns { display: none !important; }
 }
 
 @media (max-width: 767px) {
@@ -1939,9 +1935,7 @@ body,
     grid-template-columns: 1fr;
   }
 
-  .ak-footer-columns {
-    grid-template-columns: 1fr;
-  }
+  .ak-footer-columns { display: none !important; }
 
   .ak-footer-meta {
     flex-direction: column;
@@ -2399,6 +2393,7 @@ body,
 .ak-module-shell {
   display: grid;
   gap: 1.2rem;
+  margin-bottom: 1.15rem;
 }
 
 .ak-module-hero {
@@ -3602,6 +3597,44 @@ body,
   min-height: 36px;
   padding: 0.5rem 0.8rem;
   font-size: 0.8rem;
+}
+
+.ak-workspace-row-actions {
+  flex-wrap: nowrap;
+}
+
+.ak-workspace-action-icon-btn {
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  min-height: 30px;
+  border: 1px solid #dbe4f0;
+  border-radius: 0.65rem;
+  background: #ffffff;
+  color: #334155;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: transform 0.16s ease, border-color 0.16s ease, color 0.16s ease, background-color 0.16s ease;
+}
+
+.ak-workspace-action-icon-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.ak-workspace-action-icon-btn:hover {
+  transform: translateY(-1px);
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+.ak-workspace-action-icon-btn.is-danger:hover {
+  border-color: #ef4444;
+  background: #fef2f2;
+  color: #b91c1c;
 }
 
 .ak-workspace-table-footer {

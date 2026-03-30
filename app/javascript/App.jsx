@@ -28,6 +28,12 @@ import useSiteSetting from './hooks/queries/site_settings/useSiteSetting';
 import Title from './components/shared_components/utilities/Title';
 import useEnv from './hooks/queries/env/useEnv';
 import ModuleNavBar from './components/workspace/ModuleNavBar';
+import {
+  getCurrentLanguage,
+  getStoredLanguage,
+  normalizeLanguageCode,
+  persistLanguage,
+} from './helpers/LanguageHelper';
 
 const MARKETING_ROUTES = ['/', '/signin', '/signup', '/terms', '/privacy-policy', '/privacy'];
 
@@ -90,10 +96,18 @@ export default function App() {
   // i18n
   const { i18n } = useTranslation();
   useEffect(() => {
-    if (currentUser?.language) {
-      i18n.changeLanguage(currentUser.language);
+    const storedLanguage = getStoredLanguage();
+    const preferredLanguage = normalizeLanguageCode(storedLanguage || currentUser?.language || currentUser?.default_locale || 'en');
+    const currentLanguage = getCurrentLanguage(i18n, 'en');
+    if (preferredLanguage !== currentLanguage) {
+      i18n.changeLanguage(preferredLanguage);
     }
-  }, [currentUser?.language]);
+  }, [currentUser?.default_locale, currentUser?.language, i18n]);
+
+  useEffect(() => {
+    const activeLanguage = getCurrentLanguage(i18n, 'en');
+    persistLanguage(activeLanguage);
+  }, [i18n, i18n.resolvedLanguage]);
 
   // Greenlight V3 brand-color theming
   const { isLoading, data: brandColors } = useSiteSetting(['PrimaryColor', 'PrimaryColorLight']);

@@ -14,6 +14,7 @@ import {
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import PermissionChecker from '../../helpers/PermissionChecker';
 import useRoomConfigValue from '../../hooks/queries/rooms/useRoomConfigValue';
+import { getCurrentLanguage } from '../../helpers/LanguageHelper';
 
 const MODULE_LABELS = {
   en: {
@@ -29,10 +30,10 @@ const MODULE_LABELS = {
     home: 'Ana Sayfa',
     rooms: 'Odalar',
     sessions: 'Oturumlar',
-    recordings: 'Kayitlar',
+    recordings: 'Kayıtlar',
     files: 'Dosyalar',
     reports: 'Raporlar',
-    admin: 'Yonetim',
+    admin: 'Yönetim',
   },
 };
 
@@ -62,7 +63,7 @@ export default function ModuleNavBar() {
   const location = useLocation();
   const { i18n } = useTranslation();
   const { data: recordValue } = useRoomConfigValue('record');
-  const language = (i18n.resolvedLanguage || i18n.language || 'en').toLowerCase().startsWith('tr') ? 'tr' : 'en';
+  const language = getCurrentLanguage(i18n, 'en');
   const labels = MODULE_LABELS[language];
   const canViewRecordings = recordValue !== 'false';
   const isAdmin = currentUser?.isSuperAdmin || PermissionChecker.isAdmin(currentUser);

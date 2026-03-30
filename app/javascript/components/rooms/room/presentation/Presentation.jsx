@@ -26,6 +26,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 import useUploadPresentation from '../../../../hooks/mutations/rooms/useUploadPresentation';
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
 import useRoomPresentationLibrary from '../../../../hooks/queries/rooms/useRoomPresentationLibrary';
@@ -35,6 +36,7 @@ import axios from '../../../../helpers/Axios';
 import Modal from '../../../shared_components/modals/Modal';
 import DeletePresentationForm from './forms/DeletePresentationForm';
 import { PRESENTATION_SUPPORTED_EXTENSIONS } from '../../../../helpers/FileValidationHelper';
+import { getCurrentLanguage } from '../../../../helpers/LanguageHelper';
 
 const FILE_LIBRARY_COPY = {
   en: {
@@ -64,30 +66,30 @@ const FILE_LIBRARY_COPY = {
     fileDeleteError: 'Unable to remove this file.',
   },
   tr: {
-    currentDefault: 'Mevcut varsayilan sunum',
-    noDefault: 'Henuz varsayilan bir sunum secilmedi.',
-    upload: 'Dosya Yukle',
-    viewCurrent: 'Mevcut dosyayi ac',
-    removeCurrent: 'Varsayilani kaldir',
-    myFiles: 'Dosyalarim',
-    sharedFiles: 'Paylasilan Klasor',
-    fileName: 'Dosya Adi',
-    owner: 'Olusturan / Sahip',
-    creationDate: 'Olusturma Tarihi',
-    type: 'Tur',
+    currentDefault: 'Mevcut varsayılan sunum',
+    noDefault: 'Henüz varsayılan bir sunum seçilmedi.',
+    upload: 'Dosya Yükle',
+    viewCurrent: 'Mevcut dosyayı aç',
+    removeCurrent: 'Varsayılanı kaldır',
+    myFiles: 'Dosyalarım',
+    sharedFiles: 'Paylaşılan Klasör',
+    fileName: 'Dosya Adı',
+    owner: 'Oluşturan / Sahip',
+    creationDate: 'Oluşturma Tarihi',
+    type: 'Tür',
     size: 'Boyut',
-    actions: 'Islemler',
+    actions: 'İşlemler',
     room: 'Oda',
     currentRoom: 'Bu Oda',
-    setDefault: 'Varsayilan Yap',
-    view: 'Goruntule',
+    setDefault: 'Varsayılan Yap',
+    view: 'Görüntüle',
     delete: 'Sil',
-    loading: 'Dosyalar yukleniyor...',
-    emptyFolder: 'Bu klasorde henuz dosya yok.',
-    templateUpdated: 'Varsayilan sunum guncellendi.',
-    templateUpdateError: 'Bu dosya varsayilan sunum olarak ayarlanamadi.',
-    fileDeleted: 'Dosya kutuphanenizden kaldirildi.',
-    fileDeleteError: 'Bu dosya kaldirilamadi.',
+    loading: 'Dosyalar yükleniyor...',
+    emptyFolder: 'Bu klasörde henüz dosya yok.',
+    templateUpdated: 'Varsayılan sunum güncellendi.',
+    templateUpdateError: 'Bu dosya varsayılan sunum olarak ayarlanamadı.',
+    fileDeleted: 'Dosya kütüphanenizden kaldırıldı.',
+    fileDeleteError: 'Bu dosya kaldırılamadı.',
   },
 };
 
@@ -231,6 +233,7 @@ function FolderTable({
 }
 
 export default function Presentation({ friendlyId: friendlyIdProp = '' }) {
+  const { i18n } = useTranslation();
   const { friendlyId: routeFriendlyId } = useParams();
   const friendlyId = friendlyIdProp || routeFriendlyId;
   const { data: room } = useRoom(friendlyId);
@@ -240,7 +243,7 @@ export default function Presentation({ friendlyId: friendlyIdProp = '' }) {
   const queryClient = useQueryClient();
   const fileInputRef = useRef(null);
   const uploadPresentation = useUploadPresentation(friendlyId);
-  const language = currentUser?.language === 'tr' ? 'tr' : 'en';
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
   const copy = FILE_LIBRARY_COPY[language];
 
   const applyTemplate = useMutation(
