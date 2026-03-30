@@ -30,18 +30,20 @@ import useRoomStatus from '../../../hooks/mutations/rooms/useRoomStatus';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import useRecordingsReSync from '../../../hooks/mutations/admin/server_recordings/useRecordingsReSync';
 import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
+import { getCurrentLanguage } from '../../../helpers/LanguageHelper';
 
 export default function ServerRoomRow({ room }) {
   const {
     friendly_id: friendlyId, name, owner, last_session: lastSession, online, participants,
   } = room;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const mutationWrapper = (args) => useDeleteServerRoom({ friendlyId, ...args });
   const startMeeting = useStartMeeting(friendlyId);
   const currentUser = useAuth();
   const roomStatusAPI = useRoomStatus(friendlyId);
   const recordingsResyncAPI = useRecordingsReSync(friendlyId);
-  const localizedTime = localizeDateTimeString(room?.last_session, currentUser?.language);
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
+  const localizedTime = localizeDateTimeString(room?.last_session, language);
 
   // TODO - samuel: useRoomStatus will not work if room has an access code. Will need to add bypass in MeetingController
   const handleJoin = () => roomStatusAPI.mutate({ name: currentUser.name });

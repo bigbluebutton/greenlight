@@ -34,14 +34,16 @@ import DeleteUserForm from './forms/DeleteUserForm';
 import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
 import RoleBadge from '../roles/RoleBadge';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
+import { getCurrentLanguage } from '../../../helpers/LanguageHelper';
 
 export default function ManageUserRow({ user }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentUser = useAuth();
 
   const mutationWrapper = (args) => useCreateServerRoom({ userId: user.id, ...args });
   const updateUserStatus = useUpdateUserStatus();
-  const localizedTime = localizeDateTimeString(user?.created_at, currentUser?.language);
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
+  const localizedTime = localizeDateTimeString(user?.created_at, language);
 
   return (
     <tr key={user.id} className="align-middle text-muted border border-2">

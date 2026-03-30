@@ -19,6 +19,11 @@ import { ChevronDownIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { Dropdown, Nav, Navbar } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import {
+  getCurrentLanguage,
+  normalizeLanguageCode,
+  persistLanguage,
+} from '../../helpers/LanguageHelper';
 
 const NAV_COPY = {
   en: {
@@ -30,11 +35,11 @@ const NAV_COPY = {
     bookDemo: 'Book a Demo',
   },
   tr: {
-    features: 'Ozellikler',
-    governance: 'Yonetisim',
-    pricing: 'Fiyatlandirma',
+    features: 'Özellikler',
+    governance: 'Yönetişim',
+    pricing: 'Fiyatlandırma',
     faq: 'SSS',
-    signIn: 'Giris Yap',
+    signIn: 'Giriş Yap',
     bookDemo: 'Demo Talebi',
   },
 };
@@ -59,8 +64,14 @@ export default function NavbarNotSignedIn() {
   const location = useLocation();
   const { i18n } = useTranslation();
   const isHome = location.pathname === '/';
-  const language = (i18n.resolvedLanguage || i18n.language || 'en').toLowerCase().startsWith('tr') ? 'tr' : 'en';
+  const language = getCurrentLanguage(i18n, 'en');
   const copy = NAV_COPY[language];
+
+  const changeLanguage = (nextLanguage) => {
+    const normalizedLanguage = normalizeLanguageCode(nextLanguage);
+    persistLanguage(normalizedLanguage);
+    i18n.changeLanguage(normalizedLanguage);
+  };
 
   return (
     <>
@@ -77,10 +88,10 @@ export default function NavbarNotSignedIn() {
             </>
           )}
           <div className="ak-lang-mobile-group">
-            <button type="button" className={`ak-lang-mobile-option ${language === 'en' ? 'active' : ''}`} onClick={() => { i18n.changeLanguage('en'); }}>
+            <button type="button" className={`ak-lang-mobile-option ${language === 'en' ? 'active' : ''}`} onClick={() => { changeLanguage('en'); }}>
               EN
             </button>
-            <button type="button" className={`ak-lang-mobile-option ${language === 'tr' ? 'active' : ''}`} onClick={() => { i18n.changeLanguage('tr'); }}>
+            <button type="button" className={`ak-lang-mobile-option ${language === 'tr' ? 'active' : ''}`} onClick={() => { changeLanguage('tr'); }}>
               TR
             </button>
           </div>
@@ -106,12 +117,12 @@ export default function NavbarNotSignedIn() {
             <ChevronDownIcon className="ak-lang-chevron" aria-hidden="true" />
           </Dropdown.Toggle>
           <Dropdown.Menu className="ak-lang-dropdown-menu">
-            <Dropdown.Item active={language === 'en'} onClick={() => { i18n.changeLanguage('en'); }}>
+            <Dropdown.Item active={language === 'en'} onClick={() => { changeLanguage('en'); }}>
               <span>English</span>
               <small>EN</small>
             </Dropdown.Item>
-            <Dropdown.Item active={language === 'tr'} onClick={() => { i18n.changeLanguage('tr'); }}>
-              <span>Turkce</span>
+            <Dropdown.Item active={language === 'tr'} onClick={() => { changeLanguage('tr'); }}>
+              <span>Türkçe</span>
               <small>TR</small>
             </Dropdown.Item>
           </Dropdown.Menu>

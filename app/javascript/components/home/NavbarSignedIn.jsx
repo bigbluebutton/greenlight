@@ -31,6 +31,11 @@ import PropTypes from 'prop-types';
 import useDeleteSession from '../../hooks/mutations/sessions/useDeleteSession';
 import Avatar from '../users/user/Avatar';
 import useSiteSetting from '../../hooks/queries/site_settings/useSiteSetting';
+import {
+  getCurrentLanguage,
+  normalizeLanguageCode,
+  persistLanguage,
+} from '../../helpers/LanguageHelper';
 
 const LanguageToggle = React.forwardRef(({ children, onClick, className }, ref) => (
   <button
@@ -52,7 +57,13 @@ export default function NavbarSignedIn({ currentUser }) {
   const { t, i18n } = useTranslation();
   const deleteSession = useDeleteSession({ showToast: true });
   const { data: helpCenter } = useSiteSetting('HelpCenter');
-  const language = (i18n.resolvedLanguage || i18n.language || 'en').toLowerCase().startsWith('tr') ? 'tr' : 'en';
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
+
+  const changeLanguage = (nextLanguage) => {
+    const normalizedLanguage = normalizeLanguageCode(nextLanguage);
+    persistLanguage(normalizedLanguage);
+    i18n.changeLanguage(normalizedLanguage);
+  };
 
   const adminAccess = () => {
     const { permissions } = currentUser;
@@ -82,10 +93,10 @@ export default function NavbarSignedIn({ currentUser }) {
       <Navbar.Collapse id="navbar-menu" className="bg-white w-100 position-absolute">
         <Nav className="d-block d-sm-none text-black px-2">
           <div className="ak-lang-mobile-group">
-            <button type="button" className={`ak-lang-mobile-option ${language === 'en' ? 'active' : ''}`} onClick={() => { i18n.changeLanguage('en'); }}>
+            <button type="button" className={`ak-lang-mobile-option ${language === 'en' ? 'active' : ''}`} onClick={() => { changeLanguage('en'); }}>
               EN
             </button>
-            <button type="button" className={`ak-lang-mobile-option ${language === 'tr' ? 'active' : ''}`} onClick={() => { i18n.changeLanguage('tr'); }}>
+            <button type="button" className={`ak-lang-mobile-option ${language === 'tr' ? 'active' : ''}`} onClick={() => { changeLanguage('tr'); }}>
               TR
             </button>
           </div>
@@ -130,12 +141,12 @@ export default function NavbarSignedIn({ currentUser }) {
             <ChevronDownIcon className="ak-lang-chevron" aria-hidden="true" />
           </Dropdown.Toggle>
           <Dropdown.Menu className="ak-lang-dropdown-menu">
-            <Dropdown.Item active={language === 'en'} onClick={() => { i18n.changeLanguage('en'); }}>
+            <Dropdown.Item active={language === 'en'} onClick={() => { changeLanguage('en'); }}>
               <span>English</span>
               <small>EN</small>
             </Dropdown.Item>
-            <Dropdown.Item active={language === 'tr'} onClick={() => { i18n.changeLanguage('tr'); }}>
-              <span>Turkce</span>
+            <Dropdown.Item active={language === 'tr'} onClick={() => { changeLanguage('tr'); }}>
+              <span>Türkçe</span>
               <small>TR</small>
             </Dropdown.Item>
           </Dropdown.Menu>

@@ -27,14 +27,16 @@ import Spinner from '../shared_components/utilities/Spinner';
 import useStartMeeting from '../../hooks/mutations/rooms/useStartMeeting';
 import MeetingBadges from './MeetingBadges';
 import UserBoardIcon from './UserBoardIcon';
+import { getCurrentLanguage } from '../../helpers/LanguageHelper';
 
 export default function RoomCard({ room }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const handleClick = useCallback(() => { navigate(room.friendly_id); }, [room.friendly_id]);
   const startMeeting = useStartMeeting(room.friendly_id);
   const currentUser = useAuth();
-  const localizedTime = localizeDateTimeString(room?.last_session, currentUser?.language);
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
+  const localizedTime = localizeDateTimeString(room?.last_session, language);
 
   function copyInvite(friendlyId) {
     navigator.clipboard.writeText(`${window.location}/${friendlyId}/join`);

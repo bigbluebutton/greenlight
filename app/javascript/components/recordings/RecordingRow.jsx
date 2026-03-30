@@ -32,12 +32,13 @@ import { localizeDateTimeString } from '../../helpers/DateTimeHelper';
 import useRedirectRecordingUrl from '../../hooks/mutations/recordings/useRedirectRecordingUrl';
 import useCopyRecordingUrl from '../../hooks/mutations/recordings/useCopyRecordingUrl';
 import SimpleSelect from '../shared_components/utilities/SimpleSelect';
+import { getCurrentLanguage } from '../../helpers/LanguageHelper';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
   recording, visibilityMutation: useVisibilityAPI, deleteMutation: useDeleteAPI, adminTable, dropUp,
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const visibilityAPI = useVisibilityAPI();
   const [isEditing, setIsEditing] = useState(false);
@@ -49,7 +50,8 @@ export default function RecordingRow({
   const copyRecordingUrl = useCopyRecordingUrl();
   const allowedVisibilities = JSON.parse(currentUser.permissions?.AccessToVisibilities);
 
-  const localizedTime = localizeDateTimeString(recording?.recorded_at, currentUser?.language);
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
+  const localizedTime = localizeDateTimeString(recording?.recorded_at, language);
   const formats = recording.formats.sort(
     (a, b) => (a.recording_type.toLowerCase() > b.recording_type.toLowerCase() ? 1 : -1),
   );

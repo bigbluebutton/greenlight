@@ -43,9 +43,10 @@ import {
 } from '../../../helpers/RoomVisuals';
 import { fileValidation, handleError, IMAGE_SUPPORTED_EXTENSIONS } from '../../../helpers/FileValidationHelper';
 import axios from '../../../helpers/Axios';
+import { getCurrentLanguage } from '../../../helpers/LanguageHelper';
 
 export default function Room() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { friendlyId } = useParams();
   const {
     isLoading: isRoomLoading, data: room,
@@ -54,9 +55,9 @@ export default function Room() {
   const updateRoom = useUpdateRoom({ friendlyId });
   const queryClient = useQueryClient();
   const currentUser = useAuth();
-  const localizedTime = localizeDayDateTimeString(room?.last_session, currentUser?.language);
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
+  const localizedTime = localizeDayDateTimeString(room?.last_session, language);
   const roomSettings = useRoomSettings(friendlyId);
-  const language = currentUser?.language === 'tr' ? 'tr' : 'en';
   const [iconPickerOpen, setIconPickerOpen] = useState(false);
   const [roomIconKey, setRoomIconKey] = useState(() => getRoomIconKey(room));
   const roomVisual = useMemo(
@@ -65,20 +66,20 @@ export default function Room() {
   );
   const copy = language === 'tr' ? {
     breadcrumb: 'Odalar',
-    subtitle: 'Oda performansi, oturum akisi, erisim ve ayarlar tek yerde.',
-    live: 'Canli',
-    idle: 'Hazir',
-    shared: 'Paylasimli',
-    privateRoom: 'Ozel',
-    participants: 'Katilimci',
-    roomId: 'Oda Kimligi',
+    subtitle: 'Oda performansı, oturum akışı, erişim ve ayarlar tek yerde.',
+    live: 'Canlı',
+    idle: 'Hazır',
+    shared: 'Paylaşımlı',
+    privateRoom: 'Özel',
+    participants: 'Katılımcı',
+    roomId: 'Oda Kimliği',
     lastSession: 'Son oturum',
-    noSession: 'Henuz oturum yok',
-    loading: 'Oda yukleniyor...',
-    copy: 'Baglantiyi Kopyala',
-    changeIcon: 'Ikonu degistir',
-    uploadThumbnail: 'Gorsel yukle',
-    removeThumbnail: 'Yalnizca ikonu kullan',
+    noSession: 'Henüz oturum yok',
+    loading: 'Oda yükleniyor...',
+    copy: 'Bağlantıyı Kopyala',
+    changeIcon: 'İkonu değiştir',
+    uploadThumbnail: 'Görsel yükle',
+    removeThumbnail: 'Yalnızca ikonu kullan',
   } : {
     breadcrumb: 'Rooms',
     subtitle: 'Room performance, sessions, access, and settings in one workspace.',

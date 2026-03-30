@@ -27,18 +27,20 @@ import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import { localizeDateTimeString } from '../../../../helpers/DateTimeHelper';
 import useRedirectRecordingUrl from '../../../../hooks/mutations/recordings/useRedirectRecordingUrl';
 import useCopyRecordingUrl from '../../../../hooks/mutations/recordings/useCopyRecordingUrl';
+import { getCurrentLanguage } from '../../../../helpers/LanguageHelper';
 
 // TODO: Amir - Refactor this.
 export default function PublicRecordingRow({
   recording,
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const currentUser = useAuth();
   const redirectRecordingUrl = useRedirectRecordingUrl();
   const copyRecordingUrl = useCopyRecordingUrl();
 
-  const localizedTime = localizeDateTimeString(recording?.recorded_at, currentUser?.language);
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
+  const localizedTime = localizeDateTimeString(recording?.recorded_at, language);
   const formats = recording.formats.sort(
     (a, b) => (a.recording_type.toLowerCase() > b.recording_type.toLowerCase() ? 1 : -1),
   );

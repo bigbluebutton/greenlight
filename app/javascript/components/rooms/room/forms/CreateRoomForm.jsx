@@ -13,6 +13,7 @@ import useUserPresentationLibrary from '../../../../hooks/queries/rooms/useUserP
 import useGlobalPresentationTemplates from '../../../../hooks/queries/rooms/useGlobalPresentationTemplates';
 import { ROOM_ICON_OPTIONS, getRoomIconOption } from '../../../../helpers/RoomVisuals';
 import { IMAGE_SUPPORTED_EXTENSIONS, PRESENTATION_SUPPORTED_EXTENSIONS } from '../../../../helpers/FileValidationHelper';
+import { getCurrentLanguage } from '../../../../helpers/LanguageHelper';
 
 function SettingToggle({
   checked, description, disabled, onChange,
@@ -45,12 +46,12 @@ SettingToggle.defaultProps = {
 };
 
 export default function CreateRoomForm({ mutation: useCreateRoomAPI, userId, handleClose }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentUser = useAuth();
   const createRoomAPI = useCreateRoomAPI({ onSettled: handleClose });
   const { methods, fields } = useRoomForm({ defaultValues: { user_id: userId } });
   const [activePanel, setActivePanel] = useState('basics');
-  const language = currentUser?.language === 'tr' ? 'tr' : 'en';
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
   const canRecord = currentUser?.permissions?.CanRecord === 'true';
   const selectedIconKey = methods.watch('icon_key') || 'general';
   const selectedDestination = methods.watch('post_create_tab') || 'default';
@@ -76,39 +77,39 @@ export default function CreateRoomForm({ mutation: useCreateRoomAPI, userId, han
           files: 'Dosyalar',
         },
         iconLabel: 'Oda ikonu',
-        iconHelp: 'Oda listesinde ve detay sayfasinda gorunecek gorsel turu secin.',
-        thumbnailLabel: 'Oda gorseli yukle',
-        thumbnailHelp: 'Isterseniz secilen ikon yerine kullanilacak bir gorsel yukleyin.',
-        noThumbnail: 'Ozel gorsel secilmedi',
-        userSettings: 'Kullanici ayarlari',
-        record: 'Oda kaydina izin ver',
-        requireAuth: 'Katilim icin oturum acmayi zorunlu kil',
-        requireApproval: 'Katilim oncesi moderator onayi iste',
-        anyoneCanStart: 'Herhangi bir kullanici oturumu baslatabilsin',
-        allMods: 'Tum kullanicilar moderator olarak katilsin',
-        muteOnStart: 'Katilimcilar giriste sessize alinsin',
-        settingsHint: 'Bu ayarlar oda olusturulduktan hemen sonra uygulanir.',
-        settingsTitle: 'Olusturma sonrasi hedef',
-        settingsNow: 'Olustur ve Ayarlari ac',
-        settingsLater: 'Olustur ve Odalar listesine don',
-        filesTitle: 'Sunum ve oda dosyalari',
-        filesBody: 'Yeni bir sunum yukleyin veya kullanicinin mevcut dosya kutuphanesinden secin.',
-        uploadLabel: 'Yeni sunum yukle',
+        iconHelp: 'Oda listesinde ve detay sayfasında görünecek görsel türünü seçin.',
+        thumbnailLabel: 'Oda görseli yükle',
+        thumbnailHelp: 'İsterseniz seçilen ikon yerine kullanılacak bir görsel yükleyin.',
+        noThumbnail: 'Özel görsel seçilmedi',
+        userSettings: 'Kullanıcı ayarları',
+        record: 'Oda kaydına izin ver',
+        requireAuth: 'Katılım için oturum açmayı zorunlu kıl',
+        requireApproval: 'Katılım öncesi moderatör onayı iste',
+        anyoneCanStart: 'Herhangi bir kullanıcı oturumu başlatabilsin',
+        allMods: 'Tüm kullanıcılar moderatör olarak katılsın',
+        muteOnStart: 'Katılımcılar girişte sessize alınsın',
+        settingsHint: 'Bu ayarlar oda oluşturulduktan hemen sonra uygulanır.',
+        settingsTitle: 'Oluşturma sonrası hedef',
+        settingsNow: 'Oluştur ve Ayarları aç',
+        settingsLater: 'Oluştur ve Odalar listesine dön',
+        filesTitle: 'Sunum ve oda dosyaları',
+        filesBody: 'Yeni bir sunum yükleyin veya kullanıcının mevcut dosya kütüphanesinden seçin.',
+        uploadLabel: 'Yeni sunum yükle',
         uploadHelp: 'Desteklenen formatlar: DOC, PPT, PDF, XLS, TXT, ODT, ODS, ODP, JPG, PNG.',
-        selectedFile: 'Secili dosya',
-        noFile: 'Sunum secilmedi',
+        selectedFile: 'Seçili dosya',
+        noFile: 'Sunum seçilmedi',
         libraryLabel: 'Mevcut dosyalar',
-        myFiles: 'Dosyalarim',
-        sharedFiles: 'Paylasilan Klasor',
-        selectLibrary: 'Dosya secin',
-        loadingLibrary: 'Dosyalar yukleniyor...',
-        noLibrary: 'Kullanilabilir dosya bulunamadi',
-        selectedLibrary: 'Secili kutuphane dosyasi',
-        noLibrarySelected: 'Kutuphane dosyasi secilmedi',
-        filesNow: 'Olustur ve Dosyalari ac',
-        filesLater: 'Olustur ve Oda Detayini ac',
-        previewTitle: 'Secili gorunum',
-        previewBody: 'Secilen ikon ve varsa ozel gorsel oda ile birlikte kaydedilir. Oda olustuktan sonra degistirebilirsiniz.',
+        myFiles: 'Dosyalarım',
+        sharedFiles: 'Paylaşılan Klasör',
+        selectLibrary: 'Dosya seçin',
+        loadingLibrary: 'Dosyalar yükleniyor...',
+        noLibrary: 'Kullanılabilir dosya bulunamadı',
+        selectedLibrary: 'Seçili kütüphane dosyası',
+        noLibrarySelected: 'Kütüphane dosyası seçilmedi',
+        filesNow: 'Oluştur ve Dosyaları aç',
+        filesLater: 'Oluştur ve Oda Detayını aç',
+        previewTitle: 'Seçili görünüm',
+        previewBody: 'Seçilen ikon ve varsa özel görsel oda ile birlikte kaydedilir. Oda oluştuktan sonra değiştirebilirsiniz.',
       }
       : {
         tabs: {

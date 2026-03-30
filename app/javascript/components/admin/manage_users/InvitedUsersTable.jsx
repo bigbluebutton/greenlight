@@ -29,12 +29,14 @@ import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import ManageUsersInvitedRowPlaceHolder from './ManageUsersInvitedRowPlaceHolder';
 import useRevokeUserInvite from '../../../hooks/mutations/admin/manage_users/useRevokeUserInvite';
+import { getCurrentLanguage } from '../../../helpers/LanguageHelper';
 
 export default function InvitedUsersTable({ searchInput }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [page, setPage] = useState();
   const { isLoading, data: invitations } = useInvitations(searchInput, page);
   const currentUser = useAuth();
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
   const revokeUserInvite = useRevokeUserInvite();
 
   if (!searchInput && invitations?.data?.length === 0) {
@@ -72,7 +74,7 @@ export default function InvitedUsersTable({ searchInput }) {
                       invitations?.data?.map((invitation) => (
                         <tr key={invitation.email} className="align-middle text-muted">
                           <td className="text-dark border-0">{invitation.email}</td>
-                          <td className="text-dark border-0">{localizeDateTimeString(invitation.updated_at, currentUser?.language)}</td>
+                          <td className="text-dark border-0">{localizeDateTimeString(invitation.updated_at, language)}</td>
                           <td className="text-dark border-0">
                             { invitation.valid ? <CheckIcon className="text-success hi-s" /> : <XMarkIcon className="text-danger hi-s" />}
                           </td>

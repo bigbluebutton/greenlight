@@ -29,6 +29,7 @@ import useDeleteSharedAccess from '../../../../hooks/mutations/shared_accesses/u
 import useSharedUsers from '../../../../hooks/queries/shared_accesses/useSharedUsers';
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
+import { getCurrentLanguage } from '../../../../helpers/LanguageHelper';
 
 const PARTICIPANT_COPY = {
   en: {
@@ -46,23 +47,23 @@ const PARTICIPANT_COPY = {
     close: 'Close',
   },
   tr: {
-    participant: 'Katilimci',
+    participant: 'Katılımcı',
     email: 'E-posta',
     role: 'Rol',
-    access: 'Erisim',
-    actions: 'Islemler',
+    access: 'Erişim',
+    actions: 'İşlemler',
     roomOwner: 'Oda Sahibi',
-    sharedUser: 'Paylasilan Katilimci',
-    noUserFound: 'Katilimci bulunamadi.',
-    viewDetails: 'Detaylari gor',
-    detailTitle: 'Katilimci detaylari',
-    detailSubtitle: 'Bu oda katilimcisi icin profil ve erisim detaylari.',
+    sharedUser: 'Paylaşılan Katılımcı',
+    noUserFound: 'Katılımcı bulunamadı.',
+    viewDetails: 'Detayları gör',
+    detailTitle: 'Katılımcı detayları',
+    detailSubtitle: 'Bu oda katılımcısı için profil ve erişim detayları.',
     close: 'Kapat',
   },
 };
 
 export default function SharedAccess() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { friendlyId } = useParams();
   const [searchInput, setSearchInput] = useState('');
   const [selectedParticipant, setSelectedParticipant] = useState(null);
@@ -71,7 +72,7 @@ export default function SharedAccess() {
   const { data: room } = useRoom(friendlyId);
   const currentUser = useAuth();
   const isAdmin = currentUser?.role?.name === 'Administrator';
-  const language = currentUser?.language === 'tr' ? 'tr' : 'en';
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
   const copy = PARTICIPANT_COPY[language];
 
   const filteredParticipants = useMemo(() => {

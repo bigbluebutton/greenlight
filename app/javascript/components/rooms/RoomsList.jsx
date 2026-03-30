@@ -42,9 +42,42 @@ import NoSearchResults from '../shared_components/search/NoSearchResults';
 import Spinner from '../shared_components/utilities/Spinner';
 import { localizeDateTimeString } from '../../helpers/DateTimeHelper';
 import { getRoomVisual } from '../../helpers/RoomVisuals';
+import { getCurrentLanguage } from '../../helpers/LanguageHelper';
 
-function RoomTableRow({ room, language }) {
-  const { t } = useTranslation();
+const LIST_COPY = {
+  en: {
+    room: 'Room',
+    status: 'Status',
+    sharedBy: 'Shared By',
+    users: 'Users',
+    lastSession: 'Last Session',
+    actions: 'Actions',
+    live: 'Live',
+    idle: 'Idle',
+    detail: 'Detail',
+    joinLiveSession: 'Join Live Session',
+    startNewSession: 'Start New Session',
+    loadingRooms: 'Loading rooms...',
+    noLastSession: 'No session yet',
+  },
+  tr: {
+    room: 'Oda',
+    status: 'Durum',
+    sharedBy: 'Paylaşan',
+    users: 'Kullanıcı',
+    lastSession: 'Son Oturum',
+    actions: 'İşlemler',
+    live: 'Canlı',
+    idle: 'Hazır',
+    detail: 'Detay',
+    joinLiveSession: 'Canlı Oturuma Katıl',
+    startNewSession: 'Yeni Oturum Başlat',
+    loadingRooms: 'Odalar yükleniyor...',
+    noLastSession: 'Henüz oturum yok',
+  },
+};
+
+function RoomTableRow({ room, language, copy }) {
   const startMeeting = useStartMeeting(room.friendly_id);
   const localizedTime = room?.last_session ? localizeDateTimeString(room.last_session, language) : null;
   const roomVisual = getRoomVisual(room);
@@ -66,7 +99,7 @@ function RoomTableRow({ room, language }) {
       </td>
       <td>
         <span className={`ak-room-list-status ${room.online ? 'is-live' : 'is-idle'}`}>
-          {room.online ? t('online') : 'Idle'}
+          {room.online ? copy.live : copy.idle}
         </span>
       </td>
       <td>
@@ -86,7 +119,7 @@ function RoomTableRow({ room, language }) {
         {localizedTime ? (
           <span className="ak-room-list-muted">{localizedTime}</span>
         ) : (
-          <span className="ak-room-list-muted">{t('room.no_last_session')}</span>
+          <span className="ak-room-list-muted">{copy.noLastSession}</span>
         )}
       </td>
       <td className="text-end">
@@ -98,7 +131,7 @@ function RoomTableRow({ room, language }) {
             className="btn btn-sm ak-room-list-action-btn"
           >
             <ArrowTopRightOnSquareIcon className="hi-s me-1" />
-            Detail
+            {copy.detail}
           </Button>
           <Button
             variant="brand"
@@ -108,7 +141,7 @@ function RoomTableRow({ room, language }) {
           >
             {startMeeting.isLoading && <Spinner className="me-1" />}
             <PlayIcon className="hi-s me-1" />
-            {room.online ? 'Join Live Session' : 'Start New Session'}
+            {room.online ? copy.joinLiveSession : copy.startNewSession}
           </Button>
         </div>
       </td>
@@ -117,6 +150,14 @@ function RoomTableRow({ room, language }) {
 }
 
 RoomTableRow.propTypes = {
+  copy: PropTypes.shape({
+    detail: PropTypes.string.isRequired,
+    idle: PropTypes.string.isRequired,
+    joinLiveSession: PropTypes.string.isRequired,
+    live: PropTypes.string.isRequired,
+    noLastSession: PropTypes.string.isRequired,
+    startNewSession: PropTypes.string.isRequired,
+  }).isRequired,
   language: PropTypes.string.isRequired,
   room: PropTypes.shape({
     friendly_id: PropTypes.string.isRequired,
@@ -129,7 +170,7 @@ RoomTableRow.propTypes = {
 };
 
 export default function RoomsList({ topSpacingClass = 'pt-5' }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [searchInput, setSearchInput] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
@@ -138,7 +179,8 @@ export default function RoomsList({ topSpacingClass = 'pt-5' }) {
   const currentUserId = currentUser?.id;
   const canCreate = currentUser?.permissions?.CreateRoom;
   const mutationWrapper = (args) => useCreateRoom({ userId: currentUserId, ...args });
-  const currentLanguage = currentUser?.language || 'en';
+  const currentLanguage = getCurrentLanguage(i18n, currentUser?.language || 'en');
+  const copy = LIST_COPY[currentLanguage];
   const totalPages = useMemo(() => Math.max(Math.ceil((rooms?.length || 0) / rowsPerPage), 1), [rooms?.length, rowsPerPage]);
   const pagedRooms = useMemo(() => {
     if (!rooms?.length) return [];
@@ -187,12 +229,12 @@ export default function RoomsList({ topSpacingClass = 'pt-5' }) {
         <Table responsive className="ak-room-list-table mb-0">
           <thead>
             <tr>
-              <th>Room</th>
-              <th>Status</th>
-              <th>Shared By</th>
-              <th>Users</th>
-              <th>Last Session</th>
-              <th className="text-end">Actions</th>
+              <th>{copy.room}</th>
+              <th>{copy.status}</th>
+              <th>{copy.sharedBy}</th>
+              <th>{copy.users}</th>
+              <th>{copy.lastSession}</th>
+              <th className="text-end">{copy.actions}</th>
             </tr>
           </thead>
           <tbody>
@@ -200,13 +242,13 @@ export default function RoomsList({ topSpacingClass = 'pt-5' }) {
               <tr key={`loading-row-${idx}`}>
                 <td colSpan={6}>
                   <div className="ak-room-list-loading">
-                    <Badge bg="light" text="dark">Loading rooms...</Badge>
+                    <Badge bg="light" text="dark">{copy.loadingRooms}</Badge>
                   </div>
                 </td>
               </tr>
             ))}
             {!isLoading && rooms?.length > 0 && pagedRooms.map((room) => (
-              <RoomTableRow key={room.friendly_id} room={room} language={currentLanguage} />
+              <RoomTableRow key={room.friendly_id} room={room} language={currentLanguage} copy={copy} />
             ))}
           </tbody>
         </Table>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { getCurrentLanguage } from '../../helpers/LanguageHelper';
 
 const LEGAL_COPY = {
   en: {
@@ -112,104 +113,104 @@ const LEGAL_COPY = {
   tr: {
     terms: {
       badge: 'Yasal',
-      title: 'Kullanim Kosullari',
-      intro: 'Bu kosullar Akademio Live kullanimini duzenler. Platforma erisen veya platformu kullanan kurumlar ve kullanicilar bu kosullari kabul etmis sayilir.',
-      lastUpdatedLabel: 'Son guncelleme',
+      title: 'Kullanım Koşulları',
+      intro: 'Bu koşullar Akademio Live kullanımını düzenler. Platforma erişen veya platformu kullanan kurumlar ve kullanıcılar bu koşulları kabul etmiş sayılır.',
+      lastUpdatedLabel: 'Son güncelleme',
       lastUpdatedValue: '27 Mart 2026',
       sections: [
         {
-          title: 'Platform Kullanimi',
+          title: 'Platform Kullanımı',
           paragraphs: [
-            'Akademio Live, yasal egitim ve kurumsal egitim operasyonlari icin sunulur. Hizmeti sistem butunlugunu ve diger kullanicilari koruyacak sekilde kullanmalisiniz.',
+            'Akademio Live, yasal eğitim ve kurumsal eğitim operasyonları için sunulur. Hizmeti sistem bütünlüğünü ve diğer kullanıcıları koruyacak şekilde kullanmalısınız.',
           ],
           bullets: [
-            'Yalnizca yetkili hesaplar kullanilmalidir.',
-            'Yetkisiz erisim, tarama veya kesinti girisimleri yasaktir.',
-            'Kurum ici ve mevzuat uyumluluk kurallarina uyulmalidir.',
+            'Yalnızca yetkili hesaplar kullanılmalıdır.',
+            'Yetkisiz erişim, tarama veya kesinti girişimleri yasaktır.',
+            'Kurum içi ve mevzuat uyumluluk kurallarına uyulmalıdır.',
           ],
         },
         {
-          title: 'Hesaplar ve Erisim',
+          title: 'Hesaplar ve Erişim',
           paragraphs: [
-            'Hesap sahipleri, kimlik bilgileri, rol atamalari ve hesap uzerinden yapilan islemlerden sorumludur.',
+            'Hesap sahipleri, kimlik bilgileri, rol atamaları ve hesap üzerinden yapılan işlemlerden sorumludur.',
           ],
           bullets: [
-            'Kimlik dogrulama bilgilerini guvenli tutun.',
-            'En az yetki prensibi ile rol atayin.',
-            'Supheli hesap ihlallerini hemen bildirin.',
+            'Kimlik doğrulama bilgilerini güvenli tutun.',
+            'En az yetki prensibi ile rol atayın.',
+            'Şüpheli hesap ihlallerini hemen bildirin.',
           ],
         },
         {
-          title: 'Veri, Kanit ve Saklama',
+          title: 'Veri, Kanıt ve Saklama',
           paragraphs: [
-            'Katilim kanitlari, oturum metaverisi ve ilgili kayitlar kurulum ayarlariniza ve kurum politikaniza gore yonetilir.',
+            'Katılım kanıtları, oturum metaverisi ve ilgili kayıtlar kurulum ayarlarınıza ve kurum politikanıza göre yönetilir.',
           ],
           bullets: [
-            'Saklama sureleri ortaminizda sizin tarafinizdan belirlenir.',
-            'Disa aktarma, inceleme ve arsiv sureclerinden siz sorumlusunuz.',
-            'Kurumsal verinizin sahipligi size aittir.',
+            'Saklama süreleri ortamınızda sizin tarafınızdan belirlenir.',
+            'Dışa aktarma, inceleme ve arşiv süreçlerinden siz sorumlusunuz.',
+            'Kurumsal verinizin sahipliği size aittir.',
           ],
         },
         {
-          title: 'Hizmet Surekliligi ve Degisiklikler',
+          title: 'Hizmet Sürekliliği ve Değişiklikler',
           paragraphs: [
-            'Guvenlik, performans ve kararliligi artirmak icin platform yetenekleri guncellenebilir. Planli bakimlar gecici erisim etkisi yaratabilir.',
+            'Güvenlik, performans ve kararlılığı artırmak için platform yetenekleri güncellenebilir. Planlı bakımlar geçici erişim etkisi yaratabilir.',
           ],
         },
         {
-          title: 'Iletisim',
+          title: 'İletişim',
           paragraphs: [
-            'Yasal veya uyumluluk sorulari icin platform yoneticinize veya destek kanalina basvurun.',
+            'Yasal veya uyumluluk soruları için platform yöneticinize veya destek kanalına başvurun.',
           ],
         },
       ],
     },
     privacy: {
       badge: 'Yasal',
-      title: 'Gizlilik Politikasi',
-      intro: 'Bu politika, Akademio Live tarafindan hangi verilerin islendigi ve bu verilerin guvenli sanal sinif hizmetleri icin nasil kullanildigini aciklar.',
-      lastUpdatedLabel: 'Son guncelleme',
+      title: 'Gizlilik Politikası',
+      intro: 'Bu politika, Akademio Live tarafından hangi verilerin işlendiği ve bu verilerin güvenli sanal sınıf hizmetleri için nasıl kullanıldığını açıklar.',
+      lastUpdatedLabel: 'Son güncelleme',
       lastUpdatedValue: '27 Mart 2026',
       sections: [
         {
-          title: 'Islenen Veriler',
+          title: 'İşlenen Veriler',
           paragraphs: [
-            'Platform; sinif operasyonlari, katilim dogrulamasi ve raporlama icin gerekli hesap ve toplanti verilerini isler.',
+            'Platform; sınıf operasyonları, katılım doğrulaması ve raporlama için gerekli hesap ve toplantı verilerini işler.',
           ],
           bullets: [
             'Hesap profili ve rol bilgileri.',
-            'Toplanti katilim olaylari ve zaman damgalari.',
-            'Yoklama yanitlari ve ilgili kanit kayitlari.',
-            'Guvenlik ve tani icin gereken operasyon loglari.',
+            'Toplantı katılım olayları ve zaman damgaları.',
+            'Yoklama yanıtları ve ilgili kanıt kayıtları.',
+            'Güvenlik ve tanı için gereken operasyon logları.',
           ],
         },
         {
-          title: 'Verilerin Kullanim Amaci',
+          title: 'Verilerin Kullanım Amacı',
           paragraphs: [
-            'Veriler; platform isletimi, katilim guvencesi, guvenlik kontrolleri, analitik ve uyumluluk raporlamasi amaciyla kullanilir.',
+            'Veriler; platform işletimi, katılım güvencesi, güvenlik kontrolleri, analitik ve uyumluluk raporlaması amacıyla kullanılır.',
           ],
           bullets: [
-            'Toplanti hizmetini sunmak ve guvenligini saglamak.',
-            'Katilim ve yonetisim raporlari olusturmak.',
-            'Olay inceleme ve destek sureclerini yurutmek.',
+            'Toplantı hizmetini sunmak ve güvenliğini sağlamak.',
+            'Katılım ve yönetişim raporları oluşturmak.',
+            'Olay inceleme ve destek süreçlerini yürütmek.',
           ],
         },
         {
-          title: 'Veri Paylasimi',
+          title: 'Veri Paylaşımı',
           paragraphs: [
-            'Akademio Live self-hosted mimari icin tasarlanmistir. Veri paylasimi kurumunuzun politikasi ve altyapi ayarlari tarafindan belirlenir.',
+            'Akademio Live self-hosted mimari için tasarlanmıştır. Veri paylaşımı kurumunuzun politikası ve altyapı ayarları tarafından belirlenir.',
           ],
         },
         {
-          title: 'Guvenlik ve Saklama',
+          title: 'Güvenlik ve Saklama',
           paragraphs: [
-            'Saklama ve erisim politikalarini kurumunuz belirler. Yoneticiler rol izinlerini ve saklama surelerini kurum politikasina gore ayarlamalidir.',
+            'Saklama ve erişim politikalarını kurumunuz belirler. Yöneticiler rol izinlerini ve saklama sürelerini kurum politikasına göre ayarlamalıdır.',
           ],
         },
         {
-          title: 'Haklariniz',
+          title: 'Haklarınız',
           paragraphs: [
-            'Veri sahibi haklari, uygulanabilir hukuka uygun sekilde kurumunuz tarafindan yonetilir.',
+            'Veri sahibi hakları, uygulanabilir hukuka uygun şekilde kurumunuz tarafından yönetilir.',
           ],
         },
       ],
@@ -219,9 +220,7 @@ const LEGAL_COPY = {
 
 export default function LegalPage({ page = 'terms' }) {
   const { i18n } = useTranslation();
-  const language = (i18n.resolvedLanguage || i18n.language || 'en')
-    .toLowerCase()
-    .startsWith('tr') ? 'tr' : 'en';
+  const language = getCurrentLanguage(i18n, 'en');
   const content = LEGAL_COPY[language][page] || LEGAL_COPY.en.terms;
 
   return (

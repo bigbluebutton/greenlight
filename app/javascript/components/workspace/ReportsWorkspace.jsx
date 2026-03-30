@@ -8,9 +8,11 @@ import {
   ChartBarIcon,
   VideoCameraIcon,
 } from '@heroicons/react/24/outline';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import useRoomConfigValue from '../../hooks/queries/rooms/useRoomConfigValue';
 import Rooms from '../rooms/Rooms';
+import { getCurrentLanguage } from '../../helpers/LanguageHelper';
 
 const REPORTS_MODULE_COPY = {
   en: {
@@ -24,9 +26,9 @@ const REPORTS_MODULE_COPY = {
   tr: {
     eyebrow: 'Raporlar',
     title: 'Rapor ve Analitik Merkezi',
-    body: 'Oturumlari, kayitlari ve ogrenme kanitlarini tek raporlama alanindan analiz edin.',
-    sessionsTab: 'Oturum Raporlari',
-    recordingsTab: 'Kayitlar',
+    body: 'Oturumları, kayıtları ve öğrenme kanıtlarını tek raporlama alanından analiz edin.',
+    sessionsTab: 'Oturum Raporları',
+    recordingsTab: 'Kayıtlar',
     analyticsTab: 'Analitik',
   },
 };
@@ -50,8 +52,9 @@ function ReportTab({
 }
 
 export default function ReportsWorkspace() {
+  const { i18n } = useTranslation();
   const currentUser = useAuth();
-  const language = currentUser?.language === 'tr' ? 'tr' : 'en';
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
   const copy = REPORTS_MODULE_COPY[language];
   const { data: recordValue } = useRoomConfigValue('record');
   const canViewRecordings = recordValue !== 'false';

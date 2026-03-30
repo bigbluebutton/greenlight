@@ -31,13 +31,15 @@ import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/use
 import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import useUpdateUserVerification from '../../../hooks/mutations/admin/manage_users/useUpdateUserVerification';
+import { getCurrentLanguage } from '../../../helpers/LanguageHelper';
 
 export default function BannedPendingRow({ user, tableType }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const updateUserStatus = useUpdateUserStatus();
   const updateUserVerification = useUpdateUserVerification();
   const currentUser = useAuth();
-  const localizedTime = localizeDateTimeString(user?.created_at, currentUser?.language);
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
+  const localizedTime = localizeDateTimeString(user?.created_at, language);
 
   const renderDropdownItems = () => {
     if (tableType === 'pending') {

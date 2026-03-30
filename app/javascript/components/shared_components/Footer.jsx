@@ -20,52 +20,17 @@ import { useTranslation } from 'react-i18next';
 import useEnv from '../../hooks/queries/env/useEnv';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import Logo from './Logo';
+import { getCurrentLanguage } from '../../helpers/LanguageHelper';
 
 const FOOTER_COPY = {
   en: {
     summary: 'Self-hosted virtual classroom software with verified attendance, governance controls, and audit-ready reporting.',
-    product: 'Platform',
-    productLinks: [
-      ['Features', '/#features'],
-      ['Governance', '/#security'],
-      ['Pricing', '/#pricing'],
-      ['FAQ', '/#faq'],
-    ],
-    resources: 'Operations',
-    resourceLinks: [
-      ['Operations Workspace', '/home'],
-      ['Scheduling', '/sessions'],
-      ['Sign In', '/signin'],
-    ],
-    legal: 'Legal',
-    legalLinks: [
-      ['Terms', '/terms'],
-      ['Privacy Policy', '/privacy-policy'],
-    ],
     version: 'Version',
     copyright: (year) => `© ${year} Akademio Live`,
   },
   tr: {
-    summary: 'Dogrulanabilir katilim, yonetisim kontrolleri ve denetime hazir raporlama ile self-hosted sanal sinif yazilimi.',
-    product: 'Platform',
-    productLinks: [
-      ['Ozellikler', '/#features'],
-      ['Yonetisim', '/#security'],
-      ['Fiyatlandirma', '/#pricing'],
-      ['SSS', '/#faq'],
-    ],
-    resources: 'Operasyonlar',
-    resourceLinks: [
-      ['Operasyon Alani', '/home'],
-      ['Planlama', '/sessions'],
-      ['Giris Yap', '/signin'],
-    ],
-    legal: 'Yasal',
-    legalLinks: [
-      ['Kullanim Kosullari', '/terms'],
-      ['Gizlilik Politikasi', '/privacy-policy'],
-    ],
-    version: 'Surum',
+    summary: 'Doğrulanabilir katılım, yönetişim kontrolleri ve denetime hazır raporlama ile self-hosted sanal sınıf yazılımı.',
+    version: 'Sürüm',
     copyright: (year) => `© ${year} Akademio Live`,
   },
 };
@@ -76,7 +41,7 @@ export default function Footer() {
   const { i18n } = useTranslation();
   const isAdmin = currentUser?.role?.name === 'Administrator' || currentUser?.role?.name === 'SuperAdmin';
   const year = new Date().getFullYear();
-  const language = (i18n.resolvedLanguage || i18n.language || currentUser?.language || 'en').toLowerCase().startsWith('tr') ? 'tr' : 'en';
+  const language = getCurrentLanguage(i18n, currentUser?.language || 'en');
   const copy = FOOTER_COPY[language];
 
   return (
@@ -85,35 +50,6 @@ export default function Footer() {
         <div className="ak-footer-brand">
           <Logo size="small" />
           <p>{copy.summary}</p>
-        </div>
-
-        <div className="ak-footer-columns">
-          <div className="ak-footer-column">
-            <span className="ak-footer-heading">{copy.product}</span>
-            <nav className="ak-footer-link-list">
-              {copy.productLinks.map(([label, href]) => (
-                <a key={label} href={href}>{label}</a>
-              ))}
-            </nav>
-          </div>
-
-          <div className="ak-footer-column">
-            <span className="ak-footer-heading">{copy.resources}</span>
-            <nav className="ak-footer-link-list">
-              {copy.resourceLinks.map(([label, href]) => (
-                <a key={label} href={href}>{label}</a>
-              ))}
-            </nav>
-          </div>
-
-          <div className="ak-footer-column">
-            <span className="ak-footer-heading">{copy.legal}</span>
-            <nav className="ak-footer-link-list">
-              {copy.legalLinks.map(([label, href]) => (
-                <a key={label} href={href}>{label}</a>
-              ))}
-            </nav>
-          </div>
         </div>
       </Container>
 
