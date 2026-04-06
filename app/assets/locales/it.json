@@ -15,6 +15,7 @@
   "share": "Condividi",
   "cancel": "Annulla",
   "reset":   "Resetta",
+  "reset_password": "Reimposta password",
   "close": "Chiudi",
   "delete": "Elimina",
   "copy": "Copia l'Indirizzo di accesso",
@@ -338,7 +339,9 @@
         },
         "allowed_domains": "Domini di posta elettronica consentiti",
         "allowed_domains_signup_description": "Consenti la registrazione a domini email specifici. Il formato deve essere: @test.com,dominio.com",
-        "enter_allowed_domains_rule" : "Inserisci i domini consentiti"
+        "enter_allowed_domains_rule" : "Inserisci i domini consentiti",
+        "allow_name_update": "Consenti agli utenti di aggiornare il proprio nome",
+        "allow_name_update_description": "Consenti agli utenti di modificare il proprio nome dopo la creazione dell'account. Se disabilitata, solo gli amministratori possono aggiornare i nomi degli utenti."
       }
     },
     "room_configuration": {
@@ -713,6 +716,9 @@
         "fields": {
           "emails": {
             "label": "Email"
+          },
+          "names": {
+            "label": "Nomi (facoltativi)"
           }
         }
       },
