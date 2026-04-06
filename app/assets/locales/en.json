@@ -714,6 +714,9 @@
         "fields": {
           "emails": {
             "label": "Emails"
+          },
+          "names": {
+            "label": "Names (optional)"
           }
         }
       },

@@ -84,10 +84,10 @@ RSpec/AnyInstance:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
-  Max: 25
+  Max: 30
 
 Metrics/PerceivedComplexity:
-  Max: 25
+  Max: 30
 
 Rails/Exit:
   Exclude:

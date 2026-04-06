@@ -84,6 +84,7 @@ Rails.application.routes.draw do
       end
       resources :site_settings, only: :index
       resources :rooms_configurations, only: %i[index show], param: :name
+      resources :invitations, only: %i[show], param: :token
       resources :locales, only: %i[index show], param: :name
       resources :server_tags, only: :show, param: :friendly_id do
         collection do

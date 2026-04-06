@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_09_153256) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_02_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -61,6 +61,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_09_153256) do
     t.string "token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["email", "provider"], name: "index_invitations_on_email_and_provider", unique: true
     t.index ["token"], name: "index_invitations_on_token", unique: true
   end
@@ -85,9 +86,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_09_153256) do
     t.string "record_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "visibility", null: false
-    t.integer "length", null: false
-    t.integer "participants", null: false
+    t.string "visibility", default: "published", null: false
+    t.integer "length", default: 0, null: false
+    t.integer "participants", default: 0, null: false
     t.boolean "protectable"
     t.datetime "recorded_at"
     t.index ["room_id"], name: "index_recordings_on_room_id"
@@ -192,7 +193,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_09_153256) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "role_id"
-    t.string "language", null: false
+    t.string "language", default: "en", null: false
     t.string "reset_digest"
     t.datetime "reset_sent_at"
     t.boolean "verified", default: false
@@ -201,6 +202,11 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_09_153256) do
     t.string "session_token"
     t.datetime "session_expiry"
     t.integer "status", default: 0
+    t.string "demo_role"
+    t.string "institution"
+    t.boolean "agreed_to_terms", default: false
+    t.boolean "agreed_to_privacy", default: false
+    t.boolean "agreed_to_marketing", default: false
     t.index ["email", "provider"], name: "index_users_on_email_and_provider", unique: true
     t.index ["reset_digest"], name: "index_users_on_reset_digest", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"

@@ -44,6 +44,14 @@ export default function useInviteUserForm({ defaultValues: _defaultValues, ..._c
         id: 'emails',
       },
     },
+    names: {
+      label: t('forms.admin.invite_user.fields.names.label'),
+      placeHolder: 'User 1,User 2,User 3',
+      controlId: 'createInvitationFormNames',
+      hookForm: {
+        id: 'names',
+      },
+    },
   }), [i18n.resolvedLanguage]);
 
   const validationSchema = useInviteUserFormValidation();
@@ -55,6 +63,7 @@ export default function useInviteUserForm({ defaultValues: _defaultValues, ..._c
       defaultValues: {
         ...{
           emails: '',
+          names: '',
         },
         ..._defaultValues,
       },

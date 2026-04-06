@@ -38,8 +38,14 @@ module Api
         # POST /api/v1/admin/invitations
         # Creates an invitation for the specified emails (comma separated) and sends them an email
         def create
-          params[:invitations][:emails].split(',').each do |email|
+          emails = params[:invitations][:emails].split(',')
+          names = params[:invitations][:names]&.split(',') || []
+
+          emails.each_with_index do |email, index|
+            name = names[index]&.strip.presence
+
             invitation = Invitation.find_or_initialize_by(email: email.downcase, provider: current_provider).tap do |i|
+              i.name = name if name
               i.updated_at = Time.zone.now
               i.save!
             end
