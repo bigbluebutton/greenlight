@@ -378,6 +378,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe '#update' do
     before do
       sign_in_user(user)
+      allow(SettingGetter).to receive(:new).and_call_original
+      allow(SettingGetter).to receive(:new).with(setting_name: 'AllowNameUpdate', provider: 'greenlight').and_return(fake_setting_getter)
+      allow(fake_setting_getter).to receive(:call).and_return(true)
     end
 
     it 'updates the users attributes' do
