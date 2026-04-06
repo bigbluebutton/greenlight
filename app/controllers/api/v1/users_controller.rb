@@ -200,6 +200,10 @@ module Api
 
         return %i[password avatar language role_id invite_token] if external_auth? && !is_admin
 
+        allow_name_update = SettingGetter.new(setting_name: 'AllowNameUpdate', provider: current_provider).call
+
+        return %i[password avatar language role_id invite_token] if !allow_name_update && !is_admin
+
         %i[name password avatar language role_id invite_token]
       end
     end

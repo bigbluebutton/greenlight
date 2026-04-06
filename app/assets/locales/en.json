@@ -339,7 +339,9 @@
         },
         "allowed_domains": "Allowed Email Domains",
         "allowed_domains_signup_description": "Allow specific email domains to sign up. Format must be: @test.com,domain.com",
-        "enter_allowed_domains_rule" : "Enter the allowed domains"
+        "enter_allowed_domains_rule" : "Enter the allowed domains",
+        "allow_name_update": "Allow Users To Update Their Name",
+        "allow_name_update_description": "Allow users to change their name after account creation. When disabled, only admins can update user names."
       }
     },
     "room_configuration": {
