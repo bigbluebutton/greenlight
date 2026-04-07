@@ -12,6 +12,7 @@ gem 'bcrypt', '~> 3.1.22'
 gem 'bigbluebutton-api-ruby', '2.0.0'
 gem 'bootsnap', require: false
 gem 'clamby', '~> 1.6.10'
+gem 'connection_pool', '~> 2.4'
 gem 'cssbundling-rails', '>= 1.4.0'
 gem 'data_migrate', '>= 11.3.0'
 gem 'dotenv-rails', '>= 3.0.0'
