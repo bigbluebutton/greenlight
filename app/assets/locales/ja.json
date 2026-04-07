@@ -15,6 +15,7 @@
   "share": "共有",
   "cancel": "キャンセル",
   "reset":   "リセット",
+  "reset_password": "パスワードをリセット",
   "close": "閉じる",
   "delete": "削除",
   "copy": "参加リンクをコピー",
@@ -338,7 +339,9 @@
         },
         "allowed_domains": "許可するEmailのドメイン",
         "allowed_domains_signup_description": "特定のEmailドメインのみからのサインアップを許可します。@test.com や domain.com のような形式で記入してください。",
-        "enter_allowed_domains_rule" : "許可するドメインを入力"
+        "enter_allowed_domains_rule" : "許可するドメインを入力",
+        "allow_name_update": "ユーザーに名前の変更を許可",
+        "allow_name_update_description": "アカウント作成後に、ユーザーが名前を変更することを許可します。許可しない場合、名前を変更できるのは管理者だけとなります。"
       }
     },
     "room_configuration": {
@@ -713,6 +716,9 @@
         "fields": {
           "emails": {
             "label": "メールアドレス"
+          },
+          "names": {
+            "label": "名前（任意）"
           }
         }
       },
