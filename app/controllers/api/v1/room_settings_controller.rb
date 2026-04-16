@@ -45,16 +45,27 @@ module Api
 
         return render_error status: :bad_request unless config_value
 
-        is_access_code = %w[glViewerAccessCode glModeratorAccessCode].include? name
+        is_access_code = %w[glViewerAccessCode glModeratorAccessCode glRecordingsAccessCode].include? name
 
         # Only allow the settings to update if the room config is default or optional / if it is an access_code regeneration
         unless %w[optional default_enabled].include?(config_value) || (config_value == 'true' && is_access_code && value != 'false')
           return render_error status: :forbidden
         end
 
-        value = infer_access_code(value:) if is_access_code # Handling access code update.
-
+        # Handling access code update
+        value = infer_access_code(value:) if is_access_code
+        
         option = @room.get_setting(name:)
+  
+        # If the option doesn't exist, we create it for access codes
+        if option.nil? && is_access_code
+          option = RoomMeetingOption.create!(
+            room_id: @room.id,
+            meeting_option_id: MeetingOption.find_by(name: name).id,
+            value: value
+          )
+          return render_data status: :ok
+        end
 
         return render_error status: :bad_request unless option&.update(value:)
 
