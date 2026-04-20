@@ -44,11 +44,11 @@ export default function App() {
   // useEffect hook for running notify maintenance banner on page load
   useEffect(() => {
     if (maintenanceBanner.data) {
-      const toastId = toast.info(maintenanceBanner.data, {
+      const toastId = toast.info(<span dangerouslySetInnerHTML={{ __html: maintenanceBanner.data }} />, {
         position: 'top-center',
         autoClose: false,
         hideProgressBar: true,
-        closeOnClick: true,
+        closeOnClick: false,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
