@@ -27,19 +27,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       tenant = Tenant.find_by(name: current_provider)
       secret = tenant&.client_secret
 
-      issuer = case tenant&.region&.downcase
-               when 'rna1'
-                 ENV.fetch('OPENID_CONNECT_ISSUER_RNA1', '')
-               when 'reu1'
-                 ENV.fetch('OPENID_CONNECT_ISSUER_REU1', '')
-               when 'rna2'
-                 ENV.fetch('OPENID_CONNECT_ISSUER_RNA2', '')
-               when 'roc2'
-                 ENV.fetch('OPENID_CONNECT_ISSUER_ROC2', '')
-               else
-                 ENV.fetch('OPENID_CONNECT_ISSUER', '')
-               end
-
       issuer_url = File.join issuer.to_s, "/#{current_provider}"
 
       env['omniauth.strategy'].options[:issuer] = issuer_url

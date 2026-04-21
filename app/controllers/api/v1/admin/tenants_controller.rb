@@ -38,7 +38,7 @@ module Api
         # POST /api/v1/admin/tenants
         def create
           name = tenant_params[:name]
-          tenant = Tenant.new(name:, client_secret: tenant_params[:client_secret])
+          tenant = Tenant.new(name:, client_secret: tenant_params[:client_secret], region: tenant_params[:region])
 
           if tenant.save
             TenantSetup.new(name).call
@@ -77,7 +77,7 @@ module Api
         end
 
         def tenant_params
-          params.require(:tenant).permit(:name, :client_secret)
+          params.require(:tenant).permit(:name, :client_secret, :region)
         end
       end
     end
