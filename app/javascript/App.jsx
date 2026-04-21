@@ -85,8 +85,13 @@ export default function App() {
   // i18n
   const { i18n } = useTranslation();
   useEffect(() => {
-    i18n.changeLanguage(currentUser?.language);
-  }, [currentUser?.language]);
+    if (currentUser?.language) {
+      i18n.changeLanguage(currentUser.language).catch(() => {
+        // Silently fall back to default language if change fails
+        console.warn(`Failed to load language: ${currentUser.language}`);
+      });
+    }
+  }, [currentUser?.language, i18n]);
 
   // Greenlight V3 brand-color theming
   const { isLoading, data: brandColors } = useSiteSetting(['PrimaryColor', 'PrimaryColorLight']);
