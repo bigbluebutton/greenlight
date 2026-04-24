@@ -161,7 +161,7 @@ RSpec.describe User, type: :model do
 
     it 'returns all users if input is empty' do
       create_list(:user, 10)
-      expect(described_class.search('').pluck(:id)).to match_array(described_class.all.pluck(:id))
+      expect(described_class.search('').pluck(:id)).to match_array(described_class.pluck(:id))
     end
   end
 

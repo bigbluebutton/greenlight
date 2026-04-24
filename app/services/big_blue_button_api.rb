@@ -50,7 +50,7 @@ class BigBlueButtonApi
       name,
       '', # empty password -> use the role passed ing
       {
-        userId: user_id,
+        userID: user_id,
         role:,
         avatarURL: avatar_url,
         createTime: room.last_session&.to_datetime&.strftime('%Q')
@@ -97,7 +97,7 @@ class BigBlueButtonApi
   end
 
   def update_recordings(record_id:, meta_hash:)
-    bbb_server.update_recordings(record_id, {}, meta_hash)
+    bbb_server.update_recordings(record_id, nil, meta_hash)
   end
 
   # Decodes the JWT using the BBB secret as key (Used in Recording Ready Callback)

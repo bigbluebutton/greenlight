@@ -42,6 +42,7 @@ class MeetingStarter
     handle_server_tag(meeting_options: options)
 
     options.merge!(computed_options(access_code: viewer_code['glViewerAccessCode']))
+    options.delete('muteOnStart') unless options['muteOnStart'] == 'true'
 
     retries = 0
     begin
@@ -83,6 +84,12 @@ class MeetingStarter
       tag_roles = Rails.configuration.server_tag_roles
       tag = meeting_options.delete('serverTag')
       tag_required = meeting_options.delete('serverTagRequired')
+      # handle override modes
+      if Rails.configuration.server_tag_fallback_mode == 'required'
+        tag_required = 'true'
+      elsif Rails.configuration.server_tag_fallback_mode == 'desired'
+        tag_required = 'false'
+      end
 
       if tag_names.key?(tag) && !(tag_roles.key?(tag) && tag_roles[tag].exclude?(@room.user.role_id))
         tag_param = tag_required == 'true' ? "#{tag}!" : tag

@@ -63,7 +63,7 @@ de:
       invitation_to_join: BigBlueButton-Einladung
       you_have_been_invited: "Du wurdest von %{name} eingeladen, ein BigBlueButton-Konto zu erstellen."
       get_started: "Um dich zu registrieren, klicken bitte auf diese Schaltfläche."
-      valid_invitation: Die Einladung ist 24 Stunden gültig.
+      valid_invitation: Die Einladung ist 7 Tage gültig.
       sign_up: Registrieren
     new_user_signup:
       new_user: Anmeldung eines neuen BigBlueButton-Nutzers

@@ -23,16 +23,24 @@ import EmptyUsersList from './EmptyUsersList';
 import ManageUsersPendingBannedRowPlaceHolder from './ManageUsersPendingBannedRowPlaceHolder';
 import Pagination from '../../shared_components/Pagination';
 
-// pendingTable prop is true when table is being used for pending data, false when table is being used for banned data
 export default function BannedPendingUsersTable({
-  users, pendingTable, isLoading, pagination, setPage,
+  users, tableType, isLoading, pagination, setPage,
 }) {
   const { t } = useTranslation();
 
   if (!isLoading && users.length === 0) {
-    if (pendingTable) {
+    if (tableType === 'pending') {
       return <EmptyUsersList text={t('admin.manage_users.empty_pending_users')} subtext={t('admin.manage_users.empty_pending_users_subtext')} />;
     }
+    if (tableType === 'unverified') {
+      return (
+        <EmptyUsersList
+          text={t('admin.manage_users.empty_unverified_users')}
+          subtext={t('admin.manage_users.empty_unverified_users_subtext')}
+        />
+      );
+    }
+
     return <EmptyUsersList text={t('admin.manage_users.empty_banned_users')} subtext={t('admin.manage_users.empty_banned_users_subtext')} />;
   }
 
@@ -56,7 +64,7 @@ export default function BannedPendingUsersTable({
                 users?.length
                 && (
                   users?.map((user) => (
-                    <BannedPendingRow key={user.id} user={user} pendingTable={pendingTable} />
+                    <BannedPendingRow key={user.id} user={user} tableType={tableType} />
                   ))
                 )
               )
@@ -95,7 +103,7 @@ BannedPendingUsersTable.propTypes = {
     avatar: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   })),
-  pendingTable: PropTypes.bool.isRequired,
+  tableType: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
   pagination: PropTypes.shape({
     page: PropTypes.number.isRequired,

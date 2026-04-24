@@ -55,6 +55,7 @@ export default function InvitedUsersTable({ searchInput }) {
               <thead>
                 <tr className="text-muted small">
                   <th className="fw-normal border-end-0">{ t('user.email_address') }<SortBy fieldName="email" /></th>
+                  <th className="fw-normal border-0">{ t('user.name') }</th>
                   <th className="fw-normal border-0">{ t('admin.manage_users.invited.time_sent') }</th>
                   <th className="fw-normal border-0">{ t('admin.manage_users.invited.valid') }</th>
                 </tr>
@@ -72,6 +73,7 @@ export default function InvitedUsersTable({ searchInput }) {
                       invitations?.data?.map((invitation) => (
                         <tr key={invitation.email} className="align-middle text-muted">
                           <td className="text-dark border-0">{invitation.email}</td>
+                          <td className="text-dark border-0">{invitation.name}</td>
                           <td className="text-dark border-0">{localizeDateTimeString(invitation.updated_at, currentUser?.language)}</td>
                           <td className="text-dark border-0">
                             { invitation.valid ? <CheckIcon className="text-success hi-s" /> : <XMarkIcon className="text-danger hi-s" />}

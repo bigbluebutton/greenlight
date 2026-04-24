@@ -88,7 +88,7 @@
     "create_new_room": "Vytvořit novou místnost",
     "enter_room_name": "Vložte jméno místnosti",
     "shared_by": "sdíleno s",
-    "last_session": "Poslední setkání: {{ room.last_session }}",
+    "last_session": "Poslední setkání: {{ localizedTime }}",
     "no_last_session": "Žádné",
     "no_rooms_found": "Žádná místnost nenalezena",
     "meeting": {

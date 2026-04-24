@@ -94,7 +94,7 @@ module Api
 
         if room.save
           logger.info "room(friendly_id):#{room.friendly_id} created for user(id):#{room.user_id}"
-          render_data status: :created
+          render_data data: "/rooms/#{room.friendly_id}", status: :created
         else
           render_error errors: room.errors.to_a, status: :bad_request
         end
@@ -103,7 +103,7 @@ module Api
       # PATCH /api/v1/rooms/:friendly_id.json
       # Updates the values of the specified room
       def update
-        if @room.update(room_params)
+        if @room.update(room_params.except(:user_id))
           render_data status: :ok
         else
           render_error errors: @room.errors.to_a, status: :bad_request
@@ -133,7 +133,7 @@ module Api
       def recordings
         sort_config = config_sorting(allowed_columns: %w[name length visibility])
 
-        pagy, room_recordings = pagy(@room.recordings&.order(sort_config, recorded_at: :desc)&.search(params[:q]), items: 3)
+        pagy, room_recordings = pagy(@room.recordings&.order(sort_config, recorded_at: :desc)&.search(params[:search]), items: 3)
         render_data data: room_recordings, meta: pagy_metadata(pagy), status: :ok
       end
 
@@ -156,7 +156,7 @@ module Api
       private
 
       def find_room
-        @room = Room.find_by!(friendly_id: params[:friendly_id])
+        @room = Room.includes(:user).with_provider(current_provider).find_by!(friendly_id: params[:friendly_id])
       end
 
       def room_params

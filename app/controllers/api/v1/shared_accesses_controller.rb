@@ -38,8 +38,10 @@ module Api
       # Shares the room with all of the specified users
       def create
         shared_users_ids = Array(params[:shared_users])
+        # Only allow sharing with users of current tenant
+        filtered_ids = User.with_provider(current_provider).where(id: shared_users_ids).pluck(:id)
 
-        shared_users_ids.each do |shared_user_id|
+        filtered_ids.each do |shared_user_id|
           SharedAccess.create(user_id: shared_user_id, room_id: @room.id)
         end
 

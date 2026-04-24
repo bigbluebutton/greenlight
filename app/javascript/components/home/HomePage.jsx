@@ -35,6 +35,7 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const error = searchParams.get('error');
+  const success = searchParams.get('success');
   const { data: recordValue } = useRoomConfigValue('record');
   const { data: env } = useEnv();
 
@@ -50,6 +51,16 @@ export default function HomePage() {
     },
     [currentUser.signed_in],
   );
+
+  useEffect(() => {
+    switch (success) {
+      case 'LogoutSuccessful':
+        toast.success(t('toast.success.session.signed_out'));
+        break;
+      default:
+    }
+    if (success) { setSearchParams(searchParams.delete('success')); }
+  }, [success]);
 
   useEffect(() => {
     switch (error) {

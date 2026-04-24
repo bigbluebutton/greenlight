@@ -38,6 +38,15 @@ RSpec.describe Api::V1::Admin::RolePermissionsController, type: :controller do
       expect(response.parsed_body['data']['ManageRoles']).to eq('true')
     end
 
+    it 'does not return RolePermissions for a role belonging to another provider' do
+      other_role = create(:role, provider: 'other-provider')
+
+      get :index, params: { role_id: other_role.id }
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['data']).to be_empty
+    end
+
     context 'user without ManageRoles permission' do
       before do
         sign_in_user(user)
@@ -59,6 +68,17 @@ RSpec.describe Api::V1::Admin::RolePermissionsController, type: :controller do
       get :update, params: { role: { name: permission.name, role_id: role.id, value: false } }
       expect(response).to have_http_status(:ok)
       expect(role_permission.reload.value).to eq('false')
+    end
+
+    it 'does not update RolePermissions for a role belonging to another provider' do
+      other_role = create(:role, provider: 'other-provider')
+      permission = create(:permission)
+      role_permission = create(:role_permission, role: other_role, permission:, value: 'true')
+
+      get :update, params: { role: { name: permission.name, role_id: other_role.id, value: false } }
+
+      expect(response).to have_http_status(:not_found)
+      expect(role_permission.reload.value).to eq('true')
     end
 
     context 'user without ManageRoles permission' do

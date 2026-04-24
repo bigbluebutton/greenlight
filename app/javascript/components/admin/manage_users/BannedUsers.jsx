@@ -25,6 +25,7 @@ export default function BannedUsers({ searchInput }) {
   const [page, setPage] = useState();
   const { isLoading, data: bannedUsers } = useBannedUsers(searchInput, page);
   const { t } = useTranslation();
+  const tableType = 'banned';
 
   return (
     <div>
@@ -37,7 +38,7 @@ export default function BannedUsers({ searchInput }) {
         ) : (
           <BannedPendingUsersTable
             users={bannedUsers?.data}
-            pendingTable={false}
+            tableType={tableType}
             isLoading={isLoading}
             pagination={bannedUsers?.meta}
             setPage={setPage}

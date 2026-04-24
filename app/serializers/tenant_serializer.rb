@@ -17,5 +17,5 @@
 # frozen_string_literal: true
 
 class TenantSerializer < ApplicationSerializer
-  attributes :id, :name, :client_secret
+  attributes :id, :name, :client_secret, :region
 end

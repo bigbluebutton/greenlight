@@ -23,6 +23,7 @@ import SignupForm from './forms/SignupForm';
 import Logo from '../../shared_components/Logo';
 import useSiteSetting from '../../../hooks/queries/site_settings/useSiteSetting';
 import useEnv from '../../../hooks/queries/env/useEnv';
+import useInvitation from '../../../hooks/queries/invitations/useInvitation';
 
 export default function Signup() {
   const { t } = useTranslation();
@@ -30,6 +31,7 @@ export default function Signup() {
   const inviteToken = searchParams.get('inviteToken');
   const registrationMethodSettingAPI = useSiteSetting('RegistrationMethod');
   const envAPI = useEnv();
+  const { data: invitation } = useInvitation(inviteToken);
   const isLoading = envAPI.isLoading || registrationMethodSettingAPI.isLoading;
 
   if (envAPI.data?.EXTERNAL_AUTH) {
@@ -52,7 +54,7 @@ export default function Signup() {
       </div>
       <Card className="col-xl-5 col-lg-6 col-md-8 col-10 mx-auto p-4 border-0 card-shadow">
         <Card.Title className="text-center pb-2"> { t('authentication.create_an_account') } </Card.Title>
-        <SignupForm />
+        <SignupForm invitation={invitation} />
         <span className="text-center text-muted small"> { t('authentication.already_have_account') }
           <Link to="/signin" className="text-link"> { t('authentication.sign_in') } </Link>
         </span>

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   VideoCameraIcon, ClipboardDocumentIcon,
 } from '@heroicons/react/24/outline';
@@ -23,10 +23,11 @@ import {
   Button, Stack,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import { localizeDateTimeString } from '../../../../helpers/DateTimeHelper';
 import useRedirectRecordingUrl from '../../../../hooks/mutations/recordings/useRedirectRecordingUrl';
-import useCopyRecordingUrl from '../../../../hooks/mutations/recordings/useCopyRecordingUrl';
+import CopyRecordingPopover from '../../../recordings/CopyRecordingPopover';
 
 // TODO: Amir - Refactor this.
 export default function PublicRecordingRow({
@@ -36,7 +37,7 @@ export default function PublicRecordingRow({
 
   const currentUser = useAuth();
   const redirectRecordingUrl = useRedirectRecordingUrl();
-  const copyRecordingUrl = useCopyRecordingUrl();
+  const [showCopyPopover, setShowCopyPopover] = useState(false);
 
   const localizedTime = localizeDateTimeString(recording?.recorded_at, currentUser?.language);
   const formats = recording.formats.sort(
@@ -70,14 +71,23 @@ export default function PublicRecordingRow({
       </td>
       <td className="border-start-0">
         <Stack direction="horizontal" className="float-end recordings-icons">
-          <Button
-            variant="icon"
-            className="mt-1 me-3"
-            title={t('recording.copy_recording_urls')}
-            onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}
+          <OverlayTrigger
+            trigger="click"
+            show={showCopyPopover}
+            onToggle={(show) => setShowCopyPopover(show)}
+            rootClose
+            overlay={(
+              <CopyRecordingPopover
+                recording={recording}
+                formats={formats}
+                onCopied={() => setShowCopyPopover(false)}
+              />
+            )}
           >
-            <ClipboardDocumentIcon className="hi-s text-muted" />
-          </Button>
+            <Button variant="icon" className="mt-1 me-3" title={t('recording.copy_recording_urls')}>
+              <ClipboardDocumentIcon className="hi-s text-muted" />
+            </Button>
+          </OverlayTrigger>
         </Stack>
       </td>
     </tr>

@@ -30,12 +30,46 @@ import Avatar from '../../users/user/Avatar';
 import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
 import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
+import useUpdateUserVerification from '../../../hooks/mutations/admin/manage_users/useUpdateUserVerification';
 
-export default function BannedPendingRow({ user, pendingTable }) {
+export default function BannedPendingRow({ user, tableType }) {
   const { t } = useTranslation();
   const updateUserStatus = useUpdateUserStatus();
+  const updateUserVerification = useUpdateUserVerification();
   const currentUser = useAuth();
   const localizedTime = localizeDateTimeString(user?.created_at, currentUser?.language);
+
+  const renderDropdownItems = () => {
+    if (tableType === 'pending') {
+      return (
+        <>
+          <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'active' })}>
+            <CheckCircleIcon className="hi-s me-2" />
+            {t('admin.manage_users.approve')}
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'banned' })}>
+            <XCircleIcon className="hi-s me-2" />
+            {t('admin.manage_users.decline')}
+          </Dropdown.Item>
+        </>
+      );
+    } if (tableType === 'banned') {
+      return (
+        <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'active' })}>
+          <CheckIcon className="hi-s me-2" />
+          {t('admin.manage_users.unban')}
+        </Dropdown.Item>
+      );
+    } if (tableType === 'unverified') {
+      return (
+        <Dropdown.Item onClick={() => updateUserVerification.mutate({ id: user.id, verified: true })}>
+          <CheckIcon className="hi-s me-2" />
+          {t('admin.manage_users.verify')}
+        </Dropdown.Item>
+      );
+    }
+    return null;
+  };
 
   return (
     <tr key={user.id} className="align-middle text-muted border border-2">
@@ -56,23 +90,7 @@ export default function BannedPendingRow({ user, pendingTable }) {
         <Dropdown className="float-end cursor-pointer">
           <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
           <Dropdown.Menu>
-            {pendingTable ? (
-              <>
-                <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'active' })}>
-                  <CheckCircleIcon className="hi-s me-2" />
-                  {t('admin.manage_users.approve')}
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'banned' })}>
-                  <XCircleIcon className="hi-s me-2" />
-                  {t('admin.manage_users.decline')}
-                </Dropdown.Item>
-              </>
-            ) : (
-              <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'active' })}>
-                <CheckIcon className="hi-s me-2" />
-                {t('admin.manage_users.unban')}
-              </Dropdown.Item>
-            )}
+            {renderDropdownItems()}
           </Dropdown.Menu>
         </Dropdown>
       </td>
@@ -89,5 +107,5 @@ BannedPendingRow.propTypes = {
     created_at: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
   }).isRequired,
-  pendingTable: PropTypes.bool.isRequired,
+  tableType: PropTypes.string.isRequired,
 };

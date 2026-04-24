@@ -25,7 +25,10 @@ module Api
       before_action only: %i[destroy] do
         ensure_authorized('ManageRecordings', record_id: params[:id])
       end
-      before_action only: %i[update update_visibility recording_url] do
+      before_action only: %i[update update_visibility] do
+        ensure_authorized(%w[ManageRecordings SharedRoom], record_id: params[:id])
+      end
+      before_action only: %i[recording_url] do
         ensure_authorized(%w[ManageRecordings SharedRoom PublicRecordings], record_id: params[:id])
       end
 
@@ -68,6 +71,9 @@ module Api
                                                         .value)
 
         return render_error status: :forbidden unless allowed_visibilities.include?(new_visibility)
+
+        protected_visibilities = [Recording::VISIBILITIES[:protected], Recording::VISIBILITIES[:public_protected]]
+        return render_error status: :forbidden if protected_visibilities.include?(new_visibility) && !@recording.protectable
 
         BigBlueButtonApi.new(provider: current_provider).update_recording_visibility(record_id: @recording.record_id, visibility: new_visibility)
 

@@ -15,6 +15,7 @@
   "share": "Share",
   "cancel": "Cancel",
   "reset":   "Reset",
+  "reset_password": "Reset Password",
   "close": "Close",
   "delete": "Delete",
   "copy": "Copy Join Link",
@@ -185,6 +186,14 @@
     "protected": "Protected",
     "public": "Public",
     "public_protected": "Public/Protected",
+    "formats_help": "Displays the available playback formats. Selecting a format opens the BigBlueButton Recording in a new tab",
+    "visibility_help": {
+      "public_protected": "The recording is available on the Public Recordings page, accessible from the Room Join page. It can also be shared with others using a one-time access link",
+      "public": "The recording is available on the Public Recordings page, accessible from the Room Join page, and its link can be shared with anyone",
+      "protected": "The recording is accessible only to the room owner and can be shared with others using a one-time access link",
+      "published": "The recording is accessible to anyone who has the link",
+      "unpublished": "The recording is not accessible to anyone"
+    },
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Processing recording, this may take several minutes...",
     "copy_recording_urls": "Copy Recording Url(s)",
@@ -207,6 +216,8 @@
       "banned": "Banned",
       "ban": "Ban",
       "unban": "Unban",
+      "unverified": "Unverified",
+      "verify": "Verify",
       "deleted": "Deleted",
       "invited_tab": "Invited",
       "invite_user": "Invite User",
@@ -230,6 +241,8 @@
       "empty_pending_users_subtext": "When a user's status gets changed to pending, they will appear here.",
       "empty_banned_users": "There are no banned users on this server yet!",
       "empty_banned_users_subtext": "When a user's status gets changed to banned, they will appear here.",
+      "empty_unverified_users": "There are no unverified users on this server yet!",
+      "empty_unverified_users_subtext": "Any unverified users will appear here.",
       "empty_invited_users": "There are no invited users on this server yet!",
       "empty_invited_users_subtext": "When a user's status gets changed to invited, they will appear here.",
       "invited": {
@@ -280,8 +293,10 @@
         "terms": "Terms & Conditions",
         "privacy": "Privacy Notice",
         "privacy_policy": "Privacy Notice",
+        "accessibility_statement": "Accessibility Statement",
         "change_term_links": "Change the terms links that appears at the bottom of the page",
         "change_privacy_link": "Change the privacy link that appears at the bottom of the page",
+        "change_accessibility_statement_link": "Change the accessibility statement link that appears at the bottom of the page",
         "helpcenter": "Help Center",
         "change_helpcenter_link": "Change the help center link that appears under the profile dropdown",
         "maintenance": "Maintenance Banner",
@@ -296,7 +311,7 @@
         "allow_users_to_share_rooms": "Allow Users to Share Rooms",
         "allow_users_to_share_rooms_description": "Setting to disabled will remove the button from the room options dropdown, preventing users from sharing rooms",
         "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",
-        "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room",        "allow_users_to_preupload_presentation": "Allow Users to Preupload Presentations",
+        "allow_users_to_preupload_presentation_description": "Users can preupload a presentation to be used as the default presentation for that specific room",
         "show_sign_in_on_room_join": "Show Sign In Link on Room Join",
         "show_sign_in_on_room_join_description": "If the user is not signed in, a sign-in link appears at the bottom of the card when entering a room",
         "default_visibility": "Default Recording Visibility",
@@ -324,7 +339,9 @@
         },
         "allowed_domains": "Allowed Email Domains",
         "allowed_domains_signup_description": "Allow specific email domains to sign up. Format must be: @test.com,domain.com",
-        "enter_allowed_domains_rule" : "Enter the allowed domains"
+        "enter_allowed_domains_rule" : "Enter the allowed domains",
+        "allow_name_update": "Allow Users To Update Their Name",
+        "allow_name_update_description": "Allow users to change their name after account creation. When disabled, only admins can update user names."
       }
     },
     "room_configuration": {
@@ -432,7 +449,7 @@
         "recording_visibility_updated": "The recording visibility has been updated.",
         "recording_name_updated": "The recording name has been updated.",
         "recording_deleted": "The recording has been deleted.",
-        "copied_urls": "The recording URLs have been copied."
+        "copied_urls": "The recording URL has been copied."
       },
       "role": {
         "role_created": "A new role has been created.",
@@ -462,7 +479,8 @@
         "email_exists": "An account under this email already exists. Please try again with another email.",
         "old_password": "The password you have entered is incorrect.",
         "pending": "Your registration is pending approval from the administrator. Please try again later.",
-        "banned": "You do not have access to this application. Please contact your administrator if you believe this is a mistake."
+        "banned": "You do not have access to this application. Please contact your administrator if you believe this is a mistake.",
+        "hcaptcha_invalid": "The CAPTCHA verification failed. Please try again."
       },
       "rooms": {
         "room_limit": "The room can't be created due to reaching the room limit."
@@ -698,6 +716,9 @@
         "fields": {
           "emails": {
             "label": "Emails"
+          },
+          "names": {
+            "label": "Names (optional)"
           }
         }
       },

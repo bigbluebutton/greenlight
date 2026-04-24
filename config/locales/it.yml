@@ -47,7 +47,7 @@
 
 it:
   opengraph:
-    description: "Impara utilizzando BigBlueButton, la soluzione affidabile per conferenze Web open source che consente una collaborazione virtuale senza soluzione di continuità ed esperienze di apprendimento online."
+    description: "Impara utilizzando BigBlueButton, la soluzione affidabile di videoconferenza open source che consente una collaborazione virtuale fluida e un'esperienza di apprendimento online senza interruzioni."
   meeting:
     moderator_message: "Per invitare qualcuno a partecipare, inviagli questo collegamento: "
     access_code: "Codice Accesso: %{code}"
@@ -63,7 +63,7 @@ it:
       invitation_to_join: Invito BigBlueButton
       you_have_been_invited: "Sei stato invitato a creare un'utenza BigBlueButton da %{name}."
       get_started: "Per iscriverti, fai clic sul pulsante qui sotto e segui i passaggi."
-      valid_invitation: L'invito è valido per 24 ore.
+      valid_invitation: L'invito è valido per 7 giorni.
       sign_up: Iscriviti
     new_user_signup:
       new_user: Nuova iscrizione utente BigBlueButton

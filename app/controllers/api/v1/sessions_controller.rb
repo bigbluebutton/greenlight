@@ -33,8 +33,9 @@ module Api
       # POST /api/v1/sessions
       # Signs a user in and updates the session cookie
       def create
-        # TODO: Add proper error logging for non-verified token hcaptcha
-        return render_error if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+        if hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
+          return render_error errors: Rails.configuration.custom_error_msgs[:hcaptcha_invalid]
+        end
 
         # Search for a user within the current provider and, if not found, search for a super admin within bn provider
         user = User.find_by(email: session_params[:email].downcase, provider: current_provider) ||
@@ -46,13 +47,6 @@ module Api
         # Will return an error if the user is NOT from the current provider and if the user is NOT a super admin
         return render_error status: :forbidden if !user.super_admin? && (user.provider != current_provider || external_auth?)
 
-        # Password is not set (local user migrated from v2)
-        if user.external_id.blank? && user.password_digest.blank?
-          token = user.generate_reset_token!
-          return render_error data: token, errors: 'PasswordNotSet'
-        end
-
-        # TODO: Add proper error logging for non-verified token hcaptcha
         if user.authenticate(session_params[:password])
           return render_error data: user.id, errors: Rails.configuration.custom_error_msgs[:unverified_user] unless user.verified?
           return render_error errors: Rails.configuration.custom_error_msgs[:pending_user] if user.pending?
@@ -68,8 +62,29 @@ module Api
       # DELETE /api/v1/sessions/signout
       # Clears the session cookie and signs the user out
       def destroy
-        sign_out
-        render_data status: :ok
+        id_token = session.delete(:oidc_id_token)
+        logout_path = ENV.fetch('OPENID_CONNECT_LOGOUT_PATH', '')
+
+        # Make logout request to OIDC
+        if logout_path.present? && id_token.present? && external_auth?
+          issuer_url = if ENV.fetch('LOADBALANCER_ENDPOINT', nil).present?
+                         File.join(ENV.fetch('OPENID_CONNECT_ISSUER'), "/#{current_provider}")
+                       else
+                         ENV.fetch('OPENID_CONNECT_ISSUER')
+                       end
+
+          end_session = File.join(issuer_url, logout_path)
+
+          url = "#{end_session}?client_id=#{ENV.fetch('OPENID_CONNECT_CLIENT_ID', nil)}" \
+                "&id_token_hint=#{id_token}" \
+                "&post_logout_redirect_uri=#{CGI.escape(root_url(success: 'LogoutSuccessful'))}"
+
+          sign_out
+          render_data data: url, status: :ok
+        else
+          sign_out
+          render_data status: :ok
+        end
       end
 
       private
@@ -80,6 +95,7 @@ module Api
 
       def sign_in(user)
         user.generate_session_token!(extended_session: session_params[:extend_session])
+        user.update(last_login: DateTime.now)
 
         # Creates an extended_session cookie if extend_session is selected in sign in form.
         if session_params[:extend_session]

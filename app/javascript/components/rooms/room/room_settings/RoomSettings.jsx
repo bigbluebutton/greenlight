@@ -34,6 +34,7 @@ import UpdateRoomNameForm from './forms/UpdateRoomNameForm';
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
 import UnshareRoom from './UnshareRoom';
 import useServerTags from '../../../../hooks/queries/rooms/useServerTags';
+import useServerTagsFallbackMode from '../../../../hooks/queries/rooms/useServerTagsFallbackMode';
 import ServerTagRow from './ServerTagRow';
 
 export default function RoomSettings() {
@@ -44,6 +45,7 @@ export default function RoomSettings() {
   const { data: roomConfigs } = useRoomConfigs();
   const { data: room } = useRoom(friendlyId);
   const { data: serverTags } = useServerTags(friendlyId);
+  const { data: serverTagsFallbackMode } = useServerTagsFallbackMode();
 
   const updateMutationWrapper = () => useUpdateRoomSetting(friendlyId);
   const deleteMutationWrapper = (args) => useDeleteRoom({ friendlyId, ...args });
@@ -75,6 +77,7 @@ export default function RoomSettings() {
                   currentTag={roomSetting?.data?.serverTag}
                   tagRequired={roomSetting?.data?.serverTagRequired === 'true'}
                   serverTags={serverTags}
+                  fallbackMode={serverTagsFallbackMode}
                   description={t('room.settings.server_tag')}
                 />
               )}

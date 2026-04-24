@@ -27,9 +27,11 @@ module Api
         # GET /api/v1/admin/users/:id.json
         # Updates the specified user's status
         def update
-          user = User.find(params[:id])
+          user = User.with_provider(current_provider).find(params[:id])
+          initial_status = user.status
 
           if user.update(user_params)
+            user.generate_session_token! if user.status == 'banned' && initial_status == 'active'
             render_data status: :ok
           else
             render_error errors: user.errors.to_a
@@ -51,14 +53,29 @@ module Api
         end
 
         # GET /api/v1/admin/users/verified.json
-        # Fetches all active users
+        # Fetches all verified users
         def verified
           sort_config = config_sorting(allowed_columns: %w[name roles.name])
 
           users = User.includes(:role)
                       .with_provider(current_provider)
-                      .where(status: 'active')
+                      .where(status: 'active', verified: true)
                       .with_attached_avatar
+                      .order(sort_config, created_at: :desc)&.search(params[:search])
+
+          pagy, users = pagy(users)
+
+          render_data data: users, meta: pagy_metadata(pagy), serializer: UserSerializer, status: :ok
+        end
+
+        # GET /api/v1/admin/users/unverified.json
+        # Fetches all unverified users
+        def unverified
+          sort_config = config_sorting(allowed_columns: %w[name roles.name])
+
+          users = User.includes(:role)
+                      .with_provider(current_provider)
+                      .where(verified: false)
                       .order(sort_config, created_at: :desc)&.search(params[:search])
 
           pagy, users = pagy(users)
@@ -83,7 +100,7 @@ module Api
         private
 
         def user_params
-          params.require(:user).permit(:status)
+          params.require(:user).permit(:status, :verified)
         end
       end
     end

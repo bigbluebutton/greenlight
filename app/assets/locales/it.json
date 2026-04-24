@@ -14,6 +14,8 @@
   "report": "Riepilogo",
   "share": "Condividi",
   "cancel": "Annulla",
+  "reset":   "Resetta",
+  "reset_password": "Reimposta password",
   "close": "Chiudi",
   "delete": "Elimina",
   "copy": "Copia l'Indirizzo di accesso",
@@ -30,7 +32,7 @@
   "no_result_search_input": "Nessun risultato per \"{{ searchInput }}\"",
   "action_permanent": "Questa azione non può essere annullata.",
   "homepage": {
-    "welcome_bbb": "Benvenuto in BigBlueButton.",
+    "welcome_bbb": "Benvenuto su BigBlueButton.",
     "bigbluebutton_description": "BigBlueButton è un sistema di aule virtuali open source per lezioni online. La piattaforma ottimizza il tempo dedicato all'apprendimento applicato, consentendo ai discenti di collaborare e ricevere feedback in tempo reale.",
     "greenlight_description": "Crea aule per ospitare le tue sessioni, oppure unisciti a quelle degli altri utilizzando un pratico link.",
     "learn_more": "Per saperne di più su BigBlueButton",
@@ -163,6 +165,10 @@
       "wrong_access_code": "Codice di accesso errato",
       "generate_viewers_access_code": "Genera codice di accesso per uditori",
       "generate_mods_access_code": "Genera codice di accesso per moderatori",
+      "server_tag": "Seleziona un tipo di server per questa stanza",
+      "default_tag_name": "Predefinito",
+      "server_tag_desired": "Desiderato",
+      "server_tag_required": "Richiesto",
       "are_you_sure_delete_room": "Sicuro di voler eliminare quest'aula?"
     }
   },
@@ -180,6 +186,14 @@
     "protected": "Protetta",
     "public": "Pubblica",
     "public_protected": "Pubblica/Protetta",
+    "formats_help": "Visualizza i formati di riproduzione disponibili. Selezionando un formato si apre la registrazione BigBlueButton in una nuova scheda.",
+    "visibility_help": {
+      "public_protected": "La registrazione è disponibile nella pagina Registrazioni pubbliche, accessibile dalla pagina Partecipa alla Stanza. Può anche essere condivisa con altri tramite un link di accesso una tantum.",
+      "public": "La registrazione è disponibile nella pagina Registrazioni pubbliche, accessibile dalla pagina Partecipa alla stanza, e il suo collegamento può essere condiviso con chiunque",
+      "protected": "La registrazione è accessibile solo al proprietario della stanza e può essere condivisa con altri tramite un collegamento di accesso una tantum",
+      "published": "La registrazione è accessibile a chiunque abbia il link",
+      "unpublished": "La registrazione non è accessibile a nessuno"
+    },
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Registrazione in elaborazione, può richiedere del tempo...",
     "copy_recording_urls": "Copia URL Registrazione",
@@ -202,6 +216,8 @@
       "banned": "Bloccato",
       "ban": "Blocca",
       "unban": "Sblocca",
+      "unverified": "Non verificato",
+      "verify": "Verifica",
       "deleted": "Eliminato",
       "invited_tab": "Invitato",
       "invite_user": "Invita utente",
@@ -225,11 +241,14 @@
       "empty_pending_users_subtext": "Quando ci sarà un utente in attesa, apparirà qui.",
       "empty_banned_users": "Non ci sono ancora utenti bloccati in questo server!",
       "empty_banned_users_subtext": "Quando ci sarà un utente bloccato, apparirà qui.",
+      "empty_unverified_users": "Non ci sono ancora utenti non verificati su questo server!",
+      "empty_unverified_users_subtext": "Tutti gli utenti non verificati appariranno qui.",
       "empty_invited_users": "Non ci sono ancora utenti invitati in questo server!",
       "empty_invited_users_subtext": "Quando ci sarà un utente invitato, apparirà qui.",
       "invited": {
         "time_sent": "Ora di invio",
-        "valid": "Valido"
+        "valid": "Valido",
+        "revoke": "Revoca"
       }
     },
     "server_rooms": {
@@ -272,10 +291,12 @@
       "administration": {
         "administration": "Amministrazione",
         "terms": "Termini e condizioni",
-        "privacy": "Dati sensibili",
-        "privacy_policy": "Informativa sul trattamento dei dati sensibili",
+        "privacy": "Informativa sulla privacy",
+        "privacy_policy": "Informativa sulla privacy",
+        "accessibility_statement": "Dichiarazione di accessibilità",
         "change_term_links": "Modifica il link di termini e condizioni in calce alla pagina",
         "change_privacy_link": "Modifica il link dell'informativa dati sensibili in calce alla pagina",
+        "change_accessibility_statement_link": "Modifica il link alla dichiarazione di accessibilità che appare in fondo alla pagina",
         "helpcenter": "Aiuto",
         "change_helpcenter_link": "Modifica il link di aiuto nel menù di profilo",
         "maintenance": "Immagine per la manutenzione",
@@ -291,6 +312,8 @@
         "allow_users_to_share_rooms_description": "Impostando su disattivato verrà rimosso il bottone dalla tendina delle opzioni dell'aula, impedendo agli utenti di condividere le aule",
         "allow_users_to_preupload_presentation": "Permette agli utenti di caricare le presentazioni in anticipo",
         "allow_users_to_preupload_presentation_description": "Gli utenti possono caricare in anticipo una presentazione da usare come predefinita una data aula",
+        "show_sign_in_on_room_join": "Mostra il collegamento di accesso quando ti unisci alla stanza",
+        "show_sign_in_on_room_join_description": "Se l'utente non ha effettuato l'accesso, un collegamento di accesso viene visualizzato nella parte inferiore della scheda quando si entra in una stanza",
         "default_visibility": "Visibilità predefinita delle registrazioni",
         "default_visibility_description": "Ogni nuova registrazione avrà questa visibilità per impostazione predefinita",
         "session_timeout": "Scadenza sessione",
@@ -301,7 +324,7 @@
       "registration": {
         "registration": "Iscrizione",
         "role_mapping_by_email": "Mappatura dei ruoli per email",
-        "role_mapping_by_email_description": "Mappa l'utente a un ruolo usando l'email. Deve essere nel formato: ruolo1=email1, ruolo2=email2",
+        "role_mapping_by_email_description": "Assegna l'utente a un ruolo utilizzando il suo indirizzo email. Il formato deve essere: ruolo1=email1, ruolo2=email2",
         "enter_role_mapping_rule": "Inserisci una regola di mappatura dei ruoli",
         "resync_on_login": "Sincronizza i dati utente ad ogni accesso",
         "resync_on_login_description": "Sincronizza le informazioni dell'utente ogni volta che accede, allineando sempre il provider esterno alle informazioni su Greenlight",
@@ -313,7 +336,12 @@
           "open": "Iscrizione aperta",
           "invite": "Su invito",
           "approval": "Approva/Rifiuta"
-        }
+        },
+        "allowed_domains": "Domini di posta elettronica consentiti",
+        "allowed_domains_signup_description": "Consenti la registrazione a domini email specifici. Il formato deve essere: @test.com,dominio.com",
+        "enter_allowed_domains_rule" : "Inserisci i domini consentiti",
+        "allow_name_update": "Consenti agli utenti di aggiornare il proprio nome",
+        "allow_name_update_description": "Consenti agli utenti di modificare il proprio nome dopo la creazione dell'account. Se disabilitata, solo gli amministratori possono aggiornare i nomi degli utenti."
       }
     },
     "room_configuration": {
@@ -411,16 +439,17 @@
         "brand_color_updated": "Il colore di marchio è stato aggiornato.",
         "brand_image_updated": "L'immagine di marchio è stata aggiornata.",
         "brand_image_deleted": "L'immagine di marchio è stata cancellata.",
-        "privacy_policy_updated": "L'informativa sul trattamento dei dati sensibili è stata aggiornata.",
+        "privacy_policy_updated": "L'informativa sulla privacy è stata aggiornata.",
         "helpcenter_updated": "L'indirizzo di assistenza è stato aggiornato.",
         "terms_of_service_updated": "Le condizioni di servizio sono state aggiornate.",
-        "maintenance_updated": "L'immagine per la manutenzione è stata aggiornata."
+        "maintenance_updated": "L'immagine per la manutenzione è stata aggiornata.",
+        "allowed_domains_signup_updated": "I domini di posta elettronica consentiti sono stati aggiornati."
       },
       "recording": {
         "recording_visibility_updated": "La visibilità della registrazione è stata aggiornata.",
         "recording_name_updated": "Il nome della registrazione è stato aggiornato.",
         "recording_deleted": "La registrazione è stata cancellata.",
-        "copied_urls": "Gli URL delle registrazioni sono stati copiati."
+        "copied_urls": "L'URL della registrazione è stato copiato."
       },
       "role": {
         "role_created": "È stato creato un nuovo ruolo.",
@@ -429,11 +458,13 @@
         "role_permission_updated": "I permessi del ruolo sono stati aggiornati."
       },
       "invitations": {
-        "invitation_sent": "Ti abbiamo inviato un invito"
+        "invitation_sent": "Ti abbiamo inviato un invito",
+        "invitation_revoked": "Un invito è stato revocato"
       }
     },
     "error": {
       "problem_completing_action": "L'azione non può essere completata.\nSi prega di riprovare.",
+      "server_type_unavailable": "Il tipo di server richiesto non è disponibile. Seleziona un tipo diverso nelle impostazioni della stanza.",
       "file_type_not_supported": "Tipo di documento non supportato.",
       "file_size_too_large": "Documento troppo grande.",
       "file_upload_error": "Il documento non può essere caricato.",
@@ -448,7 +479,8 @@
         "email_exists": "È già presente un'utenza con l'email specificata. Si prega di riprovare con un'altra email.",
         "old_password": "La password inserita non è corretta.",
         "pending": "La tua iscrizione deve essere verificata da un amministratore. Si prega di riprovare più tardi.",
-        "banned": "Non hai accesso a questo servizio. Si prega di contattare un amministratore se ritieni si tratti di un errore."
+        "banned": "Non hai accesso a questo servizio. Si prega di contattare un amministratore se ritieni si tratti di un errore.",
+        "hcaptcha_invalid": "La verifica CAPTCHA non è riuscita. Riprova."
       },
       "rooms": {
         "room_limit": "Non è possibile creare l'aula perché il limite aule è stato raggiunto."
@@ -530,6 +562,11 @@
       },
       "url": {
         "invalid": "URL non valido"
+      },
+      "text_form": {
+        "value": {
+          "required": "Inserisci un messaggio"
+        }
       }
     },
     "room": {
@@ -679,6 +716,9 @@
         "fields": {
           "emails": {
             "label": "Email"
+          },
+          "names": {
+            "label": "Nomi (facoltativi)"
           }
         }
       },
