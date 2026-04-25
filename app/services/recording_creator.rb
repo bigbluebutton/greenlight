@@ -82,9 +82,11 @@ class RecordingCreator
   # Returns the length of presentation recording for the recording given
   def recording_length
     length = 0
+    video_formats = %w[presentation video]
+
     if @recording[:playback][:format].is_a?(Array)
       @recording[:playback][:format].each do |formats|
-        length = formats[:length] if formats[:type] == 'presentation' || formats[:type] == 'video'
+        length = formats[:length] if video_formats.include?(formats[:type])
       end
     else
       length = @recording[:playback][:format][:length]

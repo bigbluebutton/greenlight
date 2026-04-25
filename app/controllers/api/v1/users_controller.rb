@@ -35,7 +35,6 @@ module Api
         render_data data: user, status: :ok
       end
 
-      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       # POST /api/v1/users.json
       # Creates and saves a new user record in the database with the provided parameters
       def create
@@ -49,11 +48,12 @@ module Api
 
         registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
 
-        if registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !valid_invite_token && !admin_create
+        invited = valid_invite_token
+
+        if registration_method == SiteSetting::REGISTRATION_METHODS[:invite] && !invited && !admin_create
           return render_error errors: Rails.configuration.custom_error_msgs[:invite_token_invalid]
         end
 
-        # TODO: Add proper error logging for non-verified token hcaptcha
         if !admin_create && hcaptcha_enabled? && !verify_hcaptcha(response: params[:token])
           return render_error errors: Rails.configuration.custom_error_msgs[:hcaptcha_invalid]
         end
@@ -62,19 +62,20 @@ module Api
         create_user_params[:language] = current_user&.language || I18n.default_locale if create_user_params[:language].blank?
 
         # renders an error if the user is signing up with an invalid domain based off site settings
-        return render_error errors: Rails.configuration.custom_error_msgs[:unauthorized], status: :forbidden unless valid_domain?
+        return render_error errors: Rails.configuration.custom_error_msgs[:banned_user], status: :forbidden unless valid_domain?
 
         user = UserCreator.new(user_params: create_user_params.except(:invite_token), provider: current_provider, role: default_role).call
 
         smtp_enabled = ENV['SMTP_SERVER'].present?
 
-        user.verify! unless smtp_enabled
+        # Invited users are already verified since they confirmed their email via the invitation
+        user.verify! if !smtp_enabled || invited
 
         # Set to pending if registration method is approval
         user.pending! if !admin_create && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
 
         if user.save
-          if smtp_enabled
+          if smtp_enabled && !invited
             token = user.generate_activation_token!
             UserMailer.with(user:,
                             activation_url: activate_account_url(token), base_url: request.base_url,
@@ -97,7 +98,6 @@ module Api
           render_error errors: Rails.configuration.custom_error_msgs[:record_invalid], status: :bad_request
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # PATCH /api/v1/users/:id.json
       # Updates the values of a user
@@ -165,15 +165,11 @@ module Api
       private
 
       def create_user_params
-        @create_user_params ||= params.require(:user).permit(:name, :email, :password, :avatar, :language, :role_id, :invite_token)
+        @create_user_params ||= params.require(:user).permit(:name, :email, :password, :avatar, :language, :invite_token)
       end
 
       def update_user_params
-        @update_user_params ||= if external_auth?
-                                  params.require(:user).permit(:password, :avatar, :language, :role_id, :invite_token)
-                                else
-                                  params.require(:user).permit(:name, :password, :avatar, :language, :role_id, :invite_token)
-                                end
+        @update_user_params ||= params.require(:user).permit(permitted_params)
       end
 
       def change_password_params
@@ -197,6 +193,18 @@ module Api
           return true if create_user_params[:email].end_with?(domain)
         end
         false
+      end
+
+      def permitted_params
+        is_admin = PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call
+
+        return %i[password avatar language role_id invite_token] if external_auth? && !is_admin
+
+        allow_name_update = SettingGetter.new(setting_name: 'AllowNameUpdate', provider: current_provider).call
+
+        return %i[password avatar language role_id invite_token] if !allow_name_update && !is_admin
+
+        %i[name password avatar language role_id invite_token]
       end
     end
   end

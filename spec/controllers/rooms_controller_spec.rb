@@ -143,6 +143,15 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(response).to have_http_status(:not_found)
       expect(response.parsed_body['data']).to be_nil
     end
+
+    it 'returns :not_found for a room belonging to another provider' do
+      other_role = create(:role, provider: 'other-provider')
+      other_user = create(:user, provider: 'other-provider', role: other_role)
+      other_room = create(:room, user: other_user)
+
+      get :public_show, params: { friendly_id: other_room.friendly_id }
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   describe '#destroy' do
@@ -201,6 +210,11 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     it 'creates a room for a user' do
       expect { post :create, params: room_params }.to change { user.rooms.count }.from(0).to(1)
       expect(response).to have_http_status(:created)
+    end
+
+    it 'returns the link to the room' do
+      post :create, params: room_params
+      expect(response.parsed_body['data']).to eq("/rooms/#{Room.last.friendly_id}")
     end
 
     it 'cannot create a room for another user' do
@@ -540,6 +554,18 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
         expect(response).to have_http_status(:not_found)
         expect(response.parsed_body['data']).to be_blank
+      end
+    end
+
+    context 'room belonging to another provider' do
+      it 'returns :not_found' do
+        other_role = create(:role, provider: 'other-provider')
+        other_user = create(:user, provider: 'other-provider', role: other_role)
+        other_room = create(:room, user: other_user)
+
+        get :public_recordings, params: { friendly_id: other_room.friendly_id }
+
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

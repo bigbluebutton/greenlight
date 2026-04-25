@@ -29,7 +29,7 @@ class CreateServerTagsOption < ActiveRecord::Migration[7.0]
     unless RoomsConfiguration.exists?(meeting_option: tag_required_option, provider: 'greenlight')
       RoomsConfiguration.create!(meeting_option: tag_required_option, value: 'optional', provider: 'greenlight')
     end
-    Tenant.all.each do |tenant|
+    Tenant.find_each do |tenant|
       unless RoomsConfiguration.exists?(meeting_option: tag_option, provider: tenant.name)
         RoomsConfiguration.create!(meeting_option: tag_option, value: 'optional', provider: tenant.name)
       end

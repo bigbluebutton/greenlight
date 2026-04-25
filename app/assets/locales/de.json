@@ -14,6 +14,7 @@
   "report": "Bericht",
   "share": "Teilen",
   "cancel": "Abbrechen",
+  "reset":   "Zurücksetzen",
   "close": "Schließen",
   "delete": "Löschen",
   "copy": "Einladungslink kopieren",
@@ -163,6 +164,10 @@
       "wrong_access_code": "Falscher Zugangscode",
       "generate_viewers_access_code": "Zugangscode für Zuhörende generieren",
       "generate_mods_access_code": "Zugangscode für die Moderation generieren",
+      "server_tag": "Einen Servertyp für diesen Raum auswählen",
+      "default_tag_name": "Standard",
+      "server_tag_desired": "Erwünscht",
+      "server_tag_required": "Notwendig",
       "are_you_sure_delete_room": "Diesen Raum wirklich löschen?"
     }
   },
@@ -202,6 +207,8 @@
       "banned": "Gesperrt",
       "ban": "Sperren",
       "unban": "Entsperren",
+      "unverified": "Unverifiziert",
+      "verify": "Verifizieren",
       "deleted": "Gelöscht",
       "invited_tab": "Eingeladen",
       "invite_user": "Nutzende einladen",
@@ -225,11 +232,14 @@
       "empty_pending_users_subtext": "Wenn der Status eines Nutzers/einer Nutzerin auf \"ausstehend\" geändert wird, erscheint er hier.",
       "empty_banned_users": "Es gibt noch keine gesperrten Nutzenden auf diesem Server!",
       "empty_banned_users_subtext": "Wenn der Status eines Nutzers/einer Nutzerin auf \"gesperrt\" geändert wird, erscheint er hier.",
+      "empty_unverified_users": "Auf dieser Instanz sind keine unverifizierten Nutzende vorhanden!",
+      "empty_unverified_users_subtext": "Alle unverifizierte Nutzende werden hier erscheinen.",
       "empty_invited_users": "Es sind noch keine eingeladenen Nutzenden auf diesem Server!",
       "empty_invited_users_subtext": "Wenn der Status eines Nutzers/einer Nutzerin auf \"eingeladen\" geändert wird, erscheint er hier.",
       "invited": {
         "time_sent": "Sendezeitpunkt",
-        "valid": "Gültig"
+        "valid": "Gültig",
+        "revoke": "Widerrufen"
       }
     },
     "server_rooms": {
@@ -271,11 +281,13 @@
       },
       "administration": {
         "administration": "Administration",
-        "terms": "Nutzungsbedingungen",
-        "privacy": "Datenschutz",
+        "terms": "Impressum",
+        "privacy": "Datenschutzerklärung",
         "privacy_policy": "Datenschutzerklärung",
-        "change_term_links": "Ändere den Link zu den Nutzungsbedingungen, der unten auf der Seite erscheint.",
+        "accessibility_statement": "Barrierefreiheitserklärung",
+        "change_term_links": "Ändere den Link zum Impressum, der unten auf der Seite erscheint.",
         "change_privacy_link": "Ändere den Link zur Datenschutzerklärung, der unten auf der Seite erscheint.",
+        "change_accessibility_statement_link": "Ändere den Link zur Barrierefreiheitserklärung, der unten auf der Seite erscheint.",
         "helpcenter": "Hilfeseite",
         "change_helpcenter_link": "Ändern Sie den Link zur Hilfeseite, der unter dem Profil-Dropdown erscheint",
         "maintenance": "Wartungshinweis",
@@ -291,6 +303,8 @@
         "allow_users_to_share_rooms_description": "Wenn dies deaktiviert ist, dann wird der Knopf zum Teilen eines Raums von den Raumeinstellungen entfernt.",
         "allow_users_to_preupload_presentation": "Präsentationen können hochgeladen werden",
         "allow_users_to_preupload_presentation_description": "Nutzende können eine Präsentation im Voraus hochladen, die dann als Standard für diesen Raum genutzt wird.",
+        "show_sign_in_on_room_join": "Zeige Login-Link wenn Raum betreten wird",
+        "show_sign_in_on_room_join_description": "Wenn die Nutzer:in nicht eingeloggt ist wird ein Login-Link angezeigt",
         "default_visibility": "Standard-Sichtbarkeit der Aufnahmen",
         "default_visibility_description": "Alle neu erstellten Aufnahmen haben standardmäßig diese Sichtbarkeit",
         "session_timeout": "Timeout der Sitzung",
@@ -301,7 +315,7 @@
       "registration": {
         "registration": "Registrierung",
         "role_mapping_by_email": "Rollenzuordnung anhand von Email-Adressen",
-        "role_mapping_by_email_description": "Rollen anhand der Mail-Adresse zuordnen. Muss in diesem Format sein: role1=email1, role2=email2",
+        "role_mapping_by_email_description": "Rollen anhand der Mail-Adresse zuordnen, Angabe im Format: rolle1=email1,rolle2=email2",
         "enter_role_mapping_rule": "Eine Regel für Rollenzuordnung eingeben",
         "resync_on_login": "Daten bei jedem Login aktualisieren",
         "resync_on_login_description": "Daten bei jedem Login aktualisieren, so dass Greenlight immer dieselben Informationen hat, wie der externe Authentifizierungsanbieter",
@@ -313,7 +327,10 @@
           "open": "Offene Registrierung",
           "invite": "Per Einladung teilnehmen",
           "approval": "Zulassen/Ablehnen"
-        }
+        },
+        "allowed_domains": "Erlaubte Email-Domains",
+        "allowed_domains_signup_description": "Lasse nur spezifische Email-Domains zur Anmeldung zu. Angabe in folgendem Format: @test.com,domain.com",
+        "enter_allowed_domains_rule" : "Erlaubte Domains eingeben"
       }
     },
     "room_configuration": {
@@ -411,10 +428,11 @@
         "brand_color_updated": "Die Markenfarbe wurde aktualisiert.",
         "brand_image_updated": "Das Logo wurde aktualisiert.",
         "brand_image_deleted": "Das Logo wurde entfernt.",
-        "privacy_policy_updated": "Die Datenschutzrichtlinie wurde aktualisiert.",
+        "privacy_policy_updated": "Die Datenschutzerklärung wurde aktualisiert.",
         "helpcenter_updated": "Der Link zur Hilfeseite wurde aktualisiert.",
         "terms_of_service_updated": "Die Nutzungsbedingungen wurden aktualisiert.",
-        "maintenance_updated": "Der Wartungshinweis wurde aktualisiert."
+        "maintenance_updated": "Der Wartungshinweis wurde aktualisiert.",
+        "allowed_domains_signup_updated": "Die erlaubten Email-Domains wurden aktualisiert"
       },
       "recording": {
         "recording_visibility_updated": "Aufzeichnungssichtbarkeit aktualisiert.",
@@ -429,11 +447,13 @@
         "role_permission_updated": "Rollenberechtigung aktualisiert."
       },
       "invitations": {
-        "invitation_sent": "Einladung versendet"
+        "invitation_sent": "Einladung versendet",
+        "invitation_revoked": "Eine Einladung wurde widerrufen"
       }
     },
     "error": {
       "problem_completing_action": "Hier hat etwas nicht funktioniert.\nBitte nochmal probieren.",
+      "server_type_unavailable": "Der verlangte Servertyp ist nicht verfügbar, bitte einen anderen Typ in den Raumeinstellungen wählen.",
       "file_type_not_supported": "Dateityp wird nicht unterstützt.",
       "file_size_too_large": "Datei ist zu groß.",
       "file_upload_error": "Die Datei kann nicht hochgeladen werden.",
@@ -530,6 +550,11 @@
       },
       "url": {
         "invalid": "Ungültige URL"
+      },
+      "text_form": {
+        "value": {
+          "required": "Bitte eine Nachricht eingeben"
+        }
       }
     },
     "room": {

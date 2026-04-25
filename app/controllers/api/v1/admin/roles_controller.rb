@@ -28,7 +28,7 @@ module Api
           ensure_authorized('ManageRoles')
         end
 
-        # POST /api/v1/admin/roles.json
+        # GET /api/v1/admin/roles.json
         # Fetches and returns the list of roles
         def index
           sort_config = config_sorting(allowed_columns: %w[name])
@@ -80,7 +80,7 @@ module Api
         end
 
         def find_role
-          @role = Role.find params[:id]
+          @role = Role.with_provider(current_provider).find(params[:id])
         end
       end
     end

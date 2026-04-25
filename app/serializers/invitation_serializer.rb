@@ -17,7 +17,7 @@
 # frozen_string_literal: true
 
 class InvitationSerializer < ApplicationSerializer
-  attributes :id, :email, :updated_at, :valid
+  attributes :id, :email, :name, :updated_at, :valid
 
   def valid
     object.updated_at > Invitation::INVITATION_VALIDITY_PERIOD.ago

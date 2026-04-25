@@ -24,9 +24,9 @@ import { useAuth } from '../../contexts/auth/AuthProvider';
 export default function Footer() {
   const { t } = useTranslation();
   const { data: env } = useEnv();
-  const { data: links } = useSiteSetting(['Terms', 'PrivacyPolicy']);
+  const { data: links } = useSiteSetting(['Terms', 'PrivacyPolicy', 'AccessibilityStatement']);
   const currentUser = useAuth();
-  const isAdmin = currentUser && currentUser.role && currentUser?.role.name === 'Administrator';
+  const isAdmin = currentUser?.role?.name === 'Administrator' || currentUser?.role?.name === 'SuperAdmin';
 
   return (
     <footer id="footer" className="footer background-whitesmoke text-center">
@@ -43,6 +43,12 @@ export default function Footer() {
           && (
             <a className="ps-3" href={links?.PrivacyPolicy} target="_blank" rel="noreferrer">
               { t('admin.site_settings.administration.privacy_policy') }
+            </a>
+          )}
+        { links?.AccessibilityStatement
+          && (
+            <a className="ps-3" href={links?.AccessibilityStatement} target="_blank" rel="noreferrer">
+              { t('admin.site_settings.administration.accessibility_statement') }
             </a>
           )}
       </Container>

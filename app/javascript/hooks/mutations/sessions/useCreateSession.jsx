@@ -55,6 +55,8 @@ export default function useCreateSession() {
           navigate(`/verify?id=${err.response.data.data}`);
         } else if (err.response.data.errors === 'PasswordNotSet') {
           navigate(`/reset_password/${err.response.data.data}`);
+        } else if (err.response.data.errors === 'HCaptchaInvalid') {
+          toast.error(t('toast.error.users.hcaptcha_invalid'));
         } else {
           toast.error(t('toast.error.session.invalid_credentials'));
         }

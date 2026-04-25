@@ -30,6 +30,9 @@ RSpec.describe ExternalController do
         info: {
           email: Faker::Internet.email,
           name: Faker::Name.name
+        },
+        credentials: {
+          id_token: 'sample_id_token'
         }
       )
 
@@ -53,7 +56,6 @@ RSpec.describe ExternalController do
 
       get :create_user, params: { provider: 'openid_connect' }
 
-      expect(session[:session_token]).to eq(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).session_token)
       expect(response).to redirect_to(root_path)
     end
 
@@ -91,6 +93,23 @@ RSpec.describe ExternalController do
       expect do
         get :create_user, params: { provider: 'openid_connect' }
       end.not_to change(User, :count)
+    end
+
+    it 'sets the correct session variables' do
+      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+      get :create_user, params: { provider: 'openid_connect' }
+
+      expect(session[:session_token]).to eq(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).session_token)
+    end
+
+    it 'sets oidc id token if OPENID_CONNECT_LOGOUT_PATH is set' do
+      request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+      ENV['OPENID_CONNECT_LOGOUT_PATH'] = '/logout'
+
+      get :create_user, params: { provider: 'openid_connect' }
+
+      expect(session[:oidc_id_token]).to eq(OmniAuth.config.mock_auth[:openid_connect][:credentials][:id_token])
     end
 
     context 'redirect' do
@@ -371,6 +390,15 @@ RSpec.describe ExternalController do
 
           expect { get :create_user, params: { provider: 'openid_connect' } }.not_to change(User, :count)
         end
+
+        it 'does not affect existing users with different domains' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+          create(:user, external_id: OmniAuth.config.mock_auth[:openid_connect][:uid])
+
+          get :create_user, params: { provider: 'openid_connect' }
+          expect(response).not_to redirect_to(root_path(error: Rails.configuration.custom_error_msgs[:banned_user]))
+        end
       end
 
       context 'restricted domain set to multiple domain' do
@@ -426,6 +454,65 @@ RSpec.describe ExternalController do
 
         expect { get :create_user, params: { provider: 'openid_connect' } }.to change(User, :count).by(1)
         expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).role).to eq(role1)
+      end
+    end
+
+    context 'avatar' do
+      before do
+        OmniAuth.config.mock_auth[:openid_connect] = OmniAuth::AuthHash.new(
+          uid: Faker::Internet.uuid,
+          info: {
+            email: Faker::Internet.email,
+            name: Faker::Name.name,
+            image: Faker::Avatar.image
+          }
+        )
+
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+        stub_request(:get, OmniAuth.config.mock_auth[:openid_connect][:info][:image])
+          .to_return(body: file_fixture('default-avatar.png'), headers: { 'Content-Type' => 'image/jpeg' }, status: 200)
+      end
+
+      it 'attaches the avatar to the user' do
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).avatar).to be_attached
+      end
+
+      it 'does not re-attach the avatar if it hasnt changed' do
+        reg_method = instance_double(SettingGetter)
+        allow(SettingGetter).to receive(:new).with(setting_name: 'ResyncOnLogin', provider: 'greenlight').and_return(reg_method)
+        allow(reg_method).to receive(:call).and_return(true)
+
+        profile_file = URI.parse(OmniAuth.config.mock_auth[:openid_connect][:info][:image])
+        filename = File.basename(profile_file.path)
+
+        user = create(:user, email: OmniAuth.config.mock_auth[:openid_connect][:info][:email])
+        user.avatar.attach(io: fixture_file_upload('default-avatar.png'), filename:, content_type: 'image/png')
+
+        expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).avatar).not_to receive(:attach)
+        get :create_user, params: { provider: 'openid_connect' }
+      end
+
+      it 'does not prevent the user from being created if the avatar attaching fails' do
+        allow(OmniAuth.config.mock_auth[:openid_connect][:info][:image]).to receive(:blank?).and_raise(StandardError, 'Some error')
+
+        expect { get :create_user, params: { provider: 'openid_connect' } }.not_to raise_error
+        expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email])).to be_present
+      end
+
+      it 'does not try to attach the avatar if no image is passed' do
+        OmniAuth.config.mock_auth[:openid_connect][:info][:image] = nil
+
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).avatar).not_to be_attached
+      end
+
+      it 'does not try to attach the avatar if the user is invalid' do
+        allow_any_instance_of(User).to receive(:valid?).and_return(false)
+        expect_any_instance_of(User).not_to receive(:avatar)
+        get :create_user, params: { provider: 'openid_connect' }
       end
     end
   end

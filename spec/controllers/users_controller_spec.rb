@@ -378,6 +378,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe '#update' do
     before do
       sign_in_user(user)
+      allow(SettingGetter).to receive(:new).and_call_original
+      allow(SettingGetter).to receive(:new).with(setting_name: 'AllowNameUpdate', provider: 'greenlight').and_return(fake_setting_getter)
+      allow(fake_setting_getter).to receive(:call).and_return(true)
     end
 
     it 'updates the users attributes' do
@@ -462,6 +465,21 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       user.reload
 
       expect(user.role_id).to eq(updated_params[:role_id])
+    end
+
+    it 'allows a user with ManageUser permissions to edit an external users name' do
+      sign_in_user(user_with_manage_users_permission)
+
+      external_user = create(:user, external_id: 'external-id')
+      updated_params = {
+        name: 'New External Name'
+      }
+
+      patch :update, params: { id: external_user.id, user: updated_params }
+
+      external_user.reload
+
+      expect(external_user.name).to eq(updated_params[:name])
     end
   end
 

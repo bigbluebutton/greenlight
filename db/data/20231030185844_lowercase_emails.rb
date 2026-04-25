@@ -2,7 +2,7 @@
 
 class LowercaseEmails < ActiveRecord::Migration[7.1]
   def up
-    User.all.find_each(batch_size: 250) do |user|
+    User.find_each(batch_size: 250) do |user|
       downcase = user.email.downcase
       next if user.email == downcase
 

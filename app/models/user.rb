@@ -35,7 +35,7 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
-  enum status: { active: 0, pending: 1, banned: 2 }
+  enum :status, { active: 0, pending: 1, banned: 2 }
 
   validates :name, presence: true,
                    length: { minimum: 1, maximum: 255 } # TODO: amir - Change into full_name or seperate first and last name.
@@ -58,7 +58,7 @@ class User < ApplicationRecord
             on: %i[create update], if: :password_digest_changed?, unless: :external_id?
 
   validates :avatar,
-            dimension: { width: 300, height: 300 },
+            dimension: { width: { in: 1..300 }, height: { in: 1..300 } },
             content_type: Rails.configuration.uploads[:images][:formats],
             size: { less_than: Rails.configuration.uploads[:images][:max_size] }
 
@@ -115,7 +115,7 @@ class User < ApplicationRecord
 
   # Checkes the expiration of a token.
   def self.reset_token_expired?(sent_at)
-    Time.current > (sent_at.in(RESET_TOKEN_VALIDITY_PERIOD))
+    Time.current > sent_at.in(RESET_TOKEN_VALIDITY_PERIOD)
   end
 
   # Gives the session token and expiry a default value before saving
@@ -191,7 +191,7 @@ class User < ApplicationRecord
 
   # Checkes the expiration of a token.
   def self.activation_token_expired?(sent_at)
-    Time.current > (sent_at.in(ACTIVATION_TOKEN_VALIDITY_PERIOD))
+    Time.current > sent_at.in(ACTIVATION_TOKEN_VALIDITY_PERIOD)
   end
 
   def invalidate_activation_token

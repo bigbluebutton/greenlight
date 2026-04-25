@@ -21,12 +21,11 @@ class AddEmailOnSignUpPermission < ActiveRecord::Migration[7.1]
     email_permission = Permission.create!(name: 'EmailOnSignup')
     admin = Role.where(name: 'Administrator')
 
-    values = []
-    admin.each do |adm|
-      values << { role: adm, permission: email_permission, value: 'true' }
+    values = admin.map do |adm|
+      { role: adm, permission: email_permission, value: 'true' }
     end
 
-    Role.where.not(name: 'Administrator').each do |role|
+    Role.where.not(name: 'Administrator').find_each do |role|
       values.push({ role:, permission: email_permission, value: 'false' })
     end
 

@@ -23,7 +23,7 @@ import {
 import SimpleSelect from '../../../shared_components/utilities/SimpleSelect';
 
 export default function ServerTagRow({
-  updateMutation: useUpdateAPI, currentTag, tagRequired, serverTags, description,
+  updateMutation: useUpdateAPI, currentTag, tagRequired, serverTags, fallbackMode, description,
 }) {
   const updateAPI = useUpdateAPI();
   const { t } = useTranslation();
@@ -68,38 +68,40 @@ export default function ServerTagRow({
           ].concat(dropdownTags)}
         </SimpleSelect>
       </Col>
-      <Col>
-        <ButtonGroup>
-          <ToggleButton
-            key="desired"
-            id="desired"
-            type="radio"
-            variant="outline-success"
-            name="radio"
-            checked={tagRequired === false}
-            disabled={updateAPI.isLoading}
-            onChange={() => {
-              updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: false });
-            }}
-          >
-            {t('room.settings.server_tag_desired')}
-          </ToggleButton>
-          <ToggleButton
-            key="required"
-            id="required"
-            type="radio"
-            variant="outline-danger"
-            name="radio"
-            checked={tagRequired === true}
-            disabled={updateAPI.isLoading}
-            onChange={() => {
-              updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: true });
-            }}
-          >
-            {t('room.settings.server_tag_required')}
-          </ToggleButton>
-        </ButtonGroup>
-      </Col>
+      {(fallbackMode !== 'desired' && fallbackMode !== 'required') && (
+        <Col>
+          <ButtonGroup>
+            <ToggleButton
+              key="desired"
+              id="desired"
+              type="radio"
+              variant="outline-success"
+              name="radio"
+              checked={tagRequired === false}
+              disabled={updateAPI.isLoading}
+              onChange={() => {
+                updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: false });
+              }}
+            >
+              {t('room.settings.server_tag_desired')}
+            </ToggleButton>
+            <ToggleButton
+              key="required"
+              id="required"
+              type="radio"
+              variant="outline-danger"
+              name="radio"
+              checked={tagRequired === true}
+              disabled={updateAPI.isLoading}
+              onChange={() => {
+                updateAPI.mutate({ settingName: 'serverTagRequired', settingValue: true });
+              }}
+            >
+              {t('room.settings.server_tag_required')}
+            </ToggleButton>
+          </ButtonGroup>
+        </Col>
+      )}
     </Row>
   );
 }
@@ -114,5 +116,6 @@ ServerTagRow.propTypes = {
   currentTag: PropTypes.string,
   tagRequired: PropTypes.bool,
   serverTags: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  fallbackMode: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
 };

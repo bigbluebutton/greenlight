@@ -23,11 +23,11 @@ export default function useCopyRecordingUrl() {
   const { t } = useTranslation();
 
   return useMutation(
-    (data) => axios.post('/recordings/recording_url.json', { id: data.record_id })
+    (data) => axios.post('/recordings/recording_url.json', { id: data.record_id, recording_format: data.format })
       .then((resp) => resp.data),
     {
       onSuccess: (url) => {
-        navigator.clipboard.writeText(url?.join('\n')).then(() => toast.success(t('toast.success.recording.copied_urls')));
+        navigator.clipboard.writeText(url?.data).then(() => toast.success(t('toast.success.recording.copied_urls')));
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

@@ -35,7 +35,7 @@ export default function RoomsList() {
   const [searchInput, setSearchInput] = useState('');
   const { isLoading, data: rooms } = useRooms(searchInput);
   const currentUser = useAuth();
-  const canCreate = currentUser?.permissions.CreateRoom;
+  const canCreate = currentUser?.permissions.CreateRoom === 'true' && rooms?.length < Number(currentUser?.permissions.RoomLimit);
   const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
 
   if (!isLoading && rooms?.length === 0 && !searchInput) {
@@ -48,7 +48,7 @@ export default function RoomsList() {
         <div>
           <SearchBar searchInput={searchInput} id="rooms-search" setSearchInput={setSearchInput} />
         </div>
-        { (canCreate === 'true') && (
+        { (canCreate) && (
           <Modal
             modalButton={(
               <Button

@@ -47,6 +47,7 @@ class TenantSetup
         provider: @provider },
       { setting: Setting.find_by(name: 'Terms'), value: '', provider: @provider },
       { setting: Setting.find_by(name: 'PrivacyPolicy'), value: '', provider: @provider },
+      { setting: Setting.find_by(name: 'AccessibilityStatement'), value: '', provider: @provider },
       { setting: Setting.find_by(name: 'HelpCenter'), value: '', provider: @provider },
       { setting: Setting.find_by(name: 'RegistrationMethod'), value: SiteSetting::REGISTRATION_METHODS[:open],
         provider: @provider },
@@ -57,14 +58,15 @@ class TenantSetup
       { setting: Setting.find_by(name: 'DefaultRecordingVisibility'), provider: @provider, value: 'Published' },
       { setting: Setting.find_by(name: 'Maintenance'), provider: @provider, value: '' },
       { setting: Setting.find_by(name: 'SessionTimeout'), provider: @provider, value: '1' },
-      { setting: Setting.find_by(name: 'AllowedDomains'), value: '', provider: @provider }
+      { setting: Setting.find_by(name: 'AllowedDomains'), value: '', provider: @provider },
+      { setting: Setting.find_by(name: 'SignInOnRoomJoin'), value: 'true', provider: @provider }
     ]
   end
 
   def create_rooms_configs_options
     RoomsConfiguration.create! [
       { meeting_option: MeetingOption.find_by(name: 'record'), value: 'default_enabled', provider: @provider },
-      { meeting_option: MeetingOption.find_by(name: 'muteOnStart'), value: 'optional', provider: @provider },
+      { meeting_option: MeetingOption.find_by(name: 'muteOnStart'), value: 'default_enabled', provider: @provider },
       { meeting_option: MeetingOption.find_by(name: 'guestPolicy'), value: 'optional', provider: @provider },
       { meeting_option: MeetingOption.find_by(name: 'glAnyoneCanStart'), value: 'optional', provider: @provider },
       { meeting_option: MeetingOption.find_by(name: 'glAnyoneJoinAsModerator'), value: 'optional', provider: @provider },

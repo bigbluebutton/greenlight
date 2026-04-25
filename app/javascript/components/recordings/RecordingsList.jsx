@@ -19,7 +19,10 @@ import PropTypes from 'prop-types';
 import {
   Badge, Card, Stack, Table,
 } from 'react-bootstrap';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { useTranslation } from 'react-i18next';
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import Popover from 'react-bootstrap/Popover';
 import SortBy from '../shared_components/search/SortBy';
 import RecordingsListRowPlaceHolder from './RecordingsListRowPlaceHolder';
 import NoSearchResults from '../shared_components/search/NoSearchResults';
@@ -32,6 +35,14 @@ export default function RecordingsList({
   recordings, isLoading, setPage, searchInput, setSearchInput, recordingsProcessing, adminTable, numPlaceholders,
 }) {
   const { t } = useTranslation();
+
+  const formatsTooltip = (
+    <Popover>
+      <Popover.Body>
+        <p className="mb-0">{t('recording.formats_help')}</p>
+      </Popover.Body>
+    </Popover>
+  );
 
   if (!isLoading && recordings?.data?.length === 0 && !searchInput && recordingsProcessing === 0) {
     return <EmptyRecordingsList />;
@@ -69,16 +80,29 @@ export default function RecordingsList({
                     <th className="fw-normal border-0">{t('recording.length')}<SortBy fieldName="length" /></th>
                     <th className="fw-normal border-0">{t('recording.users')}</th>
                     <th className="fw-normal border-0">{t('recording.visibility')}<SortBy fieldName="visibility" /></th>
-                    <th className="fw-normal border-0">{t('recording.formats')}</th>
+                    <th className="fw-normal border-0">
+                      <Stack direction="horizontal" gap={1} className="align-items-center">
+                        <span>{t('recording.formats')}</span>
+                        <OverlayTrigger
+                          placement="top"
+                          trigger={['hover', 'focus']}
+                          overlay={formatsTooltip}
+                        >
+                          <button type="button" className="btn btn-link p-0 border-0 d-inline-flex text-muted cursor-pointer">
+                            <QuestionMarkCircleIcon className="hi-xs" />
+                          </button>
+                        </OverlayTrigger>
+                      </Stack>
+                    </th>
                     <th className="border-start-0" aria-label="options" />
                   </tr>
                 </thead>
                 <tbody className="border-top-0">
                   {
-                    (isLoading && [...Array(numPlaceholders)].map((val, idx) => (
+                    isLoading && Array.from({ length: numPlaceholders }).map((_, idx) => (
                       // eslint-disable-next-line react/no-array-index-key
                       <RecordingsListRowPlaceHolder key={idx} />
-                    )))
+                    ))
                   }
                   {
                     (recordings?.data?.length > 0 && recordings?.data?.map((recording, idx) => (
