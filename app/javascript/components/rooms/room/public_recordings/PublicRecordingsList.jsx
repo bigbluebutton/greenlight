@@ -14,10 +14,10 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { VideoCameraIcon } from '@heroicons/react/24/outline';
-import { Card, Stack, Table } from 'react-bootstrap';
+import { Card, Stack, Table, Alert } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import SortBy from '../../../shared_components/search/SortBy';
 import NoSearchResults from '../../../shared_components/search/NoSearchResults';
@@ -29,11 +29,32 @@ import PublicRecordingsRowPlaceHolder from './PublicRecordingsRowPlaceHolder';
 import ButtonLink from '../../../shared_components/utilities/ButtonLink';
 import UserBoardIcon from '../../UserBoardIcon';
 
-export default function PublicRecordingsList({ friendlyId }) {
+export default function PublicRecordingsList({ friendlyId, accessCode, onRequiresAccessCode }) {
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [searchInput, setSearchInput] = useState('');
-  const { data: recordings, ...publicRecordingsAPI } = usePublicRecordings({ friendlyId, page, search: searchInput });
+  const [showAccessCodeError, setShowAccessCodeError] = useState(false);
+  
+  const { data: recordings, ...publicRecordingsAPI } = usePublicRecordings({ 
+    friendlyId, 
+    page, 
+    search: searchInput,
+    accessCode: accessCode || undefined
+  });
+
+  // Check if access code is required
+  useEffect(() => {
+    if (publicRecordingsAPI.isFetched && recordings?.meta?.requires_access_code) {
+      onRequiresAccessCode();
+      // Only show error if we've attempted to submit an access code
+      if (accessCode !== '') {
+        setShowAccessCodeError(true);
+        // Access code is invalid
+      }
+    } else {
+      setShowAccessCodeError(false);
+    }
+  }, [recordings, publicRecordingsAPI.isFetched, onRequiresAccessCode, accessCode]);
 
   if (!publicRecordingsAPI.isLoading && recordings?.data?.length === 0 && !searchInput) {
     return (
@@ -70,6 +91,13 @@ export default function PublicRecordingsList({ friendlyId }) {
           <span> <UserBoardIcon className="hi-s text-brand cursor-pointer" /> {t('join_session')} </span>
         </ButtonLink>
       </Stack>
+      
+      {showAccessCodeError && (
+        <Alert variant="danger" className="mt-3">
+          <strong>{t('recording.invalid_access_code')}</strong>
+          <p className="mb-0 mt-1">{t('recording.invalid_access_code_try_again')}</p>
+        </Alert>
+      )}
       {
         (searchInput && recordings?.data.length === 0)
           ? (
@@ -123,4 +151,10 @@ export default function PublicRecordingsList({ friendlyId }) {
 
 PublicRecordingsList.propTypes = {
   friendlyId: PropTypes.string.isRequired,
+  accessCode: PropTypes.string,
+  onRequiresAccessCode: PropTypes.func.isRequired,
+};
+
+PublicRecordingsList.defaultProps = {
+  accessCode: '',
 };
