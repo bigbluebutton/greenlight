@@ -120,6 +120,8 @@
     "search_not_found": "Keine Räume gefunden",
     "rooms_list_is_empty": "Du hast noch keine Räume!",
     "rooms_list_empty_create_room": "Erstelle deinen ersten Raum, indem du auf die Schaltfläche unten klickst und einen Raumnamen eingibst.",
+    "friendly_id": "Raum-URL",
+    "friendly_id_help": "Nur Kleinbuchstaben, Zahlen und Bindestriche erlaubt.",
     "meeting": {
       "start_meeting": "Konferenz starten",
       "join_meeting": "Konferenz beitreten",
