@@ -31,6 +31,7 @@ import AccessCodeRow from './AccessCodeRow';
 import useUpdateRoomSetting from '../../../../hooks/mutations/room_settings/useUpdateRoomSetting';
 import { useAuth } from '../../../../contexts/auth/AuthProvider';
 import UpdateRoomNameForm from './forms/UpdateRoomNameForm';
+import UpdateRoomFriendlyIdForm from './forms/UpdateRoomFriendlyIdForm';
 import useRoom from '../../../../hooks/queries/rooms/useRoom';
 import UnshareRoom from './UnshareRoom';
 import useServerTags from '../../../../hooks/queries/rooms/useServerTags';
@@ -57,6 +58,7 @@ export default function RoomSettings() {
           <Row>
             <Col className="border-end border-2">
               <UpdateRoomNameForm friendlyId={friendlyId} />
+              <UpdateRoomFriendlyIdForm friendlyId={friendlyId} />
               <AccessCodeRow
                 settingName="glViewerAccessCode"
                 updateMutation={updateMutationWrapper}

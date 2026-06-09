@@ -29,6 +29,7 @@ class Room < ApplicationRecord
 
   validates :name, presence: true
   validates :friendly_id, presence: true, uniqueness: true
+  validates :friendly_id, format: { with: /\A[a-z0-9][a-z0-9-]*[a-z0-9]\z/ }, length: { minimum: 3, maximum: 50 }, on: :update
   validates :meeting_id, presence: true, uniqueness: true
   validates :presentation,
             content_type: Rails.configuration.uploads[:presentations][:formats],

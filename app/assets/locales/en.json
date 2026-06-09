@@ -110,6 +110,8 @@
     "room": "Room",
     "rooms": "Rooms",
     "room_name": "Room Name",
+    "room_id": "Room ID",
+    "enter_room_id": "Enter a custom room ID",
     "add_new_room": "+ New Room",
     "create_room": "Create Room",
     "delete_room": "Delete Room",
