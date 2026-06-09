@@ -14,8 +14,20 @@
 // You should have received a copy of the GNU Lesser General Public License along
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
-import useUserSearch from './useUserSearch';
+import { useQuery } from 'react-query';
+import axios from '../../../helpers/Axios';
 
-export default function useShareableUsers(friendlyId, input) {
-  return useUserSearch(friendlyId, input, { queryKey: 'getShareableUsers', endpoint: 'shareable_users' });
+export default function useUserSearch(friendlyId, input, { queryKey, endpoint }) {
+  const params = {
+    search: input,
+  };
+
+  return useQuery(
+    [queryKey, input],
+    () => axios.get(`/shared_accesses/${friendlyId}/${endpoint}.json`, { params }).then((resp) => resp.data.data),
+    {
+      keepPreviousData: true,
+      enabled: input?.length >= 3,
+    },
+  );
 }

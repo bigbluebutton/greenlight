@@ -68,33 +68,38 @@ module Api
       # GET /api/v1/shared_accesses/friendly_id/shareable_users.json
       # Returns a list of users with whom a room can be shared with (based on role permissions)
       def shareable_users
-        return render_data data: [], status: :ok unless params[:search].present? && params[:search].length >= 3
+        return render_data data: [], status: :ok unless search_valid?
 
         # role_id of roles that have SharedList permission set to true
         role_ids = RolePermission.joins(:permission).where(permission: { name: 'SharedList' }).where(value: 'true').pluck(:role_id)
 
         # Can't share the room if it's already shared or it's the room owner
-        shareable_users = User.with_attached_avatar
-                              .with_provider(current_provider)
-                              .where.not(id: [@room.shared_users.pluck(:id) << @room.user_id])
-                              .where(role_id: [role_ids])
-                              .shared_access_search(params[:search])
+        shareable_users = search_users
+                          .where.not(id: @room.shared_users.pluck(:id) + [@room.user_id])
+                          .where(role_id: role_ids)
         render_data data: shareable_users, serializer: SharedAccessSerializer, status: :ok
       end
 
       # GET /api/v1/shared_accesses/friendly_id/transferable_users.json
       # Returns a list of users who can receive room ownership
       def transferable_users
-        return render_data data: [], status: :ok unless params[:search].present? && params[:search].length >= 3
+        return render_data data: [], status: :ok unless search_valid?
 
-        users = User.with_attached_avatar
-                    .with_provider(current_provider)
-                    .where.not(id: @room.user_id)
-                    .shared_access_search(params[:search])
+        users = search_users.where.not(id: @room.user_id)
         render_data data: users, serializer: SharedAccessSerializer, status: :ok
       end
 
       private
+
+      def search_valid?
+        params[:search].present? && params[:search].length >= 3
+      end
+
+      def search_users
+        User.with_attached_avatar
+            .with_provider(current_provider)
+            .shared_access_search(params[:search])
+      end
 
       def find_room
         @room = Room.find_by(friendly_id: params[:friendly_id])
