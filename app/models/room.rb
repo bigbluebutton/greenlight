@@ -30,6 +30,7 @@ class Room < ApplicationRecord
   validates :name, presence: true
   validates :friendly_id, presence: true, uniqueness: true
   validates :meeting_id, presence: true, uniqueness: true
+  validates :dial_in_pin, presence: true, uniqueness: true, length: { is: 6 }, numericality: { only_integer: true }
   validates :presentation,
             content_type: Rails.configuration.uploads[:presentations][:formats],
             size: { less_than: Rails.configuration.uploads[:presentations][:max_size] }
@@ -37,7 +38,7 @@ class Room < ApplicationRecord
   validates :name, length: { minimum: 1, maximum: 255 }
   validates :recordings_processing, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-  before_validation :set_friendly_id, :set_meeting_id, on: :create
+  before_validation :set_friendly_id, :set_meeting_id, :set_dial_in_pin, on: :create
   before_save :scan_presentation_for_virus
 
   after_create :create_meeting_options
@@ -98,6 +99,16 @@ class Room < ApplicationRecord
     raise if Room.exists?(meeting_id: id) # Ensure uniqueness
 
     self.meeting_id = id
+  rescue StandardError
+    retry
+  end
+
+  # Generate a unique 6-digit dial_in_pin for SIP access
+  def set_dial_in_pin
+    pin = SecureRandom.random_number(1_000_000).to_s.rjust(6, '0')
+    raise if Room.exists?(dial_in_pin: pin) # Ensure uniqueness
+
+    self.dial_in_pin = pin
   rescue StandardError
     retry
   end
