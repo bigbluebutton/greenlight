@@ -44,6 +44,9 @@ class MeetingStarter
     options.merge!(computed_options(access_code: viewer_code['glViewerAccessCode']))
     options.delete('muteOnStart') unless options['muteOnStart'] == 'true'
 
+    # Add dial_in_pin to meeting metadata for SIP access
+    options['meta_dial-in-pin'] = @room.dial_in_pin
+
     retries = 0
     begin
       meeting = BigBlueButtonApi.new(provider: @provider).start_meeting(room: @room, options:, presentation_url:)
@@ -64,6 +67,7 @@ class MeetingStarter
     room_url = "#{root_url(host: @base_url)}rooms/#{@room.friendly_id}/join"
     moderator_message = "#{I18n.t('meeting.moderator_message', locale: @current_user&.language&.to_sym)}<br>#{room_url}"
     moderator_message += "<br>#{I18n.t('meeting.access_code', code: access_code, locale: @current_user&.language&.to_sym)}" if access_code.present?
+    moderator_message += "<br>#{I18n.t('meeting.dial_in_pin', pin: @room.dial_in_pin, locale: @current_user&.language&.to_sym)}"
     {
       moderatorOnlyMessage: moderator_message,
       loginURL: room_url,
