@@ -15,6 +15,7 @@
   "share": "Paylaş",
   "cancel": "İptal",
   "reset":   "Sıfırla",
+  "reset_password": "Parolayı sıfırla",
   "close": "Kapat",
   "delete": "Sil",
   "copy": "Kopyala",
@@ -338,7 +339,9 @@
         },
         "allowed_domains": "İzin verilen e-posta etki alanları",
         "allowed_domains_signup_description": "Belirli e-posta etki alanlarından hesap açılmasına izin verir. Şu biçimde yazılmalıdır: @deneme.com,etkialani.com",
-        "enter_allowed_domains_rule" : "İzin verilen etki alanlarını yazın"
+        "enter_allowed_domains_rule" : "İzin verilen etki alanlarını yazın",
+        "allow_name_update": "Kullanıcılar kendi adlarını güncelleyebilsin",
+        "allow_name_update_description": "Kullanıcıların hesaplarını açmalarından sonra adlarını değiştirebilmesini sağlar. Kapatıldığında kullanıcı adlarını yalnızca yöneticiler değiştirebilir."
       }
     },
     "room_configuration": {
@@ -713,6 +716,9 @@
         "fields": {
           "emails": {
             "label": "E-posta adresleri"
+          },
+          "names": {
+            "label": "Adlar (isteğe bağlı)"
           }
         }
       },
