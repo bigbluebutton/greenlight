@@ -134,7 +134,7 @@ GEM
       activesupport
     cgi (0.5.1)
     clamby (1.6.10)
-    concurrent-ruby (1.3.6)
+    concurrent-ruby (1.3.7)
     connection_pool (2.5.5)
     crack (1.0.0)
       bigdecimal
