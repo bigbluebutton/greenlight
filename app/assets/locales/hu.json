@@ -103,7 +103,7 @@
     },
     "pending": {
       "title": "Függőben lévő regisztráció",
-      "message": "Köszönjük, hogy regisztrált! A fiókja jelenleg adminisztrátori jóváhagyásra vár."
+      "message": "Köszönjük, hogy regisztrált! A fiókja jelenleg jóváhagyásra vár."
     }
   },
   "room": {
