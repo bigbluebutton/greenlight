@@ -478,7 +478,7 @@
         "invalid_invite": "A meghívási token érvénytelen vagy helytelen. Lépjen kapcsolatba a üzemeltetővel, hogy újat kapjon.",
         "email_exists": "Már létezik fiók ezzel ez e-mail-címmel. Próbálja újra másik címmel.",
         "old_password": "A megadott jelszó helytelen.",
-        "pending": "A fiókja adminisztrátori jóváhagyásra vár. Próbálja újra később.",
+        "pending": "A fiókja jóváhagyásra vár. Próbálja újra később.",
         "banned": "Nincs hozzáférési jogosultsága ehhez az alkalmazáshoz. Ha úgy gondolja, hogy ez hiba, akkor lépjen kapcsolatba a rendszergazdával.",
         "hcaptcha_invalid": "A CAPTCHA-ellenőrzés sikertelen. Kérjük, próbáld újra."
       },
