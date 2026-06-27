@@ -492,7 +492,7 @@
   },
   "global_error_page": {
     "title": "Hiba",
-    "message": "Hoppá! Valami nem sikerült. Ha ez az eset újra előfordul, akkor lépjen kapcsolatba a rendszergazdával."
+    "message": "Hoppá! Valami nem sikerült. Ha ez az eset újra előfordul, akkor lépjen kapcsolatba az üzemeltetővel."
   },
   "not_found_error_page": {
     "title": "404",
