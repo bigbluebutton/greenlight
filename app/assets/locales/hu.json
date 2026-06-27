@@ -341,7 +341,7 @@
         "allowed_domains_signup_description": "Meghatározott e-mail domainek regisztrációjának engedélyezése. A helyes formátum: @test.hu, domain.hu",
         "enter_allowed_domains_rule" : "Adja meg az engedélyezett domaineket",
         "allow_name_update": "A felhasználók módosíthatják nevüket",
-        "allow_name_update_description": "Engedélyezi a felhasználóknak a nevük módosítását a fiók létrehozása után. Ha le van tiltva, csak az adminisztrátorok frissíthetik a felhasználóneveket."
+        "allow_name_update_description": "Engedélyezi a felhasználóknak a nevük módosítását a fiók létrehozása után. Ha le van tiltva, csak az üzemeltetők módosíthatják a felhasználóneveket."
       }
     },
     "room_configuration": {
