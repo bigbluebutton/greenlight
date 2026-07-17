@@ -332,7 +332,7 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (6.5.0)
+    puma (7.2.1)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.6)
@@ -561,7 +561,7 @@ DEPENDENCIES
   omniauth_openid_connect (>= 0.8.0)
   pagy (~> 6.0, >= 6.0.0)
   pg
-  puma (~> 6.4)
+  puma (~> 7.2)
   rails (~> 7.2.3)
   redis (~> 4.8.0)
   remote_syslog_logger
