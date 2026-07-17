@@ -76,16 +76,14 @@ module Api
 
         if user.save
           if smtp_enabled
-            if invited
-              UserMailer.with(user:, admin_panel_url:, base_url: request.base_url, provider: current_provider).new_user_signup_email.deliver_later
-            else
+            unless invited
               token = user.generate_activation_token!
               UserMailer.with(user:,
                               activation_url: activate_account_url(token), base_url: request.base_url,
                               provider: current_provider).activate_account_email.deliver_later
 
-              UserMailer.with(user:, admin_panel_url:, base_url: request.base_url, provider: current_provider).new_user_signup_email.deliver_later
             end
+            UserMailer.with(user:, admin_panel_url:, base_url: request.base_url, provider: current_provider).new_user_signup_email.deliver_later
           end
 
           create_default_room(user)
