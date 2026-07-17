@@ -15,6 +15,7 @@
   "share": "Megosztás",
   "cancel": "Mégse",
   "reset":   "Reszetelés",
+  "reset_password": "Jelszó visszaállítása",
   "close": "Bezárás",
   "delete": "Törlés",
   "copy": "Másolás",
@@ -77,7 +78,7 @@
       "profile": "Profil",
       "language": "Nyelv",
       "role": "Szerepkör",
-      "administrator": "Adminisztrátor",
+      "administrator": "Üzemeltető",
       "guest": "Vendég"
     },
     "account": {
@@ -102,7 +103,7 @@
     },
     "pending": {
       "title": "Függőben lévő regisztráció",
-      "message": "Köszönjük, hogy regisztrált! A fiókja jelenleg adminisztrátori jóváhagyásra vár."
+      "message": "Köszönjük, hogy regisztrált! A fiókja jelenleg jóváhagyásra vár."
     }
   },
   "room": {
@@ -185,6 +186,14 @@
     "protected": "Védett",
     "public": "Nyilvános",
     "public_protected": "Nyilvános /Védett",
+    "formats_help": "Az elérhető lejátszási formátumok megjelenítése. Formátum kiválasztása új lapon nyitja meg a BigBlueButton Felvételek oldalt.",
+    "visibility_help": {
+      "public_protected": "A felvétel a Nyilvános felvételek oldalon található, amely a Teremhez csatlakozás oldalról érhető el. Egyszeri hozzáférési hivatkozással másokkal is megosztható.",
+      "public": "A felvétel a Nyilvános felvételek oldalon található, amely a Szobához csatlakozás oldalról érhető el, és a linkje bárkivel megosztható.",
+      "protected": "A felvételhez csak a terem tulajdonosa férhet hozzá, és egy egyszeri hozzáférési hivatkozás segítségével megosztható másokkal.",
+      "published": "A felvétel a link birtokában bárkinek elérhető",
+      "unpublished": "A felvétel nem mindenkinek érhető el"
+    },
     "length_in_minutes": "{{recording.length}} perc",
     "processing_recording": "A felvétel feldolgozása néhány percig eltarthat...",
     "copy_recording_urls": "Felvételek webcímének másolása",
@@ -284,8 +293,10 @@
         "terms": "Felhasználási feltételek",
         "privacy": "Adatvédelmi közlemény",
         "privacy_policy": "Adatvédelmi közlemény",
+        "accessibility_statement": "Akadálymentesítési nyilatkozat",
         "change_term_links": "A lap alján megjelenő felhasználási feltételek hivatkozásának módosítása",
         "change_privacy_link": "A lap alján megjelenő adatvédelmi hivatkozás módosítása",
+        "change_accessibility_statement_link": "A lap alján megjelenő akadálymentesítési nyilatkozat hivatkozásának módosítása",
         "helpcenter": "Súgóközpont",
         "change_helpcenter_link": "A profil legördülő alatt megjelenő Súgóközpont link módosítsa",
         "maintenance": "Karbantartási szalaghirdetés",
@@ -328,7 +339,9 @@
         },
         "allowed_domains": "Engedélyezett e-mail domainek",
         "allowed_domains_signup_description": "Meghatározott e-mail domainek regisztrációjának engedélyezése. A helyes formátum: @test.hu, domain.hu",
-        "enter_allowed_domains_rule" : "Adja meg az engedélyezett domaineket"
+        "enter_allowed_domains_rule" : "Adja meg az engedélyezett domaineket",
+        "allow_name_update": "A felhasználók módosíthatják nevüket",
+        "allow_name_update_description": "Engedélyezi a felhasználóknak a nevük módosítását a fiók létrehozása után. Ha le van tiltva, csak az üzemeltetők módosíthatják a felhasználóneveket."
       }
     },
     "room_configuration": {
@@ -436,7 +449,7 @@
         "recording_visibility_updated": "Felvétel láthatósága frissítve.",
         "recording_name_updated": "Felvétel neve frissítve.",
         "recording_deleted": "A felvételt sikeresen törölte.",
-        "copied_urls": "A felvétel webcímei másolva."
+        "copied_urls": "The recording URL has been copied."
       },
       "role": {
         "role_created": "Szerepkör létrehozva.",
@@ -461,12 +474,13 @@
         "role_assigned": "Ez a szerepkör nem törölhető, mert legalább egy felhasználóhoz hozzá van rendelve."
       },
       "users": {
-        "signup_error": "Nem hitelesíthető. Lépjen kapcsolatba a rendszergazdával.",
-        "invalid_invite": "A meghívási token érvénytelen vagy helytelen. Lépjen kapcsolatba a rendszergazdával, hogy újat kapjon.",
+        "signup_error": "Nem hitelesíthető. Lépjen kapcsolatba az üzemeltetővel.",
+        "invalid_invite": "A meghívási token érvénytelen vagy helytelen. Lépjen kapcsolatba a üzemeltetővel, hogy újat kapjon.",
         "email_exists": "Már létezik fiók ezzel ez e-mail-címmel. Próbálja újra másik címmel.",
         "old_password": "A megadott jelszó helytelen.",
-        "pending": "A fiókja adminisztrátori jóváhagyásra vár. Próbálja újra később.",
-        "banned": "Nincs hozzáférési jogosultsága ehhez az alkalmazáshoz. Ha úgy gondolja, hogy ez hiba, akkor lépjen kapcsolatba a rendszergazdával."
+        "pending": "A fiókja jóváhagyásra vár. Próbálja újra később.",
+        "banned": "Nincs hozzáférési jogosultsága ehhez az alkalmazáshoz. Ha úgy gondolja, hogy ez hiba, akkor lépjen kapcsolatba az üzemeltetővel.",
+        "hcaptcha_invalid": "A CAPTCHA-ellenőrzés sikertelen. Kérjük, próbáld újra."
       },
       "rooms": {
         "room_limit": "A szobakorlát miatt a szoba nem hozható létre"
@@ -478,7 +492,7 @@
   },
   "global_error_page": {
     "title": "Hiba",
-    "message": "Hoppá! Valami nem sikerült. Ha ez az eset újra előfordul, akkor lépjen kapcsolatba a rendszergazdával."
+    "message": "Hoppá! Valami nem sikerült. Ha ez az eset újra előfordul, akkor lépjen kapcsolatba az üzemeltetővel."
   },
   "not_found_error_page": {
     "title": "404",
@@ -702,6 +716,9 @@
         "fields": {
           "emails": {
             "label": "E-mailek"
+          },
+          "names": {
+            "label": "Nevek (opcionális)"
           }
         }
       },
