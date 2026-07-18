@@ -28,7 +28,11 @@ class Room < ApplicationRecord
   has_one_attached :presentation
 
   validates :name, presence: true
-  validates :friendly_id, presence: true, uniqueness: true
+  
+  # MODIFIED: Validation with English messages for international use
+  validates :friendly_id, presence: true, uniqueness: { message: "This room URL is already taken." },
+            format: { with: /\A[a-z0-9\-]+\z/, message: "can only contain lowercase letters, numbers, and hyphens" }
+            
   validates :meeting_id, presence: true, uniqueness: true
   validates :presentation,
             content_type: Rails.configuration.uploads[:presentations][:formats],
@@ -84,6 +88,9 @@ class Room < ApplicationRecord
   private
 
   def set_friendly_id
+    # MODIFIED: Only generate if not already provided
+    return if friendly_id.present?
+
     id = SecureRandom.alphanumeric(12).downcase.scan(/.../).join('-') # Separate into 3 chunks of 4 chars
     raise if Room.exists?(friendly_id: id) # Ensure uniqueness
 
