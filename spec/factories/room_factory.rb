@@ -21,6 +21,6 @@ FactoryBot.define do
     user
     name { Faker::Educator.course_name }
     last_session { nil }
-    # meeting_id & friendly_id are set automatically using before_validation
+    # meeting_id & friendly_id & voice_brige are set automatically using before_validation
   end
 end
