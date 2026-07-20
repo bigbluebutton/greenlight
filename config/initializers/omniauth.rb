@@ -17,7 +17,9 @@
 # frozen_string_literal: true
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  issuer = ENV.fetch('OPENID_CONNECT_ISSUER', '')
+  oidc_issuer = ENV.fetch('OPENID_CONNECT_ISSUER', '')
+  ldap_server = ENV.fetch('LDAP_SERVER', '')
+
   lb = ENV.fetch('LOADBALANCER_ENDPOINT', '')
 
   if lb.present?
@@ -44,9 +46,10 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       env['omniauth.strategy'].options[:client_options].jwks_uri = File.join(issuer_url, 'protocol', 'openid-connect', 'certs')
       env['omniauth.strategy'].options[:client_options].end_session_endpoint = File.join(issuer_url, 'protocol', 'openid-connect', 'logout')
     }
-  elsif issuer.present?
+  elsif oidc_issuer.present?
+    # OpenID Connect
     provider :openid_connect,
-             issuer:,
+             issuer: oidc_issuer,
              scope: %i[openid email profile],
              uid_field: ENV.fetch('OPENID_CONNECT_UID_FIELD', 'sub'),
              discovery: true,
@@ -55,5 +58,16 @@ Rails.application.config.middleware.use OmniAuth::Builder do
                secret: ENV.fetch('OPENID_CONNECT_CLIENT_SECRET'),
                redirect_uri: File.join(ENV.fetch('OPENID_CONNECT_REDIRECT', ''), 'auth', 'openid_connect', 'callback')
              }
+  elsif ldap_server.present?
+    # LDAP
+    provider :ldap,
+             host: ldap_server,
+             title: ENV.fetch('LDAP_TITLE', nil),
+             port: ENV.fetch('LDAP_PORT', 389),
+             method: ENV.fetch('LDAP_METHOD', :plain),
+             base: ENV.fetch('LDAP_BASE', ''),
+             uid: ENV.fetch('LDAP_UID', ''),
+             bind_dn: ENV.fetch('LDAP_BIND_DN', ''),
+             password: ENV.fetch('LDAP_PASSWORD', nil)
   end
 end
