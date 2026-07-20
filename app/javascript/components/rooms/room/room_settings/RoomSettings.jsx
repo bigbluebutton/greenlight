@@ -71,6 +71,13 @@ export default function RoomSettings() {
                 config={roomConfigs?.glModeratorAccessCode}
                 description={t('room.settings.generate_mods_access_code')}
               />
+              <AccessCodeRow
+                settingName="glRecordingsAccessCode"
+                updateMutation={updateMutationWrapper}
+                code={roomSetting?.data?.glRecordingsAccessCode}
+                config={roomConfigs?.glRecordingsAccessCode || 'optional'}
+                description={t('room.settings.generate_recordings_access_code')}
+              />
               {serverTags && Object.keys(serverTags).length !== 0 && (
                 <ServerTagRow
                   updateMutation={updateMutationWrapper}
