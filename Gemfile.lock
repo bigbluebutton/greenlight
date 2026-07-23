@@ -139,7 +139,7 @@ GEM
     crack (1.0.0)
       bigdecimal
       rexml
-    crass (1.0.6)
+    crass (1.0.7)
     cssbundling-rails (1.4.3)
       railties (>= 6.0.0)
     data_migrate (11.3.1)
@@ -258,7 +258,7 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.25.1)
+    loofah (2.25.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mail (2.9.0)
