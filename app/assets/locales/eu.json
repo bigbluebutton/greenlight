@@ -186,9 +186,9 @@
     "protected": "Babestua",
     "public": "Publikoa",
     "public_protected": "Publikoa/Babestua",
-    "formats_help": "Erreprodukzio-formatu erabilgarriak bistaratzen ditu. Formatu bat hautatzean, BigBlueButton-eko grabazioa fitxa berri batean irekiko da.",
+    "formats_help": "Erreprodukzio-formatu erabilgarriak bistaratzen ditu. Formatu bat hautatzean, BigBlueButton-eko grabazioa fitxa berri batean irekiko da",
     "visibility_help": {
-      "public_protected": "Grabazioa \"Grabazio Publikoen\" orrian dago eskuragarri, eta orri hori \"Gelara Sartzeko\" orritik atzitu daiteke. Beste pertsona batzuekin ere parteka daiteke, behin bakarrik erabiltzeko sarbide-esteka baten bidez.",
+      "public_protected": "Grabazioa \"Grabazio Publikoen\" orrian dago eskuragarri, eta orri hori \"Gelara Sartzeko\" orritik atzitu daiteke. Beste pertsona batzuekin ere parteka daiteke, behin bakarrik erabiltzeko sarbide-esteka baten bidez",
       "public": "Grabazioa \"Grabazio Publikoen\" orrian dago eskuragarri, \"Gelara Sartzeko\" orritik atzitu daitekeena, eta haren esteka edonorekin parteka daiteke.",
       "protected": "Grabazioa gelaren jabearentzat bakarrik dago eskuragarri, eta beste batzuekin parteka daiteke behin bakarrik erabiltzeko sarbide-esteka baten bidez",
       "published": "Grabazioa esteka duen edonorentzat eskuragarri dago",
