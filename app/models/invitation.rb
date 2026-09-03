@@ -25,6 +25,12 @@ class Invitation < ApplicationRecord
   validates :provider, presence: true
   validates :token, uniqueness: true
 
+  scope :unexpired, -> { where('invitations.updated_at > ?', INVITATION_VALIDITY_PERIOD.ago) }
+
+  def expired?
+    updated_at <= INVITATION_VALIDITY_PERIOD.ago
+  end
+
   def self.search(input)
     return where('email ILIKE ?', "%#{input}%") if input
 

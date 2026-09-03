@@ -271,6 +271,21 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect(response).to have_http_status(:bad_request)
           expect(response.parsed_body['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
         end
+
+        it 'returns an InviteInvalid error if the invitation has expired' do
+          invite = create(
+            :invitation,
+            email: user_params[:user][:email],
+            updated_at: Invitation::INVITATION_VALIDITY_PERIOD.ago - 1.day
+          )
+          user_params[:user][:invite_token] = invite.token
+
+          expect { post :create, params: user_params }.not_to change(User, :count)
+
+          expect(Invitation.exists?(id: invite.id)).to be(true)
+          expect(response).to have_http_status(:bad_request)
+          expect(response.parsed_body['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
+        end
       end
 
       context 'approval' do

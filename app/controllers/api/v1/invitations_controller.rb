@@ -24,9 +24,9 @@ module Api
       # GET /api/v1/invitations/:token
       # Returns the invitation details for the given token (public endpoint for signup pre-fill)
       def show
-        invitation = Invitation.find_by(token: params[:token], provider: current_provider)
+        invitation = Invitation.unexpired.find_by(token: params[:token], provider: current_provider)
 
-        if invitation && invitation.updated_at > Invitation::INVITATION_VALIDITY_PERIOD.ago
+        if invitation
           render_data data: invitation, serializer: InvitationSerializer, status: :ok
         else
           render_error status: :not_found
