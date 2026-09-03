@@ -15,6 +15,7 @@
   "share": "Elkarbanatu",
   "cancel": "Utzi",
   "reset":   "Berrezarri",
+  "reset_password": "Berrezarri pasahitza",
   "close": "Itxi",
   "delete": "Ezabatu",
   "copy": "Kopiatu bileraren esteka",
@@ -185,6 +186,14 @@
     "protected": "Babestua",
     "public": "Publikoa",
     "public_protected": "Publikoa/Babestua",
+    "formats_help": "Erreprodukzio-formatu erabilgarriak bistaratzen ditu. Formatu bat hautatzean, BigBlueButton-eko grabazioa fitxa berri batean irekiko da",
+    "visibility_help": {
+      "public_protected": "Grabazioa \"Grabazio Publikoen\" orrian dago eskuragarri, eta orri hori \"Gelara Sartzeko\" orritik atzitu daiteke. Beste pertsona batzuekin ere parteka daiteke, behin bakarrik erabiltzeko sarbide-esteka baten bidez",
+      "public": "Grabazioa \"Grabazio Publikoen\" orrian dago eskuragarri, \"Gelara Sartzeko\" orritik atzitu daitekeena, eta haren esteka edonorekin parteka daiteke.",
+      "protected": "Grabazioa gelaren jabearentzat bakarrik dago eskuragarri, eta beste batzuekin parteka daiteke behin bakarrik erabiltzeko sarbide-esteka baten bidez",
+      "published": "Grabazioa esteka duen edonorentzat eskuragarri dago",
+      "unpublished": "Grabazioa ez dago inorentzat eskuragarria"
+    },
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Grabaketa prozesatzen...",
     "copy_recording_urls": "Kopiatu grabaketa esteka(k)",
@@ -284,8 +293,10 @@
         "terms": "Baldintzak",
         "privacy": "Pribatutasun Oharra",
         "privacy_policy": "Pribatutasun Oharra",
+        "accessibility_statement": "Irisgarritasunari buruzko adierazpena",
         "change_term_links": "Aldatu orrialdearen amaieran agertzen diren baldintzen estekak",
         "change_privacy_link": " Aldatu orrialdearen amaieran agertzen diren pribatutasun esteka",
+        "change_accessibility_statement_link": "Aldatu orriaren behealdean agertzen den irisgarritasun-adierazpenaren esteka",
         "helpcenter": "Laguntza Gunea",
         "change_helpcenter_link": "Aldatu profileko goitibeherako menuan agertzen den laguntza-zentroaren esteka",
         "maintenance": "Mantenu-lanetarako bannerra",
@@ -328,7 +339,9 @@
         },
         "allowed_domains": "Baimendutako e-posta domeinuak",
         "allowed_domains_signup_description": "Posta elektronikoko domeinu zehatzei alta ematen baimendu. Formatua: @test.com,domain.com",
-        "enter_allowed_domains_rule" : "Sartu baimendutako domeinuak"
+        "enter_allowed_domains_rule" : "Sartu baimendutako domeinuak",
+        "allow_name_update": "Baimendu erabiltzaileak beraien izena eguneratzen",
+        "allow_name_update_description": "Baimendu erabiltzaileak  beraien izena eguneratzen kontuak sortu ondoren. Desgaituta dagoenean, administratzaileek bakarrik egunera ditzakete erabiltzaile-izenak."
       }
     },
     "room_configuration": {
@@ -436,7 +449,7 @@
         "recording_visibility_updated": "Grabaketaren ikuspena eguneratu da.",
         "recording_name_updated": "Grabaketaren izena eguneratu da.",
         "recording_deleted": "Grabaketa ezabatu da.",
-        "copied_urls": "Grabaketen URLak kopiatu dira."
+        "copied_urls": "Grabazioaren URLa kopiatu da."
       },
       "role": {
         "role_created": "Profil berri bat sortu da.",
@@ -466,7 +479,8 @@
         "email_exists": "Badago jada kontu bat eposta honekin. Saiatu berriro mesedez beste eposta batekin.",
         "old_password": "Sartutako pasahitza okerra da.",
         "pending": "Zure erregistroa kudeatzaileak onartzeko zain dago. Saiatu beranduago, mesedez.",
-        "banned": "Ez duzu aplikazio honetarako sarbiderik. Jarri kudeatzailearekin harremanetan akats bat dela uste izanez gero."
+        "banned": "Ez duzu aplikazio honetarako sarbiderik. Jarri kudeatzailearekin harremanetan akats bat dela uste izanez gero.",
+        "hcaptcha_invalid": "CAPTCHA egiaztaketak huts egin du. Saiatu berriz, mesedez."
       },
       "rooms": {
         "room_limit": "Ezin da aretoa sortu aretoak sortzeko mugara iritsi bait da."
@@ -702,6 +716,9 @@
         "fields": {
           "emails": {
             "label": "Epostak"
+          },
+          "names": {
+            "label": "Izenak (hautazkoa)"
           }
         }
       },
