@@ -37,7 +37,7 @@ class Room < ApplicationRecord
   validates :name, length: { minimum: 1, maximum: 255 }
   validates :recordings_processing, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-  before_validation :set_friendly_id, :set_meeting_id, on: :create
+  before_validation :set_friendly_id, :set_meeting_id, :set_voice_bridge, on: :create
   before_save :scan_presentation_for_virus
 
   after_create :create_meeting_options
@@ -100,6 +100,27 @@ class Room < ApplicationRecord
     self.meeting_id = id
   rescue StandardError
     retry
+  end
+
+  # Create unique pin for voice brige max 10^x - 10^(x-1) unique ids (x = length of the pin)
+  # x can be set in the .env to create a larger range for a server with many rooms
+  # No leading Zeros
+  def set_voice_bridge
+    self.voice_bridge = nil
+
+    return if Rails.application.config.voice_bridge_phone_number.nil?
+
+    pin_len = Rails.application.config.sip_pin_length
+    max_pins = 10.pow(pin_len) - 10.pow(pin_len - 1) - 1
+
+    return if Room.all.where.not(voice_bridge: nil).length >= max_pins # Check if pins are left
+
+    # Pick random pin
+    id = SecureRandom.random_number(10.pow(pin_len) - 1)
+    # Ensure uniqueness and if not take next free pin
+    id = ((id + 1) % max_pins) + 10.pow(pin_len - 1) while Room.exists?(voice_bridge: id) || id < 10.pow(pin_len - 1)
+
+    self.voice_bridge = id
   end
 
   def scan_presentation_for_virus
