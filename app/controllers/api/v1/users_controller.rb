@@ -161,6 +161,10 @@ module Api
         end
 
         current_user.update! password: new_password
+        current_user.generate_session_token!
+        session[:session_token] = current_user.session_token
+        cookies.delete :_extended_session
+
         render_data status: :ok
       end
 
@@ -200,13 +204,13 @@ module Api
       def permitted_params
         is_admin = PermissionsChecker.new(current_user:, permission_names: 'ManageUsers', current_provider:).call
 
-        return %i[password avatar language role_id invite_token] if external_auth? && !is_admin
+        return %i[avatar language role_id invite_token] if external_auth? && !is_admin
 
         allow_name_update = SettingGetter.new(setting_name: 'AllowNameUpdate', provider: current_provider).call
 
-        return %i[password avatar language role_id invite_token] if !allow_name_update && !is_admin
+        return %i[avatar language role_id invite_token] if !allow_name_update && !is_admin
 
-        %i[name password avatar language role_id invite_token]
+        %i[name avatar language role_id invite_token]
       end
     end
   end

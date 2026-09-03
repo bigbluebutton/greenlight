@@ -28,6 +28,8 @@ module Api
         ensure_authorized(%w[ManageRooms SharedRoom], friendly_id: params[:friendly_id])
       end
 
+      before_action :ensure_sharing_enabled, only: %i[create shareable_users]
+
       # GET /api/v1/shared_accesses/:friendly_id.json
       # Returns a list of all of the room's shared users
       def show
@@ -86,6 +88,10 @@ module Api
 
       def find_room
         @room = Room.find_by(friendly_id: params[:friendly_id])
+      end
+
+      def ensure_sharing_enabled
+        render_error status: :forbidden unless SettingGetter.new(setting_name: 'ShareRooms', provider: current_provider).call
       end
     end
   end
