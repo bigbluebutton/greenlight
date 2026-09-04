@@ -372,13 +372,11 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     end
 
     context 'Pagination' do
-      # The order of creation and the matching of :recorded_at value impacts a page recordings list.
-      # Thus fixing those values ensures the determinism of these examples.
       let!(:first_page_recordings) do
         create_list(:recording, Pagy::DEFAULT[:items], room:, recorded_at: Time.zone.at(1_686_943_664), visibility: Recording::VISIBILITIES[:public])
       end
       let!(:second_page_recordings) do
-        create_list(:recording, Pagy::DEFAULT[:items], room:, recorded_at: Time.zone.at(1_686_943_664),
+        create_list(:recording, Pagy::DEFAULT[:items], room:, recorded_at: Time.zone.at(1_686_857_264),
                                                        visibility: Recording::VISIBILITIES[:public_protected])
       end
 

@@ -49,7 +49,7 @@ describe RecordingsSync, type: :service do
 
         service.call
         expect(room.recordings.count).to be_zero
-        expect(Recording.where(id: other_recordings.pluck(:id))).to eq(other_recordings)
+        expect(Recording.where(id: other_recordings.pluck(:id))).to match_array(other_recordings)
       end
     end
 
