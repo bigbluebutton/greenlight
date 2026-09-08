@@ -204,6 +204,11 @@ class ExternalController < ApplicationController
     user.avatar.attach(
       io: file, filename:, content_type: file.content_type
     )
+
+    return if user.valid?
+
+    Rails.logger.warn("Discarding the avatar for #{user.email}: #{user.errors[:avatar].to_sentence}")
+    user.attachment_changes.delete('avatar')
   rescue StandardError => e
     Rails.logger.error("Failed to upload avatar for #{user.id}: #{e}")
     nil

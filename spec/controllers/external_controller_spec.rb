@@ -511,6 +511,34 @@ RSpec.describe ExternalController do
         get :create_user, params: { provider: 'openid_connect' }
       end
 
+      it 'creates the user without an avatar if the avatar is rejected' do
+        stub_request(:get, OmniAuth.config.mock_auth[:openid_connect][:info][:image])
+          .to_return(body: file_fixture('large-avatar.jpg'), headers: { 'Content-Type' => 'image/jpeg' }, status: 200)
+
+        expect { get :create_user, params: { provider: 'openid_connect' } }.to change(User, :count).by(1)
+
+        expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).avatar).not_to be_attached
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'keeps an existing user signing in when their avatar is rejected on resync' do
+        reg_method = instance_double(SettingGetter)
+        allow(SettingGetter).to receive(:new).with(setting_name: 'ResyncOnLogin', provider: 'greenlight').and_return(reg_method)
+        allow(reg_method).to receive(:call).and_return(true)
+
+        user = create(:user, external_id: OmniAuth.config.mock_auth[:openid_connect][:uid],
+                             email: OmniAuth.config.mock_auth[:openid_connect][:info][:email])
+        user.avatar.attach(io: fixture_file_upload('default-avatar.png'), filename: 'kept-avatar.png', content_type: 'image/png')
+
+        stub_request(:get, OmniAuth.config.mock_auth[:openid_connect][:info][:image])
+          .to_return(body: file_fixture('large-avatar.jpg'), headers: { 'Content-Type' => 'image/jpeg' }, status: 200)
+
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(response).to redirect_to(root_path)
+        expect(user.reload.avatar.filename.to_s).to eq('kept-avatar.png')
+      end
+
       it 'does not prevent the user from being created if the avatar attaching fails' do
         allow(OmniAuth.config.mock_auth[:openid_connect][:info][:image]).to receive(:blank?).and_raise(StandardError, 'Some error')
 

@@ -791,13 +791,22 @@ input[type="range"]:focus::-moz-range-thumb {
 }
 
 .Toastify__toast.maintenance-toast {
-  width: 1000px;
-  max-width: 1000px;
+  width: min(1000px, 100vw - 1rem);
+  max-width: min(1000px, 100vw - 1rem);
 }
 
 .Toastify__toast-container--top-center {
   .Toastify__toast.maintenance-toast {
-    margin-left: calc((var(--toastify-toast-width) - 1000px) / 2);
+    margin-left: calc((var(--toastify-toast-width) - min(1000px, 100vw - 1rem)) / 2);
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .Toastify__toast.maintenance-toast,
+  .Toastify__toast-container--top-center .Toastify__toast.maintenance-toast {
+    width: auto;
+    max-width: 100%;
+    margin-left: 0;
   }
 }
 

@@ -26,6 +26,8 @@ class ApplicationController < ActionController::Base
     # Overwrites the session cookie if an extended_session cookie exists
     session[:session_token] ||= cookies.encrypted[:_extended_session]['session_token'] if cookies.encrypted[:_extended_session].present?
 
+    return nil if session[:session_token].blank?
+
     user = User.find_by(session_token: session[:session_token])
 
     if user && invalid_session?(user)
