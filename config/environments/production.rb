@@ -81,6 +81,8 @@ Rails.application.configure do
       enable_starttls_auto: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS_AUTO', nil)),
       enable_starttls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS', nil)),
       tls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_TLS', nil)),
+      open_timeout: (ENV['SMTP_OPEN_TIMEOUT'].presence || 30).to_i,
+      read_timeout: (ENV['SMTP_READ_TIMEOUT'].presence || 30).to_i,
       openssl_verify_mode: ENV.fetch('SMTP_SSL_VERIFY', 'true') == 'false' ? OpenSSL::SSL::VERIFY_NONE : OpenSSL::SSL::VERIFY_PEER
     }.compact
 
