@@ -41,11 +41,12 @@ class MeetingStarter
 
     handle_server_tag(meeting_options: options)
 
-    options.merge!(computed_options(access_code: viewer_code['glViewerAccessCode']))
     options.delete('muteOnStart') unless options['muteOnStart'] == 'true'
 
     retries = 0
     begin
+      options.merge!(computed_options(access_code: viewer_code['glViewerAccessCode']))
+
       meeting = BigBlueButtonApi.new(provider: @provider).start_meeting(room: @room, options:, presentation_url:)
 
       @room.update!(online: true, last_session: DateTime.strptime(meeting[:createTime].to_s, '%Q'))
@@ -68,7 +69,7 @@ class MeetingStarter
       moderatorOnlyMessage: moderator_message,
       loginURL: room_url,
       logoutURL: room_url,
-      meta_endCallbackUrl: meeting_ended_url(host: @base_url),
+      meetingEndedURL: meeting_ended_url(host: @base_url, token: meeting_ended_token),
       'meta_bbb-recording-ready-url': recording_ready_url(host: @base_url),
       'meta_bbb-origin': 'greenlight',
       'meta_bbb-origin-server-name': URI(@base_url).host,
@@ -76,6 +77,10 @@ class MeetingStarter
       'meta_bbb-context-name': @room.name,
       'meta_bbb-context-id': @room.friendly_id
     }
+  end
+
+  def meeting_ended_token
+    BigBlueButtonApi.new(provider: @provider).encode_jwt({ meeting_id: @room.meeting_id })
   end
 
   def handle_server_tag(meeting_options:)

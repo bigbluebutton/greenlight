@@ -20,6 +20,6 @@ class InvitationSerializer < ApplicationSerializer
   attributes :id, :email, :name, :updated_at, :valid
 
   def valid
-    object.updated_at > Invitation::INVITATION_VALIDITY_PERIOD.ago
+    !object.expired?
   end
 end

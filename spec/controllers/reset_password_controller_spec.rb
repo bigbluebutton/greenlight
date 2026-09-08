@@ -77,6 +77,16 @@ RSpec.describe Api::V1::ResetPasswordController, type: :controller do
       expect(user.reset_sent_at).to be_blank
     end
 
+    it 'rotates the session token so that pre-reset sessions are signed out' do
+      user = create(:user, password: 'Test12345678+')
+      old_session_token = user.session_token
+      allow(User).to receive(:verify_reset_token).with(valid_params[:token]).and_return(user)
+
+      post :reset, params: { user: valid_params }
+      expect(response).to have_http_status(:ok)
+      expect(user.reload.session_token).not_to eq(old_session_token)
+    end
+
     it 'returns :forbidden for invalid tokens' do
       user = create(:user, password: 'Test12345678+')
       allow(User).to receive(:verify_reset_token).with(valid_params[:token]).and_return(user)

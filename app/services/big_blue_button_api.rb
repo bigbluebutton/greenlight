@@ -105,6 +105,11 @@ class BigBlueButtonApi
     JWT.decode token, @secret, true, { algorithm: 'HS256' }
   end
 
+  # Encodes a JWT using the BBB secret as key (Used to sign the Meeting Ended Callback url)
+  def encode_jwt(payload)
+    JWT.encode payload, @secret, 'HS256'
+  end
+
   private
 
   def retrieve_credentials

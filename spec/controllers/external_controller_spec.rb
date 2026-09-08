@@ -336,6 +336,23 @@ RSpec.describe ExternalController do
 
           expect(response).to redirect_to(root_path(error: Rails.configuration.custom_error_msgs[:invite_token_invalid]))
         end
+
+        it 'returns an InviteInvalid error if the invitation has expired' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+          invite = create(
+            :invitation,
+            email: OmniAuth.config.mock_auth[:openid_connect][:info][:email],
+            updated_at: Invitation::INVITATION_VALIDITY_PERIOD.ago - 1.day
+          )
+          cookies[:inviteToken] = {
+            value: invite.token
+          }
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.not_to change(User, :count)
+
+          expect(Invitation.exists?(id: invite.id)).to be(true)
+          expect(response).to redirect_to(root_path(error: Rails.configuration.custom_error_msgs[:invite_token_invalid]))
+        end
       end
 
       context 'approval' do
@@ -554,10 +571,11 @@ RSpec.describe ExternalController do
 
   describe '#meeting_ended' do
     let(:room) { create(:room, online: true) }
+    let(:token) { BigBlueButtonApi.new(provider: 'greenlight').encode_jwt({ meeting_id: room.meeting_id }) }
 
     context 'Recorded session' do
       it 'sets online to false' do
-        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true' }
+        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true', token: }
 
         expect(room.reload.online).to be(false)
         expect(response).to have_http_status(:ok)
@@ -565,10 +583,10 @@ RSpec.describe ExternalController do
       end
 
       it 'increments a rooms recordings processing value if the meeting was recorded' do
-        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true' }
+        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true', token: }
         expect(room.reload.recordings_processing).to eq(1)
 
-        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true' }
+        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true', token: }
         expect(room.reload.recordings_processing).to eq(2)
       end
     end
@@ -576,7 +594,7 @@ RSpec.describe ExternalController do
     context 'Unrecorded session' do
       it 'sets online to false without incrementing a rooms recordings processing' do
         expect do
-          get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'false' }
+          get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'false', token: }
         end.not_to(change { room.reload.recordings_processing })
 
         expect(room.online).to be(false)
@@ -587,10 +605,41 @@ RSpec.describe ExternalController do
 
     context 'Inexistent room' do
       it 'silently fail' do
-        get :meeting_ended, params: { meetingID: '404', recordingmarks: 'false' }
+        get :meeting_ended, params: {
+          meetingID: '404', recordingmarks: 'false',
+          token: BigBlueButtonApi.new(provider: 'greenlight').encode_jwt({ meeting_id: '404' })
+        }
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body).to eq({})
+      end
+    end
+
+    context 'Invalid token' do
+      it 'does not update the room without a token' do
+        expect do
+          get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true' }
+        end.not_to(change { room.reload.attributes })
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it 'does not update the room for a token that is not signed with the BBB secret' do
+        expect do
+          get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true', token: 'not-a-jwt' }
+        end.not_to(change { room.reload.attributes })
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it 'does not update the room for a token signed for a different meeting' do
+        other_token = BigBlueButtonApi.new(provider: 'greenlight').encode_jwt({ meeting_id: create(:room).meeting_id })
+
+        expect do
+          get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true', token: other_token }
+        end.not_to(change { room.reload.attributes })
+
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end

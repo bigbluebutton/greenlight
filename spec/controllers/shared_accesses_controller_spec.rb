@@ -25,6 +25,9 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
   before do
     request.headers['ACCEPT'] = 'application/json'
     sign_in_user(user)
+
+    setting = Setting.find_or_create_by(name: 'ShareRooms')
+    create(:site_setting, setting:, provider: 'greenlight', value: 'true')
   end
 
   describe '#create' do
@@ -32,6 +35,19 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
       new_user = create(:user)
       post :create, params: { friendly_id: room.friendly_id, shared_users: [new_user.id] }
       expect(new_user.shared_rooms).to include(room)
+    end
+
+    context 'when room sharing is disabled' do
+      before do
+        SiteSetting.joins(:setting).find_by(provider: 'greenlight', setting: { name: 'ShareRooms' }).update!(value: 'false')
+      end
+
+      it 'does not share the room with a user' do
+        new_user = create(:user)
+        post :create, params: { friendly_id: room.friendly_id, shared_users: [new_user.id] }
+        expect(response).to have_http_status(:forbidden)
+        expect(new_user.shared_rooms).not_to include(room)
+      end
     end
   end
 
@@ -122,6 +138,19 @@ RSpec.describe Api::V1::SharedAccessesController, type: :controller do
         get :shareable_users, params: { friendly_id: room.friendly_id, search: 'John Doe' }
         response_users_ids = response.parsed_body['data'].pluck('id')
         expect(response_users_ids).to match_array([])
+      end
+    end
+
+    context 'when room sharing is disabled' do
+      before do
+        SiteSetting.joins(:setting).find_by(provider: 'greenlight', setting: { name: 'ShareRooms' }).update!(value: 'false')
+      end
+
+      it 'does not return any shareable users' do
+        create_list(:user, 5, name: 'John Doe')
+
+        get :shareable_users, params: { friendly_id: room.friendly_id, search: 'John Doe' }
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
