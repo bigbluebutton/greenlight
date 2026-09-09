@@ -89,11 +89,13 @@ module Api
         { sort_column => sort_direction }
       end
 
-      # Checks if external authentication is enabled (currently only OIDC is implemented)
+      # Checks if external authentication is enabled
       def external_auth?
-        return ENV['OPENID_CONNECT_ISSUER'].present? if ENV['LOADBALANCER_ENDPOINT'].blank?
-
-        !Tenant.exists?(name: current_provider, client_secret: 'local')
+        if ENV['LOADBALANCER_ENDPOINT'].blank?
+          ENV['OPENID_CONNECT_ISSUER'].present? || ENV['LDAP_SERVER'].present?
+        else
+          !Tenant.exists?(name: current_provider, client_secret: 'local')
+        end
       end
     end
   end
