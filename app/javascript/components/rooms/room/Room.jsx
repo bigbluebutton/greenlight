@@ -19,7 +19,7 @@ import {
   Stack, Button, Col, Row, Dropdown,
 } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
-import { HomeIcon, Square2StackIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, Square2StackIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
@@ -58,6 +58,11 @@ export default function Room() {
     }
   }
 
+  function copyVoiceBridge(voiceBridge, voiceBridgePhoneNumber) {
+    navigator.clipboard.writeText(`Tel.: ${voiceBridgePhoneNumber} Pin: ${voiceBridge}`);
+    toast.success(t('toast.success.room.copied_voice_bridge'));
+  }
+
   return (
     <>
       <Title>{room?.name}</Title>
@@ -72,27 +77,27 @@ export default function Room() {
         <Row className="py-5">
           <Col className="col-4">
             {
-                isRoomLoading
-                  ? (
-                    <RoomNamePlaceHolder />
-                  ) : (
-                    <Stack className="room-header-wrapper">
-                      <Stack direction="horizontal" gap={2}>
-                        <h1>{room?.name}</h1>
-                        <Stack direction="horizontal" className="mb-1">
-                          { room?.online
-                            && <MeetingBadges count={room?.participants} />}
-                          { room?.shared && <SharedBadge ownerName={room?.owner_name} /> }
-                        </Stack>
+              isRoomLoading
+                ? (
+                  <RoomNamePlaceHolder />
+                ) : (
+                  <Stack className="room-header-wrapper">
+                    <Stack direction="horizontal" gap={2}>
+                      <h1>{room?.name}</h1>
+                      <Stack direction="horizontal" className="mb-1">
+                        {room?.online
+                          && <MeetingBadges count={room?.participants} />}
+                        {room?.shared && <SharedBadge ownerName={room?.owner_name} />}
                       </Stack>
-                      { room?.last_session ? (
-                        <span className="text-muted"> { t('room.last_session', { localizedTime }) }  </span>
-                      ) : (
-                        <span className="text-muted"> { t('room.no_last_session') } </span>
-                      )}
                     </Stack>
-                  )
-              }
+                    {room?.last_session ? (
+                      <span className="text-muted"> {t('room.last_session', { localizedTime })}  </span>
+                    ) : (
+                      <span className="text-muted"> {t('room.no_last_session')} </span>
+                    )}
+                  </Stack>
+                )
+            }
           </Col>
           <Col>
             <Row>
@@ -116,6 +121,17 @@ export default function Room() {
                     <Square2StackIcon className="hi-s me-1" />
                     { t('copy') }
                   </Button>
+                  {!isRoomLoading && typeof room.voice_bridge_phone_number !== 'undefined' && (
+                  <Button
+                    variant="brand-outline"
+                    type="button"
+                    className="btn dropdown-main"
+                    onClick={() => copyVoiceBridge(room?.voice_bridge, room?.voice_bridge_phone_number)}
+                  >
+                    <PhoneIcon className="hi-s me-1" />
+                    {t('copy_voice_bridge')}
+                  </Button>
+                  )}
                   { (roomSettings?.data?.glModeratorAccessCode || roomSettings?.data?.glViewerAccessCode) && (
                     <Dropdown.Toggle
                       variant="brand-outline"
