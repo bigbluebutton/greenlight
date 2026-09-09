@@ -37,14 +37,29 @@ export default function UpdateRoomNameForm({ friendlyId }) {
 
   return (
     <Row>
-      <h6 className="text-brand">{ t('room.room_name') }</h6>
+      <h6 className="text-brand">{ t('room.room_name') } & { t('room.friendly_id') }</h6>
       <Form onSubmit={handleSubmit(updateRoom.mutate)}>
-        <Stack direction="horizontal">
-          <Form.Control type="text" defaultValue={room.name} {...register('room.name', { minLength: 2, maxLength: 255 })} />
-          <Button type="submit" variant="brand" className="ms-3"> { t('update') } </Button>
+        <Stack direction="vertical" gap={3}>
+          
+          <Stack direction="horizontal">
+            <Form.Control type="text" defaultValue={room.name} {...register('room.name', { minLength: 2, maxLength: 255 })} />
+            <Button type="submit" variant="brand" className="ms-3"> { t('update') } </Button>
+          </Stack>
+
+          <div>
+            <Form.Label className="text-muted small mb-1">{ t('room.friendly_id') }</Form.Label>
+            <Form.Control 
+              type="text" 
+              defaultValue={room.friendly_id} 
+              {...register('room.friendly_id', { minLength: 3, maxLength: 60, pattern: /^[a-z0-9-]+$/ })} 
+            />
+            <Form.Text className="text-muted">
+              { t('room.friendly_id_help') }
+            </Form.Text>
+          </div>
+
         </Stack>
       </Form>
-
     </Row>
   );
 }
