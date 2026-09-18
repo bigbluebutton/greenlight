@@ -176,7 +176,7 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [:id]
 
   if ENV.fetch('BYPASS_HOST', 'false') != 'true' && ENV['URL_HOST'].present?
-    config.hosts = ENV.fetch('URL_HOST')
+    config.hosts = ENV.fetch('URL_HOST').split(',').map(&:strip)
     config.host_authorization = { exclude: ->(request) { request.path == '/health_check' } }
   end
 end
