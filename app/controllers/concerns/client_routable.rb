@@ -34,6 +34,7 @@ module ClientRoutable
     "#{root_path}pending"
   end
 
+  # Generates a client side admin panel url.
   def admin_panel_url
     "#{root_url}admin/users"
   end
