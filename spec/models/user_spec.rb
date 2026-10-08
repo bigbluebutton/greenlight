@@ -165,6 +165,22 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#shared_access_search' do
+    it 'returns the searched users' do
+      searched_users = create_list(:user, 2, name: 'Jane Doe')
+      create_list(:user, 2)
+      expect(described_class.shared_access_search('jane').pluck(:id)).to match_array(searched_users.pluck(:id))
+    end
+
+    it 'treats % and _ as literal characters' do
+      literal_user = create(:user, name: '100%_sure')
+      create_list(:user, 3)
+      expect(described_class.shared_access_search('%%%')).to be_empty
+      expect(described_class.shared_access_search('___')).to be_empty
+      expect(described_class.shared_access_search('%_s').pluck(:id)).to eq([literal_user.id])
+    end
+  end
+
   context 'instance methods' do
     describe '#generate_reset_token!' do
       let!(:user) { create(:user, email: 'test@greenlight.com') }
