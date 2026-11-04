@@ -15,6 +15,7 @@
   "share": "Partager",
   "cancel": "Annuler",
   "reset":   "Réinitialiser",
+  "reset_password": "Réinitialiser le mot de passe",
   "close": "Fermer",
   "delete": "Supprimer",
   "copy": "Copier",
@@ -338,7 +339,9 @@
         },
         "allowed_domains": "Domaines de courriels autorisés",
         "allowed_domains_signup_description": "Autoriser des domaines de courriels spécifiques pour s'authentifier. Le format doit être : @test.com,domain.com",
-        "enter_allowed_domains_rule" : "Saisissez les domaines autorisés"
+        "enter_allowed_domains_rule" : "Saisissez les domaines autorisés",
+        "allow_name_update": "Permettre aux utilisateurs de mettre à jour leur nom",
+        "allow_name_update_description": "Permettre aux utilisateurs de mettre à jour leur nom après la création de leur compte. Lorsque cette option est désactivée, seuls les administrateurs peuvent modifier les noms des utilisateurs."
       }
     },
     "room_configuration": {
@@ -713,6 +716,9 @@
         "fields": {
           "emails": {
             "label": "Courriels"
+          },
+          "names": {
+            "label": "Noms (facultatif)"
           }
         }
       },
