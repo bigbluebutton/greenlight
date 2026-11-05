@@ -171,15 +171,15 @@ module Api
       private
 
       def create_user_params
-        @create_user_params ||= params.require(:user).permit(:name, :email, :password, :avatar, :language, :invite_token)
+        @create_user_params ||= params.expect(user: %i[name email password avatar language invite_token])
       end
 
       def update_user_params
-        @update_user_params ||= params.require(:user).permit(permitted_params)
+        @update_user_params ||= params.expect(user: permitted_params)
       end
 
       def change_password_params
-        params.require(:user).permit(:old_password, :new_password)
+        params.expect(user: %i[old_password new_password])
       end
 
       def valid_invite_token

@@ -76,7 +76,7 @@ module Api
         private
 
         def role_params
-          params.require(:role).permit(:name)
+          params.expect(role: [:name])
         end
 
         def find_role

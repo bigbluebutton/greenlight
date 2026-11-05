@@ -464,6 +464,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(other_user.authenticate('Test12345678+')).to be_truthy
     end
 
+    it 'returns :bad_request when no permitted user attributes are given' do
+      patch :update, params: { id: user.id, user: { password: 'Attacker12345+' } }
+
+      expect(response).to have_http_status(:bad_request)
+    end
+
     it 'allows a user to change their own name' do
       updated_params = {
         name: 'New Awesome Name'
@@ -596,6 +602,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
       expect(response).to have_http_status(:bad_request)
       expect(user.reload.authenticate(invalid_params[:new_password])).to be_falsy
+    end
+
+    it 'returns :bad_request response when the user param is not a hash' do
+      post :change_password, params: { user: 'malformed' }
+
+      expect(response).to have_http_status(:bad_request)
     end
 
     it 'returns :bad_request response for missing params' do

@@ -1,4 +1,4 @@
-FROM ruby:3.3.6-alpine3.20 AS base
+FROM ruby:3.3.12-alpine3.23 AS base
 
 ARG RAILS_ROOT=/usr/src/app
 ENV RAILS_ROOT=${RAILS_ROOT}
@@ -21,7 +21,7 @@ RUN bundle config --local deployment 'true' \
 
 FROM base AS build
 
-ARG PACKAGES='alpine-sdk libpq-dev'
+ARG PACKAGES='alpine-sdk libpq-dev linux-headers'
 COPY Gemfile Gemfile.lock ./
 RUN apk update \
     && apk add --update --no-cache ${PACKAGES} \
