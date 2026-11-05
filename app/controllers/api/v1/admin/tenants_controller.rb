@@ -77,7 +77,7 @@ module Api
         end
 
         def tenant_params
-          params.require(:tenant).permit(:name, :client_secret, :region)
+          params.expect(tenant: %i[name client_secret region])
         end
       end
     end

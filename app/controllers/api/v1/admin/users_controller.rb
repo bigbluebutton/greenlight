@@ -100,7 +100,7 @@ module Api
         private
 
         def user_params
-          params.require(:user).permit(:status, :verified)
+          params.expect(user: %i[status verified])
         end
       end
     end

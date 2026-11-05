@@ -90,7 +90,7 @@ module Api
       private
 
       def session_params
-        params.require(:session).permit(:email, :password, :extend_session)
+        params.expect(session: %i[email password extend_session])
       end
 
       def sign_in(user)

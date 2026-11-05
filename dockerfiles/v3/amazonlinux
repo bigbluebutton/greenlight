@@ -32,8 +32,8 @@ RUN git clone https://github.com/rbenv/rbenv.git /root/.rbenv && \
     echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> /root/.bashrc && \
     echo 'eval "$(rbenv init -)"' >> /root/.bashrc && \
     git clone https://github.com/rbenv/ruby-build.git /root/.rbenv/plugins/ruby-build && \
-    /root/.rbenv/bin/rbenv install 3.3.6 && \
-    /root/.rbenv/bin/rbenv global 3.3.6 && \
+    /root/.rbenv/bin/rbenv install 3.3.12 && \
+    /root/.rbenv/bin/rbenv global 3.3.12 && \
     /root/.rbenv/bin/rbenv rehash
 ENV PATH="/root/.rbenv/shims:/root/.rbenv/bin:$PATH"
 RUN gem install bundler -v '~> 2.5'

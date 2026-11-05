@@ -160,7 +160,7 @@ module Api
       end
 
       def room_params
-        params.require(:room).permit(:name, :user_id, :presentation)
+        params.expect(room: %i[name user_id presentation])
       end
     end
   end
