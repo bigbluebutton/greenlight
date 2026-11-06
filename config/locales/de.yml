@@ -51,6 +51,7 @@ de:
   meeting:
     moderator_message: "Um jemanden zur Konferenz einzuladen, verschicke diesen Link:"
     access_code: "Zugangscode: %{code}"
+    dial_in_pin: "Wählcode (PIN): %{pin}"
   email:
     activation:
       account_activation: Kontoaktivierung
