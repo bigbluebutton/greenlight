@@ -140,11 +140,20 @@ module Api
       # GET /api/v1/rooms/:friendly_id/public_recordings.json
       # Returns all of a specific room's PUBLIC recordings
       def public_recordings
-        sort_config = config_sorting(allowed_columns: %w[name length])
+        # Get the recordings access code from the database if it exists
+        recordings_access_code = RoomMeetingOption.joins(:meeting_option)
+                                                .where(room_id: @room.id, meeting_options: { name: 'glRecordingsAccessCode' })
+                                                .first&.value
+        
+        # If a recordings access code exists and the provided code doesn't match, require access code
+        if recordings_access_code.present? && params[:access_code] != recordings_access_code
+          return render_data data: [], meta: { requires_access_code: true }, status: :ok
+        end
 
+        sort_config = config_sorting(allowed_columns: %w[name length])
         pagy, recordings = pagy(@room.public_recordings.order(sort_config, recorded_at: :desc).public_search(params[:search]))
 
-        render_data data: recordings, meta: pagy_metadata(pagy), serializer: PublicRecordingSerializer, status: :ok
+        render_data data: recordings, meta: pagy_metadata(pagy).merge(requires_access_code: false), serializer: PublicRecordingSerializer, status: :ok
       end
 
       # GET /api/v1/rooms/:friendly_id/recordings_processing.json
