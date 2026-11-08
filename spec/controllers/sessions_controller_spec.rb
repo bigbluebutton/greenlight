@@ -242,6 +242,72 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
           expect(session[:oidc_id_token]).to be_nil
         end
       end
+
+      context 'OPENID_CONNECT_LOGOUT_PATH is discovery' do
+        let(:discovery_config) { instance_double(OpenIDConnect::Discovery::Provider::Config::Response, end_session_endpoint:) }
+        let(:end_session_endpoint) { 'https://login.example.org/idp/profile/oidc/end-session' }
+
+        before do
+          ENV['OPENID_CONNECT_ISSUER'] = 'https://idp.example.org'
+          ENV['OPENID_CONNECT_LOGOUT_PATH'] = 'discovery'
+          allow(OpenIDConnect::Discovery::Provider::Config).to receive(:discover!).and_return(discovery_config)
+        end
+
+        it 'returns the discovered end session endpoint' do
+          delete :destroy
+
+          expect(OpenIDConnect::Discovery::Provider::Config).to have_received(:discover!).with('https://idp.example.org')
+          url = response.parsed_body['data']
+          expect(url).to start_with('https://login.example.org/idp/profile/oidc/end-session?')
+          expect(url).to match('id_token_hint=sample_id_token')
+          expect(url).to match("post_logout_redirect_uri=#{CGI.escape(root_url(success: 'LogoutSuccessful'))}")
+        end
+
+        context 'LB is set' do
+          before do
+            ENV['LOADBALANCER_ENDPOINT'] = 'http://test.com/'
+            allow(controller).to receive(:current_provider).and_return('test-provider')
+            sign_in_user(create(:user, provider: 'test-provider', role: create(:role, provider: 'test-provider')))
+          end
+
+          after do
+            ENV['LOADBALANCER_ENDPOINT'] = nil
+          end
+
+          it 'discovers the tenant issuer' do
+            delete :destroy
+
+            expect(OpenIDConnect::Discovery::Provider::Config).to have_received(:discover!).with('https://idp.example.org/test-provider')
+          end
+        end
+
+        context 'the provider has no end session endpoint' do
+          let(:end_session_endpoint) { nil }
+
+          it 'only signs out locally' do
+            delete :destroy
+
+            expect(response.parsed_body['data']).to be_blank
+            expect(session[:session_token]).to be_nil
+            expect(session[:oidc_id_token]).to be_nil
+          end
+        end
+
+        context 'the discovery fails' do
+          before do
+            allow(OpenIDConnect::Discovery::Provider::Config).to receive(:discover!).and_raise(OpenIDConnect::Discovery::DiscoveryFailed)
+          end
+
+          it 'only signs out locally' do
+            delete :destroy
+
+            expect(response).to have_http_status(:ok)
+            expect(response.parsed_body['data']).to be_blank
+            expect(session[:session_token]).to be_nil
+            expect(session[:oidc_id_token]).to be_nil
+          end
+        end
+      end
     end
 
     context 'OIDC logout is not configured' do

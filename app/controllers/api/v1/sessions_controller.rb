@@ -121,11 +121,21 @@ module Api
       end
 
       # OPENID_CONNECT_LOGOUT_PATH is either an absolute URL (used as-is, e.g. if the end session endpoint
-      # is served from a different host than the issuer) or a path relative to the issuer
+      # is served from a different host than the issuer), 'discovery' (use the end_session_endpoint from the
+      # provider's discovery document) or a path relative to the issuer
       def oidc_end_session_endpoint(logout_path)
         return logout_path if logout_path.match?(%r{\Ahttps?://}i)
+        return discovered_end_session_endpoint(oidc_issuer_url) if logout_path == 'discovery'
 
         File.join(oidc_issuer_url, logout_path)
+      end
+
+      # Not cached: sign out is rare and the login flow already fetches the discovery document on every login
+      def discovered_end_session_endpoint(issuer)
+        OpenIDConnect::Discovery::Provider::Config.discover!(issuer).end_session_endpoint
+      rescue StandardError => e
+        Rails.logger.error("Failed to discover the OIDC end session endpoint: #{e}")
+        nil
       end
 
       def oidc_issuer_url
