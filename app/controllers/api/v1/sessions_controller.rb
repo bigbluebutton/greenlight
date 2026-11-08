@@ -66,25 +66,13 @@ module Api
         logout_path = ENV.fetch('OPENID_CONNECT_LOGOUT_PATH', '')
 
         # Make logout request to OIDC
-        if logout_path.present? && id_token.present? && external_auth?
-          issuer_url = if ENV.fetch('LOADBALANCER_ENDPOINT', nil).present?
-                         File.join(ENV.fetch('OPENID_CONNECT_ISSUER'), "/#{current_provider}")
-                       else
-                         ENV.fetch('OPENID_CONNECT_ISSUER')
-                       end
+        logout_url = oidc_logout_url(logout_path, id_token) if logout_path.present? && id_token.present? && external_auth?
 
-          end_session = File.join(issuer_url, logout_path)
+        sign_out
 
-          url = "#{end_session}?client_id=#{ENV.fetch('OPENID_CONNECT_CLIENT_ID', nil)}" \
-                "&id_token_hint=#{id_token}" \
-                "&post_logout_redirect_uri=#{CGI.escape(root_url(success: 'LogoutSuccessful'))}"
+        return render_data data: logout_url, status: :ok if logout_url.present?
 
-          sign_out
-          render_data data: url, status: :ok
-        else
-          sign_out
-          render_data status: :ok
-        end
+        render_data status: :ok
       end
 
       private
@@ -116,6 +104,34 @@ module Api
         current_user.generate_session_token!
         session[:session_token] = nil
         cookies.delete :_extended_session
+      end
+
+      # Returns the RP-initiated logout URL of the OIDC provider, or nil if it can't be determined
+      def oidc_logout_url(logout_path, id_token)
+        end_session = oidc_end_session_endpoint(logout_path)
+        return if end_session.blank?
+
+        query = URI.encode_www_form(
+          client_id: ENV.fetch('OPENID_CONNECT_CLIENT_ID', ''),
+          id_token_hint: id_token,
+          post_logout_redirect_uri: root_url(success: 'LogoutSuccessful')
+        )
+
+        "#{end_session}#{end_session.include?('?') ? '&' : '?'}#{query}"
+      end
+
+      # OPENID_CONNECT_LOGOUT_PATH is either an absolute URL (used as-is, e.g. if the end session endpoint
+      # is served from a different host than the issuer) or a path relative to the issuer
+      def oidc_end_session_endpoint(logout_path)
+        return logout_path if logout_path.match?(%r{\Ahttps?://}i)
+
+        File.join(oidc_issuer_url, logout_path)
+      end
+
+      def oidc_issuer_url
+        return File.join(ENV.fetch('OPENID_CONNECT_ISSUER'), "/#{current_provider}") if ENV.fetch('LOADBALANCER_ENDPOINT', nil).present?
+
+        ENV.fetch('OPENID_CONNECT_ISSUER')
       end
     end
   end

@@ -202,6 +202,60 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
 
           expect(response.parsed_body['data']).to start_with(File.join(ENV.fetch('OPENID_CONNECT_ISSUER', nil), "/#{controller.current_provider}"))
         end
+
+        it 'uses an absolute OPENID_CONNECT_LOGOUT_PATH as-is' do
+          ENV['OPENID_CONNECT_LOGOUT_PATH'] = 'https://login.example.org/idp/profile/oidc/end-session'
+
+          delete :destroy
+
+          expect(response.parsed_body['data']).to start_with('https://login.example.org/idp/profile/oidc/end-session?')
+        end
+      end
+
+      context 'OPENID_CONNECT_LOGOUT_PATH is an absolute URL' do
+        before do
+          ENV['OPENID_CONNECT_ISSUER'] = 'https://idp.example.org'
+          ENV['OPENID_CONNECT_LOGOUT_PATH'] = 'https://login.example.org/idp/profile/oidc/end-session'
+        end
+
+        it 'returns the OIDC logout url without the issuer' do
+          delete :destroy
+
+          url = response.parsed_body['data']
+          expect(url).to start_with('https://login.example.org/idp/profile/oidc/end-session?')
+          expect(url).to match('id_token_hint=sample_id_token')
+          expect(url).to match("post_logout_redirect_uri=#{CGI.escape(root_url(success: 'LogoutSuccessful'))}")
+        end
+
+        it 'appends the parameters to an existing query string' do
+          ENV['OPENID_CONNECT_LOGOUT_PATH'] = 'https://login.example.org/logout?tenant=example'
+
+          delete :destroy
+
+          expect(response.parsed_body['data']).to start_with('https://login.example.org/logout?tenant=example&client_id=')
+        end
+
+        it 'removes both session tokens' do
+          delete :destroy
+
+          expect(session[:session_token]).to be_nil
+          expect(session[:oidc_id_token]).to be_nil
+        end
+      end
+    end
+
+    context 'OIDC logout is not configured' do
+      before do
+        session[:oidc_id_token] = 'sample_id_token'
+        allow(controller).to receive(:external_auth?).and_return(true)
+        ENV['OPENID_CONNECT_LOGOUT_PATH'] = nil
+      end
+
+      it 'only signs out locally' do
+        delete :destroy
+
+        expect(response.parsed_body['data']).to be_blank
+        expect(session[:session_token]).to be_nil
       end
     end
   end
