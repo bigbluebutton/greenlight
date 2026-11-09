@@ -414,6 +414,19 @@ RSpec.describe Api::V1::MeetingsController, type: :controller do
 
         expect(response).to have_http_status(:unauthorized)
       end
+
+      %w[pending banned].each do |status|
+        it "returns unauthorized for a #{status} user that still holds a session" do
+          user.update!(status:)
+          allow_any_instance_of(BigBlueButtonApi).to receive(:meeting_running?).and_return(true)
+          expect_any_instance_of(BigBlueButtonApi).not_to receive(:join_meeting)
+
+          post :status, params: { friendly_id: test_room.friendly_id, name: user.name }
+
+          expect(response).to have_http_status(:unauthorized)
+          expect(session[:session_token]).to be_nil
+        end
+      end
     end
 
     it 'returns not_found for a room belonging to another provider' do
