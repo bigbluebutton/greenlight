@@ -88,7 +88,8 @@ module Api
 
           create_default_room(user)
 
-          return render_data data: user, serializer: CurrentUserSerializer, status: :created unless user.verified?
+          # Unverified users and users pending approval must not be signed in
+          return render_data data: user, serializer: CurrentUserSerializer, status: :created unless user.verified? && user.active?
 
           user.generate_session_token!
           session[:session_token] = user.session_token unless admin_create # if this is NOT an admin creating a user

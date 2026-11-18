@@ -41,6 +41,9 @@ class ExternalController < ApplicationController
 
     new_user = user.blank?
 
+    # Banned and pending users must not be signed in or have their account resynced (same checks as SessionsController#create)
+    return redirect_inactive_user(user) unless new_user || user.active?
+
     registration_method = SettingGetter.new(setting_name: 'RegistrationMethod', provider: current_provider).call
 
     # Check if they have a valid token only if a new sign up
@@ -72,9 +75,9 @@ class ExternalController < ApplicationController
     end
 
     # Set to pending if registration method is approval
-    if registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
-      user.pending! if new_user
-      return redirect_to pending_path if user.pending?
+    if new_user && registration_method == SiteSetting::REGISTRATION_METHODS[:approval]
+      user.pending!
+      return redirect_to pending_path
     end
 
     # set the cookie based on session timeout setting
@@ -140,6 +143,12 @@ class ExternalController < ApplicationController
   end
 
   private
+
+  def redirect_inactive_user(user)
+    return redirect_to pending_path if user.pending?
+
+    redirect_to root_path(error: Rails.configuration.custom_error_msgs[:banned_user])
+  end
 
   def handle_session_timeout(session_timeout, user)
     # Creates a cookie based on session timeout site setting

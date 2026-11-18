@@ -52,6 +52,12 @@ module Api
           return render_error status: :forbidden
         end
 
+        # Recording can only be enabled if the room owner's role has the CanRecord permission
+        if name == 'record' && value == 'true' &&
+           !PermissionsChecker.new(current_user: @room.user, permission_names: 'CanRecord', current_provider: @room.user.provider).call
+          return render_error status: :forbidden
+        end
+
         value = infer_access_code(value:) if is_access_code # Handling access code update.
 
         option = @room.get_setting(name:)
