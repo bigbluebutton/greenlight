@@ -233,7 +233,7 @@ check_root() {
 check_ubuntu_lts() {
   lsb_release -i | grep -iq ubuntu || err "You must run this command on Ubuntu server."
   RELEASE=$(lsb_release -r | sed 's/^[^0-9]*//g')
-  [ "$RELEASE" == "20.04" ] || [ "$RELEASE" == "22.04" ]  || err "You must run this command on Ubuntu version 20.04 or 22.04 LTS."
+  [ "$RELEASE" == "20.04" ] || [ "$RELEASE" == "22.04" ] || [ "$RELEASE" == "24.04" ] || err "You must run this command on Ubuntu version 20.04, 22.04 or 24.04 LTS."
 }
 
 need_x64() {
