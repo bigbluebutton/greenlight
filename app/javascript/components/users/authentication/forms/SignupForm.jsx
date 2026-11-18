@@ -44,18 +44,13 @@ export default function SignupForm({ invitation }) {
     const results = await captchaRef.current?.execute({ async: true });
     const token = results?.response || '';
 
-    // Re-add invitation values that may be excluded by disabled fields
-    const userData = { ...user };
-    if (invitation?.name) { userData.name = invitation.name; }
-    if (invitation?.email) { userData.email = invitation.email; }
-
-    return createUserAPI.mutate({ user: userData, token });
-  }, [captchaRef.current, createUserAPI.mutate, invitation]);
+    return createUserAPI.mutate({ user, token });
+  }, [captchaRef.current, createUserAPI.mutate]);
 
   return (
     <Form methods={methods} onSubmit={handleSubmit}>
-      <FormControl field={fields.name} type="text" autoFocus disabled={!!invitation?.name} />
-      <FormControl field={fields.email} type="email" disabled={!!invitation?.email} />
+      <FormControl field={fields.name} type="text" autoFocus readOnly={!!invitation?.name} />
+      <FormControl field={fields.email} type="email" readOnly={!!invitation?.email} />
       <FormControl field={fields.password} type="password" />
       <FormControl field={fields.password_confirmation} type="password" />
       <HCaptcha ref={captchaRef} />
