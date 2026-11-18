@@ -369,7 +369,58 @@ RSpec.describe ExternalController do
 
           expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email])).to be_pending
           expect(response).to redirect_to(controller.pending_path)
+          expect(session[:session_token]).to be_nil
         end
+      end
+
+      context 'open' do
+        it 'does not sign in an existing pending user' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+          create(:user, external_id: OmniAuth.config.mock_auth[:openid_connect][:uid], status: :pending)
+
+          get :create_user, params: { provider: 'openid_connect' }
+
+          expect(response).to redirect_to(controller.pending_path)
+          expect(session[:session_token]).to be_nil
+        end
+      end
+    end
+
+    context 'banned user' do
+      let!(:banned_user) do
+        create(:user,
+               external_id: OmniAuth.config.mock_auth[:openid_connect][:uid],
+               name: 'Banned Name',
+               email: 'banned@example.com',
+               status: :banned)
+      end
+
+      before do
+        resync = instance_double(SettingGetter)
+        allow(SettingGetter).to receive(:new).with(setting_name: 'ResyncOnLogin', provider: 'greenlight').and_return(resync)
+        allow(resync).to receive(:call).and_return(true)
+      end
+
+      it 'does not sign in the banned user and returns a BannedUser error' do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+        old_token = banned_user.session_token
+
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(response).to redirect_to(root_path(error: Rails.configuration.custom_error_msgs[:banned_user]))
+        expect(session[:session_token]).to be_nil
+        expect(banned_user.reload.session_token).to eq(old_token)
+      end
+
+      it 'does not resync the banned user account' do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+        get :create_user, params: { provider: 'openid_connect' }
+
+        banned_user.reload
+        expect(banned_user.name).to eq('Banned Name')
+        expect(banned_user.email).to eq('banned@example.com')
+        expect(banned_user.last_login).to be_nil
       end
     end
 
