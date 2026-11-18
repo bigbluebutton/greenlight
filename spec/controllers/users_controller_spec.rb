@@ -300,6 +300,19 @@ RSpec.describe Api::V1::UsersController, type: :controller do
 
           expect(User.find_by(email: user_params[:user][:email])).to be_pending
         end
+
+        it 'does not sign in the pending user when SMTP is disabled' do
+          ENV['SMTP_SERVER'] = ''
+
+          post :create, params: user_params
+
+          user = User.find_by(email: user_params[:user][:email])
+          expect(response).to have_http_status(:created)
+          expect(user).to be_verified
+          expect(user).to be_pending
+          expect(response.parsed_body['data']['status']).to eq('pending')
+          expect(session[:session_token]).to be_nil
+        end
       end
     end
 

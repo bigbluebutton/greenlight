@@ -241,10 +241,10 @@ describe RoomSettingsGetter, type: :service do
                               })
           end
 
-          it 'room_setting record value remains true if room_configuration record value is optional and CanRecord permission is set to true' do
-            RolePermission.find_or_create_by(role: user.role, permission: Permission.find_or_create_by(name: 'CanRecord')).update(value: 'true')
-
+          it 'room_setting record value remains true if the record config is optional and the owner CanRecord permission is set to true' do
             room = create(:room)
+            RolePermission.find_or_create_by(role: room.user.role, permission: Permission.find_or_create_by(name: 'CanRecord')).update(value: 'true')
+
             setting1 = create(:meeting_option, name: 'record')
 
             create(:room_meeting_option, room:, meeting_option: setting1, value: 'true')
@@ -271,6 +271,47 @@ describe RoomSettingsGetter, type: :service do
             expect(res).to eq({
                                 'record' => 'true'
                               })
+          end
+
+          context 'when the room owner does not have the CanRecord permission' do
+            let(:owner) { create(:user, :without_can_record_permission) }
+            let(:room) { create(:room, user: owner) }
+            let(:record_option) { create(:meeting_option, name: 'record') }
+
+            before do
+              create(:room_meeting_option, room:, meeting_option: record_option, value: 'true')
+            end
+
+            %w[optional default_enabled].each do |config|
+              it "returns record false for a guest (no current_user) when the record config is #{config}" do
+                create(:rooms_configuration, meeting_option: record_option, provider: 'greenlight', value: config)
+
+                res = described_class.new(room_id: room.id, current_user: nil, provider: 'greenlight', settings: ['record']).call
+
+                expect(res).to eq({ 'record' => 'false' })
+              end
+            end
+
+            it 'returns record false when started by another user who has the CanRecord permission' do
+              create(:rooms_configuration, meeting_option: record_option, provider: 'greenlight', value: 'optional')
+              RolePermission.find_or_create_by(role: user.role, permission: Permission.find_or_create_by(name: 'CanRecord')).update(value: 'true')
+
+              res = described_class.new(room_id: room.id, current_user: user, provider: 'greenlight', settings: ['record']).call
+
+              expect(res).to eq({ 'record' => 'false' })
+            end
+          end
+
+          it 'returns record true for a guest (no current_user) when the room owner has the CanRecord permission' do
+            room = create(:room)
+            RolePermission.find_or_create_by(role: room.user.role, permission: Permission.find_or_create_by(name: 'CanRecord')).update(value: 'true')
+            setting1 = create(:meeting_option, name: 'record')
+            create(:room_meeting_option, room:, meeting_option: setting1, value: 'true')
+            create(:rooms_configuration, meeting_option: setting1, provider: 'greenlight', value: 'default_enabled')
+
+            res = described_class.new(room_id: room.id, current_user: nil, provider: 'greenlight', settings: ['record']).call
+
+            expect(res).to eq({ 'record' => 'true' })
           end
         end
       end

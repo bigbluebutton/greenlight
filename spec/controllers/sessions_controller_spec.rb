@@ -143,6 +143,27 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
     end
   end
 
+  describe '#index' do
+    it 'returns the current user for an active user session' do
+      sign_in_user(user)
+
+      get :index
+
+      expect(response.parsed_body['data']['signed_in']).to be(true)
+      expect(response.parsed_body['data']['id']).to eq(user.id)
+    end
+
+    it 'treats a pending user session as signed out and clears it' do
+      user.update!(status: :pending)
+      sign_in_user(user)
+
+      get :index
+
+      expect(response.parsed_body['data']['signed_in']).to be(false)
+      expect(session[:session_token]).to be_nil
+    end
+  end
+
   describe '#destroy' do
     before do
       sign_in_user(user)
