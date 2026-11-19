@@ -1,4 +1,4 @@
-FROM ruby:3.3.12-alpine3.23 AS base
+FROM ruby:3.3.14-alpine3.23 AS base
 
 ARG RAILS_ROOT=/usr/src/app
 ENV RAILS_ROOT=${RAILS_ROOT}
