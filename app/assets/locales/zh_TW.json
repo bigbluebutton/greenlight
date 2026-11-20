@@ -14,9 +14,12 @@
   "report": "回報",
   "share": "分享",
   "cancel": "取消",
+  "reset":   "重置",
   "close": "關閉",
   "delete": "刪除",
   "copy": "複製參加連結",
+  "copy_viewer_code": "複製檢視者代碼",
+  "copy_moderator_code": "複製審核員代碼",
   "or": "或",
   "online": "線上",
   "help_center": "幫助中心",
@@ -81,6 +84,7 @@
       "account_info": "帳號資訊",
       "delete_account": "刪除帳號",
       "change_password": "修改密碼",
+      "set_password": "設定新密碼",
       "reset_password": "重設密碼",
       "update_account_info": "更新帳號資訊",
       "current_password": "目前密碼",
@@ -110,7 +114,7 @@
     "delete_room": "刪除房間",
     "create_new_room": "建立新房間",
     "enter_room_name": "輸入房間名稱",
-    "shared_by": "分享者：",
+    "shared_by": "分享自",
     "last_session": "上次會議：{{ localizedTime }}",
     "no_last_session": "尚未建立先前的會議",
     "search_not_found": "找不到房間",
@@ -129,6 +133,7 @@
       "click_to_upload": "點擊上傳",
       "drag_and_drop": " 或拖放",
       "upload_description": "上傳任何辦公室文件或 PDF 檔案（不超過 {{size}}）。根據檔案大小，可能需要額外的時間上傳才能使用。",
+      "delete_presentation": "刪除簡報",
       "are_you_sure_delete_presentation": "您確定要刪除此簡報嗎？"
     },
     "shared_access": {
@@ -159,12 +164,17 @@
       "wrong_access_code": "存取代碼錯誤",
       "generate_viewers_access_code": "為觀眾生成存取代碼",
       "generate_mods_access_code": "為主持人生成存取代碼",
+      "server_tag": "為此會議間選擇伺服器類型",
+      "default_tag_name": "預設",
+      "server_tag_desired": "建議的",
+      "server_tag_required": "必需的",
       "are_you_sure_delete_room": "您確定要刪除此房間嗎？"
     }
   },
   "recording": {
     "recording": "錄製",
     "recordings": "錄製",
+    "processing": "錄置處理中…",
     "name": "名稱",
     "length": "長度",
     "users": "使用者",
@@ -175,6 +185,14 @@
     "protected": "受保護",
     "public": "公開",
     "public_protected": "公開/受保護",
+    "formats_help": "顯示可用的播放格式。選擇格式後，將在新標籤頁中開啟 BigBlueButton 錄製視窗。",
+    "visibility_help": {
+      "public_protected": "錄檔可在「公開錄檔」頁面查看，該頁面可透過「加入會議室」頁面存取。您也可以使用一次性存取連結與他人分享錄檔。",
+      "public": "錄檔可在「公開錄檔」頁面找到，該頁面可透過「加入會議室」頁面訪問，其連結可以與任何人分享。",
+      "protected": "錄檔僅會議室擁有者可以存取，並可透過一次性訪問連結與他人共享。",
+      "published": "任何擁有連結的人都可以存取該錄檔。",
+      "unpublished": "任何人都無法取得該錄檔。"
+    },
     "length_in_minutes": "{{recording.length}} 分鐘",
     "processing_recording": "正在處理錄製，這可能需要幾分鐘時間...",
     "copy_recording_urls": "複製錄製的 URL(s)",
@@ -197,6 +215,8 @@
       "banned": "已封禁",
       "ban": "封禁",
       "unban": "解封",
+      "unverified": "未經證實",
+      "verify": "證實",
       "deleted": "已刪除",
       "invited_tab": "已邀請",
       "invite_user": "邀請使用者",
@@ -220,11 +240,14 @@
       "empty_pending_users_subtext": "當使用者的狀態更改為待處理時，他們將出現在這裡。",
       "empty_banned_users": "此伺服器上尚未有封禁的使用者！",
       "empty_banned_users_subtext": "當使用者的狀態更改為已封禁時，他們將出現在這裡。",
+      "empty_unverified_users": "此伺服器上目前還沒有未經驗證的使用者！",
+      "empty_unverified_users_subtext": "任何未經驗證的用戶都會顯示在這裡。",
       "empty_invited_users": "此伺服器上尚未有已邀請的使用者！",
       "empty_invited_users_subtext": "當使用者的狀態更改為已邀請時，他們將出現在這裡。",
       "invited": {
         "time_sent": "發送時間",
-        "valid": "有效"
+        "valid": "有效",
+        "revoke": "撤銷"
       }
     },
     "server_rooms": {
@@ -267,11 +290,19 @@
       "administration": {
         "administration": "管理",
         "terms": "條款與條件",
-        "privacy": "隱私政策",
-        "privacy_policy": "隱私政策",
+        "privacy": "隱私權聲明",
+        "privacy_policy": "隱私權聲明",
+        "accessibility_statement": "無障礙聲明",
         "change_term_links": "更改顯示在頁面底部的條款連結",
         "change_privacy_link": "更改顯示在頁面底部的隱私連結",
+        "change_accessibility_statement_link": "更改頁面底部顯示的無障礙聲明鏈接",
+        "helpcenter": "幫助中心",
+        "change_helpcenter_link": "更改個人資料下拉選單下方顯示的幫助中心鏈接",
+        "maintenance": "維護橫幅",
+        "change_maintenance_text": "更改標題中顯示的維護橫幅文本",
         "change_url": "更改 URL",
+        "set_text": "設定文字",
+        "clear_banner": "清除橫幅",
         "enter_link": "在此輸入連結"
       },
       "settings": {
@@ -279,12 +310,20 @@
         "allow_users_to_share_rooms": "允許使用者共享房間",
         "allow_users_to_share_rooms_description": "禁用此設定將從房間選項下拉清單中移除按鈕，防止使用者共享房間",
         "allow_users_to_preupload_presentation": "允許使用者預先上傳簡報",
-        "allow_users_to_preupload_presentation_description": "使用者可以預先上傳一份簡報，作為該特定房間的預設簡報"
+        "allow_users_to_preupload_presentation_description": "使用者可以預先上傳一份簡報，作為該特定房間的預設簡報",
+        "show_sign_in_on_room_join": "在會議室加入頁面顯示登入鏈接",
+        "show_sign_in_on_room_join_description": "如果使用者未登錄，進入會議室時卡片底部會顯示登入連結。",
+        "default_visibility": "預設錄檔可見性",
+        "default_visibility_description": "預設情況下，所有新建的錄製內容都將具有此可見性。",
+        "session_timeout": "會話逾時",
+        "session_timeout_description": "您可以將會話逾時時間配置為預設 cookie 1 天或延長至 7 天。",
+        "default_session_timeout": "預設值（1天）",
+        "extended_session_timeout": "延長（7天）"
       },
       "registration": {
         "registration": "註冊",
         "role_mapping_by_email": "使用電子郵件進行角色映射",
-        "role_mapping_by_email_description": "使用電子郵件將使用者映射到角色。必須使用以下格式：role1=email1, role2=email2",
+        "role_mapping_by_email_description": "使用使用者的電子郵件地址將其對應到相應的角色。格式必須為：role1=email1,role2=email2",
         "enter_role_mapping_rule": "輸入角色映射規則",
         "resync_on_login": "每次登入時重新同步使用者資料",
         "resync_on_login_description": "每次使用者登入時，重新同步其資訊，使外部身份驗證提供者始終與 Greenlight 中的資訊匹配",
@@ -296,7 +335,10 @@
           "open": "開放註冊",
           "invite": "邀請加入",
           "approval": "核准/拒絕"
-        }
+        },
+        "allowed_domains": "允許使用的電子郵件域名",
+        "allowed_domains_signup_description": "允許特定網域的電子郵件註冊。格式必須為：@test.com,domain.com",
+        "enter_allowed_domains_rule" : "輸入允許的網域名稱。"
       }
     },
     "room_configuration": {
@@ -347,7 +389,9 @@
         "manage_site_settings": "允許擁有此角色的使用者管理網站設定",
         "manage_roles": "允許擁有此角色的使用者編輯其他角色",
         "shared_list": "將擁有此角色的使用者包含在共享房間的下拉清單中",
-        "room_limit": "房間限制數量"
+        "room_limit": "房間限制數量",
+        "email_on_signup": "當有新用戶註冊時，您將收到一封電子郵件。",
+        "allowed_recording_visibility": "允許錄檔可視性"
       }
     }
   },
@@ -358,6 +402,7 @@
         "user_updated": "使用者已成功更新。",
         "user_deleted": "使用者已成功刪除。",
         "avatar_updated": "頭像已成功更新。",
+        "password_changed": "密碼已成功更新，請重新登入。",
         "password_updated": "密碼已成功更新。",
         "account_activated": "您的帳戶已成功啟用。",
         "activation_email_sent": "已發送一封包含啟用帳戶指示的郵件。",
@@ -382,21 +427,26 @@
         "access_code_copied": "存取碼已成功複製。",
         "access_code_generated": "已成功生成新的存取碼",
         "access_code_deleted": "存取碼已成功刪除。",
-        "copied_meeting_url": "會議連結已成功複製。該連結可用於加入會議"
+        "copied_meeting_url": "會議連結已成功複製。該連結可用於加入會議",
+        "copied_viewer_code": "檢視者存取代碼已複製。",
+        "copied_moderator_code": "管理員存取代碼已複製。"
       },
       "site_settings": {
         "site_setting_updated": "網站設定已成功更新。",
         "brand_color_updated": "品牌顏色已成功更新。",
         "brand_image_updated": "品牌圖片已成功更新。",
         "brand_image_deleted": "品牌圖片已成功刪除。",
-        "privacy_policy_updated": "隱私政策已成功更新。",
-        "terms_of_service_updated": "服務條款已成功更新。"
+        "privacy_policy_updated": "隱私權聲明已更新。",
+        "helpcenter_updated": "幫助中心連結已更新。",
+        "terms_of_service_updated": "服務條款已成功更新。",
+        "maintenance_updated": "維護橫幅已更新。",
+        "allowed_domains_signup_updated": "允許使用的電子郵件網域已更新。"
       },
       "recording": {
         "recording_visibility_updated": "錄製的可見性已成功更新。",
         "recording_name_updated": "錄製名稱已成功更新。",
         "recording_deleted": "錄製已成功刪除。",
-        "copied_urls": "錄製連結已成功複製。"
+        "copied_urls": "錄檔網址已複製。"
       },
       "role": {
         "role_created": "已成功建立新角色。",
@@ -405,15 +455,18 @@
         "role_permission_updated": "角色權限已成功更新。"
       },
       "invitations": {
-        "invitation_sent": "已成功發送邀請。"
+        "invitation_sent": "已成功發送邀請。",
+        "invitation_revoked": "邀請已被撤回。"
       }
     },
     "error": {
       "problem_completing_action": "無法完成動作。\n請重試。",
+      "server_type_unavailable": "所需的伺服器類型不可用。請在會議室設定中選擇其他類型。",
       "file_type_not_supported": "不支援的檔案類型。",
       "file_size_too_large": "檔案大小超過限制。",
       "file_upload_error": "無法上傳檔案",
       "signin_required": "您必須登入才能訪問此頁面。",
+      "malware_detected": "偵測到惡意軟體！您上傳的檔案可能包含惡意軟體。請檢查您的文件並重試。",
       "roles": {
         "role_assigned": "無法刪除此角色，因為它已分配給至少一個使用者。"
       },
@@ -423,7 +476,8 @@
         "email_exists": "使用該電子郵件的帳戶已存在。請嘗試使用其他電子郵件。",
         "old_password": "您輸入的密碼不正確。",
         "pending": "您的註冊正在等待管理員的批准。請稍後再試。",
-        "banned": "您無權訪問此應用程式。如果您認為這是一個錯誤，請聯繫您的管理員。"
+        "banned": "您無權訪問此應用程式。如果您認為這是一個錯誤，請聯繫您的管理員。",
+        "hcaptcha_invalid": "驗證碼驗證失敗，請重試。"
       },
       "rooms": {
         "room_limit": "無法建立房間，因為已達到房間數量限制。"
@@ -505,6 +559,11 @@
       },
       "url": {
         "invalid": "無效的網址。"
+      },
+      "text_form": {
+        "value": {
+          "required": "請輸入一些訊息"
+        }
       }
     },
     "room": {
@@ -660,7 +719,8 @@
       "site_settings": {
         "fields": {
           "value": {
-            "placeholder": "在此輸入連結..."
+            "placeholder": "在此輸入連結...",
+            "text_placeholder": "在此輸入文字..."
           }
         }
       },

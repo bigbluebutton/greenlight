@@ -27,9 +27,11 @@ module Api
         # GET /api/v1/admin/users/:id.json
         # Updates the specified user's status
         def update
-          user = User.find(params[:id])
+          user = User.with_provider(current_provider).find(params[:id])
+          initial_status = user.status
 
           if user.update(user_params)
+            user.generate_session_token! if user.status == 'banned' && initial_status == 'active'
             render_data status: :ok
           else
             render_error errors: user.errors.to_a
@@ -98,7 +100,7 @@ module Api
         private
 
         def user_params
-          params.require(:user).permit(:status, :verified)
+          params.expect(user: %i[status verified])
         end
       end
     end

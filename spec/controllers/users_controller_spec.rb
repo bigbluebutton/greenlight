@@ -271,6 +271,21 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect(response).to have_http_status(:bad_request)
           expect(response.parsed_body['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
         end
+
+        it 'returns an InviteInvalid error if the invitation has expired' do
+          invite = create(
+            :invitation,
+            email: user_params[:user][:email],
+            updated_at: Invitation::INVITATION_VALIDITY_PERIOD.ago - 1.day
+          )
+          user_params[:user][:invite_token] = invite.token
+
+          expect { post :create, params: user_params }.not_to change(User, :count)
+
+          expect(Invitation.exists?(id: invite.id)).to be(true)
+          expect(response).to have_http_status(:bad_request)
+          expect(response.parsed_body['errors']).to eq(Rails.configuration.custom_error_msgs[:invite_token_invalid])
+        end
       end
 
       context 'approval' do
@@ -284,6 +299,19 @@ RSpec.describe Api::V1::UsersController, type: :controller do
           expect { post :create, params: user_params }.to change(User, :count).from(0).to(1)
 
           expect(User.find_by(email: user_params[:user][:email])).to be_pending
+        end
+
+        it 'does not sign in the pending user when SMTP is disabled' do
+          ENV['SMTP_SERVER'] = ''
+
+          post :create, params: user_params
+
+          user = User.find_by(email: user_params[:user][:email])
+          expect(response).to have_http_status(:created)
+          expect(user).to be_verified
+          expect(user).to be_pending
+          expect(response.parsed_body['data']['status']).to eq('pending')
+          expect(session[:session_token]).to be_nil
         end
       end
     end
@@ -378,6 +406,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe '#update' do
     before do
       sign_in_user(user)
+      allow(SettingGetter).to receive(:new).and_call_original
+      allow(SettingGetter).to receive(:new).with(setting_name: 'AllowNameUpdate', provider: 'greenlight').and_return(fake_setting_getter)
+      allow(fake_setting_getter).to receive(:call).and_return(true)
     end
 
     it 'updates the users attributes' do
@@ -421,6 +452,35 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       user.reload
 
       expect(user.role_id).not_to eq(updated_params[:role_id])
+    end
+
+    it 'doesnt allow a user to change their password without their old password' do
+      user.update!(password: 'Test12345678+')
+
+      patch :update, params: { id: user.id, user: { password: 'Attacker12345+' } }
+
+      user.reload
+
+      expect(user.authenticate('Attacker12345+')).to be_falsy
+      expect(user.authenticate('Test12345678+')).to be_truthy
+    end
+
+    it 'doesnt allow an admin to change another users password' do
+      sign_in_user(user_with_manage_users_permission)
+      other_user = create(:user, password: 'Test12345678+')
+
+      patch :update, params: { id: other_user.id, user: { password: 'Attacker12345+' } }
+
+      other_user.reload
+
+      expect(other_user.authenticate('Attacker12345+')).to be_falsy
+      expect(other_user.authenticate('Test12345678+')).to be_truthy
+    end
+
+    it 'returns :bad_request when no permitted user attributes are given' do
+      patch :update, params: { id: user.id, user: { password: 'Attacker12345+' } }
+
+      expect(response).to have_http_status(:bad_request)
     end
 
     it 'allows a user to change their own name' do
@@ -528,12 +588,39 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       expect(user.reload.authenticate(valid_params[:new_password])).to be_truthy
     end
 
+    it 'rotates the session token but keeps the current user signed in' do
+      old_session_token = user.session_token
+      valid_params = { old_password: 'Test12345678+', new_password: 'Glv3IsAwesome!' }
+
+      post :change_password, params: { user: valid_params }
+
+      expect(response).to have_http_status(:ok)
+      expect(user.reload.session_token).not_to eq(old_session_token)
+      expect(session[:session_token]).to eq(user.session_token)
+    end
+
+    it 'does not rotate the session token when the old password is incorrect' do
+      old_session_token = user.session_token
+      invalid_params = { old_password: 'NotMine!', new_password: 'ThisIsMine!' }
+
+      post :change_password, params: { user: invalid_params }
+
+      expect(response).to have_http_status(:bad_request)
+      expect(user.reload.session_token).to eq(old_session_token)
+    end
+
     it 'returns :bad_request response for invalid old_password' do
       invalid_params = { old_password: 'NotMine!', new_password: 'ThisIsMine!' }
       post :change_password, params: { user: invalid_params }
 
       expect(response).to have_http_status(:bad_request)
       expect(user.reload.authenticate(invalid_params[:new_password])).to be_falsy
+    end
+
+    it 'returns :bad_request response when the user param is not a hash' do
+      post :change_password, params: { user: 'malformed' }
+
+      expect(response).to have_http_status(:bad_request)
     end
 
     it 'returns :bad_request response for missing params' do

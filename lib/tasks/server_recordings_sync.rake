@@ -21,6 +21,10 @@ desc 'Server Recordings sync with BBB server'
 task :server_recordings_sync, %i[provider] => :environment do |_task, args|
   args.with_defaults(provider: 'greenlight')
 
+  info 'Clearing saved formats and recordings'
+  Format.delete_all
+  Recording.delete_all
+
   Room.includes(:user).select(:id, :meeting_id).with_provider(args[:provider]).in_batches(of: 25) do |rooms|
     meeting_ids = rooms.pluck(:meeting_id)
 

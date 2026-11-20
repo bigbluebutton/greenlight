@@ -24,7 +24,7 @@ import useSiteSettings from '../../../../hooks/queries/admin/site_settings/useSi
 
 export default function Administration() {
   const { t } = useTranslation();
-  const { data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy', 'HelpCenter', 'Maintenance']);
+  const { data: siteSettings } = useSiteSettings(['Terms', 'PrivacyPolicy', 'AccessibilityStatement', 'HelpCenter', 'Maintenance']);
 
   return (
     <>
@@ -53,6 +53,15 @@ export default function Administration() {
           id="privacyForm"
           mutation={() => useUpdateSiteSetting('PrivacyPolicy')}
           value={siteSettings?.PrivacyPolicy}
+        />
+      </Row>
+      <Row>
+        <h6> { t('admin.site_settings.administration.accessibility_statement') } </h6>
+        <p className="text-muted"> { t('admin.site_settings.administration.change_accessibility_statement_link') } </p>
+        <LinksForm
+          id="helpForm"
+          mutation={() => useUpdateSiteSetting('AccessibilityStatement')}
+          value={siteSettings?.AccessibilityStatement}
         />
       </Row>
       <Row>

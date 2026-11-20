@@ -161,7 +161,23 @@ RSpec.describe User, type: :model do
 
     it 'returns all users if input is empty' do
       create_list(:user, 10)
-      expect(described_class.search('').pluck(:id)).to match_array(described_class.all.pluck(:id))
+      expect(described_class.search('').pluck(:id)).to match_array(described_class.pluck(:id))
+    end
+  end
+
+  describe '#shared_access_search' do
+    it 'returns the searched users' do
+      searched_users = create_list(:user, 2, name: 'Jane Doe')
+      create_list(:user, 2)
+      expect(described_class.shared_access_search('jane').pluck(:id)).to match_array(searched_users.pluck(:id))
+    end
+
+    it 'treats % and _ as literal characters' do
+      literal_user = create(:user, name: '100%_sure')
+      create_list(:user, 3)
+      expect(described_class.shared_access_search('%%%')).to be_empty
+      expect(described_class.shared_access_search('___')).to be_empty
+      expect(described_class.shared_access_search('%_s').pluck(:id)).to eq([literal_user.id])
     end
   end
 

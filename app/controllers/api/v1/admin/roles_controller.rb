@@ -76,11 +76,11 @@ module Api
         private
 
         def role_params
-          params.require(:role).permit(:name)
+          params.expect(role: [:name])
         end
 
         def find_role
-          @role = Role.find params[:id]
+          @role = Role.with_provider(current_provider).find(params[:id])
         end
       end
     end

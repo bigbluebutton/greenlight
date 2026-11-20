@@ -15,7 +15,7 @@
 // with Greenlight; if not, see <http://www.gnu.org/licenses/>.
 
 import {
-  VideoCameraIcon, TrashIcon, PencilSquareIcon, ClipboardDocumentIcon, EllipsisVerticalIcon,
+  VideoCameraIcon, TrashIcon, PencilSquareIcon, ClipboardDocumentIcon, QuestionMarkCircleIcon,
 } from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -23,6 +23,8 @@ import {
   Button, Stack, Dropdown,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import Spinner from '../shared_components/utilities/Spinner';
 import UpdateRecordingForm from './forms/UpdateRecordingForm';
@@ -30,8 +32,8 @@ import DeleteRecordingForm from './forms/DeleteRecordingForm';
 import Modal from '../shared_components/modals/Modal';
 import { localizeDateTimeString } from '../../helpers/DateTimeHelper';
 import useRedirectRecordingUrl from '../../hooks/mutations/recordings/useRedirectRecordingUrl';
-import useCopyRecordingUrl from '../../hooks/mutations/recordings/useCopyRecordingUrl';
 import SimpleSelect from '../shared_components/utilities/SimpleSelect';
+import CopyRecordingPopover from './CopyRecordingPopover';
 
 // TODO: Amir - Refactor this.
 export default function RecordingRow({
@@ -43,15 +45,31 @@ export default function RecordingRow({
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [display, setDisplay] = useState('invisible');
+  const [showCopyPopover, setShowCopyPopover] = useState(false);
 
   const currentUser = useAuth();
   const redirectRecordingUrl = useRedirectRecordingUrl();
-  const copyRecordingUrl = useCopyRecordingUrl();
   const allowedVisibilities = JSON.parse(currentUser.permissions?.AccessToVisibilities);
 
   const localizedTime = localizeDateTimeString(recording?.recorded_at, currentUser?.language);
   const formats = recording.formats.sort(
     (a, b) => (a.recording_type.toLowerCase() > b.recording_type.toLowerCase() ? 1 : -1),
+  );
+
+  const visibilityHelpText = {
+    'Public/Protected': t('recording.visibility_help.public_protected'),
+    Public: t('recording.visibility_help.public'),
+    Protected: t('recording.visibility_help.protected'),
+    Published: t('recording.visibility_help.published'),
+    Unpublished: t('recording.visibility_help.unpublished'),
+  };
+
+  const visibilityPopover = (visibilityKey) => (
+    <Popover className="ms-3">
+      <Popover.Body>
+        <p className="mb-0">{visibilityHelpText[visibilityKey]}</p>
+      </Popover.Body>
+    </Popover>
   );
 
   return (
@@ -107,13 +125,20 @@ export default function RecordingRow({
           defaultValue={recording.visibility}
           dropUp={dropUp}
         >
-          { (allowedVisibilities.includes('Public/Protected') || recording.visibility === 'Public/Protected') && (
+          { recording.protectable && (allowedVisibilities.includes('Public/Protected') || recording.visibility === 'Public/Protected') && (
             <Dropdown.Item
               key="Public/Protected"
               value="Public/Protected"
               onClick={() => visibilityAPI.mutate({ visibility: 'Public/Protected', id: recording.record_id })}
             >
-              {t('recording.public_protected')}
+              <Stack direction="horizontal" className="justify-content-between">
+                <span>{t('recording.public_protected')}</span>
+                <span className="recording-info">
+                  <OverlayTrigger placement="right" trigger={['hover', 'focus']} overlay={visibilityPopover('Public/Protected')}>
+                    <QuestionMarkCircleIcon className="hi-xs" />
+                  </OverlayTrigger>
+                </span>
+              </Stack>
             </Dropdown.Item>
           )}
 
@@ -123,17 +148,31 @@ export default function RecordingRow({
               value="Public"
               onClick={() => visibilityAPI.mutate({ visibility: 'Public', id: recording.record_id })}
             >
-              {t('recording.public')}
+              <Stack direction="horizontal" className="justify-content-between">
+                <span>{t('recording.public')}</span>
+                <span className="recording-info">
+                  <OverlayTrigger placement="right" trigger={['hover', 'focus']} overlay={visibilityPopover('Public')}>
+                    <QuestionMarkCircleIcon className="hi-xs" />
+                  </OverlayTrigger>
+                </span>
+              </Stack>
             </Dropdown.Item>
           )}
 
-          { (allowedVisibilities.includes('Protected') || recording.visibility === 'Protected') && (
+          { recording.protectable && (allowedVisibilities.includes('Protected') || recording.visibility === 'Protected') && (
             <Dropdown.Item
               key="Protected"
               value="Protected"
               onClick={() => visibilityAPI.mutate({ visibility: 'Protected', id: recording.record_id })}
             >
-              {t('recording.protected')}
+              <Stack direction="horizontal" className="justify-content-between">
+                <span>{t('recording.protected')}</span>
+                <span className="recording-info">
+                  <OverlayTrigger placement="right" trigger={['hover', 'focus']} overlay={visibilityPopover('Protected')}>
+                    <QuestionMarkCircleIcon className="hi-xs" />
+                  </OverlayTrigger>
+                </span>
+              </Stack>
             </Dropdown.Item>
           )}
 
@@ -143,7 +182,14 @@ export default function RecordingRow({
               value="Published"
               onClick={() => visibilityAPI.mutate({ visibility: 'Published', id: recording.record_id })}
             >
-              {t('recording.published')}
+              <Stack direction="horizontal" className="justify-content-between">
+                <span>{t('recording.published')}</span>
+                <span className="recording-info">
+                  <OverlayTrigger placement="right" trigger={['hover', 'focus']} overlay={visibilityPopover('Published')}>
+                    <QuestionMarkCircleIcon className="hi-xs" />
+                  </OverlayTrigger>
+                </span>
+              </Stack>
             </Dropdown.Item>
           )}
 
@@ -153,7 +199,14 @@ export default function RecordingRow({
               value="Unpublished"
               onClick={() => visibilityAPI.mutate({ visibility: 'Unpublished', id: recording.record_id })}
             >
-              {t('recording.unpublished')}
+              <Stack direction="horizontal" className="justify-content-between">
+                <span>{t('recording.unpublished')}</span>
+                <span className="recording-info">
+                  <OverlayTrigger placement="right" trigger={['hover', 'focus']} overlay={visibilityPopover('Unpublished')}>
+                    <QuestionMarkCircleIcon className="hi-xs" />
+                  </OverlayTrigger>
+                </span>
+              </Stack>
             </Dropdown.Item>
           )}
         </SimpleSelect>
@@ -170,50 +223,36 @@ export default function RecordingRow({
         ))}
       </td>
       <td className="border-start-0">
-        {adminTable
-          ? (
-            <Dropdown className="float-end cursor-pointer">
-              <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
-              <Dropdown.Menu>
-                <Dropdown.Item onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}>
-                  <ClipboardDocumentIcon className="hi-s me-2" />
-                  {t('recording.copy_recording_urls')}
-                </Dropdown.Item>
-                <Modal
-                  modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{t('delete')}</Dropdown.Item>}
-                  body={(
-                    <DeleteRecordingForm
-                      mutation={useDeleteAPI}
-                      recordId={recording.record_id}
-                    />
-                  )}
+        <Stack direction="horizontal" className="float-end recordings-icons">
+          { recording?.visibility !== 'Unpublished' && (
+            <OverlayTrigger
+              trigger="click"
+              show={showCopyPopover}
+              onToggle={(show) => setShowCopyPopover(show)}
+              rootClose
+              overlay={(
+                <CopyRecordingPopover
+                  recording={recording}
+                  formats={formats}
+                  onCopied={() => setShowCopyPopover(false)}
                 />
-              </Dropdown.Menu>
-            </Dropdown>
-          )
-          : (
-            <Stack direction="horizontal" className="float-end recordings-icons">
-              { recording?.visibility !== 'Unpublished' && (
-                <Button
-                  variant="icon"
-                  className="mt-1 me-3"
-                  title={t('recording.copy_recording_urls')}
-                  onClick={() => copyRecordingUrl.mutate({ record_id: recording.record_id })}
-                >
-                  <ClipboardDocumentIcon className="hi-s text-muted" />
-                </Button>
               )}
-              <Modal
-                modalButton={<Dropdown.Item className="btn btn-icon"><TrashIcon className="hi-s me-2" title={t('delete')} /></Dropdown.Item>}
-                body={(
-                  <DeleteRecordingForm
-                    mutation={useDeleteAPI}
-                    recordId={recording.record_id}
-                  />
-                )}
-              />
-            </Stack>
+            >
+              <Button variant="icon" className="mt-1 me-3" title={t('recording.copy_recording_urls')}>
+                <ClipboardDocumentIcon className="hi-s text-muted" />
+              </Button>
+            </OverlayTrigger>
           )}
+          <Modal
+            modalButton={<Dropdown.Item className="btn btn-icon"><TrashIcon className="hi-s me-2" title={t('delete')} /></Dropdown.Item>}
+            body={(
+              <DeleteRecordingForm
+                mutation={useDeleteAPI}
+                recordId={recording.record_id}
+              />
+            )}
+          />
+        </Stack>
       </td>
     </tr>
   );

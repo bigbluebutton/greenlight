@@ -18,6 +18,7 @@
 
 class SharedAccessSerializer < ApplicationSerializer
   include Avatarable
+
   attributes :name, :id, :avatar
 
   def avatar

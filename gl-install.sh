@@ -233,7 +233,7 @@ check_root() {
 check_ubuntu_lts() {
   lsb_release -i | grep -iq ubuntu || err "You must run this command on Ubuntu server."
   RELEASE=$(lsb_release -r | sed 's/^[^0-9]*//g')
-  [ "$RELEASE" == "20.04" ] || [ "$RELEASE" == "22.04" ]  || err "You must run this command on Ubuntu version 20.04 or 22.04 LTS."
+  [ "$RELEASE" == "20.04" ] || [ "$RELEASE" == "22.04" ] || [ "$RELEASE" == "24.04" ] || err "You must run this command on Ubuntu version 20.04, 22.04 or 24.04 LTS."
 }
 
 need_x64() {
@@ -450,6 +450,7 @@ install_greenlight_v3(){
   sed -i "s|^[# \t]*SECRET_KEY_BASE=[ \t]*$|SECRET_KEY_BASE=$SECRET_KEY_BASE|" $GL3_DIR/.env # Do not overwrite the value if not empty.
   sed -i "s|^[# \t]*DATABASE_URL=[ \t]*$|DATABASE_URL=$DATABASE_URL_ROOT/$PGDBNAME|" $GL3_DIR/.env # Do not overwrite the value if not empty.
   sed -i "s|^[# \t]*REDIS_URL=[ \t]*$|REDIS_URL=$REDIS_URL_ROOT/|" $GL3_DIR/.env # Do not overwrite the value if not empty.
+  sed -i "s|^[# \t]*URL_HOST=[ \t]*$|URL_HOST=$HOST|" $GL3_DIR/.env # Do not overwrite the value if not empty.
 
   # Placing greenlight-v3 nginx file, this will enable greenlight-v3 as your Bigbluebutton frontend (bbb-fe).
   cp -v $NGINX_FILES_DEST/greenlight-v3.nginx $NGINX_FILES_DEST/greenlight-v3.nginx.old && say "old greenlight-v3 nginx config can be retrieved at $NGINX_FILES_DEST/greenlight-v3.nginx.old" #Backup
@@ -481,7 +482,7 @@ install_greenlight_v3(){
       say "added Keycloak to compose file"
 
       KCPASSWORD=$(openssl rand -hex 12) # Keycloak admin password.
-      sed -i "s|^\([ \t-]*KEYCLOAK_ADMIN_PASSWORD\)\(=[ \t]*\)$|\1=$KCPASSWORD|g" $GL3_DIR/docker-compose.yml # Do not overwrite the value if not empty.
+      sed -i "s|^\([ \t-]*KC_BOOTSTRAP_ADMIN_PASSWORD\)\(=[ \t]*\)$|\1=$KCPASSWORD|g" $GL3_DIR/docker-compose.yml # Do not overwrite the value if not empty.
       sed -i "s|^\([ \t-]*KC_DB_PASSWORD\)\(=[ \t]*\)$|\1=$PGPASSWORD|g" $GL3_DIR/docker-compose.yml # Do not overwrite the value if not empty.
 
       # Updating Keycloak nginx file.

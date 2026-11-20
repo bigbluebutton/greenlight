@@ -92,9 +92,10 @@ class RoomSettingsGetter
   end
 
   def infer_can_record(room_settings:)
-    # checking if CanRecord permission is set to true when RoomConfig record is optional
-    return unless @current_user
-    return if RolePermission.joins(:permission).find_by(role_id: @current_user&.role_id, permission: { name: 'CanRecord' })&.value == 'true'
+    # When the record config is optional or default_enabled, recording is only allowed if the room owner's role has CanRecord.
+    # This must not depend on who starts the meeting (guests, shared users or other users with glAnyoneCanStart).
+    owner = Room.find_by(id: @room_id)&.user
+    return if owner && PermissionsChecker.new(current_user: owner, permission_names: 'CanRecord', current_provider: owner.provider).call
 
     room_settings['record'] = 'false'
   end

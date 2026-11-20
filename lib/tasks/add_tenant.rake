@@ -19,11 +19,12 @@
 require_relative 'task_helpers'
 
 desc 'Add tenant'
-task :add_tenant, %i[provider secret] => :environment do |_t, args|
+task :add_tenant, %i[provider secret region] => :environment do |_t, args|
   err 'Missing provider' unless args.provider
   err 'Missing secret' unless args.secret
+  err 'Missing region' unless args.region
 
-  tenant = Tenant.new(name: args.provider, client_secret: args.secret)
+  tenant = Tenant.new(name: args.provider, client_secret: args.secret, region: args.region)
 
   if tenant.save
     TenantSetup.new(args.provider).call

@@ -81,6 +81,8 @@ Rails.application.configure do
       enable_starttls_auto: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS_AUTO', nil)),
       enable_starttls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_STARTTLS', nil)),
       tls: ActiveModel::Type::Boolean.new.cast(ENV.fetch('SMTP_TLS', nil)),
+      open_timeout: (ENV['SMTP_OPEN_TIMEOUT'].presence || 30).to_i,
+      read_timeout: (ENV['SMTP_READ_TIMEOUT'].presence || 30).to_i,
       openssl_verify_mode: ENV.fetch('SMTP_SSL_VERIFY', 'true') == 'false' ? OpenSSL::SSL::VERIFY_NONE : OpenSSL::SSL::VERIFY_PEER
     }.compact
 
@@ -173,11 +175,8 @@ Rails.application.configure do
   # Only use :id for inspections in production.
   config.active_record.attributes_for_inspect = [:id]
 
-  # Enable DNS rebinding protection and other `Host` header attacks.
-  # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
-  # ]
-  # Skip DNS rebinding protection for the default health check endpoint.
-  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  if ENV.fetch('BYPASS_HOST', 'false') != 'true' && ENV['URL_HOST'].present?
+    config.hosts = ENV.fetch('URL_HOST').split(',').map(&:strip)
+    config.host_authorization = { exclude: ->(request) { request.path == '/health_check' } }
+  end
 end

@@ -63,7 +63,7 @@ eu:
       invitation_to_join: BigBlueButton gonbidapena
       you_have_been_invited: "%{name}(e)k BigBlueButtoneko kontu bat zabaltzera gonbidatu zaitu."
       get_started: "Izena emateko, egin klik beheko botoian eta jarraitu urratsei."
-      valid_invitation: Gonbita 24 ordukoa da.
+      valid_invitation: Gonbidapenak 7 egunetarako balio du.
       sign_up: Izena eman
     new_user_signup:
       new_user: BigBlueButton-en erabiltzaile berria

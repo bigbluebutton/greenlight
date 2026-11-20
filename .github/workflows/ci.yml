@@ -30,31 +30,27 @@ jobs:
           --health-retries 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Install Ruby ${{ env.RUBY_VERSION }}
+      # bundler-cache runs `bundle install` and caches the gems keyed on Ruby version + Gemfile.lock
+      - name: Install Ruby ${{ env.RUBY_VERSION }} and gems
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
 
+      # Skip recommended packages (ghostscript, fonts, netpbm, ...): they make up most of the download
+      # and aren't needed to process the image fixtures used by the specs.
       - name: Install imagemagick
-        run: sudo apt-get clean && sudo apt-get update && sudo apt-get install -y imagemagick
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends imagemagick
 
-      - name: Bundle cache
-        uses: actions/cache@v4
+      - name: Setup Node with npm cache
+        uses: actions/setup-node@v4
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-
-      - name: Bundle install
-        run: |
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
+          cache: npm
 
       - name: NPM install
-        run: npm install
+        run: npm ci
 
       - name: Setup database
         run: |

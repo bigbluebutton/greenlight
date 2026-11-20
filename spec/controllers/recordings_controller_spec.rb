@@ -175,6 +175,17 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
 
+    it 'user cannot update the name of a public recording they do not own' do
+      other_user = create(:user)
+      room = create(:room, user: other_user)
+      recording = create(:recording, room:, visibility: Recording::VISIBILITIES[:public])
+
+      expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recordings)
+
+      expect { post :update, params: { recording: { name: 'Tampered Name' }, id: recording.record_id } }.not_to(change { recording.reload.name })
+      expect(response).to have_http_status(:forbidden)
+    end
+
     context 'user has ManageRecordings permission' do
       before do
         sign_in_user(user_with_manage_recordings_permission)
@@ -236,6 +247,58 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
       end
     end
 
+    context 'non-protectable recording' do
+      let(:recording) { create(:recording, room:, protectable: false) }
+
+      it 'returns :forbidden when setting visibility to Protected' do
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recording_visibility)
+
+        expect do
+          post :update_visibility, params: { visibility: Recording::VISIBILITIES[:protected], id: recording.record_id }
+        end.not_to(change { recording.reload.visibility })
+
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it 'returns :forbidden when setting visibility to Public/Protected' do
+        expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recording_visibility)
+
+        expect do
+          post :update_visibility, params: { visibility: Recording::VISIBILITIES[:public_protected], id: recording.record_id }
+        end.not_to(change { recording.reload.visibility })
+
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    context 'protectable recording' do
+      let(:recording) { create(:recording, room:, protectable: true) }
+
+      it 'allows setting visibility to Protected' do
+        expect_any_instance_of(BigBlueButtonApi)
+          .to receive(:update_recording_visibility)
+          .with(record_id: recording.record_id, visibility: Recording::VISIBILITIES[:protected])
+
+        expect do
+          post :update_visibility, params: { visibility: Recording::VISIBILITIES[:protected], id: recording.record_id }
+        end.to(change { recording.reload.visibility })
+
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'allows setting visibility to Public/Protected' do
+        expect_any_instance_of(BigBlueButtonApi)
+          .to receive(:update_recording_visibility)
+          .with(record_id: recording.record_id, visibility: Recording::VISIBILITIES[:public_protected])
+
+        expect do
+          post :update_visibility, params: { visibility: Recording::VISIBILITIES[:public_protected], id: recording.record_id }
+        end.to(change { recording.reload.visibility })
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
     context 'shared access' do
       let(:signed_in_user) { create(:user) }
       let(:recording) { create(:recording, room:, visibility: Recording::VISIBILITIES[:published]) }
@@ -267,6 +330,20 @@ RSpec.describe Api::V1::RecordingsController, type: :controller do
 
         expect(response).to have_http_status(:forbidden)
       end
+    end
+
+    it 'user cannot update the visibility of a public recording they do not own' do
+      other_user = create(:user)
+      room = create(:room, user: other_user)
+      recording = create(:recording, room:, visibility: Recording::VISIBILITIES[:public])
+
+      expect_any_instance_of(BigBlueButtonApi).not_to receive(:update_recording_visibility)
+
+      expect do
+        post :update_visibility, params: { visibility: Recording::VISIBILITIES[:unpublished], id: recording.record_id }
+      end.not_to(change { recording.reload.visibility })
+
+      expect(response).to have_http_status(:forbidden)
     end
 
     # TODO: samuel - add tests for user_with_manage_recordings_permission

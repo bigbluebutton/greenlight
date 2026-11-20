@@ -41,7 +41,8 @@ describe MeetingStarter, type: :service do
       moderatorOnlyMessage: "#{I18n.t('meeting.moderator_message', locale: user.language.to_sym)}<br>#{url}",
       loginURL: url,
       logoutURL: url,
-      meta_endCallbackUrl: File.join(base_url, '/meeting_ended'),
+      meetingEndedURL: "#{File.join(base_url, '/meeting_ended')}?token=" \
+                       "#{BigBlueButtonApi.new(provider: 'greenlight').encode_jwt({ meeting_id: room.meeting_id })}",
       'meta_bbb-recording-ready-url': File.join(base_url, '/recording_ready'),
       'meta_bbb-origin-version': 'v3',
       'meta_bbb-origin': 'greenlight',

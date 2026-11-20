@@ -336,6 +336,23 @@ RSpec.describe ExternalController do
 
           expect(response).to redirect_to(root_path(error: Rails.configuration.custom_error_msgs[:invite_token_invalid]))
         end
+
+        it 'returns an InviteInvalid error if the invitation has expired' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+          invite = create(
+            :invitation,
+            email: OmniAuth.config.mock_auth[:openid_connect][:info][:email],
+            updated_at: Invitation::INVITATION_VALIDITY_PERIOD.ago - 1.day
+          )
+          cookies[:inviteToken] = {
+            value: invite.token
+          }
+
+          expect { get :create_user, params: { provider: 'openid_connect' } }.not_to change(User, :count)
+
+          expect(Invitation.exists?(id: invite.id)).to be(true)
+          expect(response).to redirect_to(root_path(error: Rails.configuration.custom_error_msgs[:invite_token_invalid]))
+        end
       end
 
       context 'approval' do
@@ -352,7 +369,58 @@ RSpec.describe ExternalController do
 
           expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email])).to be_pending
           expect(response).to redirect_to(controller.pending_path)
+          expect(session[:session_token]).to be_nil
         end
+      end
+
+      context 'open' do
+        it 'does not sign in an existing pending user' do
+          request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+          create(:user, external_id: OmniAuth.config.mock_auth[:openid_connect][:uid], status: :pending)
+
+          get :create_user, params: { provider: 'openid_connect' }
+
+          expect(response).to redirect_to(controller.pending_path)
+          expect(session[:session_token]).to be_nil
+        end
+      end
+    end
+
+    context 'banned user' do
+      let!(:banned_user) do
+        create(:user,
+               external_id: OmniAuth.config.mock_auth[:openid_connect][:uid],
+               name: 'Banned Name',
+               email: 'banned@example.com',
+               status: :banned)
+      end
+
+      before do
+        resync = instance_double(SettingGetter)
+        allow(SettingGetter).to receive(:new).with(setting_name: 'ResyncOnLogin', provider: 'greenlight').and_return(resync)
+        allow(resync).to receive(:call).and_return(true)
+      end
+
+      it 'does not sign in the banned user and returns a BannedUser error' do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+        old_token = banned_user.session_token
+
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(response).to redirect_to(root_path(error: Rails.configuration.custom_error_msgs[:banned_user]))
+        expect(session[:session_token]).to be_nil
+        expect(banned_user.reload.session_token).to eq(old_token)
+      end
+
+      it 'does not resync the banned user account' do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:openid_connect]
+
+        get :create_user, params: { provider: 'openid_connect' }
+
+        banned_user.reload
+        expect(banned_user.name).to eq('Banned Name')
+        expect(banned_user.email).to eq('banned@example.com')
+        expect(banned_user.last_login).to be_nil
       end
     end
 
@@ -494,6 +562,34 @@ RSpec.describe ExternalController do
         get :create_user, params: { provider: 'openid_connect' }
       end
 
+      it 'creates the user without an avatar if the avatar is rejected' do
+        stub_request(:get, OmniAuth.config.mock_auth[:openid_connect][:info][:image])
+          .to_return(body: file_fixture('large-avatar.jpg'), headers: { 'Content-Type' => 'image/jpeg' }, status: 200)
+
+        expect { get :create_user, params: { provider: 'openid_connect' } }.to change(User, :count).by(1)
+
+        expect(User.find_by(email: OmniAuth.config.mock_auth[:openid_connect][:info][:email]).avatar).not_to be_attached
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'keeps an existing user signing in when their avatar is rejected on resync' do
+        reg_method = instance_double(SettingGetter)
+        allow(SettingGetter).to receive(:new).with(setting_name: 'ResyncOnLogin', provider: 'greenlight').and_return(reg_method)
+        allow(reg_method).to receive(:call).and_return(true)
+
+        user = create(:user, external_id: OmniAuth.config.mock_auth[:openid_connect][:uid],
+                             email: OmniAuth.config.mock_auth[:openid_connect][:info][:email])
+        user.avatar.attach(io: fixture_file_upload('default-avatar.png'), filename: 'kept-avatar.png', content_type: 'image/png')
+
+        stub_request(:get, OmniAuth.config.mock_auth[:openid_connect][:info][:image])
+          .to_return(body: file_fixture('large-avatar.jpg'), headers: { 'Content-Type' => 'image/jpeg' }, status: 200)
+
+        get :create_user, params: { provider: 'openid_connect' }
+
+        expect(response).to redirect_to(root_path)
+        expect(user.reload.avatar.filename.to_s).to eq('kept-avatar.png')
+      end
+
       it 'does not prevent the user from being created if the avatar attaching fails' do
         allow(OmniAuth.config.mock_auth[:openid_connect][:info][:image]).to receive(:blank?).and_raise(StandardError, 'Some error')
 
@@ -554,10 +650,11 @@ RSpec.describe ExternalController do
 
   describe '#meeting_ended' do
     let(:room) { create(:room, online: true) }
+    let(:token) { BigBlueButtonApi.new(provider: 'greenlight').encode_jwt({ meeting_id: room.meeting_id }) }
 
     context 'Recorded session' do
       it 'sets online to false' do
-        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true' }
+        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true', token: }
 
         expect(room.reload.online).to be(false)
         expect(response).to have_http_status(:ok)
@@ -565,10 +662,10 @@ RSpec.describe ExternalController do
       end
 
       it 'increments a rooms recordings processing value if the meeting was recorded' do
-        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true' }
+        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true', token: }
         expect(room.reload.recordings_processing).to eq(1)
 
-        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true' }
+        get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true', token: }
         expect(room.reload.recordings_processing).to eq(2)
       end
     end
@@ -576,7 +673,7 @@ RSpec.describe ExternalController do
     context 'Unrecorded session' do
       it 'sets online to false without incrementing a rooms recordings processing' do
         expect do
-          get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'false' }
+          get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'false', token: }
         end.not_to(change { room.reload.recordings_processing })
 
         expect(room.online).to be(false)
@@ -587,10 +684,41 @@ RSpec.describe ExternalController do
 
     context 'Inexistent room' do
       it 'silently fail' do
-        get :meeting_ended, params: { meetingID: '404', recordingmarks: 'false' }
+        get :meeting_ended, params: {
+          meetingID: '404', recordingmarks: 'false',
+          token: BigBlueButtonApi.new(provider: 'greenlight').encode_jwt({ meeting_id: '404' })
+        }
 
         expect(response).to have_http_status(:ok)
         expect(response.parsed_body).to eq({})
+      end
+    end
+
+    context 'Invalid token' do
+      it 'does not update the room without a token' do
+        expect do
+          get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true' }
+        end.not_to(change { room.reload.attributes })
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it 'does not update the room for a token that is not signed with the BBB secret' do
+        expect do
+          get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true', token: 'not-a-jwt' }
+        end.not_to(change { room.reload.attributes })
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+
+      it 'does not update the room for a token signed for a different meeting' do
+        other_token = BigBlueButtonApi.new(provider: 'greenlight').encode_jwt({ meeting_id: create(:room).meeting_id })
+
+        expect do
+          get :meeting_ended, params: { meetingID: room.meeting_id, recordingmarks: 'true', token: other_token }
+        end.not_to(change { room.reload.attributes })
+
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end

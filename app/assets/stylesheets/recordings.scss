@@ -76,11 +76,15 @@
   }
 }
 
-.recordings-list {
+.recordings-list, .popover-body {
   .recording-icon-circle {
     min-width: 40px;
     min-height: 40px;
     background-color: var(--brand-color-light);
+  }
+
+  [class*="btn-format-"]:hover {
+    background-image: linear-gradient(rgb(0 0 0/5%) 0 0);
   }
 
   .btn-format-presentation {
@@ -127,5 +131,24 @@
 
   svg:hover {
     color: var(--brand-color) !important;
+  }
+}
+
+.simple-select {
+  .recording-info {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .dropdown-toggle .recording-info {
+    visibility: hidden;
+    pointer-events: none;
+    min-width: 1.25rem;
+    justify-content: center;
+  }
+
+  .dropdown-menu .recording-info {
+    visibility: visible;
+    pointer-events: auto;
   }
 }

@@ -32,6 +32,7 @@ export default function InviteUserForm({ handleClose }) {
   return (
     <Form methods={methods} onSubmit={createInvitationAPI.mutate}>
       <FormControl field={fields.emails} type="text" autoFocus />
+      <FormControl field={fields.names} type="text" />
 
       <Stack className="mt-1" direction="horizontal" gap={1}>
         <Button variant="neutral" className="ms-auto" onClick={handleClose}>

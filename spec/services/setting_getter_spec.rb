@@ -35,5 +35,13 @@ describe SettingGetter, type: :service do
 
       expect(described_class.new(setting_name: site_setting.setting.name, provider: site_setting.provider).call).to eq('test_value')
     end
+
+    it 'strips scripts and event handlers from the Maintenance banner but keeps formatting' do
+      site_setting = create(:site_setting, setting: create(:setting, name: 'Maintenance'),
+                                           value: '<img src="x" onerror="alert(1)"><a href="javascript:alert(1)">x</a><b>Down</b>')
+
+      expect(described_class.new(setting_name: 'Maintenance', provider: site_setting.provider).call)
+        .to eq('<img src="x"><a>x</a><b>Down</b>')
+    end
   end
 end
