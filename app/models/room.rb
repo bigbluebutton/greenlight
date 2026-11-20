@@ -113,7 +113,7 @@ class Room < ApplicationRecord
     pin_len = Rails.application.config.sip_pin_length
     max_pins = 10.pow(pin_len) - 10.pow(pin_len - 1) - 1
 
-    return if Room.all.where.not(voice_bridge: nil).length >= max_pins # Check if pins are left
+    return if Room.where.not(voice_bridge: nil).length >= max_pins # Check if pins are left
 
     # Pick random pin
     id = SecureRandom.random_number(10.pow(pin_len) - 1)

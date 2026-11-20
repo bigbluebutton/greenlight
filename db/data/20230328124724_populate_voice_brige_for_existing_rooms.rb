@@ -9,7 +9,7 @@ class PopulateVoiceBrigeForExistingRooms < ActiveRecord::Migration[7.0]
 
     raise 'The db contains to many rooms to assign each one a unique voice_bridge' if Room.all.length > max_pins
 
-    Room.where(voice_bridge: nil).each do |room|
+    Room.where(voice_bridge: nil).for_each do |room|
       id = SecureRandom.random_number(max_pins) + 10.pow(pin_len - 1)
 
       while Room.exists?(voice_bridge: id)
