@@ -20,7 +20,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import axios from '../../../helpers/Axios';
 
-export default function useCreateResetPwd() {
+export default function useCreateResetPwd({ shouldNavigate = true } = {}) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -29,7 +29,9 @@ export default function useCreateResetPwd() {
     {
       onSuccess: () => {
         toast.success(t('toast.success.user.reset_pwd_email_sent'));
-        navigate('/');
+        if (shouldNavigate) {
+          navigate('/');
+        }
       },
       onError: () => {
         toast.error(t('toast.error.problem_completing_action'));

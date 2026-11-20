@@ -38,6 +38,8 @@ export default function useCreateUser() {
         // if the current user does NOT have the CreateRoom permission, then do not re-direct to rooms page
         if (!response.verified) {
           navigate(`/verify?id=${response.id}`);
+        } else if (response.status === 'pending') {
+          navigate('/pending');
         } else if (redirect) {
           navigate(redirect);
         } else if (response.permissions.CreateRoom === 'false') {
@@ -53,6 +55,8 @@ export default function useCreateUser() {
           toast.error(t('toast.error.users.email_exists'));
         } else if (err.response.data.errors === 'BannedUser') {
           toast.error(t('toast.error.users.banned'));
+        } else if (err.response.data.errors === 'HCaptchaInvalid') {
+          toast.error(t('toast.error.users.hcaptcha_invalid'));
         } else {
           toast.error(t('toast.error.problem_completing_action'));
         }

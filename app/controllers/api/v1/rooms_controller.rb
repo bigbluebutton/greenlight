@@ -103,7 +103,7 @@ module Api
       # PATCH /api/v1/rooms/:friendly_id.json
       # Updates the values of the specified room
       def update
-        if @room.update(room_params)
+        if @room.update(room_params.except(:user_id))
           render_data status: :ok
         else
           render_error errors: @room.errors.to_a, status: :bad_request
@@ -156,11 +156,11 @@ module Api
       private
 
       def find_room
-        @room = Room.find_by!(friendly_id: params[:friendly_id])
+        @room = Room.includes(:user).with_provider(current_provider).find_by!(friendly_id: params[:friendly_id])
       end
 
       def room_params
-        params.require(:room).permit(:name, :user_id, :voice_bridge, :presentation)
+        params.expect(room: %i[name user_id voice_bridge presentation])
       end
     end
   end

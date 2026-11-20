@@ -1,0 +1,83 @@
+# BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+#
+# Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+#
+# This program is free software; you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free Software
+# Foundation; either version 3.0 of the License, or (at your option) any later
+# version.
+#
+# Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License along
+# with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   "true": "foo"
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+ja_JP:
+  opengraph:
+    description: BigBlueButtonを使って学びましょう。BigBlueButtonはオープンソースで開発されている信頼性の高いウェブ会議ソフトウェアです。途切れることのないコラボレーションとオンライン学習を約束します。
+  meeting:
+    moderator_message: "誰かを会議に招待するには、このリンクを送信します："
+    access_code: "接続コード: %{code}"
+  email:
+    activation:
+      account_activation: アカウントの有効化
+      welcome_to_bbb: BigBlueButtonへようこそ！
+      get_started: まず初めに、下のボタンをクリックしてアカウントを有効化してください。
+      activate_account: アカウント有効化
+      link_expires: リンクは24時間で無効となります。
+      if_link_expires: もしリンクの期限が切れていたら、ログインして新しい有効化メールを要求してください。
+    invitation:
+      invitation_to_join: BigBlueButtonへの招待
+      you_have_been_invited: "%{name}さんから、BigBlueButtonのアカウント作成に招待されています。"
+      get_started: 登録するには下のボタンをクリックし、手順にしたがってください。
+      valid_invitation: この招待は7日間有効です。
+      sign_up: サインアップ
+    new_user_signup:
+      new_user: 新規BigBlueButtonユーザーのサインアップ
+      new_user_description: 新しいユーザーがBigBlueButtonを利用するためにサインアップしました。
+      name: "名前: %{name}"
+      email: "メール: %{email}"
+      admin_panel: "管理者パネル"
+      take_action: "新しいユーザーを確認したり、必要なアクションをとりたい場合は、管理者パネルを見てください"
+    reset:
+      password_reset: パスワードを再設定する
+      password_reset_requested: "%{email}に対してパスワードの再設定が要請されました。"
+      password_reset_confirmation: パスワードを再設定するには下のボタンを押してください。
+      reset_password: パスワードを再設定する
+      link_expires: リンクは１時間で無効となります。
+      ignore_request: もしパスワード再設定の要請をした覚えがないようでしたら、このメールは読み捨ててください。
+  room:
+    new_room_name: "%{username}の会議室"

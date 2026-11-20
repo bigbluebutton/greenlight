@@ -22,7 +22,9 @@ import { useCallback, useMemo } from 'react';
 
 export function useTenantFormValidation() {
   return useMemo(() => (yup.object({
-    name: yup.string().required('forms.validations.tenant.name.required'),
+    name: yup.string().required('Field is required'),
+    client_secret: yup.string().required('Field is required'),
+    region: yup.string().required('Field is required'),
   })), []);
 }
 
@@ -44,6 +46,14 @@ export default function useTenantForm({ defaultValues: _defaultValues, ..._confi
       controlId: 'createTenantFormClientSecret',
       hookForm: {
         id: 'client_secret',
+      },
+    },
+    region: {
+      label: 'Region',
+      placeHolder: 'rna1',
+      controlId: 'createTenantFormRegion',
+      hookForm: {
+        id: 'region',
       },
     },
   }), [i18n.resolvedLanguage]);

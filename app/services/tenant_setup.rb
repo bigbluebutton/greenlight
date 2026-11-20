@@ -47,6 +47,7 @@ class TenantSetup
         provider: @provider },
       { setting: Setting.find_by(name: 'Terms'), value: '', provider: @provider },
       { setting: Setting.find_by(name: 'PrivacyPolicy'), value: '', provider: @provider },
+      { setting: Setting.find_by(name: 'AccessibilityStatement'), value: '', provider: @provider },
       { setting: Setting.find_by(name: 'HelpCenter'), value: '', provider: @provider },
       { setting: Setting.find_by(name: 'RegistrationMethod'), value: SiteSetting::REGISTRATION_METHODS[:open],
         provider: @provider },
@@ -58,7 +59,8 @@ class TenantSetup
       { setting: Setting.find_by(name: 'Maintenance'), provider: @provider, value: '' },
       { setting: Setting.find_by(name: 'SessionTimeout'), provider: @provider, value: '1' },
       { setting: Setting.find_by(name: 'AllowedDomains'), value: '', provider: @provider },
-      { setting: Setting.find_by(name: 'SignInOnRoomJoin'), value: 'true', provider: @provider }
+      { setting: Setting.find_by(name: 'SignInOnRoomJoin'), value: 'true', provider: @provider },
+      { setting: Setting.find_by(name: 'AllowNameUpdate'), value: 'true', provider: @provider }
     ]
   end
 

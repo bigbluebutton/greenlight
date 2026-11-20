@@ -1,5 +1,4 @@
-version: '3'
-
+---
 services:
   postgres:
     image: postgres:14-alpine3.20
@@ -27,7 +26,7 @@ services:
     ports:
       - 127.0.0.1:5050:3000
     logging:
-      driver: journald
+      driver: ${LOGGING_DRIVER:-journald}
     volumes:
       - ./data/greenlight-v3/storage:/usr/src/app/storage
     depends_on:

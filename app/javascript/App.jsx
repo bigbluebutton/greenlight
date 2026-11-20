@@ -19,6 +19,7 @@ import { Container, Form, Spinner } from 'react-bootstrap';
 import {
   Outlet, useLocation, useNavigate, useSearchParams,
 } from 'react-router-dom';
+import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
 import Header from './components/shared_components/Header';
@@ -43,16 +44,16 @@ export default function App() {
   // useEffect hook for running notify maintenance banner on page load
   useEffect(() => {
     if (maintenanceBanner.data) {
-      const toastId = toast.info(maintenanceBanner.data, {
+      const toastId = toast.info(<span dangerouslySetInnerHTML={{ __html: maintenanceBanner.data }} />, {
         position: 'top-center',
         autoClose: false,
         hideProgressBar: true,
-        closeOnClick: true,
+        closeOnClick: false,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
         theme: 'light',
-        className: 'text-center',
+        className: 'text-center maintenance-toast',
       });
       localStorage.setItem('maintenanceBannerId', toastId);
     }
@@ -98,7 +99,7 @@ export default function App() {
 
   return (
     <>
-      <Title>BigBlueButton</Title>
+      <Title lang={currentUser?.language} dir={i18next.dir(currentUser?.language)}>BigBlueButton</Title>
       { autoSignIn
         ? (
           <Container fluid className="d-flex vh-100 justify-content-center align-items-center">

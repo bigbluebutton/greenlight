@@ -29,7 +29,7 @@ export default function Registration() {
   const { t } = useTranslation();
   const { data: env } = useEnv();
   const { data: siteSettings } = useSiteSettings(
-    ['RoleMapping', 'DefaultRole', 'ResyncOnLogin', 'SignInOnRoomJoin', 'RegistrationMethod', 'AllowedDomains'],
+    ['RoleMapping', 'DefaultRole', 'ResyncOnLogin', 'SignInOnRoomJoin', 'RegistrationMethod', 'AllowedDomains', 'AllowNameUpdate'],
   );
   const { data: roles } = useRoles();
   const updateRegistrationMethod = useUpdateSiteSetting('RegistrationMethod');
@@ -93,6 +93,17 @@ export default function Registration() {
           </p>
         )}
         value={siteSettings?.SignInOnRoomJoin}
+      />
+
+      <SettingsRow
+        name="AllowNameUpdate"
+        title={t('admin.site_settings.registration.allow_name_update')}
+        description={(
+          <p className="text-muted">
+            {t('admin.site_settings.registration.allow_name_update_description')}
+          </p>
+        )}
+        value={siteSettings?.AllowNameUpdate}
       />
 
       <Row className="mb-3">

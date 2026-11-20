@@ -107,6 +107,56 @@ RSpec.describe Api::V1::RoomSettingsController, type: :controller do
       expect(room.room_meeting_options.take.value).to eq('notOptionalAnymore')
     end
 
+    context 'Recording' do
+      let(:record_option) { create(:meeting_option, name: 'record') }
+
+      before do
+        create(:rooms_configuration, meeting_option: record_option, value: 'optional')
+        create(:room_meeting_option, room:, meeting_option: record_option, value: 'false')
+      end
+
+      def grant_can_record(role)
+        RolePermission.find_or_create_by(role:, permission: Permission.find_or_create_by(name: 'CanRecord')).update(value: 'true')
+      end
+
+      it 'returns :forbidden when enabling recording and the room owner does not have the CanRecord permission' do
+        put :update, params: { room_setting: { settingName: 'record', settingValue: true }, friendly_id: room.friendly_id }
+
+        expect(response).to have_http_status(:forbidden)
+        expect(room.get_setting(name: 'record').value).to eq('false')
+      end
+
+      it 'returns :forbidden when a shared user with CanRecord enables recording but the room owner does not have it' do
+        shared_user = create(:user)
+        grant_can_record(shared_user.role)
+        create(:shared_access, user_id: shared_user.id, room_id: room.id)
+        sign_in_user(shared_user)
+
+        put :update, params: { room_setting: { settingName: 'record', settingValue: true }, friendly_id: room.friendly_id }
+
+        expect(response).to have_http_status(:forbidden)
+        expect(room.get_setting(name: 'record').value).to eq('false')
+      end
+
+      it 'enables recording when the room owner has the CanRecord permission' do
+        grant_can_record(user.role)
+
+        put :update, params: { room_setting: { settingName: 'record', settingValue: true }, friendly_id: room.friendly_id }
+
+        expect(response).to have_http_status(:ok)
+        expect(room.get_setting(name: 'record').value).to eq('true')
+      end
+
+      it 'allows disabling recording even if the room owner does not have the CanRecord permission' do
+        room.get_setting(name: 'record').update(value: 'true')
+
+        put :update, params: { room_setting: { settingName: 'record', settingValue: false }, friendly_id: room.friendly_id }
+
+        expect(response).to have_http_status(:ok)
+        expect(room.get_setting(name: 'record').value).to eq('false')
+      end
+    end
+
     context 'Access codes' do
       it 'uses MeetingOption::get_config_value and generates a code if it\'s not disabled and the value is "true"' do
         random_access_code_name = %w[glViewerAccessCode glModeratorAccessCode].sample

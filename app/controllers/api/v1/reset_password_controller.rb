@@ -56,6 +56,7 @@ module Api
         return render_error status: :internal_server_error unless @user.invalidate_reset_token
 
         @user.update! password: new_password
+        @user.generate_session_token!
 
         render_data status: :ok
       end

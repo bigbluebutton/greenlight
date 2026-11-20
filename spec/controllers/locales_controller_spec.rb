@@ -35,8 +35,8 @@ RSpec.describe Api::V1::LocalesController, type: :controller do
     end
 
     it 'returns the dialect language file if the regular language doesnt exist' do
-      get :show, params: { name: 'pl' }
-      expect(response).to redirect_to(ActionController::Base.helpers.asset_path('pl_PL.json'))
+      get :show, params: { name: 'ko' }
+      expect(response).to redirect_to(ActionController::Base.helpers.asset_path('ko_KR.json'))
     end
 
     it 'returns not_acceptable if the language doesnt exist' do

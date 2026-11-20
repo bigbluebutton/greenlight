@@ -164,6 +164,16 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
       expect(unverified_user.verified).to be(true)
     end
 
+    it 'does not update a user belonging to another provider' do
+      other_role = create(:role, provider: 'other-provider')
+      other_user = create(:user, provider: 'other-provider', role: other_role, status: 'active')
+
+      post :update, params: { id: other_user.id, user: { status: 'banned' } }
+
+      expect(response).to have_http_status(:not_found)
+      expect(other_user.reload.status).to eq('active')
+    end
+
     context 'user without ManageUsers permission' do
       before do
         sign_in_user(user)

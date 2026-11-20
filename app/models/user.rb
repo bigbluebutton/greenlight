@@ -82,7 +82,7 @@ class User < ApplicationRecord
   end
 
   def self.shared_access_search(input)
-    return where('users.name ILIKE :input OR users.email ILIKE :input', input: "%#{input}%") if input
+    return where('users.name ILIKE :input OR users.email ILIKE :input', input: "%#{sanitize_sql_like(input)}%") if input
 
     all
   end
@@ -115,7 +115,7 @@ class User < ApplicationRecord
 
   # Checkes the expiration of a token.
   def self.reset_token_expired?(sent_at)
-    Time.current > (sent_at.in(RESET_TOKEN_VALIDITY_PERIOD))
+    Time.current > sent_at.in(RESET_TOKEN_VALIDITY_PERIOD)
   end
 
   # Gives the session token and expiry a default value before saving
@@ -191,7 +191,7 @@ class User < ApplicationRecord
 
   # Checkes the expiration of a token.
   def self.activation_token_expired?(sent_at)
-    Time.current > (sent_at.in(ACTIVATION_TOKEN_VALIDITY_PERIOD))
+    Time.current > sent_at.in(ACTIVATION_TOKEN_VALIDITY_PERIOD)
   end
 
   def invalidate_activation_token

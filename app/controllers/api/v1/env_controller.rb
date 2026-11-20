@@ -29,7 +29,7 @@ module Api
           HCAPTCHA_KEY: ENV.fetch('HCAPTCHA_SITE_KEY', nil),
           VERSION_TAG: ENV.fetch('VERSION_TAG', ''),
           CURRENT_PROVIDER: current_provider,
-          SMTP_ENABLED: ENV.fetch('SMTP_SERVER', nil)
+          SMTP_ENABLED: ENV.fetch('SMTP_SERVER', nil).present?
         }, status: :ok
       end
     end

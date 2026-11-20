@@ -53,6 +53,8 @@ class SettingGetter
 
   def transform_value(site_setting)
     return rails_blob_path site_setting.image, only_path: true if site_setting.setting.name == 'BrandingImage' && site_setting.image.attached?
+    # The Maintenance banner is rendered as HTML by the frontend, so strip scripts/event handlers
+    return Rails::HTML5::SafeListSanitizer.new.sanitize(site_setting.value) if site_setting.setting.name == 'Maintenance'
 
     case site_setting.value
     when 'true'

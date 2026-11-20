@@ -31,6 +31,7 @@ export default function TenantsTable({
         <tr className="text-muted small">
           <th className="fw-normal border-0">Tenant<SortBy fieldName="name" /></th>
           <th className="fw-normal border-0">Client Secret</th>
+          <th className="fw-normal border-0">Region</th>
           <th className="border-start-0" aria-label="options" />
         </tr>
       </thead>

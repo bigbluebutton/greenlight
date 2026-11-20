@@ -2,6 +2,11 @@
 
 source bin/config.env
 
+if [ "$RAILS_ENV" = "production" ] && [ -z "$URL_HOST" ] && [ "$BYPASS_HOST" != "true" ]; then
+  echo "ERROR: URL_HOST must be set to the hostname Greenlight is served from."
+  exit 1
+fi
+
 echo "Greenlight-v3 starting on port: $PORT"
 
 echo "Postgres host: $PGHOST"

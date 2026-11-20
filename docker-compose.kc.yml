@@ -1,20 +1,21 @@
 
   keycloak:
     command: start
-    image: quay.io/keycloak/keycloak:20.0
+    image: quay.io/keycloak/keycloak:26.0
     container_name: keycloak
     restart: unless-stopped
     environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=
       - KC_DB=postgres
       - KC_DB_URL_HOST=postgres
       - KC_DB_USERNAME=postgres
       - KC_DB_URL_DATABASE=keycloakdb
       - KC_DB_PASSWORD=
-      - KC_HOSTNAME_STRICT=false
+      - KC_HTTP_ENABLED=true
       - KC_HTTP_RELATIVE_PATH=/keycloak
-      - KC_PROXY=edge
+      - KC_HOSTNAME_STRICT=false
+      - KC_PROXY_HEADERS=xforwarded
     ports:
       - 127.0.0.1:5151:8080
     logging:

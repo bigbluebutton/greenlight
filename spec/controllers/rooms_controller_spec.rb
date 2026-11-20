@@ -143,6 +143,15 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(response).to have_http_status(:not_found)
       expect(response.parsed_body['data']).to be_nil
     end
+
+    it 'returns :not_found for a room belonging to another provider' do
+      other_role = create(:role, provider: 'other-provider')
+      other_user = create(:user, provider: 'other-provider', role: other_role)
+      other_room = create(:room, user: other_user)
+
+      get :public_show, params: { friendly_id: other_room.friendly_id }
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   describe '#destroy' do
@@ -363,13 +372,11 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
     end
 
     context 'Pagination' do
-      # The order of creation and the matching of :recorded_at value impacts a page recordings list.
-      # Thus fixing those values ensures the determinism of these examples.
       let!(:first_page_recordings) do
         create_list(:recording, Pagy::DEFAULT[:items], room:, recorded_at: Time.zone.at(1_686_943_664), visibility: Recording::VISIBILITIES[:public])
       end
       let!(:second_page_recordings) do
-        create_list(:recording, Pagy::DEFAULT[:items], room:, recorded_at: Time.zone.at(1_686_943_664),
+        create_list(:recording, Pagy::DEFAULT[:items], room:, recorded_at: Time.zone.at(1_686_857_264),
                                                        visibility: Recording::VISIBILITIES[:public_protected])
       end
 
@@ -545,6 +552,18 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
 
         expect(response).to have_http_status(:not_found)
         expect(response.parsed_body['data']).to be_blank
+      end
+    end
+
+    context 'room belonging to another provider' do
+      it 'returns :not_found' do
+        other_role = create(:role, provider: 'other-provider')
+        other_user = create(:user, provider: 'other-provider', role: other_role)
+        other_room = create(:room, user: other_user)
+
+        get :public_recordings, params: { friendly_id: other_room.friendly_id }
+
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

@@ -15,6 +15,7 @@
   "share": "Condividi",
   "cancel": "Annulla",
   "reset":   "Resetta",
+  "reset_password": "Reimposta password",
   "close": "Chiudi",
   "delete": "Elimina",
   "copy": "Copia l'Indirizzo di accesso",
@@ -185,6 +186,14 @@
     "protected": "Protetta",
     "public": "Pubblica",
     "public_protected": "Pubblica/Protetta",
+    "formats_help": "Visualizza i formati di riproduzione disponibili. Selezionando un formato si apre la registrazione BigBlueButton in una nuova scheda.",
+    "visibility_help": {
+      "public_protected": "La registrazione è disponibile nella pagina Registrazioni pubbliche, accessibile dalla pagina Partecipa alla Stanza. Può anche essere condivisa con altri tramite un link di accesso una tantum.",
+      "public": "La registrazione è disponibile nella pagina Registrazioni pubbliche, accessibile dalla pagina Partecipa alla stanza, e il suo collegamento può essere condiviso con chiunque",
+      "protected": "La registrazione è accessibile solo al proprietario della stanza e può essere condivisa con altri tramite un collegamento di accesso una tantum",
+      "published": "La registrazione è accessibile a chiunque abbia il link",
+      "unpublished": "La registrazione non è accessibile a nessuno"
+    },
     "length_in_minutes": "{{recording.length}} min.",
     "processing_recording": "Registrazione in elaborazione, può richiedere del tempo...",
     "copy_recording_urls": "Copia URL Registrazione",
@@ -284,8 +293,10 @@
         "terms": "Termini e condizioni",
         "privacy": "Informativa sulla privacy",
         "privacy_policy": "Informativa sulla privacy",
+        "accessibility_statement": "Dichiarazione di accessibilità",
         "change_term_links": "Modifica il link di termini e condizioni in calce alla pagina",
         "change_privacy_link": "Modifica il link dell'informativa dati sensibili in calce alla pagina",
+        "change_accessibility_statement_link": "Modifica il link alla dichiarazione di accessibilità che appare in fondo alla pagina",
         "helpcenter": "Aiuto",
         "change_helpcenter_link": "Modifica il link di aiuto nel menù di profilo",
         "maintenance": "Immagine per la manutenzione",
@@ -328,7 +339,9 @@
         },
         "allowed_domains": "Domini di posta elettronica consentiti",
         "allowed_domains_signup_description": "Consenti la registrazione a domini email specifici. Il formato deve essere: @test.com,dominio.com",
-        "enter_allowed_domains_rule" : "Inserisci i domini consentiti"
+        "enter_allowed_domains_rule" : "Inserisci i domini consentiti",
+        "allow_name_update": "Consenti agli utenti di aggiornare il proprio nome",
+        "allow_name_update_description": "Consenti agli utenti di modificare il proprio nome dopo la creazione dell'account. Se disabilitata, solo gli amministratori possono aggiornare i nomi degli utenti."
       }
     },
     "room_configuration": {
@@ -436,7 +449,7 @@
         "recording_visibility_updated": "La visibilità della registrazione è stata aggiornata.",
         "recording_name_updated": "Il nome della registrazione è stato aggiornato.",
         "recording_deleted": "La registrazione è stata cancellata.",
-        "copied_urls": "Gli URL delle registrazioni sono stati copiati."
+        "copied_urls": "L'URL della registrazione è stato copiato."
       },
       "role": {
         "role_created": "È stato creato un nuovo ruolo.",
@@ -466,7 +479,8 @@
         "email_exists": "È già presente un'utenza con l'email specificata. Si prega di riprovare con un'altra email.",
         "old_password": "La password inserita non è corretta.",
         "pending": "La tua iscrizione deve essere verificata da un amministratore. Si prega di riprovare più tardi.",
-        "banned": "Non hai accesso a questo servizio. Si prega di contattare un amministratore se ritieni si tratti di un errore."
+        "banned": "Non hai accesso a questo servizio. Si prega di contattare un amministratore se ritieni si tratti di un errore.",
+        "hcaptcha_invalid": "La verifica CAPTCHA non è riuscita. Riprova."
       },
       "rooms": {
         "room_limit": "Non è possibile creare l'aula perché il limite aule è stato raggiunto."
@@ -702,6 +716,9 @@
         "fields": {
           "emails": {
             "label": "Email"
+          },
+          "names": {
+            "label": "Nomi (facoltativi)"
           }
         }
       },
