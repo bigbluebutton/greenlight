@@ -28,6 +28,7 @@ import CreateRoomForm from './room/forms/CreateRoomForm';
 import { useAuth } from '../../contexts/auth/AuthProvider';
 import SearchBar from '../shared_components/search/SearchBar';
 import EmptyRoomsList from './EmptyRoomsList';
+import CantCreateRoom from './CantCreateRoom';
 import NoSearchResults from '../shared_components/search/NoSearchResults';
 
 export default function RoomsList() {
@@ -39,7 +40,8 @@ export default function RoomsList() {
   const mutationWrapper = (args) => useCreateRoom({ userId: currentUser.id, ...args });
 
   if (!isLoading && rooms?.length === 0 && !searchInput) {
-    return <EmptyRoomsList />;
+    // Users that can't create rooms and have no shared rooms only get the "enter meeting URL" page
+    return currentUser?.permissions.CreateRoom === 'true' ? <EmptyRoomsList /> : <CantCreateRoom />;
   }
 
   return (

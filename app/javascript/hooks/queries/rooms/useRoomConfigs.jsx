@@ -17,9 +17,10 @@
 import { useQuery } from 'react-query';
 import axios from '../../../helpers/Axios';
 
-export default function useRoomConfigs() {
+// friendlyId is optional. It allows users that only have access to a shared room (no CreateRoom permission) to read the configs.
+export default function useRoomConfigs(friendlyId) {
   return useQuery(
-    'getRoomsConfigs',
-    () => axios.get('/rooms_configurations.json').then((resp) => resp.data.data),
+    ['getRoomsConfigs', friendlyId],
+    () => axios.get('/rooms_configurations.json', { params: { friendly_id: friendlyId } }).then((resp) => resp.data.data),
   );
 }

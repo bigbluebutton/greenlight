@@ -47,6 +47,25 @@ RSpec.describe Api::V1::RoomsConfigurationsController, type: :controller do
     end
   end
 
+  describe 'rooms_configurations#index for users without CreateRoom' do
+    let(:user) { create(:user, :without_create_room_permission) }
+
+    it 'returns the configs for a room that is shared with the user' do
+      room = create(:room)
+      user.shared_rooms << room
+
+      get :index, params: { friendly_id: room.friendly_id }
+
+      expect(response).to have_http_status(:ok)
+    end
+
+    it 'returns :forbidden for a room that is not shared with the user' do
+      get :index, params: { friendly_id: create(:room).friendly_id }
+
+      expect(response).to have_http_status(:forbidden)
+    end
+  end
+
   describe 'rooms_configurations#show' do
     before do
       create(:rooms_configuration, meeting_option: create(:meeting_option, name: 'record'), value: 'false')

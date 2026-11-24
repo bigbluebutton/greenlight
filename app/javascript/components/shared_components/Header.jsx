@@ -28,12 +28,8 @@ import NavbarNotSignedIn from '../home/NavbarNotSignedIn';
 export default function Header() {
   const currentUser = useAuth();
 
-  let homePath = '/';
-  if (currentUser?.permissions?.CreateRoom === 'true') {
-    homePath = '/rooms';
-  } else if (currentUser?.permissions?.CreateRoom === 'false') {
-    homePath = '/home';
-  }
+  // Signed in users always land on /rooms (shows shared rooms even without the CreateRoom permission)
+  const homePath = currentUser?.signed_in ? '/rooms' : '/';
 
   return (
     <Navbar collapseOnSelect id="navbar" expand="sm">

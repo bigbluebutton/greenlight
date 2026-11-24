@@ -39,14 +39,12 @@ export default function HomePage() {
   const { data: recordValue } = useRoomConfigValue('record');
   const { data: env } = useEnv();
 
-  // Redirects the user to the proper page based on signed in status and CreateRoom permission
+  // Redirects signed in users to the rooms page. Users without the CreateRoom permission can still have rooms
+  // shared with them, the rooms page takes care of showing the "enter meeting URL" page if there are none.
   useEffect(
     () => {
-      // Todo: Use PermissionChecker.
-      if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'true') {
+      if (!currentUser.stateChanging && currentUser.signed_in) {
         navigate('/rooms');
-      } else if (!currentUser.stateChanging && currentUser.signed_in && currentUser.permissions.CreateRoom === 'false') {
-        navigate('/home');
       }
     },
     [currentUser.signed_in],
