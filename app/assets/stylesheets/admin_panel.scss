@@ -72,30 +72,6 @@
     }
   }
 
-  // Dropdown with the admin sections, shown below xl.
-  .admin-nav-dropdown {
-    .dropdown-toggle {
-      padding: 0.5rem 1rem;
-    }
-
-    .dropdown-menu {
-      width: 100%;
-    }
-
-    .dropdown-item {
-      display: flex;
-      align-items: center;
-      padding: 0.5rem 1rem;
-    }
-
-    // Overrides `.dropdown a { color: $black !important }`.
-    .dropdown-item.active {
-      color: var(--brand-color) !important;
-      background-color: var(--brand-color-light);
-      font-weight: 600;
-    }
-  }
-
   input.search-bar {
     max-width: $input-max-width;
   }

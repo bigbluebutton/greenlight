@@ -80,3 +80,34 @@
     width: calc(100% - 2rem);
   }
 }
+
+// Dropdown with the sections of the admin panel or the profile, shown below xl.
+#admin-panel, #profile {
+  .section-nav-dropdown {
+    .dropdown-toggle {
+      padding: 0.5rem 1rem;
+
+      // The chevron icon replaces the caret.
+      &::after {
+        display: none;
+      }
+    }
+
+    .dropdown-menu {
+      width: 100%;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+    }
+
+    // Overrides `.dropdown a { color: $black !important }`.
+    .dropdown-item.active {
+      color: var(--brand-color) !important;
+      background-color: var(--brand-color-light);
+      font-weight: 600;
+    }
+  }
+}

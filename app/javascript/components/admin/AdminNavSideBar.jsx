@@ -91,7 +91,7 @@ export default function AdminNavSideBar() {
       </Nav>
 
       {/* Dropdown, below xl. The pill classes style the toggle like the active entry of the list. */}
-      <nav className="admin-nav-dropdown nav-pills d-xl-none" aria-label={t('admin.admin_panel')}>
+      <nav className="section-nav-dropdown nav-pills d-xl-none" aria-label={t('admin.admin_panel')}>
         <Dropdown>
           <Dropdown.Toggle as="button" type="button" className="nav-link active w-100 d-flex align-items-center text-start">
             {current && <current.Icon className="hi-s me-3" aria-hidden="true" />}
