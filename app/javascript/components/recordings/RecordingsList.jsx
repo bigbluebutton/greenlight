@@ -50,7 +50,7 @@ export default function RecordingsList({
 
   return (
     <>
-      <Stack direction="horizontal" className="w-100">
+      <Stack direction="horizontal" gap={3} className="w-100">
         <div>
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
         </div>
@@ -73,7 +73,7 @@ export default function RecordingsList({
             </div>
           ) : (
             <Card className="border-0 card-shadow p-0 mt-4 mb-5">
-              <Table id="recordings-table" className="table-bordered border border-2 mb-0 recordings-list" hover responsive>
+              <Table id="recordings-table" className="table-bordered border border-2 mb-0 recordings-list table-stack" hover responsive>
                 <thead>
                   <tr className="text-muted small">
                     <th className="fw-normal border-end-0">{t('recording.name')}<SortBy fieldName="name" /></th>

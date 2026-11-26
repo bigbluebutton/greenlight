@@ -49,12 +49,12 @@ export default function EditRole() {
       <Card className="border-0 card-shadow">
         <Tab.Container activeKey="roles">
           <Row>
-            <Col className="pe-0" sm={3}>
+            <Col className="pe-xl-0" xl={3}>
               <div id="admin-sidebar">
                 <AdminNavSideBar />
               </div>
             </Col>
-            <Col className="ps-0" sm={9}>
+            <Col className="ps-xl-0" xl={9}>
               <Tab.Content className="ps-0">
                 <Container className="admin-table p-0">
                   <div className="p-4 border-bottom">

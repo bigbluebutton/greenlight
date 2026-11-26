@@ -75,6 +75,18 @@
 }
 
 #room-settings {
+  // Two columns from md; below that they stack and the divider moves to the bottom.
+  .room-settings-general {
+    @include media-breakpoint-up(md) {
+      border-right: 2px solid var(--bs-border-color);
+    }
+
+    @include media-breakpoint-down(md) {
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--bs-border-color);
+    }
+  }
+
   .access-code-input {
     position: relative;
     button {
@@ -133,4 +145,12 @@
 
 #dropdown-toggle {
   min-width: 2px;
+}
+
+// On phones the join button spans the card.
+.join-meeting-btn {
+  @include media-breakpoint-down(sm) {
+    float: none !important;
+    width: 100%;
+  }
 }

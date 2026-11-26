@@ -57,8 +57,8 @@ export default function PublicRecordingRow({
           </Stack>
         </Stack>
       </td>
-      <td className="border-0"> {t('recording.length_in_minutes', { recording })} </td>
-      <td className="border-0">
+      <td className="border-0" data-label={t('recording.length')}> {t('recording.length_in_minutes', { recording })} </td>
+      <td className="border-0" data-label={t('recording.formats')}>
         {formats.map((format) => (
           <Button
             onClick={() => redirectRecordingUrl.mutate({ record_id: recording.record_id, format: format.recording_type })}
@@ -69,7 +69,7 @@ export default function PublicRecordingRow({
           </Button>
         ))}
       </td>
-      <td className="border-start-0">
+      <td className="border-start-0 cell-actions">
         <Stack direction="horizontal" className="float-end recordings-icons">
           <OverlayTrigger
             trigger="click"

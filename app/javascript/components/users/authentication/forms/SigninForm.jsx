@@ -49,8 +49,9 @@ export default function SigninForm() {
     <Form methods={methods} onSubmit={handleSubmit}>
       <FormControl field={fields.email} type="email" autoFocus />
       <FormControl field={fields.password} type="password" />
+      {/* The checkbox column sizes to its label. */}
       <Row>
-        <Col>
+        <Col xs="auto">
           <FormCheckBox id={fields.extend_session.hookForm.id} field={fields.extend_session} />
         </Col>
         <Col>

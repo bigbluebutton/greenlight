@@ -25,12 +25,13 @@ export default function AccountInfo({ user }) {
   const { t } = useTranslation();
 
   return (
+    // The avatar moves below the form until there is room for both.
     <Row>
-      <Col>
+      <Col xs={12} md>
         <h3 className="mb-4"> { t('user.account.update_account_info') } </h3>
         <UpdateUserForm user={user} />
       </Col>
-      <Col>
+      <Col xs={12} md className="mt-4 mt-md-0">
         <SetAvatar user={user} />
       </Col>
     </Row>

@@ -42,7 +42,7 @@ export default function RoomSettingsRow({
       <label className="form-check-label me-auto" htmlFor={settingName}>
         {description}
       </label>
-      <div className="form-switch">
+      <div className="form-switch switch-end">
         <input
           className="form-check-input fs-5"
           type="checkbox"

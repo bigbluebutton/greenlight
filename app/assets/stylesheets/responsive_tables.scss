@@ -1,0 +1,167 @@
+// BigBlueButton open source conferencing system - http://www.bigbluebutton.org/.
+//
+// Copyright (c) 2022 BigBlueButton Inc. and by respective authors (see below).
+//
+// This program is free software; you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free Software
+// Foundation; either version 3.0 of the License, or (at your option) any later
+// version.
+//
+// Greenlight is distributed in the hope that it will be useful, but WITHOUT ANY
+// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+// PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License along
+// with Greenlight; if not, see <http://www.gnu.org/licenses/>.
+
+// Below lg a .table-stack table shows each row as a card instead of scrolling sideways: the first
+// cell is the title, .cell-actions sits next to it, and every other cell shows its column name
+// (data-label) above its value. Only the sortable column headers stay, as sort controls.
+.table-stack {
+  @include media-breakpoint-down(lg) {
+    display: block;
+    width: 100%;
+    border: 0 !important;
+
+    thead {
+      display: block;
+      padding-top: 0.75rem;
+
+      tr {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem 1rem;
+        border-width: 0 !important;
+      }
+
+      th {
+        display: none;
+        padding: 0 0 0.5rem;
+        border: 0 !important;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      th:has(> svg.cursor-pointer) {
+        display: flex;
+        align-items: center;
+      }
+
+      // 24px touch target for the sort icons.
+      svg.cursor-pointer {
+        width: 1.5rem;
+        height: 1.5rem;
+        padding: 0.25rem;
+      }
+    }
+
+    tbody,
+    tfoot {
+      display: block;
+      border-top: 0 !important;
+    }
+
+    // The footer holds the pagination.
+    tfoot tr,
+    tfoot td {
+      display: block;
+      padding: 0.5rem 0 0;
+      border-width: 0 !important;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    // The card. Its edge is a shadow, because the admin tables force the border colour of their rows.
+    tbody tr {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-width: 0 !important;
+      border-radius: 0.5rem;
+      background-color: white;
+      box-shadow:
+        0 0 0 1px var(--bs-border-color),
+        0 4px 8px -2px rgba(16, 24, 40, 0.1),
+        0 2px 4px -2px rgba(16, 24, 40, 0.06);
+    }
+
+    &.table-hover > tbody > tr:hover > * {
+      --bs-table-bg-state: transparent;
+    }
+
+    tbody td {
+      display: block;
+      grid-column: 1 / -1;
+      min-width: 0;
+      padding: 0.375rem 0;
+      border-width: 0 !important;
+      background-color: transparent;
+      overflow-wrap: break-word;
+
+      &::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 0.125rem;
+        color: var(--bs-secondary-color);
+        font-size: 0.8125rem;
+      }
+    }
+
+    tbody td:not([data-label])::before {
+      content: none;
+    }
+
+    // Title and actions share the first row.
+    tbody td:first-child {
+      grid-row: 1;
+      grid-column: 1;
+
+      // Lets a long name without spaces break instead of running out of the card.
+      .vstack {
+        min-width: 0;
+      }
+    }
+
+    .cell-actions {
+      grid-row: 1;
+      grid-column: 2;
+      align-self: center;
+      padding: 0;
+
+      .btn {
+        margin-top: 0 !important;
+      }
+    }
+
+    // Line between the title row and the first labelled cell.
+    tbody td:first-child ~ td[data-label]:not(td[data-label] ~ td[data-label]) {
+      margin-top: 0.375rem;
+      padding-top: 0.625rem;
+      box-shadow: inset 0 1px 0 var(--bs-border-color);
+    }
+
+    .simple-select button {
+      width: 100%;
+      max-width: 220px;
+      white-space: normal;
+    }
+  }
+}
+
+// A card that only wraps a stacked table steps back, so the row cards lie on the page background.
+.card:has(> .table-responsive > .table-stack) {
+  @include media-breakpoint-down(lg) {
+    background-color: transparent;
+    box-shadow: none !important;
+  }
+}
+
+#recordings-table.table-stack {
+  @include media-breakpoint-down(lg) {
+    .recording-icon-circle {
+      display: none !important;
+    }
+  }
+}
