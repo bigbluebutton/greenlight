@@ -98,6 +98,12 @@ body {
   }
 }
 
+// Fixed from the start: Popper measures the menu before its own styles are applied, and with the
+// default position the menu opens away from its button the first time.
+.dropdown-menu.row-actions-menu {
+  position: fixed;
+}
+
 .btn-sm {
   min-width: 0 !important;
 }
