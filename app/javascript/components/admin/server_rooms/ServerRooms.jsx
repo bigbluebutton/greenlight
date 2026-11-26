@@ -49,12 +49,12 @@ export default function ServerRooms() {
       <Card className="border-0 card-shadow">
         <Tab.Container activeKey="server_rooms">
           <Row>
-            <Col className="pe-0" sm={3}>
+            <Col className="pe-xl-0" xl={3}>
               <div id="admin-sidebar">
                 <AdminNavSideBar />
               </div>
             </Col>
-            <Col className="ps-0" sm={9}>
+            <Col className="ps-xl-0" xl={9}>
               <Tab.Content className="p-0">
                 <Container className="admin-table p-0">
                   <div className="p-4 border-bottom">
@@ -77,7 +77,7 @@ export default function ServerRooms() {
                             ) : (
                               <div className="p-4">
 
-                                <Table id="server-rooms-table" className="table-bordered border border-2 mt-4 mb-0" hover responsive>
+                                <Table id="server-rooms-table" className="table-bordered border border-2 mt-4 mb-0 table-stack" hover responsive>
                                   <thead>
                                     <tr className="text-muted small">
                                       <th className="fw-normal border-end-0">{ t('admin.server_rooms.name') }<SortBy fieldName="name" /></th>

@@ -46,7 +46,7 @@ export default function BannedPendingUsersTable({
 
   return (
     <div id="admin-table">
-      <Table className="table-bordered border border-2 mb-0" hover responsive>
+      <Table className="table-bordered border border-2 mb-0 table-stack" hover responsive>
         <thead>
           <tr className="text-muted small">
             <th className="fw-normal border-end-0">{ t('user.name') } </th>

@@ -55,7 +55,7 @@ export default function RoomSettings() {
       <Card className="mx-auto p-4 border-0 card-shadow">
         <div className="mt-2">
           <Row>
-            <Col className="border-end border-2">
+            <Col xs={12} md className="room-settings-general">
               <UpdateRoomNameForm friendlyId={friendlyId} />
               <AccessCodeRow
                 settingName="glViewerAccessCode"
@@ -82,7 +82,7 @@ export default function RoomSettings() {
                 />
               )}
             </Col>
-            <Col className="ps-4">
+            <Col xs={12} md className="mt-3 mt-md-0 ps-md-4">
               <Row> <h6 className="text-brand">{ t('room.settings.user_settings') }</h6> </Row>
               {(currentUser?.permissions?.CanRecord === 'true') && (
                 <RoomSettingsRow

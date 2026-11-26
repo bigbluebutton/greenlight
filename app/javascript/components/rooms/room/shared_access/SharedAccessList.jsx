@@ -36,7 +36,7 @@ export default function SharedAccessList({ users }) {
 
   return (
     <div id="shared-access-list">
-      <Stack direction="horizontal" className="w-100 mt-5">
+      <Stack direction="horizontal" gap={3} className="w-100 mt-5">
         <div>
           <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} className="w-100" />
         </div>

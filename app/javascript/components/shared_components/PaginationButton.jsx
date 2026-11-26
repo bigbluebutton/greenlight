@@ -27,16 +27,16 @@ export default function PaginationButton({ direction, page, totalPages }) {
     if (page === 1) {
       return (
         <Button variant="brand-outline" disabled>
-          <ArrowLeftIcon className="me-3 hi-s" />
-          { t('previous') }
+          <ArrowLeftIcon className="me-3 hi-s" aria-hidden="true" />
+          <span className="pagination-label">{ t('previous') }</span>
         </Button>
       );
     }
 
     return (
       <Button variant="brand-outline">
-        <ArrowLeftIcon className="me-3 hi-s text-brand" />
-        { t('previous') }
+        <ArrowLeftIcon className="me-3 hi-s text-brand" aria-hidden="true" />
+        <span className="pagination-label">{ t('previous') }</span>
       </Button>
     );
   }
@@ -45,16 +45,16 @@ export default function PaginationButton({ direction, page, totalPages }) {
     if (page === totalPages) {
       return (
         <Button variant="brand-outline" disabled>
-          { t('next') }
-          <ArrowRightIcon className="ms-3 hi-s" />
+          <span className="pagination-label">{ t('next') }</span>
+          <ArrowRightIcon className="ms-3 hi-s" aria-hidden="true" />
         </Button>
       );
     }
 
     return (
       <Button variant="brand-outline">
-        { t('next') }
-        <ArrowRightIcon className="ms-3 hi-s text-brand" />
+        <span className="pagination-label">{ t('next') }</span>
+        <ArrowRightIcon className="ms-3 hi-s text-brand" aria-hidden="true" />
       </Button>
     );
   }

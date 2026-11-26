@@ -17,8 +17,9 @@
 import {
   AdjustmentsVerticalIcon, Cog8ToothIcon, IdentificationIcon, ServerStackIcon, UsersIcon, VideoCameraIcon, Square3Stack3DIcon,
 } from '@heroicons/react/24/outline';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import React from 'react';
-import { Nav } from 'react-bootstrap';
+import { Dropdown, Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/auth/AuthProvider';
@@ -27,72 +28,94 @@ export default function AdminNavSideBar() {
   const { t } = useTranslation();
   const currentUser = useAuth();
   const location = useLocation();
+  const { permissions } = currentUser;
+
+  // Todo: Use PermissionChecker
+  const sections = [
+    {
+      key: 'users', to: '/admin/users', Icon: UsersIcon, label: t('admin.manage_users.manage_users'), allowed: permissions.ManageUsers === 'true',
+    },
+    {
+      key: 'server_rooms',
+      to: '/admin/server_rooms',
+      Icon: ServerStackIcon,
+      label: t('admin.server_rooms.server_rooms'),
+      allowed: permissions.ManageRooms === 'true',
+    },
+    {
+      key: 'server_recordings',
+      to: '/admin/server_recordings',
+      Icon: VideoCameraIcon,
+      label: t('admin.server_recordings.server_recordings'),
+      allowed: permissions.ManageRecordings === 'true',
+    },
+    {
+      key: 'site_settings',
+      to: '/admin/site_settings',
+      Icon: Cog8ToothIcon,
+      label: t('admin.site_settings.site_settings'),
+      allowed: permissions.ManageSiteSettings === 'true',
+    },
+    {
+      key: 'room_configuration',
+      to: '/admin/room_configuration',
+      Icon: AdjustmentsVerticalIcon,
+      label: t('admin.room_configuration.room_configuration'),
+      allowed: permissions.ManageSiteSettings === 'true',
+    },
+    {
+      key: 'roles', to: '/admin/roles', Icon: IdentificationIcon, label: t('admin.roles.roles'), allowed: permissions.ManageRoles === 'true',
+    },
+    {
+      key: 'tenants', to: '/admin/tenants', Icon: Square3Stack3DIcon, label: 'Manage Tenants', allowed: currentUser.isSuperAdmin,
+    },
+  ].filter((section) => section.allowed);
+
+  // Edit pages live below their section, e.g. /admin/users/edit/:id.
+  const current = sections.find((section) => location?.pathname.startsWith(section.to));
 
   return (
-    <Nav variant="pills" className="flex-column">
-      {/* Todo: Use PermissionChecker */ }
-      {(currentUser.permissions.ManageUsers === 'true') && (
-      <Nav.Item>
-        <Nav.Link
-          // Return active if the URL has /users/edit/ to accommodate the EditUser component
-          className={`cursor-pointer text-muted ${location?.pathname.includes('/users/edit/') && 'active'}`}
-          as={Link}
-          to="/admin/users"
-          eventKey="users"
-        >
-          <UsersIcon className="hi-s me-3" />
-          { t('admin.manage_users.manage_users') }
-        </Nav.Link>
-      </Nav.Item>
-      )}
-      {(currentUser.permissions.ManageRooms === 'true') && (
-        <Nav.Item>
-          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/server_rooms" eventKey="server_rooms">
-            <ServerStackIcon className="hi-s me-3" />
-            { t('admin.server_rooms.server_rooms') }
-          </Nav.Link>
-        </Nav.Item>
-      )}
-      {(currentUser.permissions.ManageRecordings === 'true') && (
-        <Nav.Item>
-          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/server_recordings" eventKey="server_recordings">
-            <VideoCameraIcon className="hi-s me-3" />
-            { t('admin.server_recordings.server_recordings') }
-          </Nav.Link>
-        </Nav.Item>
-      )}
-      {(currentUser.permissions.ManageSiteSettings === 'true') && (
-        <>
-          <Nav.Item>
-            <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/site_settings" eventKey="site_settings">
-              <Cog8ToothIcon className="hi-s me-3" />
-              { t('admin.site_settings.site_settings') }
+    <>
+      {/* Sidebar list, from xl */}
+      <Nav variant="pills" className="flex-column d-none d-xl-flex">
+        {sections.map(({
+          key, to, Icon, label,
+        }) => (
+          <Nav.Item key={key}>
+            <Nav.Link className="cursor-pointer text-muted" as={Link} to={to} eventKey={key} active={key === current?.key}>
+              <Icon className="hi-s me-3" />
+              { label }
             </Nav.Link>
           </Nav.Item>
-          <Nav.Item>
-            <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/room_configuration" eventKey="room_configuration">
-              <AdjustmentsVerticalIcon className="hi-s me-3" />
-              { t('admin.room_configuration.room_configuration') }
-            </Nav.Link>
-          </Nav.Item>
-        </>
-      )}
-      {(currentUser.permissions.ManageRoles === 'true') && (
-        <Nav.Item>
-          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/roles" eventKey="roles">
-            <IdentificationIcon className="hi-s me-3" />
-            { t('admin.roles.roles') }
-          </Nav.Link>
-        </Nav.Item>
-      )}
-      {(currentUser.isSuperAdmin) && (
-        <Nav.Item>
-          <Nav.Link className="cursor-pointer text-muted" as={Link} to="/admin/tenants" eventKey="tenants">
-            <Square3Stack3DIcon className="hi-s me-3" />
-            Manage Tenants
-          </Nav.Link>
-        </Nav.Item>
-      )}
-    </Nav>
+        ))}
+      </Nav>
+
+      {/* Dropdown, below xl. The pill classes style the toggle like the active entry of the list. */}
+      <nav className="section-nav-dropdown nav-pills d-xl-none" aria-label={t('admin.admin_panel')}>
+        <Dropdown>
+          <Dropdown.Toggle as="button" type="button" className="nav-link active w-100 d-flex align-items-center text-start">
+            {current && <current.Icon className="hi-s me-3" aria-hidden="true" />}
+            { current?.label }
+            <ChevronDownIcon className="hi-s ms-auto" aria-hidden="true" />
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            {sections.map(({
+              key, to, Icon, label,
+            }) => (
+              <Dropdown.Item
+                key={key}
+                as={Link}
+                to={to}
+                active={key === current?.key}
+                aria-current={key === current?.key ? 'page' : undefined}
+              >
+                <Icon className="hi-s me-3" aria-hidden="true" />
+                { label }
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+      </nav>
+    </>
   );
 }

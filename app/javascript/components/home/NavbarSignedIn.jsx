@@ -54,7 +54,7 @@ export default function NavbarSignedIn({ currentUser }) {
   return (
     <>
       {/* Mobile Navbar Toggle - Hidden on Desktop */}
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" className="border-0">
+      <Navbar.Toggle aria-controls="navbar-menu" className="border-0">
         <Avatar avatar={currentUser?.avatar} size="small" />
       </Navbar.Toggle>
       <Navbar.Collapse id="navbar-menu" className="bg-white w-100 position-absolute">
