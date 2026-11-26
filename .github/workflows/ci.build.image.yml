@@ -1,0 +1,136 @@
+name: Build and publish Docker images
+on:
+  workflow_call:
+
+jobs:
+  metadata:
+    runs-on: ubuntu-24.04
+    outputs:
+      enabled: ${{ steps.metadata.outputs.enabled }}
+      targets: ${{ steps.metadata.outputs.targets }}
+      tag: ${{ steps.metadata.outputs.tag }}
+      version: ${{ steps.metadata.outputs.version }}
+      major: ${{ steps.metadata.outputs.major }}
+      minor: ${{ steps.metadata.outputs.minor }}
+    steps:
+      - name: Determine image metadata
+        id: metadata
+        env:
+          DOCKER_BUILD_ENABLED: ${{ secrets.DOCKER_BUILD_ENABLED }}
+          DOCKER_BUILD_ALTERNATE_ENABLED: ${{ secrets.DOCKER_BUILD_ALTERNATE_ENABLED }}
+        shell: bash
+        run: |
+          {
+            if [[ "$DOCKER_BUILD_ENABLED" == *true* ]]; then
+              echo "enabled=yes"
+            fi
+            if [[ "$DOCKER_BUILD_ALTERNATE_ENABLED" == *true* && "$GITHUB_REF" != refs/heads/master ]]; then
+              echo 'targets=[{"variant":"main","file":"Dockerfile","suffix":""},{"variant":"alpine","file":"dockerfiles/v3/alpine","suffix":"-alpine"},{"variant":"amazonlinux","file":"dockerfiles/v3/amazonlinux","suffix":"-amazonlinux"}]'
+            else
+              echo 'targets=[{"variant":"main","file":"Dockerfile","suffix":""}]'
+            fi
+            if [[ "$GITHUB_EVENT_NAME" == push ]]; then
+              branch=${GITHUB_REF#refs/heads/}
+              echo "tag=$branch"
+              echo "version=$branch-${GITHUB_SHA:0:7}"
+            else
+              release=${GITHUB_REF_NAME:8}
+              echo "tag=v$release"
+              echo "version=release-$release"
+              echo "major=v${release%%.*}"
+              minor=$(printf '%s' "$release" | cut -d . -f 1-2)
+              echo "minor=v$minor"
+            fi
+          } >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Build ${{ matrix.target.variant }} (${{ matrix.arch }})
+    needs: metadata
+    if: needs.metadata.outputs.enabled == 'yes'
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ${{ fromJSON(needs.metadata.outputs.targets) }}
+        arch: [amd64, arm64]
+    runs-on: ${{ matrix.arch == 'arm64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-${{ matrix.target.variant }}-${{ matrix.arch }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.target.variant }}-${{ matrix.arch }}-buildx-
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Determine Docker repository
+        id: repository
+        env:
+          DOCKER_REPOSITORY: ${{ secrets.DOCKER_REPOSITORY }}
+        run: echo "name=${DOCKER_REPOSITORY:-$GITHUB_REPOSITORY}" >> "$GITHUB_OUTPUT"
+
+      # Run-specific tags avoid mixing concurrent builds while allowing failed jobs to be re-run.
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          file: ${{ matrix.target.file }}
+          platforms: linux/${{ matrix.arch }}
+          push: true
+          tags: ${{ steps.repository.outputs.name }}:ci-${{ github.sha }}-${{ github.run_id }}-${{ matrix.target.variant }}-${{ matrix.arch }}
+          build-args: VERSION_TAG=${{ needs.metadata.outputs.version }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+  merge:
+    name: Publish ${{ matrix.target.variant }} manifest
+    needs: [metadata, build]
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ${{ fromJSON(needs.metadata.outputs.targets) }}
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Merge and publish tags
+        env:
+          DOCKER_REPOSITORY: ${{ secrets.DOCKER_REPOSITORY }}
+          TAG: ${{ needs.metadata.outputs.tag }}
+          MAJOR: ${{ needs.metadata.outputs.major }}
+          MINOR: ${{ needs.metadata.outputs.minor }}
+          VARIANT: ${{ matrix.target.variant }}
+          SUFFIX: ${{ matrix.target.suffix }}
+          SOURCE_TAG: ci-${{ github.sha }}-${{ github.run_id }}-${{ matrix.target.variant }}
+          RELEASE_ACTION: ${{ github.event.action }}
+        shell: bash
+        run: |
+          REPOSITORY=${DOCKER_REPOSITORY:-$GITHUB_REPOSITORY}
+          tags=(-t "$REPOSITORY:$TAG$SUFFIX")
+          if [[ "$VARIANT" == main && "$RELEASE_ACTION" == released ]]; then
+            tags+=(-t "$REPOSITORY:$MAJOR" -t "$REPOSITORY:$MINOR" -t "$REPOSITORY:latest")
+          fi
+          docker buildx imagetools create "${tags[@]}" \
+            "$REPOSITORY:$SOURCE_TAG-amd64" "$REPOSITORY:$SOURCE_TAG-arm64"
