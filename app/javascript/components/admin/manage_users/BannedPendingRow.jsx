@@ -87,7 +87,7 @@ export default function BannedPendingRow({ user, tableType }) {
 
       <td className="border-0" data-label={t('user.email_address')}> {user.email} </td>
       <td className="border-start-0 cell-actions">
-        <RowActionsDropdown label={t('row_actions', { name: user.name })}>
+        <RowActionsDropdown name={user.name}>
           {renderDropdownItems()}
         </RowActionsDropdown>
       </td>

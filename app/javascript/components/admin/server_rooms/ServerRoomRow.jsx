@@ -85,7 +85,7 @@ export default function ServerRoomRow({ room }) {
       <td className="border-0" data-label={t('admin.server_rooms.participants')}> {participants || '-'} </td>
       { meetingRunning() }
       <td className="border-start-0 cell-actions">
-        <RowActionsDropdown label={t('row_actions', { name })}>
+        <RowActionsDropdown name={name}>
           { room.online
             ? (
               <Dropdown.Item onClick={handleJoin}>

@@ -47,13 +47,30 @@ export default function App() {
   useEffect(() => {
     if (!toastAnchor || !('IntersectionObserver' in window)) return undefined;
 
-    // Only on a page that scrolls: on one that fits the screen the anchor is always in view.
-    const observer = new IntersectionObserver(([entry]) => {
+    let anchorInView = false;
+    // Only on a page that scrolls: on one that fits the screen the anchor is always in view. Docked
+    // toasts are part of the page, so their height does not count.
+    const update = () => {
       const { scrollHeight, clientHeight } = document.documentElement;
-      setToastsDocked(entry.isIntersecting && scrollHeight > clientHeight);
+      const docked = document.querySelector('.Toastify__toast-container.toasts-docked');
+      const dockedHeight = docked && getComputedStyle(docked).position === 'relative' ? docked.offsetHeight : 0;
+      setToastsDocked(anchorInView && scrollHeight - dockedHeight > clientHeight);
+    };
+
+    const intersectionObserver = new IntersectionObserver(([entry]) => {
+      anchorInView = entry.isIntersecting;
+      update();
     });
-    observer.observe(toastAnchor);
-    return () => observer.disconnect();
+    intersectionObserver.observe(toastAnchor);
+
+    // The page height also changes while the anchor stays in view, e.g. on a tab switch.
+    const resizeObserver = 'ResizeObserver' in window ? new ResizeObserver(update) : null;
+    resizeObserver?.observe(document.body);
+
+    return () => {
+      intersectionObserver.disconnect();
+      resizeObserver?.disconnect();
+    };
   }, [toastAnchor]);
 
   // check for the maintenance banner

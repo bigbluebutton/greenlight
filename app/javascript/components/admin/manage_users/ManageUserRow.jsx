@@ -61,7 +61,7 @@ export default function ManageUserRow({ user }) {
       <td className="border-0" data-label={t('user.email_address')}> {user.email} </td>
       <td className="border-0" data-label={t('user.profile.role')}> <RoleBadge role={user.role} /> </td>
       <td className="border-start-0 cell-actions">
-        <RowActionsDropdown label={t('row_actions', { name: user.name })}>
+        <RowActionsDropdown name={user.name}>
           <Dropdown.Item as={Link} to={`/admin/users/edit/${user.id}`}>
             <PencilSquareIcon className="hi-s me-2" />
             {t('view')}

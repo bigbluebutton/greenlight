@@ -96,7 +96,7 @@ export default function Room() {
           </Col>
           <Col xs={12} xl>
             {/* Row-reverse keeps the start button on the right on desktop; below xl the buttons wrap from the left. */}
-            <div className="room-header-actions d-flex flex-wrap flex-xl-row-reverse align-items-start gap-2 gap-xl-3 mt-xl-1 me-xl-2 pb-xl-5">
+            <div className="d-flex flex-wrap flex-xl-row-reverse align-items-start gap-2 gap-xl-3 mt-xl-1 me-xl-2 pb-xl-5">
               <Button
                 variant="brand"
                 className="start-meeting-btn"

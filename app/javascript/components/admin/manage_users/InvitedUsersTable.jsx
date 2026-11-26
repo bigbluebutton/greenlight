@@ -81,7 +81,7 @@ export default function InvitedUsersTable({ searchInput }) {
                             { invitation.valid ? <CheckIcon className="text-success hi-s" /> : <XMarkIcon className="text-danger hi-s" />}
                           </td>
                           <td className="text-dark border-0 cell-actions">
-                            <RowActionsDropdown label={t('row_actions', { name: invitation.name || invitation.email })}>
+                            <RowActionsDropdown name={invitation.name || invitation.email}>
                               <Dropdown.Item onClick={() => revokeUserInvite.mutate(invitation.id)}>
                                 <ArchiveBoxXMarkIcon className="hi-s me-2" />
                                 {t('admin.manage_users.invited.revoke')}

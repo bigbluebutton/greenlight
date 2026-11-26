@@ -72,10 +72,13 @@ export default function RecordingRow({
     </Popover>
   );
 
-  // The rename pencil stays with the last word of the name, so it never wraps to a line of its own.
-  const nameBreak = recording.name.lastIndexOf(' ') + 1;
-  const nameHead = recording.name.slice(0, nameBreak);
-  const nameTail = recording.name.slice(nameBreak);
+  // The rename pencil stays with the last character of the name, so it never wraps to a line of
+  // its own and a long name can still break before it.
+  const nameCharacters = 'Segmenter' in Intl
+    ? Array.from(new Intl.Segmenter().segment(recording.name), ({ segment }) => segment)
+    : Array.from(recording.name);
+  const nameTail = nameCharacters.pop() ?? '';
+  const nameHead = nameCharacters.join('');
 
   return (
     <tr

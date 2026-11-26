@@ -32,7 +32,7 @@ export default function SettingSelect({
         <strong> { title } </strong>
         <div className="text-muted">{ description }</div>
       </Stack>
-      <div className="setting-select-wrapper ms-md-5 flex-shrink-0">
+      <div className="ms-md-5 flex-shrink-0">
         <Dropdown className="setting-select">
           <Dropdown.Toggle className="d-flex justify-content-between align-items-center gap-2">
             { defaultString?.props?.children }
