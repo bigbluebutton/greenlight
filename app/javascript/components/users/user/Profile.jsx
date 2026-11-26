@@ -37,7 +37,7 @@ export default function Profile() {
       <Card className="border-0 card-shadow">
         <Tab.Container id="profile-wrapper" defaultActiveKey="first">
           <Row>
-            <Col sm={3}>
+            <Col xl={3}>
               <div id="profile-sidebar">
                 <Nav variant="pills" className="flex-column">
                   <Nav.Item>
@@ -64,8 +64,8 @@ export default function Profile() {
                 </Nav>
               </div>
             </Col>
-            <Col sm={9}>
-              <Tab.Content className="p-3 ps-0">
+            <Col xl={9}>
+              <Tab.Content className="p-3 ps-xl-0">
                 <Tab.Pane eventKey="first">
                   <AccountInfo user={currentUser} />
                 </Tab.Pane>

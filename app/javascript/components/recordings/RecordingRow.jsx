@@ -72,6 +72,11 @@ export default function RecordingRow({
     </Popover>
   );
 
+  // The rename pencil stays with the last word of the name, so it never wraps to a line of its own.
+  const nameBreak = recording.name.lastIndexOf(' ') + 1;
+  const nameHead = recording.name.slice(0, nameBreak);
+  const nameTail = recording.name.slice(nameBreak);
+
   return (
     <tr
       key={recording.id}
@@ -98,14 +103,17 @@ export default function RecordingRow({
                 !isEditing
                 && (
                 <>
-                  { recording.name }
-                  <PencilSquareIcon
-                    role="button"
-                    aria-hidden="true"
-                    onClick={() => !isUpdating && setIsEditing(true)}
-                    onBlur={() => setIsEditing(false)}
-                    className={`hi-s text-muted ms-1 mb-1 ${display}`}
-                  />
+                  { nameHead }
+                  <span className="text-nowrap">
+                    { nameTail }
+                    <PencilSquareIcon
+                      role="button"
+                      aria-hidden="true"
+                      onClick={() => !isUpdating && setIsEditing(true)}
+                      onBlur={() => setIsEditing(false)}
+                      className={`hi-s text-muted ms-1 mb-1 ${display}`}
+                    />
+                  </span>
                 </>
                 )
               }
@@ -118,9 +126,9 @@ export default function RecordingRow({
           </Stack>
         </Stack>
       </td>
-      <td className="border-0"> {t('recording.length_in_minutes', { recording })} </td>
-      <td className="border-0"> {recording.participants} </td>
-      <td className="border-0">
+      <td className="border-0" data-label={t('recording.length')}> {t('recording.length_in_minutes', { recording })} </td>
+      <td className="border-0" data-label={t('recording.users')}> {recording.participants} </td>
+      <td className="border-0" data-label={t('recording.visibility')}>
         <SimpleSelect
           defaultValue={recording.visibility}
           dropUp={dropUp}
@@ -211,7 +219,7 @@ export default function RecordingRow({
           )}
         </SimpleSelect>
       </td>
-      <td className="border-0">
+      <td className="border-0" data-label={t('recording.formats')}>
         {recording?.visibility !== 'Unpublished' && formats.map((format) => (
           <Button
             onClick={() => redirectRecordingUrl.mutate({ record_id: recording.record_id, format: format.recording_type })}
@@ -222,7 +230,7 @@ export default function RecordingRow({
           </Button>
         ))}
       </td>
-      <td className="border-start-0">
+      <td className="border-start-0 cell-actions">
         <Stack direction="horizontal" className="float-end recordings-icons">
           { recording?.visibility !== 'Unpublished' && (
             <OverlayTrigger

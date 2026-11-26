@@ -53,19 +53,19 @@ export default function ManageUsers() {
       <Card className="border-0 card-shadow">
         <Tab.Container activeKey="users">
           <Row>
-            <Col className="pe-0" sm={3}>
+            <Col className="pe-xl-0" xl={3}>
               <div id="admin-sidebar">
                 <AdminNavSideBar />
               </div>
             </Col>
-            <Col className="ps-0" sm={9}>
+            <Col className="ps-xl-0" xl={9}>
               <Tab.Content className="p-0">
                 <Container className="admin-table p-0">
                   <div className="p-4 border-bottom">
                     <h3>{t('admin.manage_users.manage_users')}</h3>
                   </div>
                   <div className="p-4">
-                    <Stack direction="horizontal" className="mb-4">
+                    <Stack direction="horizontal" gap={3} className="mb-4">
                       <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} />
                       <div className="ms-auto">
                         {registrationMethod === 'invite'

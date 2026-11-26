@@ -24,16 +24,16 @@ import DeleteTenantForm from './forms/DeleteTenantForm';
 export default function TenantRow({ tenant }) {
   return (
     <tr className="align-middle border border-2">
-      <td className="py-4 border-0">
+      <td className="py-md-4 border-0">
         <strong> {tenant?.name} </strong>
       </td>
-      <td className="py-4 border-0">
+      <td className="py-md-4 border-0" data-label="Client Secret">
         {tenant?.client_secret}
       </td>
-      <td className="py-4 border-0">
+      <td className="py-md-4 border-0" data-label="Region">
         {tenant?.region}
       </td>
-      <td className="border-start-0 text-end tenants-icons">
+      <td className="border-start-0 text-end tenants-icons cell-actions">
         <Modal
           modalButton={<Button variant="icon"><TrashIcon className="hi-s" /></Button>}
           body={(

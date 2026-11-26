@@ -26,7 +26,7 @@ export default function TenantsTable({
   tenants, isLoading, pagination, setPage,
 }) {
   return (
-    <Table className="table-bordered border border-2 mb-0" hover responsive>
+    <Table className="table-bordered border border-2 mb-0 table-stack" hover responsive>
       <thead>
         <tr className="text-muted small">
           <th className="fw-normal border-0">Tenant<SortBy fieldName="name" /></th>

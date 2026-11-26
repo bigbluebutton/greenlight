@@ -45,6 +45,41 @@
   .tab-content > .active {
     visibility: visible;
   }
+
+  // Below xl the sidebar stacks above the content with its links in a wrapping row, and only the
+  // active tab pane takes up space.
+  @include media-breakpoint-down(xl) {
+    #profile-sidebar {
+      height: auto;
+      padding: 0.75rem;
+      border-right: 0;
+      border-bottom: 2px solid whitesmoke;
+
+      .nav {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+      }
+
+      .nav-link {
+        padding: 0.375rem 0.75rem;
+
+        svg {
+          margin-right: 0.5rem !important;
+        }
+      }
+    }
+
+    .tab-content > .tab-pane {
+      display: none;
+      margin-right: 0;
+      margin-left: 0;
+    }
+
+    .tab-content > .active {
+      display: block;
+    }
+  }
 }
 
 #profile-avatar {

@@ -22,7 +22,7 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import {
-  EllipsisVerticalIcon, HomeIcon, PencilSquareIcon, TrashIcon, NoSymbolIcon,
+  HomeIcon, PencilSquareIcon, TrashIcon, NoSymbolIcon,
 } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
@@ -34,6 +34,7 @@ import DeleteUserForm from './forms/DeleteUserForm';
 import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/useUpdateUserStatus';
 import RoleBadge from '../roles/RoleBadge';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
+import RowActionsDropdown from '../../shared_components/utilities/RowActionsDropdown';
 
 export default function ManageUserRow({ user }) {
   const { t } = useTranslation();
@@ -57,32 +58,29 @@ export default function ManageUserRow({ user }) {
         </Stack>
       </td>
 
-      <td className="border-0"> {user.email} </td>
-      <td className="border-0"> <RoleBadge role={user.role} /> </td>
-      <td className="border-start-0">
-        <Dropdown className="float-end cursor-pointer">
-          <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
-          <Dropdown.Menu>
-            <Dropdown.Item as={Link} to={`/admin/users/edit/${user.id}`}>
-              <PencilSquareIcon className="hi-s me-2" />
-              {t('view')}
-            </Dropdown.Item>
-            <Modal
-              modalButton={<Dropdown.Item><HomeIcon className="hi-s me-2" />{ t('admin.manage_users.create_room') }</Dropdown.Item>}
-              title={t('admin.manage_users.create_new_room')}
-              body={<CreateRoomForm mutation={mutationWrapper} userId={user.id} />}
-            />
-            {/* TODO - samuel: this should have a confirm prompt */}
-            <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'banned' })}>
-              <NoSymbolIcon className="hi-s me-2" />
-              {t('admin.manage_users.ban')}
-            </Dropdown.Item>
-            <Modal
-              modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{ t('delete') }</Dropdown.Item>}
-              body={<DeleteUserForm user={user} />}
-            />
-          </Dropdown.Menu>
-        </Dropdown>
+      <td className="border-0" data-label={t('user.email_address')}> {user.email} </td>
+      <td className="border-0" data-label={t('user.profile.role')}> <RoleBadge role={user.role} /> </td>
+      <td className="border-start-0 cell-actions">
+        <RowActionsDropdown label={t('row_actions', { name: user.name })}>
+          <Dropdown.Item as={Link} to={`/admin/users/edit/${user.id}`}>
+            <PencilSquareIcon className="hi-s me-2" />
+            {t('view')}
+          </Dropdown.Item>
+          <Modal
+            modalButton={<Dropdown.Item><HomeIcon className="hi-s me-2" />{ t('admin.manage_users.create_room') }</Dropdown.Item>}
+            title={t('admin.manage_users.create_new_room')}
+            body={<CreateRoomForm mutation={mutationWrapper} userId={user.id} />}
+          />
+          {/* TODO - samuel: this should have a confirm prompt */}
+          <Dropdown.Item onClick={() => updateUserStatus.mutate({ id: user.id, status: 'banned' })}>
+            <NoSymbolIcon className="hi-s me-2" />
+            {t('admin.manage_users.ban')}
+          </Dropdown.Item>
+          <Modal
+            modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{ t('delete') }</Dropdown.Item>}
+            body={<DeleteUserForm user={user} />}
+          />
+        </RowActionsDropdown>
       </td>
     </tr>
   );

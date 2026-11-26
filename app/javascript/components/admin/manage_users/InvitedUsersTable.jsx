@@ -19,7 +19,6 @@ import PropTypes from 'prop-types';
 import { Table, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { CheckIcon, XMarkIcon, ArchiveBoxXMarkIcon } from '@heroicons/react/24/solid';
-import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import SortBy from '../../shared_components/search/SortBy';
 import useInvitations from '../../../hooks/queries/admin/manage_users/useInvitations';
 import Pagination from '../../shared_components/Pagination';
@@ -29,6 +28,7 @@ import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import ManageUsersInvitedRowPlaceHolder from './ManageUsersInvitedRowPlaceHolder';
 import useRevokeUserInvite from '../../../hooks/mutations/admin/manage_users/useRevokeUserInvite';
+import RowActionsDropdown from '../../shared_components/utilities/RowActionsDropdown';
 
 export default function InvitedUsersTable({ searchInput }) {
   const { t } = useTranslation();
@@ -51,7 +51,7 @@ export default function InvitedUsersTable({ searchInput }) {
           </div>
         ) : (
           <div id="admin-table">
-            <Table className="table-bordered border border-2 mb-0" hover responsive>
+            <Table className="table-bordered border border-2 mb-0 table-stack" hover responsive>
               <thead>
                 <tr className="text-muted small">
                   <th className="fw-normal border-end-0">{ t('user.email_address') }<SortBy fieldName="email" /></th>
@@ -73,21 +73,20 @@ export default function InvitedUsersTable({ searchInput }) {
                       invitations?.data?.map((invitation) => (
                         <tr key={invitation.email} className="align-middle text-muted">
                           <td className="text-dark border-0">{invitation.email}</td>
-                          <td className="text-dark border-0">{invitation.name}</td>
-                          <td className="text-dark border-0">{localizeDateTimeString(invitation.updated_at, currentUser?.language)}</td>
-                          <td className="text-dark border-0">
+                          <td className="text-dark border-0" data-label={t('user.name')}>{invitation.name}</td>
+                          <td className="text-dark border-0" data-label={t('admin.manage_users.invited.time_sent')}>
+                            {localizeDateTimeString(invitation.updated_at, currentUser?.language)}
+                          </td>
+                          <td className="text-dark border-0" data-label={t('admin.manage_users.invited.valid')}>
                             { invitation.valid ? <CheckIcon className="text-success hi-s" /> : <XMarkIcon className="text-danger hi-s" />}
                           </td>
-                          <td className="text-dark border-0">
-                            <Dropdown className="float-end cursor-pointer">
-                              <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
-                              <Dropdown.Menu>
-                                <Dropdown.Item onClick={() => revokeUserInvite.mutate(invitation.id)}>
-                                  <ArchiveBoxXMarkIcon className="hi-s me-2" />
-                                  {t('admin.manage_users.invited.revoke')}
-                                </Dropdown.Item>
-                              </Dropdown.Menu>
-                            </Dropdown>
+                          <td className="text-dark border-0 cell-actions">
+                            <RowActionsDropdown label={t('row_actions', { name: invitation.name || invitation.email })}>
+                              <Dropdown.Item onClick={() => revokeUserInvite.mutate(invitation.id)}>
+                                <ArchiveBoxXMarkIcon className="hi-s me-2" />
+                                {t('admin.manage_users.invited.revoke')}
+                              </Dropdown.Item>
+                            </RowActionsDropdown>
                           </td>
                         </tr>
                       ))

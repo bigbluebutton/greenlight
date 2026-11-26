@@ -25,24 +25,25 @@ export default function SettingSelect({
   // Get the currently selected option and set the dropdown toggle to that value
   const defaultString = children?.filter((item) => item.props.value === defaultValue)[0];
 
+  // Below md the select goes under its text.
   return (
-    <Stack direction="horizontal" className="mb-3">
+    <div className="d-flex flex-column flex-md-row align-items-md-center gap-2 gap-md-0 mb-3">
       <Stack>
         <strong> { title } </strong>
         <div className="text-muted">{ description }</div>
       </Stack>
-      <div className="ms-5">
+      <div className="setting-select-wrapper ms-md-5 flex-shrink-0">
         <Dropdown className="setting-select">
-          <Dropdown.Toggle>
+          <Dropdown.Toggle className="d-flex justify-content-between align-items-center gap-2">
             { defaultString?.props?.children }
-            <ChevronDownIcon className="hi-s float-end" />
+            <ChevronDownIcon className="hi-s" aria-hidden="true" />
           </Dropdown.Toggle>
           <Dropdown.Menu>
             {children}
           </Dropdown.Menu>
         </Dropdown>
       </div>
-    </Stack>
+    </div>
   );
 }
 

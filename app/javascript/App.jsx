@@ -38,6 +38,24 @@ export default function App() {
   const autoSignIn = searchParams.get('sso');
   const [formElement, setFormElement] = useState(null);
 
+  // The toasts are fixed to the viewport until the end of the page content, marked by the anchor
+  // above the ToastContainer, scrolls into view. On phones they then sit above the footer, see
+  // .toasts-docked.
+  const [toastAnchor, setToastAnchor] = useState(null);
+  const [toastsDocked, setToastsDocked] = useState(false);
+
+  useEffect(() => {
+    if (!toastAnchor || !('IntersectionObserver' in window)) return undefined;
+
+    // Only on a page that scrolls: on one that fits the screen the anchor is always in view.
+    const observer = new IntersectionObserver(([entry]) => {
+      const { scrollHeight, clientHeight } = document.documentElement;
+      setToastsDocked(entry.isIntersecting && scrollHeight > clientHeight);
+    });
+    observer.observe(toastAnchor);
+    return () => observer.disconnect();
+  }, [toastAnchor]);
+
   // check for the maintenance banner
   const maintenanceBanner = useSiteSetting(['Maintenance']);
 
@@ -118,7 +136,9 @@ export default function App() {
             <Container className={pageHeight}>
               <Outlet />
             </Container>
+            <div ref={setToastAnchor} className="toast-anchor" />
             <ToastContainer
+              className={toastsDocked ? 'toasts-docked' : undefined}
               position="bottom-right"
               newestOnTop
               autoClose={3000}

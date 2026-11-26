@@ -23,7 +23,6 @@ import { useTranslation } from 'react-i18next';
 import {
   CheckCircleIcon,
   CheckIcon,
-  EllipsisVerticalIcon,
   XCircleIcon,
 } from '@heroicons/react/24/outline';
 import Avatar from '../../users/user/Avatar';
@@ -31,6 +30,7 @@ import useUpdateUserStatus from '../../../hooks/mutations/admin/manage_users/use
 import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import useUpdateUserVerification from '../../../hooks/mutations/admin/manage_users/useUpdateUserVerification';
+import RowActionsDropdown from '../../shared_components/utilities/RowActionsDropdown';
 
 export default function BannedPendingRow({ user, tableType }) {
   const { t } = useTranslation();
@@ -85,14 +85,11 @@ export default function BannedPendingRow({ user, tableType }) {
         </Stack>
       </td>
 
-      <td className="border-0"> {user.email} </td>
-      <td className="border-start-0">
-        <Dropdown className="float-end cursor-pointer">
-          <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
-          <Dropdown.Menu>
-            {renderDropdownItems()}
-          </Dropdown.Menu>
-        </Dropdown>
+      <td className="border-0" data-label={t('user.email_address')}> {user.email} </td>
+      <td className="border-start-0 cell-actions">
+        <RowActionsDropdown label={t('row_actions', { name: user.name })}>
+          {renderDropdownItems()}
+        </RowActionsDropdown>
       </td>
     </tr>
   );

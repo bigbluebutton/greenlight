@@ -28,14 +28,14 @@ export default function RoomJoinPlaceholder() {
   const { t } = useTranslation();
 
   return (
-    <Card className="col-md-6 mx-auto p-0 border-0 card-shadow">
-      <Card.Body className="pt-4 px-5">
+    <Card className="row-card col-md-9 col-lg-7 col-xl-6 mx-3 mx-md-auto p-0 border-0 card-shadow">
+      <Card.Body className="pt-4 px-3 px-sm-4 px-md-5">
         <Row>
-          <Col className="col-xxl-8">
+          <Col xs={12} sm className="col-xxl-8">
             <Placeholder width={6} size="md" className="mt-1" />
             <Placeholder width={12} size="lg" />
           </Col>
-          <Col>
+          <Col xs={12} sm="auto" xxl className="mt-4 mt-sm-0">
             <Stack direction="vertical" gap={3}>
               <RoundPlaceholder size="medium" className="d-block mx-auto" />
               <Placeholder width={10} size="md" className="d-block mx-auto" />
@@ -43,7 +43,7 @@ export default function RoomJoinPlaceholder() {
           </Col>
         </Row>
       </Card.Body>
-      <Card.Footer className="px-5 pb-3 bg-white border-2 text-center">
+      <Card.Footer className="px-3 px-sm-4 px-md-5 pb-3 bg-white border-2 text-center">
         <Row className="my-4">
           <Form>
             <Placeholder width={12} size="lg" />

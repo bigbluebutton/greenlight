@@ -21,11 +21,11 @@ import AuthButtons from './AuthButtons';
 export default function NavbarNotSignedIn() {
   return (
     <>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" className="border-0" />
+      <Navbar.Toggle aria-controls="navbar-menu" className="border-0" />
 
       {/* Hidden Mobile */}
       <Navbar.Collapse id="navbar-menu" className="bg-white w-100 position-absolute">
-        <Nav className="d-block d-sm-none text-black px-2">
+        <Nav className="d-block d-sm-none text-black px-2 pb-3">
           <AuthButtons direction="vertical" />
         </Nav>
       </Navbar.Collapse>

@@ -27,8 +27,8 @@ export default function RequireAuthentication({ path }) {
   const { data: env } = useEnv();
 
   return (
-    <Card className="col-xl-6 col-lg-7 col-md-9 col-10 mx-auto p-0 border-0 card-shadow text-center">
-      <Card.Body className="pt-4 px-5">
+    <Card className="row-card col-xl-6 col-lg-7 col-md-9 mx-3 mx-md-auto p-0 border-0 card-shadow text-center">
+      <Card.Body className="pt-4 px-3 px-sm-4 px-md-5">
         <p className="mb-0">{ t('room.settings.require_signed_in_message') }</p>
       </Card.Body>
       <Card.Footer className="bg-white">

@@ -24,8 +24,8 @@ export default function PublicRecordingsCard() {
   const { friendlyId } = useParams();
 
   return (
-    <Card className="mx-auto p-0 border-0 card-shadow">
-      <Card.Body className="pt-4 px-5">
+    <Card className="row-card mx-3 mx-md-auto p-0 border-0 card-shadow">
+      <Card.Body className="pt-4 px-3 px-md-5">
         <PublicRecordingsList friendlyId={friendlyId} />
       </Card.Body>
     </Card>

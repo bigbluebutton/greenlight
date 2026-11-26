@@ -46,6 +46,52 @@
     visibility: visible;
   }
 
+  // Below xl the sidebar stacks above the content as a dropdown (AdminNavSideBar), and only the
+  // active tab pane takes up space.
+  @include media-breakpoint-down(xl) {
+    #admin-sidebar {
+      height: auto;
+      min-height: 0;
+      padding: 0.75rem;
+      border-right: 0;
+      border-bottom: 2px solid whitesmoke;
+    }
+
+    .tab-content > .tab-pane {
+      display: none;
+      margin-right: 0;
+      margin-left: 0;
+    }
+
+    .tab-content > .active {
+      display: block;
+    }
+  }
+
+  // Dropdown with the admin sections, shown below xl.
+  .admin-nav-dropdown {
+    .dropdown-toggle {
+      padding: 0.5rem 1rem;
+    }
+
+    .dropdown-menu {
+      width: 100%;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+    }
+
+    // Overrides `.dropdown a { color: $black !important }`.
+    .dropdown-item.active {
+      color: var(--brand-color) !important;
+      background-color: var(--brand-color-light);
+      font-weight: 600;
+    }
+  }
+
   input.search-bar {
     max-width: $input-max-width;
   }
@@ -56,6 +102,10 @@
     }
     .dropdown {
       position: static;
+    }
+    // An open menu stays as wide as its select.
+    .setting-select.dropdown {
+      position: relative;
     }
   }
 
@@ -73,94 +123,10 @@
     display: none !important;
   }
 
+  // Menus inside a scrolling table open inline (#5690); row menus are placed by Popper instead.
   @include media-breakpoint-down(md) {
-    .dropdown-menu {
+    .table-responsive .dropdown-menu:not(.row-actions-menu) {
       transform: none !important;
-    }
-  }
-}
-
-#manage-users-table {
-  @include media-breakpoint-down(md) {
-    td, tr {
-      // Full name and creation date
-      &:nth-child(1) {
-        min-width: $column-lg-width;
-      }
-      // Email address
-      &:nth-child(2) {
-        min-width: $column-lg-width;
-      }
-      // Role
-      &:nth-child(3) {
-        min-width: $column-md-width;
-      }
-      // Dropdown button
-      &:nth-child(4) {
-        min-width: $column-sm-width;
-      }
-    }
-  }
-}
-
-#server-rooms-table {
-  @include media-breakpoint-down(xl) {
-    td, tr {
-      // Full name and last meeting date
-      &:nth-child(1) {
-        min-width: $column-lg-width;
-      }
-      // Owner name
-      &:nth-child(2) {
-        min-width: $column-md-width;
-      }
-      // Room ID
-      &:nth-child(3) {
-        min-width: $column-md-width;
-      }
-      // # of participants
-      &:nth-child(4) {
-        min-width: $column-sm-width;
-      }
-      // Status
-      &:nth-child(5) {
-        min-width: $column-sm-width;
-      }
-      // Dropdown button
-      &:nth-child(6) {
-        min-width: $column-xs-width;
-      }
-    }
-  }
-}
-
-#recordings-table {
-  @include media-breakpoint-down(xl) {
-    td, tr {
-      // Name and recording date
-      &:nth-child(1) {
-        min-width: $column-lg-width;
-      }
-      // Length
-      &:nth-child(2) {
-        min-width: $column-sm-width;
-      }
-      // # of users
-      &:nth-child(3) {
-        min-width: $column-xs-width;
-      }
-      // Visibility dropdown
-      &:nth-child(4) {
-        min-width: $column-md-width;
-      }
-      // Format badges
-      &:nth-child(4) {
-        min-width: $column-lg-width;
-      }
-      // Dropdown button
-      &:nth-child(4) {
-        min-width: $column-xs-width;
-      }
     }
   }
 }

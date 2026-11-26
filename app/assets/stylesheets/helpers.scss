@@ -73,3 +73,10 @@
   box-shadow: 0 0 0 100vmax whitesmoke;
   clip-path: inset(0 -100vmax);
 }
+
+// A card directly inside a .row keeps a margin on phones instead of following the row's negative margins.
+.row-card {
+  @include media-breakpoint-down(md) {
+    width: calc(100% - 2rem);
+  }
+}
