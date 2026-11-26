@@ -60,6 +60,10 @@
     .tab-content > .tab-pane {
       display: none;
       margin-right: 0;
+    }
+
+    // The right-to-left rule above is more specific and needs its own reset.
+    .tab-content > .tab-pane:dir(rtl) {
       margin-left: 0;
     }
 
@@ -127,6 +131,18 @@
   @include media-breakpoint-down(md) {
     .table-responsive .dropdown-menu:not(.row-actions-menu) {
       transform: none !important;
+    }
+  }
+}
+
+// Between lg and xl the recordings table has less room than on desktop: the Length column stays
+// on one line.
+#recordings-table {
+  @include media-breakpoint-between(lg, xl) {
+    th, td {
+      &:nth-child(2) {
+        white-space: nowrap;
+      }
     }
   }
 }

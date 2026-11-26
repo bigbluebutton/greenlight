@@ -73,6 +73,10 @@
     .tab-content > .tab-pane {
       display: none;
       margin-right: 0;
+    }
+
+    // The right-to-left rule above is more specific and needs its own reset.
+    .tab-content > .tab-pane:dir(rtl) {
       margin-left: 0;
     }
 

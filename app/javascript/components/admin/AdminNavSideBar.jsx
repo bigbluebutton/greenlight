@@ -82,15 +82,7 @@ export default function AdminNavSideBar() {
           key, to, Icon, label,
         }) => (
           <Nav.Item key={key}>
-            <Nav.Link
-              // Return active if the URL has /users/edit/ to accommodate the EditUser component
-              className={key === 'users'
-                ? `cursor-pointer text-muted ${location?.pathname.includes('/users/edit/') && 'active'}`
-                : 'cursor-pointer text-muted'}
-              as={Link}
-              to={to}
-              eventKey={key}
-            >
+            <Nav.Link className="cursor-pointer text-muted" as={Link} to={to} eventKey={key} active={key === current?.key}>
               <Icon className="hi-s me-3" />
               { label }
             </Nav.Link>
