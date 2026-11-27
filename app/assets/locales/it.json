@@ -31,6 +31,7 @@
   "join_session": "Partecipa alla sessione",
   "no_result_search_input": "Nessun risultato per \"{{ searchInput }}\"",
   "action_permanent": "Questa azione non può essere annullata.",
+  "row_actions": "Azioni per {{name}}",
   "homepage": {
     "welcome_bbb": "Benvenuto su BigBlueButton.",
     "bigbluebutton_description": "BigBlueButton è un sistema di aule virtuali open source per lezioni online. La piattaforma ottimizza il tempo dedicato all'apprendimento applicato, consentendo ai discenti di collaborare e ricevere feedback in tempo reale.",
