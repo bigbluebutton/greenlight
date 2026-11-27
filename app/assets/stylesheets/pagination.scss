@@ -58,4 +58,23 @@
     border: none;
     box-shadow: none;
   }
+
+  // On phones the previous and next buttons only show their arrow.
+  @include media-breakpoint-down(sm) {
+    .ui.menu {
+      padding: 8px 0;
+    }
+
+    .ui.menu .item {
+      padding: 0.75em 0.9em;
+    }
+
+    .pagination-label {
+      @include visually-hidden;
+    }
+
+    .btn svg {
+      margin: 0 !important;
+    }
+  }
 }

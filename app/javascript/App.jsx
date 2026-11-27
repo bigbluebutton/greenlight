@@ -38,6 +38,41 @@ export default function App() {
   const autoSignIn = searchParams.get('sso');
   const [formElement, setFormElement] = useState(null);
 
+  // The toasts are fixed to the viewport until the end of the page content, marked by the anchor
+  // above the ToastContainer, scrolls into view. On phones they then sit above the footer, see
+  // .toasts-docked.
+  const [toastAnchor, setToastAnchor] = useState(null);
+  const [toastsDocked, setToastsDocked] = useState(false);
+
+  useEffect(() => {
+    if (!toastAnchor || !('IntersectionObserver' in window)) return undefined;
+
+    let anchorInView = false;
+    // Only on a page that scrolls: on one that fits the screen the anchor is always in view. Docked
+    // toasts are part of the page, so their height does not count.
+    const update = () => {
+      const { scrollHeight, clientHeight } = document.documentElement;
+      const docked = document.querySelector('.Toastify__toast-container.toasts-docked');
+      const dockedHeight = docked && getComputedStyle(docked).position === 'relative' ? docked.offsetHeight : 0;
+      setToastsDocked(anchorInView && scrollHeight - dockedHeight > clientHeight);
+    };
+
+    const intersectionObserver = new IntersectionObserver(([entry]) => {
+      anchorInView = entry.isIntersecting;
+      update();
+    });
+    intersectionObserver.observe(toastAnchor);
+
+    // The page height also changes while the anchor stays in view, e.g. on a tab switch.
+    const resizeObserver = 'ResizeObserver' in window ? new ResizeObserver(update) : null;
+    resizeObserver?.observe(document.body);
+
+    return () => {
+      intersectionObserver.disconnect();
+      resizeObserver?.disconnect();
+    };
+  }, [toastAnchor]);
+
   // check for the maintenance banner
   const maintenanceBanner = useSiteSetting(['Maintenance']);
 
@@ -118,7 +153,9 @@ export default function App() {
             <Container className={pageHeight}>
               <Outlet />
             </Container>
+            <div ref={setToastAnchor} className="toast-anchor" />
             <ToastContainer
+              className={toastsDocked ? 'toasts-docked' : undefined}
               position="bottom-right"
               newestOnTop
               autoClose={3000}

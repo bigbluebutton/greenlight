@@ -25,6 +25,7 @@
 @import 'shared_accesses';
 @import 'presentation';
 @import 'admin_panel';
+@import 'responsive_tables';
 @import 'pagination';
 @import 'fonts';
 
@@ -57,6 +58,11 @@ body {
 #navbar-menu {
   z-index: 10;
   top: 100%;
+  // Sets the open mobile menu off from the page underneath.
+  @include media-breakpoint-down(sm) {
+    border-bottom: 1px solid $gray-300;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
 
   a {
     color: $black !important;
@@ -73,6 +79,29 @@ body {
   @include media-breakpoint-up(sm) {
     min-width: $button-min-width;
   }
+}
+
+// The ⋮ button of a table row (RowActionsDropdown), with a 28px touch target.
+.btn.row-actions-toggle {
+  min-width: 0;
+  padding: 0.25rem;
+  line-height: 1;
+  color: inherit;
+  border: 0;
+
+  &:hover, &:active, &.show {
+    color: var(--brand-color);
+  }
+
+  &::after {
+    display: none;
+  }
+}
+
+// Fixed from the start: Popper measures the menu before its own styles are applied, and with the
+// default position the menu opens away from its button the first time.
+.dropdown-menu.row-actions-menu {
+  position: fixed;
 }
 
 .btn-sm {
@@ -477,8 +506,13 @@ input.search-bar {
   }
 
   button, .dropdown-menu {
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
       min-width: 300px;
+    }
+
+    // Below md the select sits under its text at full width.
+    @include media-breakpoint-down(md) {
+      width: 100%;
     }
   }
 }
@@ -509,8 +543,9 @@ input.search-bar {
   }
 }
 
+// Row menus are positioned against the viewport instead (RowActionsDropdown).
 @media (max-width: 767px) {
-  .table-responsive .dropdown-menu {
+  .table-responsive .dropdown-menu:not(.row-actions-menu) {
     position: static !important;
   }
 }
@@ -555,6 +590,18 @@ input[type='checkbox'] {
 
 .form-check-input:hover {
   cursor: pointer;
+}
+
+// A switch next to its label, without Bootstrap's negative margin: at fs-5 it is larger than the
+// padding it compensates and pulls the switch into the label.
+.form-switch.switch-end {
+  flex-shrink: 0;
+  padding-left: 0;
+  margin-left: 1rem;
+
+  .form-check-input {
+    margin-left: 0;
+  }
 }
 
 .form-control:focus {
@@ -653,6 +700,19 @@ input[type="range"]:focus::-moz-range-thumb {
     padding-right: 8px !important;
     &:hover {
       border-bottom: 2px solid var(--brand-color) !important;
+    }
+  }
+
+  // On phones the tabs stay on one line and scroll sideways.
+  @include media-breakpoint-down(sm) {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+
+    .nav-link {
+      white-space: nowrap;
+      margin-bottom: 0;
     }
   }
 }
@@ -788,6 +848,11 @@ input[type="range"]:focus::-moz-range-thumb {
   .Toastify__toast-icon {
     width: 25px;
   }
+
+  // The default 30% opacity is below the 3:1 contrast for UI controls.
+  .Toastify__close-button--light {
+    opacity: 0.6;
+  }
 }
 
 .Toastify__toast.maintenance-toast {
@@ -807,6 +872,25 @@ input[type="range"]:focus::-moz-range-thumb {
     width: auto;
     max-width: 100%;
     margin-left: 0;
+  }
+}
+
+// On phones the toasts keep a margin to the screen edges. At the end of a page that scrolls they
+// sit in the page flow above the footer instead of covering it (.toasts-docked, see App.jsx).
+@media only screen and (max-width: 480px) {
+  .Toastify__toast-container--bottom-right {
+    padding: 0 0.75rem calc(0.25rem + env(safe-area-inset-bottom));
+  }
+
+  .Toastify__toast-container--bottom-right .Toastify__toast {
+    margin-bottom: 0.5rem;
+    border-radius: $border-radius-lg;
+  }
+
+  .Toastify__toast-container--bottom-right.toasts-docked {
+    position: relative;
+    inset: auto;
+    transform: none;
   }
 }
 

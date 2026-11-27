@@ -16,7 +16,7 @@
 
 import React from 'react';
 import {
-  EyeIcon, EllipsisVerticalIcon, TrashIcon, ArrowTopRightOnSquareIcon, ArrowPathIcon,
+  EyeIcon, TrashIcon, ArrowTopRightOnSquareIcon, ArrowPathIcon,
 } from '@heroicons/react/24/outline';
 import { Dropdown, Stack } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -30,6 +30,7 @@ import useRoomStatus from '../../../hooks/mutations/rooms/useRoomStatus';
 import { useAuth } from '../../../contexts/auth/AuthProvider';
 import useRecordingsReSync from '../../../hooks/mutations/admin/server_recordings/useRecordingsReSync';
 import { localizeDateTimeString } from '../../../helpers/DateTimeHelper';
+import RowActionsDropdown from '../../shared_components/utilities/RowActionsDropdown';
 
 export default function ServerRoomRow({ room }) {
   const {
@@ -58,9 +59,17 @@ export default function ServerRoomRow({ room }) {
 
   const meetingRunning = () => {
     if (online) {
-      return <td className="border-0 text-success"><span className="badge bg-success"> { t('admin.server_rooms.running') } </span></td>;
+      return (
+        <td className="border-0 text-success" data-label={t('admin.server_rooms.status')}>
+          <span className="badge bg-success"> { t('admin.server_rooms.running') } </span>
+        </td>
+      );
     }
-    return <td className="border-0"><span className="badge bg-danger"> { t('admin.server_rooms.not_running') } </span></td>;
+    return (
+      <td className="border-0" data-label={t('admin.server_rooms.status')}>
+        <span className="badge bg-danger"> { t('admin.server_rooms.not_running') } </span>
+      </td>
+    );
   };
 
   return (
@@ -71,41 +80,38 @@ export default function ServerRoomRow({ room }) {
           <span> {renderLastSession()} </span>
         </Stack>
       </td>
-      <td className="border-0"> {owner}</td>
-      <td className="border-0"> {friendlyId} </td>
-      <td className="border-0"> {participants || '-'} </td>
+      <td className="border-0" data-label={t('admin.server_rooms.owner')}> {owner}</td>
+      <td className="border-0" data-label={t('admin.server_rooms.room_id')}> {friendlyId} </td>
+      <td className="border-0" data-label={t('admin.server_rooms.participants')}> {participants || '-'} </td>
       { meetingRunning() }
-      <td className="border-start-0">
-        <Dropdown className="float-end cursor-pointer">
-          <Dropdown.Toggle className="hi-s" as={EllipsisVerticalIcon} />
-          <Dropdown.Menu>
-            { room.online
-              ? (
-                <Dropdown.Item onClick={handleJoin}>
-                  <ArrowTopRightOnSquareIcon className="hi-s me-2" />
-                  {t('join')}
-                </Dropdown.Item>
-              )
-              : (
-                <Dropdown.Item onClick={startMeeting.mutate}>
-                  <ArrowTopRightOnSquareIcon className="hi-s me-2" />
-                  {t('start')}
-                </Dropdown.Item>
-              )}
-            <Dropdown.Item as={Link} to={`/rooms/${friendlyId}`}>
-              <EyeIcon className="hi-s me-2" />
-              {t('view')}
-            </Dropdown.Item>
-            <Dropdown.Item onClick={recordingsResyncAPI.mutate}>
-              <ArrowPathIcon className="hi-s me-2" />
-              {t('admin.server_rooms.resync_recordings')}
-            </Dropdown.Item>
-            <Modal
-              modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{ t('delete') }</Dropdown.Item>}
-              body={<DeleteRoomForm mutation={mutationWrapper} />}
-            />
-          </Dropdown.Menu>
-        </Dropdown>
+      <td className="border-start-0 cell-actions">
+        <RowActionsDropdown name={name}>
+          { room.online
+            ? (
+              <Dropdown.Item onClick={handleJoin}>
+                <ArrowTopRightOnSquareIcon className="hi-s me-2" />
+                {t('join')}
+              </Dropdown.Item>
+            )
+            : (
+              <Dropdown.Item onClick={startMeeting.mutate}>
+                <ArrowTopRightOnSquareIcon className="hi-s me-2" />
+                {t('start')}
+              </Dropdown.Item>
+            )}
+          <Dropdown.Item as={Link} to={`/rooms/${friendlyId}`}>
+            <EyeIcon className="hi-s me-2" />
+            {t('view')}
+          </Dropdown.Item>
+          <Dropdown.Item onClick={recordingsResyncAPI.mutate}>
+            <ArrowPathIcon className="hi-s me-2" />
+            {t('admin.server_rooms.resync_recordings')}
+          </Dropdown.Item>
+          <Modal
+            modalButton={<Dropdown.Item><TrashIcon className="hi-s me-2" />{ t('delete') }</Dropdown.Item>}
+            body={<DeleteRoomForm mutation={mutationWrapper} />}
+          />
+        </RowActionsDropdown>
       </td>
     </tr>
   );

@@ -28,7 +28,7 @@ export default function RolePermissionRow({
       <label className="form-check-label me-auto" htmlFor={permissionName}>
         {description}
       </label>
-      <div className="form-switch">
+      <div className="form-switch switch-end">
         <input
           id={permissionName}
           className="form-check-input fs-5"

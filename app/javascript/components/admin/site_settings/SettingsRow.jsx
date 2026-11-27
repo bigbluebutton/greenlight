@@ -30,7 +30,7 @@ export default function SettingsRow({
         <strong> {title} </strong>
         {description}
       </Stack>
-      <div className="form-switch">
+      <div className="form-switch switch-end">
         <input
           className="form-check-input fs-5"
           type="checkbox"

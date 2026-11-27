@@ -219,11 +219,13 @@ export default function JoinCard() {
   );
 
   return (
-    <Card className="col-md-6 mx-auto p-0 border-0 card-shadow">
+    // Same widths as the RequireAuthentication card.
+    <Card className="row-card col-md-9 col-lg-7 col-xl-6 mx-3 mx-md-auto p-0 border-0 card-shadow">
       <Title>{publicRoom?.data.name}</Title>
-      <Card.Body className="pt-4 px-5">
+      <Card.Body className="pt-4 px-3 px-sm-4 px-md-5">
         <Row>
-          <Col className="col-xxl-8">
+          {/* The owner column only takes the width it needs; on phones the two columns stack. */}
+          <Col xs={12} sm className="col-xxl-8 text-center text-sm-start">
             <span className="text-muted">{t('room.meeting.meeting_invitation')}</span>
             <h1 className="mt-2">
               {publicRoom?.data.name}
@@ -238,7 +240,7 @@ export default function JoinCard() {
               </ButtonLink>
             )}
           </Col>
-          <Col>
+          <Col xs={12} sm="auto" xxl className="mt-4 mt-sm-0">
             <Stack direction="vertical" gap={3}>
               <Avatar className="d-block ms-auto me-auto" avatar={publicRoom?.data.owner_avatar} size="medium" />
               <h5 className="text-center">{publicRoom?.data.owner_name}</h5>
@@ -246,7 +248,7 @@ export default function JoinCard() {
           </Col>
         </Row>
       </Card.Body>
-      <Card.Footer className="px-5 pb-3 bg-white border-2">
+      <Card.Footer className="px-3 px-sm-4 px-md-5 pb-3 bg-white border-2">
         <Row>
           {(roomStatusAPI.isSuccess && !roomStatusAPI.data.status) ? WaitingPage : (
             <Form methods={methods} onSubmit={handleJoin}>
@@ -277,7 +279,7 @@ export default function JoinCard() {
 
               <Button
                 variant="brand"
-                className="mt-3 d-block float-end"
+                className="join-meeting-btn mt-3 d-block float-end"
                 type="submit"
                 disabled={publicRoom.isFetching || roomStatusAPI.isLoading}
               >

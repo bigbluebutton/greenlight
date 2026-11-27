@@ -45,6 +45,31 @@
   .tab-content > .active {
     visibility: visible;
   }
+
+  // Below xl the sidebar stacks above the content as a dropdown, and only the active tab pane
+  // takes up space.
+  @include media-breakpoint-down(xl) {
+    #profile-sidebar {
+      height: auto;
+      padding: 0.75rem;
+      border-right: 0;
+      border-bottom: 2px solid whitesmoke;
+    }
+
+    .tab-content > .tab-pane {
+      display: none;
+      margin-right: 0;
+    }
+
+    // The right-to-left rule above is more specific and needs its own reset.
+    .tab-content > .tab-pane:dir(rtl) {
+      margin-left: 0;
+    }
+
+    .tab-content > .active {
+      display: block;
+    }
+  }
 }
 
 #profile-avatar {

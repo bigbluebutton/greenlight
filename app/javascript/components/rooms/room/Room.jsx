@@ -69,8 +69,8 @@ export default function Room() {
             </Link>
           </Col>
         </Row>
-        <Row className="py-5">
-          <Col className="col-4">
+        <Row className="py-5 gy-3">
+          <Col xs={12} xl={4}>
             {
                 isRoomLoading
                   ? (
@@ -94,51 +94,50 @@ export default function Room() {
                   )
               }
           </Col>
-          <Col>
-            <Row>
-              <Col className="col-12">
-                <Button
-                  variant="brand"
-                  className="start-meeting-btn mt-1 mx-2 float-end"
-                  onClick={startMeeting.mutate}
-                  disabled={startMeeting.isLoading}
-                >
-                  {startMeeting.isLoading && <Spinner className="me-2" />}
-                  { room?.online ? (
-                    t('room.meeting.join_meeting')
-                  ) : (
-                    t('room.meeting.start_meeting')
-                  )}
+          <Col xs={12} xl>
+            {/* Row-reverse keeps the start button on the right on desktop; below xl the buttons wrap from the left. */}
+            <div className="d-flex flex-wrap flex-xl-row-reverse align-items-start gap-2 gap-xl-3 mt-xl-1 me-xl-2 pb-xl-5">
+              <Button
+                variant="brand"
+                className="start-meeting-btn"
+                onClick={startMeeting.mutate}
+                disabled={startMeeting.isLoading}
+              >
+                {startMeeting.isLoading && <Spinner className="me-2" />}
+                { room?.online ? (
+                  t('room.meeting.join_meeting')
+                ) : (
+                  t('room.meeting.start_meeting')
+                )}
+              </Button>
+
+              <Dropdown className="btn-group">
+                <Button variant="brand-outline" type="button" className="btn dropdown-main" onClick={() => copyInvite()}>
+                  <Square2StackIcon className="hi-s me-1" />
+                  { t('copy') }
                 </Button>
+                { (roomSettings?.data?.glModeratorAccessCode || roomSettings?.data?.glViewerAccessCode) && (
+                  <Dropdown.Toggle
+                    variant="brand-outline"
+                    className="btn dropdown-toggle dropdown-toggle-split"
+                    id="dropdown-toggle"
+                  />
+                )}
 
-                <Dropdown className="btn-group mt-1 mx-2 float-end pb-5">
-                  <Button variant="brand-outline" type="button" className="btn dropdown-main" onClick={() => copyInvite()}>
-                    <Square2StackIcon className="hi-s me-1" />
-                    { t('copy') }
-                  </Button>
-                  { (roomSettings?.data?.glModeratorAccessCode || roomSettings?.data?.glViewerAccessCode) && (
-                    <Dropdown.Toggle
-                      variant="brand-outline"
-                      className="btn dropdown-toggle dropdown-toggle-split"
-                      id="dropdown-toggle"
-                    />
+                <Dropdown.Menu className="dropdown-menu">
+                  { roomSettings?.data?.glModeratorAccessCode && (
+                    <Dropdown.Item onClick={() => copyInvite('moderator')}>
+                      { t('copy_moderator_code') }
+                    </Dropdown.Item>
                   )}
-
-                  <Dropdown.Menu className="dropdown-menu">
-                    { roomSettings?.data?.glModeratorAccessCode && (
-                      <Dropdown.Item onClick={() => copyInvite('moderator')}>
-                        { t('copy_moderator_code') }
-                      </Dropdown.Item>
-                    )}
-                    { roomSettings?.data?.glViewerAccessCode && (
-                      <Dropdown.Item onClick={() => copyInvite('viewer')}>
-                        { t('copy_viewer_code') }
-                      </Dropdown.Item>
-                    )}
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Col>
-            </Row>
+                  { roomSettings?.data?.glViewerAccessCode && (
+                    <Dropdown.Item onClick={() => copyInvite('viewer')}>
+                      { t('copy_viewer_code') }
+                    </Dropdown.Item>
+                  )}
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
           </Col>
         </Row>
       </div>
