@@ -35,12 +35,9 @@ export default function useCreateSession() {
       onSuccess: async (response) => {
         setStateChanging(true);
         await queryClient.refetchQueries('useSessions');
-        // if the current user does NOT have the CreateRoom permission, then do not re-direct to rooms page
 
         if (redirect) {
           navigate(redirect);
-        } else if (response.permissions.CreateRoom === 'false') {
-          navigate('/home');
         } else {
           navigate('/rooms');
         }

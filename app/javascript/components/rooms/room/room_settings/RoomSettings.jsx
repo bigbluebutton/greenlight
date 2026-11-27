@@ -42,7 +42,7 @@ export default function RoomSettings() {
   const currentUser = useAuth();
   const { friendlyId } = useParams();
   const roomSetting = useRoomSettings(friendlyId);
-  const { data: roomConfigs } = useRoomConfigs();
+  const { data: roomConfigs } = useRoomConfigs(friendlyId);
   const { data: room } = useRoom(friendlyId);
   const { data: serverTags } = useServerTags(friendlyId);
   const { data: serverTagsFallbackMode } = useServerTagsFallbackMode();

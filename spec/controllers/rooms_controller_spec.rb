@@ -39,6 +39,20 @@ RSpec.describe Api::V1::RoomsController, type: :controller do
       expect(response_room_ids).to match_array(rooms.pluck(:id))
     end
 
+    context 'without the CreateRoom permission' do
+      let(:user) { create(:user, :without_create_room_permission) }
+
+      it 'still returns the rooms that are shared with the current_user' do
+        shared_rooms = create_list(:room, 2)
+        user.shared_rooms << shared_rooms
+        create_list(:room, 2) # rooms not shared with the user
+
+        get :index
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body['data'].pluck('id')).to match_array(shared_rooms.pluck(:id))
+      end
+    end
+
     it 'no rooms for current_user should return empty list' do
       get :index
       expect(response).to have_http_status(:ok)
